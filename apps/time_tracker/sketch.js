@@ -142,10 +142,10 @@ function mousePressed() {
 }
 
 // (Optional but nice on phones)
-function touchStarted() {
-  mousePressed();
-  return false; // prevents page scroll
-}
+// function touchStarted() {
+//   mousePressed();
+//   return false; // prevents page scroll
+// }
 
 // =================================================
 // ================= UI BUILD ======================
