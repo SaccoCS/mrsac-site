@@ -1,20 +1,8 @@
 /**
  * p5.js Timer Tracker (Local-first + Cloud Sync)
  * ----------------------------------------------
- * Architecture:
- * - LocalStorage is the primary store (instant + offline safe).
- * - Cloud backend stores a replicated copy via API Gateway + Lambda.
- * - Conflict handling: if server has newer data, adopt server.
- *
- * DynamoDB Key format:
- *   pk = app#<APP_ID>#id#<TRACKER_ID>
- *
- * Local state shape:
- * {
- *   focus: "jace" | "maya",
- *   kids: { Jace: intSeconds, Maya: intSeconds },
- *   updatedAt: epochMs
- * }
+ * Same functionality, but now scales to fill the window
+ * while preserving the original 380x640 proportions.
  */
 
 // =================================================
@@ -33,6 +21,40 @@ const TRACKER_SECRET = "Kid_Secret";
 const STORAGE_KEY = "timeTracker";
 
 // =================================================
+// ================== VIRTUAL UI ===================
+// =================================================
+
+const BASE_W = 380;
+const BASE_H = 640;
+
+let uiScale = 1;
+let uiOffsetX = 0;
+let uiOffsetY = 0;
+
+function updateUiTransform() {
+  uiScale = min(windowWidth / BASE_W, windowHeight / BASE_H);
+  uiOffsetX = (windowWidth - BASE_W * uiScale) / 2;
+  uiOffsetY = (windowHeight - BASE_H * uiScale) / 2;
+}
+
+function toVirtual(px, py) {
+  return {
+    x: (px - uiOffsetX) / uiScale,
+    y: (py - uiOffsetY) / uiScale,
+  };
+}
+
+function beginUI() {
+  push();
+  translate(uiOffsetX, uiOffsetY);
+  scale(uiScale);
+}
+
+function endUI() {
+  pop();
+}
+
+// =================================================
 // ================== GLOBALS ======================
 // =================================================
 
@@ -49,33 +71,46 @@ let syncTimer = null;
 // =================================================
 
 function setup() {
-  createCanvas(380, 640);
+  createCanvas(windowWidth, windowHeight);
+  updateUiTransform();
+
   textAlign(CENTER, CENTER);
 
   // Ensure local state exists
   const state = loadState();
 
-  // Create timer objects
-  maya = new Kid("Maya", width * 0.7, kidY);
-  jace = new Kid("Jace", width * 0.3, kidY);
+  // Create timer objects (virtual layout coords)
+  maya = new Kid("Maya", BASE_W * 0.7, kidY);
+  jace = new Kid("Jace", BASE_W * 0.3, kidY);
 
   // Restore focus
   setFocus(state.focus);
 
-  // Build UI
+  // Build UI (virtual layout coords)
   buildButtons();
 
   // Pull cloud state (if newer)
   cloudPull().catch(console.log);
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  updateUiTransform();
+}
+
+// =================================================
+// ================== DRAW =========================
+// =================================================
+
 function draw() {
   background(255);
+
+  beginUI();
 
   rectMode(CORNER);
   fill(255);
   stroke(0);
-  rect(20, 30, width - 40, 560, 10);
+  rect(20, 30, BASE_W - 40, 560, 10);
 
   noStroke();
   fill(0);
@@ -84,16 +119,32 @@ function draw() {
   maya.paint();
 
   for (let b of buts) b.paint();
+
+  endUI();
 }
 
+// =================================================
+// ================= INPUT =========================
+// =================================================
+
 function mousePressed() {
-  const jDist = dist(mouseX, mouseY, width * 0.3, kidY);
-  const mDist = dist(mouseX, mouseY, width * 0.7, kidY);
+  const vm = toVirtual(mouseX, mouseY);
+  const vx = vm.x;
+  const vy = vm.y;
+
+  const jDist = dist(vx, vy, BASE_W * 0.3, kidY);
+  const mDist = dist(vx, vy, BASE_W * 0.7, kidY);
 
   if (jDist < 100) setFocus("jace");
   if (mDist < 100) setFocus("maya");
 
-  for (let b of buts) b.mousePress();
+  for (let b of buts) b.mousePress(vx, vy);
+}
+
+// (Optional but nice on phones)
+function touchStarted() {
+  mousePressed();
+  return false; // prevents page scroll
 }
 
 // =================================================
@@ -101,27 +152,29 @@ function mousePressed() {
 // =================================================
 
 function buildButtons() {
+  buts = [];
+
   let y = 300;
   const bigWid = 180;
   const bH = 50;
 
-  buts.push(new StartStop("start", width / 2, y, bigWid, bH, () => {
+  buts.push(new StartStop("start", BASE_W / 2, y, bigWid, bH, () => {
     focus.startStop();
   }));
 
   y += 60;
-  buts.push(new Button("reset", width / 2, y, bigWid, bH, () => {
+  buts.push(new Button("reset", BASE_W / 2, y, bigWid, bH, () => {
     focus.reset();
   }));
 
   y += 60;
-  buts.push(new TimeButton(60, width / 2, y, bigWid, 45));
+  buts.push(new TimeButton(60, BASE_W / 2, y, bigWid, 45));
 
   y += 50;
-  buts.push(new TimeButton(30, width / 2, y, bigWid, 45));
+  buts.push(new TimeButton(30, BASE_W / 2, y, bigWid, 45));
 
   y += 50;
-  buts.push(new TimeButton(10, width / 2, y, bigWid, 45));
+  buts.push(new TimeButton(10, BASE_W / 2, y, bigWid, 45));
 }
 
 // =================================================
@@ -196,13 +249,10 @@ function scheduleCloudPush(delay = 400) {
 // -------------------
 
 async function cloudPull() {
-  const r = await fetch(
-    `${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`,
-    {
-      method: "GET",
-      headers: { "X-Tracker-Secret": TRACKER_SECRET },
-    }
-  );
+  const r = await fetch(`${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`, {
+    method: "GET",
+    headers: { "X-Tracker-Secret": TRACKER_SECRET },
+  });
 
   if (!r.ok) {
     console.log("cloudPull failed:", r.status);
@@ -235,20 +285,17 @@ async function cloudPull() {
 async function cloudPush() {
   const state = loadState();
 
-  const r = await fetch(
-    `${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Tracker-Secret": TRACKER_SECRET,
-      },
-      body: JSON.stringify({
-        state,
-        updatedAt: state.updatedAt,
-      }),
-    }
-  );
+  const r = await fetch(`${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Tracker-Secret": TRACKER_SECRET,
+    },
+    body: JSON.stringify({
+      state,
+      updatedAt: state.updatedAt,
+    }),
+  });
 
   if (r.status === 409) {
     // Server has newer state
@@ -352,12 +399,12 @@ class Button {
     text(this.text, this.x, this.y);
   }
 
-  mousePress() {
+  mousePress(mx, my) {
     const inside =
-      mouseX > this.x - this.w / 2 &&
-      mouseX < this.x + this.w / 2 &&
-      mouseY > this.y - this.h / 2 &&
-      mouseY < this.y + this.h / 2;
+      mx > this.x - this.w / 2 &&
+      mx < this.x + this.w / 2 &&
+      my > this.y - this.h / 2 &&
+      my < this.y + this.h / 2;
 
     if (inside) this.onClick();
   }
@@ -394,14 +441,11 @@ class TimeButton {
     text("+", this.x + this.w * 0.3, this.y);
   }
 
-  mousePress() {
-    const inY = mouseY > this.y - this.h / 2 && mouseY < this.y + this.h / 2;
+  mousePress(mx, my) {
+    const inY = my > this.y - this.h / 2 && my < this.y + this.h / 2;
     if (!inY) return;
 
-    if (mouseX > this.x && mouseX < this.x + this.w / 2)
-      focus.addTime(this.sec);
-
-    if (mouseX > this.x - this.w / 2 && mouseX < this.x)
-      focus.addTime(-this.sec);
+    if (mx > this.x && mx < this.x + this.w / 2) focus.addTime(this.sec);
+    if (mx > this.x - this.w / 2 && mx < this.x) focus.addTime(-this.sec);
   }
 }
