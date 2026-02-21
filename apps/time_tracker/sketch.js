@@ -200,9 +200,7 @@ async function cloudPull() {
     `${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`,
     {
       method: "GET",
-      headers: {
-        "X-Tracker-Secret": TRACKER_SECRET,
-      },
+      headers: { "X-Tracker-Secret": TRACKER_SECRET },
     }
   );
 
@@ -216,9 +214,17 @@ async function cloudPull() {
 
   const local = loadState();
 
-  if (data.updatedAt > local.updatedAt) {
+  // If different timestamps, adopt cloud
+  if (data.updatedAt !== local.updatedAt) {
     storeItem(STORAGE_KEY, data.state);
-    location.reload();
+
+    // Update running objects without reload
+    const s = loadState();
+    jace.timeSec = s.kids.Jace;
+    maya.timeSec = s.kids.Maya;
+    setFocus(s.focus);
+
+    console.log("Cloud state adopted.");
   }
 }
 
