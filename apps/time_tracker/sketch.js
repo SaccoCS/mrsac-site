@@ -1,8 +1,28 @@
 /**
  * p5.js Timer Tracker (Local-first + Cloud Sync)
  * ----------------------------------------------
- * Same functionality, but now scales to fill the window
- * while preserving the original 380x640 proportions.
+ * Scales to fill the window while preserving the original 380x640 proportions.
+ *
+ * Sync model (race-safe + focus-safe):
+ * - LocalStorage is primary for instant/offline use.
+ * - Cloud is a replicated store via API Gateway + Lambda.
+ * - We prevent race conditions by allowing only ONE push in-flight at a time.
+ * - We NEVER overwrite local state with an old snapshot after a push finishes.
+ *
+ * IMPORTANT CHANGE:
+ * - `updatedAt` is treated as SERVER-owned only (from Lambda responses).
+ * - Local edits set `dirty=true` (and `localChangedAt`) instead of bumping `updatedAt`.
+ * - `cloudPull()` will NOT overwrite local edits while `dirty=true`.
+ *
+ * Local state stored under STORAGE_KEY:
+ * {
+ *   focus: "jace" | "maya",
+ *   kids: { Jace: intSeconds, Maya: intSeconds },
+ *
+ *   updatedAt: number,        // SERVER timestamp (ms). Do not set locally.
+ *   dirty: boolean,           // true if local has changes not confirmed by server
+ *   localChangedAt: number    // local clock, for detecting mid-flight changes
+ * }
  */
 
 // =================================================
@@ -63,8 +83,12 @@ let buts = [];
 let kidY = 150;
 let focus = null;
 
-// Used to debounce cloud writes
+// Debounce timer for cloud writes
 let syncTimer = null;
+
+// Race-condition protection for cloudPush()
+let pushInFlight = false; // true while PUT is in progress
+let pushPending = false;  // true if another save happened during PUT
 
 // =================================================
 // ================== SETUP ========================
@@ -84,14 +108,24 @@ function setup() {
   maya = new Kid("Maya", BASE_W * 0.7, kidY);
   jace = new Kid("Jace", BASE_W * 0.3, kidY);
 
-  // Restore focus
+  // Restore focus (this marks dirty; that's fine for first run)
   setFocus(state.focus);
 
   // Build UI (virtual layout coords)
   buildButtons();
 
-  // Pull cloud state (if newer)
+  // Pull once on startup
   cloudPull().catch(console.log);
+
+  // Pull again whenever you come back to the tab/page
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) cloudPull().catch(console.log);
+  });
+
+  // Also pull when the window regains focus (covers some browsers)
+  window.addEventListener("focus", () => {
+    cloudPull().catch(console.log);
+  });
 }
 
 function windowResized() {
@@ -109,6 +143,8 @@ function draw() {
   beginUI();
 
   rectMode(CORNER);
+  
+    strokeWeight(3);
   fill(255);
   stroke(0);
   rect(20, 30, BASE_W - 40, 560, 10);
@@ -142,12 +178,6 @@ function mousePressed() {
   for (let b of buts) b.mousePress(vx, vy);
 }
 
-// (Optional but nice on phones)
-// function touchStarted() {
-//   mousePressed();
-//   return false; // prevents page scroll
-// }
-
 // =================================================
 // ================= UI BUILD ======================
 // =================================================
@@ -170,10 +200,8 @@ function buildButtons() {
 
   y += 60;
   buts.push(new TimeButton(60, BASE_W / 2, y, bigWid, 45));
-
   y += 50;
   buts.push(new TimeButton(30, BASE_W / 2, y, bigWid, 45));
-
   y += 50;
   buts.push(new TimeButton(10, BASE_W / 2, y, bigWid, 45));
 }
@@ -208,7 +236,13 @@ function loadState() {
     s = {
       focus: "jace",
       kids: { Jace: 0, Maya: 0 },
+
+      // SERVER timestamp only (do not set locally)
       updatedAt: 0,
+
+      // Local edit tracking
+      dirty: false,
+      localChangedAt: 0,
     };
     storeItem(STORAGE_KEY, s);
   }
@@ -218,12 +252,18 @@ function loadState() {
   if (s.kids.Maya == null) s.kids.Maya = 0;
   if (!s.focus) s.focus = "jace";
   if (s.updatedAt == null) s.updatedAt = 0;
+  if (s.dirty == null) s.dirty = false;
+  if (s.localChangedAt == null) s.localChangedAt = 0;
 
   return s;
 }
 
 function saveState(s) {
-  s.updatedAt = nowMs();
+  // Mark local changes as unsynced.
+  // DO NOT change s.updatedAt here — updatedAt is server-owned.
+  s.dirty = true;
+  s.localChangedAt = nowMs();
+
   storeItem(STORAGE_KEY, s);
   scheduleCloudPush();
 }
@@ -245,11 +285,43 @@ function scheduleCloudPush(delay = 400) {
   syncTimer = setTimeout(() => cloudPush().catch(console.log), delay);
 }
 
+/**
+ * Apply server state into localStorage and update in-memory objects WITHOUT reload.
+ * This clears dirty because server is the source of truth we just adopted.
+ */
+function applyStateToApp(serverState) {
+  serverState.dirty = false;
+  serverState.localChangedAt = 0;
+
+  storeItem(STORAGE_KEY, serverState);
+
+  const s = loadState();
+
+  // Update in-memory timer values
+  jace.timeSec = Number(s.kids.Jace ?? 0);
+  maya.timeSec = Number(s.kids.Maya ?? 0);
+
+  // Optional policy: stop running timers when adopting server state
+  jace.running = false; jace.startMs = undefined;
+  maya.running = false; maya.startMs = undefined;
+
+  // Set focus without calling saveState()
+  focus = (s.focus === "jace") ? jace : maya;
+}
+
 // -------------------
 // Pull from cloud
 // -------------------
 
 async function cloudPull() {
+  // Avoid pull/push fights
+  if (pushInFlight) return;
+
+  const local = loadState();
+
+  // If we have local unsynced edits, do not overwrite them on pull.
+  if (local.dirty) return;
+
   const r = await fetch(`${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`, {
     method: "GET",
     headers: { "X-Tracker-Secret": TRACKER_SECRET },
@@ -263,59 +335,99 @@ async function cloudPull() {
   const data = await r.json();
   if (!data.state) return;
 
-  const local = loadState();
+  const serverUpdatedAt = Number(data.updatedAt ?? 0);
+  const localServerUpdatedAt = Number(local.updatedAt ?? 0);
 
-  // If different timestamps, adopt cloud
-  if (data.updatedAt !== local.updatedAt) {
-    storeItem(STORAGE_KEY, data.state);
-
-    // Update running objects without reload
-    const s = loadState();
-    jace.timeSec = s.kids.Jace;
-    maya.timeSec = s.kids.Maya;
-    setFocus(s.focus);
-
+  // Adopt server only if it differs from what we last synced
+  if (serverUpdatedAt !== localServerUpdatedAt) {
+    applyStateToApp(data.state);
     console.log("Cloud state adopted.");
   }
 }
 
 // -------------------
-// Push to cloud
+// Push to cloud (race-safe)
 // -------------------
 
 async function cloudPush() {
-  const state = loadState();
+  // Only allow one in-flight push at a time.
+  if (pushInFlight) {
+    pushPending = true;
+    return;
+  }
 
-  const r = await fetch(`${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Tracker-Secret": TRACKER_SECRET,
-    },
-    body: JSON.stringify({
-      state,
-      updatedAt: state.updatedAt,
-    }),
-  });
+  pushInFlight = true;
 
-  if (r.status === 409) {
-    // Server has newer state
-    const data = await r.json();
-    if (data.state) {
-      storeItem(STORAGE_KEY, data.state);
-      location.reload();
+  // Snapshot at request start
+  const snapshot = loadState();
+
+  // This is the LAST KNOWN SERVER updatedAt (not local clock)
+  const baseServerUpdatedAt = Number(snapshot.updatedAt ?? 0);
+
+  try {
+    const r = await fetch(`${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Tracker-Secret": TRACKER_SECRET,
+      },
+      body: JSON.stringify({
+        state: snapshot,
+        updatedAt: baseServerUpdatedAt,
+      }),
+    });
+
+    // Conflict: server has newer
+    if (r.status === 409) {
+      const data = await r.json();
+      const current = loadState();
+
+      // If we aren't dirty, it's safe to adopt server.
+      // If we ARE dirty, keep local changes and push again.
+      if (!current.dirty && data.state) {
+        applyStateToApp(data.state);
+        console.log("Conflict: adopted newer server state.");
+      } else {
+        console.log("Conflict: keeping local (dirty). Will re-push.");
+      }
+      return;
     }
-    return;
-  }
 
-  if (!r.ok) {
-    console.log("cloudPush failed:", r.status);
-    return;
-  }
+    if (!r.ok) {
+      console.log("cloudPush failed:", r.status);
+      return;
+    }
 
-  const data = await r.json();
-  state.updatedAt = data.updatedAt;
-  storeItem(STORAGE_KEY, state);
+    const data = await r.json();
+
+    // Apply server updatedAt to CURRENT local state only if nothing changed mid-flight
+    const current = loadState();
+    if (current.localChangedAt === snapshot.localChangedAt) {
+      current.updatedAt = Number(data.updatedAt ?? current.updatedAt);
+      current.dirty = false;
+      current.localChangedAt = 0;
+      storeItem(STORAGE_KEY, current);
+    } else {
+      // Local changed while request was in-flight; do not overwrite.
+      // We'll push again right after this finishes.
+    }
+  } catch (e) {
+    console.log("cloudPush error:", e);
+  } finally {
+    pushInFlight = false;
+
+    // If another change occurred while pushing, push again immediately
+    if (pushPending) {
+      pushPending = false;
+      cloudPush().catch(console.log);
+      return;
+    }
+
+    // If still dirty, schedule another push
+    if (loadState().dirty) {
+      scheduleCloudPush(0);
+    }
+  }
 }
 
 // =================================================
