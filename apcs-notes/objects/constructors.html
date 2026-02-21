@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Constructors</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Constructors</h2>
+					<p>Every object contains a special method called the <strong>constructor</strong>, which is responsible for initially setting up the object.  The constructor is always the first method that an object runs, and its job is to make sure that the instance fields have their starting values.</p>
+					<p>Consider the Student class below</p>
+					<div class = "code-block" style = "border:1px solid #aaa">
+					<p>public class Student<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;private String name;<br/>
+						   &nbsp;&nbsp;&nbsp;private double gpa;<br/>
+						   <br/>
+						   &nbsp;&nbsp;&nbsp;public Student(String n, double g)<br/>
+						   &nbsp;&nbsp;&nbsp;{<br/>
+							  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = n;<br/>
+							  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpa = g;<br/>
+						   &nbsp;&nbsp;&nbsp;}<br/>
+						}</p>
+					
+					</div>
+					<p style = "clear:left">The constructor is this method</p>
+					<div class = "code-block">
+					<p>
+						   public Student(String n, double g)<br/>
+						   {<br/>
+							  &nbsp;&nbsp;&nbsp;name = n;<br/>
+							  &nbsp;&nbsp;&nbsp;gpa = g;<br/>
+						   }</p>
+					
+					</div>
+					<p style = "clear:left">As you can see, the constructor is concerned with is assigning values to the instance fields.  In this case, both are assigned to values that come from the parameters, but it could be more complicated. </p>
+					<p>When it's time to construct an object, the constructor is invoked using the word <span style="color:#a00; font-size:16px;font-weight:700">new</span>.</p>
+					<div class ="code-block">
+					<p>Student s = <span style = "color:#a00">new</span> Student("Joffrey Baratheon",2.65);</p>
+					
+					</div>
+					<p style = "clear:left">Constructing is the only way to create new objects.  Whenever it's time to construct an object you should be wary of what parameters the constructor requires.</p>
+				</div>
+				
+				<div class = "note-div" >
+					<h3>The Rules</h3>
+					<p>Since the constructor is a special method in an object, it has very specific rules for you to follow.  The constructor's header is the only way that Java knows that it's a constructor, so if you're not careful, you might accidently make a method that never runs.  In general, constructor headers follow this structure.</p>
+					<p class = "code" style = "font-size:18px; font-weight:600;margin-bottom:">public ClassName( Parameters )</p>
+					
+						<h4 style = "line-height:42px;">The constructor is named EXACTLY the same as the class</h4>
+						<p style = "margin-top:0px">The name of a constructor is not something that you get to be creative with.  It must be named after the class it's constructing.  In the example above, the class was named <span class="code">Student</span> so the constructor <strong>had</strong> to be named <span class="code">Student</span>.  Otherwise it would just be a plain-old method.</p>
+					
+						<h4 style = "line-height:42px;">The constructor has no return type</h4>
+						<p style = "margin-top:0px">The constructor is the only method that you don't provide any return type.  This does <strong>not</strong> mean that the return type is void.</p>
+						<div class ="code-block" style="margin-top:0px">
+							<p>public Student(String n, double g)<span style = "color:#a00;font-size:9pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<-- A valid constructor for Student</span><br/>
+							public <span style = "color:#a00">void</span> Student(String n, double g)<span style = "color:#a00;font-size:9pt"> <-- A normal method that is named Student</span></p>
+						</div>
+						<p>Putting in the method header causes Java to no longer recognize the method as a constructor.  It is now confusing because it is considered a <strong>normal</strong> method whose name happens to be the same as a constructor.</p>
+						
+						<h4 style = "line-height:42px;">The constructor has a specific job</h4>
+						<p>The constructor is special because it is the method that runs before all other methods.  Its job is to assign the initial values to the instance fields so that they are ready for the other methods to use.  If you find that some of your other methods are crashing because of the value of the instance fields, often the cause is an improper constructor.</p>
+						
+				</div>
+				
+				
+				<div class = "note-div">
+				<h3>Example</h3>
+					<p>Consider the Month class below.</p>
+					<div class = "code-block">
+						<p>public class Month<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;private String monthName;<br/>
+						&nbsp;&nbsp;&nbsp;private int numDaysInMonth;<br/>
+						}<br/>
+						</p>
+					</div>
+					<p style = "clear:left">The way that this object is designed, every Month object keeps track of a name and number of days.  One example of a Month would have a name of "January" and number of days of 31.  The problem is that there is no easy way to set up those instance fields.  Right now there is no constructor, so the <strong>default constructor</strong> is used</p>
+					<div class = "code-block">
+						<p>Month m = new Month();</p>
+					</div>
+					<p style = "clear:left">This will compile, but afterwards we're left with no useful information in the instance fields.  m.monthName would be <strong>null</strong>, and the number of days would default to 0.  What we <strong>want</strong> is to be able to do the following:</p>
+				<div class = "code-block">
+						<p>Month m1 = new Month("January",31);<br/>
+						Month m2 = new Month("February",28);</p>
+					</div>
+					<p style = "clear:left">If the constructor allows us to provide information at the creation of the object we will be able to easily set up the initial values of the objects.  Just looking at the example above we can see that one of the Months is January and has 31 days, while the other one is February and has 28.  This helpful constructor is not automatically created, we have to <strong>design it</strong>.</p>
+					<h4>The Header</h4>
+					<p>It helps that we have an example of what we <strong>want</strong> our constructor to be.  Looking at the code above, we want a constructor whose first parameter is a String representing the name, and the second parameter is an int to represent the number of days.  This means that the header for this new constructor would be:</p>
+					<div class = "code-block">
+						<p>public Month(String mName, int numDays)</p>
+					</div>
+					<p style = "clear:left">The order is important.  In order to compile the types must match how it's used in the runner.</p>
+					
+					<h4>The Purpose</h4>
+					<p>Constructors generally have the same purpose; to assign initial values to the instance fields.  In the Month class the two instance fields are <strong>monthName</strong> and <strong>numDaysInMonth</strong>, so values should be assigned to them.  In this case, all the appropriate values are in the parameters.</p>
+					<div class = "code-block" style = "border:1px solid #aaa">
+					
+						<p ><span style = "color:#999">public class Month<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;private String monthName;<br/>
+						&nbsp;&nbsp;&nbsp;private int numDaysInMonth;<br/></span>
+						<br/>
+						&nbsp;&nbsp;&nbsp;public Month(String mName, int numDays)<br/>
+						&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthName = mName;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numDaysInMonth = numDays;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/>
+						<span style = "color:#999">}</span>
+						</p>
+					</div>
+					<p style = "clear:left">Make sure you note that there are two different variables for each type of information.  One is the parameter, which is temporary and will disappear after the constructor finishes, and the other is the instance field which exists for the entire life of the object.  Always make sure that the <strong>instance field</strong> is receiving the value.</p>
+					
+					
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

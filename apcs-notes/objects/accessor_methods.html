@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Accessor Methods</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+	<div class="page">
+		<div id="base-info">
+			<div id="header"></div>
+			<div id="navbar"></div>
+			<div class="notes-content">
+				<div id="note-links"></div>
+				<script>
+					$("#header").load("../../header.html #head");
+					$("#navbar").load("../../notenav.html #notenav");
+					$("#note-links").load("notebar.html #note-bar");
+				</script>
+
+
+				<!--All content divs start here-->
+				<div class="note-div">
+					<h2>Accessor Methods</h2>
+					<p>Methods are how we interact with our constructed objects. Since the instance fields are <strong>private</strong>, there is no way of getting any information out of the object. Any time you would like to have access to some information about the object,
+						you need to <strong>design a method</strong> to do it for you.</p>
+					<p>These methods are going to be non-static because they are meant to be an action that the object can do. Since they are a part of the object, they have access to the instance fields of the object and can decide what to do with that information.</p>
+					<p>Each accessor method is in charge of producing a piece of data and returning it.</p>
+
+
+
+				</div>
+
+				<div class="note-div">
+					<h3>Basic Accessor Methods</h3>
+					<p>One thing that we lose by making our instance fields private is the ability to access them directly.</p>
+
+					<div class="code-block">
+						<p>Name n = new Name("Quentyn", "Martell");<br/> System.out.println( n.last ); <span style="color:#a00">//<--Won't compile.  Cannot access private field.</span></p>
+					</div>
+
+					<p>With objects like this, there isn't much point to putting the data into an object if we can never access it again. The basic accessor method's purpose is to be the method based solution to the access problem. They are a method that is simply in charge
+						of producing a value stored in the instance fields.</p>
+					<p>Consider the Name class that we used above:</p>
+					<div class="code-block" style="border:1px solid #a00">
+						<p>public class Name<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;private String first, last;<br/>
+							<br/> &nbsp;&nbsp;&nbsp;public Name(String f, String l)<br/> &nbsp;&nbsp;&nbsp;{
+							<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = f;<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last = l;<br/> &nbsp;&nbsp;&nbsp;}
+							<br/> }
+						</p>
+					</div>
+					<p style="clear:left">These variables are trapped, we'll create a method do get them out. They should have the following method headers:</p>
+
+					<div class="code-block">
+						<p style="font-size:16px;font-weight:700">public String getFirst()<br/> public String getLast()</p>
+					</div>
+
+					<p style="clear:left">When designing methods, you need to think about how they function in order to get the method header. These method's are simply meant to return the appropriate instance field.</p>
+
+					<p><strong>Return Type:</strong> This method is in charge of returning one of the names, both of which are Strings.</p>
+
+					<p><strong>Parameters:</strong> This is where we ask ourselves if we need any extra information to complete this method. Since the only information we need is already in the instance fields, no parameters are necessary.</p>
+
+					<p><strong>Function:</strong>Our job is to return the value of the first/last variable, and since the method has access to those fields it can simply return it.</p>
+					<p>Consider the updated Name class below:</p>
+
+					<div class="code-block" style="border:1px solid #a00; float:left;">
+						<p>public class Name<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;private String first, last;<br/>
+							<br/> &nbsp;&nbsp;&nbsp;public Name(String f, String l)<br/> &nbsp;&nbsp;&nbsp;{
+							<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = f;<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last = l;<br/> &nbsp;&nbsp;&nbsp;}
+							<br/></p>
+
+						<br/>
+						<div class="code">
+
+							<p style="background-color:#fee">&nbsp;&nbsp;&nbsp;public String getFirst()<br/> &nbsp;&nbsp;&nbsp;{
+								<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return first;<br/> &nbsp;&nbsp;&nbsp;}
+								<br/>
+								<br/> &nbsp;&nbsp;&nbsp;public String getLast()<br/> &nbsp;&nbsp;&nbsp;{
+								<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return last;<br/> &nbsp;&nbsp;&nbsp;}
+								<br/></p>
+						</div>
+						<p>}
+						</p>
+					</div>
+
+					<div style = "float:left;width:400px"  >
+						<h4 style = "line-height:20px;padding-top:10px">Now this code can run:</h4>
+
+						
+						
+						
+						<p class="code" style = "font-size:9pt">Name n = new Name("Quentyn", "Martell");<br/>
+						String f = <strong>n.getFirst();</strong><br/>
+						String l = <strong>n.getLast();</strong><br/>
+						System.out.println("First Name: " + f);<br/>
+						System.out.println("Last Name: " + l);<br/>
+						</p>
+
+						<p style="margin-top:16px">Adding the getFirst and getLast methods has given our Name objects the ability to tell us the information that they have stored, which makes them more useful.  Otherwise the values would be trapped within the object and we wouldn't be able to retrieve them.</p>
+
+
+					</div>
+				</div>
+
+
+				<div class="note-div">
+
+					<h3>Non-Basic Accessor Methods</h3>
+
+					<p>Accessor methods don't have to be as simple as simply returning a value. One of the powerful thing about objects is their ability to produce new information that might be useful to the programmer using the object.</p>
+
+					<p>The Name class above holds a person's first and last name. One simple thing that might make a Name object useful is the ability to produce the name's initials.</p>
+
+
+					<p style="clear:left"></p>
+
+					<div class="code-block">
+						<p style="font-size:16px;font-weight:700">public String getInitials()</p>
+					</div>
+					<p style="clear:left">To figure out the method header, you have to think about how this method is supposed to function. </p>
+
+					<p><strong>Return Type:</strong> This method is in charge of returning the initials of its name, which we would expect to be something like "I.S." or "Q.M.". The return type is a String</p>
+
+					<p><strong>Parameters:</strong> This is where we ask ourselves if we need any extra information to complete this method. In order to make the initials, we need to know the first and last name. Since those are instance fields, we need no extra information.
+						There are no parameters.</p>
+
+					<p><strong>Function:</strong>Our job is to return the initials of the name. This will involve substringing out the first letter from the first and last name, both of which we have access to.</p>
+					<p>Consider the updated Name class below:</p>
+
+					<div class="code-block" style="border:1px solid #a00">
+						<p>public class Name<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;private String first, last;<br/>
+							<br/> &nbsp;&nbsp;&nbsp;public Name(String f, String l)<br/> &nbsp;&nbsp;&nbsp;{
+							<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = f;<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last = l;<br/> &nbsp;&nbsp;&nbsp;}
+							<br/>
+
+							<br/> &nbsp;&nbsp;&nbsp;public String getFirst()<br/> &nbsp;&nbsp;&nbsp;{
+							<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return first;<br/> &nbsp;&nbsp;&nbsp;}
+							<br/>
+							<br/> &nbsp;&nbsp;&nbsp;public String getLast()<br/> &nbsp;&nbsp;&nbsp;{
+							<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return last;<br/> &nbsp;&nbsp;&nbsp;}
+							<br/>
+							<br/></p>
+						<div class="code">
+							<p style="background-color:#fee">&nbsp;&nbsp;&nbsp;public String getInitials()<br/> &nbsp;&nbsp;&nbsp;{
+								<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String firstInit = first.substring(0,1);<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String lastInit = last.substring(0,1);<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return firstInit +"."+ lastInit +".";<br/>								&nbsp;&nbsp;&nbsp;}
+							</p>
+
+						</div>
+
+						<p>}</p>
+						</p>
+					</div>
+					<p style="clear:left">You can see that the getInitials method has access to all of the information that it needs inside the Name class, that is why it's a good choice for a Name method.</p>
+
+
+
+				</div>
+			</div>
+
+
+
+
+
+
+			<!--All content divs stop here-->
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+		</div>
+
+	</div>
+	</div>
+</body>
+
+</html>

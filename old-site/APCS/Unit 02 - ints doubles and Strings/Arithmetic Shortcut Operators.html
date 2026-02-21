@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Arithmetic Shortcut Operators</title>
+</head>
+
+<body>
+
+<p>Arithmetic Shortcut Operators</p>
+<p>When dealing with ints or doubles it is often the case that you will want to 
+add or subtract from some variable and have the result be stored back inside the 
+original vairable.</p>
+<p>Consider the following:</p>
+<pre>int numOfStudents = 32;
+numOfStudents = numOfStudents + 4;</pre>
+<p>The stcond line in this snippet of code changes the numOfStudents variable to 
+be 4 larger than is currently stored in it.&nbsp; There is a big difference 
+between</p>
+<pre>numOfStudents = numOfStudents + 4;</pre>
+
+<p>and</p>
+<pre>numOfStudents + 4;</pre>
+<p>The second statement doesn&#39;t change any variable.&nbsp; It may calculate the 
+value of 36, but without an equals sign that value goes nowhere.</p>
+<p>&nbsp;</p>
+<p>Shortcut!</p>
+<p>Since increasing a value is so common, shortcut operators have been created:&nbsp; 
+They are +=, -=, *=, /=, %=, and using them will first cause an arithmetic 
+operation to occur, and then assign the result back into the variable.</p>
+<p>Thus:</p>
+<pre>numOfStudents = numOfStudents + 4;</pre>
+
+<p>can be written as:</p>
+<pre>numofStudents += 4;</pre>
+<p>This works for most arithmetic, including mod.</p>
+<p>&nbsp;</p>
+<p>For example, Consider the following:</p>
+<pre>int num = 5;
+num *= 3;
+System.out.println(num);
+num -= 2;
+num /= 3;
+System.out.println(num);</pre>
+<p>The output of this code would be:<br />
+15<br />
+4</p>
+<p>This is the same as writing the following:</p>
+<pre>int num = 5;
+num = num * 3;
+System.out.println(num);
+num = num - 2;
+num = num / 3;
+System.out.println(num);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

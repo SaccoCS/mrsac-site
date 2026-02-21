@@ -1,0 +1,569 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>Circle-Based Designs</title>
+</head>
+
+<body>
+
+  <h1>Circle-Based Designs</h1>
+
+  <h2>The Circle Formula</h2>
+
+
+
+
+  <p>
+    The sine and cosine functions are derived by looking at points on a unit circle and breaking them up into their x and y components.
+  </p>
+
+  <img src="images/sincos.gif" width="200px" border="1px solid black"></img>
+
+
+
+
+  <div class="head_list">
+
+    <p>
+      This means that the <code>sin</code> and <code>cos</code> functions can be used to find points on a circle given that we know:
+    </p>
+    <ul>
+      <li>How far from the center they are</li>
+      <li>What angle they are rotated to.</li>
+    </ul>
+  </div>
+
+  <!--   <p>
+    In our workspaces we call:
+  </p>
+
+  <pre><code>angleMode(DEGREES);</code></pre>
+
+  <p>
+    This means <code>sin()</code> and <code>cos()</code> expect angles in <strong>degrees</strong> from 0 to 360.
+  </p> -->
+
+  <p>
+    The sine of the angle gives us the <strong>y</strong> coordinate, and the cosine gives us the <strong>x</strong> coordinate on a <strong>unit circle</strong> (radius 1):
+  </p>
+
+  <pre><code>x = cos(angle);
+y = sin(angle);</code></pre>
+
+  <p>
+    For a circle with a larger radius, we multiply by that radius to get values that are further than 1 from the center:
+  </p>
+
+  <pre><code>x = radius * cos(angle);
+y = radius * sin(angle);</code></pre>
+
+
+
+  <h4>
+    Angles vs. Degrees
+  </h4>
+  <p>
+    You'll notice in the workspaces today we call:
+  </p>
+
+  <pre><code>angleMode(DEGREES);</code></pre>
+
+  <p>
+    This is because the sin() and cos() functions naturally use RADIANS, which range from 0 - 2&pi;. This function call switches them to angles, which are in the 0 - 360 range
+  </p>
+
+  <hr>
+
+  <h2>Points on a Circle</h2>
+
+  <p>Open the <strong>Points on a Circle</strong> workspace.</p>
+
+  <p>
+    If you run the program, you will see four lines drawn:
+  </p>
+
+  <img src="images/radii.png"></img>
+
+  <div class="head_list">
+
+    <p>
+      There you have four lines drawn from the center of the circle. Each line has:
+    </p>
+    <ul>
+      <li>an (x, y) endpoint</li>
+      <li>a distance from the center (its radius)</li>
+      <li>a rotation in degrees (its angle)</li>
+    </ul>
+  </div>
+
+  <img src="images/circle_form.gif" alt="Points on a circle diagram">
+
+  <p>The lines have these radius/angle pairs:</p>
+  <ul>
+    <li>Red: radius 60, angle 55&deg;</li>
+    <li>Green: radius 90, angle 110&deg;</li>
+    <li>Blue: radius 30, angle 210&deg;</li>
+    <li>Magenta: radius 60, angle 305&deg;</li>
+  </ul>
+
+  <p>
+    Your task: put a small circle at the <strong>endpoint</strong> of each line.
+  </p>
+
+  <img src="images/all_dots.png" alt="Circle endpoints example">
+
+  <p>We'll do this by using the circle formula with each line's radius and angle.</p>
+
+  <p>Example for the red line:</p>
+
+  <p>In <code>draw()</code>, uncomment these lines:</p>
+
+  <pre><code>// Calculate the location 60 pixels from center, rotated 55 degrees
+let xRed = 60 * cos(55);
+let yRed = 60 * sin(55);
+fill("red");
+circle(xRed, yRed, 6);</code></pre>
+
+  <p>
+    Run the program and confirm that a red circle appears at the endpoint of the red line.
+  </p>
+
+  <img src="images/radii_w_dot.png" alt="All four endpoint circles drawn">
+  <p>
+    Your Task: Repeat this process for the green, blue, and magenta lines, each time substituting the correct radius and angle in the circle formula. In the end you should have a circle at the endpoint of all four lines.
+  </p>
+
+
+  <h3>Note about the origin</h3>
+
+  <p>The circle formula above gives coordinates around (0, 0).</p>
+
+  <p>
+    At the start of <code>draw()</code>, the code calls:
+  </p>
+
+  <pre><code>translate(100, 100);</code></pre>
+
+  <p>
+    This temporarily moves the origin (0, 0) to the <strong>center</strong> of the canvas, so we can use the simple formula:
+  </p>
+
+  <pre><code>let x = radius * cos(angle);
+let y = radius * sin(angle);</code></pre>
+
+  <p>If we didn't use <code>translate()</code>, we would need to add the center coordinates to each point:</p>
+
+  <pre><code>let x = centerX + radius * cos(angle);
+let y = centerY + radius * sin(angle);</code></pre>
+
+  <p>
+    This would keep the circle shape, but shift the points away from the corner of the canvas
+  </p>
+
+  <hr>
+
+  <h2>Rubber Band Ball</h2>
+
+  <img src="images/rubber_band_ball.png" alt="Rubber band ball design">
+
+  <p>
+    The rubber band ball design is made by drawing many randomly colored lines. Each line connects two random points that are the same distance from the center.
+  </p>
+
+  <ol>
+    <li>Add a loop to <code>draw()</code> that runs 200 times.</li>
+    <li>
+      Inside the loop:
+      <ol type="a">
+        <li>Generate a random angle between 0 and 360:
+          <pre><code>let angle1 = random(360);</code></pre>
+        </li>
+        <li>Use the circle formula with radius 80 to get the first point:
+          <pre><code>let x1 = 80 * cos(angle1);
+let y1 = 80 * sin(angle1);</code></pre>
+        </li>
+        <li>Generate a second random angle and a second point the same way:
+          <pre><code>let angle2 = random(360);
+let x2 = 80 * cos(angle2);
+let y2 = 80 * sin(angle2);</code></pre>
+        </li>
+        <li>Choose a random stroke color.</li>
+        <li>Draw a line from <code>(x1, y1)</code> to <code>(x2, y2)</code>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <p>Run the program and observe the “rubber band ball” effect.</p>
+
+  <hr>
+
+  <h2>Circle Art</h2>
+
+  <p>Open the <strong>Circle Art</strong> workspace.</p>
+
+  <p>The following code is used to find the point to draw:</p>
+
+  <pre><code>let x = 45 * cos(frameCount);
+let y = 45 * sin(frameCount);</code></pre>
+
+  <p>
+    Because we are using <code>angleMode(DEGREES);</code>, <code>frameCount</code> is treated as an angle in degrees. Since <code>frameCount</code> increases every frame, this point orbits around the center of the canvas.
+  </p>
+
+  <img src="images/orbit.gif" alt="Orbiting point GIF">
+
+  <h3>Drawing Around the Circle</h3>
+
+  <p>
+    Currently only one dot is drawn at a time. To make a design, we will draw circles at many angles.
+  </p>
+
+  <ol>
+    <li>Add a <code>for</code> loop to <code>draw()</code> whose loop variable represents an angle.</li>
+    <li>
+      The loop should go from 0 to 360, increasing by 20 each time:
+      <pre><code>for (let angle = 0; angle &lt; 360; angle += 20) {
+  let x = 45 * cos(angle);
+  let y = 45 * sin(angle);
+  circle(x, y, 6);
+}</code></pre>
+    </li>
+  </ol>
+
+  <p>This should draw evenly spaced circles around the center.</p>
+
+  <img src="images/distributed_dots.png" alt="Circle of dots around center">
+
+  <h3>Spirograph</h3>
+
+  <p>
+    To turn this into a spirograph-style design:
+  </p>
+
+  <ol>
+    <li>Change any <code>fill(...)</code> call to:
+      <pre><code>noFill();</code></pre>
+    </li>
+    <li>
+      Instead of drawing small dots, draw circles with radius 45 at each point:
+      <pre><code>circle(x, y, 45);</code></pre>
+    </li>
+  </ol>
+
+  <p>Let the program run and observe the overlapping circle pattern.</p>
+
+  <img src="images/spirograph.png"></img>
+
+  <hr>
+
+  <h2>Cardioid (Centroid Workspace)</h2>
+
+  <img src="images/cardioid2.png" alt="Cardioid design made from lines">
+
+  <p>
+    Open the <strong>Centroid</strong> workspace.
+  </p>
+
+  <p>
+    This design is created by connecting pairs of points on a circle. Each line connects one point to another point at <strong>twice its angle</strong>. Point at angle 5 connects to angle 10, 10 to 20, 15 to 30, etc. 
+  </p>
+  
+    
+
+   <p> Add a loop to <code>draw()</code> whose loop variable is an angle, from 0 to 360, increasing by 5 each step:
+    </p>
+
+<div class= "head_list">
+  
+    <p>
+      Inside the loop you want to use the circle formula twice to calculate two xy points:
+    </p>
+
+    <ul>
+      <li>The first point calculated should use a radius of 80 and the looping variable's angle</li>
+      <li>The second point caculated should also use a radius of 80, but the angle used should be <strong>double</strong> the looping variable </li>
+    </ul>
+</div>
+
+<p>
+  Once you've calculated the two points, connect them with a line. If done properly, you should get the above image.
+</p>
+
+   
+<br/>
+<!--    
+    <ol>
+      <li>
+        Add a loop to <code>draw()</code> whose loop variable is an angle, from 0 to 360, increasing by 5:
+        <pre><code>for (let angle = 0; angle &lt; 360; angle += 5) {</code></pre>
+      </li>
+      <li>
+        Inside the loop, use a radius of 80 for both points.
+
+        <p>First point:</p>
+        <pre><code>let x1 = 80 * cos(angle);
+let y1 = 80 * sin(angle);</code></pre>
+
+        <p>Second point at double the angle:</p>
+        <pre><code>let doubleAngle = angle * 2;
+let x2 = 80 * cos(doubleAngle);
+let y2 = 80 * sin(doubleAngle);</code></pre>
+      </li>
+      <li>
+        Draw a line connecting the two points:
+        <pre><code>line(x1, y1, x2, y2);</code></pre>
+      </li>
+    </ol>
+
+    <p>
+      Even though <code>doubleAngle</code> can be greater than 360, <code>sin()</code> and <code>cos()</code> automatically wrap around the circle. When done, you should see a <strong>cardioid</strong> pattern.
+    </p> -->
+
+    <hr>
+
+    <h2>Polygon Generator</h2>
+
+    <img src="images/polygon.gif" alt="Animated polygon generator GIF">
+
+    <p>Open the <strong>Polygon Generator</strong> workspace.</p>
+
+    <p>
+      The global variable <code>numSides</code> controls how many sides the polygon should have.
+    </p>
+
+    <p>
+      We want to draw a polygon by looping through evenly spaced points around a circle and connecting each point to the next. An important step will be to compute the angle gap between points.
+    </p>
+    <pre><code>let angleGap = 360 / numSides;</code></pre>
+    <p>
+      This will compute a gap that depends on how many sides the shape has: 120 for a triangle, 90 for a square, 72 for a pentagon, etc...
+    </p>
+
+    <div class="head_list">
+
+
+      <p>
+        With the angleGap calculated, create a <code>for</code> loop that goes from 0 to 360, increasing by <code>angleGap</code> each time. During each iteration, you should use the circle formula twice, generating two points
+      </p>
+      <ul>
+        <li>one point at the current angle</li>
+        <li>another point at the 'next point', found at <code>angle+angleGap</code></li>
+      </ul>
+
+    </div>
+    <p>
+      Connect those two points with a line to form one side of a polygon. If done properly the loop should draw all sides.
+    </p>
+
+    <!--   <ol>
+    <li>
+      Compute the angle gap between points:
+      <pre><code>let angleGap = 360 / numSides;</code></pre>
+    </li>
+    <li>
+      Create a <code>for</code> loop that goes from 0 to 360, increasing by <code>angleGap</code> each time:
+      <pre><code>for (let angle = 0; angle &lt; 360; angle += angleGap) {</code></pre>
+    </li>
+    <li>
+      On each iteration:
+      <p>Compute the current point:</p>
+      <pre><code>let x1 = 80 * cos(angle);
+let y1 = 80 * sin(angle);</code></pre>
+
+      <p>Compute the next point at <code>angle + angleGap</code>:</p>
+      <pre><code>let nextAngle = angle + angleGap;
+let x2 = 80 * cos(nextAngle);
+let y2 = 80 * sin(nextAngle);</code></pre>
+
+      <p>Draw a line between <code>(x1, y1)</code> and <code>(x2, y2)</code>:</p>
+      <pre><code>line(x1, y1, x2, y2);</code></pre>
+    </li>
+  </ol> -->
+
+    <p>
+      Since <code>numSides</code> starts at 3, you should see a triangle when you run the program.
+    </p>
+
+    <img src="images/triangle.png" width="200px"></img>
+
+    <h3>Increasing the Number of Sides with Mouse Presses</h3>
+
+    <p>
+      To see different polygons, increase <code>numSides</code> when the mouse is pressed:
+    </p>
+
+    <pre><code>function mousePressed() {
+  numSides += 1;
+}</code></pre>
+
+    <p>With this implemented, run the program again. Each click should change the number of sides and update the polygon.</p>
+
+    <hr/>
+
+    <h2>
+      Varying the Radius: Spiral
+    </h2>
+    <img src="images/spiral.gif"></img>
+
+    <p>
+      Open the Spiral Workspace in CodeHS
+    </p>
+
+    <p>
+      The spiral pattern is created by generating many circles with an increasing angle, but increasing the radius as the angle gets larger.The
+    </p>
+
+    <p>
+      Add a loop to the draw function whose looping variable represents an angle, starting at 0 and increasing all the way to 3000, increasing by 1 each time. The angle is getting so large because we are going to rotate around the center several times to create
+      our spiral.
+    </p>
+
+
+    <div class="head_list">
+      <p>
+        The key to creating a spiral is to have a different radius for each angle that we generate. Inside your loop you should:
+      </p>
+      <ul>
+        <li>Create a radius variable that is one tenth of your angle variable: <br><code style="margin-left:20px">let radius = angle*0.05</code></li>
+        <li>Use the circle formulato generate an xy point using the looping angle and the calculated radius.</li>
+        <li>Draw a small circle at the xy point</li>
+
+      </ul>
+
+    </div>
+    <p>
+      If this is done properly, you should get a static spiral shape.
+    </p>
+
+    <img src="images/static_spiral.png" width="200px"></img>
+
+
+    <p>
+      Rotating the image is accomplished by uncommenting the rotation statement that comes right after the translate call.
+    </p>
+    <p>
+
+      <code style="color: gray">//rotate(-3*frameCount);</code>
+    </p>
+
+    <p>
+      This will cause each call to draw to have a small rotation before each spiral is drawn.
+    </p>
+
+
+    <hr>
+
+    <h2>
+      Hue Saturation Value
+    </h2>
+
+
+    <p>
+      So far we've been using RGB to represent the colors of our shapes, meaning we break our color into the portion of Red, Green, and Blue. Another common way to represent colors is HSB, which stands for:
+    </p>
+    <ul>
+      <li>Hue: The pure color</li>
+      <li>Saturation: The intensity of the color</li>
+      <li>Brightness: The lightness or darkness of the color</li>
+    </ul>
+
+
+    <p>Open up Google's Color Picker</p>
+    <p><a href="https://www.google.com/search?q=color+picker" data-cke-saved-href="https://www.google.com/search?q=color+picker">https://www.google.com/search?q=color+picker</a></p>
+    <p>&nbsp;</p>
+    <p>Previously you may have used this to figure out the R, G, B values of a color. But the way that you choose is the more natural choice of adjusting the&nbsp;<strong>Hue, Saturation, and Brightness</strong>.</p>
+    <p>When picking a color here, you are not thinking in have to do a few things. The main one is to first pick a <strong>Hue</strong>&nbsp;using the Slider</p>
+    <p><img src="images/slider.png" alt="2b2a23de-9958-4fae-aee1-dbff5666977d.png" width="400px" /></p>
+    <p>The <strong>Hue </strong>is a representation of the color all at once. This is where you choose if your color should be red, yellow, or purple. The 'amount' of the color is not chosen yet.</p>
+    <p>Once you've selected the Hue, you can control the&nbsp;<strong>Saturation&nbsp;</strong>and&nbsp;<strong>Brightness&nbsp;</strong>in the upper area by dragging the selection circle around.</p>
+    <p><img src="images/picker.png" width="500px" alt="f10a8bcb-4bf4-4396-a6be-28acc4122b58.png" /></p>
+    <p>Dragging the circle to the&nbsp;<strong>left and right</strong>&nbsp;affects the&nbsp;<strong>Saturation</strong>&nbsp;of the color, move all the way to the left and you'll see that the color gets washed out until it is just white.</p>
+    <p>Dragging the circle <strong>up and&nbsp;down</strong>&nbsp;affects the&nbsp;<strong>Brightness</strong>&nbsp;of the color. Your color is brightest at the top, and black at the very bottom.</p>
+    <p>&nbsp;</p>
+    <p>Once you've chosen your color, you are given several different numerical&nbsp;representations of it.&nbsp;</p>
+    <p><br /><img src="images/hex_hue.png" width="500px" alt="315d0f26-350a-42e6-88a8-d93a92d4eeed.png" /></p>
+    <p>We usually focus on the RGB value, but this time we are focusing on the&nbsp;<strong>HSV</strong>&nbsp;values (essentially the same as the HSB we will use). The above example is a simple red color and you can see has a hue of&nbsp;<strong>0</strong>,
+      and a 100% for the saturation and brightness.</p>
+    <p>&nbsp;</p>
+
+
+    <h4>
+      Open the Hue, Saturation, and Brightness Example
+    </h4>
+
+    <p>
+      There you will find a non-looping sketch. There is a single global variable named <code>num</code>, which the draw function is gradualy increasing from 0. The background of the sketch is drawn with num as the first value, and 255's for the other
+      two:
+    </p>
+    <p>
+      <code>background(num,255,255);</code>
+    </p>
+    <p>
+      Run your program and watch as it gradually transitions from CYAN (0,255,255) to WHITE (255,255,255). As num passes 255, it will still be considered 255 by p5, so white will be the final color.
+    </p>
+    <p>
+      <strong>Uncomment the line colorMode(HSB);</strong>. This tells p5 to interpret the three color values as Hue, Saturation, and Brightness instead. This means that the color has maximum saturation and brightness, while the hue value is transitioning
+      from 0 up.
+    </p>
+    <p>
+      Run the program and observe that cycling through hue values causes the color to transition through the entire rainbow, eventually landing on red.
+    </p>
+
+    <h4>
+      The Rainbow Cycle
+    </h4>
+
+    <p>
+      Unlike other color values, Hue is not taken out of 255. Intsead it is taken as an angle out of 360. This is because hue is represented an angle:
+    </p>
+
+    <img src="images/angle.png" width="200px"></img>
+
+
+    <p>
+      The example's cycle eventually lands on red because anything greater than 360 is interpreted as a 360. Modify the background statement to use num%360 instead of simply num.
+    </p>
+    <p>
+      <code>background(<strong style = "color:red">num%360</strong>,255,255);</code>
+    </p>
+    <p>
+      The result should be that the color cycles around the rainbow, but values above 360 have 'all 360's removed' and are turned into values back in the range. For example, if num were 400, num%365 would be 35 and that color value would be used.
+    </p>
+    <p>
+      Run the program again and observe the infinite rainbow cycle that you've created.
+    </p>
+
+
+    <hr>
+
+    <h2>
+      Hue Circles
+    </h2>
+
+    <p>
+      Open the Hue Circles Workspace
+    </p>
+
+    <img src="images/hue_circles.png" width="200px"></img>
+
+    <p>
+      Your task will be to draw 20 circles equally spaced around a circle, each a different color of the rainbow.
+    </p>
+    <p>
+      Create a for loop whose variable represents the postion angles, going from 0 to 360, increasing by 18 each time. Each iteration you should. Since hue is in this same range, we can simply choose a hue that matches the position angle.
+    </p>
+    <ul>
+      <li>Select a fill using that angle: <code>fill(angle, 255, 255);</code></li>
+      <li>Use the circle formula to get an xy point at that angle, 80 pixels from the center</li>
+      <li>Draw a circle at that xy point.</li>
+    </ul>
+
+    <p>
+      If done properly, running the program should produce the image above.
+    </p>
+</body>
+
+
+</html>

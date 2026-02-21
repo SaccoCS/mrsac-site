@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Getting a double from a String</title>
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p,pre {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+<h2>Getting a double from a String</h2>
+<p>Similar to with ints, we may want a way of turning a String into a double so that we can do some math with it.  This is often useful when we get some user input that is supposed to be a double.</p>
+<pre>String dubStr = "3.14159";
+double dub = Double.parseDouble(dubStr);</pre>
+<p>In the example above, the dubStr variable has no mathematical value, while the dub variable is a double type, so math will work properly.</p>
+</body>
+</html>

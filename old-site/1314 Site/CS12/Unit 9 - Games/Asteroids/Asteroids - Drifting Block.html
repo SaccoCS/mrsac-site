@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Asteroids -&nbsp; Drifting Block</title>
+
+<style>p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Asteroids</h2>
+<p>Create a new project to hold all of your classes for the Asteroids project.&nbsp; 
+There are many steps to ofllow while creating this game; make sure that you 
+upload each assignment as it&#39;s completed so that you always have a working 
+version to revert to.</p>
+<p class="auto-style1"><strong>Part 1:&nbsp; Drifting Block</strong></p>
+<p>&nbsp;</p>
+<applet code="Phase1Applet.class" archive="Asteroids.jar" width="500" height="500" title="Java(TM)">
+</applet>
+<p>This is similar to the Ball Bouncing project that you have previously done with 
+some key differences. You are going to create an Object class named Asteroid 
+that has methods similar to the Ball class.</p>
+<p>We have previously been using x and y vectors to represent the speed and 
+direction of the Ball. For Asteroid we are going to use variables for the SPEED 
+(double) , DIRECTION, and ROTATION. You will instance fields for speed, 
+direction, rotation, width, height, x, and y, but you will not need any vectors.&nbsp; 
+Just like before, use doubles to represent each of the attributes and we&#39;ll cast 
+them into ints only when it&#39;s necessary for painting</p>
+<p>The Constructor will take in NO parameters and it will set all instance fields 
+to their starting values ( eventually these will have random )</p>
+<p>You will also need the following methods that are the same as the Ball class:</p>
+<p>public double getX() returns the x value</p>
+<p>public double getY() returns the y value</p>
+<p>public
+void setX(double tmpX) sets the x to the given tmpX</p>
+<p>public
+void setY(double tmpY) sets the y to the given tmpY</p>
+<p>&nbsp;</p>
+<p>Two key methods have changed as a result of now using</p>
+<p><strong>public
+void update()</strong></p>
+<p>Since the variables represent the speed and direction, we can use a little 
+trigonometry to determine what to add to the x and y values (speed and dir are 
+the instance fields). </p>
+<p>x += speed*Math.cos(Math.toRadians(dir);<br />
+y -= speed*Math.sin(Math.toRadians(dir);<br />
+<br />
+This is very similar to adding vectors, just represented a little differently.<br />
+<br />
+You also want to update the rotation variable to be a little larger each time.&nbsp; 
+This will cause the image to rotate a little bit each time the timer ticks.&nbsp; 
+You could even go as far as adding a rotationSpeed variable so that not all of 
+them rotate at the same speed.</p>
+<p>&nbsp;</p>
+<p><br />
+<br />
+<strong>public void paintSelf(PaintBrush brush)</strong><br />
+<br />
+Your rotation variable represents how much the Asteroid is currently tilted. When 
+painting we want to represent that by drawing a rotated Square.&nbsp; The 
+strategy to do this is to first rotate the PaintBrush in the opposite direction, 
+centered around the middle of the shape<br />
+<br />
+Take note that it first rotates the canvas, and then rotates back at the end<br/>
+<br />
+public void paintSelf(PaintBrush brush)<br />
+{<br />
+//rotate the canvas<br />
+brush.rotateAroundPoint( rot , (int)x+width/2, (int)y+height/2); <br />
+<br />
+<br />
+<br />
+//drawing goes here (brush.fillRect....)
+<br />//you must cast your x and y to ints for this method call
+<br /><br />
+//un-rotate before the method is done<br />
+brush.resetRotation();<br />
+}<br />
+<br />
+<br />
+The Canvas Class:<br />
+<br />
+Set up your canvas and frame very similarly to how it was for the Ball bouncing, 
+except remove all of the if statements that cause the bouncing off of the walls. 
+Instead replace them with if statements that check to see if the Asteroid has 
+gone off the screen and ‘teleports’ it to the other side if it has ( just set 
+the x or y to a value on the other side of the screen.&nbsp; </p>
+<p>This means that instead of the logic that says &#39;if the x gets too large, set 
+it to a large value&#39;,&nbsp; the logic is now &#39;if the x gets too large, set it to 
+a <strong>small</strong> value&#39;.</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

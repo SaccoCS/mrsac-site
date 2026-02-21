@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Using Methods</title>
+
+
+<style>
+
+p,h3{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	font-size: medium;
+	font-weight: normal;
+}
+
+.auto-style2 {
+	font-size: medium;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Using Methods from Other 
+Classes<br />
+<span class="auto-style1">User Input</span><p>So far the programs that we&#39;ve written are not useful in any way.&nbsp; They 
+simply create a variable, store a value in it, and then print it out.</p>
+<pre>public class Pointless
+{
+   public static void main()
+   {
+      String description = "unnecessary";
+      System.out.println("Programming like this is " + description);
+    }
+}</pre>
+<p>While this is good for practicing declaring variables and assigning a value 
+to it, the truth is that the variable <strong>description</strong> isn&#39;t needed.&nbsp; 
+This is because we already know the value that will be stored in it.&nbsp; The 
+program would gain a little pizazz (though not a ton) if we were to incorporate 
+the user in some way.</p>
+<p>&nbsp;</p>
+<h3>Using other classes:</h3>
+<p>Java comes with a library of classes that can do all sorts of things.&nbsp; 
+With a little knowledge we can take advantage of them.</p>
+<p>In order to get input from the user, we&#39;re going to use a class named 
+JOptionPane.&nbsp; JOptionPane has many methods that deal with putting simple 
+windows up on the screen.&nbsp; One of the funcitons that JOptionPane has is a 
+method named showInputDialog, which will pop up on the screen and wait for the 
+user to hit the <strong>OK</strong> button.</p>
+<p><img src="images/imgD.jpg" /></p>
+<p>Similar to the println method that we&#39;ve been using , the showInputDialog 
+method needs a String to function.&nbsp; In the image above, the String would 
+have been &quot;Hello World!!!&quot;.&nbsp; </p>
+<p>Since the showInputDialog method is in a class that&#39;s a part of the Java 
+Library, we first have to <strong>import</strong> it.&nbsp; This means we need 
+an import statement before our class header.&nbsp; For JOptionPane, the import 
+is javax.swing.JOptionPane (you will never have to memorize any import statement 
+for a test).</p>
+<pre>import javax.swing.JOptionPane;
+public class Pointless
+{
+   public static void main()
+   {
+      String description = "unnecessary";
+      System.out.println("Programming like this is " + description);
+    }
+}</pre>
+<p>Now that our program is aware of the JOptionPane class we can call the 
+showInputDialog method, so the full method call would be <strong>
+JOptionPane.showInputDialog</strong></p>
+<p>&nbsp;</p>
+<pre>import javax.swing.JOptionPane;
+public class Pointless
+{
+   public static void main()
+   {
+      String description = JOptionPane.showInputDialog(&quot;Please Enter a Description&quot;);
+      System.out.println("Programming like this is " + description);
+    }
+}</pre>
+
+
+<p>&nbsp;</p>
+<p>Notice that the method call is in the location where the String &quot;unnecessary&quot; 
+is.&nbsp; This is because the showInputDialog method is a method that <strong>
+returns</strong> a String.&nbsp; In this case, the resulting String is assigned 
+to the <strong>description</strong> variable so that it can be used later in the 
+program.</p>
+<p>&nbsp;</p>
+<p><strong>Common Mistake:</strong></p>
+<p>If you want to keep the data that you get from a method you MUST assign it to 
+a variable.&nbsp; It is very common for students to forget this</p>
+<p>&nbsp;</p>
+<pre>import javax.swing.JOptionPane;
+public class Pointless
+{
+   public static void main()
+   {
+      JOptionPane.showInputDialog(&quot;Please Enter a Description&quot;);
+      ...
+ </pre>
+
+<p>This is technically allowed and it will compile,&nbsp; but since the returned 
+String isn&#39;t stored anywhere it&#39;s lost into nothingness. </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3><span class="auto-style2">Assignment</span>:</h3>
+<p>Right now all of the variable programs aren&#39;t very good because they provide 
+a specific value to the variable.&nbsp; Modify all of the variables programs to 
+use a JOptionPane to request information from the user instead of supplying a 
+String Literal.&nbsp; Each time, make sure you change the String given to the 
+showInputDialog method so that it asks for the specific information you are 
+looking for.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

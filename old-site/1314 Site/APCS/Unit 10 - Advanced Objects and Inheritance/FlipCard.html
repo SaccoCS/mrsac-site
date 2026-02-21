@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>FlipCard</title>
+<style type="text/css">
+.auto-style9 {
+	}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style7 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style4 {
+	text-align: center;
+}
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style3 {
+	font-size: small;
+}
+tr{
+	
+	vertical-align:top;
+}
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+<h2 style="font-family:Arial, Helvetica, sans-serif">FlipCard<br />
+</h2>
+
+<table class="auto-style9" style="width: 100%">
+	<tr>
+		<td style="width: 371px">
+		<br />
+		<br />
+		<img height="1029" src="images/FlipCardHierarchy.png" width="324" /> </td>
+		<td>
+
+
+<p class="auto-style2">Previously, you&#39;ve extended the Card class to have support for use with 
+SaccoObjects.&nbsp; This created the SCard class.&nbsp; Today, we are going to 
+create an extension of the SCard class named FlipCard.</p>
+<p class="auto-style2">FlipCard&#39;s purpose is to have multiple displays.&nbsp; One where the original 
+Card is showing, and one where the back of the card is showing.</p>
+<p class="auto-style2">Create the class FlipCard, which extends the SCard class.</p>
+<p class="auto-style2"><strong>Instance Fields:</strong>&nbsp; The FlipCard class will already be able to handle the 
+suit, value, x, and y, but there are two more instance fields that will be good 
+to add.&nbsp; </p>
+<p class="auto-style2">1) <span class="auto-style7">private boolean isFaceUp</span>:&nbsp; This will be the way that the FlipCard 
+knows if it should display the face or the back of the card.</p>
+<p class="auto-style2">2)<span class="auto-style7"> private Picture backofCard</span>:&nbsp; This will be the image that is displayed 
+when the FlipCard is face down.&nbsp; You have a choice between two images that 
+you can load from the jar.&nbsp; Pick one.</p>
+		<p class="auto-style2"><strong>You should not add a second Picture as an 
+		instance field</strong>.&nbsp; The SCard class already loads the face up 
+		version.&nbsp; Since we&#39;re inheriting it, we should not have a 
+		duplicate.</p>
+<table class="auto-style2" style="width: 33%">
+	<tr>
+		<td class="auto-style4" style="width: 135px">&quot;cards/b1fv.png&quot;<br />
+		<img align="middle" height="96" src="images/b1fv.png" width="71" /></td>
+		<td class="auto-style4">&quot;cards/b2fv.png&quot;<br />
+		<img align="middle" height="96" src="images/b2fv.png" width="71" /></td>
+	</tr>
+</table>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2"><strong>Constructors</strong>: The 
+FlipCard class should have the same two Constructors that 
+the SCard class does.&nbsp; Implementing them should be rather simple.&nbsp; Each 
+makes a call to super and then sets the two instance fields that FlipCard 
+created.&nbsp; The isFaceUp variable should be set to true (face up).</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3"><strong>Methods</strong>:&nbsp; 
+There are two methods than need to be created, and one that must be </span> <strong>
+<span class="auto-style3">overridden</span></strong><span class="auto-style3">.&nbsp; 
+</span> </p>
+<p class="auto-style2">1)&nbsp; <span class="auto-style7">&nbsp;void flip()</span>:&nbsp; This method will set the isFaceUp variable to its 
+opposite.</p>
+<p class="auto-style2">2)&nbsp; <span class="auto-style7">&nbsp;boolean containsPoint(int 
+x, int y):</span>&nbsp; This method will be 
+used to tell if this FlipCard was clicked or not.&nbsp; It returns a true if the 
+given x and y are located within the boundaries of the current FlipCard.&nbsp; 
+This is very similar to Rectangle from the Draggable project.</p>
+<p class="auto-style1"><span class="auto-style3">3) </span>
+<span class="auto-style7">&nbsp;<span class="auto-style3">void 
+paintSelf(PaintBrush brush)</span>:</span><span class="auto-style3">&nbsp;&nbsp; 
+This method is </span> <strong>
+<span class="auto-style3">overriding </span> </strong><span class="auto-style3">the paintSelf of 
+SCard.&nbsp; It should look at the 
+isFaceUp instance field and either draw the backofCard picture or call the 
+paintSelf method of its super class.</span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style8"><strong>Testing out the FlipCard:</strong></p>
+<p class="auto-style2">You already have a class that has the ability to display 
+SCards on a window.&nbsp; Every FlipCard IS-A SCard, so let&#39;s extend the 
+CardViewer class to create a FlipCardViewer class</p>
+<p class="auto-style2"><strong>CardViewer&#39;s Methods:</strong><br />
+<span class="auto-style7">public void paintWindow(PaintBrush brsuh)<br />
+public void launch()<br />
+public SCard[] getCards()<br />
+public void spaceCards()<br />
+public void onMousePress(MouseEvent m)</span></p>
+<p class="auto-style2">Some of these methods we want to stay the same, but a 
+FlipCardViewer should do two things differently and we&#39;ll need to override two 
+of the methods</p>
+<p class="auto-style2">1)&nbsp; The <span class="auto-style7">spaceCards</span> method:&nbsp; FlipCardViewer is 
+going to have only 9 FlipCards, so the spacing will be different.</p>
+<p class="auto-style2">2)&nbsp; The <span class="auto-style7">onMousePress</span> method:&nbsp; When a 
+FlipCardViewer is clicked we no longer want the cards to be sorted.&nbsp; 
+Instead we want the clicked card to be flipped.&nbsp; A problem occurs since the 
+inherited getCards method returns an array of SCards.&nbsp; As the programmer we 
+know that deep down inside all of those SCards are actually FlipCards, we can 
+cast them into FlipCards.&nbsp; This is a necessary step because an SCard 
+variable doesn&#39;t have a flip() method, but a FlipCard does&nbsp;</p>
+<table style="width: 100%">
+	<tr>
+		<td><pre>import sacco.*;
+public class FlipCardViewer extends CardViewer
+{
+
+    public FlipCardViewer(FlipCard[] cards)
+    {
+        super(cards);
+        this.setSize(800,140);
+    }
+
+    @Override
+    public void onMousePress(MouseEvent m)
+    {
+        //access the SCard array for looping purposes
+        SCard[] cards = this.getCards();
+
+        for( int i = 0; i&lt;cards.length; i++)
+        {
+            //Cast each SCard into a FlipCard
+            //We can do this because we already know that they're FlipCards deep down
+            FlipCard card = (FlipCard)cards[i];
+
+            //Flip the card if it contains the point
+            if(card.containsPoint(m.getX(), m.getY() ) )
+                card.flip();
+        }
+
+    }
+
+    @Override
+    public void spaceCards()
+    {
+        SCard[] cards = this.getCards();
+        //set the spacing of all the cards
+        for( int i =0; i &lt; cards.length; i++)
+        {
+            FlipCard card = (FlipCard)cards[i];
+            card.setY(21);
+            card.setX(i*86+18);
+            card.flip();
+        }
+    }
+}
+</pre></td>
+	</tr>
+</table>
+
+<p class="auto-style2">Test your FlipCard and FlipCardViewer with the following 
+method, which creates an array full of the same type, except for one random ace.&nbsp; 
+They should start out all face down, and when clicked they should flip between 
+face-up and face-down.</p>
+<pre>public static void main()
+{
+   //Construct an array of "Two of Diamonds"
+   FlipCard[] cards = new FlipCard[9];
+   for( int i =0; i &lt; cards.length; i++)
+      cards[i] = new FlipCard("2","D");
+
+   //put an "Ace of Spades" at a random location in the array
+   int randInd = (int)(Math.random()*cards.length);
+   FlipCard ace =  new FlipCard("A","S");
+   cards[randInd] = ace;
+
+   //Construct and launch the FlipCardViewer with the given cards
+   FlipCardViewer view = new FlipCardViewer(cards);
+   view.setVisible(true);
+}</pre>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+
+		</td>
+	</tr>
+</table>
+
+</body>
+
+</html>

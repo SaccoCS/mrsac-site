@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Casting ints to doubles</title>
+<style type="text/css">
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	text-align: center;
+}
+.auto-style3 {
+	text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<p>Casting ints to doubles</p>
+<p>Casting is an operation that will <strong>temporarily</strong> turn a 
+variable of one type into another (providing they&#39;re compatible).&nbsp;</p>
+<p>When dealing with doubles and ints, there are problems that can arise when 
+you have a number of one type and would prefer it to be a different type.&nbsp; 
+For example, consider the following code:</p>
+<pre>int numerator = 4;
+int denominator = 5;
+double result = numerator/denominator;
+System.out.println(numerator + "/" + denominator + " = " + result);</pre>
+<table class="auto-style1" style="width: 50%">
+	<tr>
+		<td class="auto-style2">Desired Output:<br />
+		4/5 = 0.8</td>
+		<td class="auto-style2">Actual Output:<br />
+		4/5 = 0.0</td>
+	</tr>
+</table>
+<p>The problem occurs because numerator and denominator are defined as ints, so 
+dividing them will result in int division.&nbsp; There are some tricks that we 
+could employ, such as changing it to say 1.0*numerator/denominator, but the 
+classiest way to solve this problem is via <strong>casting.</strong></p>
+<p>&nbsp;</p><hr/>
+<p>How to cast:</p>
+<p>The casting operation is a little different than we&#39;re used to.&nbsp; In 
+order to cast from an int to a double, a <strong>(double)</strong> must be put 
+in <span class="auto-style3">front</span> of the int that you want to 
+temporarily change.</p>
+<pre>double result = (double)numerator/denominator;</pre>
+<p>In this case the numerator variable, which is an int, is being cast into a 
+double.&nbsp; This is only temporary.&nbsp; It does not truly change numerator, 
+it only makes it so that numerator is treated like a double during this line of 
+code.</p>
+<p>Now that numerator has been cast to a double, the division is no longer 
+purely ints and will use double-style division.&nbsp; The result variable will 
+end up with the value 0.8.</p>
+<hr/>
+<p>Order of Operations:</p>
+<p>Casting is very high up on the Order of Operations.&nbsp; The only thing 
+higher than it is parentheses.&nbsp; The perfect line of code below:</p>
+<pre>double result = (double)numerator/denominator;</pre>
+
+<p>Can be ruined if you add a couple parentheses:</p>
+<pre>double result = (double)(numerator/denominator);</pre>
+
+<p>This statement now is telling Java to do the int division first, and cast it 
+into a double <strong>afterwards</strong>, which was going to happen naturally 
+anyway.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Snake - Foundation</title>
+
+<style>
+
+h3,h4,h2{
+font-family:Arial, Helvetica, sans-serif;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+<p style = "font-size:8px">import sacco.*;<br/>
+import sacco.gui.*;<br/>
+import java.util.*;</p>
+<h2>Snake</h2>
+
+<p>One of the first well known cell phone games was known as Snake.  The game involves guiding a 'snake' around the screen, trying to eat the food that appears randomly. Once the snake gets the food, it grows a little longer, making its body harder and harder to avoid.</p>
+
+<p>This game will be built using a SaccoWindow as the engine.  Copy the following class into your project.</p>
+
+
+<pre>import sacco.*;
+import sacco.gui.*;
+import java.util.*;
+
+public class SnakeWindow extends SaccoWindow
+{
+    private int squareSize = 16,numRows=40,numCols=40;
+
+    public SnakeWindow()
+    {
+
+    }
+	
+    @Override
+    public void paintWindow(Canvas c)
+    {
+        
+
+       paintGridLines(c);
+    }
+
+    private void paintGridLines(Canvas c)
+    {
+
+    }
+	
+    @Override
+    public void onTimerTick()
+    {
+	
+    }
+	
+    @Override
+    public void onKeyPress(int key)
+    {
+	
+    }
+
+    public void launch()
+    {
+        this.setSize(641,641);
+        this.setVisible(true);
+        this.exitOnClose();
+        this.centerOnScreen();
+    }
+
+    public static void main()
+    {
+        SnakeWindow s = new SnakeWindow();
+        s.launch();
+    }
+
+}</pre>
+
+<p>There are various methods that help the SaccoWindow function.  The onKeyPress will help us react to the keyboard, the onTimerTick will help with the timing, and the paintWindow gives us a way to display what we want.  If you run the program now, you will see a 641x641 window with nothing but a white background.  You can see an online example of it <a href = "http://playsnake.org/">here</a>.</p>
+<hr/>
+
+<h4>paintGridLines</h4>
+<p>You may notice that one of the methods is not a standard method.  The paintGridLines method is a helper with the purpose of drawing lines at even intervals so that the window can be divided up into a grid.  Fill in the method so that the Canvas parameter is used to draw a set of horizontal and vertical lines to break the window up into a grid.  Notice the instance fields that I have already given you.  They define the spacing between each row/col and how many of each there are.  Use these to help your loop.</p>
+
+<img src="images/lines.png" width ="320">
+
+<hr/>
+<h3>Square</h3>
+<p>One of the reasons that Snake became popular on early cell phones was because visually it is simply a collection of squares.  Create a class named Square, which should have instance fields for the row, column, and color of a specific square.</p>
+<p>The constructor should take in two ints and assign them to the row/column instance fields.  Assign whichever color you would like to the color field.  This will be the default color of your snake.</p>
+<p>Add a second constructor to the Square class that sets the color, but leaves the row/col as 0.</p>
+<p>- Add basic accessor and mutator methods for each of the three instance fields.</p>
+
+<p>- Add a toString that returns a String with the row and the column.  For example "(3,4)"</p>
+
+<p>- Add an equals method, which will take in another Square object and return true if both the row and the column match 'this' object's row/col.  Color is irrelevant.</p>
+
+
+<hr/>
+
+<h3>Painting the Squares</h3>
+<p>Back in the SnakeWindow class we need to add the ability to paint a square if we need.  Add a method with the following header</p>
+<pre>public void paintSquare(Canvas c, Square sq)</pre>
+<p>This method's job is to fill a rectangle of the parameter square's color at the parameter squares location.  The one issue that you must deal with is the fact that the square holds a row/column and you can only paint with an x/y.  When converting between the two, keep in mind that (A) rows are linked to the y direction while columns are linked to the x direction  (B) The size of each row/column is in the 'squareSize' variable.</p>
+<p>In order to test out the paintSquare method, add the following three lines to the paintWindow method</p>
+<pre>paintSquare(c,new Square(0,0));
+paintSquare(c,new Square(numCols-1,numRows-1));
+paintSquare(c,new Square(0,numRows-1));</pre>
+<p>Run the program.  Hopefully three squares appear in the corners, leaving the bottom-left blank.  If you see the upper-right square is blank, you probably have a mix up between your x/y and rows/cols.</p>
+<img src="images/threedots.png" width ="320">
+<hr/>
+<h3>The Snake</h3>
+<p>Now that we've created the game's basic building block, it's time to organize it.  Create a class named Snake, which will be in charge of keeping track of all the pieces that make up the body of the Snake.</p>
+<p>The Snake class should have the following instance fields</p>
+<p>- an ArrayList&lt;Square&gt; to hold each piece of the snake's body.</p>
+<p>- an int to represent the maximum size that the snake should be</p>
+
+<p>Snake's constructor should take in a row and a column that are going to represent the location of the Snake's first Square.  Make sure that the constructor initializes your ArrayList and then add a single Square object, with a row and column that match the parameters.  Also be sure to set the size variable to a number like 10 (this can change later).</p>
+<p>Snake should have a basic accessor for its ArrayList&lt;Square&gt; field</p>
+<hr/>
+<h3>Painting</h3>
+<p>Back in the SaccoWindow, add a method with the following header:</p>
+<pre>public void paintSnake(Canvas c, Snake s)</pre>
+<p>The purpose of this method is to paint the parameter snake on the given Canvas.  To accomplish this, loop through Snake's ArrayList and call the paintSquare method.</p>
+<p>To test this out, go to the paintWindow method.  Delete the three previous lines that tested the paintSquare method and replace it with the following</p>
+<pre>paintSnake(c,new Snake(5,10));</pre>
+<p>Run the program.  If done properly, you'll see something similar to the following</p>
+<img src="images/snakeTest.png" width ="320">
+<hr/>
+<h3>Incorporating a Snake</h3>
+<p>Now that we know a Snake can be drawn, add one as the instance field to the SnakeWindow class.</p>
+<p>In SnakeWindow's constructor, be sure to construct a new Snake into the instance field.  The row and column for this Snake should be centered, so use half of the numRows/numCols variables as the initial values.</p>
+<p>In the paintWindow method, change the call to paintSnake so that it paints the instance field Snake instead of the one that's being generated on the spot.</p>
+<p>Once again, run your game.  This time the snake that appears should be somewhere close to the center (there's an even number of rows/columns, so there is no exact center).</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+
+
+</body>
+</html>

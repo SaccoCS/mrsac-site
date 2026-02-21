@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Two Dimensional Arrays and Magic</title>
+<style type="text/css">
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small
+	
+}
+
+.auto-style2 {
+	font-size: medium;
+}
+
+.auto-style3 {
+	color: #FF0000;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Two Dimensional Arrays and Magic Squares</h2>
+<p style="font-family:Arial, Helvetica, sans-serif"><strong>import sacco.*;<br />
+import sacco.testers.*;</strong></p>
+<table class="auto-style1" style="width: 100%" >
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:small">
+		<strong>Implementing an Interface</strong><br />
+		<br />
+		For previous projects I&#39;ve listed and described every method that I 
+		would like you to have in a program.&nbsp; In some cases it&#39;s so that my 
+		Runner programs would have methods to call.&nbsp; If you made a tiny 
+		problem in spelling, the method would compile, but then crash when run.&nbsp; 
+		This is because my program was written using specific method calls and 
+		if your method was any different it would not find the method.<br />
+		<br />
+		There is a better way to make sure that you write your methods with 
+		specific names and it involves <strong>implementing</strong> an 
+		Interface.<br />
+		<br />
+		<strong>What&#39;s an Interface?</strong><br />
+		An Interface is a special type of class that givces an outline for 
+		required methods.&nbsp; There is no actual code, just a listing of 
+		method names with parameters and return types.<br />
+		<br />
+		For example:&nbsp; Consider the MatricesAndMagicSquares interface<span class="auto-style3"><strong>(DO NOT 
+		COPY THIS TO YOUR PROJECT):</strong></span><br />
+		<br />
+		Notice that this is not a normal class, simply a list.<br /><pre>public interface MatricesAndMagicSquares
+{
+   public String arrayToString(int[][] arr);
+
+   public int[][] addMatrices(int[][]a, int[][]b);
+
+   public int[][] multTable(int numRows,int numCols);
+
+   public int rowSum(int[][] arr, int row);
+
+   public int colSum(int[][] arr, int col);
+
+   public boolean isMagic(int[][] square);
+
+}</pre>
+&nbsp;&nbsp;<br />
+		<strong>How to implement an Interface:</strong><br />
+		When creating a new class, you have the option of implementing an 
+		interface.&nbsp; For this assignment, create a class with the following 
+		header:<br />
+		public class TwoDArrays implements MatricesAndMagicSquares<br />
+		<br />
+		If you&#39;ve imported sacco.testers.*; and hit compile, the compiler will 
+		tell you that you&#39;re missing a method.&nbsp; Your job as the programmer 
+		who is implementing the interface is to make sure that the TwoDArrays 
+		class has every method that&#39;s listed in the interface.&nbsp; Once you 
+		have every single one, the class will compile.<br />
+		<br />
+		<strong>Why use an interface?</strong><br />
+		We will learn more, but the short answer is compatibility.&nbsp; My 
+		Runner is written assuming that you have certain methods.&nbsp; Instead 
+		of hoping that you will have those methods, the compiler will make sure 
+		of it.<br />
+		</td>
+	</tr>
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:small">&nbsp;</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Method Descriptions:</strong></p>
+<p><strong>arrayToString</strong>:&nbsp; Since it&#39;s hard to print out arrays, this method will do 
+the work for you.&nbsp; The purpose of this method is to take the parameter 
+array and turn it into a String that will visually represent the array.&nbsp; 
+This means tabs (&quot;\t&quot;) after every element and new lines (&quot;\n&quot;) after each row.&nbsp;
+Testing is difficult without a println.&nbsp; When testing, temporatily add a 
+println that prints the String before it returns.&nbsp; If you pass in the parameter {{1,2,3,4},{5,6,7,8},{9,10,11,12}}, it should print out:
+</p><pre>1    2    3    4
+5    6    7    8
+9    10   11   12</pre>
+<p><strong>addMatrices</strong>:&nbsp; This method&#39;s job is to return a 2d array that represents 
+the sum of the two parameter arrays.&nbsp; You may assume that they both have 
+the same number of rows and columns.&nbsp; To add them together, create an array 
+of the same size and each location will contain the sum of the corresponding 
+locations in the two parameter arrays.&nbsp; For example:&nbsp; row 0 and col 0 
+of the returned array is the sum of the value at row 0 and col 0 of a and b.</p>
+<p><strong>multTable</strong>:&nbsp; This method&#39;s purpose is to generate a multiplication table 
+with the given number of rows and columns.&nbsp; For example:&nbsp; for 4 rows 
+and 5 columns, the returned int[][] would contain the following.&nbsp; Hint:&nbsp; 
+The row and column at each location determines the value that goes there.</p>
+<p>1&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp; 
+5<br />
+2&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp; 6&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp; 
+10<br />
+3&nbsp;&nbsp;&nbsp; 6&nbsp;&nbsp;&nbsp; 9&nbsp;&nbsp;&nbsp; 12&nbsp; 15<br />
+4&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp; 12&nbsp; 16&nbsp; 20</p>
+<p><strong>rowSum</strong>:&nbsp; This method looks at the parameter array and returns the sum of 
+the values only in the given row</p>
+<p><strong>colSum</strong>:&nbsp; This method looks at the parameter array and returns the sum of 
+the values only in the given column</p>
+<p>&nbsp;</p>
+<p><strong>isMagic</strong>:&nbsp; This method returns true if the given array is considered a 
+&quot;Magic Square&quot;.&nbsp; A Magic square is a square such that the sum of any row, 
+any column, or either of the two main diagonals is the same.&nbsp; Use the 
+methods that you&#39;ve just created to help you.</p>
+<p>&nbsp;</p><hr>
+<p><strong>Testing:</strong></p>
+<p>The MatrixTester class has several methods built in to help you test out your 
+code, but&nbsp;to run them requires a little code on your end.</p>
+<p>For example, assuming your class is named TwoDArrays:</p>
+<pre>public static void testAll()
+{
+   TwoDArrays t = new TwoDArrays();
+   MatrixTester.launchTester(t);
+}</pre>
+<p>When you run this method, a window of buttons should launch.&nbsp; Clicking 
+each tester will check for errors.&nbsp; The <strong>testAll</strong> button 
+will run every tester.</p>
+<p><img src="images/img5.jpg" /></p>
+
+</body>
+
+</html>

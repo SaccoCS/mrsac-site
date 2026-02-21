@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>String Methods Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	border-style: solid;
+	border-width: 1px;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">String Methods Programs:</p>
+<p class="auto-style1">Each of the following programs will use one of String&#39;s 
+methods to get the appropriate information and then print it out.</p>
+<table class="auto-style3" style="width: 100%">
+	<tr>
+		<td>
+<p class="auto-style1">String&#39;s methods:</p>
+<p class="auto-style1"><strong>.length()&nbsp;</strong> - returns an int that represents how many 
+characters there are in the String variable</p>
+<p class="auto-style1">String str = &quot;Hello&quot;;<br />
+int len = str.length();<br />
+After this code runs, <strong>len </strong>contains the value 5</p>
+<p class="auto-style1"><strong>.indexOf(String)</strong> - returns an int that represents the 
+first appearance of the given String.&nbsp; Don&#39;t forget that the first index is 
+index <strong>0</strong>.&nbsp; If the given String cannot be found, this method 
+returns a <strong>-1</strong>.</p>
+<p class="auto-style1">String str = &quot;Hello&quot;;<br />
+int ind = str.indexOf(&quot;o&quot;);<br />
+After this code runs, the variable <strong>ind</strong> contains the value 4</p>
+<p class="auto-style1"><strong>.substring(int, int)</strong>&nbsp; - returns a new String that 
+represents a portion of the current String.&nbsp; The first parameter is the 
+STARTING index, the second is ONE PAST THE LAST INDEX.</p>
+<p class="auto-style1">String str = &quot;Hello World&quot;;<br />
+String part = str.substring(1,4);<br />
+After this code runs, the variable<strong> part</strong> contains the value 
+&quot;ell&quot;.&nbsp; Notice that index 4 was not included</p>
+<p class="auto-style1"><strong>&nbsp;.toUpperCase()</strong> - returns a new 
+String that represents the current String, but in ALL CAPS<br />
+<strong>.toLowerCase()</strong> - returns a new String that represents the current String, but in 
+all lowercase.</p>
+		<p class="auto-style1">String str = &quot;Hello World&quot;;<br />
+		String upper = str.toUpperCase();<br />
+		String lower = str.toLowerCase();<br />
+		After this code runs, the variable <strong>upper</strong> contains 
+		&quot;HELLO WORLD&quot; and <strong>lower</strong> contains &quot;hello world&quot;</p>
+		</td>
+	</tr>
+</table>
+<p class="auto-style1">1.&nbsp; <strong>NumLetters</strong> - Write a program 
+named NumLetters that will ask the user to input their name, and then output the 
+number of letters in their name.&nbsp; Do not simply output the number.&nbsp; 
+Make it a part of a sentence.</p>
+<p class="auto-style1">Example:</p>
+<p><span class="auto-style1">Please enter your name</span><br class="auto-style1" />
+<span class="auto-style1">Bill</span><br class="auto-style1" />
+<span class="auto-style1">Bill, there are 4 letters in your name</span></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">2. <strong>Shouter</strong> - Write a program named 
+Shouter that will ask the user to enter a String, and then output the same 
+String with all of the letters capitalized and with at least 3 exclamation 
+points on the end.</p>
+<p class="auto-style1">Example:</p>
+<p><span class="auto-style1">Please enter a String</span><br class="auto-style1" />
+<span class="auto-style1">Hello World</span><br class="auto-style1" />
+<span class="auto-style1">If you were screaming it would say HELLO WORLD!!!</span></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">3. <strong>Sports</strong> - Write a program named Sports 
+that will ask the user to input their favorite sports team, and then output the 
+first letter on line one, the second letter on line two, and the third letter on 
+line three.</p>
+<p class="auto-style1">Example:</p>
+<p><span class="auto-style1">Enter your favorite sports team:&nbsp; Padres</span><br class="auto-style1" />
+<span class="auto-style1">The First letter in Padres is:&nbsp; P</span><br class="auto-style1" />
+<span class="auto-style1">The Second letter in Padres is:&nbsp; a</span><br class="auto-style1" />
+<span class="auto-style1">The Third letter in Padres is: d</span></p>
+<p class="auto-style1">4. <strong>Artist</strong> - Write a program named Artist 
+that will ask the user to input their favorite artist, and then output the first 
+and last letters of the artists name on the same line.&nbsp; Strategy:&nbsp; Use 
+the length method to help you determine what the index of the last letter is.&nbsp; 
+The last index is one less than the length.</p>
+<p class="auto-style1">Example:</p>
+<p><span class="auto-style1">Who is your favorite artist?</span><br class="auto-style1" />
+<span class="auto-style1">Picasso</span><br class="auto-style1" />
+<span class="auto-style1">The first and last letters of Picasso are: Po</span></p>
+<p class="auto-style1">5. <strong>FullName</strong> - Write a program named 
+FulName that will prompt the user three times to enter their first, middle, and 
+last name.&nbsp; The program should then output the user&#39;s initials</p>
+<p class="auto-style1">Example:</p>
+<p><span class="auto-style1">What is your first name?</span><br class="auto-style1" />
+<span class="auto-style1">John</span><br class="auto-style1" />
+<span class="auto-style1">What is your middle name?</span><br class="auto-style1" />
+<span class="auto-style1">Wilkes</span><br class="auto-style1" />
+<span class="auto-style1">What is your last name?</span><br class="auto-style1" />
+<span class="auto-style1">Boothe</span><br class="auto-style1" />
+<span class="auto-style1">Your initials are J.W.B.</span></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">6. <strong>Middle</strong> - Write a program named Middle 
+that will ask the user to input any word, and will output its middle letters 
+without the first and last letter.&nbsp; Strategy:&nbsp; First use the length 
+method to help figure out what the last index is, and then take a substring 
+starting at the second index and going up to, but not including the last one.</p>
+<p class="auto-style1">Example:</p>
+<p><span class="auto-style1">Please enter a word:</span><br class="auto-style1" />
+<span class="auto-style1">football</span><br class="auto-style1" />
+<span class="auto-style1">The middle letters are ootbal<br />
+<br />
+Hint:&nbsp; The substring that will give the middle letters will always begin at 
+the same location.&nbsp; The ending location is trickier, because we do not know 
+how long the input string will be.&nbsp; Review the <strong>lastLetter</strong> 
+method in the StringHolder class and observe how the length() method is used to 
+find the index of the last letter.</span></p>
+
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Creating Objects 2</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style2 {
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+	font-size: large;
+}
+.auto-style6 {
+	text-decoration: underline;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+	font-size: small;
+}
+.auto-style7 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	border-style: solid;
+	border-width: 1px;
+}
+.auto-style9 {
+	text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Creating Objects 2</p>
+<p class="auto-style2">Create the following classes in your Creating Object 
+project</p>
+<p class="auto-style1">1)&nbsp; <strong>Date</strong></p>
+<p class="auto-style2">Create a class named Date that represents a particular 
+day.&nbsp; Create three instance fields.&nbsp; You&#39;ll need a ints for the month, 
+day and year.</p>
+<p class="auto-style2">The Constructor will take in THREE parameters.&nbsp; This 
+means that the constructor&#39;s header will look like <span class="auto-style7">
+public Date( int tmpMonth, int tmpDay, int tmpYear)</span> </p>
+<table class="auto-style8" style="width: 100%">
+	<tr>
+		<td>What this new constructor header means:<br />
+		Previously we&#39;ve constructed objects in the same way:<br />
+		<span class="auto-style7">ShapeOrganizer shapeOrg = new 
+		ShapeOrganizer();<br />
+		Store myStore = new Store();<br />
+		Car myCar = new Car();</span><br />
+		<br />
+		Date is different.&nbsp; Since the constructor requires parameters, you 
+		will <span class="auto-style9">not</span> be able to say
+		<span class="auto-style7">Date myDate = new Date();</span>&nbsp; You 
+		MUST provide three ints:<br />
+		For example:&nbsp; <span class="auto-style7">Date myDate = new 
+		Date(2,22,1983);</span><br />
+		This means that Dates have no default values, they are simply 
+		constructed with the values provided at creation.<br />
+		</td>
+	</tr>
+</table>
+<p class="auto-style2">Write a toString method that returns a String in the form 
+&quot;m/d/y&quot;, e.g. 1/1/1900</p>
+<p class="auto-style2">Test out all your methods, using a toString to make sure 
+they are functioning.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Create a Runner that prompts the user to enter their 
+birthday ( Use three different scan.nextLine() statements ).&nbsp; Parse them 
+into ints and use those 
+values to<strong> construct 5 Date objects</strong>.&nbsp; Each one will have the same day and 
+month, but the year will be different.</p>
+<p class="auto-style2">birthDay<br />
+drivingAge&nbsp; -&nbsp; 16<br />
+votingAge&nbsp; -&nbsp; 18<br />
+adultBeverageAge&nbsp; -&nbsp; 21<br />
+AARP_Age&nbsp; -&nbsp; 50</p>
+<p class="auto-style2">&nbsp;Call the toString and use it to print out the date of 
+each life event</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Example:</p>
+<p class="auto-style2">Please enter the month you were born:<br />
+2<br />
+Please enter the day you were born:<br />
+22<br />
+Please enter the year your were born:<br />
+1983</p>
+<p class="auto-style2">The following dates are significant:<br />
+Your birthday is 2/22/1983<br />
+You may drive on 2/22/1999<br />
+You may vote on 2/22/2001<br />
+You may enjoy an adult beverage on 2/22/2004<br />
+You may join AARP on 2/22/2033</p>
+
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3">2)</span> Point</p>
+<p class="auto-style2">Create a class named Point, whose job is to 
+keep track of a two dimensional point.&nbsp; Create instance fields to 
+represent the x coordinate and the y coordinate of the Point</p>
+<p class="auto-style2">The Constructor should take in two Parameters, an x and a 
+y, which should be passed into the appropriate instance fields</p>
+<p class="auto-style2">Add the following methods:</p>
+<p class="auto-style2">setX, setY:&nbsp; These two methods set 
+the value of the instance field to whatever is passed in.</p>
+<p class="auto-style2">getX, getY: These methods will take in no parameters and 
+will return the appropriate instance field</p>
+<p><span class="auto-style2">Add a method named
+<strong>translate</strong> which takes in two ints as parameters and </span>
+<span class="auto-style6">adds</span><span class="auto-style2"> the first 
+parameter to the x instance field and the second parameter to the y instance 
+field.</span></p>
+<p class="auto-style2">Create a toString method&nbsp; (takes no parameters and 
+returns a String) which returns a String in the form &quot;(2,3)&quot;&nbsp; where the 2 
+is the x coordinate and the 3 is the y coordinate</p>
+
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">After you finish, create a runner that completes the 
+following<br />
+- Create a Point object that contains the point (5,8)<br />
+- print out the toString<br />
+- set the y to -8<br />
+- print out the toString<br />
+- translate the point over 4 and up 7<br />
+- use the getX and getY methods to get the individual data out, and then print 
+out a string in the form &quot;The x coordinate is now _____, and the y is _____&quot;.&nbsp; 
+Though this is essentially the same purpose as the toString, do not use the 
+toString.</p>
+
+</body>
+
+</html>

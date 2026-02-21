@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Strings and Escape Characters</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Strings and Escape Characters</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5">What&#39;s a String?</p>
+<p class="auto-style2">In your first program, the text &quot;Hello World!!!&quot;&nbsp; was printed out.&nbsp; 
+You may notice that this portion of the code was turned green by Java.&nbsp; 
+When you put text between quotes, it tells Java that you want it to be 
+considered text, not code.&nbsp; In programming, this is known as a String.&nbsp; 
+Change the code so that your program will print out &quot;Hello Mr. Sacco&quot;.&nbsp; 
+This is done simply by changing the String to whatever you want it to say.</p>
+<p class="auto-style1"><span class="auto-style3">Most of the time you won&#39;t run into an issue changing a String, but sometimes 
+you&#39;ll run into a problem.&nbsp; For example, if you wanted to print out</span><strong><span class="auto-style3"> 
+Hello Ian &quot;King of the Nerds&quot; Sacco</span></strong><span class="auto-style3">, you would have to change the code 
+to say:</span></p>
+<p class="auto-style2">System.out.println(&quot;Hello Ian &quot;King of the Nerds&quot; Sacco&quot;);</p>
+<p class="auto-style1"><span class="auto-style3">This will not compile.&nbsp; The problem is that the quotation mark already 
+tells Java that the String is done.&nbsp; Java might interpret this line of code 
+as having two Strings, &quot;Hello Ian &quot; and &quot; Sacco&quot;, with 
+</span> <strong><span class="auto-style3">King of the Nerds</span></strong><span class="auto-style3"> 
+as code in between.&nbsp; This is a problem.</span></p>
+<p class="auto-style2">How to tell Java to skip a quotation mark:</p>
+<p class="auto-style2">There are a few special cases that you can put inside of a String that will 
+make it act differently.&nbsp; If you want to &quot;skip&quot; a quotation mark, you only 
+need to put a backslash in front of it.&nbsp; Change the HelloWorld code to say:</p>
+<p class="auto-style2">System.out.println(&quot;Hello Ian \&quot;King of the Nerds\&quot; Sacco&quot;);</p>
+<p class="auto-style1"><span class="auto-style3">Run the program.&nbsp; Notice that the slashes don&#39;t appear.&nbsp; This is 
+because</span><strong><span class="auto-style3"> \&quot;</span></strong><span class="auto-style3"> is an Escape Character that means &quot;This quotation 
+mark is not code, only a part of the String&quot;</span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5">Other Useful Escape Characters:</p>
+<p class="auto-style2">&nbsp;</p>
+<p><span class="auto-style2"><strong>\n</strong></span> 
+<br class="auto-style2" />
+<span class="auto-style2">The hard return: Placing this in a String causes the rest of the string to start 
+on a</span><br class="auto-style2" />
+<span class="auto-style2">new line, as if Enter had been pressed</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">Example: System.out.println(“Hello\nWorld”);</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">Output: </span> <br class="auto-style2" />
+<span class="auto-style2">Hello</span><br class="auto-style2" />
+<span class="auto-style2">World</span><br class="auto-style2" />
+<br class="auto-style2" />
+<strong><span class="auto-style2">\t </span> <br class="auto-style2" />
+</strong><span class="auto-style2">Tab: Placing this into a String causes the text to be spaced out as if 
+you had hit</span><br class="auto-style2" />
+<span class="auto-style2">the Tab key.</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">Example: System.out.println(“Hello\tWorld”);</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">Output: </span> <br class="auto-style2" />
+<span class="auto-style2">Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; World</span></p>
+<p><span class="auto-style2"><strong>\\ </strong></span> 
+<br class="auto-style2" />
+<span class="auto-style2">Backslash: If you want to place a backslash into a String without Java thinking</span><br class="auto-style2" />
+<span class="auto-style2">that it is the beginning of another escape character, you must do it twice.</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">Example: System.out.println(“\\SLASHES\\&quot;);</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">Output: \SLASHES\</span></p>
+<p class="auto-style2">&nbsp;</p>
+<!--
+<p class="auto-style2">Assignment:</p>
+<p class="auto-style2">Create a new class for each of the following assignments, 
+each with its own main method.&nbsp; Give the class files the same name as I 
+provide for you.&nbsp; In order to print text on multiple lines, go ahead and 
+repeat as many System.out.println&#39;s as you need.&nbsp; Be careful with the 
+backslashes, </p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">1) Ducks: </p>
+<p><img class="auto-style2" src="images/img1B.gif" /></p>
+<p class="auto-style2">2)Alien:</p>
+<p><img class="auto-style2" src="images/alien.gif" /></p>
+<p class="auto-style2">&nbsp;</p>
+<p><span class="auto-style2">3) ArtWork: </span>
+<span class="auto-style2" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;">
+Create a program that &quot;prints out&quot; your own ASCII art design. Make it at least 
+as complicated as the alien for full credit</span></p>-->
+
+</body>
+
+</html>

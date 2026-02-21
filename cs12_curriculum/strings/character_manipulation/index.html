@@ -1,0 +1,249 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Character Manipulation</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+     Character Manipulation
+  </h1>
+  
+  
+  <h2>Characters and ASCII Values</h2>
+<p>When we talk about characters, it is hard to avoid talking about the ascii table, where each character is assigned a specific number value. When characters are assigned a location in your computer's memory, it uses that value as the binary. This means that the number 65 and the character 'A' have the same binary representation, we just interpret it differently depending on which<strong>&nbsp;data type</strong>&nbsp;we are using: the&nbsp;<strong>Number</strong>&nbsp;type or the&nbsp;<strong>Character</strong>&nbsp;type.&nbsp;</p>
+<p>&nbsp;</p>
+<h4>char() and unchar()</h4>
+<p>p5 comes with a couple of functions that are useful for changing types between the Number and Character data types: char() and unchar(). This helps us use number techniques to create characters.</p>
+<p>For example, Open the Random Letter workspace</p>
+<pre>function randomLetter(){
+&nbsp; let randNum = floor( random(65,91));   //a random INTEGER from 65 - 90 
+&nbsp;&nbsp;
+&nbsp; return randNum;
+}</pre>
+<p>This function's purpose is to return a random capital letter, but it doesn't quite do so yet. So far we have only generated a random number and returned it. Run the program and hit the Random Capital button a few times. You'll see that it produces a number instead of the capital letter it's supposed to.&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Take note of a few things:</h5>
+<p>- The random number includes 65-90. Take note that the 91 that you see is&nbsp;<strong>not</strong>&nbsp;included because of how the random function works. It will at most return a 90.99999, which is converted to a 90 when it is floored.</p>
+<p>&nbsp;- This specific number range corresponds exactly to the ascii values of all the capital letters.</p>
+<p>&nbsp;</p>
+<p>Since the random() function produce a value that is a Number data type, then it continues to be interpreted as a Number as it's displayed. Since we want a Character, we will rely on p5's&nbsp;<strong>char()</strong>&nbsp;function, which does the conversion for us.</p>
+<pre>function randomLetter(){
+&nbsp;&nbsp;let randNum = floor( random(65,91)); &nbsp; //a random INTEGER from 65 - 90&nbsp;
+&nbsp;&nbsp;let randChar = char( randNum );            //convert it to a character
+&nbsp;&nbsp;return randChar;                                       //return the character version
+}
+</pre>
+<p>Now, if you run your program and mash the Random Letter</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Your Task: Random Lower</h3>
+<p>The provided randomLetter() function only returns capital letters. Use your knowledge of the ascii table and modify it to only return lowercase letters.</p>
+  <p>Test it thoroughly before moving on</p>
+<p>&nbsp;</p>
+  
+  <br><br><hr>
+  
+  
+  
+  <h2>Answer Key 2.0</h2>
+<p>Open the Answer Key 2.0 workspace which is similar to the one from the previous assignment. Remember that the answerKey() function accepted a number, then returned a String filled with random characters.</p>
+<p>5 -&gt; "ABDDC"<br />15 -&gt; "ABCDBCDCCADCABA"</p>
+<p>Your previous attempt likely involved combining a random number with an if statement to help decide which character to add.</p>
+<p>Implement this answerKey2() function to perform the same task, but this time <strong>if statements are banned</strong>. You should instead generate a random number between 65("A") and 68("D")&nbsp; and use the <strong>char()&nbsp;</strong>function to turn it into a character before adding it to your accumulator string.</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <br><br><hr>
+  
+  <h2>Alphabet Generator</h2>
+<p>Open the Alphabet Generator workspace.</p>
+<p>The alphaGen() function has no input string. Its purpose is to <strong>use a loop</strong>&nbsp;to generate a string that contains the alphabet, with capital and lowercase versions of each letter.</p>
+<p>AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz</p>
+<p>No, you will not get credit if you use copy-paste.</p>
+<p>Instead, remember two things:<br />- Looping the alphabet is like looking through a specific number range if you have the&nbsp;<strong>char()</strong>&nbsp;function.<br />- A lowercase letter's ascii value is always 32 larger than its uppercase version.</p>
+<p>Write a loop whose looping variable represents all the ascii numbers of the alphabet, and accumulates their&nbsp;character versions into a string to return. You do not need a separate loop for the lower case letters, as you can get their values by adding 32 to the uppercase ascii value.</p>
+<p>&nbsp;</p>
+  
+  
+  <br><br><hr>
+  
+  
+  
+  
+  
+  <h2>Caesar Cipher</h2>
+<p>Open the Caesar Cipher workspace.</p>
+<p>In cryptography, a shift cipher is a very basic way of encrypting a message.</p>
+<p><img src="images/caesar.png" width="300" height="126" /></p>
+<p>By replacing each letter with one a fixed distance down the alphabet, you can make a message hard to read, but decodable.</p>
+<p style="font-family: mono;">Plain&nbsp; &nbsp; &nbsp; &nbsp; A&nbsp;&nbsp; &nbsp;B&nbsp;&nbsp; &nbsp;C&nbsp;&nbsp; &nbsp;D&nbsp;&nbsp; &nbsp;E&nbsp;&nbsp; &nbsp;F&nbsp;&nbsp; &nbsp;G&nbsp;&nbsp; &nbsp;H&nbsp;&nbsp; &nbsp;I&nbsp;&nbsp; &nbsp;J&nbsp; &nbsp; &nbsp;K&nbsp; &nbsp; &nbsp;L&nbsp; &nbsp; &nbsp;M&nbsp;&nbsp; &nbsp;N&nbsp;&nbsp; &nbsp;O&nbsp;&nbsp; &nbsp;P&nbsp;&nbsp; &nbsp;Q&nbsp;&nbsp; &nbsp;R&nbsp;&nbsp; &nbsp;S&nbsp;&nbsp; &nbsp;T&nbsp;&nbsp; &nbsp;U&nbsp;&nbsp; &nbsp;V&nbsp;&nbsp; &nbsp;W&nbsp; &nbsp;X&nbsp;&nbsp; &nbsp;Y&nbsp;&nbsp; &nbsp;Z&nbsp;&nbsp;<br />Cipher&nbsp; &nbsp; &nbsp;D&nbsp;&nbsp; &nbsp;E&nbsp;&nbsp; &nbsp;F&nbsp;&nbsp; &nbsp;G&nbsp;&nbsp; &nbsp;H&nbsp;&nbsp; &nbsp;I&nbsp; &nbsp; &nbsp;J&nbsp; &nbsp; &nbsp;K&nbsp; &nbsp; &nbsp;L&nbsp;&nbsp; M&nbsp; &nbsp;N&nbsp; &nbsp; O&nbsp; &nbsp; &nbsp;P&nbsp; &nbsp; &nbsp;Q&nbsp;&nbsp; &nbsp;R&nbsp; &nbsp; &nbsp;S&nbsp;&nbsp; &nbsp;T&nbsp; &nbsp; U&nbsp;&nbsp; &nbsp;V&nbsp;&nbsp; W&nbsp;&nbsp; X&nbsp;&nbsp; &nbsp;Y&nbsp; &nbsp; &nbsp;Z&nbsp; &nbsp; A&nbsp;&nbsp; &nbsp;B&nbsp;&nbsp; &nbsp;C&nbsp;&nbsp;</p>
+<p>When encrypting, a person looks up each letter of the message in the "plain" line and writes down the corresponding letter in the "cipher" line.</p>
+<pre>Plaintext:  THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+Ciphertext: WKH TXLFN EURZQ IRA MXPSV RYHU WKH ODCB GRJ</pre>
+<p>&nbsp;</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar Cipher</a> is one of the most famous shift ciphers in history. He used a "shift right three" cipher, where every letter is replaced with a letter three values higher up the alphabet.</p>
+<p>Find the caesarCipher() function in your workspace. Its purpose is to accept a String and return it after encrypting it using the caesar cipher. Luckily we are starting to consider characters as&nbsp;<strong>numbers</strong>, so shifting three letters down the alphabet is the same as adding three to an ascii value.</p>
+<p>&nbsp;</p>
+<h4>Getting ASCII values with the unchar() Function</h4>
+<p>In order to shift each character in the original string by three, we need a way of determining what each character's&nbsp;<strong>number</strong>&nbsp;value is. This is a conversion that we have yet to do, as we have been focusing on turning numbers into characters so far.</p>
+<p>p5's unchar() function performs the opposite operation as the char() function. It takes a character as a parameter and returns its corresponding number.</p>
+<pre>let letter = "A";   
+let letNum = unchar( letter );         //letNum gets 65, the ascii value of "A"
+</pre>
+<p>A 'shift' will involve first converting the character to a number, then adding to the number before calling the&nbsp;<strong>char()</strong>&nbsp;function again.</p>
+<p>Implement the caesarCipher() method by looping through each character in the parameter string and using a combination of unchar() and char() to performing a character shift before adding the shifted character to an accumulator string.</p>
+<p>When you finish, test your function to make sure that "HELLO" gets encrypted to "KHOOR"</p>
+<p>&nbsp;</p>
+<h4>Warning: Wrap Around</h4>
+<p>We need to worry about what happens for letters like X, Y, and Z. When you add three to their ascii values you will land outside of the alphabet. Instead we need them to 'wrap around', meaning that after Z&nbsp;we start over again with A, B, C, etc.</p>
+<p>Add an if statement to your function to help handle those special cases.</p>
+<p>&nbsp;</p>
+<p>Test your caesarCipher() function again with the following message to make sure that everything turns out alright:</p>
+<p>THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG<br />WKH#TXLFN#EURZQ#IRA#MXPSV#RYHU#WKH#ODCB#GRJ</p>
+<p>The #'s are the symbol that spaces get converted to. <strong>Optionally </strong>you can modify your loop to skip spaces and make things more readable.</p>
+<p>WKH TXLFN EURZQ IR<span style="color: #e03e2d;"><strong>A</strong></span> MXPSV RYHU WKH OD<span style="color: #e03e2d;"><strong>CB</strong></span> GRJ</p>
+<p>Double check to make sure that the X, Y, and Z are properly handledbefore moving on</p>
+  
+  <br><br><hr>
+  
+  <h2>Un-Caesar</h2>
+<p>The unCaesar() function performs the opposite function as caesarCipher(). It shifts each character down three instead of up three. You should also worry about wrap around, this time for the early letters that go outside of the alphabet when you subtract.</p>
+<p>To test, write a message in the text box and use the Caesar Cipher button to encrypt it. Then use copy-paste to enter the encrypted message back into the text box and hit the Un-Caesar button. You should get the exact message back.</p>
+  
+  
+  
+  
+  
+  <br><br><hr>
+  
+  
+  
+  
+  <h2>Vigenere Cipher</h2>
+<p>A Caesar Cipher is simple to implement, but its simplicity also makes it simple to decode. If someone knows that you're using a Caesar Cipher, they only have to unscramble it with at most 25 different shift values before finding the correct one.</p>
+<p>A Vigenere Cipher is similar to a caesar cipher, except it comes with a&nbsp;<strong>key</strong>&nbsp;to help decrypt the message. Each character in that key tells us how much to shift each character. A = 0, B = 1, C = 2, etc. So the key "ABCBA" really tells the shift to be 01210.</p>
+<p>So if the message were "HELLO" and the key was "ABCBA", the result would be "HFNMO"<br />the 'H' would shift 0 -&gt; 'H'<br />the 'E' would shift 1 -&gt; 'F'<br />the 'L' would shift 2 -&gt; 'N'<br />the 'L' would shift 1 -&gt; 'M'<br />the 'O' would shift 0 -&gt; 'O'</p>
+<p>&nbsp;</p>
+<p>Open the Vigenere Cipher workspace</p>
+<p>If you run it right away, you will see that there are text fields and a button that help you enter a Message and a Key. Your responsibility is to complete the vigenere() function. It accepts the message and key as parameter strings, and returns the encoded text.</p>
+<p>&nbsp;</p>
+<h4>Implement the vigenere() function for Strings of Equal Length</h4>
+<p>Like before, you will be taking each character in the parameter string and shifting it before adding it to an accumulator String. This time, each character has a different amount to shift, which can be determined by looking in the KEY string at the same&nbsp;index. Once you have the&nbsp;character from key, use unchar() convert it to a Number, and then subtract 65 to get it into the correct range. This should be the value that you need to shift the character before adding it to the accumulator String. For now, you may assume that the key is the same length as the message you're encoding, so key will have the same indices as the message.</p>
+<p>Test the String "HELLO" with a key of "ABCBA", to make sure that you get "HFNMO"</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Longer Messages</h4>
+<p>We are using short messages as an example, but it is very likely that that the message that you're decoding is longer than the KEY string that you're using.</p>
+<p>For Example: Try encoding the message "ATTACKATDAWN" with the key "CAT". You should see it&nbsp;start failing after the first three characters as it looks for characters at indices that don't exist in the key. Undefined values will start making their way into the string and making a mess.&nbsp; The solution is to 'repeat' the key until you have enough to cover the whole message.</p>
+<pre style="font-family: monospace;">ATTACKATDAWN
+CATCATCATCAT
+</pre>
+<p>&nbsp;</p>
+<h5>Using Mod to Wrap Around</h5>
+<p>We could write a loop that generates a repeating version of the key, but we can do less work by using&nbsp;a little bit of&nbsp;math to help us. One thing to note about mod is that it creates a repeating pattern when used on increasing values.&nbsp;</p>
+<p>The table below shows increasing values for x, but also shows those values modded by 3 and the 5.</p>
+  
+  <img src = "images/mod.png">
+<!-- <table class="table">
+    <tbody>
+        <tr>
+            <td><span style="font-size: 1.3em;">x</span></td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+        </tr>
+        <tr>
+            <td><span style="font-size: 1.3em;">x%3</span></td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>0</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td><span style="font-size: 1.3em;">x%5</span></td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+    </tbody>
+</table> -->
+<p>Notice that X%3 is zero for all multiples of three, and x%5 has zeros at the fives.&nbsp;We have already used this pattern to help test divisibility with expressions like:&nbsp;<strong>x%2 == 0.</strong></p>
+<p>Modding by a number in this way also creates a 'wrap around counter', which increases to a certain value before starting back at zero, repeating infinitely.</p>
+<p>&nbsp;</p>
+<h5>How can we use this?</h5>
+<p>This pattern of values is helpful in our Vigenere Cipher with a longer message than key. Below we have labeled the indices of the message, as well as the index in the key that we would get the key character from.</p>
+<pre style="font-family: monospace;">Message:      ATTACKATDAWN
+messageIndex: 0123456789
+
+KEY:          CATCATCATCAT
+keyIndex:     012012012012
+</pre>
+<p>Notice that keyIndex is a 'wraparound counter' pattern, which is the same as x%<strong>3:</strong>. We can use this trick to make sure that we always get an index that's within the range of a String.</p>
+  
+  
+ 
+
+<!-- <pre>let keyIndex = messageIndex % 3;  //If the key has three characters</pre>
+<p>But this would only work when the key had three characters. A better version would use key.length to make sure that it worked for a key string of any size:</p>
+<h5><strong>let keyIndex = messageIndex % key.length;</strong></h5> -->
+<p>&nbsp;</p>
+<h4>Your Task:</h4>
+<p>Modify your vigenere Function to work for messages of any length. This means modifying the&nbsp;index in KEY that is being accessed. Instead of matching the same index that you're using in the message string exactly, modify your existing call to key's charAt() to use mod to make sure that it 'wraps around'. 
+  </p>
+  <pre>
+let keyChar = key.charAt( i <strong><span style = "color:green">% key.length</span></strong>);</pre>
+<!--   
+  Instead of using the same index in both the message AND the key, use mod to stay within the boundaries of key. It is likely as simple  </p>
+  
+  
+  <pre>
+  message.charAt( i );
+  let key.charAt( i % key.length) -->
+<p>Test your program with the following to make sure that your function works properly:</p>
+<pre>Message: MISTERSACCO
+Key: RULES
+
+Ciphertext: DCDXWIMLGUF</pre>
+<p>&nbsp;</p>
+  
+</body>
+</html>

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The toString Method</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The toString Method</h2>
+<p>The toString method is a very specific method that has a very specific 
+purpose.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>What&#39;s toString&#39;s purpose?</strong></p>
+<p>When Java has simple data, such as an int, double, or String, it&#39;s easy to
+<strong>concatenate</strong> with a String.&nbsp; Consider the code below, which 
+uses a fake object named RandomObject</p>
+<pre>RandomObject r = new RandomObject(17,22,98,37);
+System.out.println( r );</pre>
+<p>Java knows all of the object&#39;s instance fields, but doesn&#39;t know what 
+characters to print out.&nbsp; Should it list them with commas?&nbsp; Should it 
+only print the first one?&nbsp; Should it print with any extra characters?</p>
+<p>The toString method&#39;s purpose is to create the String that represents the 
+instance fields of this object.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>How to write the toString method:</strong></p>
+<p><strong>It must have EXACTLY this header:<br />
+</strong><span class="auto-style2">public String toString()</span></p>
+<p>This is the method that Java looks for by default, if you change it in 
+any way it counts as a different method.</p>
+<p>As you can see, the return type of the toString method is a String.&nbsp; The 
+purpose of the toString method is to create and return a String that represents 
+the object.&nbsp; There is no specific formula for the String, but usually it 
+should include the instance fields in some way.</p>
+<p>&nbsp;</p>
+<p><strong>Example:</strong>&nbsp; Consider the Student class below, which contains a Student&#39;s 
+name and gpa</p>
+<pre>public class Student
+{
+   private String name;
+   private double gpa;
+   
+   public Student(String n, double g)
+   {
+      name = n;
+      gpa = g;
+   }
+   
+   public String getName()
+   {
+      return name;
+   }
+   
+   public double getGPA()
+   {
+      return gpa;
+   }
+   
+   public String toString()
+   {
+      String ret = &quot;Name: &quot;+ name + &quot;GPA: &quot;+gpa;
+      return ret;
+   }
+}</pre>
+
+<p>If you look at the toString method, it puts the name and gpa variables into a 
+String that it subsequently returns.</p>
+<p>This will change the result of the following code:</p>
+<pre>Student s = new Student("Sacco", 3.8);
+System.out.println( s );</pre>
+<p>The ouput of this would be &quot;Name: Sacco GPA: 3.8&quot;, since that&#39;s exactly the 
+String that the toString would return at that moment.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>What happens if there is no toString?</strong></p>
+<p>If there is no toString, Java will default to a weird String that looks 
+similar to the line below:</p>
+<p><strong>Student@3c23ba</strong></p>
+<p>This String is not very helpful for us.&nbsp; It starts with the name of the 
+class, followed by an @, and followed by a hex number that we don&#39;t want.&nbsp; 
+If you see this and it&#39;s not expected you should go to the class and check for 
+the <strong>exact</strong> toString header:</p>
+<pre>public String toString()</pre>
+<p>It is NOT:</p>
+<pre>public String getString()
+public void toString()
+public String toString(String str)</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Enigma Machine</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style3 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+
+
+<script type ="text/javascript" src="enigma.js"></script>
+</head>
+
+<body class="auto-style1">
+
+<p class="auto-style5">
+<img height="90" src="images/Enigma-logo.jpg" width="211" /></p>
+<p class="auto-style5">The Enigma Machine</p>
+<p class="auto-style1">Ever since people have been able to broadcast information 
+they&#39;ve been trying to prevent others from understanding it. A simple cypher might involve replacing ever letter with the 
+letter that follows it.</p>
+<p>For example:<br class="auto-style1" />
+HELLO WORLD would encode to IFMMP XPSME</p>
+<p>Once you’ve sent the data, the person on the other 
+end should have some method to decode it. A good cypher is hard to decipher 
+without knowing exactly what to do. The example above is a weak cypher that may 
+trick some, but a professional decipherer would figure it out in no time.<br class="auto-style1" />
+<br class="auto-style1" />
+</p>
+<p><span class="auto-style2"><strong>The Enigma Machine</strong></span></p>
+<p><img height="371" src="images/10305537.jpg" width="300" /></p>
+<p class="auto-style1">
+<a href="http://www.pbs.org/wgbh/nova/military/how-enigma-works.html">How the 
+Enigma Machine Works</a></p>
+<p><br class="auto-style1" />
+During World War II, the Germans used a machine known 
+as the Enigma Machine to encode and decode all of it messages. The Enigma 
+Machine used a rotating cypher, meaning that after the first letter is encoded 
+the cypher changes. The first time you encode an “A” it will give you one value, 
+but the second time it will give you a completely different value. The Enigma 
+code is legendary for being unbreakable and it wasn’t until the Allies actually 
+physically captured a machine that they were able to decipher the German 
+messages.<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<strong>A Simple Example:</strong><br class="auto-style1" />
+We are going to create our own Enigma Machine, but 
+simplified to fit our programming abilities. First you must understand how it 
+works. The Enigma Machine used a system of rotors to line up letters. Different 
+models varied in their number of rotors, but we are going to use a 3 rotor 
+system. In the diagram below we see the three rotors visualized. For this 
+assignment they will be called the inner, middle, and outer rotor.<br class="auto-style1" />
+</p>
+<p>
+<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS27uDPUtohDXcCfR00cCsro4azDB-Fz5-5zPyBddw0mqMOayhQ" /><p>
+<img src="images/img2.gif" /><br class="auto-style1" />
+<br class="auto-style1" />
+<strong>Encoding example for the diagram above:</strong><br class="auto-style1" />
+Suppose you want to encode the letter A.<br class="auto-style1" />
+1) Find the letter on the inner rotor.<br class="auto-style1" />
+2) Find the matching letter on the outer rotor. In 
+this case it’s an H.<br class="auto-style1" />
+3) Find the new letter on the middle rotor.<br class="auto-style1" />
+4) Find the matching letter on the outer rotor. In 
+this case it’s an N. That is the letter that you would send.<br class="auto-style1" />
+5) Rotate the inner rotor clockwise<br class="auto-style1" />
+Due to the rotating, the next letter will come out 
+completely different. For example, A now matches up with the J on the outer 
+rotor, causing it to encode to a D.<br class="auto-style1" />
+<br class="auto-style1" />
+Decoding is a similar process, except you start on the 
+outer rotor and work backwards:<br class="auto-style1" />
+1) Find the letter on the outer rotor: Example: T<br class="auto-style1" />
+2) Find the matching letter on the middle rotor: W<br class="auto-style1" />
+3) Find that letter on the outer rotor again<br class="auto-style1" />
+4) Find the matching letter on the inner rotor: M<br class="auto-style1" />
+<br class="auto-style1" />
+<hr><br class="auto-style1" />
+It is possible to replicate the Enigma machine all in one class, but we are 
+going to do it using Object Oriented Programming.&nbsp; First we will create a 
+class that immitates one of the Rotors, meaning it will be able to rotate and 
+tell us what letter is at what location.&nbsp; After we get a good funcitoning 
+Rotor class, we can create an EnigmaMachine class that uses several Rotor 
+objects as 
+instance fields.<br class="auto-style1" />
+<p>
+<span class="auto-style2"><strong>The Rotor Class</strong></span><br class="auto-style1" />
+</p>
+<p class="auto-style1">
+<strong>Instance Fields:</strong></p>
+<p class="auto-style1">
+There will be one instance field, a 
+String that 
+contains all 26 letters of the alphabet. For Example, 
+“BDFHJLNPRTVXZACEGIKMOQSUWY” will be the key to one of the rotors.&nbsp; This 
+will simulate the order of the letters on the rotor.</p>
+<p class="auto-style1">
+<strong>Constructor:</strong></p>
+<p class="auto-style1">
+The constructor should simply take in a String and 
+assign it to the instance field. There is no default String, it should be 
+supplied upon construction.<br class="auto-style1" />
+<br class="auto-style1" />
+<strong>Methods:</strong></p>
+<p class="auto-style1">
+<span class="auto-style3">public int getCharacterIndex(String character)</span><br class="auto-style1" />
+This method will take in a character as a String and 
+return the index that that particular character appears in the instance field.</p>
+<p><span class="auto-style3">public String getCharacterAt(int index)</span><br class="auto-style1" />
+This method takes in an index and returns a String 
+containing the letter at that index</p>
+<p><span class="auto-style3">public void rotate()</span><br class="auto-style1" />
+This method simulates rotating the String by removing 
+the last character from the instance field and putting it at the front. For 
+example: ABCDEFG would become GABCDEF after one call, FGABCDE after a second, and 
+so forth.&nbsp; Don&#39;t forget that the purpose of this method is to change the 
+instance field of the Rotor.</p>
+<p><span class="auto-style3">public void setStartingLetter(String letter)</span><br class="auto-style1" />
+This method will 
+take in a single character String as a parameter and set the instance field so 
+that character is at the first index.&nbsp; You must preserve the order of the 
+characters;&nbsp; for example: If the instance field is ABCDEFG and 
+setStartingLetter(&quot;E&quot;) is called, the field will then be EFGABCD</p>
+<p><span class="auto-style3">public String toString()</span><br class="auto-style1" />
+Simply return the instance field.</p>
+<p>
+<br class="auto-style1" />
+<strong>Testing the Rotor class</strong></p>
+<p>Copy and paste the following Runner into your project.</p>
+<pre>public class RotorTest
+{
+    public static void main()
+   {
+       System.out.println("Constructing a Rotor with the key GNUAHOVBIPWCJQXDKRYELSZFMT");
+       Rotor rot = new Rotor("GNUAHOVBIPWCJQXDKRYELSZFMT");
+        
+       System.out.println(rot);
+       System.out.println("A is at index "+rot.getCharacterIndex("A"));
+       
+       System.out.println("\nRotating...");
+       rot.rotate();        
+       System.out.println(rot);
+       System.out.println("A is at index "+rot.getCharacterIndex("A"));
+
+       System.out.println("\nRotating...");
+       rot.rotate();             
+       System.out.println(rot);
+       System.out.println("The letter at index 10 is "+rot.getCharacterAt(10));
+
+       System.out.println("\nSetting the starting letter to Q");
+       rot.setStartingLetter("Q");             
+       System.out.println(rot);
+   }
+}</pre>
+<p class="auto-style1">&nbsp;<p class="auto-style1">Run this method and make sure 
+that you get the following output before moving on.<p class="auto-style1">
+Constructing a Rotor with the key GNUAHOVBIPWCJQXDKRYELSZFMT<br />
+GNUAHOVBIPWCJQXDKRYELSZFMT<br />
+A is at index 3<br />
+<br />
+Rotating...<br />
+TGNUAHOVBIPWCJQXDKRYELSZFM<br />
+A is at index 4<br />
+<br />
+Rotating...<br />
+MTGNUAHOVBIPWCJQXDKRYELSZF<br />
+The letter at index 10 is I<br />
+<br />
+Setting the starting letter to Q<br />
+QXDKRYELSZFMTGNUAHOVBIPWCJ<br />
+<br class="auto-style1" />
+<br class="auto-style1" /><hr>
+<br />
+<span class="auto-style4">The EnigmaMachine class:</span><br class="auto-style1" />
+<br />
+So far we’ve created the Rotor class to simulate one rotor, but the encoding 
+with the Enimga Machine requires multiple different Rotors working together.<br />
+<br class="auto-style1" />
+Create a class named <strong>EnigmaMachine</strong>.<br class="auto-style1" />
+The only instance fields are three <strong>Rotors</strong> named 
+them inner, middle, and outer.<br />
+<br />
+<span class="auto-style6">private Rotor inner, middle, outer;</span><br />
+<br class="auto-style1" />
+In the <strong>Constructor</strong>, take in no parameters and 
+construct new Rotors into your instance fields. Use the following parameters 
+when constructing 
+each Rotor:<br class="auto-style1" />
+<br class="auto-style1" />
+inner has a key of&nbsp; &quot;GNUAHOVBIPWCJQXDKRYELSZFMT&quot;<br class="auto-style1" />
+middle - &quot;EJOTYCHMRWAFKPUZDINSXBGLQV&quot;<br class="auto-style1" />
+outer - &quot;BDFHJLNPRTVXZACEGIKMOQSUWY&quot;<br />
+<br class="auto-style1" />
+These will be the default rotors for our Enigma 
+machine.<br />
+<br />
+Now that we&#39;ve grouped three Rotors together we can add some methods that use 
+all three of them to encode a message.&nbsp; Remember that at this level you do 
+not have access to the individual Strings, <strong>you should use the methods of 
+Rotor to accomplish what you need</strong>.<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style3">public String encodeLetter(String letter)</span><br class="auto-style1" />
+This method takes in a letter(as a String) to be 
+encoded returns the encoded version of that letter. 
+<br class="auto-style1" />
+- Find the index of the letter on the inner rotor, 
+then use that index to get the character at the same index of the outer Rotor<br class="auto-style1" />
+- Find the index of that new character on the middle 
+Rotor, then use it to get the character at the same location on the outer Rotor. 
+Store it in a variable that you can return later.<br class="auto-style1" />
+- Before you return, rotate the inner Rotor 
+<br class="auto-style1" />
+<br class="auto-style1" />
+To test your code in BlueJ, construct a new 
+EnigmaMachine object and call <strong>encodeLetter</strong> three times with an “A” as the parameter. 
+It should give you an N, a D, and a U. <br />
+<br />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style3">public String decodeLetter(String letter)</span><p class="auto-style1">This method undoes everything that encodeLetter 
+does in a backward order.&nbsp; <br />
+- Find the letter on the outer rotor<br />
+- Find the matching letter on the middle Rotor<br />
+- Find that new letter on the outer Rotor and match it to the letter on the 
+inner Rotor.&nbsp; That is the decoded letter.<br />
+-Before you return, rotate the inner Rotor</p>
+<p class="auto-style1">To test this method, construct a new 
+EnigmaMachine and call the decodeLetter method three times with an “A” as the 
+parameter. It should give you a B, a V, and an O. </p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3">public String encodeLetterGroup(String letterGroup)
+<span class="auto-style1"><br />
+In order to further complicate the encryption letters were put into groups of 5 instead of using their natural spaces.  For example:  MISTE RSACC OISAM AZING.
+This method should take in a five letter String as a parameter and return the encoded version of it.  Don&#39;t forget that you may enlist the encodeLetter method to do the encoding for you.  This method just has to break the String into five parts.</span></p>
+<p class="auto-style1">Test this method by constructing a new EnigmaMachine and 
+calling encodeLetterGroup with &quot;SACCO&quot; as the parameter.&nbsp; It should return 
+&quot;WDVLH&quot;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3">public String decodeLetterGroup(String letterGroup) 
+</span> <span class="auto-style1"><br />
+Similar to the previous method, this method will take in a String of length 5 
+and return the decoded version of all five letters.</span></p>
+<p class="auto-style1">Test this method by constructing a new EnigmaMachine and 
+calling the decodeLetterGroup with &quot;DFMCH&quot; as a parameter.&nbsp; It should 
+return &quot;HELLO&quot;.</p>
+
+<p class="auto-style1"><br />
+<span class="auto-style3">public void setStartingValues(String vals)</span><br />
+Another way to make the system hard to decode was to change the starting spots 
+for each of the Rotors, meaning that encoded messages would be different 
+depending on the day.&nbsp; This method will accept a three character String 
+containing the starting letters for the three Rotors.&nbsp; The first character 
+is the inner rotor&#39;s starting value, the second is for the middle rotor, and the 
+third is for the outer rotor.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">Testing the EnigmaMachine class:</p>
+<p class="auto-style1">Copy and paste the following runner into your project:</p>
+<pre>public class EnigmaTester
+{
+   public static void main()
+   {
+       EnigmaMachine enigma = new EnigmaMachine();
+       System.out.println("Setting starting values to \"CAR\"");
+       enigma.setStartingValues("CAR");
+        
+       String sacCode = enigma.encodeLetterGroup("ABCDE");
+       System.out.println("\"ABCDE\" encodes to "+ sacCode+ " which is "+(sacCode.equals("MQUWB")?"right":"wrong"));
+        
+        
+       System.out.println("Setting starting values to \"HAT\"");
+       enigma.setStartingValues("HAT");
+        
+       sacCode = enigma.decodeLetterGroup("PTXAV");
+       System.out.println("\"PTXAV\" decodes to "+ sacCode+ " which is "+(sacCode.equals("ABCDE")?"right":"wrong"));  
+        
+   }
+}</pre>
+
+<p>Run it, and the output should be exactly:</p>
+<p>Setting starting values to &quot;CAR&quot;<br />
+&quot;ABCDE&quot; encodes to MQUWB which is <strong>right</strong><br />
+Setting starting values to &quot;HAT&quot;<br />
+&quot;PTXAV&quot; decodes to ABCDE which is <strong>right</strong> </p>
+
+<hr>
+        <p>
+        <strong>Use the Enigma Emulator to test your encoding/decoding<br />
+		</strong>It uses the default starting values for all the rotors (GEB)</p>
+<p>
+        Enter a message below and click a button to encode or decode it.</p>
+<p>
+        &nbsp;<input id="userIn" size ="35"></input>
+            <span id ="output"></span>
+        
+         
+<br />
+</p>
+<button id ="encode" onclick="encode();" >Click to Encode</button>
+        <button id ="decode" onclick="decode();" >Click to Decode</button>
+<hr>
+
+
+
+</body>
+
+</html>

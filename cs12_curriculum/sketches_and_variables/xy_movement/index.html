@@ -1,0 +1,674 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <style>
+    tr,
+    table,
+    td {
+      vertical-align: top;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    XY Movement
+  </h1>
+
+  <h2>Random Walk</h2>
+  <p>Open the Random Walk workspace in CodeHS. There you will find a circle whose location is defined by the variables x and y. Those variables are both initialized to 100, which represents the center of the canvas.</p>
+  <p>
+    Run the program and you will see the circle sitting the center of the screen.
+  </p>
+
+
+  <img src="images/dot.png">
+
+
+  <p>
+    With the location of the circle determined using variables, we have the ability to change where it appears. Notice that the mousePressed() function modifies the x and y to be wherever the mouse is:
+  </p>
+  <pre><code>function mousePressed(){
+    x = mouseX;
+    y = mouseY;
+}</code></pre>
+
+  <p>
+    Run the program and click around the canvas. You should see the circle move to the location of the mouse.
+  </p>
+  <p>
+    Also notice that the old circle doesn't disappear. Moving the background(0) statement to the setup() function means that it will not be constantly redrawing over the old canvas. The circle's location will change, but we will always see circles at the
+    previous locations.
+  </p>
+
+  <h3>
+    Your Task: A Random Walk
+  </h3>
+
+  <p>
+    Having a location represented with variables makes it possible to show movement over time. All we have to do is change the location by a small amount each frame. A classic exerciseof this is called a 'Random Walk'. Observe the demo below.
+  </p>
+
+
+  <iframe src="demos/random_walk/index.html" width="202px" height="202px">
+    
+  </iframe>
+
+  <div class="head_list">
+    <p>
+      This effect is accomplished by doing two things each time draw() is called:
+
+    </p>
+    <ol>
+      <li>Change the location of the circle by a small amount</li>
+      <li>Randomize the color of the circle</li>
+    </ol>
+  </div>
+
+  <p>
+    Modify the end of the draw function to do both of those steps. Generate two small random values, between -2 and +2, and add them the x and y variables. This will cause the 'wandering' motion that you can see. Randomizing the color will require generate
+    a red, green, and blue value to set the fill() to.
+  </p>
+  <br>
+
+  <h4>
+    Resetting After Leaving
+  </h4>
+
+  <div class="head_list">
+    <p>
+      Notice that the demo will reset once the circle leaves the canvas. This can be accomplished during draw() as well. Use an if statement that looks at the x and y variable. If either of them is too large or small, respond by:
+    </p>
+    <ul>
+      <li>Calling background(0) to 'erase' what's been painted</li>
+      <li>Set x and y back to the center of the canvas</li>
+    </ul>
+  </div>
+
+  <p>
+    With these changes your program should be complete. Your circle should wander off of the canvas and reset when necessary.
+  </p>
+  <br/>
+  <hr>
+
+
+  <!--   <pre><span style="font-size: 8pt;">let x, y;</span><br /><span style="font-size: 8pt;">function setup() {</span><br /><span style="font-size: 8pt;">&nbsp; createCanvas(200, 200);</span><br /><span style="font-size: 8pt;">&nbsp; noStroke();</span><br /><span style="font-size: 8pt;">&nbsp; x = 100;</span><br /><span style="font-size: 8pt;">  y = 100;</span><span style="font-size: 8pt;">&nbsp;&nbsp;</span><br /><span style="font-size: 8pt;">&nbsp; //draw the background during setup</span><br /><span style="font-size: 8pt;">  background(0);</span><br /><span style="font-size: 8pt;">}</span><br /><br /><span style="font-size: 8pt;">function draw() {</span><br /><span style="font-size: 8pt;">&nbsp; //No Background means nothing gets 'erased'</span><br /><span style="font-size: 8pt;">&nbsp; fill(255)</span><br /><span style="font-size: 8pt;">  circle(x, y, 5);  </span><br /><span style="font-size: 8pt;">&nbsp;&nbsp;</span><br /><span style="font-size: 8pt;">&nbsp; //ToDo: Make a small change to x and y</span><br /><span style="font-size: 8pt;"> &nbsp;</span><br /><span style="font-size: 8pt;">}<br /></span></pre>
+  <p>Notice that there is a variable for both the x and the y of the circle that's being drawn. The setup function sets them to the center of the canvas, so if you run the program you should see the white dot in the middle of the canvas, but it is not moving.</p>
+  
+  
+  
+  
+
+  
+  
+  
+  <p>In order to see movement, we need to make small changes to the location each time.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h3>Your Task: A Random Walk</h3>
+  <p>A classic exercise to do with this circle is called a Random Walk. This means moving the dot a little bit in a random direction each time the draw function runs. This will cause the dot to wander around the canvas and I've removed the background so
+    that we can see the trail.</p>
+  <p>Modify the end of the draw() function to generate two small random values, between -2 and +2, and add them to the x and y variables. This means that each time draw() runs, the location changes by a small amount. Over time this will cause a 'wandering'
+    style of movement.</p>
+  <p>Finally, add a little random color to spice up your Random Walk. Given a little time, you'll generate your own personal random blob thingy to put on your fridge.</p>
+  <img src="images/rw1.png" width="200" height="200" />&nbsp; &nbsp;
+  <img src="images/rw2.png" width="200" height="200" />&nbsp; &nbsp;
+  <img src="images/rw3.png" width="200" height="200" />&nbsp; &nbsp;
+  <img src="images/rw4.png" width="200" height="200" />&nbsp; &nbsp;
+
+  <p>&nbsp;</p>
+
+
+  <hr>
+   -->
+  <h2>NSEW Movement</h2>
+  <p>Open the NSEW workspace, where you will find a similar situation as before. A square's location is represented using global x and y variables, initialized to the center of the canvas.</p>
+
+
+  <img src="images/box.png"></img>
+
+  <h3>
+    Adding Movement
+  </h3>
+  <p>
+    We previously saw that movement occurs when we make small changes to the location of the object. This time we are going to have a little more predictable movement. Click on the demo below and use W, A, S, and D to contol where the square goes.
+  </p>
+
+
+  <iframe src="demos/contained/index.html" width="200" height="200"></iframe>
+  <p>
+    The motion here is accomplished by adding a deliberate -1 or +1 to one of the x or y variables.
+  </p>
+  <!--   
+  
+  <pre><span style="font-size: 8pt;">let x, y;</span><br /><span style="font-size: 8pt;">function setup() {</span><br /><span style="font-size: 8pt;">&nbsp; createCanvas(200, 200);</span><br /><span style="font-size: 8pt;">&nbsp; rectMode(CENTER);</span><br /><span style="font-size: 8pt;">&nbsp; x = width / 2;</span><br /><span style="font-size: 8pt;">  y = height / 2;</span><br /><span style="font-size: 8pt;">}</span><br /><br /><span style="font-size: 8pt;">function draw() {</span><br /><span style="font-size: 8pt;">&nbsp; background(99);</span><br /><span style="font-size: 8pt;">  rect(x, y, 30, 30);</span><br /><span style="font-size: 8pt;">}</span><br /><span style="font-size: 8pt;">//Called for every mouse click<br /></span><span style="font-size: 8pt;">function mousePressed() {</span><br /><br /><span style="font-size: 8pt;">}</span></pre>
+  <p>Like before, an x and y variable are used to represent the location of the rectangle being drawn, and they are initialized to the center of the canvas.</p>
+  <p>&nbsp;</p> -->
+  <!--  <p>
+    <strong>Click to Place</strong></p>
+  <p>Go to the mousePressed function that's already been provided for you.&nbsp; It responds to every mouse press.&nbsp; Add the following code to set the global x and y to the current mouseX and mouseY.</p>
+  <pre>x = mouseX;
+y = mouseY;</pre>
+  <p>When you run the sketch, you should be able to change the location of the square by clicking around, but it should not permanently follow the mouse around the screen.</p>
+  <p>&nbsp;</p>
+  <p><strong><iframe src="demos/click_to_place/index.html" width="200" height="200"></iframe></strong></p>
+  <p>&nbsp;</p> -->
+  <br>
+  <h3>Moving in One Direction</h3>
+  <p>We've seen before that changing the location during the draw loop will cause movement to change.&nbsp;&nbsp;</p>
+  <p>For example, if you add&nbsp;&nbsp;x += 1;&nbsp;to the end of draw, it will cause the x to continually increase and the square will drift to the&nbsp;<strong>right</strong>. You could also say&nbsp;&nbsp;x -= 1;&nbsp;to subtract from x and go to the&nbsp;<strong>left</strong></p>
+  <p>We also have a&nbsp;<strong>y</strong>&nbsp;variable that will allow us to move up or down.&nbsp; Remember that y = 0 is at the&nbsp;<strong>top</strong>&nbsp;of the screen, so&nbsp;&nbsp;y -= 1;&nbsp;will cause it to drift<strong>&nbsp;up</strong>&nbsp;the
+    screen and&nbsp;&nbsp;y += 1;&nbsp;will cause it to go&nbsp;<strong>down.</strong></p>
+  <p>&nbsp;</p>
+  <h3><strong>Problem:</strong> Deciding which direction to go</h3>
+  <p>Right now we can use any of the above statements to change the values of x and y and make the square drift, but that only allows the square to go one direction.&nbsp; Pasting all four lines at once will cause it to just sit there because both x and
+    y will be increasing&nbsp;<strong>and</strong>&nbsp;decreasing every single time. A net gain of zero.</p>
+
+  <div class="head_list">
+
+    <h3><strong>Solution:</strong> More Variables!</h3>
+    <p>If we want to choose the direction that we want to go, we need&nbsp;<strong>variables</strong>&nbsp;to represent that choice.&nbsp; In our case, let's keep a global variable that will always hold the value "N", "S", "E", or "W".&nbsp; When we're moving
+      the square we'll choose how to move based on its value. Modify your program to:</p>
+    <ul>
+
+
+      <li><strong>Declare</strong>&nbsp;a global variable named&nbsp;<strong>dir</strong></li>
+      <li><strong>Initialize</strong>&nbsp;it to be&nbsp;<strong>"N"</strong>&nbsp;in the setup function.&nbsp; We will chose "N" to represent starting out moving North.</li>
+
+    </ul>
+  </div>
+  <p>Once you have the dir variable declared and initialized, go to the end of the draw function and delete any&nbsp;<strong>x += 1;&nbsp;</strong>&nbsp;or&nbsp;<strong>y -= 1;</strong>&nbsp;statements that may still be there.&nbsp; Instead you need to have
+    a four part if statement that first looks at the value of the new&nbsp;<strong>dir</strong>&nbsp;variable and changes x or y based on that.&nbsp;</p>
+  <p> For example:</p>
+  <pre>if( dir == "N" )
+  y -= 1;</pre>
+  <p>This if statement looks at dir to see what direction the&nbsp;<strong>dir</strong>&nbsp;variable is holding.&nbsp; If dir says&nbsp;<strong>"N"</strong>, we subtract from the y to move&nbsp;<strong>up</strong>. Modify your draw() function to include
+    itand run the sketch to make sure that the square moves&nbsp;<strong>up</strong>&nbsp;the screen.&nbsp;
+  </p>
+  <p>After that, add three more parts to the if statement in your draw function to go "S", "E", and "W".&nbsp; Make sure that you test all four directions by assigning each letter and testing to make sure that the correct direction movement is produced.</p>
+  <p>&nbsp;</p>
+
+
+
+  <h3>
+    Changing Direction with WASD
+  </h3>
+  <p>
+    Once you confirm thta the <code>dir</code> variable is in charge of your square's direction. Update the keyPressed() function to look like so:
+  </p>
+  <pre>function keyPressed(){
+  if( key == "d" ){
+    dir = "E";
+  }
+}</pre>
+
+  <p>
+    This change will cause the program to respond to pressing the D key with a change to the <code>dir</code> variable. Changing <code>dir</code> should cause the square to change direction.
+  </p>
+  <p>
+    First check to make this works, then add the other if statements to respond the W, A, and S keys.
+  </p>
+
+
+  <h3>
+    Containing the Square
+  </h3>
+
+  <p>
+    Notice in the demo how the box will never leave the window. You can accomplish this during the draw() function with an if statement that detects if the x or y has gone too large or small, then responding by <strong>assigning</strong> it to be that
+    value
+  </p>
+  <p>
+    For Example: The canvas has a width of 200. Since the square is 30 x 30, the largest value that x should be is 285 (300 - half the size). We can force this by adding the following if statement:
+  </p>
+
+  <pre>if( x > 285 ){
+    x = 285;
+}</pre>
+  <p>
+    With this setup, even if the draw function keeps adding to the x variable, this if statement will keep reseting it to this maximum value. Add it to the end of your draw function and make sure that your square can no longer go off the <strong>right</strong>    of the canvas.
+  </p>
+  <p>
+    If that functions properly, add three more similar ifs to prevent leaving from the left, top, and bottom of the canvas.
+  </p>
+
+
+  <br>
+
+
+
+
+
+
+  <!-- 
+
+
+  <h3>Using Constrain to Help</h3>
+  <p>We've looked at the contrain function before. It looks at a value and makes certain that it's between two values. You've no doubt noticed that x and y can grow or shrink out of control.</p>
+  <p>One easy way to stop this is to constrain the values of x and y right before the draw function ends.&nbsp; Make the following the&nbsp;<strong>last two lines of draw</strong>.</p>
+  <pre>x = constrain(x, 0, width);   //constrain x to window width
+y = constrain(y, 0, height);  //constrain y to window height</pre>
+  <p>Each statement here looks at the value of x or y, calls constrain and replaces the value of x with it.&nbsp;&nbsp;<strong>As long as this is the last thing that the draw function does</strong>, x and y will never end up outside of that range, no matter
+    how many x += 1's have been called.</p>
+  <p>Run your program and see that it's constrained, but not perfectly.&nbsp; Since we're in rectMode(CENTER), we have to remember that we don't actually want x or y to reach 0.&nbsp; Keep in mind that the square is 30 x 30 and modify the two lines of code
+    above so that the square is kept completely within the boundaries of the canvas.</p>
+  <p>&nbsp;</p>
+  <h3>Changing dir with the arrow keys</h3>
+  <p><strong><iframe src="demos/contained/index.html" width="200" height="200" data-mce-fragment="1"></iframe></strong></p>
+  <p>&nbsp;</p>
+  <p>Use the arrow keys to change direction for the square above.</p>
+  <p><a href="demos/movement/contained/index.html">CLICK HERE IF YOU CAN'T HANDLE THE DEMO'S SCROLLING PROBLEM</a>&nbsp;</p>
+  <p>We've set up this sketch so that the&nbsp;<strong>dir</strong> variable is in charge of the direction. If we want to control the direction of the square, we'll have to respond to a key press.&nbsp; Just like with mousePressed() there is a function called
+    keyPressed that will be called every time that a key on the keyboard is pressed.</p>
+  <p>&nbsp;</p>
+  <p><span style="font-size: 14pt;">Add the following function to your sketch after all the other functions.</span></p>
+  <pre>function keyPressed(){
+
+  if( <strong>keyCode</strong> == UP_ARROW ){
+    dir = "N";
+  }
+
+}</pre>
+  <p>When a key is pressed, it's common to look at p5's global&nbsp;<strong>keyCode</strong> variable to see what key was just pressed. In the code above I compare it to UP_ARROW. This is how we detect that the up arrow was just pressed.&nbsp;</p>
+  <p>Since we previously set up the sketch so that the&nbsp;<strong>dir</strong> variable is in charge, if i want the square to move up I only need to assign&nbsp;<strong>"N"</strong>&nbsp;to the dir variable.&nbsp; Add three more if statements to cover
+    the other directions.&nbsp; When you run your code, use the arrow keys to change the direction of the square. Warning: You have to click the canvas before it will respond to you.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+ -->
+
+  <hr>
+
+  <h2>Lerping</h2>
+  <p>
+    Lerping is short for Linear Interpolation, with is used to smoothly transition from one value to another. Click the demo below to see what it looks like.
+  </p>
+
+  <iframe src="demos/lerp/index.html" width="302px" height="202px"></iframe>
+
+  <p>
+    When lerping, the object moves faster the further away that it is. As it gets closer, it slows down.
+  </p>
+
+
+  <p>Open the Lerping workspace in CodeHS. This time you will find two different locations defined by global variables: (x, y) and (destX, destY). Each location is used to draw a circle on the canvas.</p>
+  <!--   <p><img src="images/lerp.png" alt="untitled - 2024-01-05T090424.849.png" width="300"  /></p> -->
+  <p>At the moment the only way that we can change the sketch is by clicking the canvas with the mouse. The mousePressed() function changes the location of destX and destY, which will bring that circle to the mouse.</p>
+
+  <p>Our goal for this workspace is to make the 'xy' circle move towards the 'destination' circle. Instead of simply teleporting the 'xy' circle to its final location. We will make a small change to x and y during the draw() function, but this time we will
+    calculate so that it moves in the direction of the destination circle.</p>
+
+  <p>For our movement, we are going to move (x, y) <strong>ten percent closer</strong> to (destX, destY) each time draw is called. To do this we need to look at dX and dY:</p>
+  <p><img src="images/triangle2.png" alt="untitled - 2024-01-05T091307.022.png" width="220" height="128" /></p>
+  <p>Notice in the diagram above that the values dX and dY represent the differences from x to destX and y to destY. Since we want to move only a small portion each draw(), we'll only add ten percent of dX and dY to our circle's x and y.</p>
+  <p><img src="images/triangle1.png" alt="untitled - 2024-01-05T091259.695.png" width="220" height="128" /></p>
+  <p>This will provide a smaller step but keep the proportions the same. This will preserve the direction that it needs to go. That way it will always be moving toward its location, but not in one big jump.</p>
+  <p>&nbsp;</p>
+  <h4>Your Task</h4>
+  <div class="head_list">
+    <p>Modify the end of the draw function to:</p>
+    <ul>
+      <li>Calculate dX and dY by subtracting x from destX and y from destY.</li>
+      <li>Multiply dX and dY by 0.1 to get ten percent of each value</li>
+      <li>Add the results to x and y</li>
+    </ul>
+  </div>
+
+  <p>&nbsp;</p>
+  <p>If done properly, you should see one circle seeking out the 'destination' circle and stopping in its center. Clicking around should cause the destination circle to move and the seeking circle to follow.</p>
+  <p>&nbsp;</p>
+
+  <hr>
+
+
+
+  <h2>
+    Mouse Chaser
+  </h2>
+  <p>
+    Wave your mouse over the canvas below and observe how the circle follows the mouse.
+  </p>
+
+  <iframe src="demos/mouse_chaser/index.html" width="302px" height="202px">
+    
+  </iframe>
+
+  <p>
+    This movement is similar to how we created the lerping motion before, by increasing x and y of the circle by values derived from the dx and dy. Maintaining the same ratio of x to y is how the motion goes in the proper direction.
+  </p>
+
+  <h3>
+    Moving at a Steady Pace
+  </h3>
+  <p>
+    With lerping, always moving 10% closer to the target causes motion that is faster the further away from the target you are. This time we are trying to always move the same amount. To do this, we need to <strong>normalize</strong> the vector.
+
+  </p>
+  <p>
+
+
+    If we again calculate dX and dY between the mouse's x and y from the chaser's x and y, dX and dY create a right triangle whose hypotenuse is the distance between the points: <code>dist(x,y,mouseX,mouseY)</code>
+    <br>
+  </p>
+
+  <img src="images/distDXDY.png">
+  <p>
+    If you divide both dX and dY by that distance, you keep the same ratio between the two, but create a triangle with a hypotenuse that is 1.
+  </p>
+
+
+  <img src="images/smoldistDXDY.png">
+  <br>
+  <div class="head_list">
+    <p>
+      This is the trick that we are going to use to 'chase' the mouse.
+    </p>
+
+    <ol>
+      <li>Calculate the distance between the mouse and the chaser's location using the dist() function</li>
+      <li>Calculate dX and dY by subtracting the mouse's xy from the chaser's xy.</li>
+      <li>Divide dX and dY by the distance</li>
+      <li>Add the smaller dX and dY to the chaser's x and y.</li>
+    </ol>
+
+    <p>
+      With this complete, run the program. The mouse should steadily move toward the mouse
+    </p>
+
+  </div>
+
+  <br>
+  <h3>
+    Drawing the Pointer
+  </h3>
+  <p>
+    The pointer is simply a line, drawn from the chaser's location in the direction that it is heading. We can reuse the smaller dX and dY for this purpose:
+  </p>
+  <code>//In the right direction, length 1<br>
+    line( x, y, x + dX, y + dY );</code>
+  <p>
+    But this would only draw a line of length 1. You can fix this by multiplying the dX and dY by a number of your choosing.
+  </p>
+  <code>//In the right direction, length 12<br>line( x, y, x + 12*dX, y + 12*dY );</code>
+
+
+
+
+
+  <h3>
+    Stopping the Jittering
+  </h3>
+
+  <p>
+    By this point you should have a chaser that will follow the mouse, but when it gets super close to the mouse, the line starts to jitter back and forth unpleasantly. Our next step is to make it act more like the demo, as the chaser arrives at the mouse,
+    the line is no longer drawn to have a length of 12.
+  </p>
+  <p>
+    The draw function should already be calculating the distance between the mouse and the chaser. Modify it so that it only draws the current, length 12 line, when it is more than 12 pixels from the mouse. Otherwise draw a line from the chaser's location
+    directly to the mouse.
+  </p>
+
+
+
+
+
+
+
+
+
+
+  <br>
+  <br>
+
+
+
+
+  <hr>
+
+
+
+
+
+
+
+
+  <!--   <img src = "images/drift.gif" height = "175px"/> -->
+  <h2>
+    Gravity
+  </h2>
+
+  <p>
+    Open the Gravity Workspace. Again we have a circle that is being drawn at a variable location, which is initialized to be the top of the screen.
+
+
+  </p>
+  <p>
+    In the previous assignments we've shown movement by changing the location by some amount each time draw() is called, with either a constant value or one derived from another location on the canvas. This time we are taking a slightly different approach.
+    There is a ySpeed variable to represent how fast to move in the y direction, and in the draw() function we are simply adding that variable to y (<code>y += ySpeed;</code>). At the mooment ySpeed is simply initialized to 1, which results in a constant
+    drift similar to what we've seen before.
+
+
+
+  </p>
+  <img src="images/drift.gif" height="175px" />
+  <br><br><br>
+  <h3>
+    Adding Gravity
+  </h3>
+  <table>
+    <td><img src="images/drop.gif" height="175px" /></td>
+    <td>
+
+      <p>
+
+
+
+        Our goal for this window is to cause a more realistic falling motion for our object. Right now, changing y by a constant value doesn’t quite look right.
+      </p>
+      <p>
+        Gravity is a force that is always pulling on the object, causing it to fall faster and faster the longer it goes. This means that y should be changing by more and more each step. This is why we have a ySpeed variable. In the draw() function, after increasing
+        the y variable, increase the ySpeed variable by a small amount.
+
+      </p>
+
+
+      <code>ySpeed += 0.5;</code>
+
+      <p>
+        This should cause the ySpeed to consistently increase, causing the ball to fall by more and more, looking more like falling with gravity until it drops off the screen.
+
+      </p>
+    </td>
+  </table>
+  <br><br><br>
+
+  <h3>
+    Bouncing
+  </h3>
+  <table>
+    <td> <img src="images/perfect_bounce.gif" height="175px" /></td>
+    <td>
+      <p>
+        At the moment the ball drops completely off the bottom of the canvas. We want to simulate bouncing when this occurs. Bouncing means to suddenly start moving in the opposite direction. Modify the draw() function so that, if the ball's y is greater than
+        the height of the canvas, you respond by flipping ySpeed from positive to negative (ySpeed *= -1; or ySpeed = -ySpeed; ) With this if statement in place, run the program again. Your ball should now infinitely bounce.
+      </p>
+    </td>
+  </table>
+  <br><br><br>
+
+  <h3>
+    Imperfect Bouncing
+  </h3>
+  <table vertical-align="top">
+    <td vertical-align="bottom"> <iframe src="demos/gravity/index.html" width="52px" height="177px">
+   
+  </iframe></td>
+    <td>
+      <p>
+        Flipping the ySpeed to its exact opposite is a little too perfect of a bounce. The ball will infinitely keep bouncing. In reality, a little energy is lost with each bounce. Modify your if statement so that it bounces by replacing ySpeed with 90% of its
+        opposite ( ySpeed *= -0.9 ). This causes each bounce to be a little less than the one before it.
+
+      </p>
+
+      <p>
+        Run the program and you should see some more realistic bouncing, with each bounce being a little less than the one before.
+
+      </p>
+
+    </td>
+  </table>
+  <br><br>
+  <h3>
+    Nudging
+  </h3>
+  <div class="head_list">
+
+    <p>
+      Watch it long enough and you'll see a glitch where the ball will get trapped in the ground a little when it's supposed to bounce. This is because the ySpeed is taking the ball past the height of the canvas so far that 90% of it is not enough to get back.
+      The solution is to perform a nudge. As your if statement detects your ball has gone past the height, do two things:
+
+    </p>
+    <ul>
+
+      <li>Modify the ySpeed to be 90% of its opposite
+      </li>
+      <li>Modify y to be exactly the height of the canvas
+      </li>
+    </ul>
+  </div>
+  <p>
+    Setting y to be exactly the height of the canvas places it right at the boundary. This is a small change, but guarantees that the smaller bounce will be big enough to get back on the canvas without getting stuck.
+  </p>
+
+  <!-- 
+
+  <h2>Controlling Direction with Directional Speeds</h2>
+  <p>Having a direction variable hold a value representing each direction is fine for our purposes, but a little bit limited in the long run.&nbsp; We're going to look at a second way, that will be a little more useful when we&nbsp;</p>
+  <p>A second way is to use a variable to represent how much to add to x or y.&nbsp;&nbsp;</p>
+  <p>Open the Bouncing Around workspace, which is similar to the NSEW workspace that you previously completed, but with a difference.</p>
+  <pre><span style="font-size: 10pt;">let x, y;
+let xSpeed,ySpeed;
+
+function setup() {
+  createCanvas(200, 200);
+  rectMode(CENTER);
+  x = width / 2;
+  y = height / 2;
+
+  xSpeed = 0;
+  ySpeed = 0;
+}
+
+function draw() {
+  background(99);
+  rect(x, y, 30, 30);
+
+  x += xSpeed;
+  y += ySpeed;
+}
+
+
+//Called for every mouse click
+function mousePressed() {
+  x = mouseX;
+  y = mouseY;
+}
+
+//Called for every key press
+function keyPressed() {
+
+}</span></pre>
+  <p>&nbsp;</p>
+  <h3>Variable based speeds?</h3>
+  <p>The dir variable is now gone. It has been replaced with two values: xSpeed and ySpeed. These values are currently set to 0.&nbsp; Later in the draw function you can see the lines:</p>
+  <pre style="margin-top: 1em;">x += xSpeed;
+y += ySpeed;</pre>
+  <p>&nbsp;</p>
+  <p>Since these values are both zero, x and y never change, but if you&nbsp;<strong>go to the</strong>&nbsp;<strong>setup</strong>&nbsp;function and initialize the values to something else</p>
+  <pre style="margin-top: 1em;">xSpeed = -1;
+ySpeed = 0;</pre>
+  <p>Now the xSpeed variable is -1.&nbsp; This means that x += -1 will happen each time the draw loop runs and the square will drift to the left.&nbsp; If we want to drift&nbsp;<strong>down</strong>&nbsp;the screen, we would set the values so that y was
+    steadily increasing and x was not.</p>
+  <pre style="margin-top: 1em;">xSpeed = 0;
+ySpeed = 1;</pre>
+  <p>This is a different way of representing the motion of an object on the screen and it will allow us to move in more complex ways.&nbsp;&nbsp;</p>
+  
+  <br>
+
+
+  <h3>Bouncing Around the Screen</h3>
+  <p>One way of keeping the square inside the canvas is to change the value of x or y to keep the square in bounds.&nbsp; Another would be to change the&nbsp;<strong>direction</strong> of the square, so that it moves back inside.</p>
+  
+  
+  <p>
+    Go back to the Bouncing Around workspace and make sure that the xSpeed and ySpeed are initialized to send the square to the right:
+  </p>
+  
+  <pre>xSpeed = 1;
+ySpeed = 0;</pre>
+  
+
+  <p>This will make the square drift forever to the right, but when the x gets to be too large, we want to turn around.&nbsp; Since x is getting too large, we'll set xSpeed to be -1.&nbsp; This should cause x to start decreasing. Go to the section of the draw
+    function that says ''Check for wall bounce here" and add this if statement:</p>
+  <pre>if( x &gt; width - 15){
+   xSpeed = -1;
+}</pre>
+  <p>Run the program and wait for it to hit the right side of the canvas. When it does, you should see it bounce back to the left.</p>
+  <p>&nbsp;</p>
+  <p><strong>Bouncing Back:</strong></p>
+  <p>Now that it bounces off of the right side, it will infinitely drift to the left.&nbsp; Add another if statement that will check to see if x gets too&nbsp;<strong>low</strong>, and then set xSpeed back to a positive value.</p>
+  <p><strong><iframe src="demos/bouncing_ball/horizontal/index.html" width="220" height="220" data-mce-fragment="1"></iframe></strong></p>
+  <p>&nbsp;</p>
+  <p><strong>Move On to the&nbsp;</strong><strong>Y</strong><strong> Direction.&nbsp; </strong></p>
+  <p>Right now we've set up the code so that the square only moves horizontally. Now that the horizontal bounce is working, we should test the vertical bounce.&nbsp; Go to the setup function and change the speeds so that the square is only moving in the
+    y direction</p>
+  <pre>xSpeed = 0;
+ySpeed = 1;</pre>
+  <p>This should cause the square to drift infinitely downward.&nbsp; Again go to the end of the draw loop and use if statements to switch the value of&nbsp;<strong>ySpeed</strong> when it gets too large or too small.</p>
+  <p><strong><iframe src="demos/bouncing_ball/vertical/index.html" width="220" height="220" data-mce-fragment="1"></iframe></strong></p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h3>Randomizing the Direction</h3>
+  <p><strong><iframe src="demos/bouncing_ball/rand_slow/index.html" width="220" height="220" data-mce-fragment="1"></iframe></strong></p>
+  <p>So far we have had very regulated values.&nbsp; We need more random! Every time that we run this program, we want to have a random location and a random speed.&nbsp; Now change the&nbsp;<strong>setup</strong>&nbsp;function so that it assigns to the
+    four global variables using the random function.</p>
+  <pre>x = random(15,width-15);  
+y = random(15,height-15);
+xSpeed = random(-1,1);
+ySpeed = random(-1,1);</pre>
+  <p>Notice that the random function uses 15 to accomodate for the size of the square.&nbsp; The random x and y that are generated are guaranteed to keep the square on the screen.</p>
+  <p>The&nbsp;<strong>speeds</strong>&nbsp;are randomized from -1 to +1. Negative values are important for the speed of the square. That's how we move left or up.</p>
+  <p>Test your program multiple times to make sure that the square always spawns in a random location with a different direction.</p>
+  <p>&nbsp;</p>
+  <h3>More Speed Variance</h3>
+  <p>Right now we have a decent drifting block, but let's make it go faster. Update the setup function to the following</p>
+  <pre>x = random(15, width - 15);  
+y = random(15, height - 15);
+xSpeed = random(-5, 5);
+ySpeed = random(-5, 5);</pre>
+  <p>The only difference is that the speeds are from -5 to +5.&nbsp; This should cause the square to start our moving much faster than before.</p>
+  <p>&nbsp;</p>
+  <p><strong>Problem: Keeping the Speed Up</strong></p>
+  <p>Starting the speeds at larger values on affects the starting speed of the square, but you'll notice that the first time the square hits a wall it slows back down to 1 or -1 speed.&nbsp; We want to preserve the magnitude of the speed, only flip it to
+    the opposite.</p>
+  <p><strong>Solution Use the Variables!</strong></p>
+  <p>When xSpeed starts out as +3, setting it to a -1 slows it down.&nbsp; Instead we would want the speed to be -3.&nbsp; The same magnitude, but in the opposite direction.&nbsp; This will require setting it to -xSpeed instead of -1.</p>
+  <pre>if( x &gt; width - 15 ){
+   xSpeed = -<span><strong>xSpeed</strong></span>;  //Set it to its <strong>opposite</strong>
+}&nbsp;</pre>
+  <p>Modify all four if statements to use xSpeed and ySpeed like this.&nbsp;&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>Test your program several times.&nbsp; Each time the square should start with a random location and speed, and bouncing off of the walls should not slow it down.</p>
+  <p><iframe src="demos/bouncing_ball/rand_fast/index.html" width="222" height="222" data-mce-fragment="1"></iframe><br />Click above to re-randomize. Yours only needs to randomize on launch.</p>
+  <p>&nbsp;</p>
+
+
+ -->
+
+
+</body>
+
+
+</html>

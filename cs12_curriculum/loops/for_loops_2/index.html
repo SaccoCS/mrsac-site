@@ -1,0 +1,293 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>Drawing with For Loops 2</title>
+</head>
+
+<body>
+  <h1>For Loops 2</h1>
+
+  <h2>Circle Frame</h2>
+  <img src="images/circle_frame.png" alt="Circle Frame example" />
+  <p>Open the <strong>Circle Frame</strong> workspace.</p>
+
+  <p>
+    Your task is to use loops to frame the canvas with circles, as shown in the
+    image above.
+  </p>
+
+  <ul>
+    <li>Each set of circles uses an <code>x</code> or <code>y</code> value that starts at <code>10</code>.</li>
+    <li>That value should increase by <code>20</code> each step.</li>
+    <li>Stop when the value is <strong>greater than or equal to</strong> <code>200</code>.</li>
+  </ul>
+
+  <p>
+    It is possible to do this with a single for-loop, but you may find it easier
+    to use four separate loops (one for each side of the frame).
+  </p>
+<br/>
+<br/>
+
+  <hr />
+
+  <h2>For Loop Random Walk</h2>
+  <p>
+    In our previous Random Walk assignment, we used global variables to
+    represent the location of a circle, and each draw cycle we added a random
+    number between <code>-2</code> and <code>+2</code>. This created a wandering
+    blob that eventually left the canvas.
+  </p>
+
+  <h3>Part 1: The <code>walk()</code> Function</h3>
+  <img src="images/squiggle.png" alt="Random walk example gif" />
+  <p>
+    In this workspace, your first task is to implement the <code>walk()</code>
+    function, whose purpose is to draw 200 steps of a random walk.
+  </p>
+
+  <ul>
+    <li>The function declares <strong>local</strong> <code>x</code> and <code>y</code> variables.</li>
+    <li>They are assigned a <strong>random starting location</strong>.</li>
+    <li>The purpose of the function is to simulate <strong>200 steps</strong> of a random walk.</li>
+  </ul>
+
+  <p>Inside the <code>walk()</code> function:</p>
+  <ol>
+    <li>Write a for loop that runs <strong>200 times</strong>.</li>
+    <li>
+      Each iteration should:
+      <ul>
+        <li><strong>Draw a circle at (<code>x</code>, <code>y</code>)</strong></li>
+        <li>Then modify both <code>x</code> and <code>y</code> by adding a random value between <code>-2</code> and <code>+2</code>.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <p>
+    <strong>Important:</strong> Draw the circle <strong>before</strong> modifying
+    <code>x</code> and <code>y</code>.
+  </p>
+
+  <p>
+    You do not have to randomize the <code>fill()</code> of the circle. The
+    color is already set using the parameter of the function.
+  </p>
+
+  <p>
+    If done properly, running the program should produce a small red squiggle.
+    Each time you run it, you should see a different squiggle at a different
+    starting location.
+  </p>
+
+  <h3>Part 2: Rainbow Splatter</h3>
+  <img src="images/splatter.png" alt="Rainbow splatter example" />
+
+  <p>
+    The <code>walk()</code> function is designed to take in a value as a
+    parameter, then use that value as its color.
+  </p>
+
+  <p>
+    Because the program is using <strong>HSB</strong> mode instead of RGB, the
+    parameter represents the <strong>hue</strong> of the squiggle.
+  </p>
+
+  <p>
+    The <code>draw()</code> function is currently calling <code>walk(0)</code>,
+    which represents red. Update <code>draw()</code> so that it makes a rainbow
+    splatter by calling <code>walk()</code> multiple times using a range of hue
+    values from <code>0</code> to <code>360</code> (for example, increasing by
+    <code>10</code> each time).
+  </p>
+
+  <p>This should produce a pattern similar to the example image above.</p>
+
+<br/>
+<br/>
+  <hr />
+
+  <h2>Dotted Line</h2>
+
+  <h3>Part 1: The <code>dotted()</code> Function</h3>
+  <img src="images/dotted.png" alt="Dotted line example" />
+
+  <p>
+    Your first task is to implement the <code>dotted()</code> function, whose
+    purpose is to draw a dotted line across the screen, starting at a specific
+    <code>x</code> and <code>y</code> location determined by the parameters.
+  </p>
+
+  <ul>
+    <li>Write a for loop to represent the <code>x</code> value.</li>
+    <li>Initialize <code>x</code> to the parameter <code>startX</code>.</li>
+    <li>Increase <code>x</code> by <code>20</code> each step.</li>
+    <li>Stop when <code>x</code> goes past the width of the canvas.</li>
+    <li>Each time through the loop, draw a <strong>10-pixel-wide</strong> horizontal line using <code>line()</code> at the provided <code>y</code> value.</li>
+  </ul>
+
+  <p>
+    If done properly, running the program should produce a single dotted line
+    toward the top of the window.
+  </p>
+
+  <h3>Part 2: Staggered Lines</h3>
+  <img src="images/more_dots.png" alt="Staggered dotted lines example" />
+
+  <p>
+    Now that the <code>dotted()</code> function works properly, our next goal is
+    to create a pattern of dotted lines down the canvas.
+  </p>
+
+  <ul>
+    <li>Update the <code>draw()</code> function with a for loop to represent the <code>y</code> coordinate.</li>
+    <li>Start at <code>y = 4</code>.</li>
+    <li>Increase by <code>9</code> each step.</li>
+    <li>Stop when <code>y</code> goes past the height of the canvas.</li>
+  </ul>
+
+  <p>
+    Each time through the loop, call <code>dotted()</code> using your looping
+    variable for <code>y</code>. We want to stagger every other line:
+  </p>
+
+  <ul>
+    <li>Check whether <code>y</code> is even or odd (hint: <code>%</code>).</li>
+    <li>If <code>y</code> is even, call <code>dotted(-5, y)</code>.</li>
+    <li>If <code>y</code> is odd, call <code>dotted(5, y)</code>.</li>
+  </ul>
+
+  <p>The end result should match the alternating pattern shown above.</p>
+
+<br/>
+<br/>
+  <hr />
+
+  <h2>Growing Rectangles</h2>
+
+  <iframe src="demos/grow_rect/index.html" width="300" height="30"></iframe>
+
+  <p>
+    Hover over the example above. Notice that a row of rectangles is drawn, and
+    that they grow when the mouse gets closer.
+  </p>
+
+  <p>
+    Add a loop to generate a series of <code>x</code> values that are spaced
+    <code>10</code> apart and drawn halfway down the canvas. Each time, draw a rectangle whose height is related
+    to how far the mouse is from the rectangle's <code>x</code>. You can use this calculation:
+  </p>
+
+  <code>let h = 50 / Math.abs(mouseX - x);</code>
+
+  <p>
+    A rectangle drawn using the above as its height will grow as the mouse gets
+    closer to it. You may notice that when you are very close to the center it
+    grows too large and may flicker. Fix this by limiting the maximum height:
+    if <code>h</code> is greater than <code>20</code>, set <code>h</code> to
+    <code>20</code>.
+  </p>
+
+<br/>
+<br/>
+  <hr />
+
+  <h2>Circle Rings</h2>
+
+  <iframe src="demos/circle_rings/index.html" width="300" height="300"></iframe>
+
+  <p>
+    Hover your mouse over the demo above. Notice that when the mouse is close to
+    a ring, it is drawn with a different <code>strokeWeight()</code>.
+  </p>
+
+  <p>
+    In the <code>draw()</code> function, write a for loop whose looping variable
+    represents the radius of the circles:
+  </p>
+
+  <ul>
+    <li>Start at <code>10</code></li>
+    <li>Increase by <code>20</code> each step</li>
+    <li>Stop when the radius reaches <code>130</code></li>
+  </ul>
+  <p>
+    For each radius that you generate, draw a circle centered at 150,150.
+  </p>
+
+  <p>
+    Determine how far the mouse is from the center of the canvas/circles:
+  </p>
+
+  <code>let mouseDist = dist(mouseX, mouseY, 150, 150);</code>
+
+  <p>
+    This is useful because when the mouse is exactly on a circle, the mouse
+    distance will match its radius. Being that exact is difficult, so we will
+    treat it as “close enough” if the mouse is within <code>5</code> pixels of
+    the radius.
+  </p>
+
+  <p>
+    Inside your loop, before drawing each circle, use an <code>if</code>
+    statement:
+  </p>
+
+  <ul>
+    <li>If <code>mouseDist</code> is between <code>radius - 5</code> and <code>radius + 5</code>, use a large <code>strokeWeight()</code>.</li>
+    <li>Otherwise, use a small <code>strokeWeight()</code>.</li>
+  </ul>
+<br/>
+<br/>
+  <hr />
+
+  <h2>Box Highlight</h2>
+
+  <iframe src="demos/box_highlight/index.html" width="340" height="40"></iframe>
+
+  <p>
+    Hover over this demo and notice how the squares change color when the mouse
+    is over them.
+  </p>
+
+  <p>
+    This is very similar to the Spaced Squares assignment that you've already
+    completed. Much of the code will be the same.
+  </p>
+
+  <p>
+    A helpful function is the <code>mouseInBox()</code> function you wrote in
+    the Boolean Functions assignment. Start by copying it into the Box Highlight
+    workspace.
+  </p>
+
+  <p>
+    Like before, each square is drawn <code>30</code> pixels apart, starting at
+    <code>x = 20</code>. Before drawing each square, call your
+    <code>mouseInBox()</code> function to decide whether to use a colorful fill
+    or a white fill.
+  </p>
+
+  <p>
+    Note: <code>mouseInBox()</code> takes four parameters:
+    <code>x</code>, <code>y</code>, <code>w</code>, and <code>h</code>.
+    If you're drawing using <code>square()</code>, you only provide one size, but
+    <code>mouseInBox()</code> still needs both width and height.
+  </p>
+
+  <p>For Example: you may be drawing squares with a line like this`:</p>
+
+  <code>square(x, 20, 20);</code>
+
+  <p>Detecting if the mouse is in that same box would require an if statement like this:</p>
+
+  <code>
+    if (mouseInBox(x, 20, 20, 20)) {<br /><br />
+    }
+  </code>
+</body>
+
+
+</html>

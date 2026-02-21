@@ -1,0 +1,204 @@
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  
+</head>
+
+<body>
+  <h1>Boolean Functions</h1>
+<p>We've previously used functions like dist() to produce a number for use within an if statement. We first get the distance and then make another comparison to check if the distance is small or large. We've also seen that functions don't necessarily have to return a number. They can return a true or false value that tells you something useful toward your program</p>
+<p>&nbsp;</p>
+<h2>Using isKeyDown</h2>
+<p>In p5, the best example of this is the isKeyDown() function. In the background, p5 is keeping track of which keys are currently being held down. Instead of having individual variables representing every single key, the isKeyDown() function will tell you if a key is being held or not. We simply provide the key and it will return a true or false.</p>
+<p>For example: If we needed to know if the up-arrow was being held down, we could use this line of code:</p>
+<pre>let upArrowHeld = isKeyDown( 38 );  //up-arrow has a keycode of 38</pre>
+<p>Depending on the state of the up-arrow when this runs, a value of true or false would be assigned to the&nbsp;isUp variable.</p>
+<p>&nbsp;</p>
+<h4>KeyCodes</h4>
+<p>You may have noticed that Mr. Sacco pulled the value of 38 out of nowhere when we were focused on the up arrow. The parameter for the isKeyDown function is the key's&nbsp;<strong>keycode</strong>, which is an integer that has been&nbsp;chosen to represent the given key. The letter keys are related to the ASCII table. We can explore them using this link and hitting keyboard keys:</p>
+<p><a href="http://keycode.info/">http://keycode.info/</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Example: Key&nbsp;Tracker</h3>
+<p>Open the Key Tracker workspace in CodeHS</p>
+<p>The draw function is simple, it picks a white fill then calls the&nbsp;<strong>drawLetterBox()&nbsp;</strong>&nbsp;function that has been included for simplicity. What we want to focus on is the&nbsp;<strong>fill()</strong> statement that precedes it. It's currently producing a white box when the letter W is drawn</p>
+<pre>fill("white");     //Decide the color of  W the box
+drawLetterBox("W", 100, 75);</pre>
+<p><img src="images/white_w.png" width="54" height="54" /></p>
+<p>Modifying that line will allow us to choose its color.</p>
+<pre>fill("red");     //Decide the color of  W the box
+drawLetterBox("W", 100, 75);</pre>
+<p><img src="images/red_w.png" width="54" height="54" /></p>
+<p>&nbsp;</p>
+<p><strong>Our Goal: </strong>Instead of having to hardcode a white or red fill before drawing the box, we are going to make our program choose between the two fills. A red fill should indicate that the W key is being held down, while a white fill would indicate that it isn't. The isKeyDown() function will be critical to this, as it tells us exactly what we need.</p>
+<p>The keyCode for the W key is&nbsp;<strong>87</strong>, so we could check during the draw() function if the w is being held by calling it.</p>
+<pre>let wDown = keyIsDown(87);  //check if the W is currently held down</pre>
+<p>keyIsDown() returns a <strong>boolean</strong>&nbsp;value directly. This means that the wDown variable could then be used in an if statement to choose a red fill or a white fill for the square to be drawn with.</p>
+<pre>if ( wDown == true )
+&nbsp;&nbsp;&nbsp;&nbsp;fill("red");
+&nbsp;else
+&nbsp;&nbsp;&nbsp;&nbsp;fill("white");
+&nbsp;drawLetterBox("W", 100, 75);
+</pre>
+<p>&nbsp;</p>
+<p>Or, a shorter way would be to realize that the keyIsDown() function returns a boolean, so it can run an if statement directly.</p>
+<pre>&nbsp;if ( <strong> keyIsDown(87)</strong>  )       //boolean function running the if statement directly
+&nbsp;&nbsp;&nbsp;&nbsp;fill("red");
+&nbsp;else
+&nbsp;&nbsp;&nbsp;&nbsp;fill("white");
+&nbsp;drawLetterBox("W", 100, 75);</pre>
+<p>By calling the function directly from the if statement, there is no need to use a variable that is then compared with true. The function provides the true/false directly.</p>
+<p>Modify your sketch to use the if statement above to help it choose a red fill for the square when W is pressed. When you've finished, run your sketch to test and see if it functions. Make sure to click on the canvas before pressing the W button and watching for a response. The W square should be red for as long as you hold the W key. Releasing it should cause it to return to white.</p>
+<p>&nbsp;</p>
+<h3>Your Task</h3>
+<p>Click in the canvas below to trigger the key tracking and notice how it tracks as you press WASD on your keyboard.</p>
+<p><iframe src="https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/demos/wasd_tracker/index.html" width="202" height="202"></iframe></p>
+<p>&nbsp;</p>
+
+  
+  
+  
+  
+ <hr>
+  
+  <h2>Mouse In Circle</h2>
+<p>Open the Mouse In Circle workspace.</p>
+<p>Look at the provided draw() function and you'll see that a circle is being drawn whose&nbsp;fill depends on a boolean isMouseInCircle() function:</p>
+<pre>if( isMouseInCircle(60, 60, 40) )
+&nbsp; fill(255,0,99);
+else
+&nbsp; fill(255);
+
+circle(60,60,40);</pre>
+<p>Notice that the parameters given to the isMouseInCircle() function are the x, y, and radius of the circle that is about to be drawn. It is intended to take that information and return true if the mouse (mouseX, mouseY) is currently within the defined circle.</p>
+<p>But this time the function is not a p5 function, it's one that is included at the top of the window:</p>
+<pre>//Returns true if (mouseX, mouseY) is within
+//the circle at (x,y) with a radius of r
+function isMouseInCircle( x, y, r ) {
+&nbsp;&nbsp;
+&nbsp; return true; &nbsp;
+&nbsp;&nbsp;
+}</pre>
+<p>Notice that it is currently&nbsp;<strong>always returning true.</strong>&nbsp;If you run the sketch, you'll see that this causes the circle to be drawn in magenta. If you modify it to return&nbsp;<strong>false</strong>, you will see that causes the circle to turn white.</p>
+<p>&nbsp;</p>
+<p>Our job will be to write the isMouseInCircle() function so that it works properly. We have done this kind of calculation before. We need to:<br />- Calculate the Distance from (mouseX, mouseY) to the center of the circle<br />- Compare that distance with the radius of the circle<br />- Points within the circle have a distance smaller than the radius</p>
+<p>&nbsp;</p>
+<h4>Mind the Parameters</h4>
+<p>We can see from the draw function that the circle will be at (60,60) and have a radius of 40, but we don't want to use those values directly. We are writing a generic method that should work for all circles, so we should use the parameters that we've been given instead. Change the isMouseInCircle() to look like this:</p>
+<pre>//Returns true if (mouseX, mouseY) is within
+//the circle at (x,y) with a radius of r
+function isMouseInCircle( x, y, r ) {
+&nbsp;&nbsp;
+   //Calculate the Distance from (mouseX, mouseY) 
+   //to the center of the circle
+&nbsp;  let distToCenter = dist(x, y, mouseX, mouseY);
+&nbsp;&nbsp;
+&nbsp; //Points within the circle have a distance to 
+&nbsp; //center that is smaller than the radius
+&nbsp; if( distToCenter &lt; r)
+&nbsp; &nbsp; return true;
+&nbsp; else
+&nbsp; &nbsp; return false; &nbsp;
+
+}</pre>
+<p>You can see that we are following the steps to calculate the distance and compare it with the radius, but we don't see the values <strong>(60,60)</strong>&nbsp;or&nbsp;<strong>40</strong>&nbsp;anywhere. We are only using the variables that represent them. When the function is called during draw, the actual values are provided:&nbsp; isMouseInCircle(<strong>60, 60, 40</strong>). That is the moment that JavaScript assigns values to the variables to be used.</p>
+<p>Test your program by running it and using the mouse to hover over the circle. It should respond by turning magenta.</p>
+<p>&nbsp;</p>
+<h4>Extending to the Other Circles:</h4>
+<p>Notice that there are two other circles commented out at the bottom of the draw function:</p>
+<p>// &nbsp; circle(200,150,80); &nbsp;<br />// &nbsp; circle(130,260,20);</p>
+<p>Your task is to modify draw so that those two circles are also painted with the ability to hover over them and turn them colors. This will involve putting a fill-choosing if statement before each of them. Make sure to update the parameters to match the circle that you're drawing.</p>
+<p>If done properly, you should be able to change the color of all three circles independently by moving the mouse over them.</p>
+<p>&nbsp;</p>
+
+  
+  
+  
+  <hr>
+  
+  
+  
+  <h2>Adding a Boolean Function: mouseInBox</h2>
+<p>We've created functions that return values before. We can use this technique to create our own boolean functions for use in our program.</p>
+<p>Open the mouseInBox sketch<strong><a href="https://editor.p5js.org/isacco@sandi.net/sketches/HyE81kkgV"></a></strong></p>
+<p>If you look at the draw function you'll see the same code four times.&nbsp; First a color is selected based on the function&nbsp;<strong>mouseInBox</strong>, and then a rectangle is drawn.&nbsp; Right now the mouseInBox function always returns true, so the color for all boxes is red.&nbsp; If you changed it to return&nbsp;<strong>false</strong>, all of the rectangles would be green.</p>
+<p>Your job is to fix the mouseInBox function.&nbsp; You should look at the parameters x,y,w, and h and think about where mouseX and mouseY fall in relation to that rectangle.&nbsp; For example: Since we're in rectMode(CENTER), the&nbsp;<strong>left</strong>&nbsp;side of the rectangle would have an x value of x - w/2. If the mouse were in the box, then mouseX should be&nbsp;<strong>larger</strong>&nbsp;than that.&nbsp; A flawed attempt to fix mouseInBox would look like so:</p>
+<pre>function mouseInBox(x, y, w, h) {
+  if(mouseX &gt; x - w/2)   
+    return true;
+  else
+    return false;
+}</pre>
+<p>If you try this, you'll see that this only returns true when the mouseX is to the&nbsp;right of the left side of each box.&nbsp; This is not enough.&nbsp; There are three more sides of the rectangle that need to be checked.&nbsp; We already know that mouseX should be&nbsp;<strong>greater than</strong>, it should also be&nbsp;<strong>less than</strong>&nbsp;the right side of the box. Similarly, mouseY has a maximum and minimum value that it needs to be between.</p>
+<p>In the end the most common solution is a four-part AND statement.</p>
+<p>You know that it's correct when each rectangle switches colors when the mouse enters.&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  <hr>
+  
+  
+  <h2>Using Our Boolean Functions</h2>
+<p>Open the RGB Button Hover workspace</p>
+<p>Running it will reveal that it is drawing three rectangles of differing colors:</p>
+<p><img src="images/three_rectangles.png" width="400" height="80" /></p>
+<p>This is an incomplete sketch. You will notice at the top a comment is giving you something to do:</p>
+<pre>//TODO: Add your completed mouseInBox() function to this sketch</pre>
+<p>Your first task is to copy your mouseInBox() function from the previous sketch and paste it here. If it is incomplete or doesn't function properly, then you shouldn't be on this page yet.</p>
+<p>&nbsp;</p>
+<h3>The drawBG() Function</h3>
+<p>To simplify our focus, the sketch provides a drawBG() function whose sole purpose is to pick a color for the background and color it. Right now it is simply a white background.&nbsp;</p>
+<p>Our goal will be to modify it to choose a background() based on if the mouse is currently hovering over any of the three boxes.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Mandatory Strategy: Use your mouseInBox() to detect which rectangle is clicked.</h4>
+<p>Hopefully you've already copy/pasted&nbsp;your mouseInBox() function from the previous page and inserted it into the sketch. You will not be changing this function for this assignment. This assignment is about&nbsp;<em>using</em>&nbsp;the function that you perfected on the last page.</p>
+<p>Next it's time to modify the&nbsp;drawBG() function so that it calls mouseInBox() and uses the result to choose which color of background to draw:</p>
+<pre>function drawBG(){
+&nbsp;  if(  mouseInBox(100,40,60,30)  )  
+       background("red");
+   else 
+      background("white");
+}
+</pre>
+<p>Look at how the mouseInBox() function is used to run an if statement. The parameters are chosen to match the x, y, width, and height&nbsp;of the red rectangle. If the function works properly, it should only be true when we click the red box.</p>
+<p>Test this out by running your program and making sure that the background only switches to red when you click in the red box.</p>
+<p>&nbsp;</p>
+<h3>Your Task: Complete the Buttons</h3>
+<p>Now that the red button works, expand the if statement in the&nbsp;drawBG() function to add functionality to the green and blue boxes. When completed, you should be able to change the background to any of the three colors by hovering over the corresponding box.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Box Overlap</h2>
+<p>Telling if two boxes overlap is a common situation when detection collisions in games.&nbsp; It is a specifically challenging problem to solve.&nbsp;</p>
+<p>Open the Box Overlap Workspace</p>
+<p>When you run the sketch you should see two boxes, one controlled by the mouse and one stuck in the center.&nbsp; Our goal is for the rectangle in the center to turn red when the two boxes overlap, which is determined by the boxOverlap() function in your sketch.js file. It is currently returning&nbsp;<strong>true</strong>, so the box is always red.</p>
+<p>&nbsp;</p>
+<h3>So Many Parameters...</h3>
+<p>A rectangle is defined with four values: x, y, width, and height.&nbsp; This function needs to compare two different rectangles, so it takes in eight parameters. The parameter names are meant to group them as rectangles 1 and 2. This should help you visualize the two rectangles when thinking the problems through.</p>
+<p>&nbsp;</p>
+<h3>USE THIS STRATEGY</h3>
+<p>We are given all this information and told to tell when the two rectangles are overlapping, but its actually really hard to write one big equation that will be true if they're overlapping. x and y don't have to be within very specific ranges like they did with the last sketch.&nbsp; Instead, realize that it is easy to tell if the rectangles are&nbsp;<strong>not</strong>&nbsp;overlapping.&nbsp;</p>
+<p>For example, when the&nbsp;<strong>right</strong>&nbsp;<strong>side</strong>&nbsp;of&nbsp;<strong>rect 1</strong>&nbsp;is to the left of the&nbsp;<strong>left side</strong>&nbsp;of&nbsp;<strong>rect 2</strong>, then rect 1 is fully to the left of rect 2 and they are not overlapping. This is one situation where boxOverlap() should return false.</p>
+<p>Change the boxOverlap() function to be the following and run the sketch</p>
+<pre>//returns true if box1 overlaps box2
+function boxOverlap(x1, y1, w1, h1, x2, y2, w2, h2) {
+
+    //if 1 is completely left of 2
+    if( x1 + w1/2 &lt; x2 - w2/2 ){
+       return false;
+    }
+
+    return true;
+}</pre>
+<p>Test and make sure that this sketch has a red rectangle 2 until rectangle 1 is dragged far enough to the left.&nbsp; The problem is that if it isn't too far to the left, the function is returning true.</p>
+<p>Continue with the function in this fashion. The key to this strategy is to look for all four possible situations that guarantee that the rectangles don't overlap (left,right, above, below) and to return false in each of those situations.&nbsp; By process of elimination, if none of those return false then the rectangles are overlapping and the function should return&nbsp;<strong>true</strong>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+  
+  </body>

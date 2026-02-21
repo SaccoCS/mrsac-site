@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Casting</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+	<div class="page">
+		<div id="base-info">
+			<div id="header"></div>
+			<div id="navbar"></div>
+			<div class="notes-content">
+				<div id="note-links"></div>
+				<script>
+					$("#header").load("../../header.html #head");
+					$("#navbar").load("../../notenav.html #notenav");
+					$("#note-links").load("notebar.html #note-bar");
+				</script>
+
+
+				<!--All content divs start here-->
+				<div class="note-div">
+					<h2>Casting</h2>
+					<p>Casting is an operation that allows us to temporarily consider a certain piece of data to be <strong>temporarily</strong> considered a different type. Casting counts as an operation, but doesn't have a symbol like +.-,*,%,/. Instead you put the desired type in parentheses ahead of the value that you want to change.
+					</p>
+					<p>
+						You cannot simply cast between any type that you want.  For example if you want to turn a String to an int casting would not work. That's why we have the Integer.parseInt method.  Two main uses of casting are to cast <strong>between ints and doubles</strong>, but they are useful in different ways.
+					</p>
+				</div>
+				<div class="note-div">
+					<h3>
+						Casting to a double to Avoid int Division
+					</h3>
+					<p>
+						The following code is flawed.
+					</p>
+					<div class="code-block">
+						<p>
+							int base = 3;<br/> int height = 5;<br/> double area = base*height/2;
+						</p>
+					</div>
+					<p style="clear:left;">
+						The issue is that we accidentally assumed that all division was equal. Since there are only ints in the expression base*height/2, the result will be calculated using <a href = "int division.html">int division</a> and the area will be 7.0 instead of 7.5 . Assuming that we still want the
+						base and height variables to remain ints, we can use casting to fix our problem.
+					</p>
+
+					<div class="code-block">
+						<p>
+							int base = 3;<br/> int height = 5;<br/> double area = <strong>(double)</strong>base*height/2;
+						</p>
+					</div>
+					
+					<p style="clear:left;">
+						By putting <strong>double</strong> in parentheses in front, we're telling java that the value immediately to its right should be considered a double for this calculation. This means that the <strong>base</strong> variable is considered a double when the division occurs, so the result will not be truncated.
+					</p>
+				</div>
+
+
+
+
+<!--
+				<div class="note-div">
+					<h2>Casting to a double</h2>
+					<p>Casting is an operation that allows us to <strong>temporarily </strong> consider a certain piece of data to be a different type. This means that we can take an int and have it considered to be a double during calculations. This is most useful when
+						you want to overcome <a href="int division.html">int division</a>
+					</p>
+
+					<div class="code-block">
+						<p>int a = 5;<br/> int b = 2</br>
+							double div = a/b;<span style="color:#a00"> // int division -> 2</span></span>
+						</p>
+					</div>
+					<p style="clear:left">
+						In the example above, the programmer wanted to divide a and b to get a 2.5, but since the variables are both ints, the result of the division will be truncated and give a 2.0. Sometimes truncation is fine, but often times you want to overcome the fact
+						that the numbers are ints and do proper division.
+					</p>
+					<h4>Casting</h4>
+					<p>Since the problem above is that both of the variables are ints, one solution would be to <strong>cast</strong> either of the two variables so that it is <strong>temporarily </strong> considered a double, then the division would not be truncated.</p>
+					<div class="code-block">
+						<p>int a = 5;<br/> int b = 2</br>
+							double div = <span style="color:#a00">(double)</span>a/b;<span style="color:#a00"> // double division -> 2.5</span></span>
+						</p>
+					</div>
+					<p style="clear:left">
+						<p>Casting affects the value immediately to its right. In the example above, the value of a is considered a double, which prevents the division from truncating and calculates the expected 2.5 instead.</p>
+				</div>
+-->
+
+				<div class="note-div">
+					<h3>Casting to an int to Force Truncation</h3>
+					<p>The main differences between an int and a double is that doubles are built to handle the decimal portion of a number. While any int may be stored as a double (3 becomes 3.0, 99 becomes 99.0, etc.), not every double may be stored as an int.
+					</p>
+					<div class="code-block">
+						<p> int num = 3.14159 <span style="color:#a00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// <-- Error: Possible Loss of Precision!</span><br/> double value = 2;</br>
+							int result = 5*value;<span style="color:#a00">&nbsp;&nbsp;// <-- Error: Possible Loss of Precision!</span>
+						</p>
+
+					</div>
+					<p style="clear:left">The compiler will stop you any time you try to assign a double to an int variable and tell you there's a 'Possible Loss of Precision'. It doesn't matter if the number 'should be a round number' like 10.0. The compiler rejects is simply because of the type.</p>
+
+
+					<hr/>
+
+					<p>Casting is how we can <strong>temporarily </strong> change the type of a value. When casting a double to an int, casting means that the decimal portion of the number.</p>
+					<p>Casting is an awkward operation. You do it by typing <span style="color:#a00">(int)</span> directly in front of the double.
+
+						<div class="code-block">
+							<p>double pi = 3.14159;<br/> int almostPi = <span style="color:#a00">(int)</span>pi;</p>
+						</div>
+
+						<p style="clear:left">
+							Be careful: When casting to an int, you are agreeing to lose some information. Make sure that an int is what you want.
+						</p>
+					</div>
+				<div class = "note-div">
+					<h3>
+						Casting Comes Before Any Calculations
+					</h3>
+					<p>
+						In the <a href="order_of_operations.html">Order of Operations</a>, casting comes very early ( P<span style = "color:#a00"><strong>C</strong></span>MMDAS ).  It will immediately 'convert' the type to its right unless you use parentheses to denote that you want to cast the result of some other operation.   Look at how each different cast below causes that value to be truncated and affects the value in the end.
+					</p>
+					<div class = "code-block">
+						<p style = "margin-left:5px;">double a = 2.2;</br>
+					double b = 4.5;</br>
+						double sum1 = (int)a + b; <span style="color:#aaa"> &nbsp;&nbsp;// 2 + 4.5  --> 6.5</span></br> 
+						double sum2 = a + (int)b; <span style="color:#aaa"> &nbsp;&nbsp;// 2.2 + 4 --> 6.2</span></br>
+						double sum3 = (int)(a + b);<span style="color:#aaa"> // (int)(2.2 + 4.5) --> (int)(6.7) --> 6</span></br>
+						double div1 = (int)b/2;<span style="color:#aaa"> &nbsp;&nbsp;&nbsp;&nbsp;// 4/2 --> 2</span></br>
+						double div2 = (int)(a + b)/2;<span style="color:#aaa">// (int)(2.2+4.5)/2 --> (int)(6.7)/2 --> 6/2 --> 3</span></br>
+						
+						</p>
+					</div>
+				</div>
+
+
+
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>HandChecker</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style5 {
+	border-style: solid;
+	border-width: 1px;
+}
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style7 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style3">HandChecker</p>
+<p><span class="auto-style1">Inside of sacco.jar, there is a class named Card, 
+which is similar to the one that you&#39;ve created before.&nbsp; It has the 
+following methods.</span><br />
+</p>
+<p><span class="auto-style1">The Card class that I&#39;ve provided is similar to the 
+one that you created earlier.&nbsp; Familiarize yourself with the methods, you 
+will need to know them.</span><br class="auto-style1" />
+<span class="auto-style1"><strong>getSuit()</strong> – returns a String that 
+represents the suit of the Card object (i.e. “Spades”)</span><br class="auto-style1" />
+<span class="auto-style1"><strong>getValue()</strong> – returns a String that 
+represents the value of the Card object (i.e. “Ace”)</span><br class="auto-style1" />
+<span class="auto-style1"><strong>toString()</strong> – returns a String that 
+represents the entire Card object (i.e. “Ace of Spades”)</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+I have enhanced the Card class to have another method:</span><br class="auto-style1" />
+<span class="auto-style1"><strong>getRank()</strong> – returns an int that 
+represents what ‘rank’ the current Card is (Two is lowest and has a rank of 0, Three has a 
+rank of 1, …King has a rank of 11, Ace has a rank of 12)</span><br class="auto-style1" />
+</p>
+<hr>
+<p class="auto-style7"><strong>Implementing the HandChecker interface</strong></p>
+<p>There is another class in sacco.jar named <strong>HandCheckerRunner</strong>, 
+which is in charge of helping generate 5-Card hands that your program is going 
+to test.&nbsp; In order for the runner to work together, the class you&#39;ve 
+created must <strong>implement</strong> the HandChecker <strong>interface.</strong></p>
+<p><strong>How to implement an interface:<br />
+</strong>1) You may call your class whatever you want, but you must end the 
+class header with &quot;implements HandChecker&quot;</p>
+<p>For Example:&nbsp; public class PokerHands implements HandChecker</p>
+<p>2) By completing step 1 you&#39;re promising the compiler that you&#39;ll have all of 
+the methods listed in the HandChecker interface.&nbsp; The compiler will stop 
+you if you are missing even one thing, so add the following methods to your 
+class:</p>
+<pre>public boolean isFlush(Card[] cards)
+public boolean isPair(Card[] cards)
+public boolean isThreeOfAKind(Card[] cards)
+public boolean isTwoPair(Card[] cards)
+public boolean isStraight(Card[] cards)
+</pre>
+<p>3)&nbsp; Write the code that will make each method function with the given 
+parameters.&nbsp; For now, put a dummy statement that returns false for the sake 
+of compiling.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style7"><strong>Running the Runner:</strong></p>
+<p>Once you have the first class compiling, we&#39;ll need a method that runs the 
+HandChecker and involves your code.&nbsp; Add the following method (WARNING: 
+This method assumes your class is called PokerHands)</p>
+<pre>public static void main()
+{
+   HandCheckerRunner.main(new PokerHands());
+}</pre>
+<p>Running this method will pop up the 5-Card selection window like so:</p>
+<p><span class="auto-style4">HandCheckerRunner</span><br />
+<img alt="" height="194" src="images/img9.jpg" /></p>
+<p>When any of the five buttons on the right are pressed, the five displayed 
+cards are generated and the corresponding method is called in your code.&nbsp; 
+The result is displayed to the right of the button.<br class="auto-style1" />
+</p>
+<p><span class="auto-style6">Methods</span><span class="auto-style1">:</span></p>
+<p>
+<table class="auto-style5" style="width: 100%">
+	<tr>
+		<td><span class="auto-style1"><strong>Be Careful:</strong> Use the methods of Card in order to help 
+yourself extract the information that you need. For example: If I have a Card[] 
+named cards and I want to see if the first two Cards have the same suit, I have 
+to first extract the first two Cards out of the array, then I have to use 
+methods to extract their suit.</span><br class="auto-style1" />
+<span class="auto-style1">Card firstCard = cards[0];</span><br class="auto-style1" />
+<span class="auto-style1">String firstSuit = firstCard.getSuit();</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">For those who are more comfortable, these steps can be 
+combined:</span><br class="auto-style1" />
+<span class="auto-style1">String firstSuit =cards[0].getSuit();</span></td>
+	</tr>
+</table>
+<span class="auto-style1"><br />
+Attempt these on your own first.&nbsp; If you&#39;re having trouble with a strategy, 
+check out the <a href="HandChecker%20Hints.html">HINTS</a><br />
+<span class="auto-style2">public boolean isFlush(Card[] cards)</span><br class="auto-style1" />
+returns true if all of the Cards in the parameter have 
+the same exact suit.</span><span class="auto-style2"><br />
+<br />
+public boolean isPair(Card[] cards)</span><br class="auto-style2" />
+<span class="auto-style1">returns true if any two of the Cards in the parameter 
+have the same value.&nbsp; Don&#39;t worry what this method returns true when there 
+are more than two. <br />
+<br />
+</span><span class="auto-style2">public boolean isThreeOfAKind(Card[] cards)</span><br class="auto-style1" />
+<span class="auto-style1">returns true if any three Cards in the parameter have 
+the same value.&nbsp; Don&#39;t worry what this method returns true when there are 
+more than three. <br />
+&nbsp;</span><br class="auto-style1" />
+<span class="auto-style2">public boolean isTwoPair(Card[] cards)</span><br class="auto-style1" />
+<span class="auto-style1">returns true if there are two distinct pairs of Cards 
+in the parameter. </span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style2">public boolean isStraight(Card[] cards)</span><br class="auto-style1" />
+<span class="auto-style1">returns true if the parameter contains 5 cards that 
+are all unique and within one rank of each other. The cards are not necessarily 
+in order from lowest to highest. For the sake of simplicity, assume that Ace is 
+always a high card.</span><br class="auto-style1" />
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name=Title content="Bouncing off the walls">
+<meta name=Keywords content="">
+<meta http-equiv=Content-Type content="text/html; charset=macintosh">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="Bouncing%20off%20the%20walls_files/filelist.xml">
+<link rel=Edit-Time-Data href="Bouncing%20off%20the%20walls_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Bouncing off the walls</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Richard Baker</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Richard Baker</o:LastAuthor>
+  <o:Revision>1</o:Revision>
+  <o:Created>2011-05-13T13:28:00Z</o:Created>
+  <o:LastSaved>2011-05-13T14:03:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>188</o:Words>
+  <o:Characters>1073</o:Characters>
+  <o:Lines>8</o:Lines>
+  <o:Paragraphs>2</o:Paragraphs>
+  <o:CharactersWithSpaces>1317</o:CharactersWithSpaces>
+  <o:Version>10.1316</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:AdjustLineHeightInTable/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Arial;
+	panose-1:0 2 11 6 4 2 2 2 2 2;
+	mso-font-charset:0;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:50331648 0 0 0 1 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Times;}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:Arial;
+	mso-font-kerning:0pt;
+	font-weight:normal;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body bgcolor=white lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1>Bouncing off the walls</h1>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Now that we have a ball that
+drifts across the screen, we can edit our code to create a ball that bounces
+when it hits the wall.<span style="mso-spacerun: yes">&nbsp; </span>The two
+things we&#39;re going to have to do is check for collision against a wall, and
+change the vectors to bounce off of that wall.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>1)<span style="mso-spacerun:
+yes">&nbsp; </span>The Timer will be responsible for first making the ball
+move, then checking to see if it should bounce.<span style="mso-spacerun:
+yes">&nbsp; </span>For our purposes, the ball should bounce when it goes out of
+bounds.<span style="mso-spacerun: yes">&nbsp; </span>The left wall, for
+example, is at x = 0.<span style="mso-spacerun: yes">&nbsp; </span>Once the x
+coordinate of the ball is less than zero, it is in the zone where it should
+bounce<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1027" type="#_x0000_t75" style='width:217pt;
+ height:206pt'>
+ <v:imagedata src="Bouncing%20off%20the%20walls_files/image001.png" o:title="LeftWallBounce.PNG"/>
+</v:shape><![endif]--><![if !vml]><img width=217 height=206
+src="Bouncing%20off%20the%20walls_files/image002.gif" v:shapes="_x0000_i1027"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Be careful on the right
+wall.<span style="mso-spacerun: yes">&nbsp; </span>You have to be aware of
+where x and y really are on the ball.<span style="mso-spacerun: yes">&nbsp;
+</span>Most people leave x and y as the upper left hand corner, which is fine,
+you just have to make sure that you know the right side of the ball is at x +
+ballWidth instead of just x.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>For Example, if you only
+check to see if the x of the ball crosses over the right wall, it will bounce
+too late<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1028" type="#_x0000_t75" style='width:153pt;height:128pt'>
+ <v:imagedata src="Bouncing%20off%20the%20walls_files/image003.png" o:title="RightWallBadBounce.PNG"/>
+</v:shape><![endif]--><![if !vml]><img width=153 height=128
+src="Bouncing%20off%20the%20walls_files/image004.gif" v:shapes="_x0000_i1028"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Modify your if statements to
+adjust for the width of the ball.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1029" type="#_x0000_t75" style='width:212pt;height:152pt'>
+ <v:imagedata src="Bouncing%20off%20the%20walls_files/image005.png" o:title="RightWallGoodBounce.PNG"/>
+</v:shape><![endif]--><![if !vml]><img width=212 height=152
+src="Bouncing%20off%20the%20walls_files/image006.gif" v:shapes="_x0000_i1029"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>2)<span style="mso-spacerun:
+yes">&nbsp; </span>If the Timer decides that the ball should bounce, you simply
+need to reverse the direction of ONE of the vectors.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>To perform a horizontal
+bounce you flip the xVector<span style="mso-spacerun: yes">&nbsp; </span>(<span
+style="mso-spacerun: yes">&nbsp; </span>xVect = -1*xVect; ) while a
+vertical bounce is the yVect.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+  <p class=MsoNormal><span style='font-family:Arial'>The result should look similar 
+    to the sample below:<o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'>
+    <applet code = "WallBounceApplet.class" archive="Pong.jar" width="700" height="500">
+    </applet>
+    <o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

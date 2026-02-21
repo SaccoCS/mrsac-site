@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Object Methods</title>
+<style type="text/css">
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	color: #FF00FF;
+}
+.auto-style4 {
+	color: #008000;
+}
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style5 {
+	font-size: large;
+}
+.auto-style6 {
+	font-size: medium;
+}
+.auto-style7 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Object Methods</h2>
+<p>One key characteristic of objects is that they have methods that belong to 
+the object.&nbsp; This means that once the client/runner has an object, it can 
+call its methods to work with the instance fields.</p>
+<p>&nbsp;</p>
+<p><strong>There are two major categories of methods:</strong></p>
+<p>- <a href="Accessor%20Methods.html">Accessor Methods</a>: These methods don&#39;t change the instance fields, but 
+return some information about the object</p>
+<p>- Mutator Methods: The purpose of these methods is to change the instance 
+fields in some way.&nbsp; Usually nothing is returned from these methods.</p>
+<p>&nbsp;</p>
+<p class="auto-style5"><strong>Method Headers:</strong></p>
+<p>When defining method headers, you must first know three things:</p>
+<p>- <span class="auto-style4">The name of the method<br />
+</span>-<span class="auto-style1"> The return type of the method.&nbsp; You may only 
+have <strong>ONE<br />
+</strong></span>- <span class="auto-style2">Any Parameters that the method might require.&nbsp; 
+There can be as many as you want, just separate them with commas.</span></p>
+<p>The method header goes in the following order</p>
+<p><span class="auto-style7"><strong><span class="auto-style6">public </span>
+</strong></span> <em><span class="auto-style7"><span class="auto-style6"><span class="auto-style1">
+<strong>returnType </strong> </span>
+<span class="auto-style4"><strong>methodName</strong></span>(</span><span class="auto-style2"><strong><span class="auto-style6"> Parameter 
+List </span></strong></span></span>)</em></p>
+<p>While it is legal for methods to be private, our methods will always be 
+public.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style6"><strong>Return Type:</strong></p>
+<p>The return type is is <strong>type</strong>  (String, int, double, or other 
+object) that is expected when the method is called.&nbsp; </p>
+<p>For example:&nbsp; We use String&#39;s indexOf method to locate a String within 
+another String.</p>
+<pre>String str = "Hello World!!!";
+<strong>int</strong> index = str.indexOf("!");</pre>
+<p>After this code has run, the value 11 will be stored into the index variable.</p>
+<p>Within String, indexOf&#39;s method header looks like the following:</p>
+<pre>public <span class="auto-style1"><strong>int</strong></span> indexOf(String s)</pre>
+<p>The return type is an int, which makes sense because its job is to return an
+<strong>index</strong>, which is always an int.</p>
+<p>&nbsp;</p>
+<p><strong>How does this affect the client</strong></p>
+<p>As the person <strong>using</strong> the indexOf method, the return type 
+tells me what type of variable to assign the result of the method to.</p>
+<pre><span class="auto-style1">int</span> index = str.indexOf("!");</pre>
+<p>This would not work if index was anything but an int.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style6"><strong>Parameters:</strong></p>
+<p>The parameters of the method are the values that hold the <strong>extra</strong> 
+information that the method might need in order to complete its task.</p>
+<p>For example:&nbsp; We use String&#39;s substring method to get a portion of a 
+String.</p>
+<pre>String str = "Hello World!!!";
+String <span class="auto-style1">small</span> = str.substring(0,5);</pre>
+<p>After this code has run, the value &quot;Hello&quot; will be stored in the <strong>
+small</strong> variable.</p>
+<p>Within String, substring&#39;s method header looks like the following:</p>
+
+<pre>public <span class="auto-style1">String</span> substring(<strong>int start, int end</strong>)</pre>
+<p>Unlike return types, methods can accept as many <strong>parameters</strong> 
+as it wants.&nbsp; The substring method has two <strong>parameters</strong>, a starting index 
+and an ending index.&nbsp; Those are necessary pieces of information in order 
+for the method to function.&nbsp; Please note that the substring method is a 
+part of the String class, so it already has access to the characters stored in 
+its instance fields.&nbsp; The indices provided are <strong>extra</strong>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>How does this affect the client</strong></p>
+<p>As the person <strong>using</strong> the indexOf method, the return type 
+tells me what type of variable to assign the result of the method to.</p>
+<pre>String small = str.substring(5,11);</pre>
+<p>This would not work if you passed anything but an int into the parameter 
+area.</p>
+<pre>String small = str.substring(&quot;Hello&quot;, &quot;World&quot;);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p><strong><span class="auto-style5">Example</span></strong>:</p>
+<p>Consider the Student class below:</p>
+<pre>public class Student
+{
+   private String name;
+   private double gpa;
+   
+   public Student(String n, double g)
+   {
+      name = n;
+      gpa = g;
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+   
+   public double getGPA()
+   {
+      return gpa;
+   }
+
+   public void setName(String n)
+   {
+      name = n;
+   }
+
+   public void setGPA(double newGPA)
+   {
+      gpa = newGPA;
+   }
+}</pre>
+<p>&nbsp;</p>
+<p>The <strong>getName</strong> method is a basic accessor method.&nbsp; Notice that the return 
+type is a String and that there are no parameters.&nbsp; This means that the 
+following code could be in the runner:</p>
+<pre>Student s = new Student("Gerald I. Joe",4.2);
+String n = s.getName();</pre>
+<p>Notice that there are no parameters and that the returned value is caught 
+with a String variable.</p>
+<p>&nbsp;</p>
+<p>The <strong>setName</strong> method, on the other hand, has <strong>no</strong> return type 
+and a String as a parameter.&nbsp; This means that the following code could be 
+in the runner.</p>
+<pre>Student s = new Student("Gerald I. Joe",4.2);
+s.setName(&quot;Steve&quot;);</pre>
+
+<p>Notice that we are required to provide a String (&quot;Steve&quot;), and that there is 
+no variable to &#39;catch&#39; a value because the return type is void so there is 
+nothing to &#39;catch&#39;.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

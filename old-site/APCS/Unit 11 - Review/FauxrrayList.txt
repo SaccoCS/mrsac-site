@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>Revisiting Pictures</title>
+
+<style>
+
+p,h2,h3,h4,li,ul,ol{
+font-family:Arial;
+}
+
+
+p,li{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 10 15 10 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+</body>
+</html>

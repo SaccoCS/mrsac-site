@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Snake - Adding Game Functions</title>
+
+<style>
+
+h3,h4,h2{
+font-family:Arial, Helvetica, sans-serif;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+<h2>Adding Game Functions</h2>
+<p>There are still a few things left to do before this actually becomes a game.</p>
+<h3>Stopping and Starting</h3>
+<p>At the moment the snake is constantly moving every time the timer ticks.  In order to have more control over this, add a boolean instance field named isRunning to you SnakeWindow class.  The purpose of this boolean is to control the timer.  If isRunning is true, the game will run as it does normally, if it's false the timer method will be disabled.  We're not going to stop the timer, we're just going to stop reacting to it.  Add some code to the onTimerTick method so that it first looks at the isRunning variable before it tries to do anything.</p>
+<p>The isRunning variable should start out as false, meaning that the game isn't running when the window pops up.  We want to make it so that hitting the spacebar will start the game.  Go to the onKeyPress method and make it so that hitting the spacebar, keyCode 32, will set the boolean to true and start the game.</p>
+<p>Test out your program, making sure that when the game loads, nothing happens until you hit spacebar.  You are welcome to choose another key if you would like</p>
+
+<h3>Resetting</h3>
+<p>Add a method to the SnakeWindow named reset.  The purpose of this method is to reset both the food and the snake to starting positions, just as you did in the constructor.  Our hope is that the Snake is in the middle of the window, and the food is at a random location.</p>
+
+<p>Again go to the onKeyPress method and make it so that the reset method is called when "R" is pressed.  Run your program and test it out.</p>
+<hr/>
+<h2>Ways to Lose</h2>
+<p>When playing snake, you must be careful to not hit any of the walls of the grid and not to lap back over yourself.</p>
+<h2>Boundaries</h2>
+<p>We will need a way of detecting if the snake goes out of bounds.  To accomplish this, we're going to give each Square the ability to tell is if it's in bounds or not, given a number of rows and a number of columns.  Go to the Square class and add the following header</p>
+<pre>public boolean isInBounds(int numRows, int numCols)</pre>
+<p>We will assume that the smallest possible row or column is 0.  Implement this method so that it will return true if 'this' Square is within a grid that has the given number of rows and columns.  Don't forget that the last index is always one less than the length.</p>
+
+<p>Once you've finished that, add a method with the exact same method header.  This method will be different because this time we need to consider every Square in the snake's body.  Don't forget to use the method that you just wrote in the Square class.</p>
+
+<p>Finally, add to your SnakeWindow's onTimerTick method some code that will check to see if the Snake is in bounds.  If not, stop the game by setting isRunning to false.</p>
+
+<p>Test out your program by running your game and running your Snake out of bounds.  Use your reset command to test all four of the boundaries.</p>
+
+<h2>Self Overlap</h2>
+<p>The last thing that we need is the ability for the Snake to detect if it runs over itself.  In the Snake class, add a method with the following header:</p>
+<pre>public boolean overlapsSelf()</pre>
+<p>In this method you must check every square in the snake's body against every other square to see if they overlap.  You will need to write a nested loop to accomplish this.  Be careful not to return true when a Square overlaps itself.  This would cause the method to return true every single time it was called.</p>
+<p>Finally, in the onTimerTick method, add some code to make it so that the snake stops when it overlaps itself.</p>
+<p>Test your game out.  You should now have the basic functionality of a Snake game.</p>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Mutator Methods</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>State and Mutator Methods</h2>
+					<p>An object's <strong>state</strong> is a general term for the values stored in the instance fields of an object.  For example, consider the Student class, which holds a student's name and gpa. </p>
+<div class ="code-block" style = "border:1px solid #a00">
+						<p>public class Student<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;private String name;<br/>
+						&nbsp;&nbsp;&nbsp;private double gpa;<br/>
+						<br/>
+						&nbsp;&nbsp;&nbsp;public Student(String n, double g)<br/>&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = n;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpa = g;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/>
+						}</p>
+					</div>
+					
+					<p style = "clear:left">This class itself has no state. It is simply the blueprint for creating Student objects.  The object has a state when it's constructed.</p>
+				
+					<div class = "code-block">
+						<p>Student stu1 = new Student("Zack Morris", 1.85);<br>
+						Student stu2 = new Student("Jessie Spano", 4.8);</p>
+					</div>
+				
+					<p style = "clear:left">The constructed objects stu1 and stu2 are the same <strong>type</strong> of object, but they have different <strong>states</strong>.  One is named Zack and has a low gpa, while the other is named Jessie and has an excellent gpa.</p>
+				</div>
+				
+				<div class = "note-div">
+				<h3>Changing an Object's State with Mutator Methods</h3>
+				
+				<p>Sometimes an object is designed to have a state that isn't permanent and is meant to change as the object gets used. Consider the stu1 object above.  The current state has a very poor gpa.</p>
+				
+				<div style = "
+							border:1px solid #aaa;
+							border-radius:10px 10px 10px 10px;
+							float:left;
+							padding: 0px;
+							margin: 15px;
+							margin-top:5px;
+							line-height:20px;"
+							>
+							<ul style ="
+							list-style-type:none;
+							padding:0px 0px 0px 0px;
+							margin:5px 5px 5px 5px;">
+								<li style = "text-align:center;border-bottom:1px solid #aaa;">stu1</li>
+								<li>name: "Zack Morris"</li>
+								<li>gpa: 1.85</li>
+							</ul>
+						</div>
+						
+						
+						<p style="clear:left">Your GPA is not permanent until you graduate.  It gets updated every time a new set of grades comes in.  This means that when designing the Student object we should include a way to change the <strong>state</strong> of the object by modifying the value of one of the instance fields of the object.  These objects are known as <strong>mutator</strong> objects because they mutate (change) the object.</p>
+						
+						<h4>Basic Mutator Methods</h4>
+						
+				<p>A basic mutator method is a method that takes in a value and simply sets an instance field to be that value.  Let's add a method to the student class that allows us to replace a GPA with a new value.</p>
+				
+				<div class = "code-block">
+					<p style = "font-size:16px;font-weight:700">public void setGPA(double newGPA)</p>
+					</div>
+					
+					<p  style = "clear:left">When designing methods, you need to think about how they function in order to get the method header.  These method's are simply meant to replace the appropriate instance field with the value given as a parameter.</p>
+					
+					<p><strong>Return Type:</strong>  This method's job is not to help the object <strong>produce</strong> anything. It's entire purpose is internal, so it will not be returning any value. We still need to put something as the return type, so we use the special keyword <strong>void</strong> to show that we don't intend on returning anything.</p>
+					
+					<p><strong>Parameters:</strong>  This is where we ask ourselves if we need any extra information to complete this method.  The purpose of this method is to set the gpa to a new value.  We need the user to tell us what that new value should be.  In the parameter section, we crated the <strong>newGPA</strong> variable to represent the double that the user provides.</p>
+					
+					<p><strong>Function:</strong>Overall, our job is to make sure that the <strong>state</strong> of the object changes.  This means an instance field needs to change in some way.</p>
+					<p>Consider the updated Student class</p>
+				
+				 
+				
+				
+				<div class ="code-block" style = "border:1px solid #a00">
+						<p>public class Student<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;private String name;<br/>
+						&nbsp;&nbsp;&nbsp;private double gpa;<br/>
+						<br/>
+						&nbsp;&nbsp;&nbsp;public Student(String n, double g)<br/>&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = n;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpa = g;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/>
+						<br/></p>
+						
+						<p style ="background-color:#fee">&nbsp;&nbsp;&nbsp;public void setGPA(double newGPA)</br>
+						&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpa = newGPA;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/></p>
+						
+						<p><br/>}</p>
+					</div>
+					<p style = "clear:left">There is only one line to this method and it doesn't return anything.  The purpose of this method is to change the <strong>state</strong> of the object, meaning changing the value of one of the instance fields. If you look, the one thing that the method does is assign a new value to the gpa instance field.  That new value comes from the parameters of the method.</p>
+				<div class ="code-block">
+				<p>Student stu1 = new Student("Zack Morris",1.85);<span style = "color:#a00;font-size:9pt;">&nbsp;&nbsp;&nbsp;//Creates the object with 1.85</span><br/>
+				stu1.setGPA(2.0);<span style = "color:#a00;font-size:9pt;">&nbsp;&nbsp;&nbsp;//Changes the object's gpa to 2.0</span></p>
+				</div>
+				<p>This code first creates an object with one state, and then changes that value using the new setGPA method that we just added.</p>
+				<h4 style="clear:left">Parameters</h4>
+				
+				<p>Remember that when a method relys on extra information to complete its task we will need to provide a parameter.  This means defining a temporary variable that will hold whatever is passed in when the method is run.  For the setGPA method we already have access to the instance fields, we just need to know what the user wants the NEW value of the gpa to be.  This is why the newGPA double is created.</p>
+				
+				<div class ="code-block">
+						
+						
+						<p>public void setGPA(double <span style = "color:#a00"><strong>newGPA</strong></span>)</br>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;gpa = <span style = "color:#a00"><strong>newGPA</strong></span>;<br/>
+						}<br/></p>
+						
+						
+					</div>
+				<p style = "clear:left">The newGPA variable is created every time that the setGPA method is called.</p>
+				
+				<div class="code-block"><p>stu1.setGPA(2.0);</p></div>
+				<p style = "clear:left">The value provided by the code <strong>calling</strong> the method is transferred into the parameter.  In this example, the 2.0 provided gets transferred to the newGPA variable.</p>
+				<p><strong>Finish the Purpose</strong></p>
+				<p>Don't forget that the method's job is to actually change the object, you must provide the code so that the instance field is replaced by the parameter.</p>
+					</div>
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

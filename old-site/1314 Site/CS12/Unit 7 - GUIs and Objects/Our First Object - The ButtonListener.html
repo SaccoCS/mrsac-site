@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Our First Object - The ButtonListener</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;font-size:small
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Our First Object - The ButtonListener</h2>
+<p>Objects are created to keep track of information and perform actions using 
+that information.&nbsp; An SFrame, for example, keeps track of the size and 
+title of the window.&nbsp; It has many actions it can perform, such as adding an 
+SButton or to set the visibility.</p>
+<p>SButton keeps track of the text that labels it, but another more important 
+thing that it keeps track of is an object to handle what happens when it&#39;s 
+clicked.&nbsp; That object doesn&#39;t exist yet, it will b our job to write it.&nbsp; 
+Let&#39;s start with a basic GUI.&nbsp; Copy the following class into your project:</p>
+<pre>import sacco.gui.*;
+
+public class EventHandlers
+{
+    public static void myFirstHandler()
+    {
+        SFrame frame = new SFrame("One Button");
+        frame.setLayout(new GridLayout(1,1));
+        SButton button = new SButton("Click Me!");
+      
+        //Line A: Add code here
+        
+        frame.add(button);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}</pre>
+<p><img src="images/img1E2.jpg" /></p>
+<p>There is not much to this layout; just a button added to a frame.&nbsp; At 
+the moment clicking it does nothing, but we can change that.&nbsp; If you look 
+at the API you&#39;ll see that the addButtonListener method takes in a 
+ButtonListener object.</p>
+<p>
+<img border="1" src="images/img22.gif" /></p>  
+<p>Go to the line of code that says //Line A: add code here and add the 
+following lines <span class="auto-style2"><strong>(They will not compile yet 
+because HelloListener doesn&#39;t exist yet, but that&#39;s alright)</strong></span>:</p>
+<pre>HelloListener hListen = new HelloListener();
+button.addButtonListener(hListen);</pre>
+
+<p>&nbsp;These two lines of code first construct a HelloListener object and then pass 
+it into the addButtonListener method.&nbsp; Compiling this code should give an 
+error to confirm 
+that there is not actually a class named HelloListener.&nbsp; So let&#39;s write 
+one:</p>
+<hr>
+<p class="auto-style1"><strong>The HelloListener Object</strong></p>
+<p>We need a SEPARATE class named HelloListener, which counts as a ButtonListener.&nbsp; 
+Start with the following:</p>
+<pre>import sacco.gui.*;
+public class HelloListener implements ButtonListener
+{
+
+}</pre>
+<pre>&nbsp;</pre>
+
+<p class="auto-style1"><strong>Object School:&nbsp; Creating a constructor</strong></p>
+<p>The very first thing that every object does is get constructed.&nbsp; The 
+constructor is simply some code that is run at the very birth of the object.&nbsp; 
+This class doesn&#39;t require anything so the 
+constructor will just be blank, but we&#39;ll write one anyway.&nbsp; </p>
+<p>&nbsp;The 
+constructor is a method that has no return type (no void, int, or String) and is 
+named exactly the same as the class.&nbsp; Add the following code to your 
+HelloListener class:</p>
+<pre>public HelloListener()
+{
+
+}</pre>
+<p>We&#39;ll work more with constructors later, but this is plenty for now.</p>
+<p>&nbsp;</p><hr>
+<p><strong class="auto-style1">Adding a Method</strong></p>
+<p>Once we&#39;ve created the constructor it&#39;s time to add a method for every action 
+that the object can perform.&nbsp; In this case we only need one.&nbsp; The &quot;implements ButtonListener&quot; portion is not required for every object you 
+ever make.&nbsp; We are doing it here because we want it to fit in the 
+&quot;addButtonListener&quot; method&#39;s parameter.&nbsp; This is similar to the way that 
+SFrame&#39;s setLayout method can take in a GridLayout, FlowLayout, or BorderLayout.</p>
+<p>Since we&#39;ve said that we are going to implement ButtonListener, the compiler 
+will give an error until we have a very specific method.&nbsp; Adding a method 
+to an object is very similar to what we&#39;ve been doing, but object methods are 
+not static.</p>
+<p>Add a method with 
+the following header:</p>
+<pre>public void onButtonPress(SButton source)</pre>
+
+<p>This is the EXACT method that this class needs to compile.&nbsp; If you 
+misspell it slightly or forget the parameter it will not compile.&nbsp; This is 
+only because we want to use this particular object with SButtons.</p>
+<p>&nbsp;Add a line 
+of code so that this method prints out &quot;Hello World&quot; when it&#39;s called.&nbsp; At 
+this point your code should compile.&nbsp; You&#39;ll even notice that BlueJ links 
+the classes together to signify that one uses the other.</p>
+<p><img src="images/img30.jpg" border="1" /></p>
+<p>&nbsp;</p>
+<p>Recap:&nbsp; We&#39;ve created the HelloListener object so that we could 
+&quot;addButtonListener&quot; it to our button.&nbsp; When the button is clicked, it will 
+call the addButtonListener method.</p>
+<p>Run the program and watch what happens when you click the button.&nbsp; 
+WOOOOOO!!!</p>
+<hr>
+<p><strong>More with the onButtonPressMethod</strong></p>
+<p>Start by adding a new method to your EventHandlers class with the following 
+header</p>
+<pre>public static void mySecondHandler()</pre>
+<p>This method should create the following GUI:</p>
+<p><img src="images/img3B.jpg" /></p>
+<p>&nbsp;</p>
+<p>Now create a separate class named Shouter.&nbsp; Similar to before make sure 
+that you:<br />
+- implement ButtonListener<br />
+- add a constructor (don&#39;t forget to name it after the class)<br />
+- add an onButtonPress method so that this can be a ButtonListener</p>
+<p><img border="1" src="images/img5D.jpg" /></p>
+<p>Now let&#39;s look at the onButtonPress method.&nbsp; It has an SButton as a 
+parameter (source).&nbsp; What really happens when you click is that the clicked 
+Button calls that method and passes itself in as a parameter.&nbsp; This is how 
+you can tell which button was clicked.&nbsp; Since it&#39;s an SButton, you can call 
+any of the methods in the SButton API.&nbsp; The following code will get the 
+text out the SButton.&nbsp; </p>
+<pre>String text = source.getText();</pre>
+<p>Add another line that will println out the <strong>text</strong> variable.&nbsp; 
+This means that the onButtonPress method will print out the text of the button 
+that was clicked.</p>
+<p>Before you run, go back to the mySecondHandler method and construct a new 
+Shouter object and &quot;addButtonListener&quot; it to all three buttons.&nbsp; If you 
+don&#39;t do this, the buttons will not respond.</p>
+<p>Run the program and click around the buttons.&nbsp; If done properly, the 
+titles of those buttons should print as you click.</p>
+<hr>
+<p><strong class="auto-style1">Modifying the Clicked Button</strong></p>
+<p>Add a new method named <strong>myThirdHandler</strong> and have it create the 
+following GUI.&nbsp; You <strong>must</strong> use a loop to create the buttons 
+for full credit.</p>
+<p><img src="images/img50.jpg" /></p>
+<p>Now create a ButtonListener object named TextFlipper.&nbsp; Add a 
+constructor and an onButtonPress method.&nbsp; The onButtonPress method should 
+look at the text of the source button.&nbsp; If the text says &quot;Yes&quot;, use 
+SButton&#39;s setText method to set the text to &quot;No&quot;.&nbsp; If the text says &quot;No&quot;, 
+switch it to &quot;Yes&quot;.</p>
+<p><img border="1" src="images/img5E.jpg" /></p>
+<p>Run your program and make sure that every time you click the text toggles 
+between &quot;Yes&quot; and &quot;No&quot;.</p>
+<hr>
+<p><strong><span class="auto-style1">Distinguishing Between Buttons</span></strong></p>
+<p>Now that we can get the text of the clicked button, we can now tell which 
+button was clicked.&nbsp; Add a new method named <strong>myFourthHandler</strong> 
+and have it create a GUI that presents one choice on each button.&nbsp; For 
+example:</p>
+<p><img src="images/img56.jpg" /> </p>
+<p>Now create a ButtonListener object named ChoiceAnalyzer.&nbsp; Add a 
+constructor and an onButtonPress method.&nbsp; The onButtonPress method should 
+look at the text of the source button and System.out.println a response to the 
+button they pressed.</p>
+<p>For Example:&nbsp; In my program, clicking the top button would print out 
+&quot;Enjoy the Degobah System!&quot;, while the bottom button would respond with &quot;Try not 
+to be eaten by Jabba&#39;s Rancor&quot;.</p>
+<p><img border="1" src="images/img5F.jpg" /></p>
+<p>&nbsp;</p><hr>
+<p>Program Launcher:</p>
+<p>Add a method to your EventHandlers class named <strong>launcher().&nbsp;
+</strong>The purpose of this method will be to have a GUI to launch the other 
+GUIs.&nbsp; Have this method create a GUI like the one below:</p>
+<p><img src="images/img64.jpg" /></p>
+<p>Each button matches up with one of the other methods.&nbsp; Create an Object 
+named <strong>LaunchListener</strong>, which is also a ButtonListener.&nbsp; In 
+the onButtonPress method, use the text of the button to run one of the method 
+from the EventHandlers class.&nbsp; Reminder:&nbsp; To call <strong>
+<span class="auto-style1">static</span></strong> 
+methods (non-object methods) from the EventHandlers class, put the class name before the method call 
+(instead of a variable).</p>
+<p>For example:&nbsp; If the &quot;Hello&quot; button is pressed then I would call the 
+myFirstHandler method like so:</p>
+<pre>EvenHandlers.myFirstHandler();</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table style="font-family:Arial, Helvetica, sans-serif;font-size:small" border="1">
+	<tr>
+		<td><strong>A note about Objects you just made:<br />
+		</strong>
+		<br />
+		- Not all objects have to implements ButtonListener or have the 
+		onButtonPress method.&nbsp; That was simply so that the objects would 
+		work with the buttons.<br />
+		<br />
+		- Right now the Constructors that we&#39;ve written do nothing.&nbsp; This 
+		is just so we can get used to writing the special header that a 
+		Constructor has.&nbsp; As we write more and more complex objects, the 
+		constructors will be more complicated.<br />
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+
+</html>

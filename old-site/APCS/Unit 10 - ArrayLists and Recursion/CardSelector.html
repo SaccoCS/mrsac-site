@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>CardSelector</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">CardSelector</p>
+<p class="auto-style1">Create a class named CardSelectorBoard, which is a 
+subclass of CardBoard.</p>
+<p class="auto-style1">Override the onMousePress method so that it will take the x 
+and y from the MouseEvent and determine which FlipCard in the List that it 
+clicks.&nbsp; If the FlipCard is clicked, you should use getY to see what the 
+current y is and then set it to a different value.&nbsp; For example, if the y 
+is 20 set it to 5, otherwise set it to 20.&nbsp; This will allow you to lower 
+the FlipCard back down once it&#39;s raised.</p>
+<p class="auto-style1">If you run your code and try it, you will probably have a 
+problem where you click one point, but all of the cards under the card you 
+clicked also raise.</p>
+<pre>public static void selectorRunner()
+{
+    CardSelectorBoard cs = new CardSelectorBoard();
+    cs.setTitle("Card Selector");
+    cs.launch();
+}
+</pre>
+<p><img class="auto-style1" src="images/img1B.jpg" /></p>
+<p class="auto-style1">&nbsp;</p><hr>
+<p class="auto-style3"><strong>Raising a Single Card:</strong></p>
+<p class="auto-style1">We want one click to raise up one FlipCard. To avoid 
+raising all of the FlipCards that are under the mouse, before your loop you 
+should declare a local FlipCard variable named <strong>clickedCard</strong> and set it to null.&nbsp; 
+While looping, if the FlipCard is clicked you should assign it to clickedCard 
+<strong>instead of setting the y</strong>.&nbsp; </p>
+<p class="auto-style1">This will replace the previous FlipCard in 
+clickedCard, causing it to be forgotten.&nbsp; This should cause the last 
+FlipCard that was clicked to be in the clickedCard variable after the loop has 
+finished.&nbsp; This strategy is similar to what we do when finding the largest 
+value in an array.</p>
+<p class="auto-style1"><strong>After the loop has finished</strong>, there are two possibilities:</p>
+<p class="auto-style1">1) At least one FlipCard was clicked, one of them is in 
+clickedCard and should have its y value changed</p>
+<p class="auto-style1">2) No FlipCards were clicked, meaning that the value in 
+clickedCard is 
+still null.</p>
+<p class="auto-style1">Null values are dangerous.&nbsp; Make sure that you check 
+to see if clickedCard contains a null value before you start calling methods.</p>
+<p class="auto-style1">If all goes well you should be able to raise and lower 
+whichever FlipCard that you click on.</p>
+<p>
+<img class="auto-style1" src="images/img1E.jpg" /></p>
+
+</body>
+
+</html>

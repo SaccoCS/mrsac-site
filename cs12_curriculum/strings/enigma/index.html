@@ -1,0 +1,318 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  The Enigma Machine</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+    The Enigma Machine
+  </h1>
+  <h2>How the Enigma Machine Works</h2>
+<p>&nbsp;</p>
+<p><img src="images/machine.png" alt="image.png" width="293"  /></p>
+<p>&nbsp;</p>
+<p>The Enigma Machine was a simple device to operate. As you push letters on the keyboard it scrambles the letter and it lights up a different letter on the Lampboard.</p>
+<p>&nbsp;</p>
+<p>While deciphering the messages was challenging, the basic mechanics were relatively straightforward.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>The Rotors</h2>
+<p>The key to scrambling was to pass a current through a series of rotors.</p>
+<p><img src="images/rotor.png" alt="image.png" width="348" height="257" /></p>
+<p>&nbsp;</p>
+<p>Each one has 26 connectors on each side. Passing current through one of the connectors causes the current to exit on a completely different connector on the other side.</p>
+<p>&nbsp;</p>
+<p>This is accomplished by manually wiring each connector to a different one on the other side.</p>
+<p><img src="images/rotor_explode.png" alt="image.png" width="335" height="310" /></p>
+<p>&nbsp;</p>
+<p>Each rotor is wired in a specific way to ensure that operators sending and receiving the message are getting the same scramble. The machine used a series of multiple rotors to create an unpredictable scramble.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Constant Rotation</h2>
+<p>Each time a letter was pressed, one or more of the rotors would rotate and completely change the scramble. This meant that pressing the same letter twice in a row would produce a different result, again adding a challenge to deciphering.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>Adding Complexity</h1>
+<p>A single scramble would be easy to detect. The key to getting a different scramble was the number of settings that could be changed on the machine. Each day there was a different set of initial settings that the machine would be set to before encoding or decoding a message.</p>
+<p><img src="images/daily_settings.jpg" width="600px" /></p>
+<p>&nbsp;</p>
+<h2>Multiple Rotors in Different Combinations</h2>
+<p>There were only a handful of rotors that would come with each Enigma Machine, each with a specific wiring. But the rotors were meant to be used in a series of 3 or 4 and they could be placed in any order, and with a different initial rotation. Each combination of rotors and initial rotations would provide a different scrambling of the letters.</p>
+<p>You can see in the 'Walzenlage' column above the roman numberals of the rotors and which order they were. On the 31st, they were IV, V, and I.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Initial Rotations</h2>
+<p>Each rotor had 26 possible rotations. After entering the appropriate rotors, the operator would rotate each one to an initial position.</p>
+<p>In the form above this is the 'Ringstellung' column. On the 31st the rotors would be rotated to notch 21, 15, and 16 before the first letter was encoded.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>The Plugboard</h2>
+<p>Another way of mixing up the scramble was to use the plugboard on the front of the machine.</p>
+<p><img src="images/plugboard.jpg" width="350px" /></p>
+<p>&nbsp;</p>
+<p>The purpose of each plug would be to swap its input with a completely different letter before inputting it.</p>
+<p>&nbsp;</p>
+<p>In the form above, this is the 'Steckerverbindungen' column, which lists ten pairs of letters that are to be swapped:</p>
+<p>KL IT FQ HY XC NP VZ JB SE OG.</p>
+  
+  <br><br><hr>
+  
+  <h2>A Simplified Enigma Machine</h2>
+<p>For this assignment we are going to be emulating the scrambling power of the Enigma Machine. Before we do, we are going to simplify it down to a simplified version that allows you to trace the scrambling of each rotor visually.</p>
+<p><img src="images/simple1.png" alt="image.png" /></p>
+<p>Open the Enigma Machine assignment in CodeHS. There you can read about the Simplified Enigma Machine and practice using it before coding it.</p>
+  
+  
+  
+  <br><br><hr>
+  
+  
+  
+  
+  <h3>Coding the Rotors Using a Rotor Key</h3>
+<p>We are going to write a program that mimics the Paper Enigma Machine's rotors, with Strings! We first need to look at how they could be used.</p>
+<p>Let's look at the first five connections of rotor 1:</p>
+<p><img src="images/simple_wird.png" alt="02087af5-4cd8-4d33-ac7f-eadb6c36c65d.png" width="118" height="144" /></p>
+<p>&nbsp;</p>
+<h4>Index to Index Scramble</h4>
+<p>Even though the end goal is to scramble letters, when we write our scrambling function we are going to want it to scramble from index to index. The top index will be index 0, and they will increase from there. With rotor 1 above, index 0 on the left scrambles to index 2 on the right, and index 4 scrambles to index 1.</p>
+<p>&nbsp;</p>
+<h5>The Rotor Key</h5>
+<p>We need a way to track which connections are being made from one side to the other. This is where the strings are going to get involved. You've already noticed that each index on the left side is labeled with a letter, laid out alphabetically. The letter at each index of the key string is made by tracing back to the left and seeing which letter is at that index.</p>
+<p><img src="images/simple_wire2.png" alt="76410d76-f615-4a5f-9be8-07f62f2be407.PNG" width="164" height="189" /></p>
+<p>For this shortened version of rotor 1, the key string would be: "DEABC".&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Using the Rotor Key String to Scramble:</h5>
+<p>The rotor's key string is all we need to know in order to perform a scramble. We just have to remember that the left side is the alphabet, and the key represents the right side:</p>
+<p>left side:&nbsp; &nbsp; "ABCDE"<br />right side:&nbsp; "DEABC"</p>
+<p>We can use these string to scramble indices. Look at our previous example of scrambling index 0:<br />- We start on the left, where we find&nbsp;<strong>A</strong>&nbsp;at index 0.<br />- We search the right (the key) for the same letter<br />- The index its found is our scrambled value:&nbsp;<strong>2</strong></p>
+<p>Try to scramble index 4 using the strings to confirm that you know how it scrambles to index 1</p>
+<p>&nbsp;</p>
+<h5>Right to Left As Well</h5>
+<p>You can also use the strings to scramble in the reverse direction, which we will have to do eventually. Let's scramble index 0 again, but this time from right to left.&nbsp;<br />- We start on the right, where we find&nbsp;<strong>D</strong>&nbsp;at index 0.<br />- We search the left (the alphabet) for the same letter<br />- The index its found is our scrambled value:&nbsp;<strong>3</strong></p>
+<p>&nbsp;</p>
+<p>Open the Enigma Machine Workspace in CodeHS</p>
+<p>There you will find a&nbsp;setup() function that's only calling setupTester( 1 ). There are five different phases that are each going to need different testing. As we progress, we will change the parameter here to get the correct tester setup.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Phase 1: Scrambling From Left to Right</h4>
+<p>Further down the sketch, you will also find&nbsp;the incomplete scrambleLtoR() function, which has two parameters: the <strong>rotorKey </strong>and the <strong>inputIndex</strong>. Our job is to also use the global&nbsp;<strong>alphabet</strong>&nbsp;variable to help us scramble the inputIndex variable starting with the 'left' and ending on the right. This means that the alphabet will represent the left side of the rotor and rotorKey will represent the right.</p>
+<p>String Methods to Remember:<br />&nbsp;- String's&nbsp;<strong>charAt()</strong>&nbsp;function returns the letter at a given index<br />&nbsp;- String's&nbsp;<strong>indexOf()&nbsp;</strong>function searches for a string within another string and returns the index</p>
+<p>Follow the steps outlined in the comments to scramble the inputIndex variable and return the result.</p>
+<p>&nbsp;</p>
+<h4>Testing:</h4>
+<p>If you run your program, you'll see that calling <strong>setupTester(1)&nbsp;</strong>has created a testing window to help test your scrambleLtoR() function using Rotor#1.</p>
+<p>Clicking a letter will show four values:<br />&nbsp; &nbsp; - The letter that you clicked.<br />&nbsp; &nbsp; - The index that matches it.<br />&nbsp; &nbsp; - The scrambled index that your function returned.<br />&nbsp; &nbsp; - The letter that it represents.</p>
+<p>When you click the&nbsp;<strong>A</strong>, you should see:</p>
+<h5>A -&gt; 0 -&gt; 2 -&gt; C</h5>
+<p>The <strong>A</strong> currently aligns with index<strong> 0</strong>, which should scramble to <strong>2</strong> when using rotor 1. This aligns with the letter <strong>C</strong>.</p>
+<p>If the scrambled index/letter are off, check your scrambleLtoR() again.</p>
+  
+  
+  
+  
+  
+  
+  
+  <br><br><hr>
+  
+  
+  
+  <h2>Phase 2: Adding a Shift</h2>
+<p>The complexity of the machine comes from the fact that all the rotors could turn, shifting all the connections. With the paper Enigma Machine, this is accomplished by sliding the rotor up one notch:</p>
+<p><img src="images/simple_shift.png" alt="33720698-876c-4d83-ad97-8fb957539408.png" width="280" height="171" /></p>
+<p>With this shift, the top index of the input no longer connects to index 0 of the rotor. Instead it connects one index higher in the left of the rotor, causing a different connection/scramble.</p>
+<p>We can easily adjust our algorithm to accommodate for this<br />&nbsp; - Every index of the input connects to a location <strong>one index higher</strong> in the rotor than it used to<br />&nbsp; - The output index of each of the connections now connects <strong>one index lower&nbsp;</strong>than it used to</p>
+<p>&nbsp;</p>
+<p>Modify the header of the scrambleLtoR() function to have an extra parameter named shift.</p>
+<h5>function scrambleLtoR(rotorKey,inputIndex<strong>, shift</strong>)&nbsp;</h5>
+<p>The added parameter indicates how much the rotor is shifted. This means that we have to modify our code in two places:<br />&nbsp;&nbsp;- Instead of using inputIndex directly to access the character in alphabet, we need to <strong>add</strong> shift to it first.<br />&nbsp; - Instead of returning the scrambled index directly, we need to <strong>subtract </strong>shift from it first.</p>
+<p>Make these changes to your function.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>Now the code in the setup() function is out of date. It was not testing the scrambleLtoR() function with a shift value. <strong>Modify</strong>&nbsp;the setup() function to setup the tester interface for phase 2:</p>
+<pre>function setup(){
+    setupTester( <strong>2</strong> );
+}
+</pre>
+<p>&nbsp;</p>
+<p>Run the sketch. The basic functionality is the same. You click a button and it calls your scrambleLtoR() function using the key to rotor 1. This time it&nbsp;<em>also</em>&nbsp;adds a&nbsp;<strong>shift</strong>&nbsp;value of 1, so the scrambling will be according to the shifted image above.</p>
+<p><strong>Test the first four letters:</strong><br />A should still encode to C<br />B should still encode to D<br />C should&nbsp;cause an error (More about that soon. Try to guess why by looking at the picture).<br />D should now encode to A</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Fixing the Wrap Around Problem</h4>
+<p>Encoding the letter C in this way is causing a problem. The output index ends up being -1 and causing a <strong>NaN</strong>&nbsp;to appear. If you trace it in the image below, you'll see that the shift is taking us off the page.</p>
+<p><img src="images/simple_shift.png" alt="33720698-876c-4d83-ad97-8fb957539408.png" width="280" height="171" /></p>
+<h5>Wrap Around</h5>
+<p>In reality, the wheel like nature of the rotors won't allow this to happen. When you tape these paper strips into a tube, above the&nbsp;<strong>A</strong>&nbsp;location in each rotor should be its own&nbsp;<strong>Z&nbsp;</strong>location. We need to program this 'wrap around' feature into our code so that we don't get errors in these situations.</p>
+<p>The problem is that shifting may give us values that are either larger than 25, or less than 0. In those situations we need to adjust by adding or subtracting 26.</p>
+<p>In our example where&nbsp;<strong>C</strong>&nbsp;maps to a -1, we would&nbsp;<em>add </em>26 to get 25, the index of&nbsp;<strong>Z</strong>.&nbsp;</p>
+<p>To fix this, modify shiftLeftToRight() to take an extra step in two places: after the input index is&nbsp;<strong>increased</strong>&nbsp;and after it's&nbsp;<strong>decreased</strong>. After each of these, use an if statement to check if the new value has gone out of range and add or subtract <strong>26</strong>&nbsp;to bring it back into range.</p>
+<p>&nbsp;</p>
+<h4>Test</h4>
+<p>Run your program and scramble the letter C again. It should now scramble to a Z instead.</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br><br><hr>
+  
+  
+  
+  <h3>More Scrambling</h3>
+<p><img src="images/scramble_trace.PNG" alt="eefe25a1-b1c1-461f-9dd2-2e5930f5a679.PNG" width="330" height="191" /></p>
+<p>We've been scrambling from left to right so far, but that is only 3 of the 7 scrambles that we're hoping to do. We still need to be able to mimic two more pieces: the <strong>Reflector</strong> and the <strong>Reverse Scramble</strong></p>
+<p>&nbsp;</p>
+<h4>The Reflector</h4>
+<p>After the signal passes through three rotors, it enters the Reflector, which has its input and output connections on the same side. This causes the signal to then be fed back through the rotors in the opposite direction.</p>
+<p>We don't need a special function for this! We can still develop a Rotor Key for the reflector that will act properly if we use it with our scrambleLtoR() function.</p>
+<p>REFLECTOR ROTOR KEY "EDHBAILCFMOGJSKRUPNWQZTZVX"</p>
+<p>The way that the reflector is wired, the result will be the same if you scramble Left to Right or Right to Left.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Phase 3: Right to Left Scrambling</h4>
+<p>After the signal passes through the Reflector, it travels backwards through the rotors in reverse order, scrambling again as it travels.</p>
+<p>Add a new function to your sketch with the following header:</p>
+<h5>function scrambleRtoL(rotorKey, inputIndex, shift)</h5>
+<p>The difference this time is that the 'input' is on the right of the rotor, and the output is on the left. Meaning that you should first get the char from the&nbsp;<strong>rotorKey</strong>&nbsp;instead of alphabet. And when you are searching for the output index, you should be looking in <strong>alphabet</strong>&nbsp;instead of rotorKey.</p>
+<p>This may be as simple as copy-pasting your other scramble function and changing it at two locations.</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>Now the code in the setup() function is out of date. It was not testing the scrambleRtoL() function. Modify&nbsp;the setup() function to setup the tester interface for phase 3:</p>
+<pre>function setup(){
+    setupTester( <strong>3</strong> );
+}
+</pre>
+<p>&nbsp;</p>
+<p>Run the sketch. The difference this time is that it is specifically testing your new scramble<strong>RtoL</strong>() function. The scrambling should be different than before.</p>
+<p>A should scramble to D<br />E should scramble to C</p>
+  
+  
+  
+  
+  
+  
+  <br><br><hr>
+  
+  
+  
+  <h2>Phase 4: A Full Scramble</h2>
+<p>&nbsp;</p>
+<h4>Free Rotor Keys!</h4>
+<p>Now that we have our scramble functions we can use them to simulate several rotors.&nbsp; Add the following variable as global variables to your sketch:</p>
+<pre>const rotor1Key =    "DEABCHFIGKNJLPMSTOVQRWUYZX";
+const rotor2Key =    "BAFCDEHIGLMJKONRPQTUSXYZVW";
+const rotor3Key =    "BCFAGHDEJILKNOPMSTQRXYZUVW";
+const reflectorKey = "EDHBAILCFMOGJSKRUPNWQYTZVX";
+</pre>
+<p>The word&nbsp;<strong>const</strong>&nbsp;stands for&nbsp;<strong>constant</strong>, which simply means a variable that you won't be allowed to change.</p>
+<p>These are the rotor keys for the three rotors on the paper Enigma machine. When you want to call one of the scramble functions, we can now use one of these variables instead of using the entire string. For example, scrambling an A (index 0) using rotor 1 with no shift would look like this:</p>
+<pre>let <strong>scram1 </strong>= scrambleLtoR( <strong>rotor1Key</strong>, 0, 0);            //Scrambles index 0 through rotor 1 with no shift.
+let scram2 = scrambleLtoR( <strong>rotor2Key</strong>, <strong>scram1</strong>, 0);  //Feeds the output from rotor 1 output to the input of rotor 2
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>The Full Scramble</h4>
+<p><img src="images/scramble_trace.PNG" alt="eefe25a1-b1c1-461f-9dd2-2e5930f5a679.PNG" width="330" height="191" /></p>
+<p>We now have a way to simulate scrambling through the rotors in both directions. This is important because we are now going to simulate a full scramble, which&nbsp;should scramble through three rotors, a reflector, and back through the rotors again.</p>
+<p>&nbsp;</p>
+<p>Add a new function to your sketch with the following header:</p>
+<h5>function encryptLetter( letter )</h5>
+<p>The purpose of the encryptLetter() function&nbsp;is to take the parameter letter and encrypt it using the full Enigma process, returning the encrypted letter as a character.</p>
+<p>This will require several steps</p>
+<p>- Convert the input letter to an index<br />- Scramble LtoR through rotors 1, 2, and 3<br />- Scramble through the reflector<br />- Scramble RtoL through rotors 3,2, and 1<br />- Convert the scrambled index to a letter<br />- Return the letter<br />&nbsp;</p>
+<h5>Tips:</h5>
+<p><strong>Converting Character to an&nbsp;Index:&nbsp;</strong>You can use char() and unchar() for this. Keep in mind that ASCII values are 65 away from where they should be. You may also use the alphabet constant to help you: indexOf() and charAt() would be helpful functions.</p>
+<p><strong>No Shift Yet:</strong> For now we are not shifting. The third parameter in each of your calls to a scramble function will be 0.</p>
+<p><strong>Going from One Rotor to the Next:&nbsp;</strong>Each time you call a scramble function it will return a value that is meant to be the input of the next. Each time you call a scramble function it will return an index, assign the result to a variable so that you may use it as a parameter in the next function call. Here's an example of scrambling an A (index 0) through rotor1 and feeding the result through rotor2</p>
+<pre>let <strong>scram1 </strong>= scrambleLtoR( <strong>rotor1Key</strong>, 0, 0);            //Scrambles index 0 through rotor 1 with no shift.
+let scram2 = scrambleLtoR( <strong>rotor2Key</strong>, <strong>scram1</strong>, 0);  //Feeds the output from rotor 1 output to the input of rotor 2
+</pre>
+<p>The full scramble will require seven different index scrambles before turning it back into a character and returning it.</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>Now the code in the setup() function is out of date. It was not testing the scrambleLtoR() function with a shift value. <strong>Modify</strong>&nbsp;the setup() function to setup the tester interface for phase 4:</p>
+<pre>function setup(){
+    setupTester( <strong>4</strong> );
+}
+</pre>
+<p>This version will test your encryptLetter() function in the same way that it has tested all. The first thing that you should do is test the highlighted path above. You should click&nbsp;<strong>B</strong>&nbsp;and expect it to convert to&nbsp;<strong>C</strong>. If not, you may need go back and console.log() each scrambled index along the way:</p>
+<p>Here is a list of all the indices that will shift when you try to scramble B. You can compare that to your&nbsp;</p>
+<p>The letter B is represented as index 1<br />Rotor 1 scrambles index 1 to index 3<br />Rotor 2 scrambles index 3 to index 4<br />Rotor 3 scrambles index 4 to index 7<br />The Reflector scrambles index 7 to index 2<br />Rotor 3 scrambles index 2 to index 5<br />Rotor 2&nbsp;scrambles index 5 to index 4<br />Rotor 1 scrambles index 4 to index 2<br />Index 2 is represented with a C</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br><br><hr>
+  
+  
+  
+  
+  <h2>Phase 5: Full Message Encryption</h2>
+<p>We now have a function with the ability to see what one letter will scramble to. We can now use it to process entire messages. Add a function with the following header to your sketch:</p>
+<h5>function encryptMessage( mess )</h5>
+<p>&nbsp;</p>
+<p>The encodeMessage() function's purpose is to loop through the parameter&nbsp;<strong>mess</strong>&nbsp;one character at a time. It should call the encryptLetter() function with each character in the String, and create and return a&nbsp;new String with the results.</p>
+<p>Note: This is similar to a lot of recent loops<br />&nbsp; - Use a for loop with charAt() to access each character<br />&nbsp; - Call encryptLetter() with each character&nbsp;, adding the result to a String accumulator before moving to the next letter.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>Now the code in the setup() function is out of date. It was not testing the scrambleLtoR() function with a shift value. <strong>Modify</strong>&nbsp;the setup() function to setup the tester interface for phase 5:</p>
+<pre>function setup(){
+    setupTester( <strong>5</strong> );
+}
+</pre>
+<p>This version is very different. Instead of a single letter input and output, there is an input field for you to type a message. When you hit&nbsp;<strong>go</strong>, that message will be passed to your encryptMessage() function and display the result.</p>
+<p>Test your function with the word: <strong>SACCO</strong>.&nbsp; It should encode to <strong>PLBBK</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Adding One Rotation Each Letter</h4>
+<p>Though we're able to mimic travelling through all the rotors and the reflectors, at the moment we are still making an easily broken code. A will always encode to L, and that makes it easily cracked.&nbsp; For example: If you are a student of Mr. Sacco, you likely have seen his name used as sample data&nbsp;a thousand times. The fact that we have&nbsp;a five letter word with a double letter in the third and fourth location, should be a clue that the word may be SACCO.</p>
+<p>The true randomness of the Enigma Machine came from the fact that you rotated a rotor once for each letter in the message. This causes all the connections to be completely different and cause an entirely new scramble&nbsp;to occur. Much more unpredictable</p>
+<p>&nbsp;</p>
+  
+  <p>
+    Modify your program to have three global variables representing the shift of each rotor:
+  </p>
+  
+  <pre>let shift1 = 0;
+let shift2 = 0;
+let shift3 = 0;
+</pre>
+  
+  <p>
+    These variables are meant to track the rotation/shift amount for each rotor. Modify your encryptLetter() function so that each call to a scrambling function now includes a shift variable that matches the rotor:
+  </p>
+  <pre>let scram2 = scrambleLtoR( rotor2Key, scram1, <strong><span style ="color:green">shift2</span></strong>);</pre>
+  
+  <p>
+    This should be done six times. One for each rotor in each direction. The reflector has no rotation, so it should remain at 0.
+  </p>
+  
+  
+<!-- <p> The next step is to modify the encryptMessage() function so that it rotates Modify the inside of your loop to use the&nbsp;<strong>shift1, shift2,&nbsp;</strong>and&nbsp;<strong>shift3</strong>&nbsp;variables when you call a scramble function (except the Reflector step, which doesn't rotate so it should always be 0). Since these values are 0 at the moment, it shouldn't have an effect on the scrambled message yet. Test your program again with SACCO to make sure that you get the same result.</p> -->
+<p>&nbsp;</p>
+<h4>Rotating&nbsp;Rightmost Regularly</h4>
+<p>The Enigma Machine was made so that pressing a key would:<br />1) Scramble the letter pressed<br />2)&nbsp;Rotate the rightmost rotor by 1 to set up for the next press</p>
+<p>You can do this in your code. In the <strong>encryptMessage()</strong> funciton, modify the inside of your for loop so that after you havecall encrypt letter, you &nbsp;increment the shift3 variable by one. This will give the next letter a completely different scramble.&nbsp;</p>
+<p>&nbsp;</p>
+<h4>TEST</h4>
+<p>Run your program one more time. This time entering SACCO should result in the scrambled: <strong>PNWNY</strong>.</p>
+<p>Notice that the double letter in the message no longer leads to a double letter in the encryption. Making it much more secure.</p>
+  
+</body>
+</html>

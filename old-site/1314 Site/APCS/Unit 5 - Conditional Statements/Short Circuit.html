@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Short Circuit</title>
+<style type="text/css">
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif">Short Circuit Evaluation</h1>
+<p class="auto-style2"><span class="auto-style4">The following program should be solved using 
+</span> <strong><span class="auto-style4">short circuit 
+evaluation</span></strong><span class="auto-style4">, which means that each 
+method has an operation that might crash 
+the program and you need to use an &amp;&amp; or an || to protect it.&nbsp; Since Java 
+stops attempting to evaluate AND and OR statements the moment it knows the 
+guaranteed result.&nbsp; On the far left, add a boolean condition that will 
+guarantee that the dangerous code will not run.</span></p>
+<p><span class="auto-style3">For example:</span><br class="auto-style3" />
+<span class="auto-style3">If I&#39;m checking to see if the last 4 digits of a String are &quot;.com&quot;, there is a 
+possibility that str.substring(str.length()-4) could crash the program when the 
+length of the String is less than 4.&nbsp; So an if statement might be the 
+following:</span></p>
+<p class="auto-style3">if( str.length()&gt;=4 &amp;&amp; str.substring(str.length()-4).equals(&quot;.com&quot;) )</p>
+<p class="auto-style3">Now it&#39;s impossible to crash during this if statement.&nbsp; In the case that 
+the length is too small, the first portion of the if statement will become 
+false, preventing the second part from even evaluating.</p>
+<hr>
+<p class="auto-style3">Copy and Paste the Program below into your project.&nbsp; This class is in 
+charge of holding a String as an instance field so that various methods can tell 
+us something about that String.</p>
+<p class="auto-style3">Each of these have a specific way of crashing the program, so be sure to use 
+short circuit evaluation to protect them.</p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td><pre>import javax.swing.JOptionPane;
+
+public class StringAnalyzer
+{
+   private String myStr;
+
+   public StringAnalyzer(String str)
+   {
+       myStr = str;
+   }
+
+   /**
+    * returns true if the String can be divided evenly into a given numOfPieces
+    * BEWARE:  Dividing by zero will crash your program!
+    */
+   public boolean canBeDividedEvenly(int numOfPieces)
+   {
+      return false; //dummy statement
+   }
+
+   /**
+    * returns true if the letter contained in the parameter String is at
+    * the given index
+    * BEWARE: index is not guaranteed to be in the bounds of the String
+    */
+   public boolean isThisLetterAt(String letter, int index)
+   {
+      return false; //dummy statement
+   }
+
+   /**
+    * returns a substring including every after the first &quot;x&quot; in the instance field.
+    * BEWARE: indexOf will return a -1 if the x isn&#39;t found (return &quot;&quot; if this is the case)
+    */
+   public String everythingAfterTheX()
+   {
+      return null; //dummy statement
+   }
+
+   /*
+    * Uses the sometimes glitchy JOptionPane to get a new String into the instance field
+    * BEWARE:  When cancel is pressed, the JOptionPane returns null.  null is a special value that
+    * will cause the program to crash if ANY method is called using myStr.  To protect from this, modify the 
+    * previous methods to include myStr != null as a part of their short circuit evaluation
+    */
+   public void getNewString()
+   {
+      myStr = JOptionPane.showInputDialog(&quot;Please enter a new String&quot;); 
+   }
+}</pre>
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

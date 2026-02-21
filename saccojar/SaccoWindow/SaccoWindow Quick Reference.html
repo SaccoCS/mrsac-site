@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small
+}
+.auto-style1 {
+	font-size: large;
+}
+.auto-style2 {
+	color: #FF0000;
+}
+.auto-style3 {
+	color: #0000FF;
+}
+.auto-style4 {
+	color: #00FF00;
+}
+.auto-style5 {
+	font-size: medium;
+}
+</style>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>SaccoWindow Quick Reference</title>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">SaccoWindow Quick Reference</h2>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Building a Basic SaccoWindow:</strong></p>
+<p>SaccoWindows can do a few things, but they all build off of first creating a 
+custom SaccoWindow object.&nbsp; In order to define your own custom SaccoWindow, you must follow a few rules.</p>
+<p>1)&nbsp; Link your BlueJ to sacco.jar:&nbsp; This only has to be done once</p>
+<p>2)&nbsp; <span class="auto-style2">import sacco.*;&nbsp;</span> - This is the location of the SaccoWindow that we 
+are building off of</p>
+<p>3) <span class="auto-style3">&nbsp;Extend SaccoWindow</span> - In order to inherit all of SaccoWindow&#39;s abilities, 
+you must make sure that your class <strong>extends SaccoWindow</strong></p>
+<p>4)&nbsp; <span class="auto-style4">Override the paintWindow Method</span>:&nbsp; This is where you use the Canvas 
+object to define what the window looks like (unless you&#39;re happy with a blank, 
+white window</p>
+<p>&nbsp;</p>
+<p><strong>Example:&nbsp;</strong> The DemoWindow below will appear with a big green rectangle in 
+the center of it.</p>
+
+<pre><span class="auto-style2"><strong>import sacco.*;</strong></span>
+public class DemoWindow <span class="auto-style3">extends SaccoWindow</span>
+{
+    @Override
+    <span class="auto-style4"><strong>public void paintWindow(Canvas c)</strong></span>
+    {
+       c.setColor("GREEN");
+       <strong>c.fillRectangle(50,50,400,400);</strong>
+    }
+}</pre>
+
+
+<hr/>
+<p class="auto-style1"><strong>Event Handling:</strong></p>
+<p>A SaccoWindow is intended to not interact with the user using a terminal.&nbsp; 
+The way that the SaccoWindow interacts is by responding to events (mouse, 
+keyboard, or timer) as they occur.&nbsp; This is called Event Handling.</p>
+<p>For each type of event there is a corresponding method that you must override 
+in order to use it.&nbsp; In that method you put the code that you want to run 
+when that event occurs.</p>
+<p class="auto-style5">&nbsp;</p>
+<p class="auto-style5"><a href="Mouse%20Event%20Handling.html"><strong>Mouse Event Handling</strong></a></p>
+<p class="auto-style5"><strong>Key Event Handing</strong></p>
+<p class="auto-style5"><strong>Timer Event Handling</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

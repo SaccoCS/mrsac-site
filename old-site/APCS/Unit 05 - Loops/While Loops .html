@@ -1,0 +1,204 @@
+<html>
+<head>
+
+
+<style type="text/css">
+
+p{
+font-family: Arial, Helvetica, sans-serif;
+font-size: small;
+}
+
+.code{
+
+font-size: small;
+font-family: Courier New;
+}
+.auto-style1 {
+	font-family: Arial;
+}
+</style>
+
+
+<title>While Loops</title>
+
+
+
+</head>
+
+
+
+<body>
+
+<h1 class="auto-style1"> While Loops</h1>
+
+<p>Complete each of the following tasks, which require a loop in some way.&nbsp; 
+In order to do this, you will have to think about a REPEATING process that will 
+get the job done, and then design a while loop that will perform the task.</p>
+
+
+
+<p>
+<br/>
+<strong>Example Problem</strong>:Write a program that will ask the user for an int, and then repeatedly calculate and print out the doubles of that number.  No numbers greater than 100 should be printed.  <br/><br/>For Example: if the number entered was 5, then 5,10,20,40,80 would be printed (the next value is 160, which is too large)
+</p>
+
+<p><strong>Restrictions:</strong><br>You may only use one int named num to hold the number you're using.
+</p>
+
+<p>
+<strong>Strategy:</strong>  You should first set up the num variable.
+</p>
+
+<pre>
+Scanner scan = new Scanner(System.in);
+System.out.println("Please enter a number less than 100");
+int num = Integer.parseInt(scan.nextLine()):  //direct parsing like a boss
+
+</pre>
+
+<p>
+Now that num is set, you can first start thinking of what code could I use over and over to print out the doubles of that number.
+</p>
+<pre>
+System.out.println(num);
+num = num*2;
+</pre>
+<p>This code has two parts:  First it prints out the number, and then it prepares num for "next time" by doubling it.  If we repeated it several times, num would be constantly getting doubled and printed over and over.
+</p>
+<pre>
+System.out.println(num);
+num = num*2;
+System.out.println(num);
+num = num*2;
+System.out.println(num);
+num = num*2;
+System.out.println(num);
+num = num*2;
+System.out.println(num);
+num = num*2;
+System.out.println(num);
+num = num*2;
+...
+</pre>
+<p>
+Notice that the <span style="font-family:courier">num=num*2</span> line's purpose is to set up the num variable so that it's ready to be printed the next time.  It is important that you consider "setting up for next time" when doing these programs.
+</p>
+<p><strong>Problem:</strong>  This method will print out all the doubles, but it just prints out a bunch of them without caring if the number is too large.
+Since one of the rules is to not print it out when the number is over 100, we'll add an if statement (no else) that will only allow the code to run when it's under 100.
+</p>
+<pre>
+if(num<100)
+{
+   System.out.println(num);
+   num = num*2;
+}
+if(num<100)
+{
+   System.out.println(num);
+   num = num*2;
+}
+if(num<100)
+{
+   System.out.println(num);
+   num = num*2;
+}
+if(num<100)
+{
+   System.out.println(num);
+   num = num*2;
+}
+if(num<100)
+{
+   System.out.println(num);
+   num = num*2;
+}
+...
+</pre>
+<p>Now when running this program, it will only print out the values as long as they're less than 100.  Once they pass 100, the rest of the if statements will be blocked from running.
+</p>
+<p>&nbsp;</p>
+<p>Looking at the code above, we can turn it into a while loop to make our lives 
+easier:</p>
+<pre>while(num &lt; 100)
+{
+   System.out.println(num);
+   num = num*2;
+}</pre>
+<p>This is the same as writing an infinite amount of if statements.</p>
+<p>&nbsp;</p>
+<p>The num &lt; 100 is very important.&nbsp; You must think hard about when you 
+want the loop to stop if you want to avoid an infinite loop.&nbsp;</p>
+<p>&nbsp;</p>
+<hr>
+<p><span style = "font-size:medium">Assignments</span>
+</p>
+<p>The general strategy of each of the programs below is to start by thinking of some code that will repeatedly perfom some task with a variable, and then set the variable up for the "next time".&nbsp; 
+With loops having to many variables can be an issue, so I will be restricting 
+the number of variables that you may use.</p>
+<br>
+
+<p><strong>CountTo10:</strong>This method will prompt the user for an int that's less than 10.  Then it will print out increasing numbers until it hits 10.</p>
+<p>For Example:<br>
+Please enter a number:<br>
+6<br>
+6 7 8 9 10<br>
+</p>
+<p>Restriction:&nbsp; After you get the user input you may only use one int variable to hold the number.
+</p>
+<p>Strategy:  First try to think of some repeating code that will <strong>increase</strong> and 
+<strong>print</strong> out the number every time.  Then surround it with an if that will only allow the increase/print to run if the number is 10 or less.
+</p>
+<br>
+<hr/>
+<p>
+<strong>PrintVertical:</strong>This program will prompt the user for a String, 
+and then print out each letter of the String one at a time.
+</p>
+<p>For Example:<br>
+Please enter a String:<br>
+Hello<br>
+H<br>
+e<br>
+l<br>
+l<br>
+o<br>
+</p>
+<p>Restriction:You may only use two String variables (you only need one).  One to hold the original String, and one to repeatedly hold the first letter for printing purpose  (Hint: a String may be set to a substring of itself)
+</p>
+<p>Strategy:  First try to think of a bit of code that will print out the first letter of the string and then shorten it so that the first letter is missing, thus giving it a new first letter to print out the next time around.
+</p>
+<p>Then think of an while loop that will use the String's length to only allow it to run if there are more letters to print</p>
+
+
+<p><br></p>
+<hr/>
+<p><strong>SuperSafeDivider</strong> – This program will 
+ask the user for a numerator and a denominator, but this time if the denominator 
+is zero, a loop should activate that asks the user to input a non-zero number 
+until they actually do it.<br><br>Example:<br>Please enter a numerator:<br>9<br>
+Please enter a denominator:<br>0<br>Please enter a non-zero denominator:<br>0<br>
+Please enter a non-zero denominator:<br>4<br>9 / 4 = 2 remainder 1<br>Hint: You 
+will ask the user for a numerator and a denominator once before the loop starts, 
+and then use the denominator&#39;s value to keep asking until it&#39;s not zero</p>
+<p>&nbsp;</p>
+<br><hr/>
+<p><strong>TokenizerRunner</strong>:</p>
+<p>This Runner will use the <a href="Tokenizer.html">Tokenizer</a> object.&nbsp; 
+If you have not created it, do so now.</p>
+<p>Create a runner for Tokenizer.&nbsp; This Runner should prompt the user to 
+enter a String, and then use a Tokenizer to print out every word of that String 
+individually.</p>
+<p>For example:<br>Please enter a phrase:<br>Computer Science is awesome</p>
+<p>Computer<br>Science<br>is<br>awesome</p>
+<p>Make sure that your runner uses a while loop to keep running until all of the 
+words are printed.&nbsp; Pay close attention to the two methods that Tokenizer 
+has, you&#39;ll need them both.</p>
+</body>
+
+
+
+
+
+
+</html>

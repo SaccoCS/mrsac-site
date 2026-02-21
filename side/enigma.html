@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Enigma Machine</title>
+		<style>
+		h2,h3,h4{
+		font-family:Arial;
+		}
+		  p{
+		  font-family:monospace;		  
+		  }
+		</style>
+	</head>
+	
+	<body>
+	<div style = "width:400px;border:2px solid #555;padding:0px 10px 10px 10px; border-radius:10px;background-color:#eee">
+		<h3>Enigma Machine Simulator</h3>
+		<p style = "font-family:Arial; font-size:12px ">This represents our simplified Enigma Machine with The Rotors I, II, and III and basic starting positions.  Each letter encoded, the rightmost Rotor rotates once.</p>
+			
+		<textarea type = "text" id = "input"  rows = "10" cols = "53" spellcheck = "false" oninput = "keyPress();changeMade();" onclick="firstClick()" style ="resize:none;border-radius:5px;color:#aaa">Type your message here and it will be scrambled below.  Like the original we can only scramble letters, so all spaces and punctuation are ignored.  The way that the Germans handled this was to use an X to represent a space, LIKEXTHISXFORXEXAMPLE; still messy, but readable.
+		
+Decoding is the same process as encoding.  Copy the scrambled message below and paste it in this box to see what it might look like from the other end.</textarea>
+			
+			
+		<p id = 'output' style="margin-left:2px;width:360px;">Output:</p>
+		<script src = 'enigma.js' onload="keyPress()"></script>
+		
+	</div>
+	</body>
+
+</html>

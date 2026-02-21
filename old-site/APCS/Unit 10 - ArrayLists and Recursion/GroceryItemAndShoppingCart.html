@@ -1,0 +1,139 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>GroceryItem and ShoppingCart</title>
+
+<style>
+p,h2,h3{
+font-family:Arial;
+}
+
+
+p{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 0 15 0 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<h2>GroceryItem and ShoppingCart</h2>
+
+<p>The GroceryItem class below is meant to represent the inventory at a supermarket.  Each object is represented with a name, a price, and a category (“Produce”, “Dairy”, etc.).</p>
+<p>THIS IS ONLY FOR REFERENCE.  DO NOT CREATE A CLASS NAMED GROCERYITEM.  IT IS IN SACCOJAR</p>
+<div class="code" ><pre>public class GroceryItem
+{
+   public GroceryItem(String itemName, double price, String category)
+   { /* implementation not shown */ }
+   
+   public String getName()
+   { /* implementation not shown */ }
+   
+   public String getCategory()
+   { /* implementation not shown */ }
+   
+   public double getPrice()
+   { /* implementation not shown */ }
+}</pre>
+</div>
+
+<p>Copy the ShoppingCart class below.  Its core instance field is a List of GroceryItems that might be ready for checkout.  The constructor calls a static method built in to the GroceryItem class so that it generates a random list of various GroceryItems for the purpose of testing.
+</p>
+<div class = "code"><pre>import java.util.*;
+import sacco.objects.GroceryItem;
+public class ShoppingCart
+{
+   private ArrayList&lt;GroceryItem&gt; items;
+
+   public ShoppingCart()
+   {  items = GroceryItem.listFactory(15); }
+
+   public ArrayList&lt;GroceryItem&gt; getItems()
+    {
+        return items;
+    }
+
+   public double getTotal()
+   {   /* To be implemented by you  */ }
+
+   public ArrayList&lt;String&gt; getCategories()
+   {   /* To be implemented by you  */ }
+
+   public void groupByCategory()  
+   {   /* To be implemented by you  */ }
+
+   public String toString()
+   {
+       String str= "";
+       for(GroceryItem g: items)
+       {
+            str += g+"\n";
+       }
+       return str.substring(0,str.length()-1);
+    }
+
+    public static void main()
+    {
+        ShoppingCart cart = new ShoppingCart();
+        System.out.println("Categories: "+cart.getCategories());
+        cart.groupByCategory();
+        System.out.println("\nGrouped List:\n"+cart);
+    }
+}
+</pre>
+</div>
+<p>&nbsp;</p>
+<h3>Methods:</h3>
+<p>Implement each of the following methods.  After each one runs, the instance fields should remain unchanged.  The main method will create a ShoppingCart object, print out it's categories, call the groupByCategory method and print out the toString.  Use this to test and make sure that your code is functioning.</p>
+
+<p>&nbsp;</p>
+<p style = "font-size:16px; font-family:Courier">public double getTotal()</p>
+<p>Calculate and return the sum of cost of all the items in the cart</p>
+
+<p>&nbsp;</p>
+<p style = "font-size:16px; font-family:Courier">public ArrayList&lt;String&gt; getCategories()</p>
+<p>There are several different possibilities for categories of the GroceryItems, but not all of them might be in this ShoppingCart’s list.  Implement the getCategories method, which should return an ArrayList&lt;String&gt; with each of the Categories found in the List.</p>
+
+<p>The returned ArrayList should contain no duplicate Strings.  There are several ways of doing it, but most will end up using a loop with a boolean flag to determine if the item is already in the list before they add.</p>
+<p>For Example:  If the list contains the following items:</p>
+<p>Pork | $13.12 | Meat<br/>
+Toothpaste | $3.11 | Household<br/>
+Chicken | $7.15 | Meat<br/>
+Asparagus | $6.24 | Produce<br/>
+Carrots | $4.91 | Produce</p>
+
+<p>The returned ArrayList would contain the values:<br/>[“Meat”, “Household”, “Produce”] <br/>The order of the categories is not important</p>
+
+<p>&nbsp;</p>
+<p style = "font-size:16px; font-family:Courier">public void groupByCategory()</p>
+
+
+<p>When the ArrayList&lt;GroceryItem&gt; is generated, the elements in it are shuffled.  After this method is called, the items variable should contain an ArrayList&lt;GroceryItem&gt; with all of the same items, but grouped by their category (all the Dairy together, all the Meat together, etc).</p>
+<p>For Example:  If the list contains the following items before the groupByCategory method is called:</p>
+
+<p>Pork | $13.12 | Meat<br/>
+Toothpaste | $3.11 | Household<br/>
+Chicken | $7.15 | Meat<br/>
+Asparagus | $6.24 | Produce<br/>
+Carrots | $4.91 | Produce</p>
+
+<p>After it's called, the elements would be in the following order:</p>
+<p>Pork | $13.12 | Meat<br/>
+Chicken | $7.15 | Meat<br/>
+Toothpaste | $3.11 | Household<br/>
+Asparagus | $6.24 | Produce<br/>
+Carrots | $4.91 | Produce</p>
+<p>Note:  The order of the categories isn’t important.  It’s only important that they’re grouped</p>
+</body>
+</html>

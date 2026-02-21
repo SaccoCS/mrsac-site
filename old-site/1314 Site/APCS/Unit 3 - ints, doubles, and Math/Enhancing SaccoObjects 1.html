@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Self Drawing Objects</title>
+<style type="text/css">
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	color: #FF0000;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style7 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Enhancing SaccoObjects<br />
+<span class="auto-style7">Part 1:&nbsp; Self-Drawing Objects</span></p>
+<p class="auto-style3">Previously we&#39;ve extended SaccoObject to create a window that showed a 
+Square.&nbsp; But when we created two Squares, they appeared in different 
+windows because every SaccoObject has it&#39;s own window assosciated with it.&nbsp; 
+If we want our objects to be on the same window, then we need one SaccoObject to 
+act as the window that asks the objects to paint themselves using its 
+PaintBrush.</p>
+<p class="auto-style3">Copy the following class into your project.&nbsp; Notice that it does the 
+three things that every SaccoObject needs:</p>
+<p><span class="auto-style3">1)&nbsp;import sacco.*;</span><br class="auto-style3" />
+<span class="auto-style3">2) extends SaccoObject</span><br class="auto-style3" />
+<span class="auto-style3">3) overrides the paintWindow method</span></p>
+
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td style="width: 743px"><pre>import sacco.*;
+
+public class QuestionBlockWindow extends SaccoObject
+{
+
+   public QuestionBlockWindow()
+   {
+
+   }
+
+   public void paintWindow(PaintBrush brush)
+   {
+      //draw sky
+      brush.setColor(&quot;blue&quot;);
+      brush.fillRectangle(0,0,500,500);
+
+      //draw grass
+      brush.setColor(&quot;green&quot;);
+      brush.fillRectangle(0,336,500,200);
+
+      //draw border line
+      brush.setColor(&quot;black&quot;);
+      brush.setThickness(3);
+      brush.drawLine(0,336,500,336);
+
+      //draw cloud
+      brush.setColor(&quot;white&quot;);
+      brush.fillOval(288,48,144,48);
+
+      brush.setColor(&quot;black&quot;);
+      brush.drawOval(288,48,144,48);
+   }
+
+}</pre>
+		</td>
+	</tr>
+</table>
+
+<p class="auto-style3">Now set up the following runner, which constructs a new QuestionBlockWindow 
+and calls its showWindow method:</p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td><pre>public class QuestionBlockWindowRunner
+{
+    public static void main()
+    {
+        QuestionBlockWindow myWindow = new QuestionBlockWindow();
+        myWindow.showWindow();
+    }
+}</pre></td>
+	</tr>
+</table>
+
+<p class="auto-style3">Test it out, hopefully it looks like the beautiful landscape below:<br />
+<img src="images/img22.jpg" />&nbsp;</p>
+<hr>
+<p class="auto-style5"><strong>Wait.... Why so many class files?</strong></p>
+<p class="auto-style3">Now that the two classes are made, you may run your program by right clicking 
+the QuestionBlockWindowRunner class and selecting the main method.&nbsp; At this 
+point only a blank screen will pop up, but let&#39;s think about the Runner class.</p>
+<p class="auto-style3"><img src="images/img1D.jpg" /></p>
+<p class="auto-style3">We now know that static methods don&#39;t have anything to do with the instance 
+fields or any other method in the same class.&nbsp; This means that it isn&#39;t 
+actually important where the method is located.</p>
+<p class="auto-style3"><strong>Scary Proposition:</strong></p>
+<p class="auto-style3">To save a little bit of time, you can put the main method inside the 
+QuestionBlockWindow class.&nbsp; Since static methods are so independent, having 
+the method here will not effect how the object works.&nbsp; In the end you&#39;ll 
+only need the QuestionBlockWindow class, which now both defines a constructable 
+object and has a method when will actually construct that object and do 
+something with it.</p>
+
+<table class="auto-style1" style="width: 58%; height: 364px;">
+	<tr>
+		<td style="width: 549px"><pre>import sacco.*;
+
+public class QuestionBlockWindow extends SaccoObject
+{
+
+   public QuestionBlockWindow()
+   {
+
+   }
+
+   public void paintWindow(PaintBrush brush)
+   {
+      //draw sky
+      brush.setColor(&quot;blue&quot;);
+      brush.fillRectangle(0,0,500,500);
+
+      //draw grass
+      brush.setColor(&quot;green&quot;);
+      brush.fillRectangle(0,336,500,200);
+
+      //draw border line
+      brush.setColor(&quot;black&quot;);
+      brush.setThickness(3);
+      brush.drawLine(0,336,500,336);
+
+      //draw cloud
+      brush.setColor(&quot;white&quot;);
+      brush.fillOval(288,48,144,48);
+
+      brush.setColor(&quot;black&quot;);
+      brush.drawOval(288,48,144,48);
+   }
+
+   <strong><span class="auto-style2">public static void main()</span>
+<span class="auto-style2">   {</span>
+<span class="auto-style2">       QuestionBlockWindow myWindow = new QuestionBlockWindow();</span>
+<span class="auto-style2">       myWindow.showWindow();</span>
+<span class="auto-style2">   }</span></strong>
+
+}</pre>
+		</td>
+	</tr>
+</table>
+
+<p class="auto-style3">When thinking about how this class worksas an object, you simply pretend all of the 
+static methods don&#39;t exist.&nbsp; From here on out, when told to make a runner 
+you may put the static main method in another class or within the object class 
+that you&#39;re working with.&nbsp; </p>
+<p class="auto-style3"><img src="images/img1F.jpg" />&nbsp;</p>
+<hr>
+<p class="auto-style5"><strong>Using a Self Painting Object:</strong></p>
+<p class="auto-style3">The QuestionBlockWindow class is set up to draw a basic background which 
+we&#39;re going to improve with some self drawing objects.&nbsp; In sacco.jar there 
+is a QuestionBlock class, which has instance fields that keep track of an x, y, 
+and an image to display.&nbsp; We want to display this QuestionBlock, so we&#39;ll 
+need to incorporate it into our project.</p>
+<p class="auto-style3">1)&nbsp; Make it an instance field:<br />
+This object is one that we want to keep track of for the life of the Window, so 
+we&#39;ll declare it as an instance field.</p>
+<p class="auto-style6">private QuestionBlock myBlock;</p>
+<p class="auto-style3">2)&nbsp; Set it up in the constructor:<br />
+Go to the QuestionBlockWindow&#39;s constructor and use it to set up the instance 
+field that you just created.&nbsp; You can&#39;t set the x,y or scale using just the 
+constructor, so this is a multi-step process.</p>
+<p class="auto-style6">myBlock = new QuestionBlock();<br />
+myBlock.setX(240);<br />
+myBlock.setY(192);<br />
+myBlock.setScale(3);</p>
+<p class="auto-style3">Now we&#39;ve got an instance field that has an x,y, and scale that we want, but 
+when we run our program it still doesn&#39;t show up.&nbsp; That&#39;s because our 
+paintWindow method hasn&#39;t been changed to draw the QuestionBlock object.</p>
+<p class="auto-style3">Read through the current paintWindow method; it uses PaintBrush&#39;s methods 
+like fillRectangle and drawLine to get the background, but there is no 
+drawQuestionBlock method.&nbsp; The answer lies in the QuestionBlock class.&nbsp; 
+There is a <strong>paintSelf</strong> method that will accept a PaintBrush and draw the 
+QuestionBlock using it.</p>
+<p class="auto-style3">The paintWindow method&#39;s strategy is now going to be the following:<br />
+- paint the background using the PaintBrush object<br />
+- hand the PaintBrush to the QuestionBlock so that it can draw itself on it.&nbsp; 
+This is how the images get combined.</p>
+<p class="auto-style3">Change your paintWindow method to be the following:</p>
+<pre><span class="auto-style3"> </span>       //draw sky
+        brush.setColor("blue");
+        brush.fillRectangle(0,0,500,500);
+
+        //draw grass
+        brush.setColor("green");
+        brush.fillRectangle(0,336,500,200);
+
+        //draw border line
+        brush.setColor("black");
+        brush.setThickness(3);
+        brush.drawLine(0,336,500,336);
+
+        //draw cloud
+        brush.setColor("white");
+        brush.fillOval(288,48,144,48);
+        
+        brush.setColor("black");
+        brush.drawOval(288,48,144,48);
+
+       <span class="auto-style2"><strong> //have the block paint itself using the PaintBrush</strong></span><strong>
+</strong><span class="auto-style2"><strong>        myBlock.paintSelf(brush);</strong></span></pre>
+<p class="auto-style3">The only difference is the the very last line, which 
+hands off the PaintBrush to the QuestionBlock so that it can paint itself on 
+top.</p>
+<p class="auto-style3">Now run the main method, hopefully you get the window 
+below:<br />
+<img src="images/img2A.jpg" /></p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style5"><strong>Assignment 1:</strong></p>
+<p class="auto-style3">-Add two more QuestionBlocks to the QuestionBlockWindow 
+class and attempt to recreate the following window.&nbsp; Hint:&nbsp; When the 
+scale is 3, the QuestionBlock has a width and height of 48.<br />
+<br />
+-Add a StandingMario object in the same way.&nbsp; 
+<a href="../../SaccoJar/javadocs/StandingMario/sacco/StandingMario.html">Use the API</a> to determine the 
+best way to construct it.&nbsp; Hint:&nbsp; Mario&#39;s x and y should be set to 144 
+and 240 with the scale set to 3.</p>
+<p class="auto-style3"><img src="images/img37.jpg" /></p>
+
+<p class="auto-style3">&nbsp;</p>
+
+</body>
+
+</html>

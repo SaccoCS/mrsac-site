@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+
+<script>
+var img = new Image();
+img.src = "img_the_scream.jpg";
+
+function onClick()
+{
+   //document.getElementById("myButton").innerHTML = "HelloWorld";
+var c = document.getElementById("myCanvas").getContext("2d");
+c.drawImage(img,20,20,100,100);
+   
+   
+   
+}
+
+</script>
+</head>
+
+
+
+<body>
+<button type="button" onclick="onClick()" id="myButton">Hello</button>
+<p>&nbsp;</p>
+<textarea id="ta" style="width: 727px; height: 105px"></textarea>
+</body>
+
+<canvas id ="myCanvas" width ="250" height ="350" style ="border:1px solid"></canvas>
+
+</html>

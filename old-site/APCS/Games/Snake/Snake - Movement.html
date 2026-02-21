@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Snake - Movement</title>
+
+<style>
+
+h3,h4,h2{
+font-family:Arial, Helvetica, sans-serif;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+<h2>Snake Movement</h2>
+<p>In order to program the Snake to move, we are first going to set up a system so that we can refer to each of the four directions.  In the Snake class, add four public static final ints named LEFT, UP, RIGHT, DOWN.  You may choose any value for them, as long as they are different.  A common use is to assign the values of 37,38,39, and 40, which are the corresponding key codes for the arrow keys.  Since these variables are public and static, we can refer to them from anywhere in the program by saying Snake.UP or Snake.DOWN.</p>
+
+<hr/>
+<p>Go to the Square class and add the following method:</p>
+<pre>public Square nextSquareInDir(int dir)</pre>
+<p>This method's purpose is to look at the 'dir' parameter and check if it matches one of the four direction variables.  If it does, the method's job is to construct and return the next Square in that direction (change the row or column by one).  Don't forget that a larger row value is DOWN the screen.  If the parameter doesn't match, simply construct and return a Square with the current row and column.</p>
+<hr/>
+
+<p>Back in the Snake class, add a  method to the snake class with the following header:</p>
+<pre>public void move(int dir)</pre>
+<p>The purpose of this method is to 'move' the Snake, but the way that a Snake moves is by putting another piece on its front.  Since we are following the rule the the front piece goes at index 0 of the ArrayList,  access the first square in the list and use the nextSquareInDir method to get a new square.  Put that square at index 0 of the ArrayList. </p>
+<p>Lastly, go to the SnakeWindow's onTimerTick method.  At this point, all you need to do is call your snake's move method.  For now, you may temporarily pass in whichever direction int you want.  Run your program to test it out.  The Snake should move in the direction you gave and off the screen.  Try a few more directions to make sure they work.</p>
+
+<hr/>
+<h3>Controlling the Snake</h3>
+<p>The snake is to be controlled by using the four arrow keys, but we don't want to set the direction as soon as the key is pressed.  Instead, the SnakeWindow class is going to keep track of the last direction pressed until it's time to move the snake.  To accomplish this, add an int to the SnakeWindow to represent the last direction pressed.  Assign 'up' to it in order to start the snake in the upward direction.</p>
+<p>Back in the onTimerTick method, change your call to the <strong>move</strong> method so that it takes its direction from your new instance field</p>
+<p>Finally, in the onKeyPress method your job is to look at the key pressed and assign it to the instance field <strong>only if it is one of the four directions</strong>.</p>
+<p>Run your program one more time.  This time you should be able to control where the snake is heading.  Test out all four arrows to make sure that they work the way you'd expect.</p>
+<hr/>
+<h3>Limiting the Snake</h3>
+<p>At this moment the snake grows forever, but it should not.  In reality, we want the snake to be limited to the size variable that we made when we first made the snake.  Go to the Snake's move method.  After you've added the new head piece, compare the size of the list with the size variable.  If it's too large, remove the extra squares from the back end, not the front.</p>  
+<p>Now test out your program again.  This time you should have control over the snake and once it hits the proper length it will stop growing</p>
+
+<hr/>
+<h3>Preventing Overlap</h3>
+<p>Right now the Snake will go in any of the four directions.  This can cause a problem if its told to move in the opposite direction as its heading.  We need to prevent the Snake from moving in the direction opposite to its current direction.</p>
+<p>Add an int as an instance field in the Snake class that will represent the 'current' direction and assign UP to it.  Now go down to the move method, which is currently given a direction that may be the opposite of our current direction.  If it is, use move in the 'current direction' instead of using the parameter's value.  You must also make sure that by the end of the move method, whichever direction you went in is assigned to the 'current direction' instance field so that it may be looked at next time.</p>
+</body>
+</html>

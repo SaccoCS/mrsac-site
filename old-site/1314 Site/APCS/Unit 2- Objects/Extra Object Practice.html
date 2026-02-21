@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Extra Object Practice</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Extra Object Practice</p>
+<p class="auto-style1">Create a class named <strong>Distance</strong>, which will be responsible for holding a number 
+and a unit (such as 5 inches).&nbsp; Create two instance fields, an int to 
+represent the value, and a String to represent the units.</p>
+<p class="auto-style1">The Distance constructor should take in two parameters, an int and a String, 
+and apply them to the proper instance fields.</p>
+<p class="auto-style1">Write two accessor methods, getValue and getUnits, which will simply return 
+the appropriate instance field.</p>
+<p class="auto-style1">Write two mutator metohds, setValue and setUnits, which will take in a 
+parameter and assign it to the appropriate instance field.</p>
+<p class="auto-style1">Write a method named increaseValue, which will take in a parameter and 
+increase the instance field by that much.</p>
+<p class="auto-style1">Write a toString method that will return a String in the form of &quot;The 
+distance is _____ _____(s)&quot;.&nbsp; For example &quot;The distance is 4 mile(s)&quot;</p>
+<p class="auto-style1">&nbsp;</p>
+<p>Solution:</p>
+<pre>public class Distance
+{
+    private int value;
+    private String units;
+    
+    public Distance(int tmpVal, String tmpUnits)
+    {
+        value = tmpVal;
+        units = tmpUnits;
+    }
+    
+    public void setValue(int tmpVal)
+    {
+        value = tmpVal;
+    }
+    
+    public void setUnits(String tmpUnits)
+    {
+        units = tmpUnits;
+    }
+    
+    public int getValue()
+    {
+        return value;
+    }
+    
+    public String getUnits()
+    {
+        return units;
+    }
+    
+    public void increaseValue(int tmpVal)
+    {
+        value = value + tmpVal;
+    }
+    
+    public String toString()
+    {
+        String str = value+" "+units;
+        return str;
+    }
+
+}</pre>
+
+</body>
+
+</html>

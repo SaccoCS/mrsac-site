@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>Revisiting Pictures</title>
+
+<style>
+
+p,h2,h3,h4,li,ul,ol{
+font-family:Arial;
+}
+
+
+p,li{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 10 15 10 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<h3>Revisiting Picture</h3>
+<p>Another very common AP Free Response question is dealing with 2-D Arrays.  As a refresher, we are going to do two new image processing assingments.  First, look back at the <a href="https://dl.dropboxusercontent.com/u/7648734/APCS/Unit%2007%20-%202D%20Arrays/Image%20Processing.html">Image Processing Assignment</a> and review the use of Pixel[][].  The new assignments will follow a similar process.</p>
+<p>Create a class named MoreProcessing.  Add the following to it:</p>
+<hr/>
+<h4>Edge Detection</h4>
+<img src="images/edgeSacco.png" />
+<p>One way that computers can pull objects out of images is using edge detection, which looks at the colors of adjacent pixels and detects if the colors are 'far apart'.  Create a method with the following header:</p>
+<p style="font-family:Courier">public static void edgeDetector(double threshold)</p>
+<p>This method should loop through each pair of left-right adjacent Pixels and calculate their distance.  For colors, their distance is found by using a Pythagorean Theorem style formula.  The normal distance formula is: </p>
+<img src="images/img31.gif" />
+<p>With colors, instead of the differences between x and y, you use the differences between the red,green, and blue values of the left and right pixels.  This will add a third part to the distance formula, but that's ok.</p>
+<p>The edgeDetector method should create a new image of the same size as the original.  If the distance between left/right pixels is greater than the threshold parameter, put a BLACK pixel where the left pixel was, otherwise put a WHITE pixel.</p>
+<p>This strategy will accidentally leave the very last column null.  You may fix this by making your new Pixel[][] one column shorter, or by filling the last column with WHITE pixels.</p>
+<p>The sample image above has a threshold of 50.</p>
+<hr/>
+<h4>Cropping</h4>
+
+<p>To crop a picture is to look at an image and make a new image out of a smaller selection of it.  Create a method with the following header:</p>
+<p style="font-family:Courier">public static void crop(int startRow, int startCol, int width, int height)</p>
+<p>The purpose of this method is to crop a Picture using the four parameters as the boundaries of the rectangle</p>
+<p>For example:  Assuming you're using Sacco's picture, calling  crop(25, 45, 170,200); should create an display a new Picture of width 170 and height 200.  The new Picture's 0,0 should be the same as the old Picture's 25,40</p><img src="images/cropped.png" />
+<p>Reminder:  Sometimes using row and column can be confusing when you use so much x and y in your math class.  Don't forget that the column is linked to the WIDTH, while the row is linked to the HEIGHT</p>
+
+
+
+
+</body>
+</html>

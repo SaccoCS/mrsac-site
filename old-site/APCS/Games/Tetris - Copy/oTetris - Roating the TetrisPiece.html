@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Rotating the TetrisPiece</title>
+<style>h2,h3,h4,td,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p,td{
+font-size:small;
+
+}
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Rotating the TetrisPiece</h2>
+<p>So far yout should have a TetrisPiece that starts out in one orientation and 
+can be moved around using the keyboard.&nbsp; It&#39;s time to give the TetrisPiece 
+the ability to rotate, as it&#39;s a large part of the game of Tetris.</p>
+<p><strong>Our Goals:</strong><br />
+- Add the ability for a TetrisPiece to rotate<br />
+- Modify the TetrisController so that hitting the spacebar causes the piece to 
+rotate</p>
+<p>&nbsp;</p><hr/>
+<h4>Rotating the TetrisPiece:</h4>
+<p>A TetrisPiece is set up in a specific way to aid rotation.&nbsp; Each Block 
+has a Location that is based on an anchor Location.&nbsp; When a piece rotates, 
+all of the Blocks have their locations change to represent a new orientation.</p>
+<p><img height="121" src="images/anchor0.png" width="121" />&nbsp;&nbsp;&nbsp;
+<img height="121" src="images/anchor1.png" width="121" /> &nbsp; <img height="121" src="images/anchor2.png" width="121" /> &nbsp; <img height="121" src="images/anchor3.png" width="121" /></p>
+<p>Each Block&#39;s new Location can be calculated using the starting location, and 
+the size of the grid that it belongs to.&nbsp; It&#39;s easier to see the pattern if 
+we choose a simpler piece.&nbsp; The piece below is known as an &quot;I&quot; piece and it 
+has a size of 4.&nbsp; </p>
+<p><img height="161" src="images/I1.png" width="161" />&nbsp;&nbsp;&nbsp;
+<img height="161" src="images/I2.png" width="161" /></p>
+<p>It may look like some pieces stay in the same spot, but that&#39;s not true.&nbsp; 
+It&#39;s just that another Block has moved into the same spot.</p>
+<table class="auto-style1" style="width: 245px">
+	<tr>
+		<td style="height: 20px" class="auto-style2">Starting Row:</td>
+		<td style="height: 20px; width: 108px;" class="auto-style2">Starting Column:</td>
+		<td style="height: 20px" class="auto-style2">Ending Row:</td>
+		<td style="height: 20px" class="auto-style2">Ending Column:</td>
+	</tr>
+	<tr>
+		<td class="auto-style2" style="height: 20px">0</td>
+		<td class="auto-style2" style="width: 108px; height: 20px">1</td>
+		<td class="auto-style2" style="height: 20px">1</td>
+		<td class="auto-style2" style="height: 20px">3</td>
+	</tr>
+	<tr align="center">
+		<td>1</td>
+		<td style="width: 108px">1</td>
+		<td>1</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td class="auto-style2">2</td>
+		<td class="auto-style2" style="width: 108px">1</td>
+		<td class="auto-style2">1</td>
+		<td class="auto-style2">1</td>
+	</tr>
+	<tr>
+		<td class="auto-style2">3</td>
+		<td class="auto-style2" style="width: 108px">1</td>
+		<td class="auto-style2">1</td>
+		<td class="auto-style2">0</td>
+	</tr>
+</table>
+<p>The ending row is simple to determine.&nbsp; It is exactly the same as the 
+starting <strong>column</strong>.&nbsp; The ending column may be found using a 
+combination of the size of the grid (in this case it&#39;s 4, but it isn&#39;t 
+always) and the starting row.</p>
+<p>Add a method to the TetrisPiece class named <strong>rotClock().</strong>&nbsp; The job of this 
+method will be to loop through all the Blocks in the TetrisPiece, get their 
+initial Location, and set their location to a new Location that&#39;s based on the 
+initial Location.</p>
+<p>After you&#39;ve added rotClock, add the following method:</p>
+<pre>public void rotate()
+{
+   this.rotClock();
+}</pre>
+<p>This method is the main rotation method for the TetrisPiece.&nbsp; Whenever 
+we want a piece to rotate, we will do a clockwise rotation.</p>
+<p>&nbsp;</p><hr/>
+<h5>Testing:</h5>
+<pre>public static void rotTester()
+{
+    TetrisPiece piece = new TetrisPiece(null);
+    System.out.println(piece);
+    piece.rotate();
+    System.out.println("\n"+piece);
+}
+</pre>
+<p>
+TetrisPiece:<br />
+Block at Loc(1, 0) with Color[R:0 G:0 B:255]<br />
+Block at Loc(1, 1) with Color[R:0 G:0 B:255]<br />
+Block at Loc(1, 2) with Color[R:0 G:0 B:255]<br />
+Block at Loc(2, 0) with Color[R:0 G:0 B:255]<br />
+<br />
+TetrisPiece:<br />
+Block at Loc(0, 1) with Color[R:0 G:0 B:255]<br />
+Block at Loc(1, 1) with Color[R:0 G:0 B:255]<br />
+Block at Loc(2, 1) with Color[R:0 G:0 B:255]<br />
+Block at Loc(0, 0) with Color[R:0 G:0 B:255]<br />
+</p>
+<p>&nbsp;</p>
+<hr/>
+<h4>Controlling Rotation with the Spacebar:</h4>
+<p>Now that we&#39;ve set it up so that the model can rotate it should be relatively 
+simple to connect it to the spacebar.</p>
+<p>In the <strong>TetrisController&#39;s</strong> onKeyPress method you should be already doing 
+things if the incoming key code is any of the arrow keys.&nbsp; Add more to the 
+method so that if the keycode is 32 (spacebar), the piece&#39;s rotate method 
+gets called.</p>
+<p>Run the Tetris program.&nbsp; Again the piece should be there and movable 
+using the arrow keys, but this time the spacebar should cause the piece to 
+rotate.&nbsp; Make sure that it rotates properly to all 4 positions before 
+continuing.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

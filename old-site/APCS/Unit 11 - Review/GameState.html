@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>GameState</title>
+
+<style>
+
+p,h2,h3,h4,li,ul,ol{
+font-family:Arial;
+}
+
+
+p,li{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 10 15 10 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<h2>GameState</h2>
+<p>A big possibility for the AP Free Response is to work with the advanced object concepts such as inheritance, interfaces, and polymorphism.  These questions are usually a little bit less procedural, and more designing objects that will fit together.</p>
+<p>Today you will be programming code based on the 2007 Free Response.</p>
+
+<h4>Problem Description</h4>
+<p>Below is a copy of the introduction to the problem.  It describes the GameState interface that will be important throughout this assignment.  <span style = "color:red">You do not have to copy it to your project, it is already in saccojar.  You may import it from sacco.objects.GameState</span></p>
+<img src="images/gamestateinterface.jpg" style = "border:1px solid black"/>
+<p>When you see an interface, you should become very familiar with each of the methods that you're given because you're most likely going to have to use them.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<h4>Part A: Extending Player</h3>
+<p>This question has you extending a class named Player.  <span style = "color:red">You do not have to copy it to your project, it is already in saccojar.  You may import it from sacco.objects.Player</span>  </p>
+<img src="images/Player.jpg" style = "border:1px solid black"/>
+<p>Hint:  Notice that the parameter for the getNextMove method is a GameState object.  This is polymorphism.  We don't know exactly what object is in the variable, but we do know that it has all of the GameState methods</p>
+<hr/>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Part B: Writing a GameDriver</h3>
+<p>This question has you writing an object that runs the game in a specific fashion.  You will be using both a GameState object and Player objects during your solution.</p>
+<img src="images/gamedriver.jpg" style = "border:1px solid black"/>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<hr/>
+<h4>Part C: Going Beyond - Implementing the GameState interface</h3>
+<p>The issue with using the GameState interface is that it is a challenge to test without an object that implements the GameState interface.  This is now your task.</p>
+<p>I will describe a GuessingGame class below, but if you would like to think of your own two player text-based game and get it running with your project, you may do that instead.</p>
+<p>Create a class named GuessingGame, which implements the GameState interface.  The way that a GuessingGame will work is that it will pick a random number from 1 to 20 and players will alternate taking turns guessing until one of them gets it right.</p>
+<p>Its constructor should take in two Player objects to store as instance fields.  Other good instance fields to have would be an String to represent the correct number, and an ArrayList&lt;String&gt; to represent the numbers from 1 to 20 (these are the 'moves' that the players can make).  Lastly, you may want to have instance fields to represent the 'current' player (the one whose turn it is) and the 'winner' player.  The winner variable would remain null until a winner was found, but the current variable should have one of the two player objects assigned to it.</p>
+<p>Using those variables implement the rest of the GameState interface's methods.  The makeMove method is the most work.  It represents the current player making a move, represented by the parameter String which is the same as one of the Strings from the ArrayList.  You will need to test if he/she is the winner.  If not, the String should be removed from the ArrayList of numbers so that it isn't guessed again.  Though it's cheating, have the toString return a String that represents the number to guess, along with the toString of the ArrayList of remaining numbers.</p>
+<p>Finally we can test out our program.  You will have to add a public static void main method to get everything started.  Essentially you need a constructed GameDriver object and then to call its play method, but it's not that simple.  Check the parameter for GameDriver's constructor to help you.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<h4>Part D (Optional): Going Beyond - The Human Player</h3>
+<p>As amazing as two completely random players is, human interaction is a little better.  Create a class named HumanPlayer that is a subclass of Player.  It can still take in a name as a parameter in the constructor, but the method that needs work is the getNextMove method.  Add a Scanner statement that will help the user choose one of the options.  You may either have the user type out the exact String he/she wants, or set it up so that all they have to do is type the 'number' of the move that they want to make.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

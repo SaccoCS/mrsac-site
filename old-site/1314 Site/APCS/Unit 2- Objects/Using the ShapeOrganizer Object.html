@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Using the ShapeOrganizer Object</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-size: x-large;
+}
+.auto-style3 {
+	font-size: medium;
+}
+.auto-style4 {
+	font-size: large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style1"><span class="auto-style2">Using the ShapeOrganizer Object</span></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">First,
+<a href="../../SaccoJar/Setting%20Up%20BlueJ%20with%20saccojar.html">make sure 
+that you&#39;ve properly set up BlueJ with sacco.jar</a>.&nbsp; Otherwise you will 
+not be able to use a ShapeOrganizer object.</p>
+<p class="auto-style1">Now, copy the following program into your project:</p>
+<p class="auto-style1">
+<table border="1" style="width: 100%">
+	<tr>
+		<td style="width: 128px">
+<pre>import sacco.*;
+
+public class ShapeOrganizerDemo
+{
+    public static void main()
+    {
+        ShapeOrganizer shapeOrg  = new ShapeOrganizer();
+        shapeOrg.showCircle();
+        shapeOrg.setCircleX(0);
+        shapeOrg.setCircleY(0);
+        shapeOrg.setCircleRadius(200);
+        shapeOrg.setCircleColor("pink");
+    }
+}</pre>
+		</td>
+	</tr>
+</table>
+</p>
+<p class="auto-style1">Notice that the first line says <strong>import sacco.*;</strong>.&nbsp; 
+This import statement is necessary to retrieve ShapeOrganizer from sacco.jar .</p>
+<p class="auto-style1">You are not expected to memorize the ShapeOrganizer 
+methods.&nbsp; Use the
+<a href="../../SaccoJar/javadocs/ShapeOrganizer/sacco/ShapeOrganizer.html">
+ShapeOrganizer API </a>to determine what methods exist and what parameters are 
+needed when you call them.</p>
+<p class="auto-style5">WARNING:&nbsp; Computer coordinates are a little 
+different than math.&nbsp; The location (0,0) is at the <strong>upper-left 
+corner</strong> and as the y increases, it moves <strong>down</strong> the 
+screen.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style4"><strong>Assignment</strong></span>:
+<br />
+Create each of the designs below in a different program.&nbsp; I have provided a 
+view both with and without the showGrid() method being called.&nbsp; For 
+simplicity, every coordinate and measurement is a multiple of 25.</p>
+<p class="auto-style1">1)&nbsp; <strong><span class="auto-style3">Balance</span></strong>:</p>
+<p class="auto-style1"><img src="images/imgE.jpg" /><img src="images/imgD.jpg" /></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">2)&nbsp; <strong><span class="auto-style3">HomeSweetHome</span></strong>:</p>
+<p class="auto-style1"><img src="images/img10.jpg" /><img src="images/img11.jpg" /></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">3)&nbsp; <strong><span class="auto-style3">BlackAndWhite</span></strong>:</p>
+<p class="auto-style1"><img src="images/img13.jpg" /><img src="images/img12.jpg" /></p>
+<p class="auto-style1">&nbsp;</p>
+
+</body>
+
+</html>

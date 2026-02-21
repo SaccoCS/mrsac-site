@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Fighter</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style2">Fighter</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Write an Object class named <strong>Fighter</strong> to represent a 
+character in a game. Have instance fields to keep track of the Fighter’s health 
+points, a String for his ‘special attack’ and a String for his name.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Create a constructor that takes in two Strings and an 
+int as parameters (in that order) to set to the instance fields. In order to match the way it 
+was used in the runner, the name of fighter must be declared first, followed by 
+the special move, and the health points will be third.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">You will need the following methods in your Fighter 
+class:</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>toString</strong> don’t include the special move in you 
+toString, but include the name and health points</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>getHealth</strong> returns the health points of the fighter
+</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>takeDamage(int points)</strong> reduces the hit points by the 
+specified amount. This method returns nothing.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>getSuper</strong> returns the name of the Super move</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>getName</strong> returns the name of the fighter</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>win</strong> returns a victory phrase in the form of a String 
+(ex. return &quot;Hooray!&quot;;)</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>lose</strong> returns a losing phrase in the form of a String</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Runner:</span></p>
+<p><pre>public class FighterRunner
+{
+
+   public static void main()
+   {
+      Fighter player1 = new Fighter("Ryu","Haduoken",100);
+      Fighter player2 = new Fighter("Blanka","Electricity",100);
+
+
+      System.out.println(player1+"\n"+player2+"\n");
+
+
+      System.out.println(player1.getName()+" hits "+player2.getName()+" with his "+player1.getSuper()+" attack");
+
+      player2.takeDamage(45);
+
+      System.out.println(player1+"\n"+player2+"\n"+"\n");
+
+
+
+
+
+
+
+      System.out.println(player2.getName()+" hits "+player1.getName()+" with his "+player2.getSuper()+" attack");
+
+      player1.takeDamage(25);
+
+      System.out.println(player1+"\n"+player2+"\n"+"\n");
+
+
+
+
+
+      System.out.println(player1.getName()+" hits "+player2.getName()+" with his "+player1.getSuper()+" attack");
+
+      player2.takeDamage(55);
+
+      System.out.println(player1+"\n"+player2+"\n"+"\n");
+
+
+
+      System.out.println(player2.getName()+" loses: ");
+
+      System.out.println(player2.lose());
+
+      System.out.println(player1.getName()+" wins: ");
+
+      System.out.println(player1.win());
+
+
+
+   }
+}</pre>
+<br class="auto-style1" />
+<span class="auto-style3"><strong>Optional: BattleRunner</strong></span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Once you&#39;ve found that your fighter works as intended. 
+Copy the code below for Battle Runner. It will prompt you for the names and 
+special moves of the two fighters, then simulate a battle to the end.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<pre>import java.util.Scanner;
+import sacco.*;
+public class BattleRunner
+{
+   public static void main()
+   {
+      Fighter[] fighters = new Fighter[2];
+      Scanner scan = new Scanner(System.in);
+      System.out.println("Enter player one's name:");
+      String name = scan.nextLine();
+      System.out.println("What is "+name+"'s special move?");
+      String special = scan.nextLine();
+
+      fighters[0] = new Fighter(name, special, 100);
+
+      System.out.println("Enter player two's name:");
+      name = scan.nextLine();
+      System.out.println("What is "+name+"'s special move?");
+      special = scan.nextLine();
+
+      fighters[1] = new Fighter(name, special, 100);
+
+      //determine who goes first
+      int num = (int)(Math.random()*2);
+      int num2 = (num+1)%2;
+
+      if(num == 0)
+      {
+         System.out.println(fighters[0].getName()+" has won the right to go first");
+      }
+      else
+      {
+         System.out.println(fighters[1].getName()+" has won the right to go first");
+      }
+
+      while(fighters[0].getHealth()>0 && fighters[1].getHealth()>0)
+      {
+         System.out.println(fighters[0]+"\n"+fighters[1]+"\n");
+         num = (num+1)%2;
+         num2 = (num2+1)%2;
+
+         SaccoTools.pauseFor(1000);
+         int damage = (int)(Math.random()*30);
+         System.out.println(fighters[num].getName() + " hits " + fighters[num2].getName()+ " with his/her "+fighters[num].getSuper()+" attack for "+ damage+ " points.");
+         fighters[num2].takeDamage(damage);
+
+      }
+	
+      Fighter winner  = fighters[0];
+      Fighter loser  = fighters[1];
+
+      if( fighters[0].getHealth()&lt;= 0)
+      {
+         winner = fighters[1];
+         loser = fighters[0];
+      }
+
+
+         System.out.println(winner.getName()+&quot; wins!&quot;);
+         System.out.println(winner.win()+&quot;\n&quot;);
+
+         System.out.println(loser.getName()+&quot; has been shamed&quot;);
+         System.out.println(loser.lose());
+   }
+}</pre>
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Order of Operations</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Order of Operations</h2>
+					<p>When doing Math with Java, there is an order of operations that will be followed.  It's not exactly the same as your Dear Aunt Sally told you.</p>
+					<p> </p>
+					<p style ="font-size:20pt;margin:15px 20px"><span style = "color:#00a">PC</span><span style = "color:#a00">MMD</span><span style = "color:#0a0">AS</span></p>
+					<p> </p>
+					<div style = "float:left;margin-left:20px;">
+					<p style = "margin-top:0px;margin-bottom:0px;padding:0px;color:black;">Parentheses<br/>
+					Casting</p>
+					
+						<div style = "border:1px solid black;padding:0px 0px 0px 0px; margin:0px 0px 0px 10px;background-color:#eaa;">
+						<p style = "margin:0px 10px;padding:0px;color:black;">Multiplication<br/>
+						Modulus<br/>
+						Division</p>
+						
+						</div>
+						<div style = "clear:left;border:1px solid black;padding:0px 0px 0px 0px; margin:5px 0px 10px 10px;background-color:#aea;">
+						<p style = "margin:0px 10px;padding:0px;color:black;">Addition<br/>
+						Subtraction</p>
+						</div>
+					</div>
+					
+						<p style="clear:left">Note that there are no exponents in Java, and that Casting and Modulus are worked into the equation.  This should be somewhat familiar from Math class.</p>
+						<div class = "code-block">
+						<p>15 + <span style = "color:#a00"><strong>( 2 + 3 )</strong></span> * 6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parentheses<br/>
+						&nbsp;&nbsp;&nbsp; 15 + <span style = "color:#a00"><strong>5 * 6</strong></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiplication<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp; <span style = "color:#a00"><strong>15 + 30</strong></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Addition<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style = "font-size:large"><strong>45</strong></span></p>
+						</div>
+				</div>
+				
+				
+				<div class = "note-div">
+				<h3>Similar Operations are Processed Left to Right</h3>
+				<p>Multiplication, Mod, and Division are considered similar operations, as well as Addition and Subtraction.  When there is more than one similar operation, they are processed from left to right.</p>
+				
+				<div class = "code-block">
+						<p>8 - <span style = "color:#a00"><strong>2 * 6</strong></span> % 9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiplication<br/>
+						&nbsp; 8 - <span style = "color:#a00"><strong>12 % 9</strong></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mod<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp; <span style = "color:#a00"><strong>8 - 3</strong></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subtraction<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style = "font-size:large"><strong>5</strong></span></p>
+						</div>
+				<p style = "clear:left">If you do things out of order, it can change things drastically.  Observe the sameexpression, but with the Modulus evaluated first</p>
+				
+				<div class = "code-block">
+						<p>8 - 2 *<span style = "color:#a00"><strong> ( 6 % 9 )</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;Mod<br/>
+						&nbsp; 8 - <span style = "color:#a00"><strong>2 * 6</strong></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multiplication<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp; <span style = "color:#a00"><strong>8 - 12</strong></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subtraction<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style = "font-size:large"><strong>-4</strong></span></p>
+						</div>
+						
+						
+				
+				</div>
+				
+				<div class = "note-div">
+				<h3>Mixing Data Types</h3>
+				<p>Order of Operations is very important when mixing different data types because when you perform an operation on two different types of data, one of the elements is converted to the other.</p>
+				<p> - A String plus an int results in a String (concatenation)<br/>
+				 - A String plus a double results in a String (concatenation)<br/>
+				  - An int and a double results in a double</p>
+				<p>For Example, the following expression mixes ints, doubles, and Strings</p>
+					<div class = "code-block">
+					<p><span style = "color:#a00">1 + 2.5 </span>+ "A" + 3 + 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int and double = double<br/>
+					<span style = "color:#a00">3.5 + "A" </span>+ 3 + 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double and String = String<br/>
+					<span style = "color:#a00">"3.5A" + 3</span> + 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String and int = String<br/>
+					<span style = "color:#a00">"3.5A3" + 4</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String and int = String<br/>
+					<span style = "font-size:large"><strong>"3.5A34"</strong></span>
+					</p>
+						</div>
+						<p style = "clear:left">Before the order of operations reaches the String "A", it is only looking at ints and doubles, so the addition is <strong>mathematical</strong> and results in a double, but once the value being looked at is a String, the addition becomes <strong>concatenation</strong> and the numbers a simply added to the end of the String.</p>
+				</div>
+				
+				
+				
+				
+				<div class = "note-div">
+				
+					<h3>Casting</h3>
+					<p>Casting is very high up on the order of operations.P<span style = "color:#a00"><strong>C</strong></span>MMDAS.  The only thing that supercedes it is parentheses.  Look at how each different cast causes that value to be truncated and affects the value in the end.</p>
+					<div class = "code-block">
+						<p style = "margin-left:5px;">double a = 2.2;</br>
+					double b = 4.5;</br>
+						double sum1 = (int)a + b; <span style="color:#aaa"> &nbsp;&nbsp;// 2 + 4.5  --> 6.5</span></br> 
+						double sum2 = a + (int)b; <span style="color:#aaa"> &nbsp;&nbsp;// 2.2 + 4 --> 6.2</span></br>
+						double sum3 = (int)(a + b);<span style="color:#aaa"> // (int)(2.2 + 4.5) --> (int)(6.7) --> 6</span></br>
+						double div1 = (int)b/2;<span style="color:#aaa"> &nbsp;&nbsp;&nbsp;&nbsp;// 4/2 --> 2</span></br>
+						double div2 = (int)(a + b)/2;<span style="color:#aaa">// (int)(2.2+4.5)/2 --> (int)(6.7)/2 --> 6/2 --> 3</span></br>
+						
+						</p>
+					</div>
+				
+				</div>
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

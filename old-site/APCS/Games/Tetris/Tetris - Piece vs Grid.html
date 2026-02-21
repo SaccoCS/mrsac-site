@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Piece vs Grid</title>
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h2>Piece vs Grid</h2>
+<p>At the moment we&#39;ve got a window that displays a TetrisGrid and a TetrisPiece 
+together.&nbsp; Moving/rotating the piece can be accomplished using the arrow 
+keys and spacebar.&nbsp; The issue now is that the piece blindly moves without 
+checking first to see if the next locations are availiable to move the piece 
+into.</p>
+<p><strong>Our Goals:</strong><br />
+- Add the ability for the TetrisPiece to see if it fits in the grid<br />
+- Add the ability to find the next location/orientation of the Piece<br />
+- Use that ability to determine if it&#39;s safe to move or rotate</p>
+<p>&nbsp;</p>
+<hr/>
+
+<h3>fitsInGrid:</h3>
+<p>When the TetrisPiece is constructed it&#39;s given the TetrisGrid that it&#39;s 
+matched up with.&nbsp; So far the TetrisPiece can move and rotate, but has no 
+way of telling if it&#39;s current position is allowed by the rules of the game.</p>
+<p>Add a method named fitsInGrid.&nbsp; The purpose of the fitsInGrid method is 
+to look at each block, determine its location in the grid (found using the 
+anchor) and use the grid to decide if that location is appropriate.</p>
+<p>In order to return true, every Block&#39;s grid location must be:<br />
+1) A valid Location in the grid<br />
+2) An empty location in the grid.&nbsp; This means that the when you ask the 
+grid for the Block at that location, it returns a null value.</p>
+<p>&nbsp;</p>
+<h5>Testing:</h5>
+<p>In order to test if this process works, modify the TetrisController&#39;s 
+onKeyPress method so that the last thing it does it System.out.println the 
+result of the TetrisPiece&#39;s fitsInGrid method.</p>
+<p>Run the program again.&nbsp; This time every time you move, either a true or 
+a false is printed to the terminal.&nbsp; Try several different situations and 
+make sure that false is only printed when you are either out of the boundary of 
+the grid (above is fine because of the upper buffer) or any of the four blocks 
+are overlapping a Block from the grid.</p>
+<hr/>
+<h3>copy</h3>
+<p>In order to see if our next move or rotation is legal, we are going to obtain 
+a copy of the TetrisPiece, tell it to move/rotate, and see if it fits in the 
+grid at its new location/orientation.&nbsp; Add a method with the following 
+header:</p>
+<p>public TetrisPiece copy()</p>
+<p>The purpose of this method is to return a NEW TetrisPiece that has nearly 
+identical instance fields.&nbsp; First construct it using your grid, and then 
+make sure that the size, anchor, and Block Locations are the same.&nbsp; Be 
+careful when dealing with the Blocks:&nbsp; you want the new piece&#39;s Blocks to 
+have the same Locations, but you do NOT want it to have the exact same blocks.&nbsp; 
+Get the Locations out of the original Blocks and set the new Blocks to the same 
+Locations.&nbsp; </p>
+<p>Once you&#39;re confident that you&#39;ve set up a good copy of the TetrisPiece, 
+return it.</p>
+<hr/>
+<h3>canMoveInDir</h3>
+<p>While the fitsInGrid method is nice to tell if the piece will fit, but the 
+main thing that we care about is the future.&nbsp; We want to make sure that we
+<strong>can</strong> move in a specific direction.</p>
+<p>Add a method with the following header:</p>
+<p class="auto-style1">public boolean canMoveInDir(int dir)</p>
+<p>This method takes in an int that represents one of the four Location 
+directions and returns true if moving in that direction would cause a situation 
+where the piece would fit in the grid.&nbsp; The copy method that you just made 
+will be perfect for this situation.&nbsp; The first thing that you should do is 
+retrieve a copy of &#39;this&#39; TetrisPiece, tell it to move in the direction, and ask 
+if it still fits in the grid.&nbsp; This should tell you if you can move in that 
+direction.</p>
+<p>&nbsp;</p>
+<h5>Testing:</h5>
+<p>To test the canMoveInDir method you will modify the onKeyPress method of the 
+TetrisController.&nbsp; Currently it blindly moves the piece in the direction 
+indicated.&nbsp; Add an if statement so that it first checks if it can move in 
+that direction before it actually calls the move method.</p>
+<p>When you run it, you should find that the piece is now very limited in its 
+motion.&nbsp; It should move freely until it hits a wall or Block that&#39;s in the 
+grid.&nbsp; Also make sure that it&#39;s not moving two steps instead of one.&nbsp; 
+That would indicate that you didn&#39;t revert the anchor location when you wrote 
+canMoveInDir.</p>
+<p>&nbsp;</p>
+<hr/>
+<h3>canRotate</h3>
+<p>So far the canMoveInDir method is doing a pretty good job at keeping the 
+TetrisPiece to orientations that are within the grid.&nbsp; You may have noticed 
+that if you move to the edge of the screen and rotate your piece it can 
+sometimes end up sticking a few of the Blocks outside of the grid.&nbsp; Similar 
+to canMoveInDir, we need a way to see if rotation will cause an unhealthy 
+situation.</p>
+<p>Checking to see if you can rotate is very similar to checking to see if you 
+can move.&nbsp; Obtain a copy, rotate it and observe the new orientation to see 
+if it works.</p>
+<p>&nbsp;</p>
+<h5>Testing:</h5>
+<p>Again test your program by setting up the controller to first ask if it
+<strong>canRotate</strong> before it actually rotates.&nbsp; Run the program and 
+you should put the piece all the way up to the edge and attempt to rotate.&nbsp; 
+It should do some rotating, but should stop when the next rotate will cause 
+Blocks to be out of bounds.</p>
+<p>&nbsp;</p>
+<hr/>
+<h3>Lock Down:</h3>
+<p>So far we&#39;ve been dealing with the movement of a single piece in the screen.&nbsp; 
+In the real game of Tetris, when the piece cannot move down any more it becomes 
+a part of the grid and a new piece is created.</p>
+<p>Add a method named <strong>lockToGrid</strong>, which takes all of the Blocks 
+and adds them to the grid at their grid location (don&#39;t forget to involve the 
+anchor).</p>
+<p>The piece should also be able to tell us if it&#39;s been locked or not.&nbsp; 
+Add a boolean instance field that will represent if it&#39;s locked or not.&nbsp; 
+First make sure that the constructor sets it to active from the start, and then 
+add a method name isLocked() that will return the boolean.&nbsp;&nbsp; Finally, 
+make sure that the lockToGrid method changes the boolean so that it&#39;s &#39;locked&#39;.</p>
+<p>&nbsp;</p>
+<h4>Loading a new Piece:</h4>
+<p>The model already has a newPiece() method to load a new piece, but it&#39;s the 
+Controller&#39;s job to tell it when to call it.&nbsp; Head back to the 
+TetrisController&#39;s onKeyPress method.&nbsp; If the L button is pressed, the 
+controller should tell the piece to lock itself to the grid and then have the 
+model load a new piece.&nbsp; This is not how the game works, but we want it for 
+testing purposes.</p>
+<p>&nbsp;</p>
+<h5>Testing:</h5>
+<p>Run the program one more time.&nbsp; You should still be able to move 
+yourself around and rotate.&nbsp; Move the piece to some place away from its 
+starting location and then hit the L key.&nbsp; If all is well, the original 
+piece will stay where it is and a new, movable piece will appear at the starting 
+location.&nbsp; For now, it will be identical to the original.</p>
+<p><img height="379" src="images/lockedpiece.PNG" width="217" /></p>
+<p>&nbsp;</p><hr/>
+<h4>Cleaning the Grid:</h4>
+<p>At the moment the grid always starts with ten blocks on the grid.&nbsp; This 
+was for testing, but now it&#39;s worn out its welcome.&nbsp; Go back to 
+TetrisGrid&#39;s constructor and remove the call to quickLoadBlocks.&nbsp; If you 
+run the game again you should start with a single piece that&#39;s controllable with 
+the arrow keys.&nbsp; Hitting L should lock that peice and generate a new piece 
+(of the same type, for now).</p>
+<p><img height="379" src="images/allonepiece.PNG" width="217" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

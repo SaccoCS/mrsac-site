@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Array Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p><h2 style="font-family:Arial, Helvetica, sans-serif">Array Programs:</h2><br class="auto-style1" />
+<span class="auto-style1">For the ArrayPrograms, start by copying the following 
+blank class into your project</span><br class="auto-style1" />
+<br class="auto-style1" />
+<pre>import java.util.*;
+
+public class ArrayProgs
+{
+    //sample method
+    public static int[] countUp(int startVal)
+    {
+        int[] arr = new int[6];
+        int counter = startVal;
+        
+        for( int i =0; i< arr.length; i++)
+        {
+            arr[i] = counter;
+            counter++;
+        }
+        
+        return arr;
+    }
+
+    public static int[] evenArr(int size)
+    {
+       return null; //dummy statement
+    }
+
+    public static int[] squareArr(int size)
+    {
+       return null; //dummy statement
+    }
+
+    public static int[] increasingArray(int firstVal, int lastVal)
+    {
+       return null; //dummy statement
+    }
+    
+    public static int[] fibArr(int size)
+    {
+       return null; //dummy statement
+    }
+    
+    public static void printArray(int[] arr)
+    {
+       
+    }
+    
+    public static void main()
+    {
+        
+    }
+}</pre>
+<p>&nbsp;<span class="auto-style1">These programs are a little different than 
+what you&#39;re used to.&nbsp; There will be 
+no interacting with the user with Scanner or printlns until the last two methods. Instead, all the 
+important information will be passed in as parameters, and the results will be 
+returned. Each method should create a new array, and then use a loop to fill the 
+array with the correct values. Once the array is ready, return it. </span></p>
+<p><span class="auto-style1">For example consider the following method which takes 
+in a number as a parameter and fills a size 6 array with the ints starting with 
+that value and counting up one each time.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<pre>    public static int[] countUp(int startVal)
+    {
+        int[] arr = new int[6];   //create an array to return
+        int counter = startVal;   //counter represents the value to add
+        
+        for( int i =0; i< arr.length; i++)  //i represents the index to fill
+        {
+            arr[i] = counter;
+            counter++;
+        }
+        
+        return arr;
+    }</pre>
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">How to test the method:<br />
+<br />
+Since there are no printlns until the end, test each method by right clicking 
+and running the specific method.&nbsp; When the window pops up, enter what you 
+would like the value of the parameter to be.&nbsp; In this case it&#39;s 4:<br />
+<img src="images/img20.jpg" /><br />
+<br />
+When you click ok, it should return to you something like this:<br />
+<img src="images/img21.jpg" /><br />
+<br />
+Click the inspect button so that you can see all the elements of the array:<br />
+<br />
+<img src="images/img22.jpg" /><br />
+<br />
+Look through the elements to make sure they&#39;re all proper.&nbsp; In this case 
+I&#39;m looking to see if the length is 6, the first value is 4, and all the 
+elements increase by 1 each time.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style2"><strong>Methods:</strong></span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>public static int[] evenArr(int size)</strong></span><br class="auto-style1" />
+<span class="auto-style1">This method will generate and return an int[] filled 
+with the even numbers, starting with 2. The size of the array will be passed in 
+as the parameter of the method.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">For example: evenArr( 5) returns the array 
+{2,4,6,8,10}</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>public static int[] squareArr(int size) 
+</strong> </span>
+<br class="auto-style1" />
+<span class="auto-style1">This method will generate an return an int[] filled 
+with a list of square numbers, starting with 1. The size of the array will be 
+passed in as the parameter of the method.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">For example: squareArr(6) returns the array 
+{1,4,9,16,25,36}<br />
+</span><br class="auto-style1" />
+<span class="auto-style1"><strong>public static int[] increasingArray(int firstVal, int 
+lastVal)</strong></span><br class="auto-style1" />
+<span class="auto-style1">This method will generate and return an array filled 
+with increasing values. The first and last values of the array are passed in as 
+parameters.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">For example: increasingArray(4,9) would return the 
+array {4,5,6,7,8,9}</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>public static int[] fibArr(int size)</strong></span><br class="auto-style1" />
+<span class="auto-style1">This method will generate and return an array that 
+contains numbers from the Fibonacci Sequence. The size of the array is passed in 
+as the parameter. The rules of the Fibonacci Sequence are that the first two 
+elements are 1 and 1. Every sequential element is determined by adding the 
+previous two elements. 1,1,2,3,5,8,13,21… You may directly put the first two 
+elements into the array, but a loop should be used to fill out the rest.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>public static void printArray(int[] arr)</strong></span><br class="auto-style1" />
+<span class="auto-style1">This method takes in an already filled int array and 
+prints out all of the elements, surrounded by curly braces and separated by 
+commas ( {1,3,7,6,8} ).<br />
+<br />
+Hint:&nbsp; This is a little different than the previous methods.&nbsp; You do 
+not create a new array.&nbsp; This time you&#39;re given an array to work with.&nbsp; 
+Start by looping through each index and printing out arr[i].&nbsp; Hopefully 
+this will print out all the values your entered.&nbsp; From there it&#39;s a matter 
+of adding commas between them.<br />
+<br />
+<br />
+To test this method, instead of putting an int in when you call the method, you 
+need to pass an entire array, including curly braces. <br />
+&nbsp;For example:<br />
+<img src="images/img26.jpg" /><br />
+<br />
+This should cause the same array to be printed on the terminal window.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>public static void main()</strong></span><br class="auto-style1" />
+<span class="auto-style1">This method is the only method that will use a 
+Scanner. It will one-by-one prompt the user for an input, and then use that 
+input to get an array from the right method. After that method returns an array, 
+use the printArray method to print it out.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">For example: if the countUp method were a part of it 
+(don’t include it in your code)</span><br class="auto-style1" />
+<br class="auto-style1" /><pre>Scanner scan = new Scanner(System.in);
+System.out.println(“Please enter a value to count up to”);
+String strVal = scan.nextLine();  //get the input from the user
+int val = Integer.parseInt(strVal); //parse it into an int
+
+int[] tmp = countUp(val); //use that input to get an array from the method
+printArray(tmp); //pass that array into the printArray method to be printed.</pre>
+<br class="auto-style1" />
+<span class="auto-style1">This method will be used to turn in the program, so go 
+in this order:</span><br class="auto-style1" />
+<span class="auto-style1">evenArr</span><br cla
+s="auto-style1" />
+<span class="auto-style1">squareArr</span><br class="auto-style1" />
+<span class="auto-style1">increasingArray (this time get 2 ints from the user)</span><br class="auto-style1" />
+<span class="auto-style1">fibArr</span><br class="auto-style1" />
+<br class="auto-style1" />
+<p class="auto-style1">One possibile output for running this method would look like 
+the following:</p>
+<p class="auto-style1">Please enter a size for the even array:<br />
+6<br />
+{2,4,6,8,10,12}<br />
+<br />
+Please enter a size for the square array:<br />
+4<br />
+{1,4,9,16}<br />
+<br />
+Please enter a starting value for the increasing array:<br />
+10<br />
+Please enter an ending value for the increasing array:<br />
+15<br />
+{10,11,12,13,14,15}<br />
+<br />
+Please enter a size for the Fibonacci array:<br />
+10<br />
+{1,1,2,3,5,8,13,21,34,55}<br />
+</p>
+
+</body>
+
+</html>

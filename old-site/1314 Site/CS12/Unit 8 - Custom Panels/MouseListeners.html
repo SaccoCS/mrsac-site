@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Practice Canvas</title>
+
+
+<script>
+
+function getMousePos(canvas,evt)
+{
+   var rect = canvas.getBoundingClientRect();
+   return {
+   x:evt.clientX - rect.left,
+   y:evt.clientY - rect.top
+   };
+}
+function fillOval(canvas,x,y,w,h)
+{
+  
+var ctx = canvas.getContext("2d");
+ctx.save();
+
+var diam = Math.max(w,h);
+var scaleX = w/diam;
+var scaleY = h/diam;
+ctx.scale(scaleX,scaleY);
+ctx.beginPath();
+ctx.arc(x+w/2,y+h/2,diam/2,0,2*Math.PI,false);
+ctx.closePath();
+//ctx.fillStyle="#FF0000";
+ctx.fill();
+
+
+ctx.restore();
+}
+function load()
+{
+	var c = document.getElementById("MouseHilighter");
+	c.addEventListener('mousemove',function(evt){
+
+	var mousePos = getMousePos(c,evt);
+	
+	var ctx = c.getContext("2d");	
+	ctx.fillStyle = "#FFFFFF";
+	ctx.fillRect(0,0,c.width,c.height);
+	c.fillStyle = "#FF0000";
+	var rad = 20;
+	fillOval(c,mousePos.x-rad,mousePos.y-rad,2*rad,2*rad);
+
+	},false);
+var ctx = c.getContext("2d");
+//ctx.fillStyle = "#FF0000";
+//ctx.fillRect(0,0,200,200);
+}
+</script>
+
+</head>
+
+<body onload="load()">
+
+<p>Practice Canvas</p>
+<p>MouseHilighter</p>
+<canvas id="MouseHilighter" width="500" height="500" style="border:1px solid #000000" onload="load()"></canvas>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

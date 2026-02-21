@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Basic Math Operators</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Basic Math Operators</h2>
+					<p>Java uses the + - * / % symbols for addition, subtraction, multiplication, division, and mod.  The two
+					new topics you should be aware of are <a href="mod.html">Mod</a> and <a href="int division.html">Division with ints</a>.</p>
+
+				</div>
+				<div class = "note-div">
+					<h3>The Assignment Operator <strong>=</strong></h3>
+					<p>The 'equals sign' is known as the <strong>Assignment Operator</strong>used in Java whenever you are assigning a value to a variable.</p>
+					<p class = "code">int x = 5;</p>
+					<p>The assignment operator is a right-to-left operation.  The left side should always be the variable that you 
+					want to assign the value to.  The example above is how we <strong>initialize</strong> a variable to its very first value.
+					It can also be used to change the value of a variable that already has a value.</p>
+					
+					
+					
+						<div class="code-left code-block" style = "width:450px">
+							<p class = "code">int x = 5;</br>
+					System.out.println("Current Value:" + x);</br>
+					x = 22;</br>
+					System.out.println("Current Value:" + x);
+					</p>
+							
+						
+						</div>
+						<div class="half-div-right" style = "width:200px">
+							<p><span style="color:black;">Output:</span></br>
+							Current Value: 5</br>
+							Current Value: 22</br>
+						
+						</div>
+					
+					<p style="clear:left">Even though the println statement prints the value of x, in between the printlns the value
+					of x is changed to a different value</p>
+					
+				<hr/>
+					<h3>Performing Math Operations</h3>
+					<p>When using symbols to perform math we always want to make sure the result goes somewhere.  That's why we 
+					frequently use an assignment statement at the same time</p>
+					<p class = "code">
+						int a = 5;<br/>
+						int b = 7;<br/>
+						int sum = a + b;
+					</p>
+					<p>The last line does two things.  First it calculates <span class = "code">a + b</span> to get a value of <span class = "code">12</span>.
+					Once that value is done calculating, the result is assigned to the <span class = "code">sum</span> variable.  Remember that with these statements, the right side is calculated first.</p>
+				</div>
+				<div class = "note-div">
+					<h3>Making Changes to a Variable</h3>
+					<p>When you perform a calculation, you don't always want to create a brand new variable.  Sometimes you
+					simply want to increase a variable.  </p>
+					<p class = "code">
+						int num = 5;<br/>
+						int bigNum = 100 * num;
+					</p>
+					<p>In the last line here, <span class = "code">int bigNum = 100 * num;</span> the value of <span class = "code">num</span> doesn't change.  The only way to change
+					the value of <span class = "code">num</span> would be to have it to the left of the assignment operator.  Which is completely legal.  Consider what the following code does.
+					</p>
+					<p class = "code">
+						int num = 5;<br/>
+						num = 100 * num;
+					</p>
+					<p>The line <span class = "code">num = 100 * num;</span> is confusing at first, but just remember that it's actually two things:<br/>
+					First the right side is calculated (500), and then the result is assigned back into the <span class = "code">num</span> variable.
+					The affect is that the value of num has been changed from 5 to 500.</p>
+
+				</div>
+				<div class = "note-div">
+					<h3>Combination Assignment Operators:  <span style="font-family:Courier">+= -= *= /= %=</span></h3>
+					<p>Each of these assignment operator performs two functions.  First it does some math, and then it assigns to the variable
+					on the left.  Consider the code below, which assigns an initial value of 20 to the num variable, and then uses the combination assignment
+					operator to increase it by five.<p>
+					<p class = "code">int num = 20;<br/>
+					num += 5;
+					</p>
+					<p>The <span class = "code">num += 5;</span> statement is a shortcut for <span class = "code">num = num + 5;</span>.  The result is that the 
+					value of num is increased from 20 to 25.</p>
+					<p>Consider the following code that uses many of the combination assignment operators to repeatedly change the value
+					of the x variable</p>
+					
+					<div class="code-left code-block" style = "width:450px">
+							<p class = "code">int x = 5;</br>
+					System.out.println("Current Value: " + x);</br>
+					x += 4;</br>
+					System.out.println("Current Value: " + x);</br>
+					x *= 6;</br>
+					System.out.println("Current Value: " + x);</br>
+					x /= 3;</br>
+					System.out.println("Current Value: " + x);</br>
+					x %= 5;</br>
+					System.out.println("Current Value: " + x);</br>
+					
+					</p>
+							
+						
+						</div>
+						<div class="half-div-right" style = "width:200px">
+							<p><span style="color:black;">Output:</span></br>
+							Current Value: 5</br>
+							Current Value: 9</br>
+							Current Value: 54</br>
+							Current Value: 18</br>
+							Current Value: 3</br>
+						
+						</div>
+				
+				</div>
+				
+				<div class = "note-div"> 
+				<h3>Increment and Decrement Operators ++&nbsp;&nbsp;--</h3>
+				<p>Another very common procedure with an int variable is increasing or decreasing it by exactly 1.  This is known as <strong>incrementing</strong> and <strong>decrementing</strong>.
+				</p>
+				<p>Assuming we have a variable <span class ="code">num</span>, we <strong>could</strong> increment it using either of the strategies below.</p>
+				<p class = "code">num = num + 1;</br>
+				num += 1;</p>
+				
+				<p>But there is another shortcut that we can use that performs the same process with fewer characters.</p>
+				<p class = "code">num++;</p>
+				<p>The ++ is known as the <strong>increment operator</strong> and its sole purpose is to increase the value of the variable to its left by exactly one.</p>
+				<p>Similarly, <span class = "code">num--</span> is using the <strong>decrement operator</strong> and it will cause the value of num to decrease by exactly one. </p>
+				</div>
+				
+				
+				
+				<div class = "note-div">
+					<h3>Example</h3>
+					<p>Below you will find code that repeatedly makes a change to x and then prints out the new value of the variable.  Towards the end it gets a little tricky.  Make sure that you understand how each operation affects the x variable.</p>
+					<div class="code-left code-block" style = "width:450px">
+						<p class = "code">int x = 10;</br>
+						System.out.println("Current Value: " + x);</br>
+						x += 4;</br>
+						System.out.println("Current Value: " + x);</br>
+						x /= 2;</br>
+						System.out.println("Current Value: " + x);</br>
+						x -= 4;</br>
+						System.out.println("Current Value: " + x);</br>
+						x++;<br/>
+						System.out.println("Current Value: " + x);</br>
+						x = x + x;</br>
+						System.out.println("Current Value: " + x);</br>
+						x--;</br>
+						System.out.println("Current Value: " + x);</br>
+						x *= x - 2;</br>
+						System.out.println("Current Value: " + x);</br>		
+						</p>
+							
+						
+						</div>
+						<div class="half-div-right" style = "width:200px">
+							<p><span style="color:black;">Output:</span></br>
+							Current Value: 10</br>
+							Current Value: 14</br>
+							Current Value: 7</br>
+							Current Value: 3</br>
+							Current Value: 4</br>
+							Current Value: 8</br>
+							Current Value: 7</br>
+							Current Value: 35</br>						
+						</div>
+				</div>
+				
+				
+				
+				<div class = "note-div">
+				<h3>Example</h3>
+				<p>What are the final values of a and b after the following code runs?</p>
+				<div style = "margin-left:19px"><p class = "code">int a = 5;<br/>
+				int b = 2;<br/>
+				a += b;<br/>
+				b -= a;<br/>
+				a *= 2;<br/>
+				b += a-4;</p>
+				</div>
+				<p style = "clear:left">I would not recommend trying to do this in your head.  It is possible, but there are lots of places that you could easily lose track of.  Instead I recommend keeping track of the current values of a and b on a piece of paper.  Every time the variable changes, cross it out on that piece of paper and replace it with the new value.  That way you will always know the up to date value of each variable.</p>
+				<p>In the end a and be have a value of 14 and 5 respectively.</p>
+				
+				
+			</div>
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		
+		
+			
+		</div>	
+	</div>	
+</body>
+</html>

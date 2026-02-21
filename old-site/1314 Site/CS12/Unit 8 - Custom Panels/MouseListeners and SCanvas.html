@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>MouseListeners and SCanvas</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">MouseListeners and SCanvas</h2>
+<p>Previously we&#39;ve dealt with ButtonListeners and KeyListeners, but when 
+dealing with a canvas, MouseListening becomes important.</p>
+<p>Similar to how the SCanvas has a paintCanvas method and we&#39;re just rewriting 
+a &#39;better&#39; version of it to make our programs pretty,&nbsp; the SCanvas is 
+already automatically listening for events and we just have to override the 
+special methods.</p>
+<pre>public void onMousePress(MouseEvent m)</pre>
+
+<p>Similar to a KeyListener&#39;s onKeyPress method, this method is called any time 
+that you press the mouse button on the canvas.&nbsp;</p>
+<pre>public void onMouseRelease(MouseEvent m)</pre>
+
+<p>This method is called when a mouse button is released.</p><hr>
+<p>Copy the following class into your project:</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class MouseDemo extends SCanvas
+{
+        
+    @Override
+    public void paintCanvas(PaintBrush brush)
+    {
+        Font f = new Font("Arial Bold",30);
+        f.setBold(true);
+        brush.setFont(f);
+        brush.setColor(Color.BLACK);
+        brush.drawString("Click Me",10,30);
+    }
+    
+    @Override
+    public void onMousePress(MouseEvent m)
+    {
+        System.out.println(&quot;Hello World!!&quot;);
+    }
+    
+    public static void main()
+    {
+        SFrame frame = new SFrame();       
+        MouseDemo pan = new MouseDemo();
+        frame.add(pan);
+        frame.setSize(155,75);
+        frame.setVisible(true);
+    }
+}</pre>
+<p>Notice that I&#39;ve overridden the onMousePress method to print out &quot;Hello 
+World!&quot;.&nbsp; Run the program and click around.&nbsp; Every time you press the 
+mouse you should get a print out.&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>MouseEvent</strong></p>
+<p>The parameter of those two methods is not just an int this time.&nbsp; It&#39;s 
+an object called a MouseEvent, which pretty much just contains the x and y 
+coordinate where the mouse press or release happened.&nbsp; Sometimes you want 
+to know about the location.&nbsp; MouseEvent has two methods, getX() and getY(), 
+which return the coordinates.&nbsp; Often times you will start a mouse event 
+method with the following:</p>
+<pre>int mouseX = m.getX();
+int mouseY = m.getY();</pre>
+<p>Then you can use the mouseX and mouseY to guide how you want to respond.</p>
+<p>Add the following method to the demo class:</p>
+<pre>public void onMouseRelease(MouseEvent m)
+{
+   int mouseX = m.getX();
+   int mouseY = m.getY();
+   
+   System.out.println("Mouse Released at ("+mouseX+", "+mouseY+")");
+}</pre>
+<p>Run it again.&nbsp; Notice that when you press down on the mouse, &quot;&quot;Hello 
+World&quot; is still printed, but when you release, it tells you the coordinates of 
+where you released.&nbsp; Try clicking the upper left and see that the numbers 
+are small.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Mouse Motion</strong></p>
+<p>The last Mouse method that you can override is called every time the mouse 
+moves at least one pixel.</p>
+<pre>public void onMouseMove(MouseEvent m)</pre>
+<p>In the demo, change the method that says onMouseRelease to onMouseMove and 
+run the program again.&nbsp; Now the printin happens every time you move the 
+mouse on the canvas at all.</p>
+<hr>
+
+<p class="auto-style1"><strong>Using instance fields:</strong></p>
+<p>Since you can only paint from the paintCanvas method, you&#39;ll find that many 
+times you&#39;re going to want to use instance fields to accomplish a task.&nbsp; </p>
+<p>For example:&nbsp; If you wanted to not println the mouse location, but have 
+it written on the screen.</p>
+<p>Copy and run the following:</p>
+<p>&nbsp;</p><pre>
+import sacco.*;
+import sacco.gui.*;
+
+public class MotionDemo extends SCanvas
+{
+        
+    @Override
+    public void paintCanvas(PaintBrush brush)
+    {        
+        brush.setColor(Color.BLACK);
+        brush.drawString("Mouse at (x,y)",0,10);
+    }
+    
+    @Override
+    public void onMouseMove(MouseEvent m)
+    {
+        
+    }
+    
+    public static void main()
+    {
+        SFrame frame = new SFrame();       
+        MotionDemo pan = new MotionDemo();
+        frame.add(pan);
+        frame.setSize(200,200);
+        frame.setVisible(true);
+    }
+}</pre>
+<p>Run it and you&#39;ll see that it doesn&#39;t respond in any way.&nbsp; That&#39;s 
+because the onMouseMove method is empty.&nbsp; Our goal is to change the x and y 
+letters to be the actual values that the mouse is moved to.</p>
+<p>The first thing people always try to do is to call <strong>drawString</strong> 
+from the onMouseMove method.&nbsp; This will not compile because the only way 
+that you can paint is in the paintCanvas method.&nbsp; Instead you must use 
+instance fields.</p>
+<p>Strategy:&nbsp; Create two ints as instance fields.&nbsp; Whenever the canvas 
+draws itself, it writes whatever is stored into those fields.&nbsp; Whenever the 
+mouse moves, it changes whatever&#39;s in those fields.&nbsp; This way, moving the 
+mouse will change the instance fields, which whill change how the canvas is 
+drawn.&nbsp; Hooray.</p>
+<p>1)&nbsp; Add to the instance fields: </p>
+<pre>private int mouseX;
+private int mouseY;</pre>
+<p>2) Modify the paintCanvas method&#39;s drawString to be the following:</p>
+<pre>brush.drawString("Mouse at ("+mouseX+", "+mouseY+")",0,10);</pre>
+<p>3)&nbsp; In the onMouseMove add the following, which sets the instance field 
+to wherever the mouse is:</p>
+<pre>mouseX = m.getX();
+mouseY = m.getY();
+</pre>
+<p>&nbsp;</p>
+<p>Run the program.&nbsp; As you drag the mouse around, you should notice the 
+values on the screen changing.&nbsp; This is because we&#39;ve used instance fields.&nbsp; 
+It is important that you think about instance fields as you write your programs.</p>
+<p>&nbsp;</p>
+<hr>
+<p>Assignments:</p>
+<p>1)&nbsp; FaceChanger:&nbsp; Create a canvas that will show one face, but then 
+when it&#39;s clicked another face will be displayed.&nbsp; Maybe it changes from 
+happy to sad, or maybe the color changes.</p>
+<p>Strategy: </p>
+<p>- Add a boolean as an instance field.&nbsp; When that boolean is true, it 
+will mean the face is &#39;happy&#39;.&nbsp; When that boolean is false, it will mean 
+the face is &#39;sad&#39;.&nbsp; </p>
+<p>- In the paintCanvas method, use an if statement to see if that boolean is 
+true or false and drawing the appropriate face based on that information.</p>
+<p>- In the onMousePress method.&nbsp; Use an if statement to switch that 
+boolean between true or false.&nbsp; The idea being that this is all we need to 
+do to change which face is being drawn</p>
+<p>Once all three of those steps are done, run the program.&nbsp; Click on the 
+screen.&nbsp; Hopefully the face will change back and forth when you click.</p>
+<p>&nbsp;</p>
+<p><a href="FaceChanger%20Example.html">FaceChanger Example (You may have to 
+click &quot;Run this time&quot; to get it to load)</a></p>
+<p>&nbsp;</p>
+
+
+<p>2)&nbsp; MouseHighlighter:&nbsp; This program should create a window that 
+when you move your mouse over the screen, a circle surrounds the pointer.&nbsp; 
+If you simply draw a circle at the mouse&#39;s x and y, the circle&#39;s upper-left 
+corner will be at the mouse.&nbsp; You already know the width and height of the 
+circle, so use those values to help make sure that the circle is centered around the mouse.</p>
+<p><a href="Applets/MouseHighlight/MouseHighlightApplet.html">MouseHighlighter 
+example</a></p>
+<p>3) StickyCorners:&nbsp; This program should also track the mouse.&nbsp; It 
+should draw a line from each of the corners to the place that the mouse is.</p>
+<p><a href="Applets/StickyCorners/StickyCornersApplet.html">StickyCorners 
+example</a></p>
+<p>4) ColorCorners:&nbsp; This program should create a 256x256 window.&nbsp; The 
+background&#39;s color should be related to the location of the mouse.&nbsp; You can 
+accomplish this by using x as the red value and y as the blue value.&nbsp; The 
+green value can stay at 0.&nbsp; </p>
+<p>Warning:&nbsp; If the screen is bigger than 256x256, your program will crash.&nbsp; 
+An advanced version of the program would use ratios to make sure that the RGB 
+values were never greater than 255.</p>
+<p><a href="Applets/ColorCorners/ColorCornersApplet.html">ColorCorners example</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

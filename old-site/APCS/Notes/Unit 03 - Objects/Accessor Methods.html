@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Accessor Methods</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Accessor Methods</h2>
+<p>Objects are all about managing the instance fields.&nbsp; The problem is that 
+the variables are <strong>private</strong>.&nbsp; The purpose of an Accessor 
+method is to <strong>access</strong> some information that the object contains.&nbsp; 
+Generally an accessor method doesn&#39;t change the object&#39;s instance fields, it 
+just returns information.&nbsp; </p>
+<p>A simple example of an accessor method is the substring method of String.&nbsp; 
+Once a String is constructed, we can call the substring method to <strong>access</strong> some of 
+the letters in the String (depending on the indices input).</p>
+<pre>String str = "Hello World";
+System.out.println( str.substring(1,4) );</pre>
+<p>The code above will print out &quot;ell&quot;, which is some instance-field related 
+information that the substring method returned.</p>
+<p>&nbsp;</p>
+<p><strong>Methods are not variables:</strong></p>
+<p>A common mistake is to treat a method like a variable.</p>
+<pre>String str = "Hello World";
+<span class="auto-style1"><strong>str.substring(6,11) = "Sacco";</strong></span>
+System.out.println(str);</pre>
+<p>This is an attempt at assigning the value &quot;Sacco&quot; to the locations of 
+&quot;World&quot;.&nbsp; This does not work!&nbsp; You can never assign a value to a 
+method like this.&nbsp; If you want to change the instance fields of the object, 
+you must use a <strong>mutator method</strong>.</p>
+<p>&nbsp;</p>
+<p><strong>Basic Accessor Methods</strong></p>
+<p>The simplest accessor methods come from the fact that instance fields are 
+private.&nbsp; Their purpose is to simply return an unmodified instance field.&nbsp; 
+This is so that the client can know what the instance fields are, even though 
+they&#39;re private.</p>
+<p>Often these methods are named using the word <strong>get</strong>, such as 
+getName, getWidth, or getX, but the name could technically be whatever the 
+programmer wants.</p>
+<p>&nbsp;</p>
+<p><strong>Non-Basic Accessor Methods</strong></p>
+<p>These are methods that are meant to pull some information from the object, 
+but not just an unmodified instance field.&nbsp; When writing these, you will 
+need to <strong>use</strong> the instance fields to generate a new piece of 
+information that you will then return.&nbsp; The instance field should remain 
+unchanged.</p>
+<p><br />
+</p>
+<hr/>
+<p class="auto-style2"><strong>Example:</strong></p>
+<p>Consider the Name class below:</p>
+<pre>public class Name
+{
+   private String first;
+   private String last;
+   
+   public Name(String f, String l)
+   {
+     first = f;
+     last = l;
+   }
+   
+   public String getFirst()
+   {
+      return first;
+   }
+   
+   public String getLast()
+   {
+      return last;
+   }
+   
+   public String getInitials()
+   {
+      String firstInit = first.substring(0,1);
+      String lastInit = last.substring(0,1);
+      String ret = firstInit+"."+lastInit+".";
+      return ret;
+   }
+   
+   public void setFirst(String f)
+   {
+      first = f;
+   }
+   
+   public void setLast(String l)
+   {
+      last = l;
+   }
+}</pre>
+<p>&nbsp;</p>
+<p><strong>Name&#39;s Basic Accessors:<br />
+</strong>In the Name class, the two <strong>basic accessors</strong> are the getFirst 
+and getLast methods.&nbsp; They simply return the appropriate variable.&nbsp; 
+</p>
+<pre>public String getFirst()
+{
+   return first;
+}</pre>
+<p>This allows the client to know what the object&#39;s instance fields contain.</p>
+<pre>Name n = new Name("Flash","Gordon");
+System.out.println(n.getFirst());</pre>
+<p>The snippet of code above will print out <strong>Flash</strong>, because 
+that&#39;s what is stored in n&#39;s<strong> first</strong> instance field.&nbsp; 
+Otherwise there is no way of knowing what the fields of a Name object actually 
+are.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Name&#39;s Non-Basic Accessors:</strong><br />
+In the Name class there is one <strong>non-basic accessor</strong> method 
+named <strong>getInitials</strong>.&nbsp; It is an <strong>accessor</strong> because it returns 
+some &#39;instance field related&#39; information without changing the instance fields, 
+but it is non-basic because it does more than just return the value.</p>
+<pre>   public String getInitials()
+   {
+      String firstInit = first.substring(0,1);
+      String lastInit = last.substring(0,1);
+      String ret = firstInit+"."+lastInit+".";
+      return ret;
+   }
+</pre>
+<p>This allows the client to ask any Name object for its initials, even though 
+there is no specific instance field for it.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+
+</html>

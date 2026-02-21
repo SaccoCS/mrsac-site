@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Class Hierarchy Reference</title>
+<style type="text/css">
+p,h3{
+	font-family: Arial, Helvetica, sans-serif;
+	
+}
+
+</style>
+</head>
+
+<body>
+<h3>Class Hierarchy Reference</h3>
+<pre>public class One
+{
+    public void method1() 
+    {
+        System.out.print("One1 ");
+    }
+}
+
+public class Two extends One 
+{
+    public void method3() 
+    {
+        System.out.print("Two3 ");
+    }
+}
+
+public class Three extends One 
+{
+    public void method2() 
+    {
+        System.out.print("Three2 ");
+        method1();
+    }
+}
+
+public class Four extends Three 
+{
+    public void method1() 
+    {
+        System.out.print("Four1 ");
+        super.method1();
+    }
+
+    public void method3() 
+    {
+        System.out.print("Four3 ");
+    }
+}</pre>
+<p></p>
+<p style = "font-size:12pt">The following variables are defined.</p>
+<pre>One var1 = new Two();
+One var2 = new Three();
+One var3 = new Four();
+Three var4 = new Four();
+Object var5 = new Three();
+Object var6 = new One();</pre>
+</body>
+</html>

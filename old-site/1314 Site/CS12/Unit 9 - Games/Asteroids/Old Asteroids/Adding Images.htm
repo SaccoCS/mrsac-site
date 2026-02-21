@@ -1,0 +1,131 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name=Title content="Adding Images:">
+<meta name=Keywords content="">
+<meta http-equiv=Content-Type content="text/html; charset=macintosh">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="Adding%20Images_files/filelist.xml">
+<title>Adding Images:</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Richard Baker</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Richard Baker</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:Created>2011-05-25T15:39:00Z</o:Created>
+  <o:LastSaved>2011-05-25T15:53:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Lines>1</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:Version>10.1316</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:AdjustLineHeightInTable/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Arial;
+	panose-1:0 2 11 6 4 2 2 2 2 2;
+	mso-font-charset:0;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:50331648 0 0 0 1 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Times;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body bgcolor=white lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoNormal><span style='font-size:24.0pt;font-family:Arial'>Adding
+Images:<o:p></o:p></span></p>
+
+  <p class=MsoNormal><span style='font-family:Arial'>
+    <![if !supportEmptyParas]>
+    &nbsp;
+    <![endif]>
+    <o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><o:p></o:p>
+    <applet code = "Phase3Applet.class" archive="Asteroids.jar" width="500" height="500">
+    </applet>
+    </span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><o:p></o:p></span></p>
+
+  <p class=MsoNormal><span style='font-family:Arial'>Download the pack of <a href="Asteroid%20Images.zip">Asteroid 
+    Images</a>, which contains 5 Asteroids, a spaceship, a bullet, and a background.<span style="mso-spacerun: yes">&nbsp; 
+    </span>Unzip and move all of the images into your project folder.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Now all we have to do is
+modify our painting methods to use the images instead of colored rectangles.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<table border=1 cellspacing=0 cellpadding=0 width=459 style='width:458.8pt;
+ border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='height:114.8pt'>
+  <td width=459 valign=top style='width:458.8pt;border:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt;height:114.8pt'>
+  <p class=MsoNormal><span style='font-family:Arial'>Reminders about images:<o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><br>
+  Instance field:<o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'>Image myImg;<o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'>Constructor:<o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'>myImg =
+  Toolkit.getDefaultToolkit().getImage(getClass().getResource(&quot;SomeImage.png&quot;));<o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'>When painting:<o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'>g.drawImage(myImg, x, y,
+  width, height, null);<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

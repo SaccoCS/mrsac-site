@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Block Collision</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style6 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Block Collision</p>
+<p class="auto-style2">So far the PlatformCanvas is set up so that the JumpMan will fall downward 
+forever.&nbsp; It&#39;s time to put some obstacles in the way.</p>
+<p class="auto-style2">Create a new class named Block.&nbsp; Add 4 ints as instance fields for the 
+x, y, width, and height.&nbsp; You may also add r,g, and b or a Color variable if you want the 
+blocks to have different colors.</p>
+<p class="auto-style2">Make a constructor for Block that takes in 4 ints (tmpX,tmpY,tmpW,tmpH) and 
+assigns them to the instance fields.&nbsp; This is where you would randomize 
+the Color</p>
+<p class="auto-style2">Add a paintSelf method that will paint a Rectangle using the instance fields.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5">Adding to the PlatformCanvas:</p>
+<p class="auto-style2">Now it&#39;s time to set up the Blocks in a similar way to how we did the 
+Asteroids and Bullets in the Asteroids Game:</p>
+<p class="auto-style2">&nbsp;- Add an ArrayList&lt;Block&gt; to the instance field</p>
+<p class="auto-style2">- In the constructor, construct a new ArrayList&lt;Block&gt; into that instance 
+field.&nbsp; After that, add a new Block(0,400,200,100) to that ArrayList</p>
+<p class="auto-style2">- In paintCanvas, loop through all of the Blocks and call their paintSelf 
+method.&nbsp; Look to your Asteroids if you need to remember.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Run your program to test it out.&nbsp; All you&#39;re looking for is for the 
+Block to appear.&nbsp; It won&#39;t interact yet, but you should see a rectangle on 
+the screen.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5">Collision:</p>
+<p class="auto-style1"><span class="auto-style3">First you need to add a getHitBox method to both the JumpMan 
+</span> <strong><span class="auto-style3">and</span></strong><span class="auto-style3"> 
+the Block class.&nbsp; Again, these are identical to the methods that you added 
+in the Asteroids project.</span></p>
+<p class="auto-style2">Now add the following method to the JumpMan class.&nbsp; </p>
+<pre><span class="auto-style2">    public void yAlign(HitBox r)</span>
+<span class="auto-style2"> </span></pre>
+<p class="auto-style1"><span class="auto-style3">This method&#39;s job is to change 
+the JumpMan&#39;s y so that it is either just on top or just below the HitBox.&nbsp; 
+There are two possibilities.&nbsp; If the gravity is 0 or greater (the JumpMan 
+is falling), then you should set the y to be the </span> <strong>
+<span class="auto-style3">HitBox&#39;s</span></strong><span class="auto-style3"> y 
+minus the JumpMan&#39;s height.&nbsp; If the gravity is less than 0, set the y to the 
+HitBox&#39;s y plus the HitBox&#39;s height.&nbsp; </span>
+<span class="auto-style6"><strong>Either way the gravity should 
+always be set to 0.</strong></span></p>
+<p class="auto-style1"><img src="images/img1D2.gif"  /></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Now that we can check for collision and align the JumpMan with a HitBox, in the onTimerTick method of the Canvas you should loop through every Block, extract its hitBox, and call the JumpMan's yAlign method if they are overlapping.</p>
+
+<p class="auto-style2">Test out your program.&nbsp; The JumpMan should land on 
+the top of the previously placed Block.</p>
+<p><img class="auto-style2" height="373" src="images/img19.jpg" width="501" /></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Now it&#39;s time to test the other side.&nbsp; In the 
+Canvas&#39;s constructor add another Block with the parameters (100,50,200,50).&nbsp; 
+This will add a Block above the JumpMan.&nbsp; Hit the up-arrow multiple times 
+to test if the new Block will stop the JumpMan from continuing upward.</p>
+<p><img class="auto-style2" height="374" src="images/img1A.jpg" width="497" /></p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

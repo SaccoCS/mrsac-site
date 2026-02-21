@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Controlling Painting with Instan</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style7 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style8 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style5">Controlling Painting with Instance Fields</p>
+<p class="auto-style2">Create a class named Ace, which is going to represent an Ace on a 
+SaccoObject.&nbsp; </p>
+<p class="auto-style2">Ace should have<strong> instance fields</strong> for the x,y,width, and height of the Ace.&nbsp; </p>
+<p class="auto-style2">The <strong>constructor</strong> will take in no parameters and set the x to 200, the y to 200, 
+the width to 71, and the height to 96.</p>
+<p class="auto-style1">&nbsp;</p><hr>
+<p class="auto-style1"><strong>Using The Picture Class <span class="auto-style8">
+(DO NOT CREATE A CLASS NAMED PICTURE)</span></strong></p>
+<p class="auto-style1"><img height="96" src="images/AS.png" width="72" /></p>
+<p class="auto-style1"><span class="auto-style3">Add a new instance field of type 
+</span> <strong><span class="auto-style3">Picture</span></strong><span class="auto-style3">, which is a class 
+that Sacco made to help represent an image.</span></p>
+<p class="auto-style4">private Picture acePic;</p>
+<p class="auto-style2">There are a few images already inside of sacco.jar which can be accessed 
+using the static loadFromJar method in the Picture class.&nbsp; In your 
+constructor, use the following code to put the image of an Ace of Spades in the 
+acePic variable:</p>
+<p class="auto-style4">acePic = Picture.loadFromJar(&quot;/cards/AS.png&quot;);</p>
+<p class="auto-style2">Similar to the QuestionBlock class, the Ace class is not going to be the 
+SaccoObject, but it is going to be able to paint itself.&nbsp; Add a method 
+named <span class="auto-style7">public void paintSelf(PaintBrush brush)</span>.&nbsp; Inside you should use 
+PaintBrush&#39;s drawPicture method to draw the Picture using your x,y,width, and 
+height:</p>
+<p class="auto-style4">brush.drawPicture( acePic, x, y, width, height)</p>
+<p class="auto-style2">&nbsp;&nbsp;</p>
+<hr>
+<p class="auto-style6"><strong>Using a SaccoObject to Display the Ace:</strong></p>
+<p class="auto-style2">Since this class isn&#39;t a SaccoObject, we&#39;re going to need a SaccoObject that 
+tells the ace to paint.&nbsp; Use the following class to test your program:</p>
+<pre>import sacco.*;
+
+public class CardHolder extends SaccoObject
+{
+    private Ace myAce;
+    
+    public CardHolder()
+    {
+        myAce = new Ace();
+    }
+    
+    public void paintWindow(PaintBrush brush)
+    {
+        myAce.paintSelf(brush);
+    }
+    
+    public static void main()
+    {
+        CardHolder ch = new CardHolder();
+        ch.showWindow();
+    }
+    
+}</pre>
+<p class="auto-style2">Notice that this class is really just a container to hold 
+the Ace object.&nbsp; When doing SaccoObject projects this will be a common 
+theme.</p>
+<p class="auto-style2">Run the main method and make sure that an ace of spades 
+appears on the screen.</p>
+<p class="auto-style2">&nbsp;</p><hr>
+<p class="auto-style6"><strong>Using an instance field to guide painting:</strong></p>
+<p class="auto-style2"><img height="96" src="images/b1fv.png" width="71" /></p>
+<p class="auto-style2">If we were writing a game, the cards wouldn&#39;t always be 
+face up.&nbsp; Many times we would need the face down version of the card.&nbsp; 
+Add the following instance fields to the Ace class:</p>
+<p class="auto-style4">private boolean isFaceUp;<br />
+private Picture backOfCardPic;</p>
+<p class="auto-style2">The isFaceUp field is a boolean, meaning that it 
+represents one of two states: true or false.&nbsp; We are going to interpret a 
+true as &quot;face up&quot; and a false as &quot;face down&quot;.</p>
+<p class="auto-style2">Modify your constructor to set the isFaceUp field to 
+true.&nbsp; The backOfCardPic should be loaded like before, but using the String 
+<span class="auto-style7">&quot;/cards/b1fv.png&quot;</span>.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style6">The paintSelf method:</p>
+<p class="auto-style2">We now have an issue.&nbsp; The Ace class should only 
+really draw one Picture, but there are two Pictures to choose from.&nbsp; Use an 
+if statement to look at the isFaceUp variable and decide whether of not to draw 
+the acePic or the backOfCardPic.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style6">Test Both Ways:</p>
+<p class="auto-style2">Run the program the way that it is.&nbsp; If done 
+properly, the window will show the same card as before.&nbsp; That is because 
+the isFaceUp variable was set to true.&nbsp; To test the other case, go back to 
+the constructor of Ace and set the isFaceUp variable to false and run it again.&nbsp; 
+This time the back of the card should appear.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style6">Controlling with a method:</p>
+<p class="auto-style2">Since this boolean plays a big factor in how the Ace 
+paints itself, lets add a method that controls it:</p>
+<p class="auto-style4">public void flipCard()</p>
+<p class="auto-style2">All this method has to do is make sure that the isFaceUp 
+variable is set to the exact opposite of what it was.&nbsp; This may be done 
+with an if statement or simply by using an exclamation point.</p>
+<p class="auto-style2">Test out this method by using BlueJ to construct an Ace 
+and keep the Object inspector open while calling the flipCard method a few 
+times.&nbsp; Make sure the boolean is toggling between true and false.</p>
+<p class="auto-style2">&nbsp;</p>
+<hr>
+<p class="auto-style6"><strong>Flipping the Card with a MouseEvent</strong></p>
+<p class="auto-style2">SaccoObjects have several methods built in to help 
+interact with the user.&nbsp; Go to the CardHolder class and add the following 
+method:</p>
+<p class="auto-style4">public void onMousePress(MouseEvent m)</p>
+<p class="auto-style2">This method is a special method that is called whenever a 
+button on the mouse is pressed.&nbsp; The parameter that&#39;s passed in carries 
+some more information about the event, but we don&#39;t care about that right now.&nbsp; 
+We are going to treat every click exactly the same, essentially turning the 
+whole window into one big button.</p>
+<p class="auto-style2">The only line of code in the onMousePress method should 
+be calling the Ace&#39;s flipCard method.&nbsp; The idea is that when anybody clicks 
+on the window, the card&#39;s image should toggle between face up and face down.</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<hr>
+
+<p class="auto-style6">Add the following method to the Ace class:</p>
+<pre>public boolean containsPoint(int tmpX, int tmpY)</pre>
+
+<p class="auto-style2">This method will return true if the combination of tmpX an 
+tmpY 
+is inside the boundaries of the card.&nbsp; Remember that you know the x, y, 
+width, and height.&nbsp; Determine the two values that tmpX must be between and the 
+two values that tmpY must be between, and write a four-part AND statement to return 
+true when tmpX and tmpY are within all the bounds.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">This method means that now an Ace can help us tell if the 
+point that we&#39;ve clicked is within its boundaries or not.&nbsp; Go back to the 
+CardHolder class&#39; onMousePress method.&nbsp; At the moment we flip the card no 
+matter what point is clicked.&nbsp; We&#39;re going to modify it so that it only 
+flips the card if we&#39;ve clicked on it.</p>
+<p class="auto-style2">The <strong>MouseEvent</strong> parameter is similar to 
+the <strong>Point</strong> class, it has a getX and a getY method that will tell 
+you the point where the mouse was pressed.&nbsp; First call those methods to get 
+the x and y out of the object and into some ints.</p>
+<p class="auto-style2">Since the containsPoint method returns a boolean value, 
+we can use it directly in an if statement.&nbsp; Modify the method so that it 
+first ask if the Ace contains the point before deciding to flip it.</p>
+<p class="auto-style2">if( myAce.containsPoint(x,y) ) <br />
+&nbsp;&nbsp; myAce.flipCard();</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Test out your program again.&nbsp; If done properly the 
+card will only flip when you click within it, not any other time.</p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

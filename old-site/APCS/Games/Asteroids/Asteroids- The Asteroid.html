@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Asteroid Class</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">The Asteroid Class</p>
+<p>
+<img class="auto-style2" height="128" src="images/asteroid1.png" width="128" /><img class="auto-style2" height="128" src="images/asteroid2.png" width="128" /><img class="auto-style2" height="128" src="images/asteroid3.png" width="128" /><img class="auto-style2" height="128" src="images/asteroid4.png" width="128" /><img class="auto-style2" height="128" src="images/asteroid5.png" width="128" /></p>
+<p class="auto-style2">The five asteroids images are stored in the sacco.jar.</p>
+<p class="auto-style2">Picture p = Picture.loadFromJar(&quot;space/asteroid1.png&quot;); 
+will load the first image into the p variable.&nbsp; Similarly 
+&quot;space/asteroid2.png&quot;,&quot;space/asteroid3.png&quot;,etc. will load the other pictures.</p>
+<p class="auto-style2">For the past few assignments, you&#39;ve been working on 
+getting blocks to drift, rotate, and teleport similar to the way that asteroids 
+do.&nbsp; There&#39;s only a few more things that are needed to create an 
+Asteroids-like experience:&nbsp; Images and proper sizing.</p>
+<p class="auto-style2">Create a new class named Asteroid that extends 
+RotatingSquare.&nbsp; Because you&#39;re extending RotatingSquare you don&#39;t have to 
+worry about the moving, the rotating, or the teleporting.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>Instance fields:</strong></p>
+<p class="auto-style2">Our goal is to have three different sizes of Asteroid, so 
+create three static final ints named SMALL, MEDIUM, and LARGE.&nbsp; Start with 
+values of 30, 50, and 70, but feel free to change them later if you&#39;re not happy 
+with them.</p>
+<p class="auto-style2">Add a single Picture as an instance field.&nbsp; Many 
+people mistakenly make 5 Picture variables because there are 5 different 
+pictures, but that is not the case.&nbsp; The one Picture variable will have a 
+random image loaded into it.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>Constructor:</strong></p>
+<p class="auto-style2">Create a default constructor for Asteroid.&nbsp; This is 
+where you have to take care of the appropriate instance fields. </p>
+<p class="auto-style2"><strong>Location</strong> - You don&#39;t want the default 
+Asteroid to appear at the very center of the screen right off the bat.&nbsp; 
+This could kill our spaceship unfairly.&nbsp; In order to have an asteroid start 
+at the border, either it&#39;s x or y value should be set to 0.&nbsp; Use a random 
+number to decide which one should be 0, then put a random number in the other.&nbsp; 
+Don&#39;t forget that you should not create new instance fields, use the setX and 
+setY methods that you&#39;ve inherited.</p>
+<p class="auto-style2"><strong>Size</strong> - The width and height need to be 
+set to either SMALL, MEDIUM, or LARGE.&nbsp; Use a random number to determine 
+which one to use.</p>
+<p class="auto-style2"><strong>Image</strong> - 
+<strong>Picture.loadFromJar(&quot;space/asteroid1.png&quot;)</strong> will return a Picture object that may be 
+used as the instance field, but there are 5 possible images.&nbsp; Use a random 
+number to decide which image to use.&nbsp; Do not have 5 different images as 
+instance fields.</p>
+<pre><strong>public void paintSprite(Canvas c)</strong></pre>
+<p class="auto-style2">Since we don&#39;t want to draw the colorful squares anymore, 
+override the paintSprite method and use the Canvas&#39;s drawPicture method to 
+draw the Asteroid Picture.&nbsp; You still want to use your getX, getY, 
+getWidth, and getHeight as you did before.&nbsp; Use DriftingBlock&#39;s paintS</p>
+<p class="auto-style2">&nbsp;</p>
+<hr/>
+<p class="auto-style5"><strong>AsteroidsBoard:</strong></p>
+<p class="auto-style2">Similar to before, add a method named loadAsteroids and 
+change the constructor to call it.&nbsp; Run the program and check to make sure 
+the Asteroids are working the way that you want.</p>
+<p><img class="auto-style2" height="300" src="images/img70.jpg" width="400" /></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2"><strong>Adding the Background:</strong></p>
+<p class="auto-style1"><span class="auto-style3">Right now the AsteroidsBoard&#39;s 
+paint method tells it to simply paint all of the Asteroids in the list.&nbsp; 
+What you want is for it to paint a big Picture as the background, </span>
+<strong><span class="auto-style3">and then</span></strong><span class="auto-style3"> 
+paint all the Asteroids.&nbsp; You will need to add a Picture as an instance 
+field and load it in the constructor for it to work. The following image is in 
+the sacco.jar with the name &quot;space/bluespace.png&quot;</span></p>
+<p class="auto-style1">&nbsp;</p>
+<p>
+<img class="auto-style2" height="600" src="images/bluespace.png" width="800" /></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Running it again should give you the following:</p>
+<p class="auto-style2"><img height="300" src="images/img7A.jpg" width="401" /></p>
+
+</body>
+
+</html>

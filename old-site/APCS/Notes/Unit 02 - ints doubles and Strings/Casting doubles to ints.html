@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+</head>
+
+<body>
+
+<p>Casting doubles to ints</p>
+<p>Casting is an operation that will temporarly change a value from one type to 
+another (providing they&#39;re compatible).</p>
+<p>&nbsp;</p>
+<p>For example, assume we&#39;re writing a program that takes in from the user their 
+batting average and how many at bats the batter had, and then outputs the number of 
+hits that the batter had.</p>
+<pre>public static void main()
+{
+   double battingAve = ...from the user
+   int totalAtBats = ...from the user
+
+   double hits = battingAve*totalAtBats;
+   System.out.println(&quot;You had &quot; + hits + &quot; hits&quot;);
+}</pre>
+<p>The problem here is formatting.&nbsp; If the user enters a batting average of 
+.250 and batted 76 times, the program would output:</p>
+<p>You had 19.0 hits</p>
+<p>While this is true, the 19.0 is really bothersome.&nbsp; The resulting number 
+of hits is never going to need the decimal.&nbsp; It really should be an int, 
+but the following change will not help:</p>
+<pre>int hits = battingAve*totalAtBats;</pre>
+<p>The compiler won&#39;t allow this based on type matching.&nbsp; The problem now 
+is that the right side is a double, which cannot be stored as an int (it doesn&#39;t 
+know what to do with everything after the decimal point).</p>
+<p>The solution is to <strong>cast</strong> the value as an int after the 
+calculation has been made:</p>
+<pre>int hits = (int)(battingAve*totalAtBats);</pre>
+<p>This time the battingAve*totalAtBats calculation happens first, giving a 
+value like 19.0.&nbsp; The resulting value is then cast into int so that is 
+compatible with the <strong>hits</strong> variable.&nbsp; The hits value would 
+contain the int 19, which we wanted.</p>
+<p>&nbsp;</p>
+<p>What does casting do with the decimal?</p>
+<p>A double carries numbers with decimal points.&nbsp; It is impossible to 
+represent the exact same number as an int.&nbsp; When casting a double to an 
+int, the resulting int will be the <strong>truncated</strong> version of the 
+double, meaning it simply takes the integer portion and discards everyting after 
+the decimal.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

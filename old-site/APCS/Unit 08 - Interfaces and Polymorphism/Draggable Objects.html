@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Draggable Objects</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Draggable Objects</h2>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/PaintBrush.html">
+PaintBrush API</a></p>
+<p>Previously we&#39;ve worked with SaccoObject and its ability to work with 
+MouseEvents.&nbsp; With those we were able to create an object that we could 
+drag across the screen.&nbsp; Now that we&#39;ve got some knowledge of arrays under 
+our belts we can make a window with lots of objects on it.</p>
+<p>Copy and Paste the following Rectangle class into your project.&nbsp; Read 
+through and make sure that you can tell what each method does before proceeding 
+to the next class.&nbsp; The containsPoint method may be a little bit scary for 
+some, but it&#39;s a faster way of returning a boolean than using if statements.</p>
+<pre>import sacco.*;
+public class Rectangle 
+{
+    private int x,y,width,height,red,green,blue;
+
+    //constructs a new Rectangle with a random x,y,width,height, and color
+    public Rectangle()
+    {
+        width = (int)(Math.random()*100+50);
+        height = (int)(Math.random()*100+50);
+
+        x = (int)(Math.random()*500);
+        y = (int)(Math.random()*500);
+
+        this.randomizeColor();
+    }
+
+    public void randomizeColor()
+    {
+        red = (int)(Math.random()*256);
+        green = (int)(Math.random()*256);
+        blue = (int)(Math.random()*256);
+    }  
+
+    //when called, this method will paint the current Rectangle
+    public void paintSelf(PaintBrush brush)
+    {
+        brush.setColor(red,green,blue);
+        brush.fillRectangle(x,y,width,height);
+
+        brush.setColor(0,0,0);
+        brush.drawRectangle(x,y,width,height);
+    }
+
+    //moves the rectangle by the given amount in each direction
+    public void translate(int tmpX, int tmpY)
+    {
+        x += tmpX;
+        y += tmpY;
+    }
+
+    //returns true if both x and y are within the boundaries of the rectangle
+    public boolean containsPoint(int tmpX, int tmpY)
+    {
+        return tmpX >= x && tmpX<= x+ width && tmpY>= y && tmpY <= y+height;
+    }
+}</pre>
+<p>Now consider the RectangleDragger class below, which is constructed using an 
+array of Rectangle objects.&nbsp; The paintWindow method loops through every 
+Rectangle in the array and tells it to paint itself.&nbsp; The goal of this 
+program is to be able to grab a Rectangle and drag it around, so there are a 
+couple more instance fields that are necessary to have.&nbsp; </p>
+<p>The <strong>drag</strong> variable starts out as null, meaning that it 
+doesn&#39;t reference a constructed object.&nbsp; The onMouseMove method, which is 
+called every time the mouse moves, only tells the Rectangle in <strong>drag</strong> 
+to translate if it isn&#39;t null.&nbsp; The way that the <strong>drag</strong> 
+variable gets a value is when the mouse is pressed.&nbsp; For each press, every 
+Rectangle in the array is asked if it contains the point, and is stored into 
+drag if so.&nbsp; This guarantees that only one Rectangle can be dragged at a 
+time.&nbsp; Once the mouse is released, <strong>drag</strong> is set back to 
+null so that the dragging stops.</p>
+<p>&nbsp;</p>
+<pre>import sacco.*;
+public class RectangleDragger extends SaccoObject
+{
+    private Rectangle[] rects;
+    private Rectangle drag;
+    private int lastX,lastY;
+    
+    //Constructs a new RectangleDragger that will manage an array of Rectangles
+    public RectangleDragger(Rectangle[] arr)
+    {
+        rects = arr;
+        drag = null; //null means that nothing is being dragged
+    }
+    
+    @Override
+    public void paintWindow(PaintBrush brush)
+    {
+        //loops through and paints every Rectangle in the array
+        for(int i =0; i&lt;rects.length;i++)
+        {
+            rects[i].paintSelf(brush);
+        }
+        
+    }
+    
+    @Override
+    public void onMouseMove(MouseEvent m)
+    {
+        // when drag is null, there is no object to translate  
+        if( drag != null)
+        {
+            drag.translate(m.getX()-lastX, m.getY()-lastY);
+        }
+        
+        lastX = m.getX();
+        lastY = m.getY();
+    }
+    
+    @Override
+    public void onMousePress(MouseEvent m)
+    {
+        /*
+         * when the mouse is pressed, this code finds whatever rectangle
+         * contains the clicked location and stores it in drag.  Since
+         * drag can only hold one object reference at a time, it will
+         * have the last one it comes across.
+         */
+        for( int i=0; i&lt;rects.length; i++)
+        {
+            if(rects[i].containsPoint(m.getX(),m.getY()))
+            {
+                drag = rects[i];
+            }
+        }
+    }
+    
+     @Override
+    public void onMouseRelease(MouseEvent m)
+    {
+        //when the mouse is released, the currently dragged rectangle is 'dropped'
+        drag =null;
+    }
+}
+</pre>
+<p>Compile and run this program with the following method, which constructs 100 
+random Rectangles in an array, and then constructs a RectangleDragger using them:</p>
+<pre>public static void rectRunner()
+{
+   Rectangle[] rectangles = new Rectangle[100];
+        
+   for( int i =0; i&lt; rectangles.length; i++)
+   {
+      rectangles[i] = new Rectangle();
+   }
+        
+   RectangleDragger dragger = new RectangleDragger(rectangles);
+   dragger.setVisible(true);
+}</pre>
+<p></p>
+<p><img src="images/img3.jpg" /></p>
+<hr>
+<p class="auto-style1"><strong>Designing the Draggable Interface</strong></p>
+<p>While the RectangleDragger is amusing, it would be much better if there were 
+other shapes besides Rectangles that could be used.&nbsp; Instead of writing 
+another Dragger for a <strong>specific</strong> class, let&#39;s create an interface 
+and create a Dragger that works for many different classes.</p>
+<p>1)&nbsp; Reading through the RectangleDragger class, you&#39;ll notice that there 
+are multiple methods that Rectangle has that are necessary for the Dragging 
+process.&nbsp; Find the <strong><span class="auto-style1">three</span></strong> important methods.</p>
+<p>2) Create an interface named Draggable, which has headers for those three 
+methods that you found in part 1.&nbsp; Don&#39;t forget that very specific 
+parameters are needed in order for this to work.</p>
+<p>3)&nbsp; Go to the Rectangle class and modify the header so that it 
+implements Draggable. You should not have to change the Rectangle class anymore.&nbsp; 
+If the compiler gets angry then it&#39;s probably an issue with the interface that 
+you wrote.</p>
+<hr>
+<p class="auto-style1"><strong>The DraggableDragger</strong></p>
+<p>Before we think about what other objects we want to drag around the screen, 
+let&#39;s write the DraggableDragger class.&nbsp; This class should essentially be a 
+clone of the RectangleDragger, but instead of using the <strong>specific</strong> 
+Rectangle variables we&#39;re going to use the <strong>general</strong> Draggable 
+variables.</p>
+<p>Once everything compiles you should make sure that the DraggableDragger works 
+by using the method below.&nbsp; We&#39;re using a DraggableDragger this time, but 
+since we&#39;re still using only Rectangles it should operate exactly the same as 
+before.</p>
+<p>Note:&nbsp; We are now done with the DraggableDragger class and we haven&#39;t 
+even thought about what the other types of objects might be.&nbsp; This would 
+not be possible without the use of interfaces and Polymophism.</p>
+<p><br />
+</p><pre>public static void main()
+{
+   Rectangle[] rectangles = new Rectangle[100];
+        
+   for( int i =0; i&lt;rectangles.length; i++)
+   {
+      rectangles[i] = new Rectangle();
+   }
+       
+   DraggableDragger dragger = new DraggableDragger(rectangles);
+   dragger.setVisible(true);
+}</pre>
+<hr>
+<p class="auto-style1"><strong>More Draggables:&nbsp; The Circle Class</strong></p>
+<p>Now that we have the ability to drag any Draggable that we want, let&#39;s create 
+another one and see if it works.&nbsp; Create a class named Circle, which will 
+have instance fields for an x, y, and radius along with fields for red, green, 
+and blue values.&nbsp; For the sake of this program, you should decide that x 
+and y represent the <strong>center</strong> of the circle.</p>
+<p>Create a constructor for Circle that takes in no parameters, but assigns 
+random values to all of the instance fields.&nbsp; x and y should range from 0 
+to 500 while the radius should range between around 30 and 60.&nbsp; The rgb 
+values should all max out at 255.</p>
+<p>Now it&#39;s time to impilement the Draggable interface.&nbsp; An important thing 
+to know about Polymorphism is that the methods don&#39;t have to be implemented in 
+the exact same way, they only have to be named the same.&nbsp; For example, the 
+paintSelf method of Circle should probably use the fillOval command (don&#39;t 
+forget that since x and y are the <strong>center</strong> of the Circle you&#39;ll 
+have to do some subtraction to figure out the upper left hand corner.&nbsp; And 
+the containsPoint method should use the <strong>distance formula</strong> 
+instead of a four part AND statement.</p>
+<p><img height="276" src="images/Circle%20Diagram.PNG" width="353" /></p>
+<p>Once you&#39;re confident, use the following method to test out your Circle 
+class.</p>
+<pre>public static void rcDragRunner()
+{
+   Draggable[] draggables = new Draggable[200];
+
+   boolean bool = true;
+   for( int i =0; i &lt; draggables.length; i++)
+   {
+       if(bool)
+           draggables[i] = new Circle();
+       else
+           draggables[i] = new Rectangle();
+            
+       bool = !bool;
+   }
+       
+   DraggableDragger dragger = new DraggableDragger(draggables);
+   dragger.setVisible(true);
+}</pre>
+<p>Notice that this code alternates between adding a Circle and a Rectangle into 
+the array.&nbsp; This is Polymorphism at work.&nbsp; Since both implement the 
+Draggable interface, a single array can hold both.</p>
+<p>Run the method and see if you can drag both the Rectangles and the Circles on 
+the screen.&nbsp; Check to make sure that clicking the area just outside of a 
+Circle doesn&#39;t cause that Circle to be dragged.&nbsp; If it does, then you might 
+have to double check Circle&#39;s containsPoint method.&nbsp; </p>
+<p><img src="images/img5.jpg" /></p><hr>
+<p class="auto-style1"><strong>More Draggables:&nbsp; The Triangle Class</strong></p>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/Point.html">
+Point API</a></p>
+<p>Our last Draggable shape will be a Triangle class.</p>
+<p>Instead of a width and height your Triangle should have three 
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/Point.html">Point</a> objects 
+as instance fields.&nbsp; Read about the Point class in the API, but do not 
+write it.&nbsp; You will import it from sacco.jar.&nbsp;&nbsp; Also, have ints 
+for the red, green, and blue values.</p>
+<p>Add a constructor that will randomize the three Points, but don&#39;t just pick 
+three random x and y values because you&#39;ll end up getting gigantic Triangles.&nbsp; 
+Start by picking a single point with a random x and y to be your first Point.&nbsp; 
+The other two points will be random distances from that Point.&nbsp; Pick a 
+random width from 100 to 150 and create the second point by adding that width to 
+the first point&#39;s x.&nbsp; For the third point pick a random number from 0 to 
+the width to be the x offset, and a random number from -150 to positive 150 for 
+the y offset.</p>
+<p>For the paintSelf method, use PaintBrush&#39;s fillTriangle method which takes in 
+three Point&#39;s as parameters.</p>
+<p>The translate method will have to use a combination of the getX, getY, setX, 
+and setY to move all three Points by the given amount.</p>
+<p>The containsPoint method for Triangles is a lot tricker than the other two 
+(RUN! IT&#39;S MATH!!!).&nbsp; 
+Copy and paste the following two methods, which combine to tell you if the 
+triangle contains the given Point.</p>
+<pre>public boolean containsPoint(int x, int y)
+{
+   Point d = new Point(x,y);   
+   double triArea = this.getTriangleArea(a,b,c);
+        
+   double tmpArea = this.getTriangleArea(d,b,c);
+   tmpArea += this.getTriangleArea(a,d,c);
+   tmpArea += this.getTriangleArea(a,b,d);
+
+   return Math.abs(triArea-tmpArea)<.001;        
+}
+    
+private double getTriangleArea(Point p1, Point p2, Point p3)
+{
+   int aX = p2.getX() - p1.getX();
+   int aY = p2.getY() - p1.getY();
+   int bX = p2.getX() - p3.getX();
+   int bY = p2.getY() - p3.getY();
+
+   return Math.abs(aX * bY - bX * aY) / 2.0;
+}</pre>
+<p>&nbsp;</p>
+<p>Make sure that your Triangle class implements Draggable, and run it with the 
+following method:</p>
+<pre>public static void rtcDragRunner()
+{
+   Draggable[] draggables = new Draggable[200];
+
+   for( int i =0; i &lt; draggables.length; i++)
+   {
+      if(i%3==0)
+         draggables[i] = new Triangle();
+      else if(i%3 ==1)
+         draggables[i] = new Rectangle();
+      else
+         draggables[i] = new Circle();
+   }
+        
+   DraggableDragger dragger = new DraggableDragger(draggables);
+   dragger.setVisible(true);
+}</pre>
+<p><img src="images/img8.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>Why use the Draggable interface?</strong></p>
+<p>Before Draggable:</p>
+<p><img border="1" height="253" src="images/BeforeDraggable.PNG" width="555" /></p>
+<p>After Draggable:</p>
+<p><img border="1" height="406" src="images/AfterDraggable.PNG" width="559" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+
+</html>

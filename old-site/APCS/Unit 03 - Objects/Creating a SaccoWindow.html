@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Creating a SaccoWindow</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif;">Creating a SaccoWindow</h2>
+<p>
+It&#39;s time to work with a different style of object.</p>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/Setting%20Up%20BlueJ%20with%20saccojar.html">THIS ONLY WORKS IF YOU HAVE LINKED SACCO.JAR TO YOUR BLUEJ.</a></p>
+<p>One of the reasons that sacco.jar exists is to help some of the projects be 
+more visual with less effort than raw Java would take.&nbsp; The process for why 
+and how it all works is beyond us at this moment, so this will be a little bit 
+different.</p>
+<p>Inside of the sacco.jar is a class named SaccoWindow, which as an object has 
+the basic structure to create a window.&nbsp; Copy the following class to the 
+your project:</p>
+<pre>import sacco.*;
+
+public class WindowRunner
+{
+    public static void main()
+    {
+        SaccoWindow w = new SaccoWindow();
+        w.showWindow();
+    }
+}</pre>
+<p>By importing sacco.*; you&#39;re giving yourself access to every class in the 
+sacco folder.&nbsp; This time we are looking for the SaccoWindow class.&nbsp; </p>
+<p>As you can see, first the object is constructed, and then the showWindow 
+method is called.&nbsp; Run the program and make sure that a window appears.</p>
+<p>
+<img src="images/img7.jpg" height="269" width="258" /></p>
+<p>This is by default what a SaccoWindow looks like.&nbsp; It&#39;s a blank, 500x500 
+pixel window.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Why so boring?</strong></p>
+<p>SaccoWindow is boring because it&#39;s not actually meant to be used directly.&nbsp; 
+It&#39;s got a basic framework that&#39;s meant to be built upon.</p>
+<p>&nbsp;</p>
+<p><strong>How do we make a better SaccoWindow?</strong></p>
+<p>We will talk much more about the specifics of how inheritance works later 
+this later, but for now we are just going to jump write in.&nbsp; In the same 
+project as the Runner, add the following class.</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class HelloWindow extends SaccoWindow
+{
+
+}</pre>
+<p><strong>extends</strong> is an advanced concept meaning that our HelloWindow 
+class now is a copy of a SaccoWindow object.</p>
+<p>Now change the Runner to be the following, which constructs a HelloWindow 
+instead of a SaccoWindow.</p>
+<pre>import sacco.*;
+
+public class WindowRunner
+{
+    public static void main()
+    {
+        HelloWindow w = new HelloWindow();
+        w.showWindow();
+    }
+}</pre>
+<p>&nbsp;</p>
+<p>Running the program again should result in the same window.&nbsp; This is 
+because all that we&#39;ve done is extend the SaccoWindow class, we haven&#39;t changed 
+anything.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>How do we change how the window looks?</strong></p>
+<p>SaccoWindow has many methods built in to it that make it work.&nbsp; We want 
+to change the one that decides how the window &quot;paints&quot; itself to the screen.&nbsp; 
+This is a <strong>very specific</strong> method, so be exact.</p>
+<p>&nbsp;</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class HelloWindow extends SaccoWindow
+{
+   @Override
+   public void paintWindow(Canvas canvas)
+   {
+
+   }
+}</pre>
+
+<p>&nbsp;</p>
+<p><strong>What the what?!? Canvas?!?</strong></p>
+<p>A Canvas is an object that is meant to deal with basic graphics.&nbsp; At a 
+regular interval, a blank Canvas is created and then given to the paintWindow 
+method.&nbsp; Currently nothing happens in the method, so nothing but a blank 
+window is shown.&nbsp; To change how the window looks, we will <strong>override
+</strong>the method.&nbsp; This way we can change it to modify the Canvas.</p>
+<p>Change the HelloWindow class to be the same as below:</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class HelloWindow extends SaccoWindow
+{
+    @Override
+    public void paintWindow(Canvas canvas)
+    {
+        canvas.setColor("BLUE");
+        canvas.fillRectangle(50,100,415,80);
+    }
+}</pre>
+<p>The two lines of code added do the following:</p>
+<p>1) Sets the color to blue.&nbsp; This does not change the entire window blue, 
+it&#39;s more like picking up the blue marker.&nbsp; The next drawing command will 
+be in blue.</p>
+<p>2) Fills a rectangle with 50,100,415,80.&nbsp; This means that the upper-left 
+corner is at (50,100) , the width is 415, and the height it 80.&nbsp; Don&#39;t 
+forget that a larger y goes <strong>down</strong> the screen more.</p>
+<p>To <strong>fill</strong> means that the rectangle will be shaded in and not 
+just an outline.</p>
+<p>&nbsp;</p>
+<p>Now run the program and make sure that you get the following:</p>
+<p><img src="images/img15.jpg" /></p>
+<p>&nbsp;</p>
+<p>The 
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/Canvas.html">Canvas API</a> has all of the methods that the Canvas can use.&nbsp; If you 
+look at the fillRectangle method, you can see exactly what is needed for the 
+method to work</p>
+<p><img border="1" src="images/img17.jpg" /></p>
+<p>There is a matching <strong>drawRectangle</strong> that will draw the outline 
+of a rectangle.&nbsp; Let&#39;s use this to draw a border.&nbsp; Add the following 
+lines to the <strong>end </strong>of the paintWindow method:</p>
+<pre>         canvas.setColor(&quot;BLACK&quot;);
+        canvas.setThickness(5);
+        canvas.drawRectangle(50,100,415,80);
+</pre>
+
+<p>Notice that the color and thickness of the line were completely set up before 
+the drawRectangle method was called.&nbsp; Order is important.&nbsp; Change the 
+value in the setThickness method and see what happens.&nbsp; In the end, with a 
+thickness of 5 you should get the following:</p>
+<p><img src="images/img1F.gif" /></p>
+<p>The Canvas can draw Strings as well.&nbsp; All it needs is the String and the 
+x,y coord of the <strong>baseline</strong> of the String (the bottom line).&nbsp; 
+Add the following two lines to the end of the paintWindow method:</p>
+<pre>canvas.setColor("WHITE");
+canvas.drawString("Hello World!!!",80,156);</pre>
+<p>Now running the program should give you:</p>
+<p><img src="images/img1D.gif" /></p>
+<p>&nbsp;</p>
+<p>Not quite what we wanted...</p>
+<p>&nbsp;</p>
+<p>There is a method in the API that will set the font, but it looks hard.</p>
+<p><img src="images/img23.jpg" border="1" /></p>
+<p>&nbsp;The parameter is <strong>Font</strong> object, which is another object from 
+sacco.jar.&nbsp; If we want to set the Font, we have to first construct a Font 
+object to give the method.&nbsp; We can look at the Font 
+API page for help.&nbsp; There is a section marked Constructor Summary&nbsp;</p>
+<p>
+<img width="75%" src="images/img2.jpg" /></p>
+<p>It looks like there are <strong>TWO</strong> ways to construct a Font object.&nbsp; 
+One with just an int, and one with a String and an int (java.lang.String is the 
+long name for the String object).&nbsp; Look at the two Font objects below:</p>
+<pre>Font f1 = new Font(25);
+Font f2 = new Font("Courier New",40);</pre>
+<p>Since there are two different constructors, we get to choose which one we 
+want to use.&nbsp; The first is a size 25 font with the defaul font type.&nbsp; 
+The second specifies that it&#39;s &quot;Courier New&quot; and size 40.</p>
+<p>Now that we know how to construct a Font object, we can use it to call the 
+method.&nbsp; Add the following code to the paintWindow method <strong>BEFORE 
+THE DRAWSTRING IS CALLED.</strong></p>
+<pre>
+         Font f = new Font("Berlin Sans FB Demi",60);
+        canvas.setFont(f);</pre>
+<p>Finally, running the program after the font adjustment should give you the 
+following:</p>
+<p><img src="images/imgE.gif" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong><span class="auto-style2">Assignment</span>:</strong></p>
+<p>Create an object that extends SaccoWindow and a Runner for each assignment 
+below.</p>
+<p>1) <strong>Face</strong>:&nbsp; Create a program that paints a face to the screen.&nbsp; You 
+may make a more creative (and less creepy) face if you would like.</p>
+<p><img height="314" src="images/img12.gif" width="326" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>2)&nbsp; <strong>House</strong>:&nbsp; Create a House at least as complicated as the one 
+below:</p>
+<p><img height="286" src="images/img14.gif" width="333" /></p>
+<p><strong>Working with triangles:</strong></p>
+<p>The drawTriangle and fillTriangle methods don&#39;t take in ints:</p>
+<p><img src="images/img11.jpg" border="1" /></p>
+<p>You need to construct three different Point objects, and then call the 
+method.&nbsp; WARNING!!!! THIS IS A DIFFERENT POINT THAN THE ONE THAT YOU HAVE 
+MADE.&nbsp; YOU CANNOT USE YOUR OWN TYPE.&nbsp; This Point class is in the sacco 
+folder of the sacco.jar, so you can specify by typing it all out:</p>
+<pre>sacco.Point p = new sacco.Point(30,45);</pre>
+<p>sacco.Point is the specific type that you need for the compiler to be happy 
+when using the fillTriangle method.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>3)&nbsp; <strong>StringDisplay</strong>: </p>
+<p>Create a SaccoWindow named StringDisplay, which will be very similar to the 
+HelloWindow that we created before.&nbsp; It should print out a String somewhere 
+on the window in a fancy font.</p>
+<p>This Window object will be a little bit different than the first two.&nbsp; 
+We are going to add a few things that make it a little more like the objects 
+we&#39;ve been creating.&nbsp; </p>
+<p>&nbsp;&nbsp; -Add a single String as an <strong>instance field.</strong>&nbsp; This 
+will represent the string that is displayed.&nbsp;&nbsp; </p>
+<p>&nbsp;&nbsp; -Add a Constructor, which takes in a String as a parameter and 
+assigns it to the instance field.</p>
+<p>&nbsp; -Modify the paintWindow method so that it will paint whatever&#39;s in the 
+instance field (Instead of the original &quot;Hello World!!!&quot;)&nbsp;</p>
+<p>&nbsp;</p>
+<p>Now we&#39;ve created an object that takes a single String and displays it in a 
+fancy window.&nbsp; Add a runner, which has the following main method:</p>
+<pre>public static void main()
+{
+   StringDisplay sd = new StringDisplay("APCS");
+   sd.showWindow();
+   
+   
+   StringDisplay sd2 = new StringDisplay("Java");
+   sd2.showWindow();   
+}</pre>
+<p>Run the program and make sure that two windows pop up with APCS and Java on 
+them.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

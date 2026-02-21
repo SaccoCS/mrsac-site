@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Converting to Pig Latin&nbsp; Phase 1</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style2">Converting to Pig Latin</span><p>
+<span class="auto-style1">This project will have you creating 5 similar 
+programs, but enhancing them with each phase:<br />
+Phase 1: Convert one word to Pig Latin<br />
+Phase 2: Convert one word to Pig Latin using a helper method<br />
+Phase 3: Converting two words to Pig Latin<br />
+Phase 4:&nbsp; Converting many words to Pig Latin using three helper methods
+</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style3"><strong>Phase 1:</strong></span><br class="auto-style1" />
+<span class="auto-style1"><br />
+Write a program named <strong>PigLatin1</strong>, which takes in a single word String from the 
+user and prints out the pig-latin version of it. For those that don’t know how 
+to speak pig latin, the first letter is moved to the back of the word, and then 
+it attached an “ay” to the end. For example, Hello becomes ellohay</span><br class="auto-style1" />
+<span class="auto-style1">In reality this only works for words that start with a 
+consonant and then a vowel, but the other rules require a little more knowledge 
+of programming than we currently have so we’re going to pretend that it works.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Please enter a word:</span><br class="auto-style1" />
+<span class="auto-style1">Sacco</span><br class="auto-style1" />
+<span class="auto-style1">In pig latin that word is accosay</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style3"><strong>Phase 2:</strong></span><br class="auto-style1" />
+<span class="auto-style1"><br />
+Now that you know how to modify a one word String to be in pig latin, we’re 
+going to make it so that it works for a multi-word String.<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">Create a new class named <strong>PigLatin2</strong>. This class should 
+have TWO methods in it:</span><br class="auto-style1" />
+<span class="auto-style1"><br /><pre>public static void main()
+public static String getPigLatin(String word)</pre>
+The second method is different than what we’re used 
+to. For one, there’s a variable named <strong>word</strong> in the parentheses. This is known as 
+the parameter of the method. The purpose of this method is to take whatever 
+String is in <strong>word</strong> (we don’t know what it’s going to be) and figure out what the 
+pig latin version of it is.
+</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+Complete the getPigLatin method.&nbsp; Its code will be similar to how you worked in phase 
+1, so use it for inspiration, but here are some key differences to work out:<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">1) Don’t do ANY Scanner/JOptionPane. Treat the 
+parameter word as if it came directly from the user.&nbsp; The user input will 
+come in later.<br />
+</span>
+<br class="auto-style1" />
+<span class="auto-style1">2) Don’t System.out.println the result. This method’s 
+job is to <strong>RETURN</strong> a String, so store the result in a variable named 
+<strong>pigVersion</strong> 
+and then make the following line the last bit of your program:</span><br class="auto-style1" /><pre>return pigVersion;</pre>
+<span class="auto-style1"><strong>How to test:<br />
+<br />
+</strong>You’ve just written a method that doesn’t technically 
+interact with the user, but BlueJ will allow you to test it. Right click 
+PigLatin2 and 
+call the getPigLatin method from BlueJ. You should get a little window popping 
+up that’s asking you to put a value in for word. This is what will be in the 
+parameter when the method runs.<br />
+<br />
+<img src="images/img4.jpg" /><br />
+<br />
+&nbsp;Type “hello” into the box (include the quotes) 
+and click ok. Instead of printing out, a box will appear and whatever the method 
+returns will be displayed in a window. <br />
+<br />
+<img src="images/img5.jpg" /><br />
+<br />
+Check to make sure that it’s “ellohay” 
+and fix it if it doesn’t.<br />
+<br />
+<br />
+<strong>The Main Method:</strong></span><br class="auto-style1" />
+<span class="auto-style1">You’ve just created a method that will help you take a 
+single word and convert it into Pig Latin. The main method can go ahead and use 
+that method to help it convert multiple words without having to copy and paste 
+into our program.</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+In the main method follow the following steps:</span><br class="auto-style1" />
+<span class="auto-style1">1) Prompt the user to enter a String and store it in a 
+variable named <strong>result</strong></span><br class="auto-style1" />
+<span class="auto-style1">2) Now you are going to call the method that you just 
+wrote to help you out. The following line calls getPigLatin using the <strong>
+result</strong> variable, and then takes 
+whatever is returned and stores it as <strong>pig</strong>.</span><br class="auto-style1" />
+<pre>String pig = getPigLatin(result);</pre>
+<span class="auto-style1">3) Now use a System.out.println to print out “In pig 
+latin that word is _____”, using the pig variable.</span><br class="auto-style1" />
+<span class="auto-style1">Test your program by running the main method. If done 
+right, the program will function exactly the same as phase 1.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style3"><strong>Phase 3:<br />
+<br />
+</strong></span><span class="auto-style1">Phase 2 was a more complicated way of doing Phase 1. 
+Now we’re going to use it to our advantage.</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+Create a new class named PigLatin3. This class should 
+also have two methods in it:</span><br class="auto-style1" /><pre>public static void main()
+public static String getPigLatin(String word)</pre>
+<span class="auto-style1">You may literally copy and paste the getPigLatin 
+method from phase 2 because we want the same exact functionality</span><br class="auto-style1" />
+<span class="auto-style1">Now you’re going to write the main method to work 
+similar to before, but to work with two word sentences.</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+Strategy:</span><br class="auto-style1" />
+<span class="auto-style1">1) Prompt the user to “Enter a two word phrase” and 
+store the input into a variable.</span><br class="auto-style1" />
+<span class="auto-style1">2) Use your knowledge of indexOf and substring to 
+split the String into two variables: <strong>firstWord</strong> and <strong>secondWord</strong>.</span><br class="auto-style1" />
+<span class="auto-style1">3) Similar to how you did before, use the getPigLatin 
+method to convert <strong>firstWord</strong> and <strong>secondWord</strong> into their pig latin versions.</span><br class="auto-style1" />
+<span class="auto-style1">4) Print them back out using a System.out.println</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+Example:</span><br class="auto-style1" />
+<span class="auto-style1">Please enter a two word phrase:</span><br class="auto-style1" />
+<span class="auto-style1">hello world</span><br class="auto-style1" />
+<span class="auto-style1">In pig latin that would be ellohay orldway</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">
+<br class="auto-style1" />
+<br class="auto-style1" />
+</span><span class="auto-style3"><strong>Phase 4:</strong></span><span class="auto-style1"><br />
+<br />
+You may have noticed in the previous program that the getPigLatin method allowed 
+you to perform the conversion of one word to pig latin multiple times without 
+having to repeat all of the substrings.&nbsp; When planning out programs, you 
+should think about any methods that might be helpful to avoid repeating code.<br />
+<br />
+Create a class named PigLatin4, which will have 4 methods in it.&nbsp; When 
+writing one method, ignore any variables from other methods.&nbsp; Only focus on 
+accomplishing the one task.<br />
+<br />
+public static void main()<br />
+public static String getPigLatin(String word)<br />
+public static String afterFirstWord(String phrase)<br />
+public static String firstWordOnly(String phrase)<br />
+<br />
+The getPigLatin method you can copy and paste, it should perform exactly as it 
+previously did.<br />
+<br />
+The afterFirstWord method&#39;s job is to take in a String as a parameter.&nbsp; 
+That String should have multiple words in it.&nbsp; This method will locate the 
+space and use it to find and return the substring of everything after the space.<br />
+<br />
+The firstWordOnly method&#39;s job is to take in a String with multiple words in it.&nbsp; 
+This method will locate the space and use it to find and return the substring of 
+everything before the space.<br class="auto-style1" />
+<br class="auto-style1" />
+</span>
+<p class="auto-style1">Test out the afterFirstWord method and the firstWordOnly 
+method similar to how you did before.&nbsp; Pass in &quot;Hello Mister Sacco&quot; and 
+they should return &quot;Hello&quot; and &quot;Mister Sacco&quot;.&nbsp; Double check to make sure 
+that the afterFirstWord method doesn&#39;t return a String that starts with a space, 
+this will ruin your program.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">Now we&#39;ve set this program up to have three abilities:<br />
+1)&nbsp; It can tell us the pig latin version of a single word<br />
+2)&nbsp; It can return the first word of a String<br />
+3)&nbsp; It can return everything but the first word of a String</p>
+<p class="auto-style1">We are going to use all of those tools to create a five 
+word pig latin translator.</p>
+<p class="auto-style1">Our Strategy:<br />
+To translate all 5 words you must go through a repeated process.&nbsp; Take the 
+first word and convert it to pig latin.&nbsp; After that, remove the first word 
+from the String.&nbsp; Repeat the steps until all words have been converted.</p>
+<p class="auto-style1">Example:<br />
+&quot;my pig speaks funny latin&quot; - the first word is &quot;my&quot;, which is &quot;ymay&quot; in pig 
+latin.&nbsp; Removing the first word gives &quot;pig speaks funny latin&quot;<br />
+&quot;pig speaks funny latin&quot; - the first word is &quot;pig&quot;, which is &quot;igpay&quot; in pig 
+latin.&nbsp; Removing the first word gives &quot;speaks funny latin&quot;<br />
+&quot;speaks funny latin&quot; - the first word is &quot;speaks &quot;, which is &quot;peakssay&quot; in pig 
+latin.&nbsp; Removing the first word gives &quot;funny latin&quot;<br />
+&quot;funny latin&quot; - the first word is &quot;funny&quot;, which is &quot;unnyfay&quot; in pig latin.&nbsp; 
+Removing the first word gives &quot;latin&quot;</p>
+<p class="auto-style1">Since &quot;latin&quot; is the last word, it&#39;s converted into 
+&quot;atinlay&quot; without removing any words</p>
+<p class="auto-style1">ymay igpay peakssay unnyfay atinlay</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3"><strong>Putting the strategy in code</strong></p>
+<p class="auto-style1">Modify the main method to perform the following:</p>
+<p class="auto-style1">- Prompt the user to enter a five word String and store 
+it in a variable named str.</p>
+<p class="auto-style1">- call the firstWordOnly method, passing str as a 
+parameter, and store the result in a variable named firstWord<br />
+- call the getPigLatin method, passing firstWord as a parameter and store the 
+result into a variable word1</p>
+<p class="auto-style1">- call the afterFirstWord method, passing str as a 
+parameter and store the result BACK INTO str (&nbsp; str = afterFirstWord(str); 
+)&nbsp; This should replace str with the everything but the first word<br />
+</p>
+<p class="auto-style1">Those steps put the first word of the output into word1 
+and modified str to have a new first word.&nbsp; Repeat those steps 3 more 
+times, each time replacing str with a shorter version and putting the Pig Latin 
+version of the first word into word2,word3, and word4</p>
+<p class="auto-style1">When it&#39;s time for word5, str should have only one word 
+left and no more spaces in it, meaning that calling firstWordOnly or 
+afterFirstWord will crash your program.&nbsp; Simply call getPigLatin(str) to 
+get the last word converted.</p>
+<p class="auto-style1">In the end, print out word1, word2, word3, word4, and 
+word5 in one line to get the result you want.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+
+</body>
+
+</html>

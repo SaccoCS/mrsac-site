@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Casting to an int</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Casting to an int</h2>
+					<p>The main differences between an int and a double is that doubles are built to handle the decimal portion of a number.  While any int may be stored as a double (3 becomes 3.0, 99 becomes 99.0, etc.), not every double may be stored as an int.
+					</p>
+					<div class= "code-block">
+						<p> int num = 3.14159 <span style="color:#a00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// <-- Error: Possible Loss of Precision!</span><br/>
+						double value = 2;</br>
+						int result = 5*value;<span style="color:#a00">&nbsp;&nbsp;// <-- Error: Possible Loss of Precision!</span>
+						</p>
+						
+					</div>
+					<p style = "clear:left">The compiler will stop you any time you try to assign a double to an int variable.  It doesn't matter if the number 'should be a round number' like 10.0.  The compiler rejects is simply because of the type.</p>
+
+					
+					<hr/>
+					
+					<h3>Casting: Sort of a solution</h3>
+					<p>Casting is how we can <strong>temporarily </strong> change the type of a value.  When casting a double to an int, casting means that the decimal portion of the number.</p>
+					<p>Casting is an awkward operation.  You do it by typing <span style = "color:#a00">(int)</span> directly in front of the double.
+					
+					<div class="code-block">
+						<p>double pi = 3.14159;<br/>
+						int almostPi = <span style = "color:#a00">(int)</span>pi;</p>
+					</div>
+					<p style = "clear:left">Whenever you cast, you are aknowledging that in order to turn the double into an int it must be <strong>truncated</strong>, meaning the decimal value will be lost.  Note that this is <strong>not</strong> the same as rounding.  The integer part of the number never changes.</p>
+				</div>
+				
+				<div class = "note-div">
+				
+					<h3>Order of Operations</h3>
+					<p>Casting is very high up on the order of operations.P<span style = "color:#a00"><strong>C</strong></span>MMDAS.  The only thing that supercedes it is parentheses.  Look at how each different cast causes that value to be truncated and affects the value in the end.</p>
+					<div class = "code-block">
+						<p>double a = 2.2;</br>
+						double b = 4.5;</br>
+						double sum1 = (int)a + b; <span style="color:#aaa"> &nbsp;&nbsp;// 2 + 4.5  --> 6.5</span></br> 
+						double sum2 = a + (int)b; <span style="color:#aaa"> &nbsp;&nbsp;// 2.2 + 4 --> 6.2</span></br>
+						double sum3 = (int)(a + b);<span style="color:#aaa"> // (int)(2.2 + 4.5) --> (int)(6.7) --> 6</span></br>
+						double div1 = (int)b/2;<span style="color:#aaa"> &nbsp;&nbsp;&nbsp;&nbsp;// 4/2 --> 2</span></br>
+						double div2 = (int)(a + b)/2;<span style="color:#aaa">// (int)(2.2+4.5)/2 --> (int)(6.7)/2 --> 6/2 --> 3</span></br>
+						
+						</p>
+					</div>
+					<p style = "clear:left">
+					
+					<p>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Instance Fields</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				
+				
+				<div class = "note-div">
+					<h3>Instance Fields</h3>
+					<p>One way to think about an object is to consider it a variable that has multiple pieces of data bundled together.  Those pieces of information are known as the <strong>instance fields</strong> or <strong>instance variables</strong>.</p>
+					<p>For Example:  Consider the following class named Student and it's designed to have two instance fields, one to hold a student's name and one to hold its gpa.</p>
+					
+					<div class ="code-block"> 
+						<p>public class Student<br/>
+						{<br/>
+						<span style = "color:#a00">&nbsp;&nbsp;&nbsp;private String name;<br/>
+						&nbsp;&nbsp;&nbsp;private double gpa;</span><br/>
+						<br/>
+						&nbsp;&nbsp;&nbsp;public Student(String n, double g)<br/>&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = n;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpa = g;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/>
+						}</p>
+					</div>
+
+			
+					<p style = "clear:left">The variables <span class = "code">name</span> and <span class = "code">gpa</span> are the <strong>instance fields</strong> of the Student class.  This means that every time a Student object is constructed, it will create its own unique version of those variables.  </p>
+					<div class = "code-block">
+						<p>Student s1 = new Student("Gerald I. Joe", 3.85);<br>
+						Student s2 = new Student("Tom Riddle", 2.16);</p>
+					</div>
+					
+					<p style = "clear:left; margin-bottom:20px">These two construction statements create two different objects, each with their own name and gpa variables.  s1 has a name of "Gerald I. Joe" and a gpa of 3.85, while s2 has a name of "Tom Marvolo Riddle" and a gpa of 2.3</p>
+					
+					
+					
+					
+						<div style = "
+							border:1px solid #aaa;
+							border-radius:10px 10px 10px 10px;
+							float:left;
+							padding 0px;
+							margin 0px;
+							margin-left:140px;
+							line-height:20px;"
+							>
+							<ul style ="
+							list-style-type:none;
+							padding:0px 0px 0px 0px;
+							margin:5px 5px 5px 5px;">
+								<li style = "text-align:center;border-bottom:1px solid #aaa;">s1</li>
+								<li>name: "Gerald I. Joe"</li>
+								<li>gpa: 3.85</li>
+							</ul>
+						</div>
+						
+						<div style = "
+							border:1px solid #aaa;
+							border-radius:10px 10px 10px 10px;
+							float:left;
+							padding 0px;
+							margin 0px;
+							margin-left:150px;
+							line-height:20px;"
+							>
+							<ul style ="
+							list-style-type:none;
+							padding:0px 0px 0px 0px;
+							margin:5px 5px 5px 5px;">
+								<li style = "text-align:center;border-bottom:1px solid #aaa;">s2</li>
+								<li>name: "Tom Riddle"</li>
+								<li>gpa: 2.16</li>
+							</ul>
+						</div>
+					
+				
+					<p style = "clear:left">By creating objects we are <strong>encapsulating</strong> the two variables to help us group our information.</p>
+				
+				
+				</div>
+				
+				<div class = "note-div">
+						<h3>Instance Fields Should Be Private</h3>
+					<p>While technically it is legal to have public instance fields, during this course we are going to keep them private and focus on more object oriented access solutions.  You should never be able to change a value inside an object directly.</p>
+					<div class ="code-block">
+					<p>Student s1 = new Student("Gerald I. Joe", 3.85);<br/>
+					s1.gpa = 4.0; <span style = "color:#a00">// <-- This shouldn't be allowed.  Bad design.</span></p>
+					</div>
+					
+					<p style = "clear:left">When the instance fields are private, access becomes a challenge.  The solution is to add accessor and mutator methods and take control of how the variables are accessed.</p>
+				</div>
+
+				
+				<div class = "note-div">
+				<h3>Local Variables</h3>
+				<p>A local variable is more temporary than an instance field.  They are created in order to assist methods in their process, but they're not necessarily as 'permanent' as instance fields.  Every variable that you create that isn't an instance field is considered a local variable.</p>
+				<p>The main difference between local variables and instance fields is when they are created and when they are destroyed.  A local variable is created and destroyed every time a method is called, while instance fields are created when the object is constructed and exist for the entire lifetime of the object.</p>
+				<h4>Any Variable Declared Inside a Method is Local</h4>
+				<p>Consider the following method, which asks the user for a quantity of seconds, and then uses int division and mod to determine how many minutes and seconds that breaks down to.</p>
+				<div class ="code-block">
+				<p>public static void minSec()<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;String userInput = <span style = "font-size:8pt">JOptionPane.showInputDialog</span>("Enter a number of seconds");<br/>
+						&nbsp;&nbsp;&nbsp;int totalSec = Integer.parseInt(userInput);<br/>
+						&nbsp;&nbsp;&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;int min = totalSec/60;<br/>
+						&nbsp;&nbsp;&nbsp;int sec = totalSec%60;<br/>
+						<br/>
+						&nbsp;&nbsp;&nbsp;<span style = "font-size:10pt">JOptionPane.showMessageDialog(null, totalSec + " seconds is "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ min + " minutes and " + sec + " seconds");</span><br/>
+						
+						}</p>
+				</div>
+				<p style = "clear:left">In this code, every variable created is a local variable.  userInput, totalSec, min, and sec have all been defined within the method.  Had they been defined outside the method, they would count as instance fields. 
+				</p>
+				<h4>Parameters are Local Variables Too</h4>
+				
+				<p>Parameters technically are declared in the method header, but they still count as local variables.  They are created to be temporary placeholders for the incoming data.</p>
+				<div class ="code-block" style = "clear:left"> 
+						<p>public class Student<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;private String name;<br/>
+						&nbsp;&nbsp;&nbsp;private double gpa;<br/>
+						<br/>
+						&nbsp;&nbsp;&nbsp;public Student(<span style = "color:#a00">String n, double g</span>)<br/>&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = <span style = "color:#a00">n</span>;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpa = <span style = "color:#a00">g</span>;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/>
+						}
+						
+					</div>
+				<p style ="clear:left">In the code above, <strong>n</strong> and <strong>g</strong> are parameters of the constructor, but they are also considered to be local variables.</p>
+				</div>
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

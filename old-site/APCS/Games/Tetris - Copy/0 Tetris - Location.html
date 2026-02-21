@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Location Class</title>
+
+<style>
+
+h3{
+font-family:Arial, Helvetica, sans-serif;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The Location Class</h2>
+<p>Tetris is a game that is all about organizing blocks in a grid.  This means that we will be dealing with rows and columns to tell where each block is.  The first class you create will be the 
+<strong>Location</strong> class., which will be the most basic object that we make.</p>
+<p>- Create a class named Location.&nbsp; For instance fields, the Location 
+class should have ints to represent the Location&#39;s row and column.</p>
+<p>- Location&#39;s constructor should take in a row and column and apply them to 
+the instance fields.</p>
+<p>- Add methods getRow and getCol, but do not add a setRow or setCol method.  Locations should be immutable, meaning once they’re constructed, the instance fields cannot be changed.  Much like the String class.</p>
+<p>- Add a method named <strong>plus</strong>, which takes in a second Location 
+and returns a new Location that is the sum of &#39;this&#39; Location and the parameter 
+Location.</p>
+<p>- Add a method named <strong>equals</strong>, which takes in a separate Location and returns true if both the row and the column of the incoming object are the same as the 'this' object</p>
+<p>- Override the toString method to return something simple that contains the row and column. For example “Loc(4,2)” 
+
+
+</p>
+<p>&nbsp;</p><hr/>
+<h3 style="font-family:Arial, Helvetica, sans-serif">Referring to the four directions:
+
+
+</h3>
+<p>During this project you are going to want to figure out an adjacent Location.  We want to avoid writing a separate method for each direction, such as getLocBelow, getLocAbove, getLocLeft,or getLocRight.  Our solution will be to create one method that will take in one of the four directions and return the adjacent Location in the given direction.  
+
+
+</p>
+<p>The problem is that there is no such thing as a &#39;Direction&#39; variable; so what 
+do we pass in?&nbsp; Create four public static final ints named UP,DOWN,LEFT,RIGHT.  While the 
+specific number that you assign to them is not really important, it will be slightly more useful if you use the keycodes for the arrow keys.  Up is 38, Down is 40, Left is 37, and Right is 39.
+Now, when a method needs to take in a direction, it will take in an int.  That int 
+should either be Location.UP, Location.DOWN, Location.LEFT, or Location.RIGHT.
+
+
+</p>
+<p>Add the following method:</p>
+<pre>public Location getLocInDir(int direction)</pre>
+<p>This method should construct and return a new Location in the direction given.  You should have different Locations for each of the four directions.  If no direction is matched, return the current location using 'this'.</p>
+
+<p>This class is foundational to the rest of the porgram.  It is important that it work properly.  </p>
+
+
+</p>
+<p>&nbsp;</p><hr/>
+<h3 style="font-family:Arial, Helvetica, sans-serif">Testing:</h3>
+<p>Run the following runner method and make sure you get the same numbers for the output.
+
+
+</p>
+<pre>public static void locationTester1()
+{
+    Location loc = new Location(3,6);
+    System.out.println("Original Location:"+ loc);
+    System.out.println("getRow() --> "+loc.getRow());
+    System.out.println("getCol() --> "+loc.getCol());
+    System.out.println("getLocInDir(Location.UP) --> "+loc.getLocInDir(Location.UP));
+    System.out.println("getLocInDir(Location.DOWN) --> "+loc.getLocInDir(Location.DOWN));
+    System.out.println("getLocInDir(Location.LEFT) --> "+loc.getLocInDir(Location.LEFT));
+    System.out.println("getLocInDir(Location.RIGHT) --> "+loc.getLocInDir(Location.RIGHT));
+    
+    Location other = new Location(9,2);
+    Location sum = loc.plus(other);
+    System.out.println("The sum of "+ loc + " and "+other+" is "+sum);
+}
+
+</pre>
+<p>Make sure that it matches this output:</p>
+<p>Location:Loc(3, 6)<br />
+getRow() --&gt; 3<br />
+getCol() --&gt; 6<br />
+getLocInDir(Location.UP) --&gt; Loc(2, 6)<br />
+getLocInDir(Location.DOWN) --&gt; Loc(4, 6)<br />
+getLocInDir(Location.LEFT) --&gt; Loc(3, 5)<br />
+getLocInDir(Location.RIGHT) --&gt; Loc(3, 7) <br/>
+The sum of Loc(3,6) and Loc(9,2) is Loc(12,8)</p>
+
+<hr/>
+<h3>Location vs int[]</h3>
+<p>A Location is an object whose core is simply two ints.  In a world without objects, we would probably use an int[] to represent a location.  The value at index 0 would represent the row, and the value at index 1 would represent the column.  While Location objects are more useful because they have methods, int[]'s are more convenient because you can create many of them quickly.</p>
+<p>In order to blur the line a little bit, make the following modifications to the Location class:</p>
+<p> - add a second constructor that takes in an int[] as the parameter.  You may assuming that this array contains a row and column as described above.</p>
+<p>- add a static method with the following header:</p>
+<pre>public static Location[] factory(int[][] locs)</pre>
+<p>The purpose of this method is to take in a 2D array of ints, and return a Location[] full of corresponding Location object.  Don't forget to use the constructor that you just created.  Notice that this method is static so that you don't have to have an already constructed Location object before you call it.</p>
+<br/>
+<p><strong>More Testing</strong></p>
+<p>Add the following runner method to test out the new methods:</p>
+<pre>public static void locationTester2()
+{
+    System.out.println("Testing Second Constructor:");
+    int[] loc = new int[]{3,9};
+    Location l = new Location(loc);
+    System.out.println(l);
+
+    
+    System.out.println("\nTesting factory:");
+    int[][] manyLocs = new int[][]{{4,8},{6,7},{7,3},{1,1}}; 
+    Location[] locArr = Location.factory(manyLocs);
+    
+    for(Location x : locArr)
+        System.out.println(x);
+}
+</pre>
+
+<p>Look for this input:<br/><br/>
+Testing Second Constructor:<br/>
+Loc(3,9)<br/><br/>
+
+Testing factory:<br/>
+Loc(4,8)<br/>
+Loc(6,7)<br/>
+Loc(7,3)<br/>
+Loc(1,1)<br/>
+</p>
+
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Coins</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Coins</h2>
+<p>Write a class named Coins, which will be in charge of .keeping track of a 
+handful of coins.&nbsp; You will need four int instance fields to represent the 
+number of quarters, number of dimes, number of nickels, and number of pennies.</p>
+<p>Add a constructor that takes in four ints and assigns them to the instance 
+fields (quarters, dimes, nickels, and pennies).</p>
+<p>Add four basic accessors: getNumQuarters, getNumDimes, getNumNickels, and 
+getNumPennies</p>
+<p>Add four mutator methods: addQuarters, addDimes, addNickels, and addPennies.&nbsp; 
+Each will take in an int and <strong>add </strong>it to the appropriate instance 
+field.</p>
+<p>Add the accessor method getTotal, which will return a double representing the 
+value of all the coins together.&nbsp; DO NOT CREATE A NEW INSTANCE FIELD TO 
+HOLD THE TOTAL.&nbsp; YOU DON&#39;T NEED IT.</p>
+<p>Add an accessor method cashFormat, which will take in no parameters and 
+return the value of the Coins as a String using our cash formatting rules (a 
+dollar sign and two places after the decimal).&nbsp; In order to accomplish 
+this, start by calling the <strong>getTotal</strong> method and work from there.&nbsp; </p>
+<p>Add a toString method that returns a String in the form:</p>
+<p>&quot;Quarters: ___<br />
+Dimes: ___<br />
+Nickels: ___<br />
+Pennies: ___<br />
+Value: ____&quot;</p>
+<p>Where the value is retrieved by calling the cashFormat method.</p>
+<p>&nbsp;</p>
+<p>Copy and run the following runner:&nbsp;</p>
+<pre>public class CoinRunner
+{
+    public static void main()
+    {
+        Coins purse = new Coins(1,2,3,4);        
+        System.out.println(purse+&quot;\n&quot;);  
+        
+        purse.addQuarters(3);
+        purse.addNickels(2);        
+        System.out.println(purse+&quot;\n&quot;);
+    }
+}</pre>
+<p>and make sure that you get the following output:</p>
+<p>Quarters: 1<br />
+Dimes: 2<br />
+Nickels: 3<br />
+Pennies: 4<br />
+Value: $0.64<br />
+<br />
+Quarters: 4<br />
+Dimes: 2<br />
+Nickels: 5<br />
+Pennies: 4<br />
+Value: $1.49<br />
+</p>
+<p>&nbsp;</p>
+<p>Now add a method with the following header:</p>
+<pre>public void addMoreCoins(Coins other)</pre>
+<p>This is a mutator method that is much like a combination of all of the &quot;add&quot; 
+methods.&nbsp; The parameter is <strong>another</strong> Coin object and the 
+goal is to add all of the quarters from that object to the quarters instance 
+field, all its nickels to the nickels field, etc.&nbsp; Don&#39;t worry about where 
+the parameter Coins come from.&nbsp; Your job involves calling its &quot;get&quot; methods 
+and using the returned value to help modify your instance fields.</p>
+<p>&nbsp;</p>
+<p>Once you think that you&#39;ve done that properly, change your runner to be the 
+following:</p>
+<pre>public class CoinRunner
+{
+    public static void main()
+    {
+        Coins purse = new Coins(1,2,3,4);        
+        System.out.println(purse+"\n");  
+        
+        purse.addQuarters(3);
+        purse.addNickels(2);        
+        System.out.println(purse+"\n");
+        
+        Coins change = new Coins(2,1,0,0);        
+        purse.addMoreCoins(change);       
+        System.out.println(purse+"\n");            
+        
+        Coins evenMoreChange = new Coins(0,0,2,4);     
+        purse.addMoreCoins(evenMoreChange);        
+        System.out.println(purse);       
+    }
+}</pre>
+<p>Notice that we can now see where the other Coins objects are constructed.&nbsp; 
+The runner constructs them before passing them into the method.&nbsp; Run the 
+runner and make sure that you get the following output:</p>
+<p>Quarters: 1<br />
+Dimes: 2<br />
+Nickels: 3<br />
+Pennies: 4<br />
+Value: $0.64<br />
+<br />
+Quarters: 4<br />
+Dimes: 2<br />
+Nickels: 5<br />
+Pennies: 4<br />
+Value: $1.49<br />
+<br />
+Quarters: 6<br />
+Dimes: 3<br />
+Nickels: 5<br />
+Pennies: 4<br />
+Value: $2.09<br />
+<br />
+Quarters: 6<br />
+Dimes: 3<br />
+Nickels: 7<br />
+Pennies: 8<br />
+Value: $2.23<br />
+<br />
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

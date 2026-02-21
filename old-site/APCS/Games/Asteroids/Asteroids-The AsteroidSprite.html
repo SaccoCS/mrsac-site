@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>AsteroidsSprite</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Asteroids: The AsteroidSprite Class</p>
+<p class="auto-style2">In the inheritance chapter you built an abstract class 
+named Sprite, which was meant to help represent a moving object in a bounded 
+window.&nbsp; Copy that class into your Asteroids project.&nbsp; </p>
+<p class="auto-style2">Here&#39;s a quick 
+refresher of what should be contained in it.&nbsp; <strong>You should not have 
+to recreate this, it is simply a reminder of how that old class functions.</strong></p>
+<p><span class="auto-style2"><strong>Instance Fields:</strong></span><br class="auto-style2" />
+<span class="auto-style2">- doubles for x,y to represent the location of the 
+Sprite</span><br class="auto-style2" />
+<span class="auto-style2">- doubles for xVectors, and yVectors to represent the 
+speed of the Sprite in each axis</span><br class="auto-style2" />
+<span class="auto-style2">- A Rectangle to represent the boundary of the Sprite</span></p>
+<p><span class="auto-style2"><strong>Concrete Methods:</strong></span><br class="auto-style2" />
+<span class="auto-style2">- setX, setY, getX, getY, setXVelocity, setBoundary...&nbsp; 
+methods allowing you to access each of the instance fields.</span><br class="auto-style2" />
+<span class="auto-style2">- move(): causes the x and y to change based on their 
+x and y vectors</span><br class="auto-style2" />
+<span class="auto-style2">- update():&nbsp; This is the main driving method that 
+will be assosciated with the timer.&nbsp; I pretty much calls the move method 
+and then the processBoundary method.</span></p>
+<p><span class="auto-style2"><strong>Abstract Methods:</strong>&nbsp; The 
+following methods must be overridden at some point in the inheritance hierarchy 
+before an object can be constructed.</span><br class="auto-style2" />
+<span class="auto-style2">- paintSelf:&nbsp; This method will be called when it 
+is time to paint.&nbsp; This is the method that actually represents the object 
+with the Canvas.</span><br class="auto-style2" />
+<span class="auto-style2">- processBoundary:&nbsp; This method will look at the 
+bounding Rectangle and determine what should happen to the Sprite.</span></p>
+<p>&nbsp;</p>
+<p class="auto-style2">The Sprite class does not function on its own.&nbsp; It needed the help of a 
+SaccoWindow to get going.&nbsp; SaccoWindows are useful because they are built 
+to interact with the user.</p>
+<p class="auto-style2">- Representing Visually: If you override the paintWindow method, the window 
+that appears will display whatever you tell the Canvas to draw.&nbsp; If you 
+use that Canvas to call the Sprite&#39;s paintSelf method, that Sprite should 
+appear on the Window</p>
+<p class="auto-style2">- Timing:&nbsp; When dealing with Sprites, they often need to update 
+consistently on a timer.&nbsp; SaccoWindows have a timer built into it.&nbsp; 
+You may adjust its settings using the inherited setDelay(int) method, and start 
+the timer using the start() method.&nbsp; If you override the onTimerTick() 
+method, it will then be called every clock cycle.&nbsp; This is the section 
+where you call the Sprite&#39;s update() method in order to see movement.</p>
+<p class="auto-style2">- User input:&nbsp; If we want the user to be able to interact with the 
+program in any way, we need a way to process input.&nbsp; There are lots of 
+methods that are called at specific times.</p>
+<pre>public void onMousePress(MouseEvent m)
+public void onMouseRelease(MouseEvent m)
+public void onMouseMove(MouseEvent m)
+
+public void onKeyPress(int keyCode)
+public void onKeyRelease(int keyCode)
+</pre>
+<p class="auto-style2">These methods are called when the user uses the mouse or keyboard.&nbsp; If 
+you want the Sprite to react to either of those, these methods should be used.</p>
+<p class="auto-style2">&nbsp;</p>
+<hr>
+<p><span class="auto-style5">The AsteroidSprite Class:</span><br class="auto-style2" />
+</p>
+<p class="auto-style1"><span class="auto-style3">Since there are a few things in 
+common between the objects in an Asteroids game, we are going to create a super 
+class to help us out.&nbsp; Create a new</span><strong><span class="auto-style3"> 
+abstract </span></strong><span class="auto-style3">class named AsteroidSprite 
+and have it extend the Sprite class.&nbsp; This class will be abstract because 
+we are still not going to implement the paintSelf method that it inherits.</span></p>
+<p class="auto-style2"><span class="auto-style1">A major difference between our old Sprites and the 
+Asteroid Sprite is that AsteroidSprites will consider it&#39;s x and y to be the 
+CENTERPOINT</span><span class="auto-style3"> instead of the upper left corner.&nbsp; 
+This will make our paint methods ugly, but our logic will be easier.&nbsp;
+</span></p>
+<p class="auto-style2"><strong>Constructor</strong>:</p>
+<p class="auto-style2">Looking at the original Sprite class, you may notice that 
+there are many constructors to choose from.&nbsp; We will have the standard 
+AsteroidSprite start at a specific location with a specific boundary.&nbsp; Add 
+the following:</p>
+<pre>public AsteroidSprite()
+{
+   super(350,250,50,50);
+   this.setBoundary(new BoundingBox(0,0,700,500));
+}
+
+</pre>
+<p class="auto-style2">This forces any AsteroidSprite to be constructed with a 
+centerpoint of (350,250), have&nbsp; a width and height of 50, and be bounded by 
+a BoundingBox with a width of 700 and a height of 500.</p>
+<p class="auto-style2"><strong>The processBoundary method:</strong></p>
+<p class="auto-style2">Override the processBoundary method so that it determines 
+if the Sprite has gone completely out of bounds.&nbsp; If it has, use the setX 
+or setY methods to move to the opposite side.&nbsp; For example: </p>
+<pre>BoundingBox bound = getBoundary();
+int leftX = bound.getX()-this.getWidth()/2;
+int rightX = bound.getX()+bound.getWidth()+this.getWidth()/2;
+
+if( this.getX() &lt leftX )
+   this.setX(rightX);</pre>
+<p class="auto-style2">In the above code, I get the boundary&#39;s x and I subtract 
+half the width of the sprite.&nbsp; This is the point a little to the left of 
+the boundary.&nbsp; This is important because that is the point where the sprite 
+has completely left the screen.&nbsp; The job of the sprite is to &#39;teleport&#39; to 
+the other side of the screen, so I set the x to the point just outside on the 
+right by using a combination of the boundary&#39;s x and width.&nbsp; You will need 
+four if statements to make sure that all 4 of the walls are checked in a similar 
+way.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2"><strong>Adding an isActive variable:</strong></p>
+<p class="auto-style2">When this game ends, we want to be able to stop the 
+updating of the AsteroidSprite.&nbsp; Add a boolean as an instance field that 
+represents whether or not the Sprite is &#39;active&#39; and set it to true.&nbsp; Add a boolean 
+isActive(), and a void setActive(boolean b) method that are simple accessors and 
+mutators.</p>
+<p class="auto-style2">Now override the update method so that it will call 
+super.update() only if the isActive method is true.&nbsp; This will allow us to 
+stop the motion when it is time.</p>
+<hr>
+<p class="auto-style5">Creating a Concrete Sprite:</p>
+<p class="auto-style5"><img height="361" src="images/img4B.jpg" width="486" /></p>
+<p class="auto-style2">We cannot fully test this program until we have a 
+non-abstract class.&nbsp; Copy the DriftingSquare class below into your project.&nbsp; 
+Our goal is to have many Squares that are heading in a direction and leaving off 
+one side of the screen and entering on the other.</p>
+<pre>import sacco.*;
+
+public class DriftingSquare extends AsteroidSprite
+{
+    int r,g,b;
+
+    public DriftingSquare()
+    {
+        super();
+
+        randomizeVectors();
+
+        r = (int)(Math.random()*256);
+        g = (int)(Math.random()*256);
+        b = (int)(Math.random()*256);
+    }
+
+    public void randomizeVectors()
+    {
+        double randXV = Math.random()*10+3;
+        int posNegXV = (int)(Math.random()*2);
+        if( posNegXV ==0)
+            setXVelocity(randXV);
+        else
+            setXVelocity(-randXV);
+
+        double randYV = Math.random()*10+3;
+        int posNegYV = (int)(Math.random()*2);
+
+        if( posNegYV ==0)
+            setYVelocity(randYV);
+        else
+            setYVelocity(-randYV);
+    }
+
+    public void paintSelf(Canvas c)
+    {
+        c.setColor(r,g,b);
+        c.fillRectangle((int)getX()-getWidth()/2,(int)getY()-getHeight()/2,getWidth(),getHeight());
+
+        c.setColor("black");
+        c.drawRectangle((int)getX()-getWidth()/2,(int)getY()-getHeight()/2,getWidth(),getHeight());
+
+    }
+}</pre>
+<p class="auto-style2">Copy the AsteroidsBoard class into your project.&nbsp; 
+The Board is in charge of telling a List of AsteroidSprites when to move.</p>
+<pre>import sacco.*;
+import java.util.ArrayList;
+
+public class AsteroidsBoard extends SaccoWindow
+{
+    ArrayList &lt AsteroidSprite &gt astList;
+
+    public AsteroidsBoard()
+    {
+        astList = new ArrayList &lt AsteroidSprite &gt();
+        loadDriftingSquares(20); 
+    }
+
+    public void loadDriftingSquares(int num)
+    {
+        for( int i =0; i &lt num; i++)
+        {
+            astList.add( new DriftingSquare());
+
+        }
+    }
+
+    public void launch()
+    {
+       this.setSize(700,500);
+       this.setVisible(true);
+       this.start();
+    }
+
+    @Override
+    public void paintWindow(Canvas c)
+    {
+        //paint everything in the astList
+        for( AsteroidSprite ast: astList)
+        {
+            ast.paintSelf(c);
+        }
+
+    }
+
+    @Override
+    public void onTimerTick()
+    {
+        //update everything in the astList
+        for( AsteroidSprite ast: astList)
+        {
+            ast.update();
+        }
+    }
+
+    @Override
+    public void onKeyPress(int keyCode)
+    {
+
+    }
+
+    @Override
+    public void onKeyRelease(int keyCode)
+    {
+
+    }
+
+    public static void main()
+    {
+        AsteroidsBoard myBoard = new AsteroidsBoard();
+        myBoard.launch();
+        
+    }
+
+}</pre>
+<p class="auto-style2">The key to having multiple objects is the 
+ArrayList&lt;AsteroidSprite&gt; as the instance field.&nbsp; You can add any class 
+that extends AsteroidSprite to this list (Polymorphism Alert!).&nbsp; Note that both the paint method 
+and the step method loop through the ArrayList and tell every object in the List 
+to do something.&nbsp; The very last important piece of the code is the 
+loadDriftingSquares method, which adds DriftingSquares to the list so that we 
+can test out our code.</p>
+<p class="auto-style2">Run the AsteroidsBoard.&nbsp; Check to make sure a few 
+things are happening:</p>
+<p><span class="auto-style2">- The Squares are all starting in the center of the 
+screen</span><br class="auto-style2" />
+<span class="auto-style2">- The Squares all have random directions</span><br class="auto-style2" />
+<span class="auto-style1"><span class="auto-style3">- When the Squares go </span>
+<strong><span class="auto-style3">completely</span></strong><span class="auto-style3"> 
+off the screen, they reenter on the opposite side.</span></span></p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

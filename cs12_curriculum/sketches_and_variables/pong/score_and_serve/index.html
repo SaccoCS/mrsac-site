@@ -1,0 +1,263 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../../style.css">
+
+
+</head>
+
+<body>
+  <h2>Scoring</h2>
+  <p>Reopen the Pong workspace in CodeHS.</p>
+  <p><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/score_no_serve/index.html" width="320" height="200" scrolling= "no"></iframe></strong></p>
+   
+  <br/>
+  <h3>Adding Score Variables</h3>
+  
+  <p>In Pong a player scores when they get the ball past the other player's paddle. In order to display it on the screen, we're going to need more variables:</p>
+  
+  <p>
+    
+  </p>
+  <p><strong>Add two global variables</strong>: One to represent each player's score.</p>
+  <p>In the setup function intialize each of the variables to 0.</p>
+  
+   <br/>
+  <h3>Drawing the Variables</h3>
+  <p>A new element to draw on our screen will require another function added to draw.</p>
+  <pre>function draw() {<br /><br />  //Draw Everything<br />  background(0);<br />  drawBall();<br />  drawPaddles();<br /><strong>&nbsp;&nbsp;drawScore();</strong><br /><br /><br />  //Update Variables<br />  moveBall();<br />  movePaddles();<br />  wallBounce(); <br />  bouncePaddles();<br />}</pre>
+  <p>Add the drawScore function to your sketch </p>
+  
+  <pre>function drawScore(){
+  
+}</pre>
+  <p>Add two calls to <code>text()</code> that will display the values of each score variable on the canvas somewhere.</p>
+  <pre><br /><br /></pre>
+  <h3>Counting Wall Hits</h3>
+  <p>We have currently set our sketch to display whatever is in the two score variables. We just need to update them at the appropriate time.&nbsp; Luckily we already have code to detect a score increase.</p>
+  <p>A player scores when the ball hits one of the left or right walls. In the&nbsp;<strong>wallBounce</strong><span>&nbsp;</span>function, find the two if statements that are focusing on the&nbsp;<strong>X</strong><span>&nbsp;</span>direction.&nbsp; For
+    now you can keep the code that 'bounces' the ball back, but you should also<span>&nbsp;</span><strong>increase one of the player's scores</strong>.</p>
+  <p>&nbsp;</p>
+  <p>Test your sketch and make sure that the score is functioning like the demo above, increasing the score each time it bounces off the sides.</p>
+
+
+ <br/>
+  <hr>
+  <h2>Serving</h2>
+  
+  
+  
+  <p><strong><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/serve_no_delay/index.html" width="320" height="200" scrolling = "no"></iframe></strong></strong>
+  </p>
+  <p>
+    It's time to stop bouncing so much. Observe the demo above and notice the behavior that happens when a point is scored. The ball changes location to be in front of one of the paddles, and the ball is 'served' toward the other.
+  </p>
+ 
+  <h3>
+    Setting up the Serve
+  </h3>
+ <p>
+    At the moment you are initializing the x, y, xSpeed, and ySpeed variables within the setup() function. Our next step is to formalize it with a function.
+  </p>
+<p>
+  Modify the setup() function, removing the four assignment statements and replacing them with one call to <code>serve("left")</code>
+  </p>
+
+<pre>
+function setup() {
+  createCanvas(400, 250);
+  rectMode(CENTER);
+<div style = "color:red">
+  <s>x = width/2;</s>
+  <s>y = height/2;</s>
+  <s>xSpeed = random(-5, 5);</s>
+  <s>ySpeed = random(-5, 5);</s>
+</div>
+  <strong style = "color:green">serve("left");</strong>
+  
+}</pre>
+
+  <p>
+    
+This serve() function doesn't exist, so add it to your program:
+  </p>
+
+<pre>function serve(side){
+
+}</pre>
+
+  
+  <h3>
+    The Left Serve
+  </h3>
+<p>
+  The serve function's job will be to put values into the x, y, xSpeed, and ySpeed variables. This will be four assignment statements, similar to what was just removed from the setup() function but less random.
+  </p>
+  
+  <div class = "head_list">
+    
+<p>
+  Instead we want to simulate a 'serve' from left to right. This means two things need to happen:</p>
+  <ol>
+    <li>
+    The <strong>location</strong> of the ball should be on the left side of the canvas. Inside the serve() function, set the x and y variable to values representing a location that is just to the right of the left paddle's x and halfway down the canvas.
+    </li>
+    <li>
+    
+The <strong>direction</strong> of the ball should be heading to the right. The serve function should set the ySpeed to be a random value from -5 to +5 like before, but the xSpeed should be randomized from +2 to +5. Making the xSpeed positive guarantees that it will move in the right direction.
+    </li>
+  </ol>
+  </div>
+
+  
+<h5>
+  Test
+  </h5>
+<p>
+
+After adding those four assignment statements to the serve() function your program should be functional again. Run it a few times and make sure that the ball appears on the left side of the canvas and moves to the right.
+  </p>
+  
+  
+  <h3>
+    Adding a Right Serve
+  </h3>
+
+  
+ <p>
+   You may have noticed that there is a parameter in the serve() function header:
+  </p> 
+
+<pre>function serve( <strong style = "color:green">side</strong> )</pre>
+
+<p>
+  The purpose of this parameter is to be a string representing which side should be serving, "left" or "right". Currently this parameter is being completely ignored and the serve function is always serving from the left. Our next goal is to make it serve from either the right or the left, depending on the value of the parameter.
+  
+  </p>
+<p>
+Modify the serve() function with if statements that check what the value of side is. If it's "left", the four variables should be set up as a left serve (like they currently are). If it's "right", set up the four variables to represent a right serve. This means the x and y should be set to a location in front of the <strong>right</strong> paddle, and the xSpeed should be randomized to a <strong>negative</strong> number between -5 and -2.
+  
+  </p>
+
+<h5>
+  Test
+  </h5>
+  <p>
+The setup function is currently calling serve("left"). Run the program a few times to ensure that it serves from the left, as it did before. If that works, change the call in setup() to be serve("right") and run it again. This time it should be a serve that starts on the right and moves to the left.
+    
+  </p>
+
+  
+  <br>
+    <h3>
+    Serving when Scoring
+  </h3>
+  
+  <p>
+    Now that we have a proper serve() function, it's time to get rid of the left and right walls. Find the locations in the wallbounce() function that represent the left and right wall bounce. They are the same locations that are increasing your score variable. Modify these sections by <strong>replacing</strong> the 'flipping' of xSpeed with a call to serve(), either serve("left") or serve("right") depending on which side you have gone off.
+  </p>
+  
+<!--   <p>It's time to stop bouncing off of the left/right walls.&nbsp; When a player scores, a new round should start fresh.&nbsp; This means that the ball's location and speeds need to be reset.</p>
+  <p>Find the location in the wallBounce function where you detect that player 1 gets a point.&nbsp; We want to expand on that so that the ball is&nbsp;<strong>moved</strong>&nbsp;to a point right in front of player 1, and the ball's speeds are set so that
+    it's headed toward player 2.&nbsp; This will require changes to x, y, xSpeed, and ySpeed.</p>
+  <p>&nbsp;</p> -->
+
+  <hr>
+
+  <h2>Serve Delay</h2>
+  <p><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/serve_with_delay/index.html" width="320" height="200" scrolling = "no"></iframe></strong></p>
+  <p>After an intense round of Pong a player's mind might be overloaded. Let's give them a little bit of a delay before serving the next time.</p>
+  <p>&nbsp;</p>
+  <h3>Variable Based Delay</h3>
+  
+  <p>
+    We've seen before the value of a 'countdown' variable, which the draw function is constantly trying to decrease towards zero. Variables like this are useful for introducing a delay to the game.
+  </p>
+  
+  <p>
+    Add a global variable named delay to the program. In the <strong style = "color:green"><code>serve()</code></strong> function initialize it to around 30. We will then need that delay variable to always be counting toward 0. In the draw function add an if statement that will decrease the delay variable by one, but only if it's above 0.
+  </p>
+  
+  <div class = "head_list">
+    
+  <p >
+    With this setup, the delay variable is in one of two states
+    <ul>
+      <li>Counting down toward zero</li>
+      <li>Sitting at zero</li>
+  </ul>
+  </p>
+  
+  </div>
+  
+  <p>
+    We want the delay to affect the motion of the ball. Currently the <code>moveBall()</code> function automatically increases x and y by xSpeed and ySpeed, causing the ball to always be in motion. Modify the function with an if statement so that it will only do this when the delay variable is 0. This change will make it so that the ball will not be moving as long as the delay is in the 'counting down' state.
+  </p>
+  
+  <p>
+    You can test this by running the program. Since the delay variable is starting at 30, you should see a small pause before the ball initially moves. Since the delay variable is reset to 30 every time a serve() occurs, you should get a delay after each score.
+  </p>
+  
+  
+  
+  
+  
+<!--   
+  <p>The key delaying the ball is to add a global 'countdown' variable that is set to a large number and is continually counting down during the draw cycle.&nbsp; As long as it's above zero we want to delay the movement of the ball, but once it reaches 0
+    the ball should move like normal.</p>
+  <p>Add a delay variable to your sketch and initialize it to around 30 in the setup function.&nbsp;</p>
+  <p>Now that the delay variable exists, go to the&nbsp;<strong>moveBall</strong> function.&nbsp; It currently moves the ball by updating x and y.&nbsp; Edit this function so that it will first see if the delay variable is above zero. If so, subtract one
+    from the delay and&nbsp;<strong>do not change x and y</strong>.&nbsp; They only way that x and y should change is when delay has decreased to zero.</p>
+  <p>Test your sketch. Since you started the delay at 30, there should be a small wait before the ball starts moving in the beginning.</p>
+  <p>&nbsp;</p>
+  <h3>Serving Delay</h3>
+  <p>Now we have the ability to delay the ball motion.&nbsp; All we have to do is assign a value into our delay variable that is above zero and it should delay for that many draw cycles.</p>
+  <p>We want this delay to occur every time that a player 'serves' the ball, so find those familiar if statements in the wallBounce function and add a small delay.</p>
+  <p>&nbsp;</p>
+  <p>Test your program to make sure that both sides delay when they serve.</p> -->
+
+  <hr>
+
+
+  <h2>Paddle Bouncing</h2>
+  <p><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/bounce_angle/index.html" width="320" height="200" scrolling="no"></iframe></strong></p>
+  <h3>Bounce Angle</h3>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;">Our Pong game is a little bit predictable because the bounce angle is a little predictable. &nbsp;To add a little more skill, the angle that the ball bounces should be related to where on the paddle the ball hit.&nbsp;In the demo above, notice that when the ball hits the paddle, it bounces off at an angle relate to <strong>where</strong> on the paddle it hits </p>
+  <p>
+    If it hits the bottom half of the paddle, it will bounce down. Hitting the top will bounce up.
+  </p>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;">To accomplish this we will be changing what happens during the&nbsp;<strong style="margin: 0px; padding: 0px;">bouncePaddles()</strong>&nbsp;function. When a paddle is hit we will still be flipping
+    the xSpeed to its opposite, but now a new value for ySpeed will be chosen based on the ball's distance from the middle of the paddle.&nbsp; This will give the player a little more control over where the ball is going.</p>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;">The rule is that the further from the center we go, the sharper the angle of travel should be.&nbsp;</p>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;"><img src="images/bouncing.png" alt="Capture (81).PNG" width="240px" /></p>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;">&nbsp;</p>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;">To obtain this effect, we'll keep the xSpeed going at whichever pace it desires, and we'll set the ySpeed to a value that gets larger when the ball is further from the center of the paddle.</p>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;">The first thing you should do is calculate the difference between ball Y and the paddle Y.&nbsp; Your new ySpeed should be about one sixth ofthe difference of the two centers.<strong style="margin: 0px; padding: 0px;"><br style="margin: 0px; padding: 0px;" /></strong></p>
+  <pre style="padding: 0px; line-height: 1.4;">ySpeed = (y - paddleY) / 6</pre>
+  <p style="margin: 1em 0px 0px; padding: 0px; line-height: 1.4;">This strategy is not perfect. &nbsp;The speed of the ball will be faster if the angle is larger. &nbsp;In reality, maintaining the speed of the ball requires the distance formula and some trigonometry.(Don't tell your math teacher that it has a practical
+    application. &nbsp;Just keep thinking it's a useless skill to have)</p>
+  <p style="margin: 1em 0px 0px; padding: 0px; line-height: 1.4;">&nbsp;</p>
+  <p style="margin: 1em 0px 0px; padding: 0px; line-height: 1.4;">&nbsp;</p>
+  <p style="margin: 1em 0px 0px; padding: 0px; line-height: 1.4;">&nbsp;</p>
+  <p style="margin: 1em 0px 0px; padding: 0px; line-height: 1.4;">&nbsp;</p>
+  <h2>Increasing Difficulty with xSpeed</h2>
+  <p><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/increasing_speed/index.html" width="320" height="200" scrolling="no"></iframe></strong></p>
+  <p style="margin: 1em 0px; padding: 0px; line-height: 1.4;">The way that our game is set up, the xSpeed is in charge of how long it takes for the ball to make its way across the window.&nbsp; Right now its magnitude is always the same, which makes for an easy game. As the game goes on, we want to make the ball
+    move faster and faster to help make sure that one of the players eventually misses.</p>
+  
+  <div style = "margin: 0px">
+    
+  <p style = "margin: 0px">To do this we will have the ball's&nbsp;<strong>xSpeed</strong>&nbsp;increase in magnitude a little bit every time that it bounces off of a paddle.&nbsp; This can be done by changing the calculation slightly from:</p>
+  <pre style = "margin: 0px">xSpeed *= -1</pre>
+  <p>to</p>
+  <pre>xSpeed *= -1.1</pre>
+  
+  </div>
+    
+    
+    
+    
+</body>
+
+
+</html>

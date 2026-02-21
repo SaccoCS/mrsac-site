@@ -1,0 +1,314 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Tile Designs</title>
+  
+</head>
+
+<body>
+  <h1>
+  Tile Designs
+  </h1>
+  
+  <h3>10 PRINT chr$(205.5+RND(1)); : GOTO 10</h3>
+<p>Back on the Commodore 64, running the one line BASIC program above was nerd-famous for being a simply idea that can build something complex. When run, it produces a maze-like design that represents generating complexity from a simple pattern.</p>
+<p><img src="images/chmod.png" alt="image.png" width="415" height="295" /></p>
+<p>&nbsp;It is essentially an infinite loop that randomly printed either a forward slash, or a back slash. The ending effect looks something like a maze.</p>
+<p><strong><iframe src="demos/chr_205_RND_1/index.html" width="257" height="257"></iframe></strong></p>
+<p>Though it might not look like it, this is a grid problem.&nbsp;<strong>Click the canvas above</strong> and it will show the grid of boxes that is used to create the design (your sketch doesn't have to do this).</p>
+<p>&nbsp;</p>
+<p>Open the CHMOD workspace, which is in charge of creating the design above.</p>
+<p>To accomplish this, we are going to use a two dimensional loop to visit a grid of locations. At each location, use random() to help you choose between drawing a backslash or a front slash.</p>
+<p>We are going to decide to make your generated xy-pair represent the&nbsp;<strong>center</strong>&nbsp;of the drawn slash. If the locations are spaced 16 pixels apart, I would expect to add or subtract 8 to help calculate any edge values.</p>
+<p>&nbsp;<img src="images/two_slashes.png" /></p>
+<p>Back-slash:&nbsp; line( x - 8, y - 8, x + 8, y + 8)<br />Front-slash: line( x + 8, y - 8, x - 8, y + 8)</p>
+<p>Since we are generating the&nbsp;<strong>centers</strong>&nbsp;of each line, your nested loop should start x and y at 8, instead of the usual 0. Otherwise you will notice things are shifted a little bit.</p>
+<p>&nbsp;</p>
+<h5><strong>noLoop()</strong></h5>
+<p>Since the above strategy chooses randomly which line to draw, you will only want to draw()&nbsp;<strong>one frame</strong>. Otherwise you will generate a new 'maze' every single frame, which will cause visual chaos. The call to noLoop() in setup make sure that you won't be repeatedly re-randomizing the design.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Using Rotation for CHMOD</h2>
+<p>The strategy used for the CHMOD design before was not terrible, but we can&nbsp;take another approach that uses the rotational symmetry of our two new choices.</p>
+<p>The front-slash is simply a 90 degree rotation of the back-slash</p>
+<p>Open the CHMOD with Rotation workspace, and the first thing that you should do is copy your previous CHMOD solution there.</p>
+<p>&nbsp;</p>
+<p>Here we are going to produce the same design, but using a slightly different trick. We will be modifying it to use a <strong>translation/rotation</strong> style of drawing. This means that we should:</p>
+<p>1) <strong>Translate to the location that you are drawing.</strong> Modify your nested loop so that it starts by translating to the generated (x,y) location<br />2) <strong>Rotate to the angle you want</strong>. Your current code is randomly choosing from two options. Modify it so that the result of your random choice is either rotate(90) or rotate(0).<br />3) <strong>Draw your image, centered at (0,0)</strong>. <i>After your if statement</i> has chosen to rotate (or not!), draw a single line that is centered at (0,0). If you your spacing is 16, it would be:&nbsp;line(-8, -8, 8, 8)</p>
+<p><img src="images/one_slash.png" width="165" height="140" /><br />4) <strong>resetMatrix()</strong> before your loop moves on to the next location. Otherwise all of the translations will start to add up.</p>
+<p>&nbsp;</p>
+<p>After making all of these changes, running your program and you should get the same CHMOD design as before. The remainder of our designs will rely on the translation/rotation style of drawing to get their designs</p>
+<p>&nbsp;</p>
+
+  
+  <hr>
+  
+  <h2>Truchet Tiles</h2>
+<p>Truchet tiles are set of square designs that have some sort of rotational symmetry that allows them to&nbsp;fit together to make a more complex design.&nbsp; Perhaps the most famous Truchet Tiles are the four ways of filling half of a square with a triangle:</p>
+<p><img src="images/abcd.png" width="150" height="75" /></p>
+<p>These tiles can be combined in different orders to create more complex designs.</p>
+<p><img src="images/many_tiles.png" width="300" height="203" /></p>
+<p>For this assignment we are going to make some different Truchet tiles by creating sets of tileable designs, then loop&nbsp;though and randomly apply them to the screen.</p>
+<p><img src="images/triangles.png" width="256" height="128" /></p>
+<p>&nbsp;</p>
+<h4>Taking Advantage of translate()/rotate()</h4>
+<p>Looking at the provided tiles, you can see that they really aren't four different tiles. Instead of using many if statements to help us draw a tile four different ways, we draw <strong>one </strong>tile and rotate it to the position that we need.&nbsp;</p>
+<p>This means that we can cut some corners by using the rotate() function when drawing. For that to work, we have to switch our mindset:<br />- translate() to the drawing location<br />- rotate()<br />- draw centered around (0,0)</p>
+<p>&nbsp;</p>
+<p>Open the Truchet Starter workspace, which comes filled with code to help us design our tiles.</p>
+<p>Our first goal will be to complete the tile() function, which accepts a number as a parameter, and paints a different tile for each of the numbers&nbsp; 0 - 3. The initial setup of the draw() function is to call tileTest(), which is a helper function that calls the tile() function four times, each time with a different parameter.</p>
+<p>Running the sketch will show the four calls to tile()&nbsp;spread across the canvas. Since the tile() function is currently empty, they draw nothing on the canvas, but there is a little bit extra in the tileTest() function that will show a rectangle around the expected&nbsp;</p>
+<p><img src="images/squares.png" width="160" height="50" /></p>
+<p>The red squares are provided by the tileTest() function to provide an outline while designing, but it will not show up in our final design.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Constants</h3>
+<p>Notice that there are two constants provided at the top of the program:</p>
+<p>const TILE_SIZE = 24;<br />const NUM_TILES = 4;</p>
+<p>Using&nbsp;<strong>const</strong>&nbsp;instead of let makes a variable that can only ever hold one value. The value is established in the beginning, and you will not be allowed to change it using code.</p>
+<p>The purpose of these constants is to act as the 'settings' of the sketch. If you change their values and run the sketch again&nbsp;you will see that you can&nbsp;affect the size of the tiles&nbsp;or the number of expected tiles. As we design the tile() function we want to keep the TILE_SIZE variable in mind.</p>
+<p>&nbsp;</p>
+<h3>Centering the Design</h3>
+<p>To create a rotatable tile, we need to center it around the location (0,0). Since we are trying to keep the TILE_SIZE variable as our size, we need to range from -TILE_SIZE/2 to TILE_SIZE/2.</p>
+<p><img src="images/center1.png" width="300" height="180" /></p>
+<p>&nbsp;</p>
+<p>This is a little annoying to work with. We could declare some variables to help them make more sense:</p>
+<pre>let topY = -TILE_SIZE/2;
+let leftX = -TILE_SIZE/2;
+let botY = TILE_SIZE/2;
+let rightX = TILE_SIZE/2;</pre>
+<p>This will allow us to reimagine the drawing space using variables with related names.</p>
+<p><img src="images/center2.png" width="300" height="180" /></p>
+<p>&nbsp;</p>
+<h3>Drawing the Triangle</h3>
+<p>The triangle function takes six parameters to represent the three corner's coordinates. We can use our new variables to draw our first tile:</p>
+<p><strong>triangle(leftX, topY, rightX, botY, leftX, botY);</strong></p>
+<p>After adding this line to the tile() function, run the sketch to make sure that it shows up in all four locations.</p>
+<p>&nbsp;</p>
+<h3>Generating Different Tiles with Rotation</h3>
+<p>The last thing to do with the tile() function is to use rotate() to help generate four different tiles.</p>
+<p><img src="images/abcd2.png" width="150" height="75" /></p>
+<p>Our current tile() function draws tile A. Add rotate(90); as the first line of tile() and run the sketch again. Notice that all of the tiles are now tile B. You could use 180 and 270 to help you generate the last two tiles.</p>
+<p>But the tile() function is supposed to respond to the <strong>num</strong>&nbsp;parameter, which could be 0 - 3. Modify the tile function so that it chooses how much to rotate based on the value of num. This could be done using if statements, or math. If you've done it correctly, running the sketch should show all four designs on the canvas.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Finishing the Design</h3>
+<h5><img src="images/triangles.png" width="256" height="128" /></h5>
+<p>Now that your tile() function works, move to the draw() function and&nbsp;<strong>delete the call to tileTest()</strong>, causing the canvas to be blank when run.</p>
+<p>Your next task is to use the tile() function to fill the entire canvas. Use a nested loop to help generate a grid of locations, and for each location you should:<br />- translate() to that location<br />- Generate a random number (0 - 3), and call tile() with it as the parameter<br />- resetMatrix() before moving on to the next location.</p>
+<p>Make sure that you are respecting the TILE_SIZE variable. To be centered properly, your locations should start at TILE_SIZE/2 and be TILE_SIZE apart.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  <hr>
+  <h2>Squiggly Truchet</h2>
+<p><img src="images/squiggly.png" width="320" height="80" /></p>
+<p>The pattern above is created using only two tiles:</p>
+<p><img src="images/squiggle_squares.png" width="140" height="70" /></p>
+<p>Again, this is really just one tile that is rotated 90 to generate a second tile.</p>
+<p>&nbsp;</p>
+<p>Open the Squiggly Truchet workspace, which starts where the last sketch did. There is a tile() function that is meant to draw different designs depending on the&nbsp;<strong>num</strong> parameter. This time there are only two possibilities: 0 and 1, so the NUM_TILES constant is now <strong>2</strong>&nbsp;to represent our current situation.</p>
+<p>&nbsp;</p>
+<h3>Drawing Arcs</h3>
+<p>To draw this design in the tile() function, you are going to need to make use of p5's&nbsp;<strong>arc()</strong>&nbsp;function.&nbsp;An arc is just a section of an ellipse, and the two drawing functions are similar. Assuming that we have already declared these variables:</p>
+<pre>let topY = -TILE_SIZE/2;
+let leftX = -TILE_SIZE/2;
+let botY = TILE_SIZE/2;
+let rightX = TILE_SIZE/2;</pre>
+<p>Add the following to the tile() function:</p>
+<pre>noFill();
+ellipse( leftX, topY, TILE_SIZE/2 , TILE_SIZE/2);</pre>
+<p>Running this will reveal a circle drawn around the upper-left corner of the two squares:</p>
+<p><img src="images/squiggle_step.png" width="130" height="80" /></p>
+<p>This is a little too much of the circle. We want to contain our design&nbsp;a little bit, otherwise the overlap will ruin our design.</p>
+<p>The arc() function is how we can draw only the portion of the circle that is inside the square. We just need to know the starting and stopping angles to use. Zero degrees is directly to the&nbsp;<strong>right</strong>&nbsp;of center, and angle increase as we go counterclockwise. This means that the arc we want to draw starts at<strong>&nbsp;</strong><strong>0</strong>&nbsp;and stops at&nbsp;<strong>90</strong>. Replace the ellipse with this:</p>
+<pre> arc( leftX, topY, TILE_SIZE/2 , TILE_SIZE/2, 0, 90);</pre>
+<p>Now you should see that the tile() function is contained within its designated square.</p>
+<p>&nbsp;</p>
+<p>Your job is to complete the design</p>
+<p>- Draw the other arc, which is centered on the other corner, and goes from angle 180 to 270.<br />- Use rotate() to help you generate the other tile<br />- Modify draw() to tile the entire canvas,&nbsp;<em>very</em>&nbsp;similar to the last sketch.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Ribbon Layers</h2>
+<p><img src="images/ribbons.png" width="320" height="240" /></p>
+<p>This is a variation of the previous pattern, but this time there are several arcs making ribbons, causing a bit of an overlapping effect.</p>
+<p>&nbsp;</p>
+<p>Open the Ribbon Layers workspace, which we will again be first creating a tile() function, then looping and drawing it everywhere.</p>
+<p>This time the design has the following tiles:</p>
+<p><img src="images/ribbon_squares.png" width="250" height="70" /></p>
+<p>&nbsp;</p>
+<h4>Drawing the Overlapping Arcs</h4>
+<p>A key difference to this situation is that we are drawing several arcs, each with a different radius. So this time, instead of drawing a single&nbsp;arc that is simply TILE_SIZE/2, we are going to need to focus on creating several arcs of varying radii. We're trying to fit four arcs in our tile, so they should have radii:&nbsp;0.25*TILE_SIZE,&nbsp;0.50*TILE_SIZE, and 0.75*TILE_SIZE, and TILE_SIZE. You may use a loop to do it, or write each of the arcs by hand.</p>
+<h4>Keep in Mind:<br />- For this design to work, you must have a&nbsp;<strong>fill()</strong>&nbsp;chosen when drawing your arcs. Transparency will wreck it.<br />- Because the arcs are not transparent, you must draw the biggest one first. Otherwise it will cover all of the others.</h4>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  <h2>Marching Squares</h2>
+<p>&nbsp;<strong><iframe src="demos/marching_squares/index.html" width="400" height="400" data-mce-fragment="1"></iframe></strong></p>
+<p>Marching Squares is a computer graphics technique for creating two dimensional shapes from a scalar field, which is exactly what our noise() function provides.</p>
+<p>- First we will use the idea of a&nbsp;threshold&nbsp;with our noise() field to determine which locations should be included.<br />- Then we will use marching squares to encapsulate them with a border.<br />-&nbsp;If we stop drawing the dots,&nbsp; we will be left with our shape.</p>
+<p><img src="images/dots1.png" width="200" height="200" /> &nbsp;--&gt;&nbsp; <img src="images/dots2.png" width="200" height="200" /> &nbsp;--&gt; <img src="images/no_dots.png" width="200" height="200" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Part 1: Drawing with a Helper Function</h2>
+<p>One major ability that we will need is to draw lines that are separating the dots that we create. Before we start generating those dots, we are going to perfect the drawing function.</p>
+<h5>Open the Marching Squares workspace.</h5>
+<p>The key to a Marching Squares algorithm is to break the entire canvas into squares, each with a corner at one of the key points. If you consider every combination of black/white dots, you will end up with 16 possible lines that you may have to draw.</p>
+<p><img src="images/cases.png" /></p>
+<p>The Marching Squares sketch comes with a function whose entire purpose is to draw the line within one square: drawCase(). The&nbsp;<strong>draw()&nbsp;</strong>function comes prefilled with a call to drawAllCases() to help test your function. When run as it is, it looks like this:</p>
+<p><img src="images/empty_cases.png" /></p>
+<p><strong>function drawCase(c, x, y, size)</strong></p>
+<p>Notice that the drawCase() function takes in a lot of parameters: the case number, <strong>c,</strong> and an <strong>x</strong> <strong>,y</strong>, and <strong>size </strong>that are meant to represent the location and size of their square. Currently, all the function does is draw the square and the case number. This is why the image above looks like that.</p>
+<p>We are going to use it as a reference to make sure that our finished drawCase() covers all possibilities, and then remove the rectangle and text that are there.</p>
+<p><img src="images/done_cases1.png" /> &nbsp; --&gt;&nbsp; &nbsp;<img src="images/done_cases2.png" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Strategy</h3>
+<p>The drawCase() function is essentially a large if-chain that looks at the&nbsp;<strong>c</strong>&nbsp;parameter to see which case we're dealing with, and then responds by drawing the appropriate line.&nbsp;</p>
+<p>Notice that when the lines are drawn, they attach two midpoints in each of the rectangles. Since these points are halfway through our shapes, I will expect a lot of x + size/2 or y + size/2 in our lines.</p>
+<p>For example, when the case is 3, the line is horizontal</p>
+<p><img src="images/single_case.png" /></p>
+<p>Since we are in corner mode<strong> x</strong> represents the <strong>left </strong>side, while <strong>x + size</strong> represents the&nbsp;<strong>right.</strong>&nbsp;Both ends of this line are halfway down the square, which is a y value of<strong> y + size.</strong></p>
+<p>Left Point: (x, y + size/2)<br />Right Point: (x + size, y + size/2)</p>
+<p>Since we only want this to happen when the case is three, we need to use an if statement focusing on the c variable.</p>
+<pre>if( c == 3 ){    //In Case 3
+     let x1 = x;
+&nbsp;    let y1 = y + size/2;
+&nbsp;    let x2 = x + size;
+&nbsp;    let y2 = y + size/2;
+&nbsp;    line( x1, y1, x2, y2 );
+}</pre>
+<p>This uses four extra variables for organization, but they are not required.</p>
+<p>&nbsp;</p>
+<h5><strong>Cut Your Work in Half</strong></h5>
+<p>Note that there are only&nbsp;<strong>eight&nbsp;</strong>unique patterns of lines. Everything past case 7 are duplicates of another one. So you could rewrite the above if statement as&nbsp; if( c == 3 || c == 12) to take care of two situations at once.</p>
+<p>&nbsp;</p>
+<h5><strong>Keep Going</strong></h5>
+<p>Your job now is to add the seven remaining if statements representing all of the other cases. Do them one/two at a time and check with the references above to make sure that you end up with the correct lines.</p>
+<p>Once you've finished, remove the text() and rect() from your drawCase() function to leave just the line drawing.</p>
+<p><img src="images/done_cases1.png" /> &nbsp; --&gt; &nbsp; <img src="images/done_cases2.png" /></p>
+<p>&nbsp;</p>
+<h3>Remove Tester Code</h3>
+<p>The draw function is calling drawAllCases() for the purpose of being able to look at every case at once. After verifying that all cases are drawn properly,&nbsp;<strong>remove the call to drawAllCases() from draw</strong>()<strong>.&nbsp;</strong>This should leave you will a blank canvas when you re-run the sketch.</p>
+  
+  
+  
+  
+  
+  <h2>Part 2: Determining Which Locations are IN</h2>
+<p><img src="images/dotlines.png" width="233" height="241" /></p>
+<p>Now that we have a drawing function, we need to generate a grid of values for us to work with. If you look at the dots in image above,you'll see that they are not random. They are clustered together because they are generated using a <strong>noise()</strong>&nbsp;field. But noise() values are decimals from 0 to 1. In order to get the proper yes/no for each location, we're going to need to use a&nbsp;<strong>threshold</strong>&nbsp;to determine if the dots should be 'included' or not.</p>
+<p>&nbsp;</p>
+<p>The first thing that&nbsp; we will do is try to create a function that will look at a certain location in the noise field and return a boolean if it is larger than a threshold.</p>
+<p>While still working in the 'Marching Squares with Noise' workspace,&nbsp;add the following function to it along side the setup(), draw(), and drawCase() functions:</p>
+<pre>//returns true if the given location is above the threshold
+function thresh(x,y){
+   //get the noise value associated with x,y
+   let n = noise(x*0.01,y*0.01); 
+
+   //return true or false based on the value of n
+
+ 
+}</pre>
+<p>This function takes a location (x,y) and determines its corresponding noise value. Since&nbsp;a noise() value is between 0 and 1, we'll decide that the threshold is <strong>0.5</strong>.</p>
+<p><strong>Your task is to finish the the thresh() function</strong> so that it&nbsp;returns&nbsp;true if the n value is above 0.5, return true. Otherwise return false.&nbsp;</p>
+<p>&nbsp;</p>
+<p>To test your function, put the following in&nbsp;<strong>draw()</strong>. This should replace the loops that were previously there to help create the drawCase() function, so make sure you've finished that one first.</p>
+<pre> if( thresh(mouseX,mouseY) )
+    fill(255);
+  else
+    fill(0);
+  circle(mouseX,mouseY,40);</pre>
+<p>Remember that if a function returns a boolean, it may be used to directly run an if statement. This if statement is using the&nbsp;<strong>thresh()</strong>&nbsp;function in an if to check if the mouse's location is above the threshold. A circle is then drawn at the mouse location using the chosen color. This should allow us to hover over a location on the screen and see if it is above or below the threshold</p>
+<p>When you run your sketch, wave the mouse over the canvas and make sure that the circle changes from black to white. It should not be randomly flashing, instead certain areas of the sketch will be black and the rest be white.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Drawing all the Dots</h4>
+<p>With the thresh() function working, it's time to draw the whole grid using it. Use a nested loop to visit a grid of (x,y) locations. Mine are 20 apart, but you may choose your own spacing. Use an if statement to choose the fill of the color of each circle.&nbsp;</p>
+<p>When run, a grid of dots should appear. Like the image at the top of the page, but different values.&nbsp;They <em>should </em>be semi-grouped together instead of completely random.</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h2>Part 3: Surrounding the Dots</h2>
+<p>Now that we have the grid of dots and a function to help draw the lines, we can complete the Marching Squares algorithm by incorporating the functions together.</p>
+<p>&nbsp;</p>
+<h3>Using the drawCase() function everywhere</h3>
+<p>Inside your loop you are currently drawing a single circle each time. The intention will be to simultaneously use the drawCase() function to draw the lines. Before we make it perfect, we can make sure that we can get it to draw&nbsp;<strong>something</strong>&nbsp;at each location. From there we can worry about exactly what.</p>
+<p>Remember that drawCase takes in a lot of parameters representing the&nbsp;<strong>case</strong>, x, <strong>y,</strong> and <strong>size</strong>. Go to the nested loop inside the draw() function&nbsp;and use your looping x/y variables to also call the drawCase() function with this line of code:</p>
+<pre>drawCase( <strong>1</strong>, x, y, 20 );   //Draw case 1, of size 20, at every (x, y)</pre>
+<p>The x and y are the variables that change each time, but here we are always drawing case 1, of a size 20. Since you are always drawing the same case, it should look very repetitive:</p>
+<p><img src="images/one_case.png" width="257" height="319" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Determining Which Case to Draw</h4>
+<p>To make things easy, we drew case 1 every time we used the drawCase() function. The last thing that we need to do is replace that 1 with a value that is actually derived using the location.</p>
+<p>As we visit each location and draw dots, we are also going to want to draw the lines surrounding them. This means that we are going to have to determine which case that is associated with each location.</p>
+<p><img src="images/cases.png" width="194" height="272" /></p>
+<p>The thresh() function can be used to analyze any single location, but in order to determine the case we will need to look at the four different locations that make up our square.</p>
+<p>This means that we will not only care about the threshold at (x,y), but also the other corners. If our squares have a size of 20, the other points would be:&nbsp;(x + 20, y), (x, y+ 20), and (x+20, y + 20).&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Using Binary Patterns</h4>
+<p>The cases are chosen in a way that is very binary friendly. Each of the four corners is given a value:<br />- bottom-left is worth <strong>1</strong><br />- bottom-right is worth <strong>2</strong><br />- top-right is worth <strong>4</strong><br />- top-left is worth <strong>8</strong></p>
+<p>The case is the sum of those values that are above the threshold.</p>
+<p>For example, all corners for Case 0 are white, therefore nothing gets added.</p>
+<p><img src="images/case0.png" /></p>
+<p>But case 12 has the top two values are black, so we add 8 and 4 to get 12.</p>
+<p><img src="images/case12.png"  /></p>
+<p>&nbsp;</p>
+<h5>How to Code this:</h5>
+<p>We know the four locations that we are interested in are <strong>(x,y), (x+20, y), (x, y+20), (x+20, y+20)</strong>, and we know that the thresh() function will tell us if they pass the threshold or not. Consider the code below:</p>
+<pre>let sum = 0;
+
+if( thresh( x,y ) )     //if the location x,y is above the threshold, add eight to the sum variable
+&nbsp;    sum += 8;
+</pre>
+<p>After this code runs, there are two possibilities for the&nbsp;<strong>sum</strong>&nbsp;variable. If the thresh() returned a true value for location (x,y), sum will end at 8. If not, sum will remain at zero. By doing this we are giving the location (x,y) a weight of 8 in our overall sum.</p>
+<p>You will need to do something like this during your loop, as you visit each (x,y). To finish the sum you will need<strong> three more if statements </strong>similar to the one given. Each time you should focus on one of the different corner points and add the related value 4, 2, or 1. After all four if statments the sum's value should be the correct case. Modify the call to drawCase() to use it instead of the previous&nbsp;<strong>1</strong>.</p>
+<pre>drawCase( <strong>sum </strong>, x, y, 20 ); //Draw case  determined by sum, of size 20, at every (x, y)</pre>
+<p>If done properly, running your sketch should now produce a line that separates the groups of values.</p>
+<p><img src="images/dots2.png" width="200" height="358" /> &nbsp; &nbsp; <img src="images/no_dots.png" width="200" height="376" /></p>
+<p>If you comment out the line where you draw the circles, you will be left with just the outline, producing the image on the right.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Morphing Shapes</h4>
+<p>Our noise() grid only uses two of the three possible parameters that you could give a noise() function. If we use frameCount to help the third parameter be different every time, we can get a slightly different noise space each time. In the&nbsp;<strong>thresh()</strong>&nbsp;function is where&nbsp; you have a line generating a noise value:</p>
+<p>let n = noise(x*0.01,y*0.01);</p>
+<p>Modify it to include the frameCount as the third parameter:</p>
+<p>let n = noise(x*0.01,y*0.01, <strong>frameCount*0.003</strong>);&nbsp; &nbsp;//Make 0.003 bigger or smaller to change speed</p>
+<p>After this change, you should see the outlined shape morphing a little bit.</p>
+<p>&nbsp;</p>
+<h4>Optional: Tighten up the resolution</h4>
+<p>We chose a size of 20 to use when deciding how far apart the dots should be. If you want a smoother shape, you can modify your code to be a smaller value, like 4.</p>
+<p>Keep in mind that the noise() function is <strong>heavy</strong>, so as some point your browser will start to lag.</p>
+<p><img src="images/smoothed.png" width="251"  /></p>
+  
+</body>
+
+
+</html>
+

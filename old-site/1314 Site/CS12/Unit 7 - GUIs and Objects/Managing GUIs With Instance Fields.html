@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Managing GUIs With Instance Fields</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	border: 1px solid #c0c0c0;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Managing GUI&#39;s with Instance Fields:</h2>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/index.html">
+All GUI APIs.  Look for methods here and make sure you&#39;ve got the correct 
+parameters</a></p>
+<p>Previously we&#39;ve been creating a static method to create a GUI and a object 
+to do the ButtonHandling.&nbsp; This is an alright way of doing things, but our 
+button presses can&#39;t really affect any part of the GUI beyond the button that 
+was pressed.&nbsp; We can solve this by creating objects that have all of their 
+GUI elements as instance fields.</p>
+<p>For example:&nbsp; Check out the following class that&#39;s meant to be an 
+object.&nbsp; Notice that all of the instance fields are the necessary GUI 
+objects that make up the interface.</p>
+<pre>import sacco.gui.*;
+public class DiceRoller
+{
+    private SFrame frame;
+    private SLabel label;
+    private SButton button;
+    
+    public DiceRoller()
+    {
+        frame = new SFrame("Roll Dice");
+        frame.setLayout(new BorderLayout());
+        
+        button = new SButton("Roll");
+        frame.add(BorderLayout.SOUTH, button);
+        
+        label = new SLabel("6");
+        label.setFont(new Font(45));
+
+        frame.add(BorderLayout.CENTER,label);
+        frame.pack();
+    }
+
+    public void launch()
+    {
+        frame.setVisible(true);
+    }
+}</pre>
+<p>The constructor, which is in charge of setting up the instance fields with 
+their starting values, is now in charge of constructing each of the SFrame, 
+SButton, and SLabels.&nbsp; There is also a &#39;launch&#39; method, which will cause 
+the SFrame to display.</p>
+<p>We&#39;ve created our GUI object, but it still needs a static method to construct 
+it and get it started.&nbsp; Create a class named Runners, which has the 
+following method:</p>
+<pre>public static void dice()
+{
+   DiceRoller d = new DiceRoller();
+   d.launch();
+}</pre>
+<p>Since most of the work is done in the object now, the static method only has 
+a little bit to do to get it running.&nbsp; Run this method and make sure that 
+you get the following:</p>
+<p><img src="images/img32.jpg" /></p>
+
+<hr>
+
+
+<p class="auto-style1"><strong>The ButtonListener</strong></p>
+<p>Previously we&#39;ve created an object with instance fields so that when a button 
+was pressed we could change those instance fields.&nbsp; Our goal is to change 
+the GUI elements, which are already instance fields of our DiceRoller object.&nbsp; 
+The solution is to make the DiceRoller class our ButtonListener.</p>
+<p>1)&nbsp; Change the DiceRoller class&#39; header to include &#39;implements ButtonListener&#39; 
+like before</p>
+<p>2)&nbsp; In the constructor of the DiceRoller class, add the line 
+&#39;button.addButtonListener(this);&#39;&nbsp; The <strong>this</strong> is a way of 
+passing the object we are currently a part of.&nbsp; No need to construct a new 
+DiceRoller.&nbsp; </p>
+<p>3)&nbsp; Now that DiceRoller is a ButtonListener, it needs the onButtonPress 
+method that all ButtonListeners have.&nbsp; This GUI is supposed to generate a 
+random number from 1 to 6 and change the label&#39;s text to that int.&nbsp; Add 
+code to get a random number, and then use label&#39;s setText method to show the 
+resulting number.</p>
+<p>Run the program again, this time pressing the button should create a random 
+number.</p>
+<p>&nbsp;</p>
+<hr>
+
+
+<p class="auto-style1"><strong>Assignments:</strong></p>
+<p>For each program, create an object that has the GUI elements as the instance 
+fields.&nbsp; Start by creating the GUI, and then once it looks the way you want 
+you can modify the code to respond to button presses.</p>
+<p>1) Download each of the following dice images to your project folder:&nbsp;</p>
+<p>&nbsp; <img height="201" src="images/Die1.png" width="201" />&nbsp; <img height="200" src="images/Die2.png" width="200" />&nbsp; <img height="200" src="images/Die3.png" width="200" />&nbsp; <img height="200" src="images/Die4.png" width="200" />&nbsp; <img height="200" src="images/Die5.png" width="200" />&nbsp; <img height="200" src="images/Die6.png" width="200" /></p>
+<p>Create an object GUI that recreates the GUI below:</p>
+<p>&nbsp;<img src="images/img2B1.jpg" /></p>
+<p>As instance fields you should have:</p>
+<p>one SFrame<br />
+one SPanel<br />
+one SButton<br />
+two Labels<br />
+six Pictures (make sure that you load the images in the constructor)</p>
+<p>Similar to before, create a simple static method that will launch the GUI.&nbsp; 
+Once you&#39;ve got the general layout correct you can work on the action.&nbsp; 
+When the button is pressed, create two random numbers and then use a series of 
+if statements to set the image of each label to the corresponding image.</p>
+<p>When testing your program, make sure that it&#39;s possible to get a &#39;1&#39; and a 
+&#39;6&#39; for both sides.</p>
+<p>2) ColorClicker:&nbsp; Create the following GUI.&nbsp; Some useful methods 
+might be SFrame&#39;s setBackgroundColor method and SButton&#39;s setColor method.</p>
+<p>&nbsp;<img src="images/img3A1.jpg" /></p>
+<p>The colors that you choose are not important, but when you click each button, 
+the background of the frame should change to that color.</p>
+
+
+<p>3)&nbsp; TeacherPicker:&nbsp; Start by going to
+<a href="http://www.srhsfalcons.org/apps/staff/">SRHSfalcons.org</a> and 
+downloading the images for all of your teachers.&nbsp; If one doesn&#39;t have a 
+picture, it&#39;s ok to pick a different teacher that does have one.&nbsp; Create 
+the following GUI, except with your teachers&#39; names</p>
+<p><img src="images/img3E.jpg" /></p>
+<p>Modify the class so that each button that you press changes the label&#39;s image 
+to the corresponding teacher&#39;s picture.</p>
+<p>&nbsp;</p>
+<p>4) RockPaperScissors:</p>
+<p>Start by downloading the following three images into your project:</p>
+<p><img height="83" src="images/Rock.png" width="83" />&nbsp;
+<img height="83" src="images/Paper.png" width="83" />&nbsp;
+<img height="83" src="images/Scissors.png" width="83" /></p>
+<p>Our goal for this program is to make a Rock-Paper-Scissors simulator using 
+these images.&nbsp; The program will start out looking like this:</p>
+<p><img border="1" height="219" src="images/imageIF001.png" width="219" /></p>
+<p>This layout is tricky.&nbsp; Go <a href="RPSLayout.html">HERE</a> to see how 
+its done.</p>
+
+
+<p>When the <strong>Throw</strong> button is pressed, two random numbers 
+determine what each player &quot;throws&quot; and the appropriate image is shown.</p>
+<p><img border="1" height="223" src="images/imageIF002.png" width="223" /></p>
+<p>Those random numbers should also be used to determine which player wins.&nbsp; 
+Notice that there is a label to keep score on the bottom.&nbsp; You will need to 
+make sure that you have instance fields to keep track of each players score.&nbsp; 
+You will increase the int and then make sure to change the label to the int&#39;s 
+new value.</p>
+<p>The first player to three is the winner.&nbsp; Once that occurs, the label at 
+the NORTH of the layout will display who the winner is AND the throw button will 
+no longer cause anything to change.&nbsp; </p>
+<p><img border="1" height="218" src="images/imageIF003.png" width="216" /></p>
+<p>The reset will bring everything back to 0 and the throw button will be 
+functional again.</p>
+<table class="auto-style2" style="font-family:Arial, Helvetica, sans-serif;font-size:small;" border="\">
+	<tr>
+		<td><strong><span class="auto-style1">A Note About Detecting Buttons:</span></strong><br />
+		<br />
+		Previously we&#39;ve detected which button was pressed by checking the text 
+		that&#39;s on it.&nbsp; This can cause problems, especially when the text is 
+		changing.<br />
+		<br />
+		<br />
+		Now that we are using instance fields to hold our buttons, we can check 
+		to see which button was pressed in a much more direct manner.<br />
+		<br />
+		Let&#39;s say you&#39;ve defined two instance fields<br />
+		<pre>private SButton throwButton, resetButton;</pre>
+		When you define your onButtonPress method, you may simply compare the 
+		source button with the instance fields to tell which button was pressed.<br />
+		<br /><pre>public void onButtonPress(SButton source)
+{
+   if( source == throwButton )
+   {
+     ...</pre>
+		This is a much more reliable way of checking to see if the SButton in
+		<strong>source</strong> is the same as the SButton in <strong>
+		throwButton</strong>.<br />
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

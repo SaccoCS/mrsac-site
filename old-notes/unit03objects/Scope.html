@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Scope</title>
+<style type="text/css">
+.auto-style1 {
+	color: #FF0000;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+	
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Scope</h2>
+<p>In object design, different parts of the object have access to different sets 
+of variables.&nbsp; If a method has access to a variable, we can say that it is 
+within the <strong>scope</strong> of the variable.&nbsp; When writing a method, 
+you must be careful to think about scope so you know which variables you have 
+access to.</p>
+<p>For Example, consider the Point3D class below and specifically look at the 
+getX method.</p>
+<pre>public class Point3D
+{
+   private int x,y,z;
+   
+   public Point3D(int tmpX, int tmpY, int tmpX)
+   {
+      x = tmpX;
+      y = tmpY;
+      z = tmpZ;
+   }
+   
+   public int getX()
+   {
+      <span class="auto-style1"><strong>return tmpX;</strong></span>
+   }
+   
+   //Other methods not shown
+
+}</pre>
+<p>This is a common mistake that people make when attempting basic accessors.&nbsp; 
+The programmer is confused between the <strong>instance field</strong> x and the
+<strong>parameter </strong>tmpX.&nbsp; This will not compile because getX is not 
+within the <strong>scope</strong> of the tmpX variable.&nbsp; What the 
+programmer meant to do was to return the <strong>x</strong> variable, which the getX method 
+has access to.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Block Scope</strong></p>
+<p>Java uses block scope, meaning that the easiest way to determine whether or not you have access to the variable 
+is to follow the following rule:</p>
+<p>The scope of a variable is limited to the block (curly braces) that it is 
+declared within.</p>
+<p>If you look at the Point3D object again.&nbsp; Notice that the block that 
+instance fields are declared in is the entire class, this is why the instance 
+fields are accessible from any place in the object.</p>
+<p>The tmpX, tmpY, and tmpZ variables are declared in the constructor, meaning 
+that you can only use them during that constructor (hence the error when trying 
+to return tmpX from another part of the program.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

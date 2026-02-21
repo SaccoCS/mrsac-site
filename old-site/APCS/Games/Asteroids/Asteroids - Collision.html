@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Collision</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Collision</p>
+<p class="auto-style2">Now that we&#39;ve got the Asteroids, the Ship, and the 
+Bullets flying arond the screen it&#39;s time to make them interact a little bit.&nbsp; 
+We&#39;re going to get a little help from the BoundingBox class (go and get it 
+from the Sprite project).</p>
+<p class="auto-style2">Go to the AsteroidSprite class and add a method named 
+getHitBox that returns a BoundingBox that uses the same coordinates that you use 
+for painting the various pictures.</p>
+<p class="auto-style1"><span class="auto-style3">For the sake of testing it 
+might be useful to be able to paint the hitbox over the image of the object.&nbsp; 
+Add a boolean instance field named paintHitBox and <strong>initialize it to true</strong>.&nbsp; 
+Then, at the very end of the </span><strong><span class="auto-style3">paintSelf</span></strong><span class="auto-style3"> 
+method, if the boolean is true, get the hitbox, extract the x,y,width, and 
+height and paint the Rectangle.</span></p>
+<p class="auto-style2">If you run the program, it should look something like the 
+image below.</p>
+<p><img class="auto-style2" height="375" src="images/img3.jpg" width="498" /></p>
+<p class="auto-style2">There is a minor problem using the hitboxes with the 
+exact x,y,width, and height of the image.&nbsp; The hitbox goes outside of the 
+boundary of the image.&nbsp; This will cause sprites to &#39;hit&#39; other sprites when 
+they don&#39;t look like they should.</p>
+<p class="auto-style2">Optional:&nbsp; A better design for the hitbox would be 
+to have a square that&#39;s smaller than the image.&nbsp; This way the far outside 
+corners of the Rectangle won&#39;t jut out and hit things.&nbsp; Override the 
+getHitBox method and modify it to make a better fit.&nbsp; For example, if I 
+wanted the hitbox to be 5 shorter on each side I might add 5 more to the x and 
+y, and shorten the width and height by 10.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style6"><strong>Interacting the Asteroids and the Bullets:</strong></p>
+<p class="auto-style2">Add a method with the following header:</p>
+<p class="auto-style5">public void bulletsVsAsteroids()</p>
+<p class="auto-style1"><span class="auto-style3">which will be responsible for 
+checking if any of the bullets collide with the Asteroids and removing them from 
+the ArrayList if they do.&nbsp; This will require a nested for loop because 
+you&#39;re looping through both the list of Bullets and the list of Asteroids.&nbsp; 
+The key to checking if they overlap is to get their hitboxes and call 
+BoundingBox&#39;s <strong>overlaps</strong> 
+method, which takes in another BoundingBox and returns true if they overlap.&nbsp; 
+For now, all you have to do is remove each of them from their ArrayList and they 
+will essentially no longer exist in the game.&nbsp; It is important that you 
+return from the method the first time you find a Bullet hitting and Asteroid, 
+otherwise there will be cases where the Bullet is removed multiple times from 
+the same ArrayList which can cause IndexOutOfBoundsExceptions.</span></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style2">Now modify the onTimerTick method so that it calls 
+bulletsVsAsteroids() at some point.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Run the program and shoot a few Asteroids.&nbsp; If done 
+right, the Bullet and the Asteroid will suddenly disappear when they strike each 
+other.&nbsp; When you feel comfortable that it works, you may set the 
+paintHitBox boolean back to false.</p>
+
+</body>
+
+</html>

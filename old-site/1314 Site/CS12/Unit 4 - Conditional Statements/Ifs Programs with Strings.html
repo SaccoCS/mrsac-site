@@ -1,0 +1,555 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Ifs Programs with Strings</title>
+<style type="text/css">
+ table.MsoNormalTable
+	{line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	}
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-size: small;
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style5 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style8 {
+	font-size: medium;
+}
+.auto-style9 {
+	text-decoration: underline;
+}
+.auto-style10 {
+	color: #FF0000;
+}
+.auto-style11 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style12 {
+	border-style: solid;
+	border-width: 1px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+</style>
+
+
+<script src="dayofweek.js"></script>
+</head>
+
+<body>
+
+<p><span class="auto-style3">Ifs Programs with Strings:</span><br class="auto-style1" />
+</p>
+<p style="height: 38px" class="auto-style1">The following programs will use the 
+.equals method of String class.&nbsp; Remember that you should never use == with 
+Strings!&nbsp; It will cause falses at bad times.</p>
+<table class="auto-style5" style="width: 100%">
+	<tr>
+		<td>
+<pre class="auto-style6"><strong>Using if statements to determine the value of a variable:</strong></pre>
+		<pre class="auto-style6">Before you start, look at the two following if statements, which do the same thing but in different ways:</pre>
+		<pre>String name = //Some String
+if( name.equals("Sacco") )
+{
+   System.out.println(&quot;Welcome King Sacco&quot;);
+}
+else
+{
+   System.out.println(&quot;Welcome lesser being&quot;);
+}</pre>
+<p style="height: 38px" class="auto-style1">In this case, the if statement 
+determines which println will be run.&nbsp; If you look at the code below, the 
+if statements are responsible for filling a variable that is used later in the 
+println.</p>
+<pre>String name = //Some String
+String responseName = &quot;&quot;;
+
+if( name.equals(&quot;Sacco&quot;) )
+{
+  responseName = &quot;King Sacco&quot;;
+}
+else
+{
+   responseName = &quot;lesser being&quot;;
+}
+
+System.out.println(&quot;Welcome &quot;+responseName);
+
+</pre>
+<p style="height: 38px" class="auto-style1">Sometimes it&#39;s useful to make a 
+chain of if statements responsible for filling a varable with a value, and then 
+using that value after the if statements had filled it.&nbsp; Keep this in mind 
+because it may be a useful strategy at a few points during this assignment.</p>
+
+
+
+		</td>
+	</tr>
+</table>
+
+
+
+<hr>
+<p  class="auto-style1"><strong>UserNameValidator</strong>:&nbsp; This program should ask the 
+user to create a user name.&nbsp; In order for the user name to be valid, it 
+needs to be all one word with no spaces.&nbsp; If the username is valid, print 
+out &quot;Account Created&quot;, and print out &quot;ERROR: User names must be all one word&quot;.&nbsp; 
+Hint:&nbsp; indexOf returns a certain value when it cannot find a String.<p class="auto-style1">Please create a user name:<br />
+SackAttack<br />
+Account Created
+<p  class="auto-style1">Please create a user name:<br />
+Mister Sacco<br />
+ERROR: User names must be all one word.<br />
+<br />
+<br />
+<br />
+</p>
+</p><hr>
+<p><span class="auto-style1"><strong>PasswordChecker</strong>: Write a program that takes in a String and an int, a username 
+and pin, from the user. If BOTH match your predetermined username and pin, print 
+out Access Granted. Otherwise print out Access Denied. </span>
+</p>
+<p><span class="auto-style1">Please enter your user name:<br />
+MrSacco<br />
+Please enter your pin:<br />
+1234<br />
+Access Granted<br />
+</span>
+</p>
+<hr>
+
+<br />
+
+<span class="auto-style1"><strong>WebLink</strong>: When people refer to web sites these days, they 
+may or may not include a &quot;www.&quot; on the front, or even the &quot;.com&quot; on the back.</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+facebook.com</span><br class="auto-style1" />
+<span class="auto-style1">google</span><br class="auto-style1" />
+<span class="auto-style1">www.twitter.com</span><span class="auto-style1">This program will ask the user to enter a website, and 
+then print it out with the www. and the .com .&nbsp; You will need to detect 
+whether or not it already has it so that you don&#39;t accidently double up.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">When run, all of the sample inputs would be printed back out as:</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+www.facebook.com</span><br class="auto-style1" />
+<span class="auto-style1">www.google.com</span><br class="auto-style1" />
+<span class="auto-style1">www.twitter.com</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+This program may be accomplished using either indexOf <span class="auto-style9">
+or</span> substring.&nbsp; Since the &quot;www.&quot; and the &quot;.com&quot;&nbsp; are not related 
+to each other, taking care of them separately will be the easiest.&nbsp; You 
+don&#39;t have to print from every part of an if statement.&nbsp; If the String 
+webName needs to have a &quot;www.&quot;, use a line such as:<br />
+webName = &quot;www.&quot;+webName and afterwords check for the &quot;.com&quot; in a similar 
+fashion.&nbsp; This may be completed using two if statements with no elses.<br />
+<br />
+When testing, be sure to try it with something short 
+to make sure that it doesn&#39;t crash</span><br class="auto-style1" />
+<span class="auto-style1">Please enter a website:<br />
+</span>x<span class="auto-style1"><br />
+www.x.com</span><p ><br class="auto-style1" />
+</p><hr>
+<p ><span class="auto-style1"><strong>PlanetWeight</strong>: The force of gravity is different for each of the nine planets in 
+out solar system. For example, on Mercury it is only 0.38 times as strong as on 
+Earth. Thus, if you weigh 100 pounds (on Earth), you weigh only 38 pounds on 
+Mercury. Write a program named PlanetWeight that allows you to enter 
+your Earth weight and your choice of planet to which you would like your weight 
+converted. Output should be your weight on the desired planet together with the 
+planet name. The screen message for input should include a menu for planet 
+choice. </span>
+<p >
+<span class="auto-style1">For Example:</span><br class="auto-style1" />
+<span class="auto-style1">What is your weight on Earth: 100</span><br class="auto-style1" />
+<span class="auto-style1">Planet choice:</span><br class="auto-style1" />
+<span class="auto-style1">Jupiter</span><br class="auto-style1" />
+<span class="auto-style1">Mars</span><br class="auto-style1" />
+<span class="auto-style1">Mercury</span><br class="auto-style1" />
+<span class="auto-style1">Neptune</span><br class="auto-style1" />
+<span class="auto-style1">Pluto</span><br class="auto-style1" />
+<span class="auto-style1">Saturn</span><br class="auto-style1" />
+<span class="auto-style1">Uranus</span><br class="auto-style1" />
+<span class="auto-style1">Venus<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">Choice:<br />
+Mercury</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">You weigh 38 pounds on Mercury</span><p >&nbsp;<p >
+<span class="auto-style1">The relative forces are:</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Earth 1.00</span><br class="auto-style1" />
+<span class="auto-style1">Jupiter 2.65</span><br class="auto-style1" />
+<span class="auto-style1">Mars 0.39</span><br class="auto-style1" />
+<span class="auto-style1">Mercury 0.38</span><br class="auto-style1" />
+<span class="auto-style1">Neptune 1.23</span><br class="auto-style1" />
+<span class="auto-style1">Pluto 0.05</span><br class="auto-style1" />
+<span class="auto-style1">Saturn 1.17</span><br class="auto-style1" />
+<span class="auto-style1">Uranus 1.05</span><br class="auto-style1" />
+<span class="auto-style1">Venus 0.78</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Try the following strategy:</span><br class="auto-style1" />
+<span class="auto-style1">Declare a variable before the else-if chain named multFactor and set it to 0.</span><br class="auto-style1" />
+<span class="auto-style1">Use if statements to determine what value should be 
+assigned to multFactor (similar to the demo at the top of the page).&nbsp; After the if statements 
+have decided what multFactor should be, multiply the multFactor by the Earth weight to get 
+the weight on the given planet.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">&nbsp;<br />
+<strong><br /><hr>
+<br />
+Parking</strong>: The sign on the attendant&#39;s booth at 
+the Pentagon parking lot is</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>PENTAGON VISITING PARKING</strong></span><strong><br class="auto-style1" />
+</strong>
+<span class="auto-style1"><strong>Cars:</strong></span><strong><br class="auto-style1" />
+</strong>
+<span class="auto-style1"><strong>First Hour: Free</strong></span><strong><br class="auto-style1" />
+</strong><span class="auto-style1"><strong>Every Hour After: $1.50/hr<br />
+</strong></span><strong><br class="auto-style1" />
+</strong>
+<span class="auto-style1"><strong>Truck:</strong></span><strong><br class="auto-style1" />
+</strong>
+<span class="auto-style1"><strong>First 1 hour: $1.00</strong></span><strong><br class="auto-style1" />
+</strong>
+<span class="auto-style1"><strong>Next 3 hours $2.50/hour</strong></span><strong><br class="auto-style1" />
+</strong>
+<span class="auto-style1"><strong>Every hour after: $4.00<br />
+</strong></span><strong><br class="auto-style1" />
+</strong>
+<span class="auto-style1"><strong>Senior Citizens: No charge</strong></span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Write a program that will accept as input the type of 
+vehicle or &quot;senior&quot;, followed by the number of hours their vehicle has been in 
+the lot. The program then should then compute the appropriate charge and print a 
+ticket for the customer.&nbsp; </span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Sample input data and results:</span><br class="auto-style1" />
+<span class="auto-style1">Type of vehicle? car</span><br class="auto-style1" />
+<span class="auto-style1">Number of hours parked? 6</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">PENTAGON PARKING CHARGE</span><br class="auto-style1" />
+<span class="auto-style1">Vehicle: car</span><br class="auto-style1" />
+<span class="auto-style1">Time: 6 hours</span><br class="auto-style1" />
+<span class="auto-style1">Cost: $7.50<br />
+<br />
+_____________________________<br />
+<br />
+Sample input data and results:<br class="auto-style1" />
+Type of vehicle? truck<br class="auto-style1" />
+Number of hours parked? 6<br class="auto-style1" />
+<br class="auto-style1" />
+PENTAGON PARKING CHARGE<br class="auto-style1" />
+Vehicle: truck<br class="auto-style1" />
+Time: 6 hours<br class="auto-style1" />
+Cost: $16.50<br />
+<br />
+<strong>Why is a truck $16.50 for 6 hours?</strong><br />
+There are three zones that the time for a truck can land in: 0-1 hours, 2-4 
+hours, and 5+ hours.&nbsp; In our sample, that means that the truck&#39;s 1st hour 
+cost $1, the next three hours cost $7.50 (3*2.5).&nbsp; This means that any 
+truck that stays more than three hours will pay at least $7.50.&nbsp; From there 
+we have to decide how many hours <strong>past</strong> the first 4 hours that 
+the truck has stayed.&nbsp; In this case, the truck has stayed 2 more hours. 
+Those hours cost $8.00 (2*$4.00).&nbsp; In total, the first 4 hours cost $8.50, 
+plus the $8 for the last 2 hours for a total of $16.50.<br />
+</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br />
+<br class="auto-style1" />
+</p>
+<p>
+<table border="1" cellpadding="0" class="MsoNormalTable" style="width: 80.0%; mso-cellspacing: 1.5pt; background: white; mso-yfti-tbllook: 1184" width="80%">
+	<tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="MsoNormal">
+		<span style="font-size:12.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;
+  mso-fareast-font-family:&quot;Times New Roman&quot;;color:black">&nbsp;<o:p></o:p></span></p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		Car<o:p></o:p></p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		Truck<o:p></o:p></p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		Senior<o:p></o:p></p>
+		</td>
+	</tr>
+	<tr style="mso-yfti-irow:1">
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		3 hours<o:p></o:p></p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$3.00</p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$6.00</p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$0.00<o:p></o:p></p>
+		</td>
+	</tr>
+	<tr style="mso-yfti-irow:2">
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		5 hours<o:p></o:p></p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$6.00</p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$12.50</p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$0.00<o:p></o:p></p>
+		</td>
+	</tr>
+	<tr style="mso-yfti-irow:3;mso-yfti-lastrow:yes">
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		9 hours<o:p></o:p></p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$12.00</p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$28.50</p>
+		</td>
+		<td style="padding:.75pt .75pt .75pt .75pt">
+		<p class="auto-style2" style="mso-fareast-font-family: &quot;Times New Roman&quot;;">
+		$0.00<o:p></o:p></p>
+		</td>
+	</tr>
+</table>
+</p>
+<hr>
+<p class="auto-style4">DayOfWeek:</p>
+<p class="auto-style1">Create a class named <strong>DayOfWeek</strong>, which 
+will ask the user for a date and be able to print out what day of the week it 
+ways.<br />
+<br />
+For example:<br />
+Please enter a date:<br />
+February 22, 1983<br />
+February 22, 1983 is a Tuesday<br />
+</p>
+<p class="auto-style1">First, the date will be entered as one String in a very 
+specific format:<br />
+<strong>January 1, 2000</strong> - with the month as a word, a space before the 
+day, and a comma-space before the year.<br />
+<p class="auto-style1">
+<br />
+<p class="auto-style6">Separating the String:<p class="auto-style1">The first thing that you need to do is use substrings to separate each part of 
+the date into separate Strings. <br />
+Create four String variables to fill with substrings of the full String. In 
+order to get them just right you should find the index of three things: The 
+index of the space, the index of the comma and space next to each other, and the 
+index of where the year starts.<br />
+You need four substrings:<br />
+-The month<br />
+-The day<br />
+-The first two digits of the year<br />
+-The last two digits of the year<br />
+<br />
+Before going on, it’s a good idea to test out and make sure that you’ve chopped 
+it up correctly. Use a line similar to the following to print out the four 
+substrings: <br />
+<pre>System.out.println(month+"\n"+day+"\n"+firstTwo+"\n"+lastTwo);</pre>
+<span class="auto-style1">Test it out:<br />
+Please enter a date:<br />
+December 7, 1941<br />
+December<br />
+7<br />
+19<br />
+41<br />
+<br />
+Please enter a date:<br />
+July 4, 1776<br />
+July<br />
+</span>4<span class="auto-style1"><br />
+17<br />
+76<br />
+<br />
+Make sure that there aren’t any extra spaces or characters included in any of 
+the Strings before going on. They cause problems.<br />
+<strong><br class="auto-style10" />
+<span class="auto-style10">STOP!!! DO NOT CONTINUE UNTIL THE PREVIOUS PART 
+WORKS.&nbsp; YOUR PROGRAM WILL CRASH IF IT&#39;S NOT PERFECT.</span></strong><br />
+<br />
+<br />
+<br />
+Parse the three number-based Strings into ints:<br />
+<strong>year</strong>: the last two digits of the year<br />
+<strong>century</strong>: the first two digits of the year<br />
+<strong>day</strong>: the day<br />
+<br />
+<br />
+<br />
+</span>
+<span class="auto-style7"><br class="auto-style8" />
+</span>
+<span class="auto-style1"><span class="auto-style6">Calculating the Day:</span><br />
+<br />
+This algorithm shows how to come up with four numbers. Find the sum of these 
+four numbers and using modulus to restrict the result to 0 through 6, the day of 
+the week can be determined. <br />
+<br />
+The four values are:<br />
+<br />
+1. Calculate the century value:<br />
+<strong>centuryValue</strong> = 2(3 - (century mod 4))<br />
+when century is the first two digits of the year.<br />
+<br />
+2. Calculate the <strong>year</strong> value. Because there are 365 days in a common year, which 
+is 52 weeks plus 1 day, each year will start on the day of the week after that 
+from the preceding year. Each leap year has of course one more day than a common 
+year. Assuming we know on which day a century starts (from above), if we add the 
+number of years elapsed since the start of the century, plus the number of leap 
+years that have elapsed since the start of the century, we get the day of the 
+week on which the year starts. Calculate this value where year is the <strong>last two 
+digits of the year</strong>:<br />
+<br />
+<strong>yearValue</strong> = year + year / 4;<br />
+<br />
+3. Calculate the <strong>monthValue</strong>. We refer to the months table below to work out on 
+which day of the week a month starts. Notice that January starts on day 0, which 
+is simply another way of saying that the year and January of that year start on 
+the same day. <br />
+<br />
+The months table shows the value for leap years also. You’ll have 
+to check to see if the year is a leap year (if it’s divisible by 4) in order to 
+know what the montValue should be. <br />
+<br />
+- January - 0 (in leap year 6)<br />
+- February - 3 (in leap year 2)<br />
+- March - 3<br />
+- April - 6<br />
+- May - 1<br />
+- June - 4<br />
+- July - 6<br />
+- August - 2<br />
+- September - 5<br />
+- October - 0<br />
+- November - 3<br />
+- December – 5<br />
+<br />
+<strong>Hint about monthValue</strong>: One way to use else-if chains is to 
+decide what value should go into a variable. First you declare an int 
+monthValue, and then each part of the else if will set monthValue to a specific 
+value, similar to the example at the top of the page.<br />
+<br />
+4. Calculate the <strong>dayValue</strong>. This is easy, it&#39;s just the day of the month.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</span>
+<span class="auto-style6">To figure out what day of the week it is:</span><span class="auto-style1"><br />
+-Compute the sum of the four values above.<br />
+-Divide the sum calculated from the last step by 7 and find the remainder.<br />
+<br />
+<br />
+</span>
+<span class="auto-style7"><br class="auto-style8" />
+</span>
+<span class="auto-style1"><span class="auto-style6">Translating the int into a 
+String:</span><br />
+<br />
+Make sure that you print out the String version of the day.<br />
+Using the table below determine the day of the week that your int represents<br />
+0 - Sunday<br />
+1 - Monday<br />
+2 - Tuesday<br />
+3 - Wednesday<br />
+4 - Thursday<br />
+5 - Friday<br />
+6 - Saturday<br />
+<br />
+<br />
+Sample input data and results:<br />
+<br />
+Please enter a date:<br />
+December 12, 1998<br />
+December 12, 1998 is a Saturday.<br />
+<br />
+Please enter a date:<br />
+July 4, 1776<br />
+July 4, 1776 is a Thursday<br />
+<br />
+<br />
+</span>
+<p>
+<table class="auto-style12" style="width: 100%">
+	<tr>
+		<td>If you get the wrong date, you&#39;ll need to check to make sure that 
+		your dayValue, monthValue, centuryValue, and yearValue are correct.&nbsp; 
+		Use the following println<span class="auto-style11">System.out.println(&quot;dayValue: 
+		&quot;+dayValue+&quot;\nmonthValue: &quot;+monthValue+&quot;\ncenturyValue: 
+		&quot;+centuryValue+&quot;\nyearValue: &quot;+yearValue);</span></p>
+		<p>Now run the program with July 4, 1776.&nbsp; It should print out:</p>
+		<p>dayValue: 4<br />
+		monthValue: 6<br />
+		centuryValue: 4<br />
+		yearValue: 95</p>
+		<p>If one of those is wrong, double check how that value is calculated.</p>
+		</td>
+	</tr>
+</table>
+<br />
+</p>
+<p class="auto-style1"><strong>More Testing:</strong><br />
+To test more values enter a date below (in the proper format) and hit Enter: <br />
+<input id="date" size ="17" onkeydown="dayOfWeek(event)" /> <span id="dayOfWeek"></span><br />
+<span id="dayValue"></span><br />
+<span id="monthValue"></span><br />
+<span id="centuryValue"></span><br />
+<span id="yearValue"></span><br />
+</p>
+
+<p>&nbsp;</p>
+</body>
+
+</html>

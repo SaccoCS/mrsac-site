@@ -1,0 +1,361 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Parallel Number Patterns</title>
+  
+</head>
+<body>
+
+  <h1>Parallel Number Patterns</h1>
+
+  <div class="section">
+    <p>
+      Open the <strong>Parallel Number Patterns Example</strong>, where you will see two loops:
+    </p>
+
+    <pre><code>for (let a = 2; a &lt;= 10; a += 2) {
+  console.log(a);
+}
+
+for (let b = 10; b &lt;= 14; b++) {
+  console.log(b);
+}</code></pre>
+<div class = "head_list">
+  
+    <p>These two loops represent two different number patterns:</p>
+    <ul>
+      <li>The <code>a</code> variable starts at 2 and increases by 2 each step until it hits 10.</li>
+      <li>The <code>b</code> variable starts at 10 and increases by 1 each step until it hits 14.</li>
+    </ul>
+
+    </div>
+    <p>
+      These loops are placed one after another, so when you run them you'll see them print out in this order:
+    </p>
+
+    <pre><code>2
+4
+6
+8
+10
+10
+11
+12
+13
+14</code></pre>
+  </div>
+
+  <div class="section">
+    <h2>Making the Patterns Occur Simultaneously</h2>
+
+    <p>
+      The focus of this assignment is to have two separate patterns that occur during the same loop,
+      meaning we will want to be able to use a loop to print out:
+    </p>
+
+    <pre><code>2   10
+4   11
+6   12
+8   13
+10  14</code></pre>
+
+<div class = "head_list">
+    <p>To do this, we are going to have to:</p>
+    <ul>
+      <li>Have a loop representing one of the patterns.</li>
+      <li>Use an extra variable to control the other pattern at the same time.</li>
+    </ul>
+    </div>
+
+    <p>There are two ways to approach this:</p>
+
+    <h3>Approach 1: Use the loop to control <code>a</code> and control <code>b</code> manually</h3>
+
+    <pre><code>let b = 10;
+for (let a = 2; a &lt;= 10; a += 2) {
+  console.log(a + "  " + b);
+
+  b++;
+}</code></pre>
+
+<div class = "head_list">
+    <p>
+      Notice that the loop controlling <code>a</code> has not changed, but the <code>b</code> variable has been tacked on separately:
+    </p>
+    <ul>
+      <li>It's declared before the loop and given an initial value.</li>
+      <li>At the end of each loop it is increased manually.</li>
+    </ul>
+    </div>
+    <p class="note">
+      Notice that the initial value and incremental step are covered by this, but the boolean condition
+      (<code>b &lt;= 14</code>) is ignored. The <code>a</code> variable is in charge.
+    </p>
+
+    <h3>Approach 2: Use the loop to control <code>b</code> and control <code>a</code> manually</h3>
+
+    <pre><code>let a = 2;
+for (let b = 10; b &lt;= 14; b++) {
+  console.log(a + "  " + b);
+
+  a += 2;
+}</code></pre>
+
+    <p>
+      This time the <code>b</code> loop is "in charge" and the <code>a</code> variable is being controlled separately.
+    </p>
+
+    <p>
+      It doesn't matter which of the two loops you use. The output will still show the same patterns.
+    </p>
+  </div>
+  <br>
+<hr/>
+  <div class="section">
+    <h2>Parallel Number Patterns Questions</h2>
+    <p>
+      Open the <strong>Parallel Number Patterns Questions</strong> and answer them. Each question deals with a parallel pattern, where a for loop controls one pattern, but a second pattern is manually controlled using a second variable.
+    </p>
+  </div>
+  <br>
+<hr/>
+
+  <div class="section">
+    <h2>Count Up and Down</h2>
+
+    <p>
+      Open the <strong>Count Up and Down</strong> workspace. There you are met with a line that will get a number from the user.
+    </p>
+
+    <pre><code>let max = Number(readLine("Enter the maximum value:"));</code></pre>
+<div class = "head_list">
+  
+    <p>Your task is to write a single loop that will print out two number patterns simultaneously:</p>
+    <ul>
+      <li>Count from 1 up to the maximum</li>
+      <li>Count from the maximum down to 1</li>
+    </ul>
+    </div>
+
+    <p>For example, if the user enters 5 the output would be:</p>
+    <pre><code>1  5
+2  4
+3  3
+4  2
+5  1</code></pre>
+
+    <p>And if the user enters 3 the output would be:</p>
+    <pre><code>1  3
+2  2
+3  1</code></pre>
+  </div>
+
+  <br>
+<hr/>
+  <div class="section">
+    <h2>Number List</h2>
+
+    <p>Open the <strong>Number List</strong> workspace.</p>
+
+    <p>Your goal is to write a loop that will produce the following image:</p>
+    <img src="images/list.png" alt="Number List target output (replace src)" />
+
+    <p>There are two number patterns here:</p>
+    <ul>
+      <li>The number being shown goes from 2 to 26, counting by 2's.</li>
+      <li>The <code>y</code> coordinate of the text goes from 15 to 195, counting by 15's.</li>
+    </ul>
+
+    <p>
+      Use the Parallel Number Patterns strategy to generate those two number patterns.
+      Each time, use a <code>text()</code> command to display the number at the generated <code>y</code> coordinate.
+    </p>
+  </div>
+
+  <br>
+<hr/>
+  <div class="section">
+    <h2>String Art</h2>
+
+    <p>Open the <strong>String Art</strong> workspace.</p>
+
+    <p>There you will find the beginning of a line pattern:</p>
+
+    <pre><code>line(20, 20, 20, 380);
+line(60, 20, 20, 340);
+line(100, 20, 20, 300);
+line(140, 20, 20, 260);
+line(180, 20, 20, 220);</code></pre>
+
+    <p>
+      Notice that each of these lines being drawn are a little different.
+      The first parameter (<code>x1</code>) is increasing by 20 each time, while simultaneously
+      the last parameter (<code>y2</code>) is decreasing by 20 each time.
+    </p>
+
+    <p>Run the program and you'll see that it is the beginning of a pattern:</p>
+    <img src="images/string1.png" alt="String Art starter pattern (replace src)" width = "200px"/>
+
+    <p>
+      Your task is to delete the five calls to <code>line()</code> that are there and replace them with a loop
+      that generates these two patterns:
+    </p>
+
+    <ul>
+      <li>The first parameter (<code>x1</code>) goes from 20 to 380 counting by 20's.</li>
+      <li>The last parameter (<code>y2</code>) goes from 380 to 20 decreasing by 20 each time.</li>
+    </ul>
+
+    <p>When completed properly, running the program should produce this image:</p>
+    <img src="images/string2.png"  width = "200px" alt="String Art completed pattern at step 20 (replace src)" />
+
+    <p>
+      Once that is completed, modify the loop so that each of the values increases/decreases by 10 instead of 20,
+      which should produce a tighter design:
+    </p>
+    <img src="images/string3.png"  width = "200px" alt="String Art tighter pattern at step 10 (replace src)" />
+  </div>
+
+  
+  
+  <br>
+<hr/>'
+  
+  <h2>
+    Square Spiral
+  </h2>
+  
+  <p>
+    Open the Square Spiral workspace in CodeHS. There your draw() function has been provided with some code that will draw squares using translate and rotate
+
+  </p>
+  
+  <pre><code>translate(100,100);
+rotate( 20 );
+square( 0, 0, 150 );
+resetMatrix();
+</code></pre>
+  
+  <div class = "head_list">
+    
+    <p>
+      This draws a square on the canvas, which:
+
+    </p>
+    <ul>
+      <li>
+Is centered on the canvas</li>
+      <li>
+Is rotated 20 degrees</li>
+      <li>
+Has a size of 150</li>
+    </ul>
+  </div>
+  
+  <img src  ="images/one_square.png" width = "200px">
+  
+  <p>
+    Our goal is to generate the following design:
+  </p>
+  
+  
+  <img src  ="images/squares.png" width = "200px">
+  
+  
+  <div class = "head_list">
+    <p>
+      The key to this design is that there are many squares, each rotated to a different angle and with a slightly different size. There are two patterns to track with your loop:
+    </p>
+    <ul>
+      <li>The angle that each square is rotated goes from 0 to 360,  increasing by 6 each step.
+</li>
+      <li>The size of the square starts at 200, and each square is 90% of the previous one's size ( size *= 0.9 )</li>
+    </ul>
+  </div>
+  
+  <p>
+    Inside of the loop you should have all four of the provided lines: translate(), rotate(), square(), and resetMatrix(), but using your generated rotation angle and size. Leaving any of those lines outside of your loop will cause strange side effects. If done properly, running the program should result in the above design.
+  </p>
+  
+  
+  <br>
+<hr/>
+  <div class="section">
+    <h2>Rain Simulator</h2>
+
+    <h3>Part 1: The <code>drop()</code> Function</h3>
+
+    <p>
+      The <code>drop()</code> function's purpose is to draw a single raindrop at the <code>x,y</code> point provided
+      in the parameters (<code>dX</code>, <code>dY</code>). Getting the drop shape is accomplished by drawing many circles.
+      Each one a little bit lower (larger <code>y</code>) and with a slightly larger radius.
+    </p>
+
+    <p>Implement the <code>drop()</code> function so that it generates two number patterns:</p>
+    <ul>
+      <li>A <code>y</code> coordinate that goes from <code>dY</code> to <code>dY + 15</code>, increasing by 1 each step.</li>
+      <li>A radius that starts at 1 and increases by 0.5 each step.</li>
+    </ul>
+
+    <p>
+      Each iteration of the loop, draw a circle at <code>dX</code> with the generated <code>y</code> coordinate,
+      and the generated radius.
+    </p>
+
+    <p>
+      The <code>draw()</code> function currently has a single call to <code>drop()</code> to help with testing.
+      If done properly, running the program should produce the following:
+    </p>
+
+    <img src="images/one_drop.png" alt="Single raindrop output (replace src)" />
+
+    <h3>Part 2: Make it Rain</h3>
+
+
+    <img src="images/static_rain.png" alt="Many raindrops output with fixed randomSeed (replace src)" />
+    <p>
+      Now that the <code>drop()</code> function will draw a raindrop at any given <code>x,y</code> coordinate,
+      it's time to modify the <code>draw()</code> function to draw many raindrops on the screen.
+    </p>
+
+    <p>
+      Replace the current call to <code>drop(200, 90)</code> with a loop that will generate <code>y</code> values
+      from -20 to 220, increasing by 3 each time.
+      Each time the loop iterates, it should generate a random <code>x</code> value from 0 to 400 and call
+      the <code>drop()</code> function using that <code>x</code> and the generated <code>y</code> value as parameters.
+    </p>
+
+    <p>
+      Run your program. Since <code>randomSeed(1)</code> is being called, the random numbers will always end up the same.
+      You should get the following output:
+    </p>
+
+    <h3>Part 3: Falling Drops</h3>
+
+    <img src="images/rain.gif" alt="Many raindrops output with fixed randomSeed (replace src)" />
+
+    <p>
+      To give the rain a falling motion we are going to modify their <code>y</code> coordinate by <code>frameCount</code>,
+      which is always increasing. In order to stop the drops from going off of the bottom of the screen we are going to use
+      mod, whose effect is to make any numbers past a certain <code>y</code> coordinate "wrap" back around to 0.
+    </p>
+
+    <p>Your <code>draw()</code> function may currently have a call along the lines of:</p>
+
+    <pre><code>drop(x, y);</code></pre>
+
+    <p>Modify it to have the same <code>x</code>, but with a modified <code>y</code>:</p>
+
+    <pre><code>drop(x, (y + frameCount) % 220 - 20);</code></pre>
+
+    <p>
+      This will cause the <code>y</code> coordinate to increase by 1 for each frame, but mod 220 means that any time
+      the value hits 220 it will be set back to 0. This causes a looping effect where the drops that go off the bottom
+      of the screen will be reset to the top.
+    </p>
+  </div>
+
+</body>
+</html>

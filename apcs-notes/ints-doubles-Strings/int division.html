@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>int Division</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>int Division</h2>
+					<p>When dealing with ints, much of the math works the way that we expect it to.  Consider the following snippet of code:</p>
+					<div style = "float:left;display:block;">
+						<div class="code-left code-block">
+							<p class="code" >int i = 15;</br>
+											System.out.println( i );</br>
+											i = i + 5;</br>
+											System.out.println( i );</br>
+											i = i * 2;</br>
+											System.out.println( i );</br>
+											i = i - 3;</br>
+											System.out.println( i );</p>
+							
+						
+						</div>
+						<div class="half-div-right"}>
+							<p><span style="color:black;">Output:</span></br>
+							15</br>
+							20</br>
+							40</br>
+							37</p>
+						
+						</div>
+					</div>
+					<p style = "clear:left">These are the basic math operations and each time the variable changes it is to an expected value. </p>
+					<hr/>
+					<h3>int Division Truncates</h3>
+					<p>The weird stuff happens with division gets involved.  The problem derives from the fact 
+						that an int divided by another int should result in a an int, but not all divisions result in a whole number.  
+						So the rule is that whenever two ints are divided, the result is the <strong>quotient</strong>.  So saying 10/4 is asking "how many whole times 
+						does four go into ten?"; the answer is a flat 2, not the 2.5 that we are used to.  </p>
+						
+					<p>This is not a rounding operation, it is a truncation, meaning that the decimal is simply chopped off.</p>
+					
+					
+					<div class ="code"style="margin-left:19px">
+					<p>15/2 --> 7</br>
+					48/9 --> 5</br>
+					5/11 --> 0</br>
+					18/5 --> 3</br>
+					15/2 --> 7</p>
+					</div>
+					
+					
+				<hr/>
+				<h3>Example</h3>
+				<p>Sometimes the use of int division can be a good thing.  Consider the following simple program, where the user puts in a number of days and is told how many full weeks there are.</p>
+				
+					<div class="code-block">
+						<p>public class NumWeeks</br>
+						{</br>
+						&nbsp;&nbsp;&nbsp;public static void main()</br>
+						&nbsp;&nbsp;&nbsp;{</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String numDayStr = JOptionPane.showInputDialog("How many days?");</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int numDays = Integer.parseInt(numDayStr);</br>
+						
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int numWeeks = numDays/7;</br>
+						</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(numDays + " days is " + numWeeks + " weeks");</br>
+						&nbsp;&nbsp;&nbsp;}</br>
+						}
+						</p>
+					</div>
+					<p style="clear:left">If the user enters 17 days, the int division will give the quotient of 17/7, which is 2 full weeks.  The number of leftover days is not calculated in the program.  They are essentially discarded when the int division occurs.  If we wanted, we could do more math to calculate the remaining days.  Read more about this in the <a href="mod.html">Modulus Notes</a>.</p>
+				</div>
+				<div class = "note-div">
+					<h3>Be Careful: Order of Operations</h3>
+					<p>Since int division is an operation that loses some information, the order of operations is now very important. Consider the expression below.</p>
+					<p class = "code">10 + 3 * 5 / 2 - 6 * 2</p>
+					<p>Order of operations puts multiplication, mod, and division all on the same level.  java will process these from left to right.  In this expression, the key is</p>
+					<p class = "code">3 * 5 / 2</p>
+					<p>If we follow proper order of operations, 3*5 comes first and the result would be 15/2, which is 7.</p>
+					<p>If we don't follow proper order of operations and we calculate the 5/2 first, the result is 3*2, which is 6.</p>
+				</div>
+				<div class = "note-div">
+					<h3>Common Error: Casually assigning to a double</h3>
+					<p>One common attempt at solving the int division issue is using the incorrect strategy below.</p>
+					<p class = "code">int x = 15;<br/>
+					int y = 25;<br/>
+					double div = x/y;</p>
+				<p>The person who programs this thinks "since div is a double, I will get non-int division and I expect 0.6".  In reality there are two steps:  First the <span class= "code">x/y</span> occurs and then result gets assigned to the div variable.  Looking at <span class= "code">x/y</span> we can see that it is still <span class= "code">int/int</span> and therefore results in a int. In this case 15/25 is a 0.  Only after that 0 is determined does the value get assigned to a double.  At the end of the snippet above, div has a value of 0.0.</p>
+				</div>
+				<div class="note-div">
+					<h3>Common Error: Fractions</h3>
+					<p>Often times int division can get us into trouble, especially when it comes to fractions.  Consider the flawed calculation of the area of a triangle.</p>
+					<div class="code">
+					<p>int base = <span style ="color:#aaa">//some number from the user</span></br>
+					int height = <span style ="color:#aaa">//some number from the user</span></br>
+					int area = 1/2*base*height;</br>
+					System.out.println("The area of the triangle is: "+area);</p>
+					</div>
+					<p>No matter what the variables are, the output will always be <strong>The area of the triangle is: 0</strong></p>
+					<p>This is because int division causes the fraction 1/2 to always be a 0.  After that, the base and height are irrelevant.</p>
+				
+					<p>For information about how to fix this, look at the <a href="casting to a double.html">Casting to a double notes</a></p>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

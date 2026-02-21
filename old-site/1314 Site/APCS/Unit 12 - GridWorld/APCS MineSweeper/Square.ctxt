@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=isABomb
+comment0.target=Square(boolean)
+comment1.params=
+comment1.target=void\ act()
+comment2.params=
+comment2.target=boolean\ alreadyActed()
+comment3.params=
+comment3.target=void\ reset()
+comment4.params=
+comment4.target=int\ numberOfBombsAround()
+comment5.params=
+comment5.target=boolean\ isABomb()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

@@ -1,0 +1,262 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>Iterative Number Patterns</title>
+</head>
+
+<body>
+  <h1>
+    Iterative Number Patterns
+  </h1>
+
+
+  <p>Computers are powerful because they're very good at repeating code. A good programmer can take advantage of this by designing algorithms that have repeated processes to complete their code for them.</p>
+  <p>The draw function is one type of code that is designed to be repeated infinitely.&nbsp;</p>
+  <p>&nbsp;</p>
+  <h4>Filling the Screen with Lines</h4>
+  <p><img title="" src="images/lines.png" /></p>
+  <p>Assume that you want to create a bar of randomly colored lines on the screen. Each line should have a different random color. The copy-paste solution might look like the following:</p>
+  <pre>stroke(random(256),random(256),random(256));
+line(0, 50, 0, 150);
+stroke(random(256),random(256),random(256));
+line(1, 50, 1, 150);
+stroke(random(256),random(256),random(256));
+line(2, 50, 2, 150);
+stroke(random(256),random(256),random(256));
+line(3, 50, 3, 150);
+stroke(random(256),random(256),random(256));
+line(4, 50, 4, 150);
+stroke(random(256),random(256),random(256));
+line(5, 50, 5, 150);
+stroke(random(256),random(256),random(256));
+line(6, 50, 6, 150);
+stroke(random(256),random(256),random(256));
+line(7, 50, 7, 150);
+stroke(random(256),random(256),random(256));
+line(8, 50, 8, 150);
+stroke(random(256),random(256),random(256));
+line(9, 50, 9, 150);
+... I give up</pre>
+  <p>All that code will draw about ten vertical lines. If the bar is supposed to be 300 wide, my copy-paste button will break.</p>
+  <p>&nbsp;</p>
+  <h3>Think of the Pattern:</h3>
+  <p>Thinking with iteration is often about thinking of the patterns that appear in the code. Really there's only two lines of code that are repeating.</p>
+  <pre>stroke(random(<strong>256</strong>),random(<strong>256</strong>),random(<strong>256</strong>));
+line(<span><strong>0</strong></span>, <strong>50</strong>, <span><strong>0</strong></span>, <strong>150</strong>);
+
+stroke(random(<strong>256</strong>),random(<strong>256)</strong>,random(<strong>256</strong>));
+line(<span><strong>1</strong></span>, <strong>50</strong>, <span><strong>1</strong></span>, <strong>150</strong>);
+
+stroke(random(<strong>256</strong>),random(<strong>256</strong>),random(<strong>256</strong>));
+line(<span><strong>2</strong></span>, <strong>50</strong>, <span><strong>2</strong></span>, <strong>150</strong>);</pre>
+  <p>There are lots of numbers that are in each line, but if you focus on the ones that are&nbsp;<em>different</em> each time, you can see a pattern arising. The x coordinate of each line is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, etc...</p>
+  <p>This is a number pattern that we can model with a variable. Here we can see that we have a number that increases by one each time.</p>
+  <p>&nbsp;</p>
+  <p>Here's a solution that will draw one line each draw loop. The x variable starts at 0 and is increased by 1 each time.</p>
+  <pre>let x;
+
+function setup() {
+  createCanvas(400, 200);
+  frameRate(15);
+  strokeWeight(3);
+  background(0);
+
+  //Initial Value For x
+  x = 0;
+}
+
+function draw() {
+
+  //Use current x to draw
+  stroke(random(256), random(256), random(256));
+  line(x, 50, x, 150);
+
+  //Change x a little bit for next time
+  x = x + 1;
+}</pre>
+  <p>The draw function is set up to do one&nbsp;line&nbsp;at a time.&nbsp; The&nbsp;<strong>background</strong> statement has been moved to the setup so that it only happens in the beginning.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h3>Your Task: Counting Backwards</h3>
+  <p><strong><iframe src="demos/increasing_bar/index.html" width="400" height="200" data-mce-fragment="1"></iframe></strong></p>
+  <p>Right now the code above starts a vertical bar at 0, and increases by one each time. The effect is that the bar 'grows' from left to right.</p>
+  <p>Your task is to modify the code to go backwards, starting at the right and working your way leftward. This will require&nbsp;<strong>two</strong> changes to the code above.</p>
+  <p>&nbsp;</p>
+
+
+  <hr>
+  <h2>Getting the Right Range</h2>
+  <p>Our number patterns so far have had custom starting points and 'directions' (up or down), but sometimes we need to provide a stopping point. Consider if we wanted our previous demo to draw in the x range from 100 to 300.</p>
+  <p>We can start the x at 100 easily enough by setting it in our setup function.</p>
+  <pre>let x;
+
+function setup() {
+  createCanvas(400, 200);
+  frameRate(15);
+  strokeWeight(3);
+  background(0);
+
+  //Initial Value For x
+  x = <strong>100</strong>;
+}
+
+function draw() {
+
+  //Use current x to draw
+  stroke(random(256), random(256), random(256));
+  line(x, 50, x, 150);
+
+  //Change x a little bit for next time
+  x = x + 1;
+
+}</pre>
+  <p>&nbsp;</p>
+  <h3>Permissive if statements</h3>
+  <p>The draw function will be constantly called by the computer. In order to limit what it does each time, we're going to use an if statement around our code that checks to see if our process should keep going.&nbsp;&nbsp;</p>
+  <pre>let x;
+
+function setup() {
+  createCanvas(400, 200);
+  frameRate(115);
+  strokeWeight(3);
+  background(0);
+
+  //Initial Value For x
+  x = 100;
+}
+
+function draw() {
+
+<span style="color: #ff0000;"><strong> if (x &lt; 300) {</strong></span>
+    //Use current x to draw
+    stroke(random(256), random(256), random(256));
+    line(x, 50, x, 150);
+
+    //Change x a little bit for next time
+    x = x + 1;
+<span style="color: #ff0000;"><strong> }</strong></span>
+}</pre>
+  <p>The red if statement says&nbsp;that our iterating pattern should&nbsp;<strong>keep going</strong> as long as x is less than 300 it will continue to grow.</p>
+  <p>&nbsp;</p>
+  <h3>CAUTION: Using UNTIL logic instead of WHILE logic</h3>
+  <p>In the demo above the if statement (x &lt; 300) is meant to check if the loop should&nbsp;<strong>keep going.</strong> As long as x is small, x&lt;300 is true and a line will be drawn and x willincrease.&nbsp; Only when x reaches 300 (which is not less
+    than 300) does the loop actually stop responding because the if statement stops being true.</p>
+  <p>Often times we mistake this for checking '<strong>should I stop' .</strong>&nbsp;People often think "x is starting at 100 and going UNTIL x is past 300" and&nbsp;<strong>incorrectly</strong> use&nbsp;<strong>if(x &gt; 300)</strong>. This is&nbsp;<strong>false from the beginning</strong>,
+    so no lines are drawn and x never changes.</p>
+  <h3>Circle Ring Between Radius</h3>
+  <p><strong><iframe style="background-image: url('/template/img/iframe.gif');" src="demos/circle_ring/index.html" width="300" height="250" scrolling="no"></iframe></strong></p>
+  <p>&nbsp;</p>
+  <p>Recreate the sketch above. Each time the draw function runs it draws one ellipse (no fill). You should use a variable to represent the diameter of the ellipse and think about where it <strong>starts</strong>, what&nbsp;<strong>changes</strong> each
+    time, and use a&nbsp;<strong>permissive if</strong> statement to limit its range so that it doesn't keep going.</p>
+  <p>&nbsp;</p>
+
+  <hr>
+
+  <h3>Spacing</h3>
+  <p>We frequently go up by one, but other patterns often appear.</p>
+  <p>Assume that we want the following pattern:</p>
+  <p>There are six squares, which could be drawn using copy-paste:</p>
+  <pre>rect(20,20,60,60);
+rect(80,20,60,60);
+rect(140,20,60,60);
+rect(200,20,60,60);
+rect(260,20,60,60);
+rect(320,20,60,60);</pre>
+  <p>Instead, lets us a number patten to generate these values. Looking above, the only thing that needs changing is the x coordinate of the rectangles.&nbsp; The pattern breaks down as follows:</p>
+  <p><strong>First Value: 20</strong><br /><strong>Change Each Time: 60</strong><br /><strong>Last Value: 320</strong></p>
+  <pre>let x;
+
+function setup() {
+  createCanvas(400, 100);
+  rectMode(CORNER);
+  frameRate(5);
+  background(0);
+  x <strong>= 20;</strong>
+}
+
+function draw() {
+  if( <strong>x &lt;= 320</strong> ){
+    rect(x,20,60,60);
+    x+=<strong>60</strong>;
+  }
+}</pre>
+  <p>Here the x is set up to start at 20, and increase by 60 each time. Once it's larger than 320 the lines will stop drawing.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h3>Line Grid</h3>
+  <p><strong><iframe src="demos/progressive_grid/index.html" width="400" height="400" data-mce-fragment="1"></iframe></strong></p>
+  <p>&nbsp;</p>
+  <p>This sketch only needs one iterating variable, but you can use two if you like.&nbsp; Each time the draw function iterates, a vertical and horizontal line are drawn.&nbsp; Make sure that you have limited your variables using an if statement.</p>
+
+
+  <hr>
+
+
+  <h2>Multiple Number Patterns</h2>
+  <p>Often Times an iterative process will involve two variables that change in different ways.</p>
+  <p>
+    Open the Fade Out workspace in CodeHS, which currently uses a number pattern to draw a red streak across the canvas</p>
+
+  <img src="images/red_streak.png" width="255px">
+
+  <p>
+    Your task is to modify the sketch so that it fades from red to black.
+  </p>
+  <img src="images/fade.png" width="255px">
+  <p>
+    This means that each line drawn needs to have a different red value, which will require a <strong>second number pattern</strong> representing the red value of the stroke. 
+  </p>
+  <p>
+    Create another variable, redVal, which starts at 255 and decreases by 1 each time the draw function runs. Then modify the call to stroke() to use redVal as the first parameter. 
+  </p>
+  <p>
+    You will not need a new permissive if statement to accomplish this. Since this pattern should go just as many times as the already existing pattern, you can simply use the already existing if statement.
+  </p>
+ 
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <hr>
+  <h3>Number List</h3>
+  <p><strong><iframe src="demos/number_list/index.html" width="40" height="210" data-mce-fragment="1"></iframe></strong></p>
+  <p>For this sketch you will need to use a number pattern to create a list of numbers on the canvas. This is. The two changing values are the y location of the number and the number itself. Create variables for both and think about each of their initial values, as well as how much they need to change each step</p>
+  <p>&nbsp;</p>
+  
+  <hr>
+  
+  
+  <h3>Spiral Generator</h3>
+<p><strong><iframe src="demos/spiral_generator/index.html" width="402" height="402" data-mce-fragment="1"></iframe></strong></p>
+<p>&nbsp;</p>
+<p>We've previously looked at how to use sin() and cos() to generate a point on circle with a given center point, radius, and angle:</p>
+<pre>&nbsp;let x = centerX + radius*cos(angle);<br />&nbsp;let y = centerY + radius*sin(angle);</pre>
+<p>In order to create a spiral generator, we need to think of it as a circle whose radius is continually increasing as its angle is also increasing.</p>
+<p>Start with the following sketch:</p>
+<pre>function setup() {
+&nbsp; createCanvas(400, 400);
+&nbsp; angleMode(DEGREES);
+&nbsp; background(0);
+&nbsp; noStroke();
+
+}
+
+function draw() {
+
+&nbsp; let x = 200 + radius*cos(angle);
+&nbsp; let y = 200 + radius*sin(angle);
+&nbsp;&nbsp;
+
+}</pre>
+<p>The two lines in the draw function will not function properly yet because they rely on a <strong>radius </strong>and <strong>angle </strong>variable that don't exist. Add both of them to the sketch as global variables and initialize them to 0 in the setup function. This will fix the two lines in the draw function. You should now use the x and y created by those two lines to draw a small circle at that location.</p>
+<p>Since the angle and radius variables are stuck at zero, the circle will only be drawn in the center and it won't be very impressive. We want each circle to be drawn at a slightly larger angle and with a slightly larger radius. Modify the draw function to increase both variables by 1 and test it out. You'll see that increasing the radius and the angle at the same exact pace doesn't cause a very tight spiral. Instead modify your code so that the radius increases much slower. In the example above the radius increases at .1 for every 1 angle. Yours doesn't have to be exactly that.</p>
+<p>&nbsp;</p>
+
+  
+
+
+</body>
+
+
+</html>

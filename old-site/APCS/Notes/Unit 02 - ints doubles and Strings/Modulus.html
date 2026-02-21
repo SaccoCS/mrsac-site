@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p,pre {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Modulus (mod)</h1>
+<p>In Java, the <strong>%</strong> sign stands for an operation that you don&#39;t usually use in 
+your math class called the Modulus, or <strong>mod</strong> for short.&nbsp; 
+While the symbol and the name may be new, the concept should not.&nbsp; Mathematically, the 
+modulus operator is used for finding the <strong>remainder.</strong></p>
+<p>25 % 4 would be read as &quot;25 mod 4&quot; and the result would be 1.&nbsp; This is 
+because 4 goes into 25 four times with a <strong>remainder</strong> of 1.</p>
+<p>Similarly 15 % 6 is a 3 because the 6 goes in twice with a remainder of 3.</p>
+<p>&nbsp;</p>
+<p>In terms of order of operations, mod falls on the same level as 
+multiplication</p>
+<pre>int a = 5 + 7 % 2 * 6;</pre>
+
+<p>In the statement above the mod is the first operation that occurs ( 7%2 --&gt; 
+1).&nbsp; After that the multiplication happens, and finally the addition.&nbsp; 
+The resulting value stored in the int <strong>a</strong> is an 11.</p>
+<p>&nbsp;</p>
+<h3>Good things to know about Mod:</h3>
+<p>1)&nbsp; If a number is even, then modding by 2 will give a zero.&nbsp; Since 
+even numbers are divisible by two there will never be any remainder when modding 
+by two.</p>
+<p>2) When modding by a number, the result is always less than the number you 
+modded by.&nbsp; For example:&nbsp; anyNumber%4 can only have the result 0,1,2, 
+or 3.&nbsp; Any larger and it would be enough so that another 4 could be taken 
+out.</p>
+
+</body>
+
+</html>

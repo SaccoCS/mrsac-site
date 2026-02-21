@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>User Input with Scanner</title>
+<style type="text/css">
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style7 {
+	color: #C0C0C0;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">User Input Programs</p>
+<p class="auto-style6"><strong>Part 1:&nbsp; ScannerRunner</strong></p>
+<p class="auto-style6">Copy and paste the partial class below into BlueJ</p>
+<pre>import java.util.Scanner;
+public class ScannerRunner
+{
+    public static void main()
+    {
+        <span class="auto-style7">//Construct a new Scanner Object</span>
+        <strong>Scanner scan = new Scanner(System.in);</strong>
+        
+        <span class="auto-style7">//Prompt the user to enter his name</span>
+        <strong>System.out.println("Enter your name ");</strong>
+        
+        <span class="auto-style7">//Call the nextLine method to grab the next String the user types
+        //Store that String in a local String variable named result</span>
+        <strong>String result = scan.nextLine();</strong>
+        
+        <span class="auto-style7">//Print out a greeting, using the name that was just entered</span>
+        <strong>System.out.println("Hello "+result+", how are you?");</strong>
+        
+    }
+    
+    
+    public static void favColor()
+    {
+        //Construct a new Scanner Object
+        
+        //Prompt the user to enter his favorite color
+        
+        //Call the nextLine method to grab the next String the user types
+        //Store that String in a local String variable named color
+        
+        //Print out: "______ is a good color, but my favorite color is blue"  (you can put whatever you want for your color)
+        //Be sure to use the color variable
+        
+    }
+
+    public static void cityBragger()
+    {
+        //Construct a new Scanner Object
+        
+        //Prompt the user to enter the city he lives in
+        
+        //Call the nextLine method to grab the next String the user types
+        //Store that String in a local String variable named city
+        
+        //Print out: "I hear the weather in _____ isn't as nice as San Diego"
+        //Be sure to use the city variable
+    }
+    
+    public static void goTeam()
+    {
+        //Construct a new Scanner Object
+        
+        //Prompt the user to enter his favorite sports team
+        //Call the nextLine method and store the result into a local String variable named homeTeam
+        
+        //Prompt the user to enter the team's mascot
+        //Call the nextLine method and store the result into a local String variable named homeMascot
+        
+        //Prompt the use to enter the team's rival
+        //Call the nextLine method and store the result into a local String variable named rivalTeam
+        
+        
+        //Print out:  "I hope that ____ beats _____.  Go _____!!!"
+       
+    }
+    
+}
+</pre>
+<p class="auto-style6">The only method that has been filled out is the main method.&nbsp; Compile 
+and run the main method to test it out.&nbsp; </p>
+<p class="auto-style6">Read through the each line of the main method and the 
+description of what it does. Each of 
+the 4 lines there represents a common step in getting input from the user.</p>
+<p class="auto-style6">Using the main method as a guide, fill in the favColor, cityBragger, and 
+goTeam methods so that the work properly.&nbsp; Test out each method as you 
+complete them, making sure that when you type in different values it the changes 
+the output of the method.</p>
+
+</body>
+
+</html>

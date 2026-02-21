@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Mutator Methods</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: large;
+}
+.auto-style2 {
+	color: #FF0000;
+}
+.auto-style3 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Changing the Object with Mutator Methods:</h2>
+<p>So far we&#39;ve been looking at objects as variables that hold information.&nbsp; 
+When the object is constructed the variables are set, and after that the only 
+thing you can do is read the information through accessor methods.&nbsp; This is 
+not the whole truth.</p>
+<p>The types of objects that we&#39;ve been creating are <strong>immutable.&nbsp;
+</strong>This means that they cannot be changed once the instance fields are 
+set.&nbsp; While some objects are immutable on purpose (i.e. String), but we are 
+now going to shift our style to making objects where the instance fields can
+<strong>change</strong>.</p>
+<p>&nbsp;</p>
+<p><strong>Changable instance fields:</strong></p>
+<p>When we first started, our instance fields were public and we could access 
+them directly.</p>
+<pre>Name n = new Name("Marty","McFly");
+System.out.println(n);
+
+n.first = "Steve";
+n.last = "Irwin";
+System.out.println(n);</pre>
+<p>This code would first print out &quot;Marty McFly&quot; and then &quot;Steve Irwin&quot;</p>
+<p>Assuming that the instance fields are public, they can be accessed directly 
+and modified however we want.&nbsp; But ever since the instance fields were made 
+private we have no way of changing the values.</p>
+<p>&nbsp;</p>
+<p><strong>Methods are not variables:</strong></p>
+<p>A common attempt at modifying instance fields is the following</p>
+<pre>Name n = new Name("Marty","McFly");
+System.out.println(n);
+
+n.getFirst() = "Steve";
+n.getLast() = "Irwin";
+System.out.println(n);</pre>
+
+
+<p>This attempt is on the right track, but it will not compile.&nbsp; The 
+getFirst an getLast methods don&#39;t actualy give you the instance field variables, 
+they only copy the value.&nbsp; This means that you cannot ever assign any value 
+to a method.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>Basic Mutator Methods:</strong></p>
+<p>In order to allow people to change the first or last name we are going to 
+want the assistance of a method that&#39;s a little bit different than the accessors 
+that we&#39;ve been working with.</p>
+<p>a) This method&#39;s purpose is to set the<strong> first</strong> variable to a 
+specific value.&nbsp; We don&#39;t know what that value is going to be right now, we 
+will need to have a <strong>parameter</strong></p>
+<p>b) When we call this method, we expect the changes to happen <strong>inside 
+the object</strong>, meaning that the method will not return anything.&nbsp; 
+Instead of a return type, we should put <strong>void</strong>.&nbsp; void is the 
+official return type for a method that doesn&#39;t return anything.&nbsp; This means 
+that the method will have <strong>no return statement</strong>.</p>
+<p>&nbsp;</p>
+<p>The method should look like the following:</p>
+<pre>public void setFirst(String f)
+{
+   first = f;
+}</pre>
+<p>Notice that nothing is returned.&nbsp; The only effect of this method is that 
+the <strong>first</strong> instance field has been changed to whatever the 
+parameter was.&nbsp; This is a very similar process to what the constructor is 
+doing, it just happens at a different time.</p>
+<p>&nbsp;</p>
+<p><strong>What does the client/runner look like:</strong></p>
+<pre>Name n = new Name("Marty","McFly");
+System.out.println(n);
+
+n.setFirst(&quot;Steve&quot;);</pre>
+<pre>System.out.println(n);</pre>
+
+<p>&nbsp;</p>
+<p><strong>Things to notice:</strong></p>
+<p>- instead of n.getFirst() = &quot;Steve&quot;;, the setFirst method is called with 
+&quot;Steve&quot; as the parameter to the method.</p>
+<p>- No variable needed:&nbsp; In previous method calls our goal was to get 
+information out of the object.&nbsp; This would always require a &#39;catching&#39; 
+variable .&nbsp; Now our method&#39;s job has nothing to do with producing a value; 
+all of its effects are inside the object and its return type is void.&nbsp; This 
+means a &#39;catching&#39; variable would be useless.</p>
+<pre><span class="auto-style2">String str =</span> n.setFirst("Steve");</pre>
+<p>If you really think about the code above, what String would you even expect 
+to be returned when you tell an object to change it&#39;s name?</p>
+<p>&nbsp;</p>
+<p class="auto-style3"><strong>Finishing up Name:</strong></p>
+<p>Add the setFirst method to your Name class, and add another method named setLast which should be 
+for setting the last name.&nbsp; Change your NameRunner to be the 
+following:</p>
+<pre>public class NameRunner
+{
+   public static void main()
+   {
+      Name n = new Name("Marty","McFly");
+      System.out.println(n);
+
+      n.setFirst("Steve");
+      n.setLast("Irwin");
+      System.out.println(n);
+   }
+}</pre>
+
+<p>Run it to confirm that it prints out &quot;Marty McFly&quot; and &quot;Steve Irwin&quot;.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1">Assignment:</p>
+<p>1) <strong>Fraction</strong>:&nbsp; Add two methods to the Fraction class with the following 
+headers:</p>
+<pre>public void setNumerator(int numer)
+
+public void setDenominator(int denom)</pre>
+<p>Fill in the code so that each of the methods assigns the parameter to the 
+instance field, similar to the basic accessors in the Name class.</p>
+<p>&nbsp;</p>
+<p>Once that&#39;s finished, modify the runner so that it still prints out the 
+original fraction, but then use the setNumerator and setDenominator to change 
+the values to b 9 and 13, and then print out the object again.</p>
+<p>&nbsp;</p>
+<p>2) <strong>Date</strong>: Add three methods to the Date class named setDay, 
+setMonth, and setYear.&nbsp; Each of these methods should take in a parameter 
+and have a void return type.&nbsp; These should be basic mutator methods, 
+meaning they should take in a parameter and assign it to the appropriate 
+instance field.</p>
+<p>Once that is complete modify your Runner, which at the moment has generated a 
+&#39;tomorrow&#39; Date object.&nbsp; modify that object so that its year is 2525 and 
+then print it out again.</p>
+<p>&nbsp;</p>
+<p>3)&nbsp; <strong>Color</strong>:&nbsp; Add a method to the Color class with the following 
+header:</p>
+<pre>public void setColor(int r, int g, int b)</pre>
+<p>This method is a mutator method that sets all three instance fields to the 
+value of the parameter.</p>
+<p>After that, modify the ColorRunner.&nbsp; After the Gray color is printed 
+out, call the setColor method and set the values to 255,100, 255 and print out 
+the object again.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

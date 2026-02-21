@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Hexadecimal and Binary</title>
+<style>
+
+p,h1,h2,h3,h4,li,ol,.hide{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p {
+	font-size: small;
+}
+div{display:inline;}
+
+.hide{
+color:red;
+
+}
+</style>
+
+
+<script type="text/javascript">
+
+
+
+</script>
+
+</head>
+
+<body>
+<h1>Hexadecimal and Binary<br/><span style="font-size:large">The Rule of Four</span></h1>
+
+
+<p>Hexadecimal is used specifically because it works so nicely with Binary.  All you need to know is the Rule of Four</p>
+
+<p>The Rule of Four (not an official rule, just a Sacco-ism) states that each digit in a Hexadecimal number is directly related to exactly four corresponding bits in the Binary number.</p>
+
+<p>To understand it, look at the following Hexadecimal number and its Binary representation:</p>
+<p style="font-size:medium; font-family:courier">7A3F<sub>16</sub><br/>111101000111111<sub>2</sub></p>
+<p>Altogether it looks like it would take a lot of math in order to convert between them (the number is 31,295 in decimal) it gets easier if you break it up into groups of four:</p>
+<p style="font-size:medium; font-family:courier">&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F<br/>
+<span style="color:red"><strong>0</strong></span>111&nbsp;&nbsp;&nbsp;1010&nbsp;&nbsp;&nbsp;0111&nbsp;&nbsp;&nbsp;1111</p>
+<p>Notice the red zero, which was added to 'fill out' the Binary number so that it had enough.  You always add the extra zeros to the front, because adding them there won't change the value.  Adding zeros to the end of the number would cause it to change the value of the number. </p>
+<p>Looking at the numbers grouped in this way,  you may be able to see the correllation between the Hexadecimal digit and the four corresponding bits.</p>
+<p>7 in binary is 0111<br/>
+A in binary is 1010<br/>
+3 in binary is 0011<br/>
+F in binary is 1111</p>
+<br/>
+<p>This is always true for every Hex/Binary number and it makes converting between the two much simpler.  When broken up using the Rule of Four, the largest number that you would every have to convert to binary is 15.</p>
+
+
+<hr/>
+<h3>Converting from Hexadecimal to Binary</h3>
+<p></p>
+<p style="font-size:medium; font-family:courier">2B10D<sub>16</sub></p>
+<p>The rule of four says that all we have to do is convert all five Hex digits into four bit binary numbers.  For the digits larger than 9, convert them to decimal first</p>
+<p>2 is 0010<br/>
+B is 11, which is 1011<br/>
+1 is 0001<br/>
+0 is 0000<br/>
+D is 13, which is 1101</p>
+<p>New you just have to put them together in order.  It is proper to put spaces between every four bits in a binary number</p>
+<p>0010 1011 0001 0000 1101<sub>2</sub></p>
+<!--
+<h4>You Try:</h4>
+<p>Convert the following Hex numbers to Binary:</p>
+<p>CAB<sub>16</sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button>Answer</button><div class = "hide" id="hb1">1100 1010 1011</div></p>
+--->
+<hr/>
+<h3>Converting from Binary to Hexadecimal</h3>
+<p style="font-size:medium; font-family:courier">1110011110010<sub>2</sub></p>
+<p>In order to use the Rule of Four, we must first break the number into groups of four bits.  Since there are 13 bits in the number we'll add zeros to the <strong>front</strong>.</p>
+
+<p style="font-size:medium; font-family:courier"><span style="color:red;"><strong>000</strong></span>1 1100 1111 0010<sub>2</sub></p>
+
+<p>Now we just have four smaller conversions to make.</p>
+
+<p>0001 is 1<br/>
+1100 is 12, which is C<br/>
+1111 is 15, which is F<br/>
+0010 is 2</p>
+
+<p>The resulting Hexadecimal number is 1CF2<sub>16</sub></p>
+
+
+
+
+
+</body>
+</html>

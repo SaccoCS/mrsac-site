@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Block Class</title>
+<style>
+h3,h2,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}</style>
+
+</head>
+
+<body>
+
+<h2>The Block Class</h2>
+<p>So far we have made the Location class so that we can encapsulate a row and 
+column together to represent a specific place in the grid.&nbsp; Now that we 
+have standardazied that, we are now going to focus on the next most basic 
+element of the game; the Block.&nbsp; Everything in the game is represented 
+using colorful blocks at specific locations in the grid.&nbsp; Each piece in 
+Tetris is made up of 4 Blocks, and every time a piece fully drops, the Blocks 
+remain in the grid while another piece is created.</p>
+<p>Create a class named Block, which as a Color and a Location as its two 
+instance fields.</p>
+<p>Block should have 2 constructors. One should take in a Color and assign it to 
+the instance field. The other should take in no parameters and assign a random 
+color to the instance field.<br />
+<br />
+Add the following methods:<br />
+public Color getColor()<br />
+public Location getLocation()<br />
+public void setLocation(Location loc)<br />
+public void setColor(Color col)<br />
+<br />
+Override the toString of Block to return a String that includes its Location and 
+Color. </p>
+<hr/>
+<h3>Testing:</h3>
+<p>Add the following tester method and run it:</p>
+<pre>public static void blockTester()
+{
+    Block b1 = new Block();
+    b1.setLocation(new Location(2,5));
+    
+    Block b2 = new Block(Color.RED);
+    b2.setLocation(new Location(-3,8));
+    
+    System.out.println(b1);
+    System.out.println(b2);
+}
+</pre>
+<p>The output should look similar to the following.&nbsp; The only real 
+difference you should expect is the first Block&#39;s color.&nbsp; It was 
+constructed using the default constructor, meaning the Color should be random.</p>
+<p>Block at Loc(2, 5) with Color[R:44 G:41 B:80]<br />
+Block at Loc(-2, 8) with Color[R:255 G:0 B:0]</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

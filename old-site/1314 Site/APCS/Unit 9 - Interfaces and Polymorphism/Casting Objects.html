@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Casting Objects</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Casting Objects</h2>
+<p>Polymorphism is useful, but there are some drawbacks.&nbsp; Once an object is 
+labeled as a different type, the methods that you can call are limited to the 
+type that it&#39;s labeled as.</p>
+<p>For example:&nbsp; The BankAccount class had many methods in it, such as 
+gainInterest, getName, and deposit.&nbsp; Since it implements the Measurable 
+interface it may be stored as a measurable.</p>
+<p class="auto-style1">Measurable myMeasure = new BankAccount(1500);</p>
+<p>Even though we&#39;ve constructed a specific type of Measurable object (a 
+BankAccount), it&#39;s being stored with a Measurable variable.&nbsp; According to 
+the compiler, there is only one thing that a Measurable can do, which is <strong>
+getMeasure</strong>.&nbsp; The following will not compile:</p>
+<p class="auto-style1">myMeasure.gainInterest();&nbsp; //doesn&#39;t compile</p>
+<p>Even though we know that myMeasure contains a BankAccount, which can 
+gainInterest, the Measurable variable is limited to what is defined by the 
+Measurable interface.</p>
+<p>The solution is Casting.&nbsp; If you have a Polymorphic variable that you&#39;re 
+sure is a certain type, you may use casting to force the variable to be a 
+certain type.</p>
+<p class="auto-style1">BankAccount myBank = (BankAccount)myMeasure;</p>
+<p>This will only work if the myMeasure variable deep down inside is a 
+BankAccount.&nbsp; You cannot just cast any object and hope to get away with it.&nbsp; 
+Now that the object is labeled as a BankAccount, it can do anything that a 
+BankAccount can do.</p>
+<p class="auto-style1">myBank.gainInterest();&nbsp; //compiles </p><hr>
+<p class="auto-style2"><strong>Casting with the Sorter</strong></p>
+<p>Copy the following in</p>
+<p>complete program into the same project as the Sorter 
+class you previously created.&nbsp;&nbsp;</p>
+<pre>public class CastingWithSorter
+{
+
+    //Prints out the initials of the 'lowest' name in an array
+    public static void initials()
+    {
+        String[] names = {"John McClain","Marty McFly","Andy Dufresne","Thomas Anderson", "Peter Parker", "Luke Skywalker", "Tyler Durden"};
+
+        //use Sorter's methods to find the lowest String in the array
+        String lowest = Sorter.findLowest(names);
+
+        //find and print the initials
+        int firstSpace = lowest.indexOf(" ");
+        String firstLetter = lowest.substring(0,1);
+        String secondLetter = lowest.substring(firstSpace+1,firstSpace+2);
+        String firstInits = firstLetter+"."+secondLetter+".";
+        System.out.println("The lowest initials in the list are "+firstInits);
+    }
+
+    //Calculates and prints out the area of the largest of 50 random Circles
+    public static void largestArea()
+    {
+        //Create an array of 50 random circle objects
+        Circle[] circles = new Circle[50];
+        for( int i =0 ; i &lt; circles.length; i++)
+        {
+            circles[i] = new Circle();
+        }
+
+        //Find the circle with the largest area and print it out
+
+    }
+
+    //Calculates and returns the range of 100 random doubles
+    public static void getRange()
+    {
+        //Create an array of 100 random Double objects
+        Double[] arr = new Double[100];
+        for( int i =0; i &lt; arr.length; i++)
+        {
+            arr[i] = new Double(Math.random()*100);
+        }
+
+        //Find the highest and the lowest values in the array
+        //extract the doubles out using the doubleValue method
+        //print out the range
+
+    }
+
+
+}</pre>
+<p>The first method is nearly complete, it relies heavily on the findLowest 
+method of the Sorter class.&nbsp; Compile the code and you&#39;ll see that there&#39;s a 
+problem.&nbsp; The following line has a type mismatch:</p>
+<p class="auto-style1">String lowest = Sorter.findLowest(names);</p>
+<p>The compiler says that it expected a String, but found a Comparable, and 
+since not every Comparable is guaranteed to be a String it will not compile.&nbsp; 
+The reason is that the return type of the findLowest method is a Comparable.</p>
+<p>The solution is casting.&nbsp; We as programmers know that we gave the method 
+an array of Strings&nbsp; and that the only thing that could be returned by the 
+findLowest method would be a String.&nbsp; Since we are 100% certain, let&#39;s 
+cast.&nbsp; Change the line of code like so:</p>
+<p class="auto-style1">String lowest = (String)Sorter.findLowest(names);</p>
+<p>Now the Comparable being returned by the findLowest method is being cast into 
+a String.&nbsp; This allows for the use of the substring and indexOf method for 
+use later in the program.</p>
+<p><strong>Assignment:<br />
+</strong>Complete the two other methods, which already have the code to create an 
+array.&nbsp; You just have to call the appropriate Sorter method, cast to the 
+correct type, and use the methods of that type to print out the result.</p>
+<p>The largest area of a Circle should be around 10,000 (assuming that you&#39;ve 
+appropriately randomized the radius from 30 to 60)</p>
+<p>The range should be a number in the 90&#39;s</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+
+
+</html>

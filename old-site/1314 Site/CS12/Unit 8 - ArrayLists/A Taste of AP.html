@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>A Taste of AP</title>
+<style type="text/css">
+p{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style1 {
+	text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Trying an AP Style Problem</h2>
+<p>&nbsp;When choosing their classes for the following year, students often ask what 
+the AP class is like.&nbsp; My response is usually that it mostly the same 
+things that Computer Science 1-2 does, it just goes faster and the problems are 
+more difficult.</p>
+<p>The AP test at the end of the year involves writing parts of four complex 
+problems.&nbsp; Today&#39;s program is directly from the 2009 AP test. If you 
+feel like AP might be a good class for you, try and attempt each of the problems 
+before looking at the strategy suggestions that I give.&nbsp; You are not 
+expected to get it perfectly on the first try; a passing score on the AP test is 
+under 50%.</p>
+<p>&nbsp;</p>
+<p>Read the 
+introduction below:</p>
+<p>
+<img src="images/img17.jpg" border="1" /></p>
+<p>This problem involved writing two methods that dealt with an int[] that 
+represented the rate table above.&nbsp; Start by copy and pasting the class 
+outline below:</p>
+<pre>public class BatteryCharger
+{
+
+    public static int getChargingCost(int startHour, int chargeTime)
+    {
+        int[] rateTable = {50,60,160,60,80,100,100,120,150,150,150,200,40,240,220,220,200,200,180,180,140,100,80,60};
+        
+        return 0;//dummy statement
+    }
+
+    
+    public static int getChargeStartTime(int chargeTime)
+    {
+        int[] rateTable = {50,60,160,60,80,100,100,120,150,150,150,200,40,240,220,220,200,200,180,180,140,100,80,60};
+
+        return 0;//dummy statement
+    }
+}</pre>
+<pre>&nbsp;</pre>
+<hr>
+<p><strong>Part A)</strong>&nbsp; The first method has the following description:</p>
+<p>
+<img src="images/img18.jpg" border="1" /></p>
+<p>Write the code for the getChargingCost method in your program.</p>
+<p>Strategy:&nbsp; This problem is all about looping through an array and 
+summing the values in it.&nbsp; The chargeTime tells you how many times to loop, 
+while the startHour tells you what index to start at.&nbsp; </p>
+<p>Before you start looping you will need two variables:&nbsp; one to represent 
+the sum and one to represent the index you&#39;re looking at, which should start at<strong> 
+startHour</strong>.</p>
+<p>Set up your loop to loop the number of times stored in the chargeTime variable.&nbsp; 
+Note:&nbsp; in this situation your looping variable is <span class="auto-style1">
+not</span> the index that you&#39;ll be looking at, so it&#39;s ok to start it at 0.</p>
+<p>Inside the loop your job is to take the value at <strong>index</strong> and 
+add it to your sum.&nbsp; After that, increase the index by 1 so that it 
+represents the next index.<br />
+-Problem:&nbsp; increasing the index may eventually take you out of bounds.&nbsp; 
+To fix this, add an if statement that will set index to 0 if it reaches 24.</p>
+<p>&nbsp;</p>
+<p>Test your program with using the table in the description.&nbsp; The first 
+two columns are the parameters to use, while the returned value is the Total 
+Cost column.</p>
+<p>&nbsp;</p>
+<hr>
+<p><strong>Part B)&nbsp;</strong> Read the description for the second method below:</p>
+<p>
+<img src="images/img19.jpg" border="1" /></p>
+<p>Strategy:&nbsp; This program seems very difficult to complete if you don&#39;t 
+realize that you have just created a method that will help you directly.&nbsp; 
+You will want to create variables to represent the &quot;lowest cost&quot; and the &quot;index 
+of the lowest cost&quot;.&nbsp; Once those are created, loop through every index of 
+the rate table and use the getChargingCost method to determine how much it costs 
+to start at that index.</p>
+<p>Strategy:&nbsp; This is a similar strategy as finding the smallest value in 
+an array except we&#39;re finding the lowest <strong>cost</strong>.</p>
+<p>We&#39;ll start by assuming that the lowest cose is at index 0.&nbsp; Start with 
+the following lines:<br />
+int lowCost = getChargingCost(0,chargeTime);<br />
+int lowInd = 0;</p>
+<p>From here your job is to loop through every index and calculate the charging 
+cost by calling the getChargingCost method.&nbsp; If you find that cost to be 
+less than <strong>lowCost</strong>, then you should replace the value of lowCost 
+and lowInd.</p>
+<p>In the end you will return lowInd</p>
+<p>Te<span class="auto-style1">s</span>t your program using the table in the 
+description.&nbsp; The first column is the parameter, and the Start Hour of 
+Charge should be returned.</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

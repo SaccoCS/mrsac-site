@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Accessing Multiple Elements</title>
+<style type="text/css">
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Accessing Multiple Elements</h2>
+<p>&nbsp;</p>
+<p>The standard traversing for loop only accesses one character at a time.&nbsp;&nbsp; </p>
+
+<pre> for(int i = 0; i&lt;str.length(); i++)
+{
+   String letter = str.substring(i, i+1);
+  
+}
+  </pre>
+
+<p>The int i is set up to represent every index in the String.&nbsp; The 
+substring is from i to i+1, which is a single character.</p>
+<p>&nbsp;</p>
+<p>Sometimes you need to access more than one element of a String in order to 
+complete a task.&nbsp; This is fine, you just need to do the following:</p>
+<p>1)&nbsp; Make the substring grab more letters:&nbsp; If you&#39;re trying to 
+access two letters at a time you may modify the substring to go from i to i+2, 
+three letters would be from i to i+3, etc.</p>
+<p>2) Shorten the Loop:&nbsp; If your loop involves accessing two letters at a 
+time, the boundary of the loop need to be modified so that you don&#39;t go out of 
+bounds.&nbsp; The problem occurs when i is the last index in the String.&nbsp; 
+The substring will try and access the character after i, but crash because it&#39;s 
+out of bounds.&nbsp; The solution is to simply shorten the loop.</p><pre>for( int i =0; i&lt;str.length()<span class="auto-style1"> - 1</span>; i++);</pre>
+<p>Subtracting one from the upper bound will mean that it stops one iteration 
+sooner, avoiding the crash.</p>
+<p>&nbsp;</p>
+<p><strong><span class="auto-style2">Example</span></strong>:</p>
+<p>Write a method that will count the number of times &quot;AP&quot; appears in the 
+parameter String:</p>
+<pre>public int apCount(String str)
+{
+   int count = 0;
+
+   for(int i =0; i&lt;str.length()<span class="auto-style1">-1</span>; i++)
+   {
+      String sub = str.substring(i,<span class="auto-style1">i+2</span>);
+
+      if(sub.equals("AP"))
+        count++;
+   }
+   return count;
+}</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

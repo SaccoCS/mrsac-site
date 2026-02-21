@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Platform and JumpMan</title>
+<style type="text/css">
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style7 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Platform and JumpMan</h2>
+<p class="auto-style4">
+<a href="https://dl.dropboxusercontent.com/u/7648734/1314%20Site/SaccoJar/javadocs/PaintBrush/sacco/PaintBrush.html">
+PaintBrush API</a></p>
+<p class="auto-style4">It&#39;s time to create two class that are going to do a little interacting with 
+each other on a SaccoObject.</p>
+<p class="auto-style5"><strong>The Platform class:</strong></p>
+<p class="auto-style4">The Platform class is going to be another class that represents a rectangle.</p>
+<p class="auto-style4">The only instance fields needed are ints for the x,y,width, and height of the 
+rectangle.</p>
+<p class="auto-style4">The constructor should take in four ints and assign them to the appropriate 
+instance fields.</p>
+<p class="auto-style4">Add a paintSelf method, which uses the x,y, width, and height to draw a 
+rectangle of a color of your choosing.</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style4">Add a method with the following header:</p>
+<p class="auto-style6">public BoundingBox getBounds()</p>
+<p class="auto-style4">This method will construct and return a new BoundingBox with the instance 
+fields instance fields of the platform.</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style4">Use the Runner below to test your program.&nbsp; It uses a SaccoObject to 
+place a platform on the bottom portion of the window.</p>
+<p>
+<img style="width:25%;"src="images/img16.jpg" /></p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td><pre>import sacco.*;
+
+public class JumpManWorld extends SaccoObject
+{   
+    private Platform plat;
+    
+    public JumpManWorld()
+    {
+        plat = new Platform(0,400,400,100);
+    }
+
+    public void paintWindow(PaintBrush brush)
+    {      
+        plat.paintSelf(brush);
+    }
+
+    public static void main()
+    {
+        JumpManWorld world = new JumpManWorld();
+        world.showWindow();
+    }
+}</pre></td>
+	</tr>
+</table>
+<p>&nbsp;</p><hr>
+
+<p class="auto-style5"><strong>The JumpMan class</strong></p>
+<p class="auto-style4">This class will be a little bit different than the Platform class, but have 
+some similar attributes.</p>
+<p><span class="auto-style4"><strong>Instance fields:</strong></span><br class="auto-style4" />
+<span class="auto-style4">doubles for x and y:&nbsp; Not ints.&nbsp; We are going to store the x and y as 
+doubles so that we can move it very slowly.</span><br class="auto-style4" />
+<span class="auto-style4">ints for width and height</span><br class="auto-style4" />
+<span class="auto-style4">doubles named fallSpeed and gravity</span><br class="auto-style4" />
+<span class="auto-style4">a Picture named myPic to represent the JumpMan</span></p>
+<p><span class="auto-style4"><strong>Constructor:</strong></span><br class="auto-style4" />
+<span class="auto-style4">The Constructor should take in an x and y and apply them to the x and y instance 
+fields.</span><br class="auto-style4" />
+<span class="auto-style4">The width and height should be set to 48 and 96</span><br class="auto-style4" />
+<span class="auto-style4">fallSpeed should be set to 0 and gravity should be set to 5</span></p>
+<p class="auto-style4">The Picture will be initialized with the following two lines:<pre><span class="auto-style6">myPic = Picture.loadFromJar("mariosprites.png").getSubPicture(112,16,16,32).resize(48,96);</span>
+<span class="auto-style6">myPic.flipHorizontal();</span></pre>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style4"><strong>Methods:<br />
+</strong>Add accessor methods getX(), getY(), getWidth(), and getHeight()</p>
+<p class="auto-style4">Add mutator methods setX( double tmpX),&nbsp; setY(double tmpY), and 
+setFallSpeed(double speed)</p>
+<p class="auto-style4">Add a paintSelf method that paints myPic at x,y.&nbsp; Since the x and y are 
+doubles, you will have to do some casting.</p>
+<p class="auto-style4">Add a getBounds method that is the same as the one in the Platform class. It 
+will also need casting.</p>
+<p class="auto-style4">&nbsp;</p>
+<p><span class="auto-style4">Go back to the JumpManWorld class.&nbsp; Add the JumpMan in the same way 
+that the Platform was added.</span><br class="auto-style4" />
+<span class="auto-style4">&nbsp;- Create an instance field</span><br class="auto-style4" />
+<span class="auto-style4">&nbsp;- Construct a new JumpMan at 50,50 (it&#39;s not that important.</span><br class="auto-style4" />
+<span class="auto-style4">&nbsp;- in the paintWIndow method, ask the JumpMan to paint itself</span></p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style4">Before moving on, test the program to make sure that the image appears on the 
+same sindow as the platform.</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style5"><strong>Moving the JumpMan:</strong></p>
+<p class="auto-style4">In order to test out this project fully, we&#39;re going to need to have some 
+control over where the JumpMan is positioned.&nbsp; Go to the SaccoObject and 
+override the onMousePress method:</p>
+<p class="auto-style6">public void onMousePress(MouseEvent m)</p>
+<p class="auto-style4">We essentially want to move the JumpMan to the location that the mouse is 
+clicked.&nbsp; Extract the mouse&#39;s x and y and use it to set the x and y of the 
+JumpMan.&nbsp;<strong> Also, set the fallSpeed of the JumpMan to 0</strong>.&nbsp; This is an 
+important step for later.</p>
+<p class="auto-style4">Test your program out by running it and clicking around to make sure that the 
+JumpMan is moved when you click.&nbsp; It&#39;s alright that it&#39;s just the upper 
+left corner, this function does not need to be pretty.</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style5"><strong>Falling JumpMan:</strong></p>
+<p><span class="auto-style2"><span class="auto-style3">Right now the JumpMan stays exactly where you click.&nbsp; We want to 
+simulate some gravity for JumpMan.&nbsp; Add to the JumpMan class a method named
+</span>
+<strong><span class="auto-style3">fall</span></strong><span class="auto-style3">, which takes in no parameters and does two things.</span></span><br class="auto-style4" />
+<span class="auto-style4">1)&nbsp; Adds fallSpeed to the y coordinate.&nbsp; This will cause the JumpMan 
+to move down the screen.</span><br class="auto-style4" />
+<span class="auto-style2"><span class="auto-style3">2)&nbsp; According to science, when you fall your speed increases due to 
+gravity.&nbsp; You should also increase the fallSpeed variable by the gravity 
+variable.&nbsp; This means that the next time that </span> <strong>
+<span class="auto-style3">fall()</span></strong><span class="auto-style3"> is 
+called, the fallSpeed will be a little larger.</span></span></p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style4">Go to the SaccoObject.&nbsp; Now that the fall method is in place, we just 
+need to call it using a timer.&nbsp; Override the onTimerTick method:</p>
+<p class="auto-style6">public void onTimerTick()</p>
+<p class="auto-style4">For now, inside this method you should simply call the JumpMan&#39;s fall method.</p>
+<p class="auto-style4">The timer won&#39;t start cycling until you tell the SaccoObject to start.&nbsp; 
+Go to the main method and call the start method just after the showWindow 
+method.</p>
+<p class="auto-style4">Test out your program.&nbsp; Now when you click the JumpMan should fall down 
+the screen.&nbsp; He will fall completely out of sight, but you can get him back 
+by clicking on the window.</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style5"><strong>Collision:</strong></p>
+<p><span class="auto-style4">Now it&#39;s time to put our BoundingBoxes to work.&nbsp; Currently the 
+onTimerTick method just tells the JumpMan to fall.&nbsp; After that you need to 
+add code that will:</span><br class="auto-style4" />
+<span class="auto-style4">- Check to see if calling fall caused the JumpMan to overlap the Platform</span><br class="auto-style4" />
+<span class="auto-style4">- if it did, move the JumpMan so that he&#39;s standing on 
+top of the Platform</span><br class="auto-style4" />
+<span class="auto-style4">-set the JumpMan&#39;s fallSpeed to 0</span><br class="auto-style4" />
+<br class="auto-style4" />
+<span class="auto-style4">The important thing is that you use the getBounds method to get the BoundingBox 
+out of both the JumpMan and the Platform.&nbsp; Then you can use the overlaps 
+method to determine if they overlap each other.&nbsp; When setting the y of the 
+JumpMan, use the Platform&#39;s BoundinBox to get the y of the Platform, and don&#39;t forget to accommodate for 
+the JumpMan&#39;s height.</span></p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style4">Test out the program!&nbsp; Hopefully when the JumpMan 
+lands on the Platform he sticks to it.</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style5"><strong>Making the JumpMan Jump:</strong></p>
+<p class="auto-style4">Now that we&#39;ve got a JumpMan that will land on our 
+platform, it&#39;s time to give him a little bit of action.</p>
+<p class="auto-style4">Add to the JumpMan class a method named jump().&nbsp; 
+This method should simply set the fallSpeed to a negative number.&nbsp; For now 
+set it to -40, but you can go back later if he&#39;s not jumping high enough.&nbsp; 
+Don&#39;t be afraid to set the fallSpeed to a negative, since gravity is constantly 
+being added to the fallSpeed, it will be a positive number in no time.</p>
+<p class="auto-style4">Now it&#39;s time to make the JumpMan jump on command.&nbsp; 
+To do this we&#39;ll override a new method of the SaccoObject class</p>
+<p class="auto-style6">public void onKeyPress(int keyCode)</p>
+<p class="auto-style4">Similar to the onMousePress method, this method is called 
+every time that a key is pressed on the keyboard.&nbsp; The way that you can 
+tell which key is pressed is encoded in the int that&#39;s passed along.&nbsp; Each 
+key gets it&#39;s own keyCode.</p>
+<p class="auto-style4">The keyCode for the the up arrow is 38.&nbsp; Use an if 
+statement to call the JumpMan&#39;s jump method if the up arrow was pressed.</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style2"><span class="auto-style3">Test it out!&nbsp; Put the 
+JumpMan on the Platform and hit the up arrow.&nbsp; Hopefully he does some 
+jumping.&nbsp; You can tweak the JumpMan&#39;s </span><strong>
+<span class="auto-style3">gravity</span></strong><span class="auto-style3"> 
+field to make his fall increase faseter and you can modify the jump method to 
+make his initial jump higher.</span></p>
+<p class="auto-style4">This is not a perfect jumping system.&nbsp; You&#39;ll notice 
+that when you hold down the up arrow the JumpMan will keep jumping.&nbsp; For 
+now we&#39;ll call this a feature of the game.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

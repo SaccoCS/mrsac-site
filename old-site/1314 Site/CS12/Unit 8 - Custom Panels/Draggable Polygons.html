@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Draggable Polygons</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+</style>
+</head>
+
+<body>
+
+<p>Draggable Polygons</p>
+<p>Copy the following class file to your project:</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class PolyDragger extends SCanvas
+{
+    private Polygon myPoly;
+
+    public PolyDragger()
+    {
+        myPoly = new Polygon();
+    }
+
+    public void paintCanvas(PaintBrush brush)
+    {
+        brush.setColor(Color.RED);
+        brush.fillPolygon(myPoly);
+    }
+
+    public void onMousePress(MouseEvent m)
+    {
+        int mX = m.getX();
+        int mY = m.getY();
+
+        if( m.getButton() == 1)
+            myPoly.addPoint(mX,mY);
+
+        if(m.getButton() == 2)
+            myPoly.reset();
+    }
+
+    public static void main()
+    {
+        SFrame frame = new SFrame();
+        frame.add(new PolyDragger());
+        frame.setSize(500,500);
+        frame.setVisible(true);
+    }
+}</pre>
+<p>If you run the program you&#39;ll see that left clicking will help create a 
+Polygon, like before; and pressing down on the mouse wheel will reset the 
+Polygon.</p>
+<p>Our goal is to be able to click and drag the Polygon around using the right 
+mouse button.</p>
+<p>&nbsp;</p>
+<p>1)&nbsp; Detecting the mouse presses: Add a boolean as an instance field 
+named drag.&nbsp; The purpose of this boolean is to represent whether or not the 
+Polygon is currently being dragged or not.&nbsp; For now, let&#39;s assume that any 
+time the right button is pressed the Polygon should be dragged.</p>
+<p>Go to the onMousePress method and make sure that when the right button is 
+clicked, the drag variable is set to true.&nbsp; Then add an onMouseRelease 
+method that will simply set it back to false.</p>
+<p>&nbsp;</p>
+<p>2)&nbsp; Determining how much the mouse moves:&nbsp; Add two ints as instance 
+field to represent the old x values and the old y values.&nbsp; Similar to how 
+you did in the Scribbler program, add an onMouseMove method.&nbsp; The very last 
+thing that the onMouseMove method should do is to set the old x and old y to 
+m.getX() and m.getY().&nbsp; This is so that the next time the onMouseMove 
+method is called we can still tell where the mouse was the <strong>last</strong> 
+time that it was called.&nbsp; Make sure that this always remains the last thing 
+that this method does.</p>
+<p>These variables are important because we need to know how far the mouse has 
+moved.&nbsp; At the beginning of the onMouseMove method, create two variables 
+named difX and difY, which will hold the difference between the <strong>current</strong> 
+x and y, and the <strong>old</strong> x and y.</p>
+<p>&nbsp;</p>
+<p>3)&nbsp; Moving the Polygon:&nbsp; The Polygon class has a method built into 
+it that will move all of its points by however much you want.&nbsp; If you said 
+myPoly.translate(5,23); then the polygon would move to the right 5 pixels and 
+down 23 pixels.&nbsp; In the onMouseMove method, if the drag variable is true, 
+call the Polygon&#39;s translate method and pass in the difference in x and y that 
+you calculated earlier.&nbsp; This means that for every little bit that the 
+mouse moves, the polygon will move by the same amount.</p>
+<p>4) Test the drag: Run the program.&nbsp; Use the left click to create a 
+polygon, and then try and drag it with the right mouse button.&nbsp; At the 
+moment it shouldn&#39;t matter where you click, the shape should move as long as 
+you&#39;re dragging.</p>
+<p>5)&nbsp; Only drag when you click the Polygon:&nbsp; It&#39;s classier for the 
+Polygon to only be dragged if the initial mouse press is actually on the shape 
+itself.&nbsp; The math can be tricky when trying to figure out if a specific x 
+and y are within the boundaries, but luckily there is a method in Polygon that 
+will do it all for you.&nbsp; In the onMousePress method, change the if 
+statement that sets the drag variable to true to also check and see if 
+myPoly.contains(m.getX(),m.getY()) is true also.</p>
+<p>Run the program one more time and this time make sure that when you right 
+click the shape only moves if you&#39;re clicking on it.</p>
+<p>&nbsp;</p>
+<hr/>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

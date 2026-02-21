@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>SuitRemover</title>
+
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">SuitRemover</h2>
+<p>Create a class named SuitRemoverBoard, which extends CardBoard.</p>
+<p>Add a method with the following header:</p>
+<pre>public void onKeyPress(int keyCode)</pre>
+
+<p>We haven&#39;t used this method for a while, but this is the method that will be 
+called when a keyboard key is pressed down.&nbsp; The parameter is the key code 
+that represents the key that has been pressed.&nbsp; For example:&nbsp; The 
+spacebar is 32 and Enter is 10.</p>
+<p>In the onKeyPress method, use if statements to determine if the key pressed 
+was either a C, D, H, or S (keycodes 67,68,72, and 83).&nbsp; Once you know it 
+was one of the four of those, loop through the ArrayList and remove any card 
+with the matching suit.</p>
+<p>
+<img height="188" src="images/imgA.jpg" style="-webkit-user-select: none; cursor: -webkit-zoom-out;" width="816" /></p>
+<p>&nbsp;</p>
+<pre>public static void removerRunner()
+{
+    SuitRemoverBoard sr = new SuitRemoverBoard();
+    sr.setTitle("Suit Remover");
+    sr.launch();
+}
+</pre><hr>
+<p><strong>Common Error:</strong></p>
+<p>When you are both looping and removing elements from a list you have to be 
+very careful.&nbsp; It is common to accidentally skip an element when you remove 
+another one.&nbsp; This is because when you remove elements the other elements 
+shift to fill the gap.&nbsp; </p>
+<p>For example:&nbsp; If I was removing Clubs from the list below:</p>
+<p>Two of Diamonds, Three of Clubs, Ace of Spades, Six of Diamonds</p>
+<p>As my loop&#39;s <strong>i</strong> variable hit 1, I would remove the Three of 
+Clubs and increment <strong>i</strong> to 2.&nbsp; The problem is that when the 
+Three was removed, the Ace slid into index 1.&nbsp; The loop did not take this 
+into consideration and incremented right past the Ace.</p>
+<p>This can cause you to skip elements when removing:</p>
+<p>
+<img height="188" src="images/imgC.jpg" style="-webkit-user-select: none; cursor: -webkit-zoom-out;" width="816" /></p>
+<p>How to fix this:</p>
+<p>1)&nbsp; Add an i-- every time you remove something from the loop.&nbsp; This 
+will counteract the automatic i++ and cause it to stay at this index until it 
+finds an element it doesn&#39;t want to remove.</p>
+<p><strong>OR</strong></p>
+<p>2)&nbsp; Loop backwards.&nbsp; Since removing only affects the element after 
+the removed index, looping backwards means that we&#39;ve already checked the 
+elements that are moving around.&nbsp; </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Humans</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Humans</h2>
+<p>The following project involves extending simple classes and dealing with the 
+inheritance hierarchy.&nbsp; This is the project that is closest to how the test 
+will look.</p>
+<p><img border="1" src="images/img14.jpg" /></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><strong>Human:</strong></p>
+<p>Life as a human is much about the quest for happiness; and we define our 
+happiness in different ways depending on the situation that we&#39;re in.&nbsp; 
+Start by creating a class named Human:</p>
+<p>- A human should have a single instance field for the name of the Human.<br />
+- The constructor for Human should take in one String and assign it to the 
+instance field<br />
+- Add the basic methods getName and setName, which do the usual</p>
+<p>Deep down inside we all have an idea of whether or not we&#39;re happy.&nbsp; Add 
+a method with the following header:</p>
+<pre>public abstract boolean isHappy();</pre>
+<p><strong>Why abstract?</strong></p>
+<p>Human is a very general class.&nbsp; It only really knows the name of the 
+Human.&nbsp; This is not enough to tell if this Human is happy or not (unless 
+the name is Sacco).&nbsp; We 
+are adding the method because it is one the every single Human should have.&nbsp; 
+Making it abstract forces each Human to decide whether or not they&#39;re happy.</p>
+<p>Compile the program, you&#39;ll see that the compiler is angry about the abstract 
+method.&nbsp; This is because when you have an abstract method, the class itself 
+must be declared abstract.&nbsp; Change the class header to public abstract 
+class Human.&nbsp; It should now compile.</p>
+<p>&nbsp;</p><hr>
+
+<p class="auto-style1"><strong>Student</strong></p>
+<p>Create a class named Student that is a subclass of Human.&nbsp; </p>
+<p>- At the Student level there should be instance fields for the grade level of 
+the Student(int) and the GPA of the student(double).<br />
+- The constructor for Student should take in a name and a grade level for the 
+student.&nbsp; The GPA will remain 0.<br />
+- Add the methods getGPA, getGradeLevel, and setGPA.</p>
+<p>- Add a toString method that will return a String that includes the 
+Student&#39;s name, their grade level, and if they&#39;re happy or unhappy.&nbsp; For 
+example:&nbsp; &quot;Steve: Grade 12: Happy&quot;.  You will not get credit for printing out true/false instead of Happy/UnHappy .</p>
+<p>Note:&nbsp; At this level we are not defining the isHappy method, but that 
+doesn&#39;t mean that we can&#39;t call it.  It may feel weird to call an abstract method because it has no code, but remember that Student is not the final object.  The two subclasses are required to provide this method, so by the time the toString is actually called, there will be runnable code in it. </p>
+<p>Compile the program.&nbsp; Once again the compiler is angry.&nbsp; We&#39;ve 
+inherited the abstract method isHapy and we haven&#39;t done anything about it.&nbsp; 
+We are still not ready to define isHappy, so declare the Student class to be 
+abstract.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>Freshman</strong></p>
+<p>Create a class named Freshman, which is a subclass of Student.&nbsp; </p>
+<p>- A Freshman is very simple.&nbsp; There are no new instance fields.<br />
+- Add a constructor that takes in just a String for the name.<br />
+- We want Freshman to be a complete class, so override the isHappy method.&nbsp; 
+A Freshman is so low on the totem pole that isHappy should always return false.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>Senior</strong></p>
+<p>Create a class named Senior, which is a subclass of Student</p>
+<p>- A Senior should have a boolean as an instance field to tell if they have 
+Senioritis or not (boolean)<br />
+- Add a constructor that takes in just a String for the name.&nbsp; The 
+senioritis field should default to false (sometimes it takes a few months)<br />
+- Add a setSenioritis method, which takes in a boolean and assigns it to the 
+senioritis field.<br />
+- We want Senior to be a complete class, so override the isHappy method.&nbsp; A 
+Senior with Senioritis is always happy (for now), while a Senior without 
+Senioritis is happy if their GPA is 3.5 or greater.</p>
+<p>&nbsp;</p>
+<p>Test out your program so far with the following method:</p>
+<pre>public static void studentTester()
+{
+   Freshman f1 = new Freshman("George");
+   Freshman f2 = new Freshman("Helen");
+   Senior s1 = new Senior("Isaac");
+   Senior s2 = new Senior("Jennifer");
+   Senior s3 = new Senior("Kelly");
+
+   s1.setSenioritis(true);
+   
+   s3.setGPA(3.83);
+
+   System.out.println(f1);
+   System.out.println(f2);
+   System.out.println(s1);
+   System.out.println(s2);
+   System.out.println(s3);
+}</pre>
+<p>The output should look similar to the following (depending on your toString 
+in Student):</p>
+<p>George: Grade 9: Unhappy<br />
+Helen: Grade 9: Unhappy<br />
+Isaac: Grade 12: Happy<br />
+Jennifer: Grade 12: Unhappy <br />
+Kelly: Grade 12: Happy</p>
+<hr>
+<p class="auto-style1"><strong>Worker</strong></p>
+<p>Create a class named Worker, which is a subclass of Human</p>
+<p>- A Worker should have instance fields to represent the number of hours that 
+they&#39;ve worked this week<br />
+- Worker&#39;s constructor should take in a String for the name of the Worker.&nbsp; 
+The number of hours should be set to 0.<br />
+- Add a getHoursWorked method, as well as a method named <strong>work</strong>, 
+which takes in a double and adds it to the number of hours that the Worker has 
+worked.</p>
+<p>- Override the isHappy method.&nbsp; A Worker is happy if they&#39;ve worked at 
+most 40 hours.</p>
+<p>Workers get paid differently according to their situation.&nbsp; Add a method 
+with the following header:</p>
+<p>public abstract double computePay();</p>
+<p>Every Worker will have to override this method to determine how much they get 
+paid this week.&nbsp; Declare Worker as an abstract class to appease the 
+compiler.</p>
+<p>Add a toString method that will include the Worker&#39;s name, the number of 
+hours they&#39;ve worked, the pay that they&#39;ve earned and if they&#39;re happy or not.&nbsp; 
+For example<br />
+&quot;Steve has worked 40 hours this week and earned 950.&nbsp; He is happy.</p>
+<p>Hint:&nbsp; Even though the computePay method is abstract/incomplete you may 
+use it as if it isn&#39;t.&nbsp; This toString will be inherited by a class that has 
+filled in the method.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>SalariedWorker</strong></p>
+<p>Create a class named SalariedWorker, which is a subclass of Worker.</p>
+<p>- A SalariedWorker should have a double as an instance field to represent 
+thier weekly salary.<br />
+- The Constructor for SalariedWorker should take in a String for the name and a 
+double for the weekly salary.<br />
+- Add a getWeeklySalary method<br />
+- Override the computePay method.&nbsp; For SalariedWorkers it&#39;s simple because 
+their pay is independent of time worked; computePay should just return the 
+weekly salary.</p>
+<p>Test it out with the following method:</p>
+<pre>public static void salaryTester()
+{
+   SalariedWorker sw1 = new SalariedWorker("David", 1000);
+   SalariedWorker sw2 = new SalariedWorker("Elizabeth", 1500);
+   SalariedWorker sw3 = new SalariedWorker("Frances", 700);
+   sw1.work(32);
+   sw2.work(40);
+   sw3.work(48);
+        
+   System.out.println(sw1);
+   System.out.println(sw2);
+   System.out.println(sw3);
+}
+</pre>
+<p>Your output should look similar to the following:</p>
+<p>Worker David has worked 32.0 hours this week and earned 1000.0: Happy<br />
+Worker Elizabeth has worked 40.0 hours this week and earned 1500.0: Happy<br />
+Worker Frances has worked 48.0 hours this week and earned 700.0: Unhappy<br />
+</p><hr>
+<p class="auto-style1"><strong>HourlyWorker</strong></p>
+<p>Create a class named HourlyWorker, which is a subclass of Worker</p>
+<p>- An HourlyWorker should have a double as an instance field to represent 
+their hourly wage<br />
+- The Constructor for HourlyWorker should take in a String for the name and a 
+double for the hourly wage.<br />
+- add a getHourlyWage method</p>
+<p>-&nbsp; Override the computePay method according to the following rules:<br />
+&nbsp;&nbsp; -for the first 40 hours, the HourlyWorker earns their hourly wage 
+times the number of hours they&#39;ve worked.&nbsp; For any time after that, they 
+earn 1.5 times their hourly wage.</p>
+<p>Test it out with the following method:</p>
+<pre>public static void hourlyTester()
+{
+   HourlyWorker hw1 = new HourlyWorker("Anna", 10.25);
+   HourlyWorker hw2 = new HourlyWorker("Brian", 15.00);
+   HourlyWorker hw3 = new HourlyWorker("Carol", 9.50);
+   hw1.work(32);
+   hw2.work(40);
+   hw3.work(48);
+        
+   System.out.println(hw1);
+   System.out.println(hw2);
+   System.out.println(hw3);
+}</pre>
+<p>The output should look similar to the following:</p>
+<p>Worker Anna has worked 32.0 hours this week and earned 328.0: Happy<br />
+Worker Brian has worked 40.0 hours this week and earned 600.0: Happy<br />
+Worker Carol has worked 48.0 hours this week and earned 494.0: Unhappy<br />
+</p>
+</body>
+
+</html>

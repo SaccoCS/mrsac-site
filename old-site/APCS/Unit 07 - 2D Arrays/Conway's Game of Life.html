@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Conway&#39;s Game of Life</title>
+<style type="text/css">
+.auto-style1 {
+	border-style: solid;
+	border-width: 1px;
+}
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style6 {
+	text-align: center;
+}
+.auto-style7 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style3">Conway&#39;s Game of Life</p>
+<p class="auto-style2">Conway’s Game of Life is an organism simulation “game” 
+from as far back as the 1970’s that was meant to show how simple rules can cause 
+complex effects when done on a large scale. To start, various locations ( or “cells” ) in an 
+empty grid are “populated”. When the grid is told to Step, each cell either 
+lives or dies according to how many nearby cells are populated.</p>
+<p class="auto-style2"><a href="http://www.youtube.com/watch?v=CgOcEZinQ2I">
+Watch a video explanation...&nbsp; at home I guess.</a></p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td><span class="auto-style4"><strong>The Rules:</strong></span><br class="auto-style2" />
+		<br class="auto-style2" />
+		<span class="auto-style2"><strong>Populated Squares (locations that hold 
+		a value of true):</strong></span><br class="auto-style2" />
+		<span class="auto-style2">Each cell with one or no neighbors dies of 
+		loneliness.</span><br class="auto-style2" />
+		<span class="auto-style2">Each cell with four or more neighbors dies of 
+		overpopulation</span><br class="auto-style2" />
+		<span class="auto-style2">Each cell with two or three neighbors survives 
+		to see the next step.</span><br class="auto-style2" />
+		<br class="auto-style2" />
+		<span class="auto-style2"><strong>Unpopulated Squares (locations that 
+		hold a value of false):</strong></span><br class="auto-style2" />
+		<span class="auto-style2">Each cell with three neighbors becomes 
+		populated.</span></td>
+	</tr>
+</table>
+<p><span class="auto-style2">While it is not a normal game, many people look for 
+patterns that can stay alive for as many generations as possible. </span>
+<br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2"><a href="http://www.bitstorm.org/gameoflife/">Play an 
+online version here</a></span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">make sure to check out the premade shapes, such as :</span></p>
+<table style="width: 34%; height: 100px">
+	<tr>
+		<td class="auto-style6" style="width: 159px" valign="top">The Glider<br />
+		<img border="0" height="64" src="images/image001.png" v:shapes="Picture_x0020_1" width="54" /></td>
+		<td class="auto-style6" style="width: 232px" valign="top">The Exploder<br />
+		<img border="0" height="72" src="images/image002.png" v:shapes="Picture_x0020_2" width="73" /></td>
+	</tr>
+</table>
+<hr>
+<p><span class="auto-style5">Assignment:</span><br class="auto-style2" />
+<span class="auto-style2">Your job is to create an Object that will manage all 
+of the cells in a 2 dimensional boolean array ( true means populated, false 
+means unpopulated ).</span></p>
+<p>Create a class named LifeModel which has a 2D boolean array as its instance 
+fields.&nbsp; In order for your class to compile you must implement the 
+following interface<span class="auto-style7"><strong> </strong></span>
+</p>
+<p><span class="auto-style7"><strong> (DO NOT PUT THIS INTO YOUR 
+PROJECT)</strong></span><br class="auto-style2" />
+</p>
+<pre>public interface GameOfLife
+{
+   //replaces the instance field with the given array
+   public void setVals(boolean[][] arr);
+
+   //returns the value at the given row and column
+   public boolean getValAt(int r,int c);
+
+   //sets the value at the given row and column
+   public void setValAt(int r, int c, boolean val);
+
+   //toggles the value at the given row and column to its opposite
+   public void toggle(int r, int c);
+
+   //returns the number of rows that the grid has
+   public int numRows();
+
+   //returns the number of columns that the grid has
+   public int numCols();
+
+   //sets all values in the grid to false
+   public void reset();
+
+   //returns the number of neighbors surrounding the given row and column
+   public int numOfNeighbors(int r, int c);
+
+   //The core method.  Uses numOfNeighbors to determine which cells live or die
+   public void step();
+}</pre>
+<p><strong>Extras to add:</strong></p>
+<p>1)&nbsp; When you implement an interface, the constructor is up to you.&nbsp; For our 
+purposes, write a default constructor that will set up an array with 40 rows and 
+50 columns.</p>
+<p>2)&nbsp; In order to connect your object to my runner, add the following method to 
+your LifeModel class:</p>
+<pre>public static void main()
+{
+   LifeModel model = new LifeModel();
+   GameOfLifeRunner.launchGame(model);
+}</pre>
+<p><span class="auto-style2">The Runner does little more than translate your 
+instance field into a visual form. The buttons simply call the methods that you’re 
+writing.</span><br class="auto-style2" />
+<span class="auto-style2">When the <strong>Step</strong> button is pressed, your 
+step method is called.</span><br class="auto-style2" />
+<span class="auto-style2">When the <strong>Start</strong> button is pressed, 
+your step method is called repeatedly.</span><br class="auto-style2" />
+<span class="auto-style2">When the <strong>Reset</strong> button is pressed, 
+your reset method is called.</span><br class="auto-style2" />
+</p>
+<hr>
+<p><span class="auto-style4">Tips for programming:</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style4"><strong>numOfNeighbors:</strong></span><br class="auto-style2" />
+<span class="auto-style2">It is common for people to try and use 8 different if 
+statements to check each box around r, c. This can get pretty ugly, so instead 
+use a for loop to loop through all the combinations of rows and columns starting 
+r-1,c-1 and going to r+1,c+1. </span><br class="auto-style2" />
+<br class="auto-style2" />
+<img alt="" src="images/img8.gif" /><br class="auto-style2" />
+<span class="auto-style2">Inside the loop you’re going to want a big if 
+statement to see if the box that you’re looking for is:</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">a. Occupied</span><br class="auto-style2" />
+<span class="auto-style2">b. Inside the boundaries of the 2D array (this needs 
+four statements, one for each boundary)</span><br class="auto-style2" />
+<span class="auto-style2">c. Not the center cell (r,c), because it doesn’t count 
+as a neighbor to itself. Only adjacent cells do.</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">If you use one big if statement to check all of these, 
+make sure to use short circuit evaluation to make sure that the cell is within 
+the boundary <strong>before</strong> you try to access that cell. The other way will give you an 
+array index out of bounds exception.</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style4">Test your numOfNeighbors method by right-clicking on a 
+square in the runner.&nbsp; A window will pop up with the value it returns.&nbsp; 
+If it freezes, you probably have an infinite loop.&nbsp; Make sure to click in 
+the four corners to test for out of bounds.</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;<br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style4"><strong>step:</strong></span></p>
+<p>Loop through every location, determing the number of neighbors and use
+<strong>The Rules</strong> to determine if the new value should be true or 
+false.<br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">· Do not update the array that you’re currently 
+looping through, this will add neighbors to locations that previously didn’t. 
+Instead, create an empty temporary array of the same size to put all of your 
+results into. At the end of the method, put the temporary array into the 
+instance field.</span><br class="auto-style2" />
+<span class="auto-style2">· The numOfNeighbors method is a helper method. Use it 
+in your step method to do calculations for you.</span><br class="auto-style2" />
+<span class="auto-style2">· Don’t forget that there are different rules for 
+occupied vs unoccupied spaces.</span></p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

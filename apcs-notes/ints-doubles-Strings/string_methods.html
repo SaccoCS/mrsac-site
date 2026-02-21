@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>String Methods</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>String Methods</h2>
+					<p>Strings are one of the very first objects that we're going to get acquainted with.  They not only are able to store all the characters that we give them, they also have a lot of methods that are useful for making changes and generating new Strings.</p>
+					<h4>Object Methods are Called Using the Variable</h4>
+					<p>One important difference between static methods and object methods is that when calling the object methods, you ask the individual object to do the work, not the class.  For example, Strings have a <span class = "code">length</span> method that returns the length of a String.  Look at the following code, which calls the length method in two different ways.</p>
+					<div class = "code-block">
+						<p>String firstName = "Ian";<br/>
+						String lastName = "Sacco";<br/>
+						System.out.println(  <span style = "color:#a00">String</span>.length());<span style = "color:#a00"> // <-- Will not compile<br/></span>
+						System.out.println(  <span style = "color:#a00">lastName</span>.length() );</p>
+					</div>
+					<p style = "clear:left">Try to think of <strong>why</strong> the first println doesn't make sense.  It's asking for the length of a String, but which one?  Since the method takes in no parameters, there is no way that we can tell which String the programmer wants to know the length of.  The second line, however, is asking the String stored in the lastName variable to do the work. Since lastName knows that it holds a String of "Sacco", it can tell me that its length is 5.</p>
+				</div>
+				<div class = "note-div">
+					<h3>String Method Headers for Reference</h3>
+					<div class = "code-block">
+						<p>public int length()</br>
+						<p>public String toUpperCase()</br>
+						<p>public String toLowerCase()</br>
+						<p>public String substring(int start, int end)</br>
+						<p>public String substring(int start);</br>
+						<p>public int indexOf(String toFind)</br></p>
+					</div>
+					<p style = "clear:left"></p>
+				
+				</div>
+				
+				<div class = "note-div">
+					<h3>toUpperCase and toLowerCase</h3>
+					<p class = "code">public String toUpperCase()<br/>public String toLowerCase()</p>
+					<p>The purpose of the toUpperCase/toLowerCase method is to generate a String that is the all upper or lower case version of the original String.</p>
+					<div>
+						<div class = "code-block" style = "border: 1px solid #aaa">
+							<p>String str = "Hello World!!!";<br/>
+							String upperStr = str.toUpperCase();<br/>
+							String lowerStr = str.toLowerCase();</br>
+							System.out.println("Original: "+str);</br>
+							System.out.println("UPPER: "+upperStr);</br>
+							System.out.println("lower: "+lowerStr);</p>
+						</div>
+						<div class = "half-div-right">
+						<p > <span style ="color:black">Output:</span><br/>
+						Original: Hello World!!!<br/>
+						UPPER: HELLO WORLD!!!<br/>
+						lower: hello world!!!</p>
+						</div>
+						
+						
+					</div>
+					<p style = "clear:left"></br>Notice that the original String is not affected by calling either method.  Strings are <strong>immutable</strong>, meaning they can only generate new Strings, never modify the existing one.</p>
+				</div>
+				
+				
+				<div class = "note-div">
+					<h3>length</h3>
+					<p class = "code">public int length()</p>
+					<p>The length method is useful for telling how long a String is.</p>
+					<div>
+						<div class = "code-block" style = "border: 1px solid #aaa">
+							<p>String str = "Mr. Sacco";<br/>
+							int len = str.length();</br>
+							System.out.println(str " has a length of " + len);</p>
+						</div>
+						<div class = "half-div-right">
+						<p > <span style ="color:black">Output:</span><br/>
+						Mr. Sacco has a length of 9
+						</div>
+						
+						
+					</div>
+					<p style = "clear:left"></br>Notice that the length of a String includes the punctuatinos and spaces.  They count as characters in the String even though they aren't letters.</p>
+					
+					<hr/>
+					<h4>length vs index</h4>
+					<p>Inside of a String, every location has an index assosciated with it.</p>
+					<table style = "padding: 0px 29px">
+						<tr><td>S</td><td>a</td><td>c</td><td>c</td><td>o</td></tr>
+						<tr class = "code" style = "font-size:12px" ><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+					</table>
+					<p>It is important that you remember that the labeling for indices starts at 0.  It is an efficient way of labeling, but causes some problems for some people who are casual.  Many students who are told that the length of a String is 5 would could assume that the first character is at index 1 and the last is at index 5.  In reality, the first character is at 0 and the last index is at 4.</p>  
+					<p>Assuming that the length of a String represents an index is a common error and can cause crashes. </p>
+					<p><strong>Remember: The last index is always one less than the length.</strong></p>
+				</div>
+				
+				<div class = "note-div">
+				
+					<h3>substring</h3>
+					<p class = "code">public String substring(int start, int end)</p>
+					<p>The substring method is frequently used in String manipulation when you want to 'chop' off a piece of a String. The parameters that you need to provide are the starting and stopping indices of the String.  For example, if the String str contains the String "Sacco" and the substring method was called with a starting index of 1 and an ending index of 4.</p>
+					
+					<div class = "code-block" style = "padding-right:30px">
+						<p>String str = "Sacco";<br/>
+						String sub = str.substring(<span style = "color:#a00">1,4</span>);</p>
+					</div>
+					<table style = "padding: 5px 10px; border:1px solid #a00">
+						<tr><td>S</td><td>a</td><td>c</td><td>c</td><td>o</td></tr>
+						<tr class = "code" style = "font-size:12px; valign:top;" ><td>0</td><td><span style ="color:#a00; font-size:14px">1</span></td><td>2</td><td>3</td><td><span style ="color:#a00; font-size:14px">4</span></td></tr>
+					</table>
+					<p style = "clear:left">The value of sub would be "<span class = "code" style = "font-size:18px; color:#a00">acc</span>" after the code above runs.</p>
+					<p style = "clear:left"><strong><span style ="color:#a00">Warning:</span></strong> Notice that "Sacco" has an "o" at index 4, but it is not a part of the substring, even though the method call put 4 as the ending index.  When using the substring method, the ending index will <strong>not</strong> be included.  It seems strange, but the parameters are inclusive on the starting index and exclusive for the ending index.  For example, if you have a String <span class ="code">str</span>, and you want to get the first letter of a String, which is at index 0, you would put the following.</p>
+					<div class = "code-block">
+						<p>String firstLetter = str.substring(0,1);</p>
+					</div>
+					<p style = "clear:left">Since the first letter of a String always falls at index 0, we put index 1 as the stopping index.  This is counter intuitive to a lot of people who think that index 1 will be included, but it's more of a "go up to, but don't include" index.</p>
+					
+					<hr/>
+					<h4>Alternate substring</h4>
+					<p class = "code">public String substring(int start)</p>
+					<p>There is a second version of the substring method that only takes in a single parameter.  When this version of the method is used, the substring returned will start at the given index and go <strong>all the way to the end of the String</strong>.</p>
+					<div class = "code-block" style = "padding-right:30px">
+						<p>String str = "Sacco";<br/>
+						String sub = str.substring(<span style = "color:#a00">1</span>);</p>
+					</div>
+					<table style = "padding: 5px 10px; border:1px solid #a00">
+						<tr><td>S</td><td>a</td><td>c</td><td>c</td><td>o</td></tr>
+						<tr class = "code" style = "font-size:12px; valign:top;" ><td>0</td><td><span style ="color:#a00; font-size:14px">1</span></td><td>2</td><td>3</td><td>4</td></tr>
+					</table>
+					<p style = "clear:left">The value of sub would be "<span class = "code" style = "font-size:18px; color:#a00">acco</span>" after the code above runs.  It started at index 1 and went all the way to the end.  This is identical to saying <span class = "code">str.substring(1,5)</span>, it just takes less typing.</p>
+				</div>
+				
+				<div class = "note-div">
+					<h3>indexOf</h3>
+					<p class = "code">public int indexOf(String toFind)</p>
+					<p>The indexOf method is a <strong>searching</strong> method that is in some ways the opposite of substring.  For this method you must know the String that you're looking for and the method provides the <strong>index</strong> of that String.</p>
+				
+					<div class = "code-block" style = "border:1px solid #aaa">
+						<p>String phrase = "Mister Sacco is a very strange man";<br/>
+						int saccoIndex = phrase.indexOf("Sacco");<br/>
+						System.out.println("Sacco is at index "+ saccoIndex);</p>
+					</div>
+					<div class = "half-div-right">
+						<p><span style = "color:black" >Output:</span><br/>Sacco is at index 7</p>
+					</div>
+					<p style = "clear:left">Note that the indexOf method can only return a single int.  Even though "Sacco" occupies indices 7,8,9,10, and 11, only the first index is returned.</p>
+					<hr/>
+					<h4>What happens when indexOf can't find the String?</h4>
+					<p>The indexOf method always returns an int, even if it can't find the given String.</p>
+					<div class = "code-block" style = "border:1px solid #aaa">
+						<p>String phrase = "I like candy";<br/>
+						int saccoIndex = phrase.indexOf("Sacco");<br/>
+						System.out.println("Sacco is at index "+ saccoIndex);</p>
+					</div>
+					<div class = "half-div-right">
+						<p><span style = "color:black" >Output:</span><br/>Sacco is at index <span style = "color:#a00;font-size:18px">-1</span></p>
+					</div>
+					<p style = "clear:left">Since "Sacco" is not found in the String "I like candy", indexOf is in a bind.  It cannot return numbers like 2 or 10, because that would imply it was found at those indices, which it wasn't.  Instead, indexOf is defined to always return a -1 when it cannot find the given String.  This is known as a <strong>sentinal value</strong> because the -1 is not an index; it's just a special value that indices something to the programmer.</p>
+					<p>You need to always remember that indexOf has a possibility of a -1, otherwise you will eventually strange crashes in your program.</p>
+				</div>
+				
+				<div class = "note-div">
+					<h3>Combining Method Calls Example</h3>
+					<p>Generally when you're manipulating Strings you need to perform more than one method call to get the job done.</p>
+					<p>For Example:  Assuming you have a String from the user in a variable <span class="code">str</span> and you want to access the last letter of it.  The problem is that the last letter doesn't always fall at the same location.  In the String "Sacco" the last letter is at index 4, but in "computer" the last letter is at index 7.  This location is dependent on the length of the String, so we should look for a pattern.</p>
+					<p><strong>Work some simple examples:</strong><br/>
+					"Sacco" has a length of 5 and the substring would be (4,5)<br/>
+					"computer" has a length of 8 and the substring would be (7,8)<br/>
+					"Java" has a length of 4 and the substring would be (3,4)<br/>
+					<strong>In general</strong> the substring starts at an index that is one less than the length.  So our code should make sure to ask for the length of a String before it substring's out the last letter.</p>
+					<div class="code-block">
+						<p>String str = <span style="color:#aaa">//Some value from the user</span><br/>
+						int length = str.length();<br/>
+						String last = str.substring(length-1,length);</p>
+					</div>
+					<p style = "clear:left">
+						
+						It's worth noting that this situation does not require the two-parameter version of the substring method.  If you ever feel like a substring that "goes all the way to the end", user the version of substring that only takes in a single parameter.  This means that the last line is better written as:
+					</p>
+					<p class = "code">
+						String last = str.substring(length-1);
+					</p>
+					<p>
+						The second parameter was unneccessary
+					</p>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Moving to the Left/Right</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Moving to the Left/Right</p>
+<p class="auto-style2">So far we have a JumpMan that stands in one place and 
+jumps.&nbsp; Next up is to get some horizontal motion going, but something to 
+keep in mind is that in this style of game, it is the background that actually 
+moves.&nbsp; This will involve some manipulation of the classes that we&#39;ve been 
+working on.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5">Block</p>
+<p class="auto-style2">The Block class is no longer a stationary object.&nbsp; 
+Add the following two methods:</p>
+<p><span class="auto-style6">public void moveLeft(int num)</span><br class="auto-style6" />
+<span class="auto-style6">public void moveRight(int num)</span></p>
+<p class="auto-style1"><span class="auto-style3">These methods do almost exactly 
+the same thing.&nbsp; They add or subtract the parameter </span><strong>
+<span class="auto-style3">num</span></strong><span class="auto-style3"> from the 
+x coordinate.</span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5">JumpMan</p>
+<p class="auto-style2">Just as we did in the y direction, the JumpMan will have 
+to align himself to the left or right of a HitBox at some point.&nbsp; Add 
+the following two methods:</p>
+<p class="auto-style6">public void xAlignToTheLeft(HitBox box)<br class="auto-style2" />
+public void xAlignToTheRight(HitBox box)</p>
+<p class="auto-style2">The purpose of the xAlignToTheLeft method is to set the x 
+value of the JumpMan to be right up against the left side of the HitBox, 
+while the xAlignToTheRight will place him on the other side.</p>
+<p><img class="auto-style2" style = "border:1px" height="242" src="images/img62.gif" width="501" /></p>
+<p class="auto-style5">PlatformerCanvas</p>
+<p class="auto-style2">The left/right motion of the JumpMan will be different 
+than the way the jump is handled.&nbsp; Instead of the KeyListener directly 
+telling the JumpMan to move, add two booleans(or ints if you&#39;re more 
+comfortable) as instance fields named left and right.&nbsp; When the left key is 
+pressed, set the boolean left to true, when released set it back to false.&nbsp; 
+Repeat the process for the right boolean.&nbsp; This is similar to how we&#39;ve 
+controlled other games in the past.</p>
+<p class="auto-style2">In the onTimerTick method, create an if statement to 
+see if the <b>left</b> boolean is true.&nbsp; If it is, loop through all the blocks and 
+do the following to each block:</p>
+<p><span class="auto-style2">- tell it to move to the right by 10.</span><br class="auto-style2" />
+<span class="auto-style2">- similar to how it was handled in the y direction, 
+have an if statement that checks to see if the JumpMan&#39;s HitBox intersects 
+the Block&#39;s HitBox  and if so call the xAlignToTheRight method, passing in 
+the Block&#39;s HitBox.</span><br class="auto-style2" />
+</p>
+<p class="auto-style1"><span class="auto-style3">Repeat the above process, but 
+this time check the </span><strong><span class="auto-style3">right</span></strong><span class="auto-style3"> 
+boolean, move the Blocks to the left, and then xAlignToTheLeft</span></p>
+<p class="auto-style2">In the constructor, modify the code so that it adds 
+blocks with the following parameters:</p>
+<p><span class="auto-style2">100, 400, 600, 100</span><br class="auto-style2" />
+<span class="auto-style2">200, 350, 200, 50</span><br class="auto-style2" />
+<span class="auto-style2">300, 275, 200, 50</span><br class="auto-style2" />
+<span class="auto-style2">600, 275, 200, 50</span><br class="auto-style2" />
+<span class="auto-style2">900, 175, 200, 50</span></p>
+<p class="auto-style2">Test out the program.&nbsp; When you move to the left or 
+right, all the blocks should move around you.&nbsp; If you try and move to the 
+right/left and a block is in the way, it will push you around a little bit.&nbsp; 
+This is normal for this stage.&nbsp; If the JumpMan gets pushed off the screen, 
+you can always use the mouse to bring him back.</p>
+<p class="auto-style2"><img height="372" src="images/imgC.jpg" width="498" /></p>
+
+</body>
+
+</html>

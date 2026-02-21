@@ -1,0 +1,156 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+   More with For Loops</title>
+  
+</head>
+
+<body>
+  <h1>
+  More with For Loops
+  </h1>
+ 
+  <h2>Mouse Rings</h2>
+<p>Open the Mouse Rings workspace in CodeHS</p>
+<p>&nbsp;<strong><iframe src="demos/circle_mouse/index.html" width="420" height="420" data-mce-fragment="1"></iframe></strong></p>
+<p>&nbsp;</p>
+<p>The draw function of this sketch should use a loop to draw several circles around mouseX and mouseY.</p>
+<p>Without a loop it could be drawn with:</p>
+<pre>circle(mouseX,mouseY,<strong>16</strong>);
+circle(mouseX,mouseY,<strong>32</strong>);
+circle(mouseX,mouseY,<strong>48</strong>);
+...</pre>
+<p>But for full credit you must use a loop that&nbsp;generates a number pattern representing the&nbsp;<strong>width</strong> of the circle being drawn.</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  <h2>Full Dial</h2>
+<p><img src="images/dial.png" width="224" height="224" /></p>
+<p>The traditional clock face above is generated using the translate() and rotate() style of programming.</p>
+<h5>First, open the Full Dial workspace and look at the code there.</h5>
+<p>We first use translate() to make the center point our center of rotation, and then we repeatedly draw values at location (0,-120). This is the point 120 pixels above the center, where the 12 would traditionally go. The trick to completing the pattern around the clock is to rotate 30 degrees before drawing the next number at the 'same location'.</p>
+<p>You can see a weak attempt at it already started in your code:</p>
+<p>&nbsp; rotate(30); &nbsp;<br />&nbsp; text(1,0,-120);<br />&nbsp; rotate(30); &nbsp;<br />&nbsp; text(2,0,-120);<br />&nbsp; rotate(30); &nbsp;<br />&nbsp; text(3,0,-120);</p>
+<p>&nbsp;</p>
+<p>This copy-paste is working, but it's not smart enough. Notice that we are repeatedly doing the same two lines of code, but a different number being written each time. Rewrite this portion of the sketch using a for loop to represent the hour being drawn, and loop it enough to draw all 12 numbers. You will not get full credit if you simply continue the copy-paste style of coding.</p>
+<p>When you run the sketch, all 12 numbers should be placed evenly around the clock.</p>
+<p>&nbsp;</p>
+<p><strong>Submission:</strong><br />Copy your solution below.</p>
+  
+  
+  <hr>
+  <h2>Square Spiral</h2>
+<p><img src="images/square_design.png" width="162" height="162" /></p>
+<p>The Square Spiral design is also accomplished using the translate() and rotate() style of drawing. First a big square is drawn, then we rotate 6 degrees and draw a smaller square. To make things line up properly, each square should be 90% the size of the previous square.</p>
+<p>Open the Square Spiral workspace, which has already been started for you</p>
+<p>rect(0,0,400);<br />rotate(6);<br />rect(0,0,360);<br />rotate(6);<br />rect(0,0,324);<br />rotate(6);</p>
+<p>This draws the first 3 squares for you, but it would be exhausting to complete it manually.</p>
+<p>Replace that crummy attempt with a for loop whose variable represents the&nbsp;<strong>size</strong>&nbsp;of each square. The size is should start at a large number, and each time the loop iterates it should be 90% of itself ( size = size * 0.9; or size *= 0.9; ).&nbsp; We want to keep drawing squares until they are really really small, so keep looping while the size is above 1 or 2.</p>
+<p>Inside the loop you should only have to draw a single square and rotate once. The loop should handle the rest.</p>
+<p>&nbsp;</p>
+<p><strong>Optional </strong>: Once you have the above design generated, modify your code to rotate(frameCount*0.1); instead of 6. This will cause the design to use a slightly different angle each frame. This will bring it to life, making a variety of designs.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  <hr>
+  
+  <h2>String Art</h2>
+<p>In String-Art, using a lot of straight lines can cause a curve to appear. Open the String Art workspace, which has started a design for you.</p>
+<table>
+    <tbody>
+        <tr>
+            <td><br />
+                <p><img src="images/string1.png" alt="Capture (100).PNG" width = "300px"/></p>
+            </td>
+            <td>
+                <pre style="margin-top: 1em;">function setup() {
+  createCanvas(400, 400);
+  smooth();
+  noSmooth();
+}
+
+function draw() {
+  background(0);
+
+  stroke(255);
+  strokeWeight(2);
+
+  //Line Pattern
+  line(20,20,20,380);
+  line(60,20,20,340);
+  line(100,20,20,300);
+  line(140,20,20,260);
+  line(180,20,20,220);
+
+
+  //red axis
+  stroke(255,0,0);
+  line(20,20,20,380);
+  line(20,20,380,20);
+}</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>Mr. Sacco has manually calculated the first few lines in the pattern. There is a specific number pattern that's occurring with each line that's being drawn. The&nbsp;<strong>x1</strong>&nbsp;value is&nbsp;<strong>increasing</strong>, and at the same time the&nbsp;<strong>y2</strong>&nbsp;value is&nbsp;<strong>decreasing</strong>. In order to keep the pattern clean, the value that they are increasing and decreasing is always 40.</p>
+<p>&nbsp;</p>
+<p>You must fix this code so that it uses a for loop instead of the copy-paste-change strategy.&nbsp; Keep it up until it looks like so:&nbsp;</p>
+<p><img src="images/string2.png" alt="Capture - 2023-09-27T092312.399.PNG" width = "300px"/></p>
+<p>&nbsp;</p>
+<p><strong>Fixing the Gap</strong></p>
+<p>The spacing was originally 40 so that we could see what was going on, but we see the illusion better when the gap is smaller. Modify your code so that the gap is only 20 or 10. If your loop is set up properly you should only have to change one value and run it again to generate a better design.</p>
+<p><img src="images/string3.png" alt="Capture - 2023-09-27T092326.784.PNG" width = "300px"/></p>
+<p>&nbsp;</p>
+<p><strong>Submission:<br /></strong>Copy your solution below.<strong></strong></p>
+  
+  
+  <hr>
+  
+  <h2>Rain Simulator</h2>
+<p>San Diego is rough.&nbsp; You never experience actual weather. This program will generate a rainy day image for you and display it. Open the Rain Simulator where I have given you some structure to start with:</p>
+<pre>function setup() {
+  createCanvas(400, 400);
+  background(0);
+  noStroke();
+  fill(255);
+
+  raindrop(200,200);
+
+}
+
+function draw() {
+  //This will remain empty
+  //All drawing is done in setup
+}
+
+function raindrop(dropX, dropY) {
+
+
+}</pre>
+<p>Notice that there are a few things happening. First, the draw function is empty because we will be drawing everything to the background in&nbsp;<strong>setup</strong>, and then never drawing over it.&nbsp; Second, there is a function named&nbsp;<strong>raindrop&nbsp;</strong>that is meant to draw a single raindrop. It currently does nothing so nothing is drawn.</p>
+<p>&nbsp;</p>
+<p><strong>Drawing a raindrop</strong></p>
+<p><img src="images/rain1.png" alt="Capture - 2023-09-27T092349.563.PNG" width = "300px"/></p>
+<p>&nbsp;</p>
+<p>At the moment, the setup function is trying to draw a single raindrop at 200,100, but there is nothing being draw. We need to implement the&nbsp;<strong>raindrop</strong>&nbsp;function so that it draws a single drop. A raindrop is a collection of circles drawn on top of each other. Each circle is a little bit&nbsp;<strong>bigger</strong>&nbsp;and a little bit&nbsp;<strong>lower.&nbsp;</strong>The first circle will be at&nbsp;<strong>dropX</strong>&nbsp;and&nbsp;<strong>dropY</strong>&nbsp;and have a width of 1. Each sequential circle will have a larger y coordinate and a larger width.</p>
+<p>Write a loop in the randrop function that will draw all of the ellipses needed to make a raindrop. There is currently a single raindrop being painted at 200,100 to help test your function. Once you're happy, change the values from 100,200 to 300,120 to make sure that the raindrop is not hard-coded to a specific location.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Drawing Many Random Raindrops</strong></p>
+<p><img src="images/rain2.png" alt="Capture - 2023-09-27T092405.134.PNG" width = "300px"/></p>
+<p>We now have a function named&nbsp;<strong>raindrop</strong>&nbsp;that will paint a drop for us. Let's use our loops to draw a lot of drops.</p>
+<p>In the&nbsp;<strong>setup</strong>&nbsp;function create a loop that will loop 40 times.&nbsp; It doesn't matter what number pattern the looping variable is going through, as long as it runs 40 times (1 - 40 is a common pattern, so is 0 - 39).</p>
+<p>Each of those 40 times we want to draw a random raindrop, so inside the loop you should pick a random x and y (based on the width and height of the canvas) and call&nbsp;<strong>raindrop</strong>.&nbsp; Hopefully this will cause 40 raindrops to appear on the canvas when you run it.</p>
+<p>&nbsp;</p>
+<p><strong>Submission:</strong><br />Copy your solution below.</p>
+</body>
+
+
+</html>
+

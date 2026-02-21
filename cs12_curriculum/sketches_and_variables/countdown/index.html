@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Timing and Delays</title>
+  <link rel="stylesheet" type="text/css" href="../../style.css"> </head>
+
+<body  >
+  <h1>Timing</h1>
+  <p> We've seen before that the <code>draw()</code> function is repeatedly called while the program is running. The programs in this assignment take advantage of this timing. </p>
+  <!-- ===================== FINAL COUNTDOWN ===================== -->
+  <h2>The Final Countdown</h2>
+  <p> <iframe src="demos/countdown/index.html" width="182" height="182"></iframe> </p>
+  <p> Observe the workspace above. Clicking the workspace causes the number in the middle to be set to 20, and it immediately starts counting down to 0. Once the countdown reaches 0, the background starts flashing random colors. </p>
+  <p> Open the Final Countdown workspace. There you have been given some code to help you get the basic structure, but the provided code is static and doesn’t do anything. You can see that the call to <code>text()</code> is always drawing a 9 on the screen.
+    </p>
+  <h3>Counting Down</h3>
+  <p>We need to incorporate a variable to help us perform the “counting down” action:</p>
+  <ul>
+    <li>Add a global variable named <code>count</code> to the sketch, and initialize it to be <code>20</code> in the <code>setup()</code> function.</li>
+    <li>In the <code>draw()</code> function, modify the call to <code>text()</code> to draw <code>count</code> instead of the <code>"9"</code> that it is currently drawing.</li>
+  </ul>
+  <p> At this point you should be able to run the sketch and see a 20 being drawn on the square. There will not be any counting yet. </p>
+  <h4>Counting Down Each Frame</h4>
+  <p> The way that we are going to count down is by having the <code>count</code> variable change a little bit each time that the <code>draw()</code> function is called. But if we simply add <code>count--;</code> to the <code>draw()</code> function, it would
+    never stop counting down. </p>
+  <p> Our goal is for it to stop at 0, so we can wrap it in an <code>if</code> statement that only decreases the count if it’s larger than 0: </p>
+  <pre><code>if (count &gt; 0){
+    count--; 
+  } </code></pre>
+  <p> Add this <code>if</code> statement to the <code>draw()</code> function and run your program. If done properly, the number should countdown and end at 0. </p>
+  <h4>The Two States of the Countdown</h4>
+  <p> With a countdown variable set up like this, we can think of there being two different states: </p>
+  <ul>
+    <li>The countdown is occurring (<code>count &gt; 0</code>).</li>
+    <li>After the countdown has ended (<code>count == 0</code>).</li>
+  </ul>
+  <p> This is useful information because the background of the sketch is drawn differently in each of those states. Modify the <code>draw()</code> function with an <code>if</code> statement to draw a white background while the countdown is occurring, and
+    to randomize the background if the countdown has ended. </p>
+  <h4>Resetting the Countdown</h4>
+  <p> Currently your program should countdown from 20 to 0 and stop there. The last step is to “reset” the countdown when the user clicks the canvas. </p>
+  <p> Add a <code>mousePressed()</code> function to the program. To have it start the countdown over again, all you have to do is assign a value to the countdown variable: </p>
+  <pre><code>count = 20; </code></pre>
+  <p> Resetting the variable in this way will cause the countdown to start again, with each call to <code>draw()</code> decreasing it back towards 0. </p>
+  <p> &nbsp; </p>
+  <hr>
+  <!-- ===================== TEMPORARY BUTTONS ===================== -->
+  <h2>Temporary Buttons</h2>
+  <p> Having a “countdown to zero” variable is a good way of adding a delay to your programs. Click the squares in the demo below. Notice how each one responds to a click by filling with color for a small amount of time. </p>
+  <p> <iframe src="demos/filled_squares/index.html" width="282" height="102"></iframe> </p>
+  <!-- Insert Temporary Buttons demo iframe here if desired -->
+  <p> Open the Temporary Buttons workspace in CodeHS, where you have a <code>draw()</code> function that draws the outlines of the three buttons. </p>
+  <p><strong>Goals:</strong></p>
+  <ul>
+    <li>Give each button its own countdown variable.</li>
+    <li>Make the buttons fill based on the state of their countdown variable.</li>
+    <li>Use mouse presses within the squares to reset the specific countdown.</li>
+  </ul>
+  <h3>A Countdown for Each Button</h3>
+  <p> Each button is to be controlled individually. Add three global variables to the program: <code>redCount</code>, <code>greenCount</code>, and <code>blueCount</code>. In the <code>setup()</code> function initialize these variables to all be <code>50</code>.
+    </p>
+  <p> During the <code>draw()</code> function is when the countdown occurs. Have a separate <code>if</code> statement for each variable that, like before, will decrease the variable if it is above 0. </p>
+  <h3>Countdown-Based Fill</h3>
+  <p> We have now established the individual countdowns, but they so far have no effect on how the canvas looks. Remember that there are two states that the countdown can be in: actively counting down, or at zero. The next task is to have each of the squares
+    choose their fill based on that count. </p>
+  <p> Modify the <code>draw()</code> function so that, when a square’s countdown is actively counting (<code>count &gt; 0</code>) it chooses a fill of its color, and otherwise will choose <code>noFill()</code>. </p>
+  <p> At the current moment, all countdowns are initialized to be 50, so running the program should cause all three buttons to be filled for a small amount of time before clearing out. </p>
+  <h3>Triggering with the Mouse</h3>
+  <p> Now you have three buttons that have their own individual countdowns. The next step is to get them responding to mouse presses. The goal is to have it so that clicking the individual buttons resets their counter to 50. This requires the <code>mousePressed()</code>    function detecting if the mouse is within a box. </p>
+  <p> Your task will be to modify the <code>mousePressed()</code> function so that if you click within any of the three boxes, their individual count will be set to 50. One way to handle this is to go and grab the <code>mouseInBox()</code> function from the
+    Boolean Functions assignments and copy it into this project. Once it's there you can call it during the <code>mousePressed()</code> function to help you tell if you clicked any of the three boxes. </p>
+  <h4>Test</h4>
+  <p> At this point your program should run like the example above. Clicking the individual boxes should cause them to fill, but only temporarily. </p> <br>
+  <hr>
+  <!-- ===================== ROLLING ACTION ===================== -->
+  <h2>Rolling Action</h2>
+  <p> This assignment is an extension of the Dice Roller program that you previously completed. The first thing that you should do is copy and paste it into the Rolling Action workspace in CodeHS. </p>
+  <p> As a reminder, there are two global variables representing the values of the dice that are drawn. Clicking on the canvas randomizes those integers, which randomizes the dice that you see. We are going to modify this to add a small amount of suspense.
+    Click the demo below to see what we are trying to accomplish. </p>
+  <!-- Insert Rolling Action demo iframe here if desired -->
+  <p> <iframe src="demos/rolling_action/index.html" width="152" height="82"></iframe> </p>
+  <p> Notice that clicking causes a small period of time where the dice are frequently randomized before landing on their final values. To accomplish this we will need another countdown variable. </p>
+  <p> Add a new global countdown variable, which will represent the amount of time that the dice will be “rolling” before stopping. Like before, in the beginning initialize it to be a value. In the demo I have chosen 15, but I have also slowed the program
+    down by calling <code>frameRate(10)</code>. You can modify these to your liking. </p>
+  <p> Like before, add an <code>if</code> statement to the <code>draw()</code> function that will decrease that value until it hits 0. This portion of time, where the counter is a positive number, represents the time when the dice should be randomizing, so
+    within that <code>if</code> statement you should also randomize the two global variables in the same way that you did during the <code>mousePressed()</code> function. </p>
+  <p> Run your program to test it. At this point, running the program should cause the dice to appear to be rolling for a small amount of time before stopping on two values. </p>
+  <p> The last step is to trigger the dice rolling when the mouse is pressed. Since being in the “countdown state” is when rolling occurs, modify the <code>mousePressed()</code> function so that you assign a value to the countdown variable. This should re-trigger
+    the rolling animation. </p> <br>
+  <hr>
+  
+  
+  <h2>
+    Stoplight
+  </h2>
+  <p>
+    Click the canvas below to get an idea of how it functions.
+  </p>
+  
+  <p> <iframe src="demos/stoplight/index.html" width="152px" height="302px"></iframe> </p>
+  
+  <p>
+    This program cycles the lights as a stoplight would: green for a while, yellow for a bit, then landing on red.
+  </p>
+  
+  <p>
+    Open the Stoplight workspace. There you have been given a draw() function that will draw the stoplight for you.
+
+The bottom of the draw() function has three commented out circle commands that represent the green, yellow, and red lights. The end version of this program should always have one of those circles drawn.
+
+  </p>
+  <p>
+    To prevent accidents, the stoplight needs to be timed properly. Add a countdown variable that is initialized to 20 and counts down to 0.
+ </p>
+  <p>
+Once this countdown has been established, your task is to cycle the lights. Illuminate the green light for the values of 20 to 5, yellow for the values 4 to 1, and the red one as long as the countdown is at 0. 
+
+
+You should also have the mousePressed() function reset the countdown to 20, which starts the cycle again.
+
+  </p>
+  <br/>
+  
+  <hr>
+  <!-- ===================== SPINNER ===================== -->
+  <h2>Spinner</h2>
+  <p> Click the demo below a few times to see what the next sketch is intended to look like. </p>
+  <p> <iframe src="demos/spinner/index.html" width="102" height="127"></iframe> </p>
+  <!-- Insert Spinner demo iframe here if desired -->
+  <p> There are a few elements that we need to notice: </p>
+  <ul>
+    <li>The rotation of the spinner is temporary, but it doesn’t go full speed and then suddenly halt. The rotation slows down and eventually comes to a stop.</li>
+    <li>The message drawn disappears while the spinner is spinning.</li>
+  </ul>
+  <p> Open the Spinner workspace in CodeHS. There you have been provided with some structure to help you complete this program: </p>
+  <ul>
+    <li>There is a function named <code>drawSpinner()</code>, which uses translation and rotation to draw the arcs of the spinner.</li>
+    <li>There is a global variable named <code>angle</code>. This variable is used by the <code>drawSpinner()</code> method to determine which angle to rotate the spinner to. 0–72 is when the red section is up, 73–144 is orange, 145–216 is green, 217–288
+      is blue, and 289–359 is purple.</li>
+  </ul>
+  <p> In order to get the motion that we want, we are going to have a variable that is similar to our previous countdown variables, but is a little different. Add a global variable named <code>rotationSpeed</code>. Its purpose is to determine how fast the
+    spinner is rotating. In the <code>setup()</code> function assign a value of <code>15</code>. </p>
+  <p> Like before, modify the <code>draw()</code> function to decrease the <code>rotationSpeed</code> as long as it is positive, but this time decreasing by 1 will be too much. Instead, subtract a smaller number, like <code>0.1</code>. </p>
+  <p> So far, this <code>rotationSpeed</code> variable has no effect on the way the sketch is drawn. It is meant to represent how fast the angle is changing, so add the following line to the <code>if</code> statement: </p>
+  <pre><code>angle += rotationSpeed; </code></pre>
+  <p> This will cause the spinner to rotate as fast as the <code>rotationSpeed</code> tells it to. As the <code>rotationSpeed</code> gets smaller, the spinner will rotate slower and slower. </p>
+  <h3>Triggering Another Spin</h3>
+  <p> Like before, clicking the canvas should re-trigger our spinning. Modify the <code>mousePressed()</code> function to assign a random number to the <code>rotationSpeed</code> variable, between 15 and 30. </p>
+  <p>Run your program to verify that this works.</p>
+  <h3>The Result Message</h3>
+  <p> The last bit that we need to add to our spinner is the text that appears on the bottom of the window after the spinner has stopped, showing the result. </p>
+  <p> This means that our <code>draw()</code> function either wants to be rotating the spinner or displaying the text, so add an <code>else</code> section to your original <code>if</code> statement to represent when the spinner has stopped. </p>
+  <p> When stopped, you need to use the value of <code>angle</code> to determine which color has been chosen: </p>
+  <ul>
+    <li>0–72 is red</li>
+    <li>73–144 is orange</li>
+    <li>145–216 is green</li>
+    <li>217–288 is blue</li>
+    <li>289–359 is purple</li>
+  </ul>
+  
+  <p>
+    <strong>Dealing with Large Angles:</strong> One issue that arises is that we've been adding so much to the angle that it has gone far past the 360 range that the results message expects. The solution is to mod the angle by 360 before you compare it.
+  </p>
+  <pre>
+angle = angle % 360;  </pre>
+  <p>
+ This will 'subtract as many 360s as possible' from the large angle. The result will be a value that is less than 360 and represent the same amount of rotation as the original.
+  </p>
+  <h3>Test</h3>
+  <p> After adding the result message you should have a program that functions like the demo. Run it and try spinning many times to make sure that you are getting a proper spin and result. </p>
+</body>
+
+</html>

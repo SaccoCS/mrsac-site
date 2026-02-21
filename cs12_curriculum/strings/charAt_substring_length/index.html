@@ -1,0 +1,217 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  charAt(), substring(), and length</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+    Strings are Objects!
+  </h1>
+<p>We have dealt with Strings as a piece of data representing text, but they're a lot more powerful than we've seen. They are a type of data known as an&nbsp;<strong>Object</strong>, which is a way of giving data some more power.</p>
+<p>A defining f   eature of objects is that they can have 'personal' functions that we trigger using <strong>dot notation</strong>. A simple example is the&nbsp;<strong>toLowerCase()</strong>&nbsp;function. Consider the following:</p>
+<pre>let crazyCase = "aBcDeFgHiJkLmNoPqRsTuVwXyZ";<br />let lower = <strong>crazyCase.toLowerCase()</strong>;     //Assigns "abcdefghijklmnopqrstuvwxyz" to lower</pre>
+<p>This code assigns a silly String value to the crazyCase variable, then asks it to perform an action.</p>
+<p>When we say <strong>crazyCase.toLowerCase()</strong>, we are asking the String to &nbsp;produces a brand new String that is based on itself. In this case, the toLowerCase() method returns an all lowercase copy of crazyCase, this result gets assigned to the lower variable.</p>
+<p>&nbsp;</p>
+<h4>Strings are Immutable</h4>
+<p>Make sure that you understand that crazyCase will not change its own value when we call the toLowerCase() function. All String functions produce new Strings that are simply based on the one being asked.But we don't&nbsp;<em>have</em>&nbsp;to use so many variables. If we want to effectively lowercase the crazyCase variable, we can just assign the result over the old one.</p>
+<pre>crazyCase = crazyCase.toLowerCase();
+</pre>
+<p>Technically the String itself doesn't change. The variable is replaced with an 'updated' version of itself and the old one is discarded.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Open the Shouter Example in CodeHS</p>
+<p>There you will find a non-visual p5 program that will be similar to most of this assignment's sections. The setup function makes a small text field for you to type input into, and there is a new function named shouter(), which has been linked to it.</p>
+<p>&nbsp;</p>
+<p>Like we've seen before, the shouter() function accepts a&nbsp;<strong>parameter</strong> and <strong>returns </strong>its result. The setup() function does the work to make sure that the values display on the screen.</p>
+<p>The purpose of the shouter() function is silly. It returns the uppercase version of the parameter, followed by three exclamation points.</p>
+<pre>function shouter(inputStr){ &nbsp;&nbsp;<br /><br />&nbsp; &nbsp; let shoutMessage = inputStr.toUpperCase() + "!!!";<br /><br />&nbsp; &nbsp;return shoutMessage;<br />}</pre>
+<p>Since our goal is to have an uppercase version of the parameter String, we need to ask the parameter to upper-case itself by calling the toUpperCase() function.&nbsp; We also use the plus sign '+' to&nbsp;<strong>concatenate&nbsp;</strong>on the String "!!!"</p>
+<p>Since the shouter() function is already made, you can run the program and test it out.&nbsp;</p>
+<p>Type a value in the box and hit enter to trigger it.</p>
+<p><img src="images/shouter.png" alt="image.png" /></p>
+<p>The result displays the 'shouting' version of the input.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h1> Notes: The charAt() function</h1>
+<p>Strings are made up of many characters, all organized with an index.</p>
+<pre>Sacco<br />01234</pre>
+<p>The charAt() function is our way of getting a <strong>single character </strong>out of the String. All we need to do is provide the index. Consider the following code:</p>
+<pre>let str = "Sacco";<br />let firstChar = str.charAt( 0 );&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 'S'<br />let secondChar = str.charAt( 1 );&nbsp; &nbsp; &nbsp;// 'a'</pre>
+<p>Notice that each call to charAt has a different&nbsp;<strong>index</strong>&nbsp;as a parameter. This changes which of the characters is returned.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Reverser</h2>
+<p>Open the Reverser workspace in CodeHS, where you are again meant to fill out a single function.</p>
+<p>The reverser() functions purpose is to take the input String and output it, but characters reversed. You may assume that the String is exactly four characters.</p>
+<pre>deer -&gt; reed<br />arts -&gt; stra<br />sacco -&gt; occas</pre>
+<p>Test your reverser() function by typing different four-letter words into the input field and hitting the Reverser button. If done properly, the output should reverse it.</p>
+<p>&nbsp;</p>
+  <div class = "head_list">
+    
+<p>After your reverser function works properly, test out different input to determine the following:</p>
+<ul>
+    <li>What happens when you enter a word that is too large?</li>
+    <li>What happens when you enter a word that is too small?</li>
+</ul>
+  </div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h1>Notes: A String's length</h1>
+<p>Dealing with values at the&nbsp;<strong>front&nbsp;</strong>of the String is easy because the front is always at index&nbsp;<strong>0</strong>.</p>
+<p>&nbsp;</p>
+<p>Open the Last Letter workspace in CodeHS:</p>
+<p>The&nbsp;<strong>lastLetter</strong> function's purpose is to return the very last letter of the input String.</p>
+<p>It comes pre-filled with a<strong> flawed version</strong></p>
+<pre>function lastLetter(inputStr){ <br />  &nbsp; let last = inStr.charAt(4); &nbsp;//The last letter in 'Sacco' is index 4&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; return last;<br />}</pre>
+<p>You can see this working by putting in a String like "Sacco" or "Crane" and seeing the last letter output.</p>
+<p>The flaw is revealed when you put in Strings of a different length. Since the index&nbsp;<strong>4</strong> is assumed to be the last index of the String, it will not be prepared for Strings like "computer", where index 4 is the <strong>u</strong> in the middle of the String.</p>
+<p>&nbsp;</p>
+<p>To fix this flaw, we need to think more about why&nbsp;<strong>4&nbsp;</strong>was chosen for&nbsp;<strong>Sacco</strong>&nbsp;and&nbsp;<strong>Crane</strong>, which both have&nbsp;<strong>5</strong>&nbsp;letters. With the way that the index numbering system works, starting at zero causes the very last index to always be one less than the length.</p>
+<pre>Sacco<br />01234</pre>
+<p>The word&nbsp;<strong>"computer"</strong>&nbsp;having a length of 8 means that the last valid index is 7</p>
+<pre>computer<br />01234567</pre>
+<p>&nbsp;</p>
+<h3>The .length attribute</h3>
+<p>If you are not certain of how long a String is, you are allowed to ask it. Strings have a&nbsp;<strong>.length</strong>&nbsp;attribute that holds a number representing how long it is. If we have a String from the user and we don't know how long it is, we can access its .length value to see how long it is.</p>
+<pre>inputStr.length&nbsp; &nbsp;//holds the length of the String assigned to inStr</pre>
+<p>&nbsp;</p>
+<h3>The last index</h3>
+<p>One benefit of being able to know the length of a String is being able to determine where the last index is. Since our indexing starts at 0, the last index in a String is one less than that String's length. Like when we needed to substring the last letter out of Sacco, which has a length of 5, but the last index is number 4.</p>
+<p>In the lastLetter() function after getting the input String, you can use this line to determine the last valid index.</p>
+<pre>let lastIndex = inputStr.length - 1;  //The last index is one less than the length</pre>
+<p>Now lastIndex will be 4 only if the length of the String is 5, but if the String had a longer length, like "computer"'s length of 8, it would calculate index 7 instead. The last thing to do is to update the substring to use the lastIndex variable instead of the hardcoded 4.</p>
+<p>&nbsp;</p>
+<p>Make these changes to the lastLetter() function and run your program to test it out with Strings of different length, like "computer" and "sacco",&nbsp;&nbsp;confirming that they correctly produce the last letters.</p>
+  <br>
+  <br>
+  <hr>
+  <h2>Updating Reverser</h2>
+<p>Re-Open the Reverser workspace that you previously completed.</p>
+<p>Previously we noticed that using words of different lengths acted funny. We don't want our reverser function to fail, so we are going to modify it to have two different return statements. If the length of the parameter String is exactly 4, return the reversed value as you have been doing. Any String of a different length should simply return "INVALID INPUT" instead.</p>
+<p>Accomplishing this will require adding an if statement that focuses on inputStr.length</p>
+<p>&nbsp;</p>
+<p>Test your program with Strings that are too long, too short, and just right to confirm that it only works with the proper input.</p>
+  
+  <br>
+  <br>
+  <hr>
+  
+  <h1>Notes: Substrings</h1>
+<p>Each character in a String is labeled with its own&nbsp;<strong>index</strong>&nbsp;starting with 0</p>
+<h4 style="font-family: monospace;">S a c c o<br />0 1 2 3 4</h4>
+<p>The substring() function will create and return a new String, made up of characters in a specific range using these indices. For example, if I wanted the first four characters of a String it might look like this:</p>
+<pre>let str = "computer"; 
+let a = str.substring(0,4);   //"comp"
+let b = str.substring(1,3);   //"om"
+let c = str.substring(3,5);   //"pu"
+
+</pre>
+<p>Notice how the parameters indicate a starting index of 1&nbsp;and a stopping index of 4. This will produce a String "omp" that is defined by that area.</p>
+<p>&nbsp;</p>
+<h3>The Ending Index is Exclusive</h3>
+<p>In the example above, the parameters of the substring() function call were 0&nbsp;and 4, but the String was made up of the characters at indices 0,1, 2, and 3. One confusing aspect of the substring's boundaries is that the ending boundary is exclusive. This can be confusing at times, but you get the hang of it.</p>
+<p>&nbsp;</p>
+<h3>The Ending Index is Optional</h3>
+<p>You must provide a starting index, but if you do not provide an ending index, the substring will continue to the end of the String.&nbsp;</p>
+<pre>let str = "Sacco";
+let a = str.substring( 1,3);  //"ac"
+let b = str.substring( 1 );   //"acco"
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Sentence Maker</h2>
+<p>Open the Sentence Maker workspace in CodeHS.&nbsp; The sentenceMaker() function's purpose is to take the input String, which may have questionable capitalization, and return it in 'Sentence Format', which we are defining as a <strong>single capital followed by all lowercase letters.</strong></p>
+<p>"hElLo HoW Are YoU?"&nbsp; -&gt; "Hello how are you?"<br />"misTER SACco"&nbsp; &nbsp;-&gt;&nbsp; &nbsp;"Mister sacco"</p>
+<p>Like before, we will use the <strong>inputStr&nbsp;</strong> to create a result before returning it.</p>
+<p>&nbsp;</p>
+<h4>This Takes Multiple Steps</h4>
+<p>We can uppercase and lowercase Strings by calling the toUpperCase() and toLowerCase() functions, but they change the entire String to either upper or lower. The&nbsp;challenge here is to separate the String into its separate parts. If you have the input's value in a variable named&nbsp;<strong>str</strong>, you can break it up correctly with two substrings.</p>
+<pre>let firstLetter = inputStr.substring(0,1);  //The very first letter
+let afterFirst = inputStr.substring( 1 );  //Everything after the first letter</pre>
+<p>We now have two Strings that together make up the message, but they may not have the right capitalization. Use each String's toUpperCase() or toLowerCase() function to make sure that they have the proper case before concatenating them back together and outputting them.</p>
+<p>Test your program multiple times to make sure that it both capitalizes the beginning of the String and lowercases the rest.</p>
+<p>&nbsp;</p>
+  <br><hr>
+  <h2>Half and Half</h2>
+<p>Open the Half and Half workspace in CodeHS</p>
+<p>The halfAndHalf() function is meant to take the input String return&nbsp; it in a two-line, with half of the String on the top and half on the bottom.</p>
+  
+  
+  <pre>computer  -&gt  comp
+              uter
+            
+science   -&gt; sci
+             ence</pre>
+<p>&nbsp;</p>
+<h4>How to Create a Two-Lined String</h4>
+<p>Your output is an html &lt;p&gt; tag. This means that we can add&nbsp;<strong>break</strong> tags to our String and it will represent moving to a new line.&nbsp;</p>
+<p>If you make the function return "MISTER&lt;br&gt;SACCO", the break will not appear, instead you will see them separated:</p>
+<p>MISTER<br />SACCO</p>
+<p>&nbsp;</p>
+<h3>Make sure that words with odd lengths don't fail</h3>
+<p>Even length'd words split up easily, but there will be issues when the length of the word is&nbsp;<strong>odd</strong>. It is okay to have an uneven amount of characters on each line, but you must avoid using decimals as an index. Halving the length is an important part of finding where to divide your String, but if the length of the word is 7, you don't want to use 3.5 as an index.</p>
+<p>Instead use&nbsp;<strong>integer division</strong>, meaning that half of seven is&nbsp;<strong>3</strong>&nbsp;flat, with no decimal. You can accomplish this by using the&nbsp;<strong>floor()</strong>&nbsp;function after dividing. This will provide you with an&nbsp;<strong>integer</strong>&nbsp;that is close enough to the halfway mark in your String.</p>
+<p>&nbsp;</p>
+<p>Test your halfAndHalf() function with multiple Strings of different lengths. Also check to make sure that words with an odd length work as well.</p>
+  
+  <br><br><hr>
+  
+  <h2>Middle</h2>
+<p>Open the Middle workspace.</p>
+<p>The purpose of the middle() function found there is to return the 'middle' of the input String, where the first and last characters are removed.</p>
+<pre>"football" -&gt; "ootbal"<br />"soccer"&nbsp; -&gt; "occe"<br />"table tennis"&nbsp; -&gt; "able tenni"</p>
+<p>&nbsp;</pre>
+<h5><strong>DO NOT USE SUBTRACTION</strong></h5>
+<p>Mr. Sacco is trying to bait you into thinking that you will be able to subtract from the String somehow but&nbsp;"football" - "f" - "l" is not real code. In reality, all you need is a single substring whose start and end are chosen to&nbsp;<em>avoid</em> choosing the first and last letters. Meaning your substring should start later than the first letter, and end earlier than the last letter.</p>
+<p>Test our the middle() function with Strings of different lengths to confirm that it functions properly.</p>
+  <br><br><hr>
+  
+  <h2>Lazy Pig Latin</h2>
+<p>Speaking in Pig Latin involves flipping the first syllable of a word to the end, while also adding 'ay'.&nbsp;The lazy way to do this is to simply take the first letter and move it to the back.</p>
+<pre>Pig -&gt; igpay<br />Sacco -&gt; accosay<br />Computer -&gt; omputercay</pre>
+<p>This is 'lazy' because it doesn't work for more complex words:</p>
+<p><code>"Thursday" -&gt; "Hursday<strong>t</strong>ay"</code> instead of the proper <code>"Ursday<strong>th</strong>ay"</code></p>
+<p>We will accept this flaw for now.</p>
+<p>&nbsp;</p>
+<p>Implement the lazyPigLatin() function so that it converts the input String to a lazy pig latin version of itself. Try it a few times with words of different lengths. </p>
+  
+  
+  <br><br><hr>
+  <h2>www Adder</h2>
+<p>When using modern browsers, you are rarely required to input the&nbsp;<strong>www.</strong>&nbsp;that precedes most websites. This is because when you leave it out, it is automatically added. The wwwAdder() function's purpose is to take the input and&nbsp;<strong>maybe&nbsp;</strong>add a "www." in front.</p>
+<p>The addition of "www." should only occur if necessary. A String that already starts with "www." needs no change</p>
+<pre>"google.com"&nbsp; -&gt;&nbsp; "www.gooogle.com"<br />"bing.com"&nbsp; -&gt; "www.bing.com"<br />"www.altavista.com" -&gt; "www.altavista.com"</pre>
+<p>To do this, you will have to look at the first four characters. Use a substring to get them into their own variable and then an if statement to see if it's "www.". From there you can determine if you should add the "www." to the front or not.</p>
+<p>Try your www Adder function on strings that&nbsp;<em>have&nbsp;</em>a www in front and also with those that do not to make sure that it works properly.</p>
+  
+  
+  <br><br><hr>
+  <h2>Star Wars Name</h2>
+<p>Open the Star Wars Name workspace.</p>
+<p>In order to determine your Star Wars name, you need four piece of information: your first name, last name, mother's maiden name, and your birth city. The workspace already has four inputs created.</p>
+<p>Your Star Wars Name is made up of:</p>
+<p>The first three letters of your <strong>first</strong> name,<strong> but reversed</strong><br />The first two letters of your <strong>last </strong>name<br />The first two letters of your Mother's <strong>Maiden name</strong><br />The first three letters of your<strong> birth city</strong></p>
+<p>For Mr.&nbsp;<strong>Ian</strong> <strong>Sa</strong>cco, born in&nbsp;<strong>San</strong>ta Cruz to a mother who used to be named&nbsp;<strong>Fe</strong>rgusson<br /><strong>Naisa Sanfe</strong></p>
+<p>&nbsp;</p>
+<p>The starWarsName() function has a parameter for each of these</p>
+<pre>function starWarsName(first, last, maidenName, city){<br /><br />}</pre>
+<p>&nbsp;</p>
+<p>Make sure that your final name has proper capitalization, despite what the user enters.</p>
+<p>Test your programs with Mr. Sacco's information above, and then your own information to confirm that your Star Wars Name Generator functions properly.</p>
+<p>&nbsp;</p>
+</body>
+</html>

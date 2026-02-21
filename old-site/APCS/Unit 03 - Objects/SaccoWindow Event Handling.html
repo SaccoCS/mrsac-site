@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-size: large;
+}
+</style><title>Event-Based Programming with Sac</title>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Event-Based Programming with SaccoWindow</h2>
+<p>In the last assignmnt you created the HelloWindow and the corresponding 
+WindowRunner.&nbsp; It didn&#39;t do much, but it displayed Hello World in a fancy 
+way.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Event Handling:</strong></p>
+<p>So far our programs have been pretty straight forward in the order in which 
+they run.&nbsp; The user doesn&#39;t really have any say in it.&nbsp; Our programs 
+sometimes have user interaction, but it&#39;s very prescribed.&nbsp; It has to come 
+at pre-determined moments in the code.</p>
+<p>There is another way to program user interaction and it&#39;s much more 
+reactionary.&nbsp; Leave the rest of the HelloWindow as it is and add the 
+following method:</p>
+<pre>@Override
+public void onMousePress(MouseEvent m)
+{
+   System.out.println("CLICK!");
+}</pre>
+<p>&nbsp;</p>
+<p><strong>What is this method?</strong></p>
+<p>Similar to the paintWindow method, the onMousePresss method is a method that 
+is already built into the SaccoWindow.&nbsp; It currently does nothing.&nbsp; If 
+we want to change how it functions in the HelloWindow, we must override it and 
+add the code that we want to replace it with.&nbsp; In this case, it&#39;s a simple 
+println that says &quot;CLICK!&quot;.</p>
+<p>&nbsp;</p>
+<p><strong>When is this method called?</strong></p>
+<p>&nbsp;You will never call this method directly.&nbsp; This method is what is 
+called an <strong>Event Handler</strong>.&nbsp; When a user does something like 
+click a mouse or press a key on the keyboard it&#39;s known as an <strong>event</strong>.&nbsp; 
+Events don&#39;t happen at prescribed times, so the way that we prepare for them is 
+with an event handler like the onMousePress method.</p>
+<p>Every single time you press a mouse button on the window the onMousePress 
+button is <strong>automatically </strong>called.&nbsp; Test this out by running 
+the program and clicking several times on the window.&nbsp; Each time that you 
+click the window &quot;CLICK!&quot; should be printed as a reaction to the Mouse Event.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>What&#39;s this MouseEvent parameter?</strong></p>
+<p>The MouseEvent parameter is an object that holds three pieces of data as 
+instance fields: the x and y of where the mouse was on the window when the click 
+occurred and the number that represents which button was pressed.</p>
+<p>During this method we can access that information using the getX, getY, and 
+getButton methods that you can see in the 
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/MouseEvent.html">MouseEvent API</a>.</p>
+<p>Change the HelloWindow onMousePress method to be the following:</p><pre>@Override
+public void onMousePress(MouseEvent m)
+{
+   int x = m.getX();
+   int y = m.getY();
+   int button = m.getButton();
+   System.out.println("CLICK! ("+x+&quot;,&quot;+y+&quot;) with button #&quot;+button);
+}</pre>
+
+<p>Run the program.&nbsp; This time you should see a different output depending 
+on the location clicked.&nbsp; Try different buttons on the mouse and see what 
+each number stands for.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Changing Colors:</strong></p>
+<p>Let&#39;s make one last modification to the HelloWindow.&nbsp; When we click the 
+window, let&#39;s have the background change from blue to red.</p>
+<p>What needs to change?</p>
+<p>For this program we are needing to switch from a blue color to a red color.&nbsp; 
+This means that we will have to use a variable to represent the background 
+color.&nbsp; Since a Canvas can use a String to represent a color, we&#39;ll stick 
+with that for simplicity.</p>
+<p>- Add a String as an <strong>instance field</strong> named colorStr.&nbsp; 
+This String will represent the color of the background.</p>
+<p>&nbsp;- Now that we have an instance field, add a constructor that will take 
+in no parameters and have it simply put &quot;BLUE&quot; into the instance field.</p>
+<p>- Jump down to the <strong>paintWindow</strong> method and find the line 
+where you set the color to &quot;BLUE&quot; and replace it with the colorStr instance 
+field.</p>
+<p>&nbsp;</p>
+<p>All that we&#39;ve done is replace the String &quot;BLUE&quot; with a String variable that 
+contains the String &quot;BLUE&quot;.&nbsp; Since that variable never changes, this should 
+not change your program in any way.&nbsp; Run it one more time to make sure that 
+nothing has changed before moving on.</p>
+<p>&nbsp;</p>
+<p>Now replace the onMousePress method with the following:</p>
+<pre>@Override
+public void onMousePress(MouseEvent m)
+{
+   colorStr = &quot;RED&quot;;
+}</pre>
+<p>This means that everytime the mouse is pressed, the colorStr is set to &quot;RED&quot;.&nbsp; 
+The effect of this is that the paintWindow method relies on this variable to 
+tell it what color to be.&nbsp; Now that it says &quot;RED&quot; the color will change to 
+red.</p>
+<p>&nbsp;</p>
+<p>Run the program and click the mouse on the window.&nbsp; It should change 
+from blue to red.&nbsp; It will not change back because we&#39;ve only programmed 
+the ability to set the variable to &quot;RED&quot;, not back to &quot;BLUE&quot;.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style2"><strong>onMouseRelease</strong></p>
+<p>There is more than one MouseEvent method that you can override.&nbsp; This 
+one is called onMouseRelease, and the computer will wait until you let go of the 
+mouse before calling this method (unlike the onMousePress method that is called 
+when the mouse button is pressed down..</p>
+<p>Add the following method to the HelloWindow class.&nbsp; This is a <strong>
+new</strong> method, not a replacement for the other mouse method.</p>
+<pre>@Override
+public void onMouseRelease(MouseEvent m)
+{
+   colorStr = &quot;BLUE&quot;;
+}</pre>
+
+<p>This one sets the color back to blue.</p>
+<p>&nbsp;</p>
+<p>Recap:&nbsp; The colorStr variable starts out with a &quot;BLUE&quot; value in it.&nbsp; 
+When the mouse is pressed, the colorStr is set to &quot;RED&quot;.&nbsp; This only lasts 
+until the mouse button is released, because at that moment the onMouseRelease 
+method will set it back to blue.</p>
+<p>&nbsp;</p>
+<p>Run the program and click the window a few times.&nbsp; It should remain red 
+for as long as the mouse is held down.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p><strong><span class="auto-style2">Assignment</span></strong>:</p>
+<p>In the last assignment you created the StringDisplay object, which displays 
+the string passed as a parameter.&nbsp; Create a similar class named 
+MouseDisplay.&nbsp; This class should have identical instance fields and 
+paintWindow method.</p>
+<p>The <strong>Constructor</strong> should be different.&nbsp; It should take in
+<strong>zero</strong> parameters and assign the instance field to be an empty 
+String &quot;&quot;.</p>
+<p>&nbsp;</p>
+<p>Add a method with the following header:</p>
+<pre>public void onMouseMove(MouseEvent m)</pre>
+<p>This is the third Mouse Event method.&nbsp; It is called every simgle time 
+that the mouse is moved (no press required).&nbsp; Add code to this method so 
+that it extracts the x and y out of the parameter and then uses those values to 
+put a new String into the instance field.&nbsp; This new String should be in the 
+form &quot;( __, __ )&quot; with the blanks being the x and y.</p>
+<p>Run your program and drag the mouse across the window.&nbsp; You should 
+notice that the displayed String changes every time you moce the mouse a little 
+bit.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

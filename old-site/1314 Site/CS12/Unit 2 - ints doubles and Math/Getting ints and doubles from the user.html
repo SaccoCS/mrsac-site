@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Getting ints and doubles from the User</title>
+
+
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p,pre {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Getting ints and doubles from the User</h2>
+<p>We already know that a Scanner is useful when we want to get a String from the user.  We need to do a few things</p>
+<ul><li>Construct a Scanner object</li>
+<li>Prompt the user for the data</li>
+<li>Call the nextLine method to retrieve the data.</li>
+</ul>
+<pre>Scanner scan = new Scanner(System.in);
+System.out.println("Please enter _____");
+String result = scan.nextLine();</pre>
+
+<p>The problem is that the nextLine method only returns a String.  When you want to get ints or doubles, there is an extra step.</p>
+
+<hr/>
+<h3>Getting an int from the User</h3>
+<p>When you want to get something from the user that is not a String you will first get the data as a String and then convert it to the value that you want.</p>
+<pre>Scanner scan = new Scanner(System.in);
+System.out.println("Please enter an int");
+String result = scan.nextLine();</pre>
+<p>Once you have the info as a String, convert it using the Integer.parseInt method, which takes in a String and returns the int version of that String.</p>
+<pre>Scanner scan = new Scanner(System.in);
+System.out.println("Please enter an int");
+String result = scan.nextLine();
+<span style = "color:red">int num  = Integer.parseInt(result);</span></pre>
+
+<p>Whatever the result variable contains will be turned into an int and stored into the num variable, which you can then do math with.</p>
+
+
+<hr/>
+<h3>Getting a double from the User</h3>
+<p>Getting a double is very similar to getting an int.  You must first get the String version of a number, and then use the <strong>Double.parseDouble</strong> method.</p>
+<pre>Scanner scan = new Scanner(System.in);
+System.out.println("Please enter an int");
+String result = scan.nextLine();
+<span style = "color:red">double num  = Double.parseDouble(result);</span></pre>
+
+<p>After that, you can use that value as a normal double.</p>
+
+</body>
+
+</html>

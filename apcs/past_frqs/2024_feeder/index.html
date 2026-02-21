@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feeder Simulation Problem</title>
+  <style>
+    body {
+      font-family: "Times New Roman", serif;
+      margin: 40px;
+      line-height: 1.4;
+    }
+    code {
+      font-family: "Courier New", monospace;
+      font-size: 0.8em;
+    }
+    pre {
+      background: #f7f7f7;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      overflow-x: auto;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    Feeder
+  </h1>
+
+  <!-- FIRST SECTION (your newly added screenshot) -->
+  <p>This question simulates birds or possibly a bear eating at a bird feeder.  
+     The following <code>Feeder</code> class contains information about how much food is
+     in the bird feeder and simulates how much food is eaten.  
+     You will write two methods of the <code>Feeder</code> class.</p>
+
+  <pre><code>public class Feeder
+{
+    /**
+     * The amount of food, in grams, currently in the bird feeder;
+     * initialized in the constructor and always greater than or equal to zero
+     */
+    private int currentFood;
+
+    /**
+     * Simulates one day with numBirds birds or possibly a bear at the bird feeder,
+     * as described in part (a)
+     * Precondition: numBirds > 0
+     */
+    public void simulateOneDay(int numBirds)
+    { /* to be implemented in part (a) */ }
+
+    /**
+     * Returns the number of days birds or a bear found food to eat at the feeder
+     * in this simulation, as described in part (b)
+     * Preconditions: numBirds > 0, numDays > 0
+     */
+    public int simulateManyDays(int numBirds, int numDays)
+    { /* to be implemented in part (b) */ }
+
+    // There may be instance variables, constructors, or methods that are not shown.
+}</code></pre>
+
+ 
+
+  <!-- PART (a) -->
+  <p><strong>(a)</strong> Write the <code>simulateOneDay</code> method, which simulates
+    <code>numBirds</code> birds or possibly a bear at the feeder for one day. The method
+    determines the amount of food taken from the feeder on this day and updates the
+    <code>currentFood</code> instance variable. The simulation accounts for normal
+    conditions, which occur 95% of the time, and abnormal conditions, which occur 5% of
+    the time.</p>
+
+  <p>Under normal conditions, the simulation assumes that on any given day, only birds visit
+    the feeder and that each bird at the feeder consumes the same amount of food. This
+    standard amount consumed is between 10 and 50 grams of food, inclusive, in 1-gram
+    increments. That is, each bird might eat 10, 11, …, 49, or 50 grams of food. The amount
+    each bird eats is randomly generated.</p>
+
+  <p>If the simulated food consumed is greater than the amount of food in the feeder, the birds
+    empty the feeder and the amount of food left at the end of the day is zero.</p>
+
+  <p>Under abnormal conditions, a bear empties the feeder; the amount of food left is zero.</p>
+
+  <ul>
+    <li><strong>Example 1:</strong> If the feeder initially contains 500 g of food,
+      <code>simulateOneDay(12)</code> could result in 12 birds eating 20 g each, leaving
+      260 g.</li>
+
+    <li><strong>Example 2:</strong> If the feeder contains 1,000 g of food,
+      <code>simulateOneDay(22)</code> could result in a bear eating all the food.</li>
+
+    <li><strong>Example 3:</strong> If the feeder contains 100 g of food,
+      <code>simulateOneDay(5)</code> could result in 5 birds attempting to eat 30 g each,
+      but because the total (150 g) exceeds what is available, the feeder becomes empty.</li>
+  </ul>
+
+  <pre><code>/**
+ * Simulates one day with numBirds birds or possibly a bear at the bird feeder,
+ * as described in part (a)
+ * Precondition: numBirds > 0
+ */
+public void simulateOneDay(int numBirds)</code></pre>
+
+  <hr>
+
+  <!-- PART (b) -->
+  <p><strong>(b)</strong> Write the <code>simulateManyDays</code> method. The method uses
+    <code>simulateOneDay</code> to simulate <code>numBirds</code> birds or a bear coming to
+    the feeder on at most <code>numDays</code> consecutive days.  
+    The simulation returns the number of days that birds or a bear found food at the feeder.</p>
+
+  <p>Consider the following examples.</p>
+
+  <table>
+    <tr>
+      <th>Value of <code>currentFood</code><br>and Method Call</th>
+      <th>Possible Outcomes and Resulting Return Value</th>
+    </tr>
+
+    <tr>
+      <td>
+        <code>currentFood: 2400</code><br>
+        <code>simulateManyDays(10, 4)</code>
+      </td>
+      <td>
+        Day 1: leaves 2100 g<br>
+        Day 2: leaves 1650 g<br>
+        Day 3: leaves 1500 g<br>
+        Day 4: leaves 1260 g<br><br>
+        Simulation returns <strong>4</strong>, since food was found all four days.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <code>currentFood: 250</code><br>
+        <code>simulateManyDays(10, 5)</code>
+      </td>
+      <td>
+        Day 1: leaves 150 g<br>
+        Day 2: leaves 0 g<br><br>
+        Simulation returns <strong>2</strong>.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <code>currentFood: 0</code><br>
+        <code>simulateManyDays(5, 10)</code>
+      </td>
+      <td>
+        Simulation returns <strong>0</strong> since no food was available.
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

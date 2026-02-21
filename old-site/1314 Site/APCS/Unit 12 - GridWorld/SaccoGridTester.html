@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>import info</title>
+</head>
+
+<body>
+
+<table style="width: 100%">
+	<tr>
+		<td><pre>import info.gridworld.actor.*;
+
+import info.gridworld.grid.*;
+
+
+
+public class SaccoGridTester
+{
+
+    public static void main()
+    {
+
+
+
+        SaccoGrid sGrid = new SaccoGrid();
+
+        
+        SaccoGrid s = new SaccoGrid(12,52); //testing second constructor
+
+
+
+        ActorWorld world = new ActorWorld(sGrid);
+
+
+
+        //Using world to add to the grid
+
+        world.add(new Location(4,4), new Bug());
+
+        world.add(new Location(5,5), new Bug());
+
+        world.add(new Location(6,6), new Bug());
+
+
+
+        //adding to the Grid directly
+
+        sGrid.put(new Location(6,5), new Rock());
+
+
+
+        System.out.println("The total occupied Locations are: "+sGrid.getOccupiedLocations());
+
+
+
+        
+
+        Location fromLoc = new Location(5,4);
+
+
+
+        System.out.println("The valid adjacent Locations to "+fromLoc+" are: "+sGrid.getValidAdjacentLocations(fromLoc));
+
+
+
+        System.out.println("The empty adjacent Locations "+fromLoc+" are: "+sGrid.getEmptyAdjacentLocations(fromLoc));
+
+
+
+        System.out.println("The occupied Locations next to "+fromLoc+" are: "+sGrid.getOccupiedAdjacentLocations(fromLoc));
+
+
+
+        System.out.println("The Actors at the Locations next to "+fromLoc+" are: "+sGrid.getNeighbors(fromLoc));
+
+
+
+        world.show();
+
+    }
+
+}
+</pre></td>
+	</tr>
+</table>
+
+</body>
+
+</html>

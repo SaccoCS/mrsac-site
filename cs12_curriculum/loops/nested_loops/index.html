@@ -1,0 +1,242 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Nested Loops</title>
+  
+</head>
+
+<body>
+  
+ 
+  <h1>Creating a grid using Nested Loops</h1>
+<p>Open the My First Grid workspace in CodeHS</p>
+<p>Lets say that you want to draw a line of squares:</p>
+<p><img src="images/squares1.png" width="202" height="22" /></p>
+<p>If each square is 20 wide, we could write it as:</p>
+<pre>square(0,0,20);
+square(20,0,20);
+square(40,0,20);
+square(60,0,20);
+square(80,0,20);
+square(100,0,20);
+square(120,0,20);
+square(140,0,20);
+square(160,0,20);
+square(180,0,20);
+</pre>
+<p>By this is a little much. I can see that the x value is a series of numbers that starts at 0 and increases by 20 for each square. We could make a for loop that will generate the x value for each square.</p>
+<pre>for(let x = 0; x &lt; 200; x+=20){
+&nbsp; square(x,0,20);
+}</pre>
+<p>This is much classier.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Making a Line into a Grid</h4>
+<p><img src="images/squares2.png" width="202" height="202" /></p>
+<p>If we're looking to make a grid of squares, one attempt would be to draw ten squares each time the new x value is generated:</p>
+<pre>for(let x = 0; x &lt; 200; x+=20){
+&nbsp; square(x,0,20);
+&nbsp; square(x,20,20);
+&nbsp; square(x,40,20);
+&nbsp; square(x,60,20);
+&nbsp; square(x,80,20);
+&nbsp; square(x,100,20);
+&nbsp; square(x,120,20);
+&nbsp; square(x,140,20);
+&nbsp; square(x,160,20);
+&nbsp; square(x,180,20);
+}
+</pre>
+<p>In order to draw ten squares for every x value, we've done some more gross copy-pasting. If you look carefully, the&nbsp;<strong>y</strong>&nbsp;coordinates also have a pattern. This means that we can write a loop&nbsp;<strong>inside</strong>&nbsp;of our x loop that should loop through every <strong>y</strong>&nbsp;value that we need to draw a square at. It's the same pattern&nbsp;</p>
+<pre>for (let x = 0; x &lt; 200; x += 20) {
+&nbsp;   for (let y = 0; y &lt; 200; y += 20) {
+   &nbsp; &nbsp;  square(x, y, 20);
+&nbsp;   }
+}</pre>
+<p>This is&nbsp;<strong>nesting</strong><strong>&nbsp;loops</strong>. Each new value of x will spawn a new loop that will cycle the y variable from 0 to 200. After that, the x variable increases and the y value starts at zero again. This will generate&nbsp;<strong>every combination of x and y</strong>&nbsp;that is needed to draw the full grid on the screen.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Your Task: Number Grid</h4>
+<p><img src="images/number_grid.png" width="202" height="202" /></p>
+<p>&nbsp;</p>
+<p>Starting&nbsp;with the nested loop above that will generate the (x,y) pairs for each rectangle being drawn. Your job will be to use the text() command at each of those locations as well.</p>
+<p>You can put text in the center of each square using the text() function:</p>
+<pre>textAlign(CENTER,CENTER);
+text( "X" , x + 10, y + 10);      //add 10 to x and y to get to the center of a 20x20</pre>
+<p>This would put an&nbsp;<strong>X</strong>&nbsp;in the center of each square.</p>
+<p><img src="images/x_grid.png" width="200" height="200" /></p>
+<p>&nbsp;</p>
+<p><br />To get the numbers to show&nbsp;you will need a <strong>counting variable</strong> to help you, but don't make it global. Declare it and initialize it to 1 inside the draw function, right before the loop begins.&nbsp; During the loop, after drawing the square, use text() to draw the value of the counting variable, and then immediately increase it by 1. This will cause each square to be one value higher than the previous one. This should feel similar to the 'Better Number List' sketch from before.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Getting the Order Right</h5>
+<p>IF you use the nested loop that you've been provided, you may notice something strange about the order that the numbers go in. Notice that the first ten numbers are in the far left column, when we actually want them on the top row.</p>
+<p><img src="images/number_grid2.png" width="202" height="202" /></p>
+<p>This is because the loop is set up in a way that the x value holds at zero while the y variable cycles through all its values. This ends up generating the left column first and generating in&nbsp;<strong>column-major order</strong></p>
+<pre>for (let x = 0; x &lt; 200; x += 20) {        //Hold x steady while y  loops, then increases x and repeats
+&nbsp;&nbsp; &nbsp;for (let y = 0; y &lt; 200; y += 20) {
+&nbsp;       textAlign(CENTER,CENTER);
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;}
+}</pre>
+<p>&nbsp;</p>
+<p>In order to get the squares to generate on the top of the screen, we can change the loop so that the y variable is the&nbsp;<strong>outer</strong>&nbsp;loop:</p>
+<pre>for (let <strong>y </strong>= 0;<strong> y</strong> &lt; 200; <strong>y</strong> += 20) {             //Hold y steady while x loops, then increases y and repeats
+&nbsp;   for (let x = 0; x &lt; 200; x += 20) { &nbsp; &nbsp; &nbsp;
+&nbsp;       textAlign(CENTER,CENTER); &nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre>
+<p>This should cause the numbers to generate in&nbsp;<strong>row-major order</strong></p>
+<p><img src="images/number_grid3.png" width="202" height="202" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Checkerboard</h2>
+<p><img src="images/checker.png" width="180" height="180" /></p>
+<p>Open the Checkerboard workspace. The basics of this are very similar to the previous one. A nested loop is used to generate all the locations of the squares.&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Choosing the Color of the Squares</h4>
+<p>To get the checkerboard effect we need to make sure that we alternate between drawing black and white squares. One way to do that is to bring back the&nbsp;<strong>counting variable</strong>&nbsp;from the previous sketch and use the fact that odd and even numbers alternate.&nbsp;When you get to each square, use mod to help you determine if the count is even or not. Choose a black fill for squares with an even count, white&nbsp;If odd.</p>
+<p>&nbsp;</p>
+<h4>Nudging the Count</h4>
+<p>This strategy does have a flaw because the colors of the checkerboard don't perfectly alternate. The color of the square at the end of each row is the same as the one at the beginning of the next. You can offset this by putting an extra count++ as the last line&nbsp;of your outer loop. This will nudge the count from odd to even and disrupt the alternating, causing the next row to start with a square of the same color.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  <h2>Circle Waves</h2>
+<h3><iframe src="demos/circle_waves/index.html" width="364px" height="184px" data-mce-fragment="1"></iframe></h3>
+<p>In the sketch above, a grid of circles is drawn, and each circle's radius is oscillating from large to very small. The key to their animation is a value that is generated for each circle using this call to the sine function (assuming angleMode(DEGREES) )</p>
+<pre>let s = sin(frameCount*0.5 + x + y);</pre>
+<p>Including frameCount in a sin() function will create a value that is different each time, oscillating between -1 and +1. The x and y are added so that not all circles are using the exact same value (frameCount). Adding the location to the frameCount offsets the angle that is used to calculate the sin value.</p>
+<p>Your task is to make the Circle Waves workspace behave similarly to the one above. After calculating the sin value for each location, you can use the map() function to get it out of the -1 to +1 range and into the range of radii that you are looking for.</p>
+<p>Note: Don't forget to use angleMode(DEGREES)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Hover Circle Grid</h2>
+<h3><iframe src="demos/hover_circle_grid/index.html" width="334px" height="124px" data-mce-fragment="1"></iframe></h3>
+<p>Open the Hover Circle Grid workspace. The purpose of this sketch will be to have a grid of circles that change color when the mouse is hovering over them. Remember that the way we check to see if the mouse is in a circle is to first <strong>calculate the distance</strong> from the mouse to the center of the circle, and then compare it to the radius of that circle.</p>
+<p>Use a nested loop to help you generate your&nbsp;xy-values and draw your grid of circles with the radius of your choosing (Remember to use ellipseMode(RADIUS) to simplify things.). Before you draw the circle at each (x, y) value, you need to pick the fill. You should calculate the distance to the mouse using dist(),&nbsp;and use that to help you&nbsp;pick between one of two fill colors for each circle to be.</p>
+<p>You have done something similar to this before. If you need inspiration, go back and look at the Circle's and dist() assignment from the first p5 unit.</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Swelling Circles</h2>
+<h3><iframe src="demos/circle_swell/index.html" width="379px" height="229px" data-mce-fragment="1"></iframe></h3>
+<p>Open the Swelling Circles workspace.</p>
+<p>To make this sketch interactive, each circle drawn is responding to how far the mouse is from it. The relationship is&nbsp;<strong>inverse; </strong>the smaller the mouse distance is, the bigger the radius is.&nbsp;</p>
+<p>When drawing each circle you should first calculate the distance to the mouse, and then calculate the circle's radius using a fraction with the distance on the bottom ( the example uses 250/mouseDistance ).</p>
+<p>&nbsp;</p>
+<h5>Limiting the Radius</h5>
+<p>Dividing by the distance will work for most of the circles, but you'll notice that when the distance gets small enough&nbsp;you can get a radius value that is way too large. Do your best to limit how big this value can be. If the radius is larger than your maximum radius, use the maximum radius instead.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  <h2>Pointing at the Mouse</h2>
+<h3><iframe src="demos/pointer_grid/index.html" width="260px" height="132px" data-mce-fragment="1"></iframe></h3>
+<p>As you wave your mouse around the sketch above, you'll see that we have a grid lines that are all the same size and pointing at the mouse. Open the Pointing at the Mouse workspace, where you will recreate it.</p>
+<p>&nbsp;</p>
+<h4>Connect to the Mouse</h4>
+<p>To get started, use a nested for-loop to generate a grid of (x, y) locations. At each location, use the <strong>line</strong>&nbsp;function to connect the mouse: (mouseX, mouseY) to the point made by your looping variables: (x,y)</p>
+<h5>line( x, y, mouseX, mouseY);&nbsp; <span>//Connects (x,y) directly to the mouse</span></h5>
+<p>Make this connection and run your sketch. Since these lines are connecting all the way to the mouse&nbsp;your sketch will be a little chaotic, but you should see a line connecting the mouse to every location in the grid.</p>
+<p>&nbsp;</p>
+<h4>Using X and Y Components</h4>
+<p>The line() command that I gave you above simply connects the two points. If we want to draw a shorter line, but maintain the&nbsp;direction that it's pointing, we'll need to think of this as&nbsp;a&nbsp;<strong>vector</strong>, meaning we want to focus more on&nbsp;the line that we're drawing as a&nbsp;<strong>triangle</strong>&nbsp;formed between (mouseX, mouseY) and the point (x, y)</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+<p><img src="images/distDXDY.png" /></p>
+<p>The sides of the triangle are dx and dy, are the individual&nbsp;<strong>difference in X</strong>&nbsp;and the&nbsp;<strong>difference in Y&nbsp;</strong>which can be calculated using subtraction of the two endpoints. Rewrite your loop so that it first finds these differences before drawing the line. If you assign them to variables named <strong>dX </strong>and <strong>dY</strong>, the line statement should look like this.</p>
+<code>line( x, y, x + dX, y + dY);</code>
+<p>After all of this work, you should still see lines that connect all the way to the mouse</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h4>
+    Normalizing the Vector
+  </h4>
+  
+<p>
+  
+The ratio of the dX and dY is what determines the direction that the line is pointing. We can change the length of the line by multiplying or dividing dX and dY, as long as it's by the same value.
+  </p>
+<p>
+  </p>
+<p>
+Our goal is to draw lines that always have a length of 15. To do this we need to calculate a new dX and dY that have the same ratio, but are modified to make the line drawn with them is 15.
+</p>
+<p>
+The key to this to first calculate the distance from the xy location to the mouse's location: dist(x,y,mouseX,mouseY)
+
+  </p>
+  
+<p><img src="images/distDXDY.png" /></p>
+  
+  <p>
+    This distance is the 'hypotenuse' of the triangle formed with our dX and dY. We don't know exactly what this distance will be , but if you divide both dX and dY by that distance, you keep the same ratio between the two, but create a triangle with a hypotenuse that is guaranteed to be 1.
+
+  </p>
+  
+  
+  
+<p><img src="images/smoldistDXDY.png" /></p>
+  
+  
+  <p>
+    With our new dX and dY giving us a hypotenuse of 1, we can then use multiplication to get the exact hypotenuse that we want. In this case we will be multiplying by 15. Modify your loop so that it:
+  </p>
+<ul>
+  <li>Calculates the distance between the mouse and the generated xy location using the dist() function</li>
+  <li>Divides the calculated dX and dY by that distance</li>
+  <li>Multiplies dX and dY by 15</li>
+  </ul>
+  
+  <p>
+     With these changes to the dX and dY values, the line drawn using them should now have a length of exactly 15. Run the program again to confirm that it works properly.
+  </p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  
+  
+</body>
+
+
+</html>
+

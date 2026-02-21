@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Turtle Graphics</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style5 {
+	font-size: small;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Turtle Graphics</p>
+<p class="auto-style1">Some of the first programmers programmed a small robot 
+with a pen attached to it to draw designs.&nbsp; In sacco.jar there is an Object 
+that helps you simulate it.&nbsp; It has methods to tell it to move, turn, and 
+to put the pen up or down.</p>
+<p class="auto-style1">Open up the <strong>
+<a href="https://dl.dropboxusercontent.com/u/7648734/1314%20Site/SaccoJar/javadocs/Turtle/sacco/Turtle.html">
+Turtle API</a> </strong>and take a look at what methods you have available.&nbsp;
+</p>
+<hr>
+<p><span class="auto-style1"><strong>New Data Type!</strong></span><br class="auto-style1" />
+<span class="auto-style1">Look at the parameter for the move method.</span></p>
+<p><img class="auto-style1" src="images/img2.gif" /></p>
+<p class="auto-style1">A double is like an int, but you can put decimal values 
+into it.&nbsp; This means that you can move 255, or you can move 255.5209 if you 
+would like.</p>
+<hr>
+<p class="auto-style1">Now create a program named <strong>Scribble</strong> and 
+play with some of the methods to see how each of them works (except 
+paintWindow).&nbsp; Don&#39;t forget that you must first construct a Turtle before 
+you can start calling methods and that the penDown() method is necessary to 
+actually start drawing.</p>
+<p class="auto-style1">Once you&#39;re done playing around with the methods, create 
+a program named <strong>Star</strong> attempt to make the star pattern below (It 
+doesn&#39;t matter where your Turtle finishes).&nbsp; While it doesn&#39;t have to be 
+perfect, the cool people like Mr. Sacco will use Geometry to make sure that the 
+star is perfectly centered around the screen.</p>
+<p><img class="auto-style1" height="538" src="images/Capture.PNG" width="516" /></p>
+
+<p>&nbsp;</p>
+<p class="auto-style6"><strong>Using a variable to make your life easier:</strong></p>
+<p class="auto-style1">When completing the star, you probably have noticed a lot 
+of repetition in your code.&nbsp; It repeats move, turn, move, turn, five times 
+with the same values each time.&nbsp; Consider a situation where you want to 
+change the size of the star because it&#39;s too big or too small.&nbsp; That&#39;s five 
+different times that you have to edit your code to get a simple change.&nbsp; 
+Let&#39;s modify it to use a variable:</p>
+<p class="auto-style1">Somewhere near the beginning of your program, declare an 
+int and store the value of your side length into it.</p>
+<p class="auto-style1">int sideLength = 200;</p>
+<p class="auto-style3"><span class="auto-style5">Now you have your side length 
+stored, go to each of your </span><strong><span class="auto-style5">move</span></strong><span class="auto-style5"> 
+commands and use the sideLength variable as the parameter</span></p>
+<p class="auto-style1">myTurtle.move(sideLength);</p>
+<p class="auto-style1">Run the program and see what size the star is, and then 
+go back and change the sideLength variable to be 300 instead of 200.&nbsp; Run 
+the program again and observe the results.&nbsp; By using a variable, we&#39;ve 
+saved ourselves time when it came to modifying it.&nbsp; Keep this in mind when 
+programming.&nbsp; You always want to work smarter, not harder.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

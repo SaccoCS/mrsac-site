@@ -1,0 +1,56 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+
+
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Scribbler</h2>
+
+<p>
+Write a program that lets the user draw on the panel using the 
+mouse. To accomplish this, you must have instance fields that represent the last 
+x and y of the mouse. To draw lines you must use the onMouseMove to draw a line 
+from the LAST x and y (instance fields) to the current ones (m.getX() and 
+m.getY()).&nbsp;&nbsp; The last thing that the onMouseMove method should do is 
+put m.getX() and m.getY() into the x and y instance fields.&nbsp; This is so 
+when the method is called again, the lastx and lasty have the previous values.</p>
+<p>
+This should only happen while the mouse is being held down. Each time 
+the mouse is dragged, a new line is drawn to the background Picture.<br>&nbsp;<br>
+Like before, you will also need to use the onMousePress and onMouseRelease to 
+determine when the mouse is pressed. When it is, you should store the x and y in 
+your instance fields. This is so when you start dragging, the first line is 
+drawn from the correct spot, not 0,0.<br>&nbsp;<br>&nbsp;<br><strong>Determining left vs right 
+click:</strong><br>So far we&#39;ve only used the getX and getY methods of the MouseEvent 
+class to help determine where the event occurred. There is also another method 
+called getButton(). If you call the getButton method it will return an int that 
+represents which of the mouse buttons was pressed. 1 is the left button, 2 is 
+the middle button (pressing the scroll wheel), and 3 is the right button.<br>&nbsp;<br>
+Modify your onMousePress method so that a right click will &#39;erase&#39; the screen. 
+This can be accomplished by drawing a giant white rectangle on the background 
+Picture.<br>&nbsp;<br><br>
+</p>
+<applet code="ScribblerApplet.class" width="500" height="500" codebase="." alt="Your browser understands the <APPLET> tag but isn't running the applet, for some reason.">
+      Your browser is ignoring the &lt;APPLET&gt; tag!
+</applet>
+
+
+
+
+
+</body>
+
+</html>

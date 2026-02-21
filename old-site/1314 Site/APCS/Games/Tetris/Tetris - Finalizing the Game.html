@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Finalizing the Game:</h2>
+<p>So far we have been focusing mostly on getting the model right and adding all 
+the methods that our program will need. Once we’ve added methods for our 
+controller to use, the actual game part will be easy.</p>
+<p>&nbsp;</p>
+<h3>TetrisGrid:</h3>
+<h4>moveBlock</h4>
+<p>Back in the TetrisGrid class, add a method named moveBlock, which takes in 
+two locations, a start and and an end. The idea behind this method is that it 
+takes whatever block is at the starting location and adds it at the ending 
+location. Because of the location conundrum we cannot simply put Block into the 
+array and be done. We need to take special care that we use a method that will 
+set the block’s location variable, such as the addBlock method.</p>
+<p>Worrying About null:</p>
+<p>The addBlock method of the TetrisGrid sets the location of whatever block is 
+passed in. This is now an issue because the moveBlock method might be given a 
+location that has a null. Modify the addBlock method so that it will assign the 
+value to the grid at the given location, but it only sets the location if it’s 
+non-null.</p>
+<p>&nbsp;</p>
+<h4>dropRow</h4>
+<p>Add a method named dropRow, which takes in an int as a parameter. The goal of 
+this method is to loop through every column in the given row and to move it 
+“down” one row. Don’t forget that you have the moveBlock method and the 
+Location’s getLocInDir method to help.</p>
+<p>&nbsp;</p>
+<h4>isRowFull</h4>
+<p>Add a method named isRowFull, which takes in an int as a parameter and 
+returns a boolean. The purpose of this method is to return true if the given row 
+is full and false if it contains at least one null value.<br />
+</p>
+<h4>hasAFullRow</h4>
+<p>Add a method named hasAFullRow, which takes in no parameters and returns a 
+boolean. This method is the next step past the isRowFull method. It should loop 
+through every possible row and return true if any of them are full. A false 
+value would indicate that none of the rows are full.</p>
+<p>&nbsp;</p>
+<h3>TetrisController</h3>
+<p>The TetrisGrid has a lot of utility methods that help us check the state of 
+the grid and to do some actions. Now it’s time to program the controller to make 
+it into a game.</p>
+<p>First add the helper method dropIntoFullRows. The purpose of this method is 
+to loop through every row and check if it’s full. If it is, every row above that 
+row should be told to drop.WARNING: Don’t forget that 0,0 is the upper left hand 
+corner. This means you should be extra careful when thinking about the words 
+“above” or “below”, because they are numerically the opposite.&nbsp; You’ve just 
+written several methods for TetrisGrid that are meant to make this simple. Don’t 
+reinvent the wheel.<br />
+</p>
+
+</body>
+
+</html>

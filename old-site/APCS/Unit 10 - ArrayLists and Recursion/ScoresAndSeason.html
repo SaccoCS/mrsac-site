@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>Score and Season</title>
+
+<style>
+
+p,h2,h3{
+font-family:Arial;
+}
+
+
+p{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 0 15 0 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<h2>Score and Season</h2>
+<p>The Score class diagrammed below represents the result of a sporting event.  It keeps track of the name and score of both the home team and the away team.</p>
+<p>THIS IS ONLY FOR REFERENCE.  DO NOT CREATE A CLASS NAMED SCORE.  IT IS IN SACCOJAR</p>
+
+<div class="code">
+<pre>public class Score
+{
+   public Score(String homeName, int homePoints, String awayName, int awayPoints ) 
+   { /* implementation not shown */ }
+
+   public int awayPoints()
+   { /* implementation not shown */ }
+
+   public String awayName()
+   { /* implementation not shown */ }
+
+   public int homePoints()
+   { /* implementation not shown */ }
+
+   public String homeName()
+   { /* implementation not shown */ }
+}</pre>
+</div>
+<p>&nbsp;</p>
+<p>Copy the partially complete Season class below into your project.  It represents the scores that a team has throughout the season.  The constructor takes in a String as a parameter to represent the team name.  The constructor uses that name to call the static method listFactory, which will generate some random lists
+</p>
+
+<div class ="code">
+<pre>import sacco.objects.Score;
+import java.util.ArrayList;
+public class Season
+{
+   private ArrayList&lt;Score&gt; scoreList;
+   private String teamName;
+
+   public Season(String team)
+   {
+      scoreList = Score.listFactory(team);
+      teamName = team;
+   }
+
+   public ArrayList&lt;Score&gt; getScores()
+   {
+      return scoreList;
+   }
+
+   public boolean isWin(Score s)
+   {   /* To be implemented by you  */ }
+
+   public Score winLossRecord()
+   {   /* To be implemented by you  */ }
+
+   public ArrayList&lt;Score&gt; awayGames()
+   {   /* To be implemented by you  */ }
+
+   public Score lastHomeGame()
+   {   /* To be implemented by you  */ }
+
+   public String toString()
+   {
+       String str = "";
+
+       for(Score s: scoreList)
+       {
+           if(isWin(s))
+               str+="W "+s+"\n";
+           else
+               str+="L "+s+"\n";
+       }
+
+       str+="\nWin-Loss: "+this.winLossRecord();
+       str+="\nAway Games: "+this.awayGames();
+       str+="\nLast Home Game: "+this.lastHomeGame();
+
+       return str;
+    }
+	
+    public static void main()
+    {
+        Season s = new Season("Scripps Ranch Falcons");
+        System.out.println(s);
+    }
+}</pre>
+</div>
+<p>&nbsp;</p>
+
+<h3>Methods:</h3>
+<p>Implement each of the following methods.  After each one runs, the instance fields should remain unchanged.  The main method will create a Season object and then print out the toString.  Use this to test and make sure that your code is functioning.</p>
+<p>&nbsp;</p>
+<p style = "font-size:16px; font-family:Courier">public boolean isWin(Score s)</p>
+<p>This method is a utility method to help analyze the parameter Score object and returns true if the team defined in the instance field won the game.  The tricky part is that you don't know if your team is the home team or the away team</p>
+<p>&nbsp;</p>
+
+<p style = "font-size:16px; font-family:Courier">public Score winLossRecord()</p>
+
+<p>This method will determine the win-loss record for the Season.  It will return the result as a new Score object where the away team’s name is “Wins” and the home team’s name is “Losses” and the number of wins/losses are the points.  You may assume that there are no ties.</p>
+
+<p>&nbsp;</p>
+<p style = "font-size:16px; font-family:Courier">public ArrayList&lt;Score&gt; awayGames()</p>
+<p>This method will return an ArrayList of all the Scores where our team is away.</p>
+<p>&nbsp;</p>
+
+
+<p style = "font-size:16px; font-family:Courier">public Score lastHomeGame()</p>
+<p>This method will return the lastHomeGame of the season.  You may assume that there is at least one home game.
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<h3>Testing</h3>
+<p>When you run the main method, you should get an output similar to the one below:</p>
+<div class = "code">
+<pre>W Gotham Rogues(0) at Scripps Ranch Falcons(21)
+W Roswell Aliens(20) at Scripps Ranch Falcons(27)
+L Scripps Ranch Falcons(0) at Rancho Carne Toros(27)
+W Scripps Ranch Falcons(27) at East High Wildcats(10)
+W Average Joe's(3) at Scripps Ranch Falcons(34)
+L Scripps Ranch Falcons(0) at The Little Giants(14)
+W Scripps Ranch Falcons(17) at Springfield Isotopes(0)
+L Scripps Ranch Falcons(0) at Roswell Aliens(10)
+W The Bad News Bears(14) at Scripps Ranch Falcons(20)
+L Scripps Ranch Falcons(0) at East High Wildcats(34)
+W Rancho Carne Toros(3) at Scripps Ranch Falcons(31)
+W The Little Giants(10) at Scripps Ranch Falcons(21)
+
+Win-Loss: Wins(8) at Losses(4)
+Away Games: [Scripps Ranch Falcons(0) at Rancho Carne Toros(27), Scripps Ranch Falcons(27) at East High Wildcats(10), Scripps Ranch Falcons(0) at The Little Giants(14), Scripps Ranch Falcons(17) at Springfield Isotopes(0), Scripps Ranch Falcons(0) at Roswell Aliens(0), Scripps Ranch Falcons(0) at East High Wildcats(34)]
+Last Home Game: The Little Giants(10) at Scripps Ranch Falcons(21)
+</pre>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>TetrisController</title>
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>TetrisController</h2>
+<p>Now that we&#39;ve got a basic Model and Viewer for the grid and the piece it&#39;s 
+time to introduce a controller to give the game a brain.</p>
+<p><strong>Our Goals:</strong><br />
+- Create and incorporate a basic TetrisController<br />
+- Add methods to the TetrisPiece class to allow it to be easily moved<br />
+- Link the Key Presses that the SaccoWindow recieves to the TetrisController<br />
+- Link the Key Presses that the TetrisController recieves to the TetrisPiece in 
+the Model.</p>
+<p>&nbsp;</p><hr/>
+<h4>Create a class named TetrisController</h4>
+<p>&nbsp;The TetrisController class only needs to have one TetrisModel as an 
+instance field.&nbsp; In the long run, the TetrisModel will need to access the 
+TetrisGrid and the TetrisPiece.&nbsp; When this is necessary, the Controller 
+should call the model&#39;s getPiece() or getGrid() methods first, and then work 
+from there.</p>
+<p>TetrisController&#39;s constructor should take in a TetrisModel and assign it to 
+the instance field.</p>
+<p>For now, the TetrisController only needs one method for determining what 
+should happen when a key is pressed.&nbsp; Add a method with the following 
+header:</p>
+<p class="auto-style1">public void onKeyPress(int keyCode)</p>
+<p>This method has an identical header to the one that the SaccoWindow has.&nbsp; 
+The idea is that the SaccoWindow won&#39;t do any thinking on its own.&nbsp; It will 
+recieve a key press event and pass it right along to the TetrisController.&nbsp; 
+From there, the TetrisController will decide how the TetrisModel should change.</p>
+
+<h4>Linking the TetrisController to the SaccoWindow:</h4>
+<p>The Tetris class is a SaccoWindow that will represent the User in the MVC 
+model.&nbsp; It should not make any decisions, just pass all user input to the 
+user and paint whatever the View tells it to.&nbsp; It currently has a 
+TetrisModel and a TetrisView incorporated.&nbsp; Now that we have the basics for 
+a TetrisController, it&#39;s time to incorporate it into the project.</p>
+<p>Add a TetrisController as an <strong>instance field</strong>. The <strong>
+constructor</strong> 
+should construct the TetrisController using the same TetrisModel that the 
+TetrisViewer used.</p>
+<p>Still in the Tetris class, override the onKeyPress method. This is where the 
+event starts. All you should do here is call the onKeyPress method of the 
+TetrisController and pass the keyCode along as the parameter.&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<h3>The Flow of Information:</h3>
+<p>
+<img border="1" src="images/MVC-diagram.png" width="562" style="padding:10px 10px 10px 10px" /></p>
+<p>The separate parts of our project need to communicate with the project in the 
+proper order. </p>
+<p>The SaccoWindow is the one that receives the keyboard event, but we want to 
+make sure that each part of the project is only doing what it is responsible 
+for.&nbsp; When the SaccoWindow is made aware of a key press, it should pass 
+that information along to the TetrisController.&nbsp; The TetrisController 
+accepts that information and decides how the Model should change, and then calls 
+the appropriate methods to make the changes.&nbsp; Since the TetrisView is 
+completely reliant on the TetrisModel, the changes that we make to the Model 
+should be reflected visually.</p>
+<h5>TetrisPiece Needs the Ability to Move:</h5>
+<p>Add a method to the TetrisPiece class with the following header:<br />
+<span class="auto-style1">public void moveInDir(int direction)</span></p>
+<p>The purpose of this method will be to move the piece in whichever direction 
+is passed in (Location.UP,Location.DOWN,Location.LEFT,Location.RIGHT). Remember 
+that the way this is set up, you only have to change the anchor location and the 
+rest will follow</p>
+<p>&nbsp;</p>
+<h5>TetrisController Decides when the TetrisPiece should move:</h5>
+<p>Now that the TetrisPiece has methods that will allow it to move it&#39;s time to 
+decide when that method is called.&nbsp; Go to the TetrisController’s onKeyPress method. If the incoming keyCode 
+matches any of the four Location Directions, the controller should access the 
+TetrisPiece using the TetrisModel&#39;s getPiece method and tell it to move in the corresponding direction.</p>
+<p>&nbsp;</p><hr>
+<h3>Testing:</h3>
+<p>Run Tetris&#39; main method one more time.&nbsp; The window should still show 
+what was there before, but this time the arrow keys should control where the 
+Piece actually is.&nbsp; At the moment there is no limit to where the piece can 
+move to.&nbsp; This will come into play later.</p>
+<p><img height="379" src="images/firstpiece.JPG" width="217" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

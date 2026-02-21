@@ -1,0 +1,184 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  String Accumulators</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+    String Accumulators
+  </h1>
+  
+  
+  
+<p>We've been getting used to the idea of looping through our Strings one index at a time using variations of this loop:</p>
+<pre>for( let i =0; i &lt; input.length; i++){
+     let letter = input.charAt(i);
+
+}
+</pre>
+<p>The&nbsp;<strong>i</strong>&nbsp;variable represents every index in the string, and each iteration it's used to access the individual character at each index.</p>
+<p>&nbsp;</p>
+<p>So far we've mostly been using these loops with a&nbsp;<strong>counting</strong>&nbsp;variable. For example, this loop would count how many letters in the String are upper case.</p>
+<pre>let count = 0;
+for( let i = 0; i &lt; input.length; i++){
+&nbsp; &nbsp; &nbsp;let letter = input.charAt(i);
+
+&nbsp;    if( letter &gt;= "A" &amp;&amp; letter &lt;= "Z")  {      //detect if letter is a capital letter.
+          count++;
+&nbsp;    }           
+}
+return count;
+</pre>
+<p>&nbsp;</p>
+<p>A counting variable is a type of variable known as an&nbsp;<strong>accumulator.</strong>&nbsp;<br />- Before the loop it is initialized to a neutral value<br />- During the loop it is occasionally increased<br />- After the loop has completed, the variable has its final value</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>String Accumulator Demo: justTheCaps()</h4>
+<p>Open the justTheCaps() workspace.</p>
+<p>For this assignment we are going to focus on&nbsp;<strong>String</strong>&nbsp;<strong>Accumulators</strong>, which are treated similarly to counting variables&nbsp;, but their purpose is usually to gather&nbsp;<strong>text</strong> information into a new String.</p>
+<p>Take a look at the <strong>justTheCaps()&nbsp;</strong>function provided to you, which is meant to return a String made up of all the capital letters that the parameter String has.</p>
+<p>justTheCaps( "Mister Sacco") --&gt; "MS"<br />justTheCaps( "Scripps Ranch High School" ) --&gt; "SRHS"<br />justTheCaps("HeLlO wOrLd!!!!")&nbsp; --&gt; "HLOOL"</p>
+<pre>function justTheCaps(input){
+&nbsp; let caps = "";
+&nbsp; for( let i =0; i &lt; input.length; i++){
+&nbsp; &nbsp; &nbsp; &nbsp;let letter = input.charAt(i);
+
+&nbsp; &nbsp; &nbsp; &nbsp;//detect if letter is a capital letter.
+&nbsp; &nbsp; &nbsp; &nbsp;if( letter &gt;= "A" &amp;&amp; letter &lt;= "Z") &nbsp;{ &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; caps += letter;
+&nbsp; &nbsp; &nbsp; &nbsp;} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; }
+&nbsp; return caps;
+}
+</pre>
+<p>Look at the caps variable here, which is being used similarly to a counting variable:<br />&nbsp;- It starts at a neutral value: ""<br />&nbsp;- During the loop, we occasionally add to it.<br />&nbsp;- After the loop, we consider it complete and return it.</p>
+<p>The difference this time is that we aren't keeping numerical track of the capitals. When we say caps += letter; we are adding the character itself to the String. By only adding when letter is a capital, we end up with a string full of capitals.</p>
+<p>&nbsp;</p>
+<p>The solutions to all of this assignments function will use a String accumulator in some way.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>No Spaces</h3>
+<p>Open the No Spaces workspace. This function accepts a String as a parameter and returns a version of that string that has no spaces in it.</p>
+<p>"Mister Sacco" --&gt; "MisterSacco"<br />"Scripps Ranch High School" --&gt; "ScrippsRanchHighSchool"<br />"A!&nbsp; &nbsp; &nbsp; B @&nbsp; C # D$ E&nbsp; &nbsp;%&nbsp; F ^&nbsp; &nbsp; G &amp;&nbsp; &nbsp; " --&gt;&nbsp; "A!B@C#D$E%F^G&amp;"</p>
+<p>The strategy here is similar to the capsOnly() function, except this time we are accumulating any character that isn't a space.</p>
+<p>&nbsp;</p>
+<p>Test your code several times to make sure that it works for several different inputs, then paste your noSpaces() function below.</p>
+  
+  
+  
+  <br><br><hr>
+  
+  <h2>Case Flipper</h2>
+<p>The caseFlipper() function's purpose is to take in a String with upper and lower case characters, and return a String that is made up of the opposite case</p>
+<p>"Mister Sacco"&nbsp; -&gt; "mISTER sACCO"<br />"HeLlO wOrLd" --&gt; "hElLo WoRlD"</p>
+<p>This time, each time your loop iterates it should always be adding one character to the accumulator string, the uppercase version of the letter, or the lowercase.</p>
+<p>&nbsp;</p>
+<p>Test your code several times to make sure that it works for several different inputs, then paste your caseFlipper() function below.</p>
+  
+  
+  <br><br><hr>
+  
+  <h2>Online Argument Winner</h2>
+<p>Everyone knows that winning an online argument involves repeating what the other person stated, but with randomized capitalization.</p>
+<p>"That's against the rules." --&gt;"tHAtS agAiNst The RULeS"<br />"Mister Sacco is bad"&nbsp; --&gt; "mIStEr SaCCo iS bAD"</p>
+<p>&nbsp;</p>
+<p>Open the Online Argument Winner workspace and implement the winArgument() function create a string that is a copy of the parameter, but this time, the choice of adding the uppercase or lowercase version of the letter is determined randomly.</p>
+<p>&nbsp;</p>
+<p>Test your code several times to make sure that it works for several different inputs, then paste your winArgument() function below.</p>
+  
+  
+  <br><br><hr>
+  
+  
+  
+  <h2>Answer Key</h2>
+<p>Teacher tip, if you write a multiple choice test, you will naturally put more of the answers into specific answers. Mr. Sacco is much less likely to give the correct answer as "A", and if you know this pattern you're more likely to guess the correct answer (it's&nbsp;<em>always </em>C). In order to not have a pattern, you are going to write the answerKey()&nbsp;function for him. It&nbsp;generates a string made up of A, B, C, D or E characters and returns it.</p>
+<p>Note: This time the parameter is not a String because everything is randomly generated. The parameter will be a <strong>NUMBER </strong>that represent how many characters long the returned String should be. This means that numQuestions.length is undefined, and if you use&nbsp;</p>
+<p>For example:</p>
+<p>answerKey( 5 ) -&gt; "ACEED"<br />answerKey( 3 ) -&gt; "CBB"<br />answerKey( 8 ) -&gt; "DBCABCDD"</p>
+<p>Your results will be randomized, but the same lengths.</p>
+<p>Test your code several times to make sure that it works for several different inputs, then paste your answerKey() function below.</p>
+  
+  
+  <br><br><hr>
+  
+  
+  <h2>StringMan</h2>
+<p>In the game of StringMan, you are attempting to guess a word one letter at a time. At first you are given a clue where each letter in the solution has been replaced with an underscore</p>
+<p>_ _ _ _ _</p>
+<p>As you guess letters, the matching ones in the solution reveal themselves.</p>
+<p>S _ _ _ _<br />S _ C C _<br />S A C C _<br />S A C C O</p>
+<p>Open the String Man workspace</p>
+<p>There is already a lot of code there to help get started, but running the program will only be disappointing:</p>
+<p>To get it working, you will need to complete some of the key functions:<br />&nbsp;- spreaddedClue()<br />&nbsp;- dashes()<br />&nbsp;- guess()</p>
+<p>The solution to each of them will involve some sort of String accumulator in order to function properly.</p>
+<p>&nbsp;</p>
+<h3>The initialClue() Function</h3>
+<p>Our 'clue' string will start out will all underscores, and gradually those underscores are replaced with letters. The initialClue() functions purpose is to generate the first version of the clue: a string completely made up of underscores.</p>
+<p>At the moment, the puzzle solution is "SACCO" and the initialClue() function returns a string with five underscores.</p>
+<pre>function initialClue(answer){<br />&nbsp;return "_____"; &nbsp;//replace with a loop<br />}</pre>
+<p>While this does fit when "SACCO" is the answer, it is not adaptable to other solutions. If the puzzleSolution were "COMPUTER", I would expect eight underscores, "X" would only need one.</p>
+<p>Rewrite the initialClue function so that it creates and returns a String that is the<strong> same length</strong> as the answer parameter, but with an <strong>underscore as every character</strong>.</p>
+<p>This is a String accumulator problem. Declare an accumulator and then start looping once for each index in&nbsp;<em>answer</em>. Instead of using charAt() to get a character from the answer, simply add a single underscore "_" to your accumulator. This should result with a string of the correct length.</p>
+<p>&nbsp;</p>
+<p>Test</p>
+<p>To test your initialClue() function by changing the value of the&nbsp;<strong>puzzleSolution</strong> variable from "SACCO" to "COMPUTER" and run the program to make sure that the line gets eight underscores, then to "X" to make sure that it only has one underscore.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>The addGaps() function:</h3>
+<p>Underscores have a tendency to join together when they are next to each other. Run the sketch and you should see that the underscores are making a solid line.</p>
+<p><img src="images/nogap.png" alt="image.png" width="200" height="49" /></p>
+<p>What we want is to space them out a little bit:</p>
+<p><img src="images/withgap.png" width="200" height="50" /></p>
+<p>&nbsp;</p>
+<p>The addGaps() function that you've been provided with is terrible. It simply returns its parameter without any extra spaces.</p>
+<pre>function addGaps(str){<br />&nbsp; &nbsp; return str; &nbsp;//replace with a loop&nbsp;<br />}</pre>
+<p>Implement the <strong>addGaps()</strong> function so that it creates and returns a new String that is a version of the parameter <strong>clue</strong>, but with a space after every character.&nbsp;</p>
+<p>addGaps("_____")&nbsp; would return "_ _ _ _ _ ",<br />addGaps("S_CC_")&nbsp; would return "S _ C C _ ",<br />addGaps("____O")&nbsp; would return "_ _ _ _ O ",</p>
+<p>Don't simply add underscores. While that is the initial case, eventually the clue will include characters, as in the examples above. You will have to use a loop with clue.charAt() in order to access each character from clue to add to your accumulator.</p>
+<p>&nbsp;</p>
+<p>Test</p>
+<p>At the moment the clue is only underscores, but you can try a few different strings in the puzzleSolution variable to make sure that it gives what is expected.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>The nextClue() function:</h3>
+<p>This function is what is called when a letter is pressed on the keyboard. Its purpose is to determine what the next clue should be when a letter is guessed.</p>
+<ul>
+    <li>The current clue: a mix of underscores and letters</li>
+    <li>The letter being guessed</li>
+    <li>The answer to the game, to determine if the letter matches a specific location</li>
+</ul>
+<p>&nbsp;</p>
+<p>nextClue(<span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">&nbsp;</span><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">"S___"</span><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">, "C", </span><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">"SACCO") &nbsp;-&gt; &nbsp;"S_CC_"<br /></span>nextClue("CO___T_R", "M", "COMPUTER") &nbsp;-&gt; &nbsp;"COM__T_R_"<br />nextClue("P__G__M", "R", "PROGRAM") &nbsp;-&gt; "PR_GR_M"</p>
+<p>Notice that the returned string is&nbsp;<em>almost</em> a copy of the original clue. The only characters that are not directly from the clue are the ones from the answer that match our guessLetter.</p>
+<p>&nbsp;</p>
+<h4>Strategy Help</h4>
+<h5>Phase 1) Revealing the guessed letter among underscores.</h5>
+<p>To simplify it a little bit, the first version of this function will assume that the current <strong>clue </strong>is entirely underscores. Which means that it will return a String that is made up of either the <strong>guessLetter&nbsp;</strong>or and <strong>underscore</strong>.</p>
+<p>For example: Assuming the answer is "SACCO"</p>
+<p>guess("A") would return "_A___"<br />guess("C") would return "__CC_"<br />guess("Q") would return "_____"</p>
+<p>This function is another String accumulator problem. While looping through the answer string, your job is to add a single character each time: either an underscore or the parameter letter. The way you will decide which to add should be based at the&nbsp;<strong>character in answer</strong>&nbsp;at the given location. If it matches the parameter, add it to your accumulator. Otherwise, add an underscore.</p>
+<p>Note: You should not worry about adding spaces. The addGaps() function will add them later. You only need to worry about each character.</p>
+<p>Test your code by running it and typing letter to see what appears. With "SACCO" as the answer, you should be able to generate these patterns:<br />S _ _ _ _<br />_ A _ _ _&nbsp;<br />_ _ C C _<br />_ _ _ _ O</p>
+<p>&nbsp;</p>
+<h5>Phase 2) Incorporating the Current Clue</h5>
+<p>As you type, you should see the problem. We want to reveal the letter from answer, but assuming that all the other characters are underscores means that any previously revealed letters are forgotten. The&nbsp;<strong>clue</strong> parameter is where that information is being held.&nbsp;</p>
+<p>Modify your loop to, instead of adding an underscore, add a <strong>corresponding character from the clue </strong>variable. In the beginning they will all be underscores, but as characters are 'revealed' in clue, they will never go back to underscores.</p>
+<p>At this point your should be using charAt() to get characters from both the <strong>clue</strong>&nbsp;and the&nbsp;<strong>answer</strong>. Most of the time, you are simply adding whichever character is in the clue at a given location. <span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">The only reason that you wouldn't pull the letter from <strong>clue </strong>would be if the answer has a character at that location that matches the guessLetter parameter.</span><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;"> In that case, you can add the guessLetter instead, effectively 'revealing' it in the clue.</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+</body>
+</html>

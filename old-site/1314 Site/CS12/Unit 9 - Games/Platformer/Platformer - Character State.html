@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Character State</title>
+
+<style>
+
+h3,h4,h2{
+font-family:Arial, Helvetica, sans-serif;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+
+<h2></h2>
+<p>Previously we created the MarioImageHandler so that we could always pick the right image when we knew a few important things about our character:<br/>
+- The direction it's facing<br/>
+- If it's jumping<br/>
+- If it's moving<br/>
+- If it's running</p>
+
+<hr/>
+<p>First we need to have our character use a MarioImageHandler object to keep track of what to paint.</p>
+<p>- In the JumpMan class, add a MarioImageHandler as an instance field.  Make sure that you construct it in JumpMan's constructor.  Due to the way our image works, at this point we want to make sure that the character's width is 32 and height is 64</p>
+<p>- In the paintSelf method, call the MarioImageHandler's currentImage method to get the Picture that is to be drawn.  Remember that the image that you're given is more than the character.  Drawing the character at its x and y will cause it to look funny.  In this situation, the x/y that you use to paint is 32 less than the instance field x/y, with a width of 96 and a height of 128.  This should theoretically align the character to be where you were previously painting a rectangle.</p>
+<p>Run your program to test it.  The character will not animate, but make sure that nothing crashes and the size is appropriate.</p>
+<hr/>
+<p>Determining the State - Jumping</p>
+<p>Before we can finish, we need to have reliable ways of determining all the information about the character.  The trickiest one is if the character is jumping.  To help with this, we are going to have the JumpMan keep track.  Add a boolean to the JumpMan class named isJumping and set it to false.</p>
+<p>The isJumping boolean should always be up to date.  When the character jumps it should be set to true, and then when he lands it should be set back to false.  Go to the jump() method.  This is where the jump begins, so it should set the isJumping variable to true.  Now go to the yAlign method.  It should set the isJumping boolean back to false, but ONLY if it aligns to the top of a block.</p>
+<p>Lastly, we need a method to help us access this boolean.  Add a method that will return the value of the isJumping variable.  Now whenever the PlatformerCanvas</p>
+<hr/>
+<p>Determining the State - Moving</p>
+<p>In the PlatformerCanvas, the booleans for left and right can be useful for telling which way we're facing and if we're moving or standing.  We're definitely moving if either the left or the right booleans are true, but not both.  If both are being held, we are standing.</p>
+<hr/>
+<p>Determining the State - Facing</p>
+<p>To tell which way our character is facing, we need to know if left or right was the last key pressed.  This is simple enough.  Add a boolean to the PlatformCanvas class name facingRight and set it to true.  In the PlatformCanvas onKeyPress method, go to the if statement where the right arrow was pressed.  In this case facingRight should be set to true. When the left arrow is pressed, facingRight should be set to false.  This is slightly different than the left/right booleans that we have now.  If left and right are both false, we have no idea which way to face.</p>
+
+<hr/>
+<p>Allowing JumpMan to be updated from the outside:</p>
+<p>The way that the program is currently set up we would like to be able to update the image from the Canvas class.  Go to the JumpMan class and add the following method:</p>
+<pre>public void updateState(boolean facingRight, boolean jumping, boolean moving, boolean running)
+{
+  handler.updateState(facingRight,jumping,moving,running);
+  handler.nextIndex();
+}</pre>
+<p>THIS METHOD WILL ONLY WORK IF YOUR MarioImageHandler VARIABLE IS NAMED 'handler'.  Modify it to match your code.</p>
+
+<hr/>
+<p>Linking it to the Timer</p>
+<p>We should be all set up.  JumpMan has an updateState method that now needs to be called.  Go to the end of your PlatformCanvas's onTimerTick method.  This is where you need to call this method.  For now assume that running is false, but should determine what the other three booleans should be an call your JumpMan's updateState method once those have been determined.</p>
+<p>Test this by running your program and observing how your character reacts.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+
+
+
+
+</body>
+</head>

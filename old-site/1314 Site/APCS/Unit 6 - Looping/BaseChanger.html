@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>BaseChanger</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style3 {
+	border: 1px solid #c0c0c0;
+}
+</style>
+</head>
+
+<body>
+
+<p>BaseChanger</p>
+<p><span class="auto-style1">Create a class named BaseChanger, which will be 
+responsible for representing a number in many bases.</span><br class="auto-style1" />
+<br class="auto-style1" />
+Instance Fields:<br />
+<span class="auto-style1">Add two ints as instance fields: One to represent the 
+number <strong>in decimal</strong>, and one to represent the <strong>base</strong> 
+of the number. We will always store the number in its decimal form, and use the 
+base to convert it before we display it.</span><br class="auto-style1" />
+<br class="auto-style1" />
+Constructor:<span class="auto-style1"><br />
+Create a Constructor that takes in one int, which will be in decimal form. 
+Assign it to the instance field, and set the base to be 10.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1"><strong>Methods:</strong></span></p>
+<p><span class="auto-style1">public int getBase()&nbsp;&nbsp;&nbsp; //basic 
+accessor</span><br class="auto-style1" />
+<span class="auto-style1">public int getDecimalValue()&nbsp; //basic accessor</span></p>
+<p><span class="auto-style1">public void setBase(int newBase)</span><br class="auto-style1" />
+<span class="auto-style1">This method will simply set the base instance field to 
+be the incoming value. Do not change the value of decimal in any way.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">public String convertedForm()</span><br class="auto-style1" />
+<span class="auto-style1">This method will use the two instance fields to return 
+a String that represents the instance field number, but converted to the base in 
+the instance field. This should look very similar to the getBinary and getOctal 
+methods that you&#39;ve seen before. MAKE SURE THAT YOU DON&#39;T CHANGE THE INSTANCE 
+FIELD IN ANY WAY. You will need to copy the value of the number into a local 
+variable before you start converting.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">public String toString()</span><br class="auto-style1" />
+<span class="auto-style1">This method will return a String that is made up of 
+the convertedForm of a number along with an underscore followed by the base. For 
+example: 11 in base 2 would be &quot;1011_2&quot;. </span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Test your program with the following:</span><br class="auto-style1" />
+<span class="auto-style1">BaseChanger num = new BaseChanger(14);</span><br class="auto-style1" />
+<span class="auto-style1">num.setBase(2);</span><br class="auto-style1" />
+<span class="auto-style1">System.out.println(num);</span><br class="auto-style1" />
+<span class="auto-style1">num.setBase(5);</span><br class="auto-style1" />
+<span class="auto-style1">System.out.println(num);</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">It should output:</span><br class="auto-style1" />
+<span class="auto-style1">1110_2</span><br class="auto-style1" />
+<span class="auto-style1">24_5</span><br class="auto-style1" />
+<span class="auto-style1">14_10</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style2"><strong>Modifying to Work with a base greater than 10</strong></span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">The converter that you&#39;ve made so far will only work 
+for bases up to 10. This is because when the value at a certain place goes above 
+9, it needs to be converted to the appropriate letter before adding it to the 
+String. You can see this if you create a BaseChanger with a value of 162 and set 
+the base to 16. The converted form SHOULD be &quot;A2&quot;, but currently it will put a 
+&quot;10&quot; in for the &quot;A&quot;, giving &quot;102&quot; instead.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">FREE METHOD!!!! Add the following method to your 
+class:</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">private String getDigit(int val)</span><br class="auto-style1" />
+{<br class="auto-style1" />
+<span class="auto-style1">if( val&lt;10)</span><br class="auto-style1" />
+<span class="auto-style1">return val+&quot;&quot;;</span><br class="auto-style1" />
+<span class="auto-style1">else</span><br class="auto-style1" />
+<span class="auto-style1">return (char)(val+55)+&quot;&quot;;</span><br class="auto-style1" />
+}<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">This method takes in an int and returns the single 
+character form of it. for example, getDigit(10) returns an &quot;A&quot;, getDigit(11) 
+returns a &quot;B&quot;, etc.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<table class="auto-style3" style="width: 100%">
+	<tr>
+		<td><span class="auto-style1">How does this method work? UNTESTED: YOU 
+		MAY SKIP IF YOU DON&#39;T CARE:</span><br class="auto-style1" />
+		<span class="auto-style1">There is another primitive data type called 
+		char, which is almost the exact same as int. The only difference is that 
+		it stores an ASCII value and is interpreted as a character. The useful 
+		part is that you can CAST and int into a char. What this method does is 
+		find an ASCII value of the appropriate character by adding 55 (if val is 
+		10, 10+55 is 65, which is ASCII for &quot;A&quot;). After that, I cast it into a 
+		char before adding it to a String and returning it. This trick can be 
+		useful when looping through the alphabet.</span></td>
+	</tr>
+</table>
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Modify your convertedForm to use the getDigit method 
+before adding values to the String.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Test out your program again with this code using bases 
+larger than 10.</span><br class="auto-style1" />
+<span class="auto-style1">BaseChanger num = new BaseChanger(140);</span><br class="auto-style1" />
+<span class="auto-style1">num.setBase(16);</span><br class="auto-style1" />
+<span class="auto-style1">System.out.println(num);</span><br class="auto-style1" />
+<span class="auto-style1">num.setBase(20);</span><br class="auto-style1" />
+<span class="auto-style1">System.out.println(num);</span><br class="auto-style1" />
+<span class="auto-style1">num.setBase(10);</span><br class="auto-style1" />
+<span class="auto-style1">System.out.println(num);</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">It should output:</span><br class="auto-style1" />
+<span class="auto-style1">8C_16</span><br class="auto-style1" />
+<span class="auto-style1">70_20</span><br class="auto-style1" />
+<span class="auto-style1">140_10</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">
+____________________________________________________________</span></p>
+<p>Accepting values that already have a base:<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Now you&#39;ve got a class that takes in a decimal number 
+and can convert it to any base we want it to. It&#39;s time to make it go the other 
+way.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Add a NEW constructor, which only takes in a String to 
+represent the number. This String is formatted specifically like the toString of 
+BaseChanger. There are two parts, separated by an underscore. The part before 
+the underscore is the number, and the part after is the base that it&#39;s in. This 
+new constructor&#39;s job will be to use these two values to determine the decimal 
+value (because that&#39;s what the instance field needs).</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">The first thing that you need to do is separate the 
+parameter String into two parts: the part before the underscore and the part 
+after. The part after will need to be parsed into an int in order to be any 
+help. When you&#39;ve done that, test to make sure that you&#39;ve done this properly. 
+Add a temporary println that will print out those two values, and then use BlueJ 
+to construct a new BaseChanger with &quot;1A5_12&quot; as a parameter. Hopefully it prints 
+out 1A5 and 12 separately. It&#39;s important that this functions before you move 
+on.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Once you have the number (as a String) and the base 
+(as an int) you can begin to convert to decimal. The way that you want to do it 
+is one digit at a time, similar to verticalString. Since each digit is a String 
+that can&#39;t necessarily be parsed, put the following method in your program:</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">FREE METHOD!!!!!! YOU DON&quot;T HAVE TO UNDERSTAND HOW IT 
+WORKS!!!</span><br class="auto-style1" />
+<span class="auto-style1">public int getIntVal(String dig)</span><br class="auto-style1" />
+{<br class="auto-style1" />
+<span class="auto-style1">int aVal = (int)dig.charAt(0);</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">if(aVal &lt;65)</span><br class="auto-style1" />
+<span class="auto-style1">return aVal - 48;</span><br class="auto-style1" />
+<span class="auto-style1">else</span><br class="auto-style1" />
+<span class="auto-style1">return aVal - 55;</span><br class="auto-style1" />
+<br class="auto-style1" />
+}<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">This method uses chars again to tell you the int value 
+of a single character String. &quot;3&quot; returns a 3, but &quot;A&quot; returns 10 and &quot;C&quot; 
+returns 12. This should be useful in the constructor.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">STRATEGY:</span><br class="auto-style1" />
+<span class="auto-style1">In order to get the decimal version of the number, you 
+must get the digits one at a time, multiply them times their place value, and 
+add them to the instance field. I recommend starting an int for the place value 
+and starting it at the largest place value needed (it&#39;s based on the length of 
+the number and base). Then use a while loop that will take the front digit, 
+multiply it by the place value, add it to the instance field, and then divide 
+the place value by the base, making it smaller for the next digit. Once the 
+place value is 0, your loop is complete. Make sure that the instance field for 
+the base also gets set.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Test your program out in BlueJ. Construct a new 
+BaseChanger with &quot;1A5_12&quot; as the parameter and call the toString, hopefully it 
+will be converted right back to the same exact String. If not, something is 
+wrong with one of your conversions.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">_________________________________________________</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Add the following methods:</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">public BaseChanger add(BaseChanger other)</span><br class="auto-style1" />
+<span class="auto-style1">public BaseChanger subtract(BaseChanger other)</span><br class="auto-style1" />
+<span class="auto-style1">public BaseChanger multiply(BaseChanger other)</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">These methods will each be in charge of a different 
+math function. They will get the decimal value, perform the operation, and 
+return a new BaseChanger with the result. If the bases of both numbers are the 
+same then the result has the same base, but if they&#39;re different the result&#39;s 
+base will be the larger of the two.</span><br class="auto-style1" />
+<br class="auto-style1" />
+</p>
+
+<p>For example:&nbsp; If you wanted to add 1B base 16 to 25 base 5 it would look 
+like the following:</p>
+<p>BaseChanger b1 = new BaseChanger(&quot;1B_16&quot;);<br />
+BaseChanger b2 = new BaseChanger(&quot;25_5&quot;);</p>
+<p>BaseChanger result = b1.add(b2);</p>
+<p>System.out.println(result);</p>
+
+</body>
+
+</html>

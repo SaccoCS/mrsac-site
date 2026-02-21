@@ -1,0 +1,343 @@
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  
+</head>
+
+<body>
+  
+   
+
+  <h1>
+    map() and noise()
+  </h1>
+  <h2><strong>map</strong></h2>
+  <p>Often times numbers come in expected ranges, and sometimes mixing ranges requires a little bit of math to adjust. For example: If you call Math.random(), the result is only from 0 - 1. If you want a different range, multiplication could help you 'stretch' that random number. If you wanted to get a random y value, you could multiply it by the height of the canvas, causing the final numbers to fall in a bigger.</p>
+  <pre>let stretchedY = Math.random()*height;</pre>
+  <p>This is the basic idea of mapping. We start with a value that has a natural range that we don't like (0 - 1) and we turn it into a corresponding value in a different range (0,height)</p>
+  <p>Since mapping values isn't always as simple as multiplying by a simple value, p5 has a&nbsp;<strong>map</strong>&nbsp;function that helps you covert values between different ranges. In order to tell it what we specifically want it to do, we're going to have to give it a lot of information.</p>
+  <pre>map( value, originalMin, originalMax, newMin, newMax)</pre>
+  <p>The map function is for converting from one range to another.&nbsp; In order to do this, you must first figure out the minimums and maximums that you're dealing with:</p>
+  <p>For example: Below is an example of the map function.&nbsp; The slider at the top controls the value of x, which can range from 0 to 100.&nbsp; The top bar is filled using this value, but the bottom two bars are&nbsp;<em>mapped</em> to different ranges. 0-256 and 0-360.&nbsp; As you drag the slider, notice that map maintains the proportions between the new ranges.&nbsp; When x is 50 it's halfway through its range, mapping that to a range of 256 would mean its 128, halfway through.</p>
+  <p><iframe  src="demos/map_demo/index.html" width="650" height="200" ></iframe></p>
+  <p>When mapping a value, you give the function the <strong>value </strong>to map, followed by its <strong>original range</strong> and its <strong>new range</strong>. So mapping the value of 25 from the range 0-100 to 0-500 would be:</p>
+  <pre>let m = map(25,0,100,0,500);</pre>
+  <p>And in our first example of stretching a random value from the range 0 - 1 to 0 - height. It was previously done</p>
+  <pre>let rand = Math.random();
+let newRand = map( rand, 0, 1, 0, height); 
+  </pre>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <hr>
+  <h1>
+    Programming Assignments
+  </h1>
+  <h2>Mapped Rectangles</h2>
+  <p><iframe src="demos/mapped_rectangles/index.html" width="202" height="152" data-mce-fragment="1"></iframe></p>
+  <p>First, open the Mapped Rectangles workspace in CodeHS, which is an unfinished version of the sketch above.</p>
+  <p>&nbsp;</p>
+  <p>There are currently two things being drawn: a circle that follows the mouse, and a rectangle. The goal will be to draw another circle inside the rectangle that is proportionally the same as where the mouse is in the canvas. When the mouse is halfway through the canvas, the circle will be halfway through the rectangle. To figure out where this circle should be, we're going to be&nbsp;<strong>mapping</strong>&nbsp;the value of mouseX from the window&nbsp; to the rectangle. We know all of the important information:</p>
+  <p><strong>Value</strong>: mouseX<br /><strong>Original Range</strong>: 0 - width<br /><strong>New Range:</strong> 30 - 110</p>
+  <p>Add the following to the end of the draw function.</p>
+  <pre>let x = map( mouseX, 0, width, 30, 110 ); 
+let y = 30;
+circle(x,y,10);
+  </pre>
+  <p>You now have a circle that should be mapped between the sides of the rectangle, but only in the x direction. Run the sketch and wave the mouse from left to right to confirm that it stays between the two sides while being stuck on the top at y = 30;</p>
+  <p>&nbsp;</p>
+  <h3>Your Task(s)</h3>
+  <p><strong>Fix y</strong></p>
+  <p>To unstick the circle from the top of the rectangle, we need to map it in a way similar to x. The value of x was mapped from 30 - 110 because the rectangle being drawn had an x of 30 and a width of 80. Your job is to fix the y value by mapping it in a similar way. This should be a separate call to map that doesn't interfere with the x mapping.&nbsp;Run your sketch to confirm that it works. The circle should remain entirely within the small rectangle.</p>
+  <p>&nbsp;</p>
+  <p><strong>Repeat for Two More Rectangles</strong></p>
+  <p>Modify the draw function to draw two more rectangles:</p>
+  <pre>rect(120, 200, 200, 75);
+rect(200, 50, 120, 100);</pre>
+  <p>&nbsp;</p>
+  <p>As was done with the first rectangle, draw a circle inside of each of these new rectangles using calls to the map function to keep it proportional.</p>
+  <p>In the end you should have three rectangles, each with their own circle mapped inside them.</p>
+  <p>&nbsp;</p>
+  <hr>
+  
+  
+  
+  
+  
+  <h2>Sine Graph</h2>
+<h3><img src="images/sine_wave.jpg" width="427" height="243" /></h3>
+<p>While sin is useful for angle calculations, it's also a function that oscillates back and forth between a very specific range of&nbsp;-1 and +1.</p>
+<p>&nbsp;</p>
+<p>Open the Sine Graph workspace, which is attempting to make a graph similar to the one above.</p>
+<p>To accomplish this, the program is using frameCount to represent an ever increasing angle, and then calculating the corresponding sine value:</p>
+<pre>//Ever-increasing angle, and a corresponding sin value
+let angle = frameCount;
+let sinValue = sin(angle);</pre>
+<p>&nbsp;</p>
+<p>But this&nbsp;is a flawed program. Like the graph above's axis labeling, the x is related to the angle and the y is related to the sine value.</p>
+<pre>//Drawing a circle derived from sin.
+let y = sinValue;  
+let x = angle;        
+circle(x,y,8);</pre>
+<p>If you run the sketch, you will see the flaw. The value of sin is&nbsp;<strong>tiny</strong>, ranging from -1 to 1. The canvas is much larger, with a height of 100, so the circle appears at the very top of the canvas.</p>
+<p>&nbsp;</p>
+<h4>Mapping the y-Value</h4>
+<p>We know that the <strong>sinValue </strong>has a natural range of <strong>-1</strong> to <strong>+1</strong>. Since the window has a height of 100, let's map the sin value to be between&nbsp;<strong>10</strong>&nbsp;and&nbsp;<strong>90</strong>&nbsp;and then use that value as the y of our circle instead. Find the line of code where the value of y is established and modify it to be this:</p>
+<pre>let y = map( sinValue, -1, 1, 10, 90 );</pre>
+<p>Now, instead of using the sinValue directly as the y, we should see a value that is&nbsp;<em>influenced</em>&nbsp;by sinValue, but much larger.</p>
+<p><img src="images/one_wave.png" width="360" height="100" /></p>
+<p>Note: Those with sharp eyes may notice that our sin graph is upside-down. This is due to the inversion of the y value in a canvas coordinate system.&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Mapping the x-Value</h3>
+<p>A sin-wave repeats every 360 degrees. The graph that we are making shows exactly one period of the sine wave.</p>
+<p>Modify the canvas to be&nbsp;<strong>500</strong>&nbsp;pixels wide and notice that it no longer shows exactly one cycle of the function.</p>
+<p><img src="images/big_wave.png" width="500" height="100" /></p>
+<p>&nbsp;</p>
+<p>Using the angle directly as the x value won't work here, as it will show '500 degrees worth' of the graph. Instead we can map the angle from its natural range of 0 - 360 to a range of 0 - 500, which would match our new window size.&nbsp;Modify the x calculation to be this:</p>
+<pre>let x = map( angle, 0, 360, 0, 500 );</pre>
+<p>This will have a stretching effect as the 360 degrees of the angle are stretched through the width of the canvas.</p>
+<p><img src="images/stretched_wave.png" width="500" height="100" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+  
+ <hr>
+  
+  
+  <h2>Squiggly Circle</h2>
+<p>Open the Squiggly Circle workspace. It uses frameCount as an angle, and our familiar circle equations to gradually draw a circle.</p>
+<p><img src="images/non_squiggle.png" width="200" height="200" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Varying the Radius</h3>
+<p>Right now, the radius is a constant value: 120. This causes the nice even circle to be drawn in the end. Boring! Let's incorporate a sin wave to cause it to squiggle.</p>
+<p>Notice that you've already been given a sin value that is derived from the angle.</p>
+<pre>let sinValue = sin(angle*5);  </pre>
+<p>This is generating a sin value that is cycling five times faster than our overall angle.</p>
+<p>Your task is to use this generated&nbsp;<strong>sinValue</strong>&nbsp;to help you determine the radius of the circle as you cycle around. Instead of radius being a constant 120,&nbsp;<strong>map</strong>&nbsp;the sinValue from its natural range of -1 and +1 to a different range, like 100 to 140. This should cause the radius to 100 at some points, and 140 at others. The result should be a lumpy star shape.</p>
+<p><img src="images/mild_squiggle.png" width="200" height="200" /></p>
+<p>The reason that there are five lumps in our shape is because the angle is multiplied by five when we generate sinValue. You can fiddle with this multiplier to generate different squiggly circles</p>
+<p><img src="images/full_squiggle.png" width="200" height="200" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  <hr>
+  
+  
+  
+  
+  <h2>Mapping Sine for Oscillation</h2>
+<p>The sin functions natural oscillation it useful for creating back and forth movement in our animation.&nbsp;</p>
+<pre>&nbsp; let sinValue = sin(frameCount);
+&nbsp; let x1 = map( sinValue , -1, 1, 50, 350 );
+</pre>
+<p>Since sinValue shifts smoothly from -1 to +1, the value assigned to x1 will alternate smoothly between 50 and 350 at the same rate.</p>
+<p>Open the<span>&nbsp;</span>Circle Illusion workspace, which uses this oscillation&nbsp;to draw a circle with a varying x value.</p>
+<pre>   //Circle #1
+&nbsp;let s = sin(frameCount);
+
+&nbsp;//x oscillates between 50 and 350
+&nbsp;let x1 = map(s, -1, 1, 50, 350); &nbsp;&nbsp;
+
+ //y is fixed at 200, horizonal;
+ let y1 = 200;
+ 
+&nbsp;circle(x1,200,20);</pre>
+<p>Run the program and you'll see the circle drift from side to side, back and forth from 50 to 350.</p>
+<p>&nbsp;</p>
+<p>Notice that the comments say Circle #1. This is because we want to add three more circle to this oscillating design. Following a similar strategy to the first circle, add the following circles</p>
+<p><strong>Circle #2&nbsp;</strong><br />&nbsp; - x oscillates between 94 and 306<br />&nbsp; - y oscillates between 306 and 94</p>
+<p><strong>Circle #3</strong><br />&nbsp; - x is fixed at 200<br />&nbsp; - y oscillates between 350 and 50</p>
+<p><strong>Circle #4&nbsp;</strong><br />&nbsp; - x oscillates between 306 and 94<br />&nbsp; - y oscillates between 306 and 94</p>
+<p>When done properly, running the sketch should get you the following:</p>
+<p><iframe src="https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/demos/mapping_sine/index.html" width="202" height="202" data-mce-fragment="1"></iframe></p>
+<p>&nbsp;</p>
+<h3>Changing the Phase</h3>
+<p>When you run your code&nbsp;all four circles should move in unison, but we want them to be spaced out a little bit and not hit the middle at the same time. This means that Circle 1 is the only one that uses frameCount as the angle. Circle 2 should use sin(frameCount<strong><span>&nbsp;</span>+ 45</strong>) for its calculation Circle 3 should use<strong><span>&nbsp;</span>+90<span>&nbsp;</span></strong>and Circle 4 should use<span>&nbsp;</span><strong>+135</strong>.</p>
+<p>Modify your code so that each of the four circles uses a different angle to calculate its sin value, as described. They are in a specific order so that they never meet in the middle and cause a little bit of an optical illusion when run.</p>
+<p><iframe src="https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/demos/circle_illusion/index.html" width="202" height="202" data-mce-fragment="1"></iframe></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+ <hr>
+  
+  
+  
+  
+  <h2>Noise vs Random</h2>
+<p>&nbsp;</p>
+<h3>Different Types of Random</h3>
+<p>The random() function performs its function, and will fit your needs nicely, but there are different types of random that can be more useful in some situations. In the window below, random numbers are repeatedly generated and drawn as a vertical line. Notice the difference in behavior of each.</p>
+<p><strong>Evenly Distributed Random</strong>: This gives an equal chance of each value. You can see that as values are added, they evenly spread across the window.</p>
+<p><strong>Gaussian Random</strong>: This random function gives a&nbsp;<strong>Normal Distribution</strong>&nbsp;of random numbers, grouped around a specific centerpoint.</p>
+<p><strong>Perlin Noise/Simplex Noise</strong>: This function generates random numbers, but in a way where sequential numbers are close to each other.</p>
+<p><br /><iframe src="demos/random_gauss_noise/index.html" width="400" height="150" data-mce-fragment="1"></iframe></p>
+<p>The results of the noise() function are what we will be exploring today. Its results are random, but not so chaotic as fully random.</p>
+<p>Open the<span>&nbsp;</span>Noise Demo workspace, which uses frameCount to focus on a different x location each frame. At each x location, the sketch uses a random value to draw a vertical line, and a circle.</p>
+<p>The intention is that these two objects have some randomness built into them: the brightness of the line, as well as the y location of the circle being drawn, but a weak attempt is made to simply assign the random value to represent them.</p>
+<pre>let rand = random();
+let lineBrightness = rand;
+let circleY  = rand;
+</pre>
+<p>Running the sketch shows that random()'s natural random of 0 to 1 is too small. The result being that each line is almost black, and the circle is drawn at the very top of the canvas.</p>
+<p><img src="images/flat_line.png" width="400" height="50" /></p>
+<p>&nbsp;</p>
+<h3>Mapping the Random Value</h3>
+<p>To fix our code, we need to modify the lines that establish lineBrightness and circleY to be a map of the rand variable from its 'natural range' of 0 to 1, to a new range. For lineBrightness the range should be 0 to 255, and for circleY the range should be 0 to 50.</p>
+<p>After this change you should see a much more chaotic design develop.</p>
+<p><img src="images/random_lines.png" width="400" height="50" /></p>
+<p>Absolute random values are a little chaotic, as they are never related to the one before it.</p>
+<p>&nbsp;</p>
+<h3>Generating Noise</h3>
+<p>The noise() function is meant to return a number&nbsp;that is random-ish. It accepts a value as a parameter, and returns a random number, but it is specifically designed so that calling it twice with two numbers that are close to each other will result in random values that are close.</p>
+<p>For example, consider these three calls to noise():</p>
+<pre>let n1 = noise( 5 );
+let n2 = noise( 10 );
+let n3 = noise( 5.01 );
+</pre>
+<p>n1 and n2 are generated using two number that are far away from each other:&nbsp;5 and 10. The result will be two random values that don't seem related.</p>
+<p>n1 and n3, however, were generated with numbers that are&nbsp;<strong>very close</strong>: 5 and 5.01. You can expect that the resulting generated values will be&nbsp;close as well.</p>
+<p>&nbsp;</p>
+<p>The way that we are going to use this is i our code to call the noise() function using our x-location as the parameter. Modify the line that initializes rand to be a random number, so that it uses noise() instead:</p>
+<pre>let rand = noise( x * 0.01 );   //<span style="text-decoration: line-through;">random();</span></pre>
+<p>With this change, run your program to see a much&nbsp;<strong>smoother</strong>&nbsp;randomness. Each random value is close enough to the one before it that a line will be drawn by all of the circles, and the background color will now look more like a smooth gradient than a chaotic flashing..</p>
+<p><img src="https://assets.learnosity.com/organisations/154/bc39eaed-e3e4-4ae9-b9fb-e6927c62facc.png" width="400" height="50" /></p>
+<p>&nbsp;</p>
+<p>Notice that we are not passing the exact x value into the noise() function. All of our x values are exactly one apart, which is still considered 'far apart' for the noise function. If you change it to be noise(x), the results will still look random. Multiplying by 0.01 allows the generated value to be 'close', while still being related to our location.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  
+  
+  
+  <h2>Circular Wandering</h2>
+<p><iframe src="demos/circular_wandering/index.html" width="300px" height="300px"></iframe></p>
+<p>&nbsp;</p>
+<p>Open the Circular Wandering workspace.</p>
+<p>Your task will be to create the sketch above, which is very similar to the Squiggly Circle sketch from earlier in this assignment. A small circle is orbiting around a central point, but the radius is changing each frame, causing the wandering effect that you see.</p>
+<p>&nbsp;</p>
+<h3>Mapping the Radius to Noise</h3>
+<p>The key difference here is that the radius of the circular path is not mapped to the predictable sin wave. Instead&nbsp;we are going to use our ever-increasing frameCount variable to help us keep generating a different noise value each frame.</p>
+<pre>let n = noise( frameCount*0.01 );  //A noise value that changes on every frame</pre>
+<p>Use the line above to generate a noise value&nbsp;<strong>n</strong>, and then map it from 0-1 to a new range to represent the radius, like 50 - 150.&nbsp; This should make your circle move in a circular orbit, but have a wandering effect like the sketch above.</p>
+<p>&nbsp;</p>
+<h3>The Trailing Effect</h3>
+<p>Instead of having no call to background during the draw() function, there is a background drawn with a low alpha value. This will draw a background, but it won't make everything on the canvas fully disappear. Instead it will cause the trails effect that you see above:</p>
+<pre>background(0, 10);  //black background, alpha of 10</pre>
+<p>&nbsp;</p>
+
+  
+  
+  
+  <hr>
+  
+  
+  
+  
+  
+  
+  
+  <p><iframe src="demos/stormy_weather/index.html" width="100px" height="40px"></iframe></p>
+<h2>Stormy Weather</h2>
+<p>Open the Stormy Weather workspace</p>
+<p>During the very first p5 assignment you were asked to draw a house. Your job is to modify that workspace&nbsp;to add the 'stormy weather' effect you see above.&nbsp;</p>
+<p>First copy your code from the House workspace into this one, then focus on the background(), which is usually chosen at the beginning of the draw() function. Instead of a single color, we'll choose a noisy gray color.</p>
+<p>You can accomplish this by generating a constantly changing noise value</p>
+<pre>let n = noise( frameCount*0.03 );</pre>
+<p>Once you have this noise value, map it to the brightness of the background.</p>
+<p>Notice that we're multiplying by a slightly larger value than we did for the Circular Wandering&nbsp;. This will cause the generated noise value to change more rapidly and produce more chaotic noise.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+ <hr>
+  
+  
+  <h2>Noise Spaces</h2>
+<p>&nbsp;</p>
+<h4>One-Dimensional Noise</h4>
+<p>In&nbsp;our first noise sketch we generated the noise value by giving it an x-value.</p>
+<pre>let n = noise( x*0.01 ); //Every x gets a noise value</pre>
+<p>This allowed us to treat&nbsp;it as a 'noise space', where each x-location has a different noise value. We then interpreted as the darkness of a line, as well as the height of a circle.</p>
+<p><img src="images/noisy.png" width="400" height="50" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Two-Dimensional Noise</h4>
+<p>The noise() function is intended to be interpreted as a 'noise space', where ever location has a noise value, but we haven't been using its full function. In reality, we can give it a second parameter when generating noise(). We can think of this as the y coordinate in our noise space.</p>
+<pre>let n = noise(x*0.01, y*0.01);  //Every xy gets a noise value
+</pre>
+  <p>
+     Like before, this call will give you a random-ish value that is similar to the values that are 'close' to it. This time, since the location has a y value, close can mean a small variation in the x OR the y. This produces a two-dimensional grid of noisy values.
+  </p>
+  
+  <img src = "images/color_2d_noise.png"width = "350"/>
+  
+  <p>
+    In this image, large values are RED and small values are BLUE. Notice how there isn't a fully red value next to a fully blue value, no matter what direction you head. Below is another example of a field, except the noise value is mapped to the brightness of a gray square.
+  </p>
+  
+  
+<!-- <p>Each noise value that you generate will still be 'close' to the values when you vary the first parameter, but similarly 'close' to values if you vary the second parameter. This gives you the ability a&nbsp;<strong>field</strong>&nbsp;of noise values.&nbsp;In the image below that value is mapped to the brightness of a small square.</p> -->
+<p><img src="images/2D_field.png" width="240" height="120" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Exploring the Noise Field</h4>
+<p>Open the Exploring 2D Noise Workspace</p>
+  
+<p>
+  This workspace calculates a random location on the canvas, but it a little bit of math has been used to make it fall within a 16 x 16 grid of locations in the canvas.
+<!--   </p>
+<p>Run the sketch and you'll see that it draws white squares at the mouse's location, but the all line up to form a grid. This is due to some math tomfoolery that we did to the mouse's location:</p>
+<pre>let x = floor(mouseX/16)*16;    
+let y = floor(mouseY/16)*16;
+</pre>
+<p>Since the floor() function can only produce integer values with no decimal portion, floor(mouseX/16) is a value that will increase by 1 every time mouseX increases by 16. This is the key to the snap-to-grid effect.</p> -->
+<p>&nbsp;</p>
+<h5>Your Task</h5>
+<p>Right now every square is white, due to the&nbsp;<strong>fill(255)</strong>&nbsp;line. Instead, we are going to tie each square's brightness to the noise value at its location. Use this line to help you generate the noise value:</p>
+<pre>let n = noise(x*0.01, y*0.01);</pre>
+<p>Then, use map() to map the noise value to the 0-255 range, and use the result as the fill of the square.&nbsp;</p>
+<p>As a result, when you run your sketch you should be able to 'reveal' a peek at the noise space.</p>
+<p><img src="images/2D_sample1.png" width="128" height="128" />&nbsp;&nbsp;<img src="images/2D_sample2.png" width="128" height="128" /></p>
+<p>&nbsp;</p>
+
+  
+  <hr>
+  
+  <h2>Distant Planet Generator</h2>
+<p>&nbsp;<img src="images/planet1.png" width="128" height="128" />&nbsp;<img src="images/planet2.png" height="126" /></p>
+<p>Create a new sketch named <strong>Distant Planet Generator</strong>, which will use the noise() function to generate an image like the ones above: A circular area with 'noisy' colors spattered within.</p>
+<p>This effect is accomplished by removing the background() statement from draw(), and then:<br />- Choosing a random location <strong>within a circle</strong><br />- Use the noise value to choose a color for the fill()<br />- Draw a single small circle</p>
+<p>It will take a minute, but a planet should appear.</p>
+<p>&nbsp;</p>
+<h5>Choosing a Random Location in a Circle</h5>
+<p>If you just choose a random x and then a random y, the resulting locations resemble a&nbsp;<strong>rectangle</strong>. To get random values that are arranged in a circle, we need to bring back our circle equations:</p>
+<pre>let x = centerX + radius*cos(angle);
+let y = centerY + radius*sin(angle);
+</pre>
+<p>The center of the circle is fixed, but if you choose a random angle and a random radius with these expressions, the result will be a circular area.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Choosing a Noisy Color</h4>
+<p>The color of the circle should be based on the noise value at that location. Like before, choose a noise value based on the xy location:</p>
+<p>To get it to shift between two colors, map the noise value to the 255 range and then use it as&nbsp;the red, green, or blue value in the fill of the circle. The other&nbsp;two RGB&nbsp;values do not need to be zero. Tweak them until you like the colors that your planet turns.</p>
+<p>&nbsp;</p>
+  
+  
+ 
+  
+  
+  </body>

@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Platformer - Falling with Gravity</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style4 {
+	font-size: medium;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Platformer Game:&nbsp; Gravity</p>
+<p class="auto-style1">A platformer game is a type of game that relies on safely jumping onto 
+platforms to win.&nbsp; One of the most famous examples of this genre is the 
+Super Mario series.&nbsp; We are going to take a look at the game 
+mechanics.</p>
+<p class="auto-style1">First you will need a Canvas to get started with.&nbsp; Copy the code 
+below (it will not compile at first).&nbsp; For the sake of time, it already has 
+a timer, a MouseListener, and a KeyListener set up.</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+import java.util.*;
+
+public class PlatformerCanvas extends SCanvas
+{
+    private JumpMan mario;
+    private CanvasTimer timer;
+    
+    public PlatformerCanvas()
+    {
+        mario = new JumpMan();
+        timer = new CanvasTimer(this,50);
+        timer.start();
+    }
+    
+    public void paintCanvas(PaintBrush brush)
+    {
+        mario.paintSelf(brush);
+    }
+    
+    public void onTimerTick()
+    {
+        mario.fall();
+    }
+    
+    public void onKeyPress(int keyCode)
+    {
+        
+    }
+    
+    public void onKeyRelease(int keyCode)
+    {
+        
+    }
+    
+    public void onMousePress(MouseEvent m)
+    {
+        mario.setXY(m.getX(),m.getY());
+    }
+    
+    
+    public static void main()
+    {
+        SFrame frame = new SFrame();
+        frame.setSize(768,512);
+        frame.add(new PlatformerCanvas());
+		frame.centerOnScreen();
+        frame.setVisible(true);
+        
+        
+    }
+   
+}</pre>
+<p class="auto-style1">If you read through what&#39;s already done for you, you&#39;ll 
+see some relatively similar things.&nbsp; There is a JumpMan object as an 
+instance field.&nbsp; You can see that three important methods are being 
+callled; paintSelf, fall, and setXY.&nbsp; These will be our first focus.</p>
+<p class="auto-style1">Note:&nbsp; The panel has a frame built into it so you do 
+not have to create one.&nbsp; Simply right click the panel and run the void 
+main() method.</p>
+<hr>
+<p class="auto-style3"><strong>The JumpMan class</strong></p>
+<p class="auto-style1">Create a new class named JumpMan (spelled exactly the 
+same or it will not compile with the Canvas).&nbsp; Our goal at this point is to 
+get a rectangle that falls downward with an increasing pull to mimic gravity.</p>
+<p class="auto-style1"><strong><span class="auto-style4">Instance Fields:</span></strong><br />
+- ints for the width and height of the JumpMan<br />
+- <strong>doubles</strong> for the x and y<br />
+- a double named gravity, set to 1 (for now), and a double name gravAccel which 
+is set to 3.</p>
+<p class="auto-style1"><strong><span class="auto-style4">Constructor</span></strong>:<br />
+The JumpMan constructor should set up the instance fields to some good values.&nbsp; 
+Set the x and y to (250,100) and make the width 35 and the height 50.</p>
+<p class="auto-style5"><strong>Methods:</strong></p>
+<p class="auto-style1">public void setXY(int tmpX, int tmpY)<br />
+This method should take the parameters and assign them to the appropriate 
+instance fields.&nbsp; It should also set the gravity variable to 0.</p>
+<p class="auto-style1">public void paintSelf(PaintBrush brush)<br />
+This method should paint the rectangle using the x, y, width, and height 
+instance fields.&nbsp; Warning:&nbsp; since x and y are doubles, the fillRectangle 
+method will not allow them to be used as parameters.&nbsp; Instead of filling at 
+(x,y,width, height), you need to force them to be ints by using a <strong>cast</strong>.&nbsp; 
+This will make it look more like ((int)x,(int)y, width, and height).</p>
+<p class="auto-style1">public void fall()<br />
+This is the method that is going to be constantly called by the panel&#39;s timer.&nbsp; 
+It will cause the block to fall downward (usually).&nbsp; Make this method add 
+the value of gravity to the y variable.</p>
+<p class="auto-style1">If you run the program, you&#39;ll notice that we haven&#39;t 
+made the JumpMan fall, we&#39;ve only made it drift downward.&nbsp; The key lies in 
+the fact that the gravity variable is not changing.&nbsp; That makes the 
+rectangle drift <strong>Linearly</strong>.</p>
+<p class="auto-style1">
+<img src="images/img35.gif" /></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">Gravity doesn&#39;t cause things to fall using linear motion.&nbsp; 
+The pull of gravity starts out small, but increases each step.&nbsp; This causes
+<strong>Parabolic</strong> motion.</p>
+<p class="auto-style1">
+<img src="images/img37.gif" /></p>
+<p class="auto-style1">To make the block&#39;s fall more realistic, the <strong>fall</strong> method 
+needs to do two things:</p>
+<p class="auto-style1">- add the gravity variable to the y<br />
+- add the gravAccel variable to the gravity variable</p>
+<p class="auto-style1">gravAccel, which should be set to around 3, is the amount 
+that the gravity variable will increase each time.&nbsp; Since the variable at 
+the moment is starting at 1, the first fall will be 1, the next will be 4, the 
+next will be 7, etc.</p>
+<p class="auto-style1">Run the program.&nbsp; This time the block should fall 
+instead of drift down.&nbsp; If you miss it, clicking on the window should cause 
+the JumpMan to be moved to that location so that you can watch it fall again.</p>
+<hr>
+<p class="auto-style3"><strong>Letting JumpMan Jump</strong></p>
+<p class="auto-style1">Since gravity is what pulls the JumpMan down, setting the 
+gravity variable to negative will cause him to jump upward and eventually be 
+falling again.</p>
+<p class="auto-style1">- Add a method to the JumpMan class named <strong>jump</strong>.&nbsp; 
+All this method should do is set the gravity to -30 (you can change this if it&#39;s 
+too large/small).</p>
+<p class="auto-style1">- Go to the Canvas class and change it so that when the up 
+key is pressed (keyCode 38), the jump() method is called.</p>
+<p class="auto-style1">Run this program.&nbsp; While the JumpMan is falling, hit 
+the up key.&nbsp; Hopefully the rectangle will jump into the air before falling 
+again.&nbsp; Repeatedly pressing the up key will cause mid-air jump, which is 
+fine for now.</p>
+</body>
+
+</html>

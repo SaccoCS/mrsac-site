@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Last minute studying</title>
+
+<style>
+p{
+	
+	font-size:small;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Last minute studying</h2>
+
+<p>For those that enjoy last minute studying.&nbsp; Mr. Sacco talks about a few 
+topics that students often miss.</p>
+<p>&nbsp;</p>
+<p>Binary/Hexadecimal/Decimal:</p>
+<p>Don&#39;t forget about converting between the three bases</p>
+<p>What is 90 in Binary? 1011010 hex?5A<br />
+What is B9(hex) in Decimal? 185 Binary?: 1011 1001</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1">Objects are Passed by Reference:</p>
+<p>Consider the Family class below:</p>
+<pre>public class Family
+{
+    private int numMembers;
+    private String familyName;
+ 
+    public Family(String tmpName, int members)
+    {
+        familyName = tmpName;
+        numMembers = members;
+    }
+ 
+    public void addFamilyMember()
+    {
+        numMembers++;
+    }
+ 
+    public int familySize()
+    {
+        return numMembers;
+    }
+ 
+    public String getFamilyName()
+    {
+        return familyName;
+    }
+ 
+    public void setFamilyName(String name)
+    {
+        familyName = name;
+    }
+ 
+   
+    public static void main()
+    {
+        Family a = new Family("Jacobs",3);
+        Family b = new Family("Smith",5);
+        Family c = a;
+        b=c;
+ 
+        a.addFamilyMember();
+        c.setFamilyName(b.getFamilyName());
+ 
+        System.out.println( "The "+a.getFamilyName()+" family has "+a.familySize()+" members");
+        System.out.println( "The "+b.getFamilyName()+" family has "+b.familySize()+" members");
+        System.out.println( "The "+c.getFamilyName()+" family has "+c.familySize()+" members");
+ 
+       
+    }
+ 
+}</pre>
+
+<p>When the main method is run, what will be printed?</p>
+<p>ANSWER:<br />
+The Jacobs family has 4 members<br />
+The Jacobs family has 4 members<br />
+The Jacobs family has 4 members</p>
+<p>Objects are passed by reference, meaning we start out with a and b 
+representing the Jacobs and the Smith family. <br />
+Family c = a;<br />
+<br />
+This line does not make a copy of Family a. It means that c and a are talking 
+about the EXACT same Family object. If you do anything that changes the instance 
+fields in c, the change also happens to a (they’re the same).<br />
+<br />
+Similarly, the b = c line causes b to reference the same Family as c, which is 
+referencing the same Family as a. At this point we have three different 
+variables that are all referencing one family.<br />
+For example<br />
+c.setFamilyName(b.getFamilyName());<br />
+<br />
+This line looks like it’s setting c’s name to whatever b’s name is. Since a,b, 
+and c are all talking about the same object, it’s exactly the same as saying 
+c.setFamilyName(c.getFamilyName());</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1">Double Inaccuracies:</p>
+<p>Consider the following method:</p>
+<pre>public static void squaredRoots()
+{
+    for( double d =0; d<20;d++)
+    {
+        double num = Math.sqrt(d)*Math.sqrt(d);
+ 
+        System.out.println(d+" "+num);
+    }
+}</pre>
+<p>All this method does is square root values, and then un-roots them by 
+multiplying the result times itself, but if you run this method, you’ll notice 
+that some of them match, by many of them are very slightly off.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1">int division:</p>
+<p>Don&#39;t forget to be careful when dividing.&nbsp; Sometimes you want int 
+division and sometimes you want double division.&nbsp; Consider the following 
+method:</p>
+<pre>public static double[] halfVals(int[] vals)
+{
+    double[] half = new double[vals.length];
+    
+    for( int i =0; i< vals.length; i++)
+    {
+        half[i] = vals[i]/2;
+    }
+       
+    return half;
+}</pre>
+
+<p>If you run this method with {1,2,3,4,5,6,7,8,9,10}, you would expect to get 
+back an array with the values {0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0} but you 
+don’t. Instead you get {0.0,1.0,1.0,2.0,2.0,3.0,3.0,4.0,4.0,5.0} . This is 
+because of this line:<br />
+half[i] = vals[i]/2;<br />
+<br />
+since vals is full of ints, the line vals[i]/2 is performing division between 
+two ints. Therefore the result must be an int.<br />
+It doesn’t matter that the half array holds doubles. First the int division 
+occurs, and the resulting int is then converted to a double.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1">Short Circuit Evaluation:</p>
+<p>Consider the following method. The purpose of which is to detect the first 
+index of the array where the value is two digits.</p>
+<pre>public static void whileTest()
+{
+    int[] arr = {2,6,4,7,3,4,3,4,3,5};
+ 
+    int index = 0;
+    while( arr[index] < 10)
+        index++;
+ 
+    System.out.println(index);
+}</pre>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+Notice that it starts at the 0, and increases index until it finds a value that 
+is 10 or more.&nbsp;&nbsp; If you run this program it should print out a 5.</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+A problem occurs when we change the array to the following</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+int[] arr = {2,6,4,7,3,4,3,4,3,5};</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+Now there is a crashing problem.&nbsp; The loop will never find a large value 
+and the index will increase until it crashes.&nbsp; We need to modify our 
+condition to make sure that the index doesn’t go out of bounds.</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+An incorrect attempt would be the following:</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+while( arr[index]&lt;10 &amp;&amp; index&lt;arr.length)</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+this looks like it’s solving our problem but AND statements are evaluated from 
+left to right.&nbsp; When index is too large, arr[index] will crash before java 
+even checks if it’s in bounds.&nbsp; If we switch it around, something else 
+happens</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+while(index&lt;arr.length &amp;&amp; arr[index]&lt;10)</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+Now when the index is too large it’s found FIRST.&nbsp; Since finding a single 
+false means that the entire AND is false, Java skips the rest of the code and 
+moves on.</p>
+<p>&nbsp;</p>
+</body>
+
+</html>

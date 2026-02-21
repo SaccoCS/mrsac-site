@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Mod</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Modulus</h2>
+					<p>You should already be familiar with most of the basic math operations +,-,*, and /.  
+					They are all performing operations that you've done before and the only weird one is <a href="int division.html">int division</a>.</p>
+					<p>The new operation that is commonly seen in programming is the <strong>modulus operator</strong> or '<strong>mod</strong>' operator, which is 
+					represented with a percent sign <strong>%</strong>.  It represents the <strong>remainder</strong> of a division.  For example:</p>
+					<p class="code">14 % 3 --> 2</p>
+					<p>The expression above is asking for the value of <strong>fourteen mod three</strong>.  This is asking what the remainder is 
+					after taking away as many threes as possible.  The fact that three goes into fourteen four times is unnecessary 
+					knowledge because all we need to know is that there is <strong>two</strong> remaining.</p>
+					<p class="code">15 % 6 --> 3</br>
+					27 % 2 --> 1</br>
+					40 % 10 --> 0</br>
+					6 % 4 --> 2</br>
+					100 % 99 --> 1</br>
+					55 % 22 --> 11 </br>
+					</p>
+					<p>Just as with division, the two terms in a mod statement are named <strong>dividend</strong> and <strong>divisor</strong>.</p>
+				</div>
+				<div class="note-div">
+					<h3>Watch Out for Small Dividends</h3>
+					<p>The basic concept of mod makes sense, but many people are confused when the dividend is smaller than the divisor.</p>
+					<p class ="code">3 % 6</p>
+					<p>The way to picture it is that the dividend, three, is the value that you start with.  You then take away as many
+					sixes as you can, which is <strong>none</strong>.  The remaining amount is the three that you started with.</p>
+					<p class = "code">3 % 6 --> 3<br/>
+					12 % 14 --> 12<br/>
+					2 % 7 --> 2<br/>
+					10 % 15 --> 10</p>
+					<p>Every time the dividend is less than the divisor, the result is simply the dividend.</p>
+				
+				</div>
+				
+				<div class="note-div">
+					<h3>Patterns with Mod</h3>
+					<p><strong>Telling when a number divides evenly into another</strong></p>
+					<p>When a number goes evenly into another number, the result of their mod operation is zero because there 
+					is no remainder</p>
+					<p class = "code">6 % 3 --> 0<br/>
+					12 % 4 --> 0<br/>
+					15 % 5 --> 0<br/>
+					100 % 10 --> 0</p>
+					<p> &nbsp;</p>
+				
+					<p><strong>Odd or Even</strong></p>
+					<p>Similarly, you can tell if a number is odd or even based on the result when you mod the number by two.  
+					Since even numbers are divisible by two, they will go in evenly and have a remainder of zero</p>
+					
+					<p class = "code">4 % 2 --> 0<br/>
+						12 % 2 --> 0<br/>
+						2 % 2 --> 0<br/>
+						10 % 2 --> 0<br/>
+						88 % 2 --> 0</p>
+					<p>Odd numbers, not divisible by two, will always give a remainder of 1</p>
+					<p class = "code">
+						13 % 2 --> 1<br/>
+						1 % 2 --> 1<br/>
+						11 % 2 --> 1<br/>
+						77 % 2 --> 1</p>
+				
+
+				</div>
+				
+				<div class="note-div">				
+				<h3>Example Program</h3>
+					<p>Mod is often useful when paired up with <a href="int division.html">int Division</a>.  Division provides the quotient and mod provides the remainder.  The program below is meant to ask the user for a large number of days, and then print out how many weeks and days that is.</p>
+					
+					<div class="code-block">
+						<p>public class NumWeeks</br>
+						{</br>
+						&nbsp;&nbsp;&nbsp;public static void main()</br>
+						&nbsp;&nbsp;&nbsp;{</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String numDayStr = JOptionPane.showInputDialog("How many days?");</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int numDays = Integer.parseInt(numDayStr);</br>
+						
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int numWeeks = numDays/7;</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int leftoverDays = numDays%7;</br>
+						</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(numDays + " days is " + numWeeks + " weeks and "</br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ leftoverDays + " days");</br>
+						&nbsp;&nbsp;&nbsp;}</br>
+						}
+						</p>
+					</div>
+					<p style = "clear:left">If the user were to input 25 days, they output would be:</br>
+					<span class = "code">25 days is 3 weeks and 4 days</span></p>
+					<p>The key to this program is knowing that there are 7 days in a week.  Dividing by 7 will tell us how many weeks there are, but the mod will tell us how many days are levtover after all the weeks are removed. </p>
+				</div>
+				
+				<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				<!--All content divs stop here-->
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

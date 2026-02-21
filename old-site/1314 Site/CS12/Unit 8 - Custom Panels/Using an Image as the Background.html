@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Using an Image as the Background</title>
+</head>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: large;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Using an Image as the Background:</h2>
+<p>Previously you wrote a program named RandSquare, which drew 2000 random 
+squares with random colors.&nbsp; One issue that occurs is that when you resize 
+the window, it repaints the canvas, meaning that 2000 new random squares are 
+drawn.&nbsp; While this is a fun side effect, you might not want to randomize so 
+much.</p>
+<p><strong>Old strategy:</strong><br />
+Every time the canvas paints itself, 2000 new squares are drawn.</p>
+<p><strong>New strategy:</strong><br />
+Create a Picture with 2000 random squares in the beginning.&nbsp; Every time the 
+canvas paints itself, it just draws that Picture.&nbsp; This way it can&#39;t 
+re-randomize.</p>
+<hr>
+<p>Create a new class named ImprovedRandSquare and copy the following into it:</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+public class ImprovedRandSquare extends SCanvas
+{
+    private Picture bgPic;
+    private PaintBrush bgBrush;
+    
+    public ImprovedRandSquare()
+    {
+       //code goes here
+    }
+    
+    @Override
+    public void paintCanvas(PaintBrush brush)
+    {
+        brush.drawPicture(bgPic,0,0);
+    }
+    
+    public static void main()
+    {
+        SFrame frame = new SFrame();
+        frame.add(new ImprovedRandSquare());
+        frame.setSize(500,500);
+        frame.setVisible(true);
+    }
+}</pre>
+<p>Notice that there are two instance fields:&nbsp; a Picture and a PaintBrush.&nbsp; 
+If you look at the paintCanvas method you&#39;ll see that all it does is paint the 
+background picture to the window.&nbsp; Our job is going to be to make it so 
+that the Picture has 2000 random squares on it.</p>
+<p>We&#39;ve never had an image that wasn&#39;t loaded from the hard drive before, but 
+it&#39;s relatively simple.&nbsp; To create a blank Picture, you simply construct it 
+using a width and a height.&nbsp; Go to the constructor (where it says &#39;code 
+goes here&#39;) and add the following:</p>
+<pre>bgPic = new Picture(500,500);</pre>
+<p>This constructs a blank 500x500 Picture and puts it into the bgPic variable.</p>
+<p>&nbsp;</p>
+<p><strong>How do we make it not blank?</strong></p>
+<p>When we draw, we need to have a PaintBrush object to work with.&nbsp; Lucky 
+for us, every Picture has a built in PaintBrush object.&nbsp; Still in the 
+constructor, but after you create the new Picture, add the following:</p>
+<pre>bgBrush = bgPic.getBrush();</pre>
+<p>This extracts a PaintBrush object from the background image that you&#39;ve just 
+created.&nbsp; Anything that you paint using bgBrush will be drawn on the 
+Picture.&nbsp; Loop 2000 times and paint the rectangles like before, except 
+using the bgBrush variable.&nbsp; <strong>This should all be done in the 
+constructor.</strong>&nbsp; We only need to loop one time to set up the picture 
+that will be drawn.</p>
+<p>When you&#39;ve finished, run the program and resize the window.&nbsp; This time, 
+since the paintCanvas method is doing nothing but drawing an image, the 
+re-randomization will not occur like it did before.&nbsp; You will notice that 
+it cuts off right at 500x500.&nbsp; This is because the original Picture was 
+exactly 500x500.&nbsp; If we wanted to we could make it larger, allowing the 
+rectangles to be drawn outside the boundary of the window.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Assignment:</strong></p>
+<p><strong><span class="auto-style2">Stamper</span></strong>:&nbsp; Create a program that uses a blank Picture as 
+the background.&nbsp; Every time that you click the mouse, that background image 
+should be &#39;stamped&#39; with a small, appropriate picture of your choice.&nbsp; You 
+may also do a shape design if you want, but it must be more complicated than a 
+simple square or circle.&nbsp; Make sure that you do some simple math to make 
+sure that the center of the image appears where you clicked the moust.&nbsp; </p>
+<p>&nbsp;</p>
+<p>You will need to override the onMousePress(MouseEvent m) method.&nbsp; When 
+the mouse is pressed it will draw the stamp onto the background picture.&nbsp; 
+Your paintCanvas method will only draw the background Picture; exactly as it was 
+in the demo.&nbsp; If you&#39;re not creative, you may use the Ace below:</p>
+<p>
+<img height="96" src="../Unit%207%20-%20GUIs%20and%20Objects/images/AS.png" width="72" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img  src="images/acestamp.PNG" width="300" /></p>
+<p>&nbsp;</p>
+<p>Here&#39;s one that uses a for loop and PaintBrush&#39;s drawAngledLine method:</p>
+<p><img  src="images/star%20stamp.PNG" width="300" /></p>
+
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Smearer:</strong></p>
+<p>The SquareSmear program also uses a background image.&nbsp; When the user 
+drags the mouse across the screen, randomly colored squares or circles are 
+painted to the background.&nbsp; This causes a smearing effect.</p>
+<p><img width="300" src="../Unit%207%20-%20GUIs%20and%20Objects/images/img61.jpg" />&nbsp; <img width ="300"src="../Unit%207%20-%20GUIs%20and%20Objects/images/img60.jpg" /></p>
+<p>Strategy:&nbsp; It will become important that you know when the mouse is 
+being pressed.&nbsp; To accomplish this you will need to use a combination of 
+the onMousePress and onMouseRelease methods.&nbsp; Start by adding a boolean as 
+an instance field.&nbsp; The purpose of this boolean will be to represent if the 
+mouse is pressed or not.&nbsp; true will mean that the mouse is currently being 
+pressed, while false will indicate that it isn&#39;t pressed.&nbsp; </p>
+<p>Override the onMousePress method.&nbsp; The only thing that this method has 
+to do is set the boolean to true.&nbsp; Similarly, override the onMouseRelease 
+method but this time it will set the boolean back to false.&nbsp; This works 
+because once you press the moues button down, it is considered &#39;held&#39; until the 
+button is released.&nbsp; </p>
+<p>&nbsp;</p>
+<p>Now that you have a boolean that will always represent whether or not the 
+mouse button is being pressed, override the onMouseMove method.&nbsp; Use an if 
+statement to check the boolean and see if the mouse is being pressed.&nbsp; If 
+it is, draw a randomly colored square or circle centered at the x and y of the 
+mouse.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

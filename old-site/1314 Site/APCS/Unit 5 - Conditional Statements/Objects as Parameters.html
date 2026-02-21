@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Objects as Parameters</title>
+<style type="text/css">
+.auto-style2 {
+	text-decoration: underline;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style5 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	border-style: solid;
+	border-width: 1px;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Objects as Parameters</p>
+<p class="auto-style3">We&#39;ve begun to see Objects more and more in our programs.&nbsp; 
+An important part of Objects is the idea that you can have many different copies 
+of an object, each with different values in the instance fields.&nbsp; For 
+example:&nbsp; The Point class is simply in charge of an x and a y, but you can 
+have several different Point objects, each with their own x an y.</p>
+<p class="auto-style3">When you have an object and need to access one of the 
+instance fields, usually there is a method that will allow you to retrieve that 
+value.&nbsp; If there isn&#39;t a method, then you probably weren&#39;t meant to have 
+access to it.</p>
+<p class="auto-style3">&nbsp;This is 
+true whenever you use objects, so it is always a good idea to familiarize 
+yourself with the methods that are available to you when you&#39;re faced with one.</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">Another way of seeing objects in your code is to have them passed in as 
+parameters in a method.&nbsp; Look at the static method definition below:</p>
+<p class="auto-style5">public static boolean isAnAce(Card someCard)</p>
+<p><span class="auto-style3">This time the parameter is a Card object.&nbsp; Our job is to figure out if 
+the parameter is an Ace, but it is not as simple as someCard.equals(&quot;Ace&quot;) 
+because someCard is not a String, it&#39;s an </span> <span class="auto-style2">object</span><span class="auto-style3"> 
+with Strings in it.&nbsp; We have to use the methods available to extract the 
+information we need out of it first, then we can see if it equals &quot;Ace&quot;.</span></p>
+<p class="auto-style3">The completed method below accomplishes the task by first 
+extracting the value String using the getValue method.&nbsp; Once that String is 
+out of the object it can then be compared with &quot;Ace&quot;.</p>
+<p><img alt="" height="248" src="images\imgC.gif" class="auto-style7" /></p>
+<p class="auto-style3">Copy the following incomplete class into the same project as your Card class.&nbsp; 
+Using the isAnAce as a guide, complete the methods isAFaceCard and 
+matchingSuits.&nbsp; The faceRunner and suitRunner may be used to test out the 
+methods (you don&#39;t have to understand how the runner methods work)</p>
+<pre>public class CardsAsParameters
+{
+
+    //sample method, determines if the parameter card is an Ace or not
+    public static boolean isAnAce(Card someCard)
+    {
+        //extract the information you need using methods
+        String cardVal = someCard.getValue();
+
+        if( cardVal.equals("Ace") )
+            return true;
+        else
+            return false;
+
+    }
+
+    //returns a true if the parameter is a face card (Jack, Queen, or King), false otherwise
+    public static boolean isAFaceCard(Card someCard)
+    {
+
+        return false;  //dummy value
+    }
+
+    //returns a true if the two parameter cards have the same suit
+    public static boolean matchingSuits(Card firstCard, Card secondCard)
+    {
+
+        return false;  //dummy value
+    }
+
+    //returns a true if the parameter Card is a Red card
+    public static boolean isRed(Card someCard)
+    {
+
+        return false;  //dummy value
+    }
+
+    //This method tests the isAFaceCard method.  Make sure the outputs make sense
+    public static void faceRunner()
+    {
+        Card a = new Card("6C");
+        Card b = new Card("KD");
+        Card c = new Card("QH");
+        Card d = new Card("2C");
+
+        System.out.println( a +" is "+(isAFaceCard(a)? "":"not ")+"a face card");
+        System.out.println( b +" is "+(isAFaceCard(b)? "":"not ")+"a face card");
+        System.out.println( c +" is "+(isAFaceCard(c)? "":"not ")+"a face card");
+        System.out.println( d +" is "+(isAFaceCard(d)? "":"not ")+"a face card");
+    }
+
+    //This method tests the matchingSuits method.  Make sure the outputs make sense
+    public static void suitRunner()
+    {
+        Card a = new Card("4H");
+        Card b = new Card("AS");
+        Card c = new Card("TH");
+
+        System.out.println( a +" and "+b+(matchingSuits(a,b)?" have ":" don't have ")+"matching suits");
+        System.out.println( a +" and "+c+(matchingSuits(a,c)?" have ":" don't have ")+"matching suits");
+        System.out.println( b +" and "+c+(matchingSuits(a,b)?" have ":" don't have ")+"matching suits");
+
+    }
+
+    //This method tests the isRed method.  Make sure the outputs make sense
+    public static void isRedRunner()
+    {
+        Card a = new Card("4H");
+        Card b = new Card("AS");
+        Card c = new Card("TD");
+        Card d = new Card(&quot;8C&quot;);
+
+        System.out.println( a +(isRed(a)?" is ":" is not ")+&quot;a red card");
+        System.out.println( b +(isRed(b)?" is ":" is not ")+&quot;a red card");
+        System.out.println( c +(isRed(c)?" is ":" is not ")+&quot;a red card");
+        System.out.println( d +(isRed(d)?" is ":" is not ")+&quot;a red card");
+
+    }
+}
+
+</pre>
+
+</body>
+
+</html>

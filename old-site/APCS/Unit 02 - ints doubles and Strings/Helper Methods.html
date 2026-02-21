@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Helper Methods</title>
+<style>
+p,h2{
+	font-family:Arial, Helvetica, sans-serif;
+	}
+	p{
+	font-size:small;
+	}
+}
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	font-size: large;
+}
+.auto-style3 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Helper Methods</h2>
+<p>So far all of our programs have had a single main method that runs a series 
+of commands.&nbsp; We&#39;ve been relying on other methods, such as showInputDialog 
+or parseInt, to complete part of our project but so far we haven&#39;t written a 
+method that is helpful.&nbsp; </p>
+<p>For this next assignment, you&#39;re going to write some <strong>utility</strong> 
+methods.&nbsp; These methods aren&#39;t meant to be a whole program in one line, but 
+to actually represent a single part of the program.</p>
+<p>&nbsp;</p>
+<hr/>
+<p>Example:</p>
+<p>In the same project as your Math Programs, create a class named NumTools.&nbsp; 
+Each of the parts of this assignment will ask you to add another method to this 
+class.&nbsp; These methods will work a little differently.&nbsp; For these 
+methods you should do no printing and no JOptionPane.&nbsp; Instead, these 
+methods are going to get their input from the parameters and their output will 
+be through a return statement.</p>
+<p>I&#39;ll do the first one:</p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td>
+		<p>Create a method named limitToOne which will take in a double as a 
+		parameter.&nbsp; The method should return the double, but limited to 
+		only one decimal place.&nbsp; </p>
+		<p>For example:<br />
+		If the parameter is 24.65343<br />
+		The returned double is 24.6</p>
+		</td>
+	</tr>
+</table>
+<p>First thing that we have to do is determine what the parameters and return 
+type should be.&nbsp; In this case we are writing a methoud that takes in a 
+double and returns a double as well.&nbsp; In your NumTools class, add the 
+following method header which includes a double as a parameter and as the return 
+type:</p>
+<pre>public static double limitToOne(double num)
+{
+
+}</pre>
+<p>When writing this style of method, my entire goal is to take my parameters 
+and create an output with it.&nbsp; In this case the variable is called <strong>
+num</strong>.&nbsp; Here&#39;s the process that I am going to use:</p>
+<p>Take the value of num:&nbsp; 3.213243<br />
+Multiply it by ten (moving the decimal):32.13243<br />
+Cast to an int: 32<br />
+Divide by 10: 3.2<br />
+Tadaa!&nbsp; The decimals have been casted away.</p>
+<p>Make sure you follow the purpose of each step below and copy it to your 
+NumTools class</p>
+<pre>public static double limitToOne(double num)
+{
+   double large = num*10;
+   int casted = (int)large;
+   double retVal = casted/10.0;
+   return retVal;
+}</pre>
+<p>Notice that the last line of the method has me returning the double retVal.&nbsp; 
+Since this method&#39;s return type is a double, the last statement should be 
+returning a double.</p>
+<p>How do I test without JOptionPane and System.out.println!!!!</p>
+<p>BlueJ has the ability to quickly test methods.&nbsp; Right clicking on the 
+method will show us exactly the method that we just wrote:</p>
+<p><img src="images/img10.jpg" /></p>
+<p>You can see here that the method will require a double as a parameter.&nbsp; 
+And that is why a little window pops up when you run the method:</p>
+<p><img src="images/img11.jpg" /></p>
+<p>This is the moment where you can test out what would happen if you put 
+different values.&nbsp; In this example I&#39;ve decided that the parameter should 
+be 3.1415926</p>
+<p>After hitting ok, the returned value is displayed in a different window:</p>
+<p><img src="images/img12.jpg" /></p>
+<p>3.1 is the value that I wanted.&nbsp; Hooray!!!</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

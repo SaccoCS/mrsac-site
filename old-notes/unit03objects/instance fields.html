@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Instance Fields</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif;">Instance Fields</h2>
+<p>One way to think about an object is to consider it a variable that has 
+multiple pieces of data bundled together.&nbsp; Those pieces of information are 
+known as the <strong>instance fields</strong> or<strong> instance variables.</strong>&nbsp; 
+For<strong> </strong>Example:&nbsp; Consider the following class named Student 
+and it&#39;s designed to have two instance fields, one to hold a student&#39;s name and 
+one to hold its gpa.</p>
+<pre>public class Student
+{
+   private String name;
+   private double gpa;
+   
+   public Student(String n, double g)
+   {
+      name = n;
+      gpa = g;
+   }
+}</pre>
+<p><span class="auto-style1"><strong>What this means in the </strong></span> <strong>
+<span class="auto-style1">Runner</span></strong>:</p>
+<p>The variables <strong>name</strong> and <strong>gpa</strong> are the <strong>
+instance fields</strong>, meaning when a client class constructs a Student 
+object, it in turn is creating two variables, a String and a gpa:</p>
+<pre>Student stu = new Student("Gerald I. Joe", 3.85);</pre>
+<p>The Student variable <strong>stu</strong> has a name of &quot;Gerald I. Joe&quot; and a 
+gpa of 3.85</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Instance fields should be private:</strong></p>
+<p>Yes, it is technically legal to have <strong>public </strong>instance fields.&nbsp; 
+In this case you would be able to access the instance fields directly</p>
+<pre>Student stu = new Student("Gerald I. Joe", 3.85);
+stu.gpa = 4.0;</pre>
+<p>Even though this compiles, we are going to control the access of our instance 
+fields by making them <strong>private</strong>.&nbsp; This will mean that later 
+we should add methods to the Student class in order to help access the 
+variables.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Screenshots</title>
+<style>
+p,h1,h2,h3{
+font-family:Arial;
+}
+
+
+p{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 0 15 0 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<h1>Designing Objects: Instance Fields and Constructors</h1>
+
+<p>Objects are a very important concept in programming.&nbsp; It is important that we both understand how to use&nbsp;objects and also how to&nbsp;design&nbsp;them.&nbsp;</p>
+<p><strong>What are Objects?</strong>:&nbsp; Objects can be used in many ways, but it's best to think of objects as a data type that bundles together multiple pieces of data.</p>
+<p>We have already been using a type of object in our programs.&nbsp; A String is much more complicated than an int or a double.&nbsp; It is a piece of data that bundles together series of characters.</p>
+<p>&nbsp;</p>
+<p>We're not quite ready to write something as fancy as Strings, we will start by focusing on designing some Objects that hold a small amount of data.</p>
+<hr/>
+<h2>Designing An Object Example: Name</h2>
+<p>The first object that we are going to design is a simple object that is designed to bundle together a person's first and last name. First we must think of the <strong>instance fields</strong>, or data that the object will contain. In this case it's two Strings.</p>
+<p>In your project, create a class named <strong>Name</strong>, and put the following code in it:</p>
+<pre style="background-color: white;">public class Name
+{
+    public String first;
+    public String last;
+}</pre>
+<p>&nbsp;</p>
+<p><strong>What's going on here?</strong></p>
+<p>You must not think of this as your standard "main method" class. This class is meant to be a blueprint for an object called Name.</p>
+<p>So far, this object has two pieces of information that it stores (known as <strong>instance fields</strong>); A String for the first named and a String for the last name.&nbsp;</p>
+
+<hr/>
+
+<h3><strong>How do we use objects?</strong></h3>
+<p>An object class doesn't work on its own. It is simply a design for a piece of data. In order to use it, we must have a program with a main method that will run it. This program is known as a <strong>Client</strong> class, a<strong> Tester</strong> class, or a <strong>Runner</strong> class and its purpose is to <strong>use</strong> the object as data.</p>
+<p><img src="/system/files/attachments/page_embeds/m/2015-10/img18_560ee19a87efe.jpg" alt="" style="border: 1px solid black;" title="" /></p>
+<p>An arrow will be drawn, because the NameRunner class makes use of the Name data type.</p>
+<p>&nbsp;</p>
+<p>In the same project as the <strong>Name</strong> class, put the following class.</p>
+<pre style="background-color: white;">public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name();
+        
+        System.out.println("First Name: "+n.first);
+        System.out.println("Last Name: "+n.last);
+    }
+}</pre>
+<p>The main method of the NameRunner class first&nbsp;<strong>Constructs</strong> a new name Object, and then later&nbsp;<strong>Accesses</strong> its values.</p>
+
+<hr/>
+</body>
+</html>

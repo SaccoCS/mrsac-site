@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The QuickButton Interface</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The QuickButton Interface</h2>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/QuickButton.html">
+QuickButton</a><br />
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/QuickButtonFrame.html">
+QuickButtonFrame</a></p>
+<p>Located in sacco.jar is a way for you to create a very simple window with 
+buttons named QuickButtonFrame.&nbsp; A QuickButtonFrame is not a very good 
+class all on its own.&nbsp; Looking at the API should reveal that there are not 
+very many methods, and one important method is named <strong>addQuickButton</strong> 
+and it takes in a <strong>QuickButton </strong>as a parameter.</p>
+<p>QuickButton is NOT a class that you can construct ( <strike>new QuickButton()</strike> ).&nbsp; 
+It&#39;s an interface with the following methods:</p>
+<p class="auto-style2"><strong>(DO NOT COPY THIS INTO YOUR PROJECT.&nbsp; IMPORT IT 
+FROM SACCOJAR)</strong></p>
+<pre>public interface QuickButton
+{
+   //Returns what the button&#39;s label should be
+   public String buttonLabel();
+
+   //A method that will be run when pressed
+   public void whenPressed();
+}</pre>
+<p>&nbsp;This allows you to create objects that will define how a button reacts when 
+it&#39;s pressed.&nbsp; </p>
+<hr>
+<p><strong>The HelloButton class:</strong><br />
+Create a new class named HelloButton, which implements the QuickButton interface.&nbsp; </p>
+<p>Implement the methods so that there is a label 
+of &quot;Hello&quot;, and when the button is pressed &quot;Hello World!!!&quot; is printed.</p>
+<p>Now that you&#39;ve created the HelloButton class, add a main method that will do 
+the following (look at the QuickButtonFrame API if you&#39;re not sure how to do 
+it):</p>
+<p>- Construct a new QuickButtonFrame, either defining it to have 1 row and 1 
+column, or by calling the default constructor.<br />
+- Construct a HelloButton object and use the addQuickButton method to add it to 
+the QuickButtonFrame<br />
+- Launch the QuickButtonFrame</p>
+<p>Run the main method.&nbsp; If done properly, a window will pop up with a 
+single button that says &quot;Hello&quot;.&nbsp; Clicking that button should produce 
+&quot;Hello World!!!&quot; on the terminal window.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>Assignment:</strong></p>
+<p>Create three more objects to help you create the following QuickButtonFrame.&nbsp; 
+WARNING:&nbsp; You will crash the program if you add too many buttons to the 
+frame.&nbsp; Make sure you indicate the appropriate number of rows and columns 
+in the constructor of the QuickButtonFrame.</p>
+<p><img src="images/imgB.jpg" /></p>
+<p>Each QuickButton should function differently:</p>
+<p>- <strong>Hello</strong> prints out &quot;Hello World!!!&quot; like before<br />
+<br />
+- <strong>Roll Die</strong> will simulate rolling a six sided die.&nbsp; It should print out &quot;You 
+rolled a ____&quot; with a number from 1 to 6.<br />
+<br />
+- <strong>Count Up</strong> will first print out 0, but each time it&#39;s pressed the number should 
+increase by 1.&nbsp; You will need instance fields in this object.<br />
+<br />
+- <strong>Get Daily Affirmation</strong>&nbsp; An affirmation is a statement that makes you feel 
+good about yourself (for example: &quot;You are an amazing person&quot;).&nbsp; When this button is pressed, it should print out a 
+random affirmation.&nbsp; You should have at least three different affirmations.&nbsp; 
+Your instance field should be a String[], not a series of String variables.&nbsp; 
+This way you can avoid having an ugly chain of if statements.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>QuestIons to ask yourself:</strong></p>
+<p>1)&nbsp; Why will the following not compile:&nbsp; QuickButton q = new 
+QuickButton();</p>
+<p>&nbsp;2)&nbsp; At which point does Polymorphism occur?</p>
+<p>3)&nbsp; Why doesn&#39;t the QuickButtonFrame need to have an addHelloButton, 
+addCountUpButton, addDieButton, or addAffirmationButton method?</p>
+<p>4)&nbsp; When writing a program, the compiler checks to make sure that any 
+methods being called exist before it can fully compile.&nbsp; When Mr. Sacco 
+wrote the QuickButtonFrame class, he used methods like<strong> buttonLabel</strong> 
+and<strong> whenPressed.</strong>&nbsp; At the time neither the HelloButton, 
+CountUpButton, DieButton, nor the AffirmationButton existed.&nbsp; Why did the 
+compiler allow his code to compile if those classes were nowhere to be found?</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Why use the QuickButton Interface?</strong></p>
+<p>Before the QuickButton Interface existed, we would have had to write a 
+different Frame for every single different Button that we created.</p>
+<p>
+<img border="1" height="252" src="images/BeforeQuickButton.PNG" width="747" /></p>
+<p>The QuickButton Interface allows us to write <strong>one</strong> Frame that 
+deals with anything of the QuickButton type, meaning it can be used to handle 
+any Button we create that implements the QuickButton interface.</p>
+<p><img border="1" height="415" src="images/AfterQuickButton.PNG" width="741" /></p>
+<p>&nbsp;</p>
+</body>
+
+</html>

@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Wanderer Class</title>
+<style type="text/css">
+.auto-style1 {
+	text-align: center;
+}
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style6 {
+	color: #808080;
+}
+.auto-style7 {
+	border: 1px solid #000000;
+}
+.auto-style11 {
+	color: #FF0000;
+}
+.auto-style12 {
+	font-size: medium;
+}
+.auto-style13 {
+	font-size: large;
+}
+.auto-style14 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style3">The Wanderer Class</p>
+<p><a href="../../saccojar/doc/sacco/Wanderer.html"><strong>Wanderer&#39;s API: You will want this</strong></a></p>
+<p class="auto-style2">Copy and run the class below to meet the Wanderers.&nbsp; 
+If you read the code, you&#39;ll see this object has an array of Wanderer objects.&nbsp; The 
+paintWindow method loops through and paints all of them on to the window.&nbsp; 
+Whenever the timer ticks, all of the Wanderers are told to move in whichever 
+direction they&#39;re set to go.</p>
+<pre>import sacco.*;
+public class WanderWorld extends SaccoWindow
+{
+    public Wanderer[] wanderers;
+
+    public WanderWorld(Wanderer[] wanderers)
+    {       
+        this.wanderers = wanderers;
+    }
+
+    public void onTimerTick()
+    {
+        for(int i = 0; i&lt;wanderers.length;i++)
+        {
+            wanderers[i].update();
+        }
+    }
+
+    public void paintWindow(Canvas c)
+    {
+        for(int i = 0; i &lt; wanderers.length;i++)
+        {
+            wanderers[i].paintSelf(c);
+        }
+    }
+
+    public void launch()
+    {
+       this.setVisible(true);
+       this.start();
+    }
+    
+    public static void main()
+    {
+        Wanderer[] wanderers = new Wanderer[20];
+
+        for(int i = 0; i < 20; i++)
+            wanderers[i] = new Wanderer(250,250);
+
+        WanderWorld w = new WanderWorld(wanderers);
+        w.launch();
+    }
+}</pre>
+<p class="auto-style2">The Wanderer is your very own little friend.&nbsp;&nbsp;&nbsp; A Wanderer is 
+created with a random character that is either standing or running and is facing 
+up, down, left, or right.&nbsp; After a random delay, a random state is chosen.&nbsp; 
+This automation may be turned off by calling setAutomation(false)</p>
+<p class="auto-style2"><img src="images/img16.jpg" /></p>
+<p class="auto-style4"><strong>What makes up a Wanderer?</strong></p>
+<p class="auto-style4">The State of the Wanderer</p>
+<p class="auto-style2">The way that the Wanderer stores it&#39;s direction is with a single int.&nbsp; 
+It would be silly to remember that a 0 means &quot;running upwards&quot; and a 1 means 
+&quot;running downwards&quot;.&nbsp; To help with this, there are eight static final ints 
+in the Wanderer class:&nbsp;&nbsp; RUN_UP, RUN_DOWN, RUN_LEFT, RUN_RIGHT, 
+STAND_UP, STAND_DOWN, STAND_LEFT, and STAND_RIGHT.&nbsp; </p>
+<p class="auto-style2">&nbsp;Unless you have a great memory, you wouldn&#39;t call setState(5).&nbsp; You 
+would most likely call setState(Wanderer.STAND_DOWN) because it is much simpler 
+to remember.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style4">The Character Number</p>
+<p class="auto-style2">Wanderer&#39;s character number is the id number of the character that the 
+Wanderer displays.&nbsp; There is a setCharacterNumber and getCharacterNumber 
+method.</p>
+<table style="width: 100%" class="auto-style2">
+	<tr char="width: 70px;">
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/img8.jpg" /></td>
+		<td class="auto-style1" style="width: 70px; 70px: ;">
+		<img align="middle" src="images/img9.jpg" /></td>
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/imgA.jpg" /></td>
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/imgB.jpg" /></td>
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/imgD.jpg" /></td>
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/imgE1.jpg" /></td>
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/imgF.jpg" /></td>
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/img12.jpg" /></td>
+		<td class="auto-style1" style="width: 70px">
+		<img align="middle" src="images/img15.jpg" /></td>
+	</tr>
+	<tr>
+		<td class="auto-style1" style="width: 70px">0</td>
+		<td class="auto-style1" style="width: 70px">1</td>
+		<td class="auto-style1" style="width: 70px">2</td>
+		<td class="auto-style1" style="width: 70px">3</td>
+		<td class="auto-style1" style="width: 70px">4</td>
+		<td class="auto-style1" style="width: 70px">5</td>
+		<td class="auto-style1" style="width: 70px">6</td>
+		<td class="auto-style1" style="width: 70px">7</td>
+		<td class="auto-style1" style="width: 70px">8</td>
+	</tr>
+</table>
+<p class="auto-style2">There are tons of setters and getters to help you manipulate what the 
+wanderer is doing.&nbsp; Read through the API to check what methods are 
+available:</p>
+<p class="auto-style4">
+<a href="../../saccojar/doc/sacco/Wanderer.html"><strong>Wanderer&#39;s API Read this, 
+it has all of the methods that you&#39;ll want later</strong></a></p>
+<p class="auto-style2">
+The driving force of a Wanderer is the update method.&nbsp; That is the method 
+the DrawingBoard will call frequently.&nbsp; Wanderer&#39;s update method will 
+update the image for animation, move the Wanderer, and possibly change 
+direction.</p>
+<p class="auto-style2">
+&nbsp;</p>
+<hr>
+<p class="auto-style5">
+Extending Wanderer:</p>
+<p class="auto-style2">
+You will be creating three classes that <strong>extend</strong> Wanderer and 
+override methods to make them act as desired.&nbsp; Don&#39;t forget that if you are 
+overriding a method you want to mimic the original method&#39;s actions but also 
+change it in some way.&nbsp; If you want to call the <strong>original</strong> version of the method to run, you must 
+call the method using <strong>super</strong> as the variable.</p>
+<table style="width: 100%" class="auto-style7">
+	<tr>
+		<td><span class="auto-style4">Example:&nbsp; AntiGhostWanderer</span><span class="auto-style2"><br />
+		<br />
+		Mr. Sacco likes all the Wanderers except he&#39;s scared of the Ghost.&nbsp; 
+		He&#39;s so afraid that he doesn&#39;t want to allow the Ghost to be a 
+		character.&nbsp; While thinking about the methods that a Wanderer has, 
+		the one in charge of the character selection is the setCharacterNum 
+		method.&nbsp; In order to prevent a ghost (character number 8) from 
+		appearing, the AntiGhostWanderer below has overridden the 
+		setCharacterNum method to continually randomize the character number 
+		whenever it finds that the Ghost has been chosen.</span><br />
+		<br />
+		<pre>import sacco.*;
+public class AntiGhostWanderer extends Wanderer
+{
+    public AntiGhostWanderer(double x, double y)
+    {
+        super(x,y);
+    }
+    
+    public void setCharacterNumber(int charNum)
+    {
+        <span class="auto-style6">//keep randomizing until charNum is not 8</span>
+        while(charNum == 8)
+        {
+            charNum = (int)(Math.random()*9);
+        }
+        
+        <span class="auto-style6">//Don't forget that you still have to actually</span>
+<span class="auto-style6">        //set the character number</span>
+        super.setCharacterNumber(charNum);
+    }
+
+}&nbsp;</pre>
+		<p class="auto-style2"><strong>Two thinks are happening here:</strong></p>
+		<p class="auto-style2">1) The constructor is very simple.&nbsp; The only 
+		thing it does is to use super to call the original Wanderer constructor.&nbsp; 
+		This is actually important, since there are variables that belong to 
+		Wanderer that need to be set up.&nbsp; Whenever writing a constructor in 
+		a child class, you should always consider calling the super constructor.</p>
+		<p class="auto-style2">2)&nbsp; We are changing how the object behaves 
+		by <strong>overriding </strong>the inherited method.&nbsp; We&#39;ve 
+		modified it so that it works a little trickery when setting the number.&nbsp; 
+		Another important step was that we used <strong>super</strong> to call 
+		the setCharaterMethod; we may have overridden it, but we can still use 
+		it.</p>
+		<p class="auto-style2">The use of super is very important.&nbsp; This 
+		inherited method is the only way to actually change the character 
+		number.&nbsp; If it accidently said <strong>this</strong>.setCharacterNumber(charNum), 
+		that would mean that this version of the method is calling itelf.&nbsp; 
+		Which will then call itself again, and again, and again, and again 
+		forever until the computer crashes and throws a <strong>
+		StackOverflowException</strong></p>
+		<p class="auto-style2">&nbsp;</p>
+		<p class="auto-style2"><strong>Test it out:</strong></p>
+		<p class="auto-style2">Use this runner, which constructs 20 
+		AntiGhostWanderers and gives it to a WanderWorld to power them.</p>
+		<pre>public static void antiGhostRunner()
+{
+   Wanderer[] wanderers = new Wanderer[20];
+
+   for(int i = 0; i &lt; wanderers.length; i++)
+      wanderers[i] = new <span class="auto-style11"><strong>AntiGhostWanderer(250,250);</strong></span>
+
+   WanderWorld w = new WanderWorld(wanderers);
+   w.launch();
+}</pre>
+		<pre>&nbsp;</pre>
+				<p>A note about Polymorphism:</p>
+		<p>In most of the runners tonight, the type of Wanderer is going to 
+		change, but that doesn&#39;t mean much is going to change about the runner.&nbsp; 
+		Since each different Wanderer you&#39;ll create extends from Wanderer, it 
+		IS-A Wanderer.&nbsp; Notice in the runner code above that a bunch of 
+		AntiGhostWanderers are being constructed into an array of Wanderers.&nbsp; 
+		Polymorphism makes it happen</p>
+		
+		</td>
+	</tr>
+</table>
+<p class="auto-style2">
+&nbsp;</p>
+<p class="auto-style2">
+<strong><span class="auto-style13">Assignments</span><span class="auto-style12">:</span></strong></p>
+<p class="auto-style2">
+For each assignment below, create one object that extends Wanderer.&nbsp; Each 
+different type of Wanderer will act distinctly different in some way.&nbsp; You 
+may affect how they work by overriding the right methods.&nbsp;</p>
+<p class="auto-style2">
+Don&#39;t forget that you don&#39;t have direct access to any of the core instance 
+fields directly.&nbsp; Your only means of affecting them is by calling the 
+inherited method (using <strong>this</strong>).</p>
+<p class="auto-style4"><a href="../../saccojar/doc/sacco/Wanderer.html">The API is full of all the methods you'll be inheriting 
+and calling</a></p>
+<p class="auto-style4"><strong>SprintingWanderer</strong></p>
+<p class="auto-style2">Create a class named SprintingWanderer that extends Wanderer.&nbsp; The goal 
+is to make a Wanderer that does not stand, but always runs.&nbsp; You can 
+achieve this by creating a constructor that takes in two doubles to represent x 
+and y.&nbsp; Since this Wanderer is going to be a sprinter, you should make the 
+constructor set the speed to 10 and the character to Sonic (id number 2).</p>
+<p class="auto-style2">Since we don&#39;t want the AI to set the state to standing, override the 
+setState method and make it so that if a &quot;stand&quot; value is passed in, the 
+corresponding &quot;run&quot; value is set instead.&nbsp; For example, if the value passed 
+in was Wanderer.STAND_LEFT, the result should be a Wanderer that has had its 
+state set to Wanderer.RUN_LEFT.</p>
+<p class="auto-style2">WARNING:&nbsp; The number one mistake is to not have a 
+call to <strong>super.setState</strong>.&nbsp; Don&#39;t forget that the parameter<strong> 
+state</strong> is just a local variable and changing it&#39;s value means nothing to 
+the instance fields until you call super.setState(state);</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Test your program with the following:</p>
+<pre>public static void sprintRunner()
+{
+   Wanderer[] wanderers = new Wanderer[20];
+
+   for(int i = 0; i &lt; wanderers.length; i++)
+      wanderers[i] = new SprintingWanderer(250,250);
+
+   WanderWorld w = new WanderWorld(wanderers);
+   w.launch();
+}</pre>
+<hr class="auto-style2">
+<p class="auto-style4"><strong>BoundedWanderer</strong></p>
+<p class="auto-style2">Create a class named BoundedWanderer that extends 
+Wanderer.&nbsp;&nbsp; The goal is to make a Wanderer that will be stopped from 
+going outside a certain boundary.</p>
+<p class="auto-style2">Add four ints as instance fields to represent the minimum 
+and maximum x and y that the BoundedWanderer can be within.</p>
+<p class="auto-style2">Start with the constructor: <strong><br />
+public BoundedWanderer(int minX, int minY, int maxX, int maxY )</strong></p>
+<p class="auto-style2">This constructor should set the incoming values to the 
+new instance fields.&nbsp; It should also randomize the x and y to something 
+between their respective max and mins.&nbsp; This is trickier than it sounds.&nbsp; 
+The problem is that the call to <strong>super </strong>must be the first line, 
+but random numbers take some time to generate.&nbsp; There are two options:</p>
+<p class="auto-style2">1)&nbsp; Make super the first line, but build the 
+Math.random into it.&nbsp; This can get pretty ugly<br />
+2)&nbsp; Start by calling super(0,0).&nbsp; This will set x and y to zero, but 
+they can be changed later using the setXY method that you inherit.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2"><strong>Overriding:<br />
+</strong>Override the update method so that after it updates like normal, but then 
+checks to see if the Wanderer has gone outside the boundary.&nbsp; If it has, 
+set the location to be just inside the boundary.&nbsp; This can be done with 
+four different if statements.&nbsp; If a value is out of range, set it to the 
+boundary.&nbsp; This will cause the Wanderer to be trapped in an invisible box.</p>
+<p class="auto-style2">It is important that you call the original update method 
+using super.&nbsp; Otherwise there will be no actual movement.</p>
+<p class="auto-style2"><img src="images/img4.jpg" /></p>
+<p class="auto-style2">Run it with this method which creates many 
+BoundedWanderers in the box 150,150 to 300,300:</p>
+<pre>public static void boundedRunner()
+{
+   Wanderer[] wanderers = new Wanderer[40];
+
+   for(int i = 0; i &lt; wanderers.length; i++)
+      wanderers[i] = new BoundedWanderer(150,150,350,350);
+
+   WanderWorld w = new WanderWorld(wanderers);
+   w.launch();
+}</pre>
+<p class="auto-style2">
+<img src="images/img1B.jpg" /></p>
+
+<hr>
+<p class="auto-style4"><strong>ClockwiseWanderer</strong></p>
+<p class="auto-style2">A regular Wanderer has a changeState method that 
+randomizes the next state of the Wanderer.&nbsp; A ClockwiseWanderer will 
+override the changeState method so that each state is the next in a series.</p>
+<p class="auto-style2">Cycling through items in order is easier if you have an 
+array:</p>
+<pre>int[] directions = {Wanderer.RUN_UP,Wanderer.RUN_RIGHT,Wanderer.RUN_DOWN,Wanderer.RUN_LEFT};</pre>
+<p class="auto-style2">The only instance field that you should need to add is 
+the index of the int array that you&#39;re setting the state to.&nbsp; Increment it 
+and make sure it stays within bounds of the array.</p>
+<p class="auto-style2">&nbsp;</p>
+<pre>public static void clockwiseRunner()
+{
+   Wanderer[] wanderers = new Wanderer[80];
+
+   for(int i = 0; i &lt; wanderers.length; i++)
+     wanderers[i] = new ClockwiseWanderer(250,250);
+
+   WanderWorld w = new WanderWorld(wanderers);
+   w.launch();
+}</pre>
+
+<p>These are more subtle and difficult to see.&nbsp; While the distance that 
+they run in between turns is still random they should be running around clockwise, 
+always turning to the right.</p>
+
+<p>&nbsp;</p><hr>
+<p class="auto-style4"><strong>OPTIONAL: LevelWanderer</strong></p>
+<p class="auto-style2">Create a class named LevelWanderer, which extends the 
+Wanderer class.&nbsp; The LevelWanderer will have an instance field that 
+represenst the y value that is the LevelWanderer <strong>target</strong> level.</p>
+<p class="auto-style2">You must provide a constructor, which should take care of 
+the parameters, and set the default target y value to 250.</p>
+<p class="auto-style2">Since we don&#39;t want a levelWanderer to forever be stuck 
+at level 250, add a method <span class="auto-style14"><strong>void 
+setTargetY(int yVal)</strong></span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Our goal is to make sure that the LevelWanderer is always 
+headed towards its target level.&nbsp; Overrider the update method so that it 
+first calls super.update, and then has an else if chain to force the state to be 
+one that seeks the target level.&nbsp; There are three possibilities:</p>
+<p class="auto-style2">1)&nbsp; The LevelWanderer is more than 5 above its 
+target level, set the state to RUN_DOWN</p>
+<p class="auto-style2">2)&nbsp; The LevelWanderer is more than 5 below its 
+target level, set the state to RUN_UP</p>
+<p class="auto-style2">3)&nbsp; The LevelWanderer is neither of the above, 
+meaning it&#39;s close enough to the target level.&nbsp; In this case we want to 
+make sure that it doesn&#39;t run up or down anymore.&nbsp; Use a while loop that 
+looks at the current state and calls the changeState method as long as the state 
+is either RUN_UP or RUN_DOWN.&nbsp; This should guarantee that the state ends up 
+as anything but those two.</p>
+<p class="auto-style2">Test out your LevelWanderer with the following method.&nbsp; 
+It is a little different than the others.&nbsp; I use the character number to 
+derive the target y value.&nbsp; Meaning that each character will have a 
+different level.</p>
+<p class="auto-style2">&nbsp;</p>
+<pre>public static void levelRunner()
+{
+  LevelWanderer[] wanderers = new LevelWanderer[100];
+
+  for(int i = 0; i &lt; wanderers.length; i++)
+  {
+      wanderers[i] = new LevelWanderer(250,250);
+
+      int y = 500*wanderers[i].getCharacterNumber()/9;
+      wanderers[i].setTargetY(y);
+   }
+   WanderWorld w = new WanderWorld(wanderers);
+   w.launch();
+}</pre>
+<p class="auto-style2">
+<img src="images/img2A.jpg" /></p>
+
+
+
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2"><strong>Another reminder about Polymorphism!</strong></p>
+<p class="auto-style2">In the runner that we just used, I was forced to use a 
+LevelWanderer specific array instead of the general Wanderer type.&nbsp; This is 
+required 
+because I needed to call the setTargetY method and since this is a LevelWanderer 
+specific method, the variable type had to be modified.&nbsp; The other option 
+would be to CAST to a LevelWanderer before calling the method.</p>
+<p class="auto-style2">&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

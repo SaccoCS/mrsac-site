@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Whats a double</title>
+</head>
+
+<body>
+
+<p>What&#39;s a double?</p>
+<p>A double is a primitive data type that&#39;s meant to hold decimal values.&nbsp; 
+Any time that you write a number with a decimal point Java will consider it a 
+double.</p>
+<p>double variables may be declared and assigned, just like ints:</p>
+<pre>double gpa = 3.93;</pre>
+<p>&nbsp;</p>
+<p>doubles can store ints:</p>
+<p>Since every single integer value can be turned into a double easily, Java 
+will automatically turn any int into a double if the situation calls for it.</p>
+<pre>double num = 42;</pre>
+<p>Even though the right side has an int (42), the compiler will be fine with 
+it.&nbsp; When the time comes to assign the value to the variable, the 42 will 
+quickly be turned into a 42.0</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>ints can&#39;t store doubles:</p>
+<p>The rule is that every int is technically a double (42 is 42.0, -7 is -7.0, 
+etc), but the opposite is not true (there is not int that can represent 43.7).&nbsp; 
+This means that storing doubles as ints is impossible:</p>
+<pre>int num = 3.7;</pre>
+<p>The compiler will not allow this to happen.&nbsp; It knows that double&#39;s 
+can&#39;t be stored as ints an it will give an error that says &quot;<strong>possible 
+loss of precision</strong>&quot;.&nbsp; The compiler doesn&#39;t even check the value!&nbsp; 
+Even if it is a number that can easily be represented as an int.</p>
+<pre>int num = 3.0;</pre>
+<p>This still won&#39;t compile, simply based on matching data types.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>A double is known as a <strong>floating point</strong> number, which 
+essentially means that it&#39;s stored in memory using scientific notation.&nbsp; In 
+memory, a certain number of bits are there to represent the sign of the number, 
+the exponent, and the actualy numeric value.</p>
+<p><img alt="IEEE 754 Double Floating Point Format.svg" data-file-height="125" data-file-width="618" height="125" src="../../Unit%2002%20-%20ints%20doubles%20and%20Strings/images/618px-IEEE_754_Double_Floating_Point_Format.svg.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/IEEE_754_Double_Floating_Point_Format.svg/927px-IEEE_754_Double_Floating_Point_Format.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/a9/IEEE_754_Double_Floating_Point_Format.svg/1236px-IEEE_754_Double_Floating_Point_Format.svg.png 2x" width="618" /></p><p>&nbsp;</p><p>&nbsp;</p></body></html>

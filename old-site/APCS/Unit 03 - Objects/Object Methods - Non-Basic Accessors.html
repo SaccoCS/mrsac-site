@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Object Methods - Non-Basic Accessors</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Objects with Methods: Non-Basic Accessors</h2>
+<p>The big three ideas that we have to think about when dealing with objects are 
+instance fields, constructors, and methods.&nbsp; Look at what the Name class 
+was the last time that we left it.&nbsp;</p>
+<pre>public class Name
+{
+    private String first;
+    private String last;
+    
+    public Name(String f, String l)
+    {
+        first = f;
+        last = l;
+    }
+    
+    public String getFirst()
+    {
+       return first;
+    }
+    
+    public String getLast()
+    {
+    	return last;
+    }
+    
+}</pre>
+
+<p>&nbsp;</p>
+<p><strong>Remember the purpose of the getFirst and getLast method.</strong></p>
+<p>As a result of making all of our instance fields private, we had made 
+variables that would bundle data, but had no way of getting the information back 
+out.</p>
+<p>Previously we could construct a Name, and we could access the variable 
+directly.</p>
+<pre>Name n = new Name("Steve","Urkle");
+System.out.println(n.first);</pre>
+<p>But now that first is private, accessing it directly is no longer possible.&nbsp; 
+The getFirst and getLast methods are there so that the client code can get the 
+information back out:</p>
+<pre>Name n = new Name("Steve","Urkle");
+System.out.println( n.getFirst() );</pre>
+<p>&nbsp;</p><hr/>
+<p class="auto-style1"><strong>More Methods Make More Useful Objects</strong></p>
+<p>So far the methods that we&#39;ve seen simply let us access the instance fields 
+directly.&nbsp; This means that n.getFirst() will return the String that&#39;s in 
+n&#39;s <strong>first</strong> variable.&nbsp; But methods don&#39;t have to be so 
+direct.&nbsp; For example, the methods that we&#39;ve used for String, like 
+substring or indexOf, return useful to anybody using a String object.&nbsp; When 
+an object has useful tools like these it is easier to use.</p>
+<p>&nbsp;</p>
+<p>For Example:&nbsp; Name so far has the ability to tell us its first and last 
+name.&nbsp; We will add the ability for a Name object to tell us the <strong>initials</strong> of 
+the Name stored in the instance fields.</p>
+<p>Before we start writing the method, let&#39;s think of how it might be used:</p>
+<pre>Name n = new Name("John","Coffey");
+String inits = n.getInitials();
+System.out.println("Initials: " + inits);</pre>
+<p>If the getInitials method works properly, this should print out:<br />
+Initials: J.C.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>Designing the method:</strong></p>
+<p><strong>Method Header:</strong><br />
+When trying to design the getInitials method, the first thing that you think 
+of is the return types, and the parameters.&nbsp; </p>
+<pre>String inits = n.getInitials();</pre>
+<p>Parameters:&nbsp; The parameters are information that the method might need 
+outside of the instance fields.&nbsp; For the getInitials method to function it 
+only needs the first and last name, which are already stored in the instance 
+fields.&nbsp; For this reason, this method will have no parameters.</p>
+<p>Return Type:&nbsp; When trying to determine the return type, think hard about 
+what type you would expect from the method (int, double, String).&nbsp; In this 
+case I would expect back the initials as a String (&quot;J.C.&quot;, &quot;A.S.&quot;, &quot;D.T.&quot;) and 
+never an int/double.&nbsp; </p>
+<p>Now that we know that the return type is a String and that there should be no 
+parameters we are ready for the method header:</p>
+<pre>public String getInitials()
+{</pre>
+<p>&nbsp;</p>
+<p><strong>Implementing the Method:</strong></p>
+<p>Now that we know the header, it&#39;s time to <strong>implement</strong> the code 
+that makes the program function.&nbsp; When writing an object-method, you must 
+remember that you have access to the instance fields.&nbsp; The purpose of this 
+method is to generate and return a String containing the initials of the name.&nbsp; 
+This means that we will have to access our instance fields.</p>
+<pre>public String getInitials()
+{
+   String initOne = first.substring(0,1);
+   String initTwo = last.substring(0,1);
+   return initOne + &quot;.&quot; + initTwo + &quot;.&quot;;
+}</pre>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>Updating the Runner:</strong></p>
+<p>Now our Name objects can tell us their first name, last name, and initials.&nbsp; 
+We simply need to update our runner to test out our most recent method</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name("Marty","McFly");
+        
+        System.out.println("First Name: "+n.getFirst());
+        System.out.println("Last Name: "+n.getLast());
+        System.out.println("Initials: "+n.getInitials());
+      
+  
+        Name n2 = new Name("Jon","Snow");
+                
+        System.out.println("First Name: "+n2.getFirst());
+        System.out.println("Last Name: "+n2.getLast());
+        System.out.println("Initials: "+n2.getInitials());
+
+    }
+}</pre>
+
+<p>&nbsp;</p>
+<p>As you can see, our Name object has become more than just a location for two 
+Strings.&nbsp; By adding methods that are useful tools, we can make them better 
+and more object-y.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr/>
+<p class="auto-style2"><strong>Assignment:</strong></p>
+<p>1) <strong>Fraction</strong>:&nbsp; Add a method to the Fraction class with the following 
+header:</p>
+<pre>public double getDecimalValue()</pre>
+<p>The purpose of this method is to use the numerator and the denominator to 
+determine and return the decimal value of the fraction.&nbsp; Be cautious, 
+getting a value of 0.0 might indicate that you&#39;re using int-division.</p>
+<p>&nbsp;</p>
+<p>Modify FractionRunner&#39;s main method to print out the decimal value of the 
+Fraction and print it out.&nbsp; For 4/5, you should get a 0.8.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>2) <strong>Color</strong>: When using RGB values, gray occurs when all three 
+values are the same. If you want to covert a color to grayscale, one method is 
+to take the average of the red, green, and blue values.</p>
+<p>Add a method named getGrayValue, which should take in no parameters and 
+return a double.&nbsp; This method should return the average of the red, green, 
+and blue values stored in the instance fields.</p>
+<p>Add a println to the end of the main method in the Runner that prints out the 
+grayscale value of the Color object.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>3) <strong>Rectangle</strong>:&nbsp; Create a class named Rectangle.&nbsp; 
+A Rectangle should have instance fields for its x, y, width, and height (all 
+ints).</p>
+<p>Create a constructor for Rectangle that takes in four ints and assigns them 
+to the appropriate instance fields.</p>
+<p>Add four basic Accessor methods: getX, getY, getWidth, and getHeight.</p>
+<p>Add a method called getArea, which should take in no parameters and return 
+the area of the rectangle (an int should be fine)</p>
+<p>&nbsp;</p>
+<p>Create a class named RectangleRunner, which should have a single main method, 
+which does the following:</p>
+<p>- Construct a Rectangle with the location (15, 32) with a width of 22 and a 
+height of 30.</p>
+<p>- Use the basic accessors to retrieve the data back out of the object and 
+print out something in the form &quot;[x: 15, y: 32, w: 22, h: 30]&quot;.</p>
+<p>- Call the getArea method and print out a line in the form: &quot;The area is 
+_______&quot;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

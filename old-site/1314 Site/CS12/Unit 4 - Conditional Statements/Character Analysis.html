@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Character Analysis with booleans</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style1">
+
+<span class="auto-style2">Character Analysis with booleans</span></p>
+<p class="auto-style1">
+
+When using if statements, a true/false expression is put in.</p>
+<p class="auto-style1">
+
+if( x &gt; 3)<br />
+{<br />
+&nbsp;&nbsp; System.out.println(&quot;Greater than 3!&quot;);<br />
+}</p>
+<p class="auto-style1">
+
+The x&gt;3 is a <strong>boolean</strong> value, which is a data type that is either 
+true or false.&nbsp; Just like with ints and doubles, you can create variables 
+to hold boolean values.&nbsp; Those variables can then be used in an if 
+statement.</p>
+<p class="auto-style1">
+
+int x = 7;<br />
+boolean isGreater = x&gt;3;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // isGreater 
+recieves a value of <strong>true<br />
+</strong>if( isGreater )<br />
+{<br />
+&nbsp;&nbsp; System.out.println(&quot;Greater than 3!&quot;);<br />
+}</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+You can also get boolean values from some methods.&nbsp; String&#39;s .equals method 
+returns a boolean.<br />
+<br />
+boolean sameString = str.equals(&quot;Hello&quot;);</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<hr>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+Create a class named CharAnalysis<br class="auto-style2" />
+
+</p>
+<p class="auto-style1">
+
+We&#39;ve used helper methods before as a tool to help accomplish a task.&nbsp; 
+In the following programs it will be useful to know what the ASCII value of a 
+character is.&nbsp; Copy and paste the following method.&nbsp; You don&#39;t need to 
+know the specifics of what&#39;s going on; just know that if you pass in a 
+single-character string, it will return it&#39;s ascii value.&nbsp; Notice that the 
+header says &quot;int&quot;<strong> </strong>instead of &quot;String&quot;.&nbsp; That&#39;s because 
+this method&#39;s job is to return an int.</p>
+<p class="auto-style1">
+
+public static int getASCII(String character)<br />
+{<br />
+int ascii = (int)character.charAt(0);<br />
+return ascii;<br />
+}</p>
+<p class="auto-style1">
+
+for example, the following will end with a 97 in the <strong>asciiVal </strong>
+variable<br />
+<br />
+String str = &quot;a&quot;;<br />
+int asciiVal = getASCII(str);</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+Methods that return booleans:</p>
+<p class="auto-style1">
+
+Methods can return any data type that they need to.&nbsp; Look at the example 
+method that will take in a String and return true if it starts with an A.</p>
+<p class="auto-style1">
+
+public static boolean startsWithA(String str)<br />
+{<br />
+&nbsp;&nbsp;&nbsp; String firstLetter = str.substring(0,1);<br />
+&nbsp;&nbsp;&nbsp; boolean a = str.equals(&quot;A&quot;);<br />
+&nbsp;&nbsp;&nbsp; return a;<br />
+}</p>
+<p class="auto-style1">
+
+Notice that instead of putting the equals method into an if statement, its 
+result is put into a boolean variable that is then returned.&nbsp; In another 
+part of the program, this method may be used in an if statement:<br />
+
+</p>
+<p class="auto-style1">
+
+String name = ...<br />
+if( startsWithA(name) )<br />
+System.out.println(&quot;Your name starts with A&quot;);</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+Add methods with the following headers to your program:</p>
+<p class="auto-style1">
+
+//returns true if the String is a number, false if not<br />
+public static boolean isANumber(String character)</p>
+<p class="auto-style1">
+
+//returns true if the String is lower case, false if not<br />
+public static boolean isLowerCase(String character)</p>
+<p class="auto-style1">
+
+//returns true if the String is upper case, false if not<br />
+public static boolean isUpperCase(String character)</p>
+<p class="auto-style1">
+
+Each of these methods takes in a single character String and uses the ASCII 
+value to determine whether or not it should return true or not.&nbsp; Hint:&nbsp; 
+Each of these is true only if the ascii value of the parameter is between two 
+values.
+
+</p>
+<p class="auto-style1">
+
+Test each of them out with the Strings &quot;A&quot;, &quot;B&quot;, &quot;y&quot;, &quot;z&quot;, &quot;1&quot;, and &quot;2&quot;.&nbsp; 
+Each method should only return true for two of the cases.</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+Add the following methods.&nbsp; Each will use one of the helper methods to 
+complete a task:</p>
+<p class="auto-style1">
+
+public static void parseIfSafe()</p>
+<p class="auto-style1">
+
+You may have noticed that if you try and parse a String into an int, the program 
+will crash if the String has any non number characters.&nbsp; This method will 
+prompt the user to enter a 5 character String.&nbsp; If the</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+&nbsp;</p>
+<p class="auto-style1">
+
+</p>
+<p class="auto-style1">
+
+</p>
+<p class="auto-style1">
+
+</p>
+<p class="auto-style1">
+
+</p>
+<p class="auto-style1">
+
+</p>
+<p class="auto-style1">
+
+</p>
+<p class="auto-style1">
+
+</p>
+
+</body>
+
+</html>

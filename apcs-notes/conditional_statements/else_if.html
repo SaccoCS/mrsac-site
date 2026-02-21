@@ -1,0 +1,208 @@
+e<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>else - if</title>
+  <link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+  <div class="page">
+    <div id="base-info">
+      <div id="header"></div>
+      <div id="navbar"></div>
+      <div class="notes-content">
+        <div id="note-links"></div>
+        <script>
+          $("#header").load("../../header.html #head");
+          $("#navbar").load("../../notenav.html #notenav");
+          $("#note-links").load("notebar.html #note-bar");
+        </script>
+
+
+        <!--All content divs start here-->
+        <div class="note-div">
+          <h3>Expanding Our Choices with else-if</h3>
+          <p>The basic if-else structure is useful for breaking your logic into two paths, but there are often situations that require more than two choices. In order to achieve this, we need to use an <strong>else-if</strong> to expand our choices.</p>
+          <p>
+            Consider the situation where a car is pulled over for speeding in a 65 zone. In a strict situation, the logic is simple.
+          </p>
+
+          <div class="code-block" style="clear:left">
+            <p>
+              if( speed &lt;= 65 )<br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("NO TICKET");
+              <br/> }
+              <br/> else
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("TICKET");
+              <br/> }
+            </p>
+          </div>
+
+          <p style="clear:left">
+            But sometimes things aren't so black and white. Perhaps there's a police officer that feels that wants to give a warning for tickets that are still 70 or under. </p>
+
+          <h4>
+            A Nesting Solution
+          </h4>
+          <p>One way to solve this is to use a <strong>nesting</strong> solution. Instead of automatically assuming that anything entering the 'else' zone is a ticket, we can treat it as an opportunity to make a second decision. Since we already know that
+            any speed that makes it here is over 65, we only need to check for values that are 70 and lower.
+          </p>
+
+          <div class="code-block" style="clear:left">
+            <p>
+              if( speed &lt;= 65 )<br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("NO TICKET");
+              <br/> }
+              <br/> else
+              <br/> {
+              <br/>&nbsp;&nbsp;&nbsp;if( speed &lt;= 70 )
+              <br/> &nbsp;&nbsp;&nbsp;{
+              <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("WARNING");
+              <br/> &nbsp;&nbsp;&nbsp;}
+              <br/> &nbsp;&nbsp;&nbsp;else
+              <br/> &nbsp;&nbsp;&nbsp;{
+              <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("TICKET");
+              <br/>&nbsp;&nbsp;&nbsp;}
+              <br/> }
+            </p>
+          </div>
+
+          <p style="clear:left">
+            There are now three different possible results. Anything under 65 will still print "NO TICKET", but now there is a difference between numbers like 68 and 72. Now numbers like 68 will print "WARNING", while 72 will print "TICKET".
+          </p>
+          <p>
+            One key thing to notice above is that even though one of the if statements checks if( speed &lt;= 70 ), it does not mean that numbers like 45 will be a "WARNING". It is important to recognize how you get there. The way this is written, we must <strong>first</strong>            check if the speed is &lt;= 65. By the time we check if the speed is less than 70, we already know that it's greater than 65.
+          </p>
+          <hr/>
+
+          <h4>
+            An else-if Solution
+          </h4>
+
+          <p>
+            If you follow the above strategy, you can keep nesting more and more to add more 'choices' for your if statement. You simply need to keep nesting inside of the previous else. The problem is that this becomes a mess of curly braces very quickly. A much
+            more common way to represent this would be to use an <strong>else-if</strong>.
+          </p>
+
+           <div class="code-block" style="clear:left">
+            <p>
+              if( speed &lt;= 65 )<br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("NO TICKET");
+              <br/> }
+              <br/> else if( speed &lt;= 70 )
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("WARNING");
+              <br/> }
+              <br/> else
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("TICKET");
+              <br/> }
+            </p>
+          </div>
+
+          <p style="clear:left">
+            An else-if is similar to an if because it has another condition to check, but it's also similar to an else because it will only run if the previous condition is false.
+            This structure will proceed in exactly the same way as before: First it will check speed &lt;= 65, after that it will check speed &lt;= 70, and only if both of those are false will it print "TICKET"
+          </p>
+          <p>
+           We can use else ifs to help expand our choices to as many as we need.
+            As long as we stick to the structure of if, else-if, else, we can guarantee that only one portion of the 
+            if statement will run.
+            
+            
+            
+          </p>
+
+        </div>
+
+        <div class="note-div">
+          <h3>
+           Using the Structure to Your Advantage
+          </h3>
+          <p>
+              It is important to understand what assumptions can be made when you use an else if. By the time you get to any <strong>else</strong>
+            statement, you've already determined that at least one thing is false. Sometimes you can use this to your advantage.
+          </p>
+          <p>
+            Assume that you want to write a program that will look at a person's <strong>age</strong> along with the <strong>day of the week</strong>.
+             If it's a weekday, the program should print out either "Go to work" or "Go to school" based on their age. If it's a weekend, everybody will get the message to "RELAX".
+            
+          </p>
+          <p>
+            The solution below performs the proper task, but in an inelegant way.
+          </p>
+          <div class="code-block">
+            <p>
+             if( age <= 18 && !(day.equals("Saturday") || day.equals("Sunday"))) 
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("Go to School");  
+              <br/>}
+             <br/>if (age > 18 && !(day.equals("Saturday") || day.equals("Sunday")) )
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("Go to Work");<br/> }
+              <br/>if (age <= 18 && (day.equals("Saturday") || day.equals("Sunday")) )
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("RELAX");<br/> }
+              <br/>if (age > 18 && (day.equals("Saturday") || day.equals("Sunday")) )
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("RELAX");<br/> }
+              <br/>
+            </p>
+
+          </div>
+          <p style="clear:left">
+            This code breaks up the four possible situations very literally, spelling out the exact logic for each age and day.  
+            Another way to think about this problem would be to see that all weekend results are the same and to start the if statement with that. 
+            This will allow each subsequent else to be written with the assumption that it is a weekday without explicitly stating it.
+
+          </p>
+
+          
+          <div class="code-block">
+            <p>
+             if( day.equals("Saturday") || day.equals("Sunday"))
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("RELAX");  
+              <br/>}
+              <br/> else if (age > 18 )
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("Go to Work");<br/> }
+              <br/> else 
+              <br/> {
+              <br/> &nbsp;&nbsp;&nbsp;System.out.println("Go to School");<br/> }
+              <br/> 
+              <br/>
+            </p>
+
+          </div>
+          <p style="clear:left">
+            Note that the 'else' of the example represented a young person on a weekday, but we do it purely by first checking if it's a weekday and then if they're 
+            old. This leaves nobody left for the 'else' but the young peouple on a weekday.
+          </p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--All content divs stop here-->
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

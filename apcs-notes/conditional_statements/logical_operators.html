@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Logical Operators &&, ||, and !</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+	<div class="page">
+		<div id="base-info">
+			<div id="header"></div>
+			<div id="navbar"></div>
+			<div class="notes-content">
+				<div id="note-links"></div>
+				<script>
+					$("#header").load("../../header.html #head");
+					$("#navbar").load("../../notenav.html #notenav");
+					$("#note-links").load("notebar.html #note-bar");
+				</script>
+
+
+				<!--All content divs start here-->
+				<div class="note-div">
+					<h2>The Logical Operators</h2>
+					<p>The Logical Operators are symbols that represent operations that look at <strong>boolean</strong> values and generate separate booleans. They are useful for combining boolean statements together and making more complex decisions. </p>
+
+				</div>
+
+				<div class="note-div">
+					<h3>
+						The AND Operator &&
+					</h3>
+					<p>
+						The AND operator looks at the boolean values to the left and the right and evaluates to <strong>true</strong> if the value on both sides of it are true. There are only four possible situations.</p>
+					<div class="code" style="margin-left:10px;">
+						<p>
+							true && true &nbsp;&nbsp;--> true<br/> true && false &nbsp;--> false<br/> false && true &nbsp;--> false<br/> false && false --> false
+						</p>
+					</div>
+
+					<p style="clear:left;">
+						The only way to get a true value from an AND statement is when both values are true.
+					</p>
+					<hr/>
+					<p style="clear:left;">A classic example of this is determining if a number is between two values. Let's say that we are asking a user to input a number between 1 and 100, but the user sometimes doesn't read directions and might put in values that are way outside of that
+						range. In order to make sure that the program runs properly, we may need to <strong>validate</strong> that the input is actually between 1 and 100.
+					</p>
+					<p>
+						In order to check if the number is between 1 and 100, two things must be true at the same time. The number must be both greater than or equal to one AND less than or equal to 100.
+					</p>
+					<div class="code-block">
+						<p>
+							int num = <span style="color:#aaa">//some value from user</span><br/> if( num >= 1 && num &lt;= 100)<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;System.out.println(num + " is IN RANGE");<br/> }
+							<br/> else
+							<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;System.out.println(num + " is OUT OF RANGE");<br/> }
+							<br/>
+						</p>
+
+					</div>
+					<p style="clear:left">
+						The value of num that the user enters will fall into the Goldilocks categories: too small, too large, or just right. Let's examine what happens in all three situations, substitute in some sample values for <span class="code">num</span>
+					</p>
+					<h4 style="line-height:12px;margin-top:20px">
+						Too low: -22
+					</h4>
+					<p>
+						If we substitute -22 into our boolean expression, we get:<br/> <span class="code">-22 >= 1 && -22 &lt;= 100</span><br/> -22 is <strong>not</strong> greater than 1, but it <strong>is</strong> less than 100. This means we will get one false and one
+						true.
+						<br/>
+						<span class="code">false && true</span><br/> The AND statement will looks at the two values and evaluate to <span class="code">false</span>, and cause the println to be <br/>
+						<strong>-22 is OUT OF RANGE</strong>
+					</p>
+					<h4 style="line-height:12px;margin-top:20px">
+						Too high: 128
+					</h4>
+					<p>
+						If we substitute 128 into our boolean expression, we get:<br/> <span class="code">128 >= 1 && 128 &lt;= 100</span><br/> 128 <strong>is</strong> greater than 1, but it is <strong>not</strong> less than 100. This means we will get one false and one
+						true.
+						<br/>
+						<span class="code">true && false</span><br/> The AND statement will looks at the two values and evaluate to <span class="code">false</span>, and cause the println to be <br/>
+						<strong>128 is OUT OF RANGE</strong>
+					</p>
+
+					<h4 style="line-height:12px;margin-top:20px">
+						Just right: 85
+					</h4>
+					<p>
+						If we substitute 85 into our boolean expression, we get:<br/> <span class="code">85 >= 1 && 85 &lt;= 100</span><br/> 154 <strong>is</strong> greater than 1, and it <strong>is</strong> less than 100. This means we will get one false and one true.<br/>
+						<span class="code">true && true</span><br/> The AND statement will looks at the two values and evaluate to <span class="code">true</span>, and cause the println to be <br/>
+						<strong>85 is IN RANGE</strong>
+					</p>
+
+				</div>
+
+
+				<div class="note-div">
+					<h3>
+						The OR Operator ||
+					</h3>
+					<p>
+						The OR operator looks at the boolean values to the left and the right and evaluates to <strong>true</strong> if the value on either side of it are true. There are only four possible situations.</p>
+					<div class="code" style="margin-left:10px;">
+						<p>
+							true || true &nbsp;&nbsp;--> true<br/> true || false &nbsp;--> true<br/> false || true &nbsp;--> true<br/> false || false --> false
+						</p>
+					</div>
+
+					<p style="clear:left;">
+						The only way to get a false value from an OR statement is when both values are false.
+					</p>
+					<hr/>
+					
+					
+					
+					
+					<p style="clear:left;">
+						One example of using the OR operator is a pass-fail course that has two ways of passing.  The professor has decided that if a student gets an A on the final they deserve to pass no matter what their grade is in the rest of the course.  Otherwise they will pass if they get 60% or higher in the class.  The basic structure of the if statement could look like the following
+					</p>
+					<div class ="code-block">
+						<p>
+							if( classPercent >= 60 || finalPercent >= 90 )<br/>
+							{<br/>
+							&nbsp;&nbsp;&nbsp;System.out.println("Passing Grade");<br/>
+							}<br/>
+							else<br/>
+							{<br/>
+							&nbsp;&nbsp;&nbsp;System.out.println("Failing Grade");<br/>
+							}<br/>
+							
+							
+						</p>
+						
+					</div>
+					<p style = "clear:left;">
+						Again there are several situations that we must consider.  The result hinges on the boolean expression:
+					</p>
+					<p class = "code">
+						 classPercent >= 60 || finalPercent >= 90 
+					</p>
+					
+					<p>
+						The way that an OR statement works, we only need one of the expressions to be true in order to result in a true.  This means that we only need <strong>either</strong> <span class="code">classPercent >= 60</span> to be true or <span class="code">finalPercent >= 90</span>.  This is not as strict as the && which would require both to be true.
+					</p>
+					
+					<p>
+						This means that the student <strong>passes</strong> if they have:<br/>
+						- A high class percent but a low test percent<br/>
+						- A low class percent but a high test percent<br/>
+						- A high class percent and a high test percent
+					</p>
+					<p>
+						The only way that the student would <strong>fail</strong> is if they have:<br/>
+						- A low class percent AND a low test percent.<br/>
+						This is the only situation that would make both sides of the OR operator false, and thus evaluate to false.
+					</p>
+					
+					
+					
+				</div>
+
+				<div class = "note-div">
+					<h3>
+						The Negation Operator !
+					</h3>
+					<p>
+						The exclamation point represents the Negation operator, which performs an action similar to the 'minus-sign' in normal algebra.  You put the ! in <strong>front</strong> of a value to switch it to its opposite.  In boolean algebra, this means switching from true to false or false to true.  Consider the simplified example:
+					</p>
+					<div class = "code-block">
+						
+						<p>
+							boolean b1 = true;<br/>
+							boolean b2 = !b1;<br/>
+							boolean b3 = !(b1 &amp;&amp; b2);
+						</p>
+					</div>
+					<p style = "clear:left">
+						The way this is written, the b2 variable should have the <strong>opposite</strong> of the b1 variable.  Since b1 is true, its opposite is false, which is assigned to b2</p>
+						<p>The last calculation first asks us to evaluate the parentheses<br/> <strong>b1 && b2</strong> --> <strong>true && false</strong> --> <strong>false</strong><br/>
+							The result is the <strong>opposite</strong> of the result<br/>
+							!false --> <strong>true</strong>
+					</p>
+				</div>
+
+
+
+
+
+
+
+
+
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

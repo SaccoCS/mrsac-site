@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>If Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">If Programs</p>
+<p class="auto-style2">Create a new class named IfPractice and copy the following code skeleton into 
+it.&nbsp; Each method returns a dummy value so that the code will compile.&nbsp; 
+Remove these statements when you go to implement each method.</p>
+<pre>public class IfPractice
+{
+
+    public static boolean passwordChecker(int num)
+    {
+        return false; //dummy value
+    }
+
+    public static int compareTo5(int num)
+    {
+        return -99; //dummy value
+    }
+
+    public static boolean speedingTicket(int speed, boolean isRed)
+    {
+        return false; //dummy value
+    }
+
+    public static boolean in1To10(int num, boolean insideMode)
+    {
+        return false; //dummy value
+    }
+
+    public static int threeIntMax(int a, int b, int c)
+    {
+        return -99; //dummy value
+    }
+
+    public static int loneSum(int a, int b, int c)
+    {
+        return -99; //dummy value
+    }
+
+}</pre>
+
+<hr></hr>
+<p class="auto-style2"><strong>passwordChecker</strong> - The passwordChecker 
+method is meant to be a part of a security system that keeps your valuables 
+locked tight.&nbsp; The attempt at a pin number will be passed in as a 
+parameter.&nbsp; If the number is 1337 return a true, and return a false for all 
+other cases.</p>
+<p class="auto-style2">Example:<br />
+passwordChecker(1234)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; false<br />
+passwordChecker(5555)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; false<br />
+passwordChecker(1337)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; true</p>
+<hr></hr>
+<p><span class="auto-style2"><strong>compareTo5</strong> - The compareTo5 takes 
+in a number as a parameter, compares it to the number 5 and returns an int that 
+signals one of three things:</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">If the parameter is less than the number 5, return a 
+1</span><br class="auto-style2" />
+<span class="auto-style2">If the parameter is equal to the number 5, return a 0</span><br class="auto-style2" />
+<span class="auto-style2">If the parameter is more than the number 5, return a -1</span></p>
+<p>Example:<br />
+<span class="auto-style5">compareTo5(11)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+-1</span><br class="auto-style5" />
+<span class="auto-style5">compareTo5(1)&nbsp;&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+1<br />
+compareTo5(5)&nbsp;&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 0<br />
+compareTo5(-8)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 1</span></p>
+<p class="auto-style2">compareTo is a common method for objects to have.&nbsp; 
+You will see more of this style in future programs</p>
+<hr></hr>
+<p class="auto-style1"><span class="auto-style3"><strong>speedingTicket</strong> 
+- The speedingTicket method is meant to return true if a speeding ticket is 
+issued, and false if not.&nbsp; There are two parameters that are passed in.&nbsp; 
+The </span><strong><span class="auto-style3">speed</span></strong><span class="auto-style3"> 
+int is how fast the car is going, and the </span><strong>
+<span class="auto-style3">isRed</span></strong><span class="auto-style3"> 
+variable is a boolean which will be true if the car is red and false if not.</span></p>
+<p class="auto-style2">For most cars, they will recieve a ticket if the car is 
+going above 65 miles per hour.&nbsp; If the car is red, a ticket is given for 
+driving over 60 miles per hour.</p>
+<p class="auto-style2">Example:<br />
+<span class="auto-style5">speedingTicket(55,false)&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+false<br />
+speedingTicket(55,true)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; false<br />
+speedingTicket(64,false)&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; false<br />
+speedingTicket(64,true)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; true<br />
+speedingTicket(70,true)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; true</span></p>
+<p class="auto-style2">Hint:&nbsp; Try and use nested if statements to 
+accomplish this.&nbsp; Use one outer if statement to see if the car is red or 
+not, and then inside each part determine if the car is speeding or not.</p>
+<hr></hr>
+<p class="auto-style1"><span class="auto-style3"><strong>in1To10</strong> - The 
+in1To10 method is meant to detect when a number is within or outside of 1-10.&nbsp; 
+If the parameter </span><strong><span class="auto-style3">insideMode</span></strong><span class="auto-style3"> 
+is true, then the program will check if </span><strong>
+<span class="auto-style3">num</span></strong><span class="auto-style3"> is 
+between 1 and 10 (inclusive).&nbsp; When </span><strong>
+<span class="auto-style3">insideMode </span></strong><span class="auto-style3">
+is false, then the program will check if the number is outside 1 and 10.</span></p>
+<p class="auto-style1"><span class="auto-style3">Example:</span><br class="auto-style3" />
+<span class="auto-style5"><span class="auto-style3">in1To10(5,true)&nbsp;&nbsp;&nbsp; 
+--&gt;&nbsp;&nbsp;&nbsp; true</span><br class="auto-style3" />
+<span class="auto-style3">in1To10(5,false)&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+false</span><br class="auto-style3" />
+<span class="auto-style3">in1To10(1,true)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+true</span><br class="auto-style3" />
+<span class="auto-style3">in1To10(10,false)&nbsp; --&gt;&nbsp;&nbsp;&nbsp; false</span><br class="auto-style3" />
+<span class="auto-style3">in1To10(15,true)&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+false</span><br class="auto-style3" />
+<span class="auto-style3">in1To10(15,false)&nbsp; --&gt;&nbsp;&nbsp;&nbsp; true</span></span></p>
+<hr></hr>
+<p class="auto-style2"><strong>threeIntMax</strong> - the threeIntMax method 
+takes in three ints as a parameter and returns the largest of the three ints.&nbsp; 
+Do not use Math.max, this can be done with only if statements.</p>
+<p class="auto-style2">Example:<br />
+<span class="auto-style5">threeIntMax(1,2,3)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+3<br />
+threeIntMax(2,2,-3)&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 2<br />
+threeIntMax(11,-2,8)&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 11</span></p>
+<hr></hr><p class="auto-style2"><strong>loneSum</strong> - the loneSum method takes in 
+three ints as parameters.&nbsp; Their sum is calculated, but each value is only 
+added if it is different than the other two parameters.</p>
+<p class="auto-style2">Example:<br />
+<span class="auto-style5">loneSum(1,2,3)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 
+6<br />
+loneSum(2,2,3)&nbsp;&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 3<br />
+loneSum(-1,2,3)&nbsp;&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 4<br />
+loneSum(11,-2,3)&nbsp; --&gt;&nbsp;&nbsp;&nbsp; 12</span></p>
+<p class="auto-style2">&nbsp;</p>
+<hr></hr>
+<p class="auto-style2">Checking Your Methods:</p>
+<p class="auto-style2">In order to check your methods, I have created a runner 
+that will test many cases that you may not have thought of.&nbsp; You will not 
+be able to see the code for my runner, so make sure that you&#39;ve named your class 
+and methods EXACTLY the same as they are given.&nbsp; Changing them will cause 
+the runner to skip those methods and you won&#39;t be able to recieve full credit.</p>
+<p class="auto-style2">1) Download <a href="IfPracticeRunner.class">IfPracticeRunner.class</a>.&nbsp; 
+This is a class file and not a .java file, so it is not readable by a text 
+editor.</p>
+<p class="auto-style2">2) Move the IfPracticeRunner.class to the project folder 
+on your computer that matches your project name in BlueJ</p>
+<p class="auto-style2"><img alt="" src="images/img11.jpg" /></p>
+
+<p>3) Re-open your project in BlueJ.&nbsp; You should now have a class named 
+IfPracticeRunner that says (no source) on it.&nbsp; You will not be able to look 
+at the code, but it&#39;s already compiled so you can still run its methods.</p>
+<p><img alt="" src="images/img12.jpg" /></p>
+<p>4) Run the appropriate tester method and it will go through several tests, 
+give you the correct answer and tell you the answer your method returned.&nbsp; 
+If you see the message &quot;All tests are correct&quot;, then you may move on.&nbsp; If 
+not, fix the specific cases that give you incorrect results.</p>
+
+</body>
+
+</html>

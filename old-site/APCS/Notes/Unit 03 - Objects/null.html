@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>null</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">null</h2>
+<p>Most of the time you create an object variable you constuct an object 
+directly into it:</p>
+<pre>SomeObject s = new SomeObject();</pre>
+<p>null is a special value that an object variable may hold which represents the 
+absence of an object.</p>
+<pre>SomeObject s = null;</pre>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>null is dangerous:</strong></p>
+<p>You must be careful when dealing with null values.&nbsp; It is perfectly 
+legal to have a variable that contains a null value, but the second you try to 
+call a method using that variable you will crash your program with a 
+NullPointerException.</p>
+<pre>SomeObject s = null;
+s.someMethod(22);	&lt;-- CRASH!!!!</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>A common reason for NullPointerExceptions:</strong></p>
+<p>80% of the time, a NullPointerException is caused by not being careful with 
+your constructors.&nbsp; Since the constructor&#39;s purpose in life is to put good 
+(non-null) values into the instance fields of an object, leaving a variable as 
+null would indicate that it wasn&#39;t completing the task.&nbsp; </p>
+<p>When you get a NullPointerException, you should make sure that your 
+Constructor:</p>
+<p>1) Is named properly with no return type.&nbsp; If your constructor has a 
+return type, it is a regular method and not automatically called on 
+construction.</p>
+<p>2) Is assigning a value to the instance field that was null.&nbsp; Commonly 
+students write their assignment statements backwards, forgetting that their 
+instance fields need to be on the left of the = .</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

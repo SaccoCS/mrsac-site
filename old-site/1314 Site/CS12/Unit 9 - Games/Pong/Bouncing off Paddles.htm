@@ -1,0 +1,193 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name=Title content="Bouncing off Paddles">
+<meta name=Keywords content="">
+<meta http-equiv=Content-Type content="text/html; charset=macintosh">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="Bouncing%20off%20Paddles_files/filelist.xml">
+<link rel=Edit-Time-Data href="Bouncing%20off%20Paddles_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Bouncing off Paddles</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Richard Baker</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Richard Baker</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:Created>2011-05-13T14:14:00Z</o:Created>
+  <o:LastSaved>2011-05-13T14:32:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Lines>1</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:Version>10.1316</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:AdjustLineHeightInTable/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Arial;
+	panose-1:0 2 11 6 4 2 2 2 2 2;
+	mso-font-charset:0;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:50331648 0 0 0 1 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Times;}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:26.0pt;
+	font-family:Arial;
+	mso-font-kerning:0pt;
+	font-weight:normal;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+.auto-style1 {
+	font-family: Arial;
+}
+-->
+</style>
+</head>
+
+<body bgcolor=white lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1>Bouncing off Paddles</h1>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Add a couple rectangles that
+are the right size to represent the paddles on the screen.<span
+style="mso-spacerun: yes">&nbsp; </span>Use an instance field to represent the
+y coordinate, so that later it will be easier to move the paddle.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>For our simple pong game,
+the paddles will cause the ball to do a horizontal bounce whenever the ball
+intersects the paddle.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>This complicates the if
+statement because instead of x being just less than one side of the paddle, it
+also has to be greater than the other side.<span style="mso-spacerun:
+yes">&nbsp; </span>The same is true for y, making your if statement need 4
+separate parts.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:235pt;
+ height:276pt'>
+ <v:imagedata src="Bouncing%20off%20Paddles_files/image001.png" o:title="PaddleBounce.PNG"/>
+</v:shape><![endif]--><![if !vml]><img width=235 height=276
+src="Bouncing%20off%20Paddles_files/image002.gif" v:shapes="_x0000_i1025"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Don&#39;t forget to account for
+the width of the ball AND the paddle when creating your if statements.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Set up two stationary
+paddles and test to make sure they bounce when they hit the paddles and
+continue on to the wall when they don&#39;t.<o:p>&nbsp; After that, give the 
+ball a yVector and see how it moves.&nbsp; There is a problem that will occur in 
+very specific situations.&nbsp; Read about
+<a href="The%20Vibration%20Problem.htm">THE VIBRATION PROBLEM</a> and follow the 
+steps to solve it</o:p></span></p>
+	<p class=MsoNormal>
+	<o:p></o:p>
+	</p>
+	<p class=auto-style1>
+	<o:p><strong>Testing out the variables:</strong>&nbsp; It is important that 
+	you use variables to represent the y coordinate of each paddle.&nbsp; Make 
+	sure that you use those variables both when you <strong>draw</strong> the 
+	paddles as well as in each of the two if statements that check for bouncing 
+	off of the paddles.&nbsp; To test this out, first get the ball bouncing off 
+	of the paddles, and then change the instance fields so that the paddles are 
+	in a completely different location and try again.&nbsp; Again, make sure the 
+	ball bounces off of the new location of the paddles.&nbsp; </o:p>
+	</p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+  <p class=MsoNormal><span style='font-family:Arial'>
+    <![if !supportEmptyParas]>
+    &nbsp;
+    <![endif]>
+    <applet code = "StillPaddleApplet.class" archive="Pong.jar" width="700" height="500">
+    </applet>
+    <o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

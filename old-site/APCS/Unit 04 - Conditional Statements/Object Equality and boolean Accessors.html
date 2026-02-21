@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Object Equality and boolean Accessors</title>
+<style type="text/css">
+.auto-style1 {
+	color: #FF0000;
+}
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style2 {
+	font-size: medium;
+}
+.auto-style3 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Boolean Accessor Methods and Object Equality</h2>
+<p>Copy the following Point class into your project:</p>
+<pre>public class Point
+{
+    private int x,y;
+
+    public Point(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX()
+    { return x; }
+
+    public int getY()
+    { return y;  }
+
+    public String toString()
+    {
+        return "("+x+","+y+")";
+    }
+}
+</pre>
+<p>&nbsp;</p>
+<p>Also copy the following runner.&nbsp; Before running it, try to predict what 
+will happen.</p>
+<pre>public static void main()
+{
+    Point p1 = new Point(3,5);
+    Point p2 = new Point(3,5);
+
+    String reply;
+
+    if(p1 == p2)
+        reply = " are equal";
+    else
+        reply = " are not equal";
+        
+        
+    System.out.println(p1+" and "+ p2 +reply);
+}
+</pre>
+<p>Run the runner: The result is an unexpected &quot;not equal&quot;.&nbsp; This doesn’t 
+seem to make sense. All of the instance fields are the same, which we would 
+assume makes them the equal to each other, but == just doesn’t work that way.</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Big Concept: == compares the 
+<span class="auto-style1">REFERENCES</span> not the INSTANCE FIELDS</strong></p>
+<p>Don’t forget that the variable doesn’t hold the actual object. It only holds 
+a reference to the object.&nbsp; When using == it&#39;s a comparison of references 
+and has nothing to do with the instance fields.</p>
+<p><strong>Will it ever return true? </strong>Yes, but in a less useful way. The only time that 
+it will return true is if the two reference variables are talking about the 
+exact same object. Not an object with the same instance fields. Literally the 
+exact same object.</p>
+<p>For example:</p>
+<pre>public static void main()
+{
+   Point p1 = new Point(3,5);
+   <span class="auto-style1"><strong>Point p2 = p1;</strong></span>
+
+   String reply;
+
+   if(p1 == p2)
+     reply = " are equal";
+   else
+     reply = " are not equal";
+            
+            
+   System.out.println(p1+" and "+ p2 +reply);
+}</pre>
+<p>In this case, p1 == p2 is true. The key is the line:</p>
+
+<pre>Point p1 = p2;</pre>
+<p>Remember that this doesn’t create a new Point. It copies a <strong>
+reference</strong> to the <strong>same exact object</strong>. p1 == p2 returns 
+true because they are the same reference. This has some use, but you will find 
+that at this level it’s almost never what you want to do.</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Equality must be programmed into the object as an accessor method:</strong></p>
+<p>In order to determine if two objects are equal, the programmer must provide a 
+way via an accessor methods.&nbsp;&nbsp; In the Point class, add a method with the following header:</p>
+<pre>public boolean equals(Point other)</pre>
+<p>This method is an accessor with a Point as a parameter. This means that if 
+you have two Point objects you may ask one if it equals the other. The method 
+returns a boolean, so it can be used to run an if statement.</p>
+<p>Using our example from before, instead of saying:</p>
+
+
+<pre>if( p1 == p2 )</pre>
+<p>We should actually use:</p>
+<pre>if( p1.equals(p2) )</pre>
+<p>or, just as good:</p>
+<pre>if( p2.equals(p1) )</pre>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>How can we write a boolean accessor method?</strong></p>
+<p>When writing the equals method, our job is to compare our instance fields to 
+the instance fields of the incoming object and return true if they meet our 
+conditions of equality, meaning that the x&#39;s and y&#39;s must be the same. Because 
+they are private we can access our own directly, but for the parameter Point we 
+must call the accessor methods.</p>
+<pre>public boolean equals(Point <span class="auto-style1">other</span>)
+{
+   int otherX = <span class="auto-style1">other</span>.getX();
+   int otherY = <span class="auto-style1">other</span>.getY();
+
+   if( otherX == x && otherY == y)
+      return true;
+   else
+      return false;
+}</pre>
+<p>Now that the Point class has an equals method, the runner can use it instead 
+of ==</p>
+<pre>public static void main()
+{
+   Point p1 = new Point(3,5);
+   Point p2 = new Point(3,5);
+
+   String reply;
+
+   if(p1.equals(p2))
+      reply = " are equal";
+   else
+      reply = " are not equal";
+            
+            
+   System.out.println(p1+" and "+ p2 +reply);
+}
+</pre>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style3"><strong>Assignment:</strong></p>
+<p>Copy the following class to your project:</p>
+<pre>public class Rectangle
+{
+    private int x,y,width,height;
+
+    public Rectangle(int x, int y, int width, int height)
+    {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getX(){return x;}
+
+    public int getY(){return y;}
+
+    public int getWidth(){return width;}
+
+    public int getHeight(){return height;}
+
+    public String toString()
+    {
+        return "[x:" + x + " y:" + y + " width:" + width + " height:" + height + "]";
+    }
+}
+</pre>
+<p>Add a method to the Rectangle class with the following header:</p>
+<pre>public boolean equals(Rectangle r)</pre>
+<p>Your job will be to return true if the Rectangles are equal:</p>
+<p><strong>EQUALITY IS WHAT THE PROGRAMMER DECIDES</strong>:&nbsp; </p>
+<p>Be careful. The Rectangle class has four instance fields, so it is reasonable 
+to say that two Rectangles are equal only if all four values are equal; but 
+maybe this particular Rectangle is part of a program that doesn’t consider 
+Rectangles different if they are in a different location. In this situation the 
+x and y would have no bearing on what makes two Rectangles equal to each other.</p>
+<p>Implement the equals method in this fashion. Ignore the x and y and only 
+focus on the width and height.</p>
+<p>Write a Runner, which starts with the following code:</p>
+<pre>Rectangle mainRect = new Rectangle(10,20,30,40);
+
+Rectangle r1 = new Rectangle(10,22,30,40);     
+Rectangle r2 = new Rectangle(10,20,35,50);
+Rectangle r3 = new Rectangle(90,22,30,40);  
+</pre>
+<p>Then use three ifs (no else) to one at a time check if the mainRect is equal 
+to r1, then r2, then r3. If it finds that they are equal, print out something 
+like the following:</p>
+<pre>System.out.println(mainRect + " is equal to "+r1);</pre>
+<p>Run the runner, which should print out the following:<br />
+[x:10 y:20 width:30 height:40] is equal to [x:10 y:22 width:30 height:40]<br />
+[x:10 y:20 width:30 height:40] is equal to [x:90 y:22 width:30 height:40]</p>
+<p><strong>Concept Check:</strong><br />
+I specifically asked you to use ifs with no else’s. Change the three if 
+statements to be an if followed by two else-ifs and run the program again. How 
+does this change the output and why?</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p>Now add another method to the Rectangle class with the following header:</p>
+<pre>public boolean containsPoint(Point p)</pre>
+<p>The purpose of this method is to return true if the parameter Point is within 
+the boundaries of the Rectangle.&nbsp; Don&#39;t forget that four things must be 
+true for this to happen.&nbsp; It may be helpful to first figure out the x 
+values of the left/right side of the Rectangle as well as the y values of the 
+top/bottom of the Rectangle.</p>
+<p>&nbsp;</p>
+<p>Use the following Runner to test your containsPoint method.&nbsp; <strong>The only method that you should really look 
+at is the onMousePress method,</strong> which uses the MouseEvent to create a Point and 
+then chooses a String based on the result of the containsPoint method.</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class RectangleViewer extends SaccoWindow
+{
+    private Rectangle rect;
+    private String inOrOut;
+    
+    public RectangleViewer(Rectangle rect)
+    {
+        this.rect = rect;
+        inOrOut = &quot;Click!&quot;;
+    }
+
+    public void paintWindow(Canvas c)
+    {
+        c.setColor("RED");
+        c.fillRectangle(rect.getX(), rect.getY(),rect.getWidth(),rect.getHeight());
+        c.setColor("BLACK");
+        c.setThickness(5);
+        c.drawRectangle(rect.getX(), rect.getY(),rect.getWidth(),rect.getHeight());
+        
+        if(inOrOut != null)
+        {
+            Font f = new Font(30);
+            f.setBold(true);
+            c.setFont(f);
+            
+            
+            int width = c.getStringWidth(inOrOut);
+            int x = rect.getX()+rect.getWidth()/2-width/2;
+            int y = rect.getY()+rect.getHeight()/2+c.getStringAscent()/2-c.getStringDescent();
+            c.drawString(inOrOut,x,y);
+        }
+    }
+
+    public void onMousePress(MouseEvent m)
+    {
+        Point p = new Point(m.getX(),m.getY());       
+
+        if(rect.containsPoint(p))
+            inOrOut = "Inside";
+        else
+            inOrOut = "Outside";
+    }
+
+    public static void main()
+    {
+        Rectangle r = new Rectangle(50,150,150,250);
+        RectangleViewer rView = new RectangleViewer(r);
+        rView.showWindow();
+    }
+}</pre>
+<p>&nbsp;</p>
+<p><strong><span class="auto-style2">If you&#39;re having trouble</span></strong> getting it just right, replace the paintWindow with 
+the following.&nbsp; It will put red at every point that your containsPoint 
+method returns true for.&nbsp; If the only red is within the Rectangle on the 
+window, it&#39;s right.</p>
+<pre>public void paintWindow(Canvas c)
+{
+    c.setColor("BLACK");
+    c.setThickness(5);
+    c.drawRectangle(rect.getX(), rect.getY(),rect.getWidth(),rect.getHeight());
+
+    c.setColor("RED");
+    for( int x = 0; x&lt;this.getWidth(); x++)
+        for(int y = 0 ; y&lt;this.getHeight();y++)
+            if(rect.containsPoint(new Point(x,y)))
+                c.drawPoint(x,y);
+                
+    
+}
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

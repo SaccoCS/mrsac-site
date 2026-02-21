@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Dragging Aces</title>
+
+<style>
+p{
+	
+	font-family:Arial;
+	font-size:small;
+}
+
+.auto-style1 {
+	font-size: x-large;
+}
+.auto-style2 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style3 {
+	font-size: medium;
+}
+
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style1">Dragging Aces:</span><br />
+&nbsp;<br />
+For this program we are going to be using the SaccoObject methods to drag the 
+Aces around the window using the mouse. First we&#39;ll need to set up the Ace so 
+that it has methods that allow it to be moved, and then we&#39;ll look at some more 
+mouse event methods and use them to tell the Ace to move when it&#39;s appropriate.</p>
+<p><strong>Setting up Ace to Move:</strong><br />
+<br />
+Add another method to Ace named translate, which takes in two ints from the user 
+and adds them to the x and the y values. This will allow the Window to move the 
+Ace around the screen.<br />
+<br />
+<br />
+<strong>More with Mouse Events</strong><br />
+Create a new class named AceDragger, which should be very similar to the 
+CardHolder class. The only difference is that it should not start out with 
+anything in the &quot;onMousePress&quot; method. If you&#39;re using copy and paste, don&#39;t 
+forget that the main method should not be creating a CardHolder.<br />
+<br />
+<br />
+There are three Mouse Event based methods that we have to understand before 
+moving on. Each is called at a very specific time:<br />
+<br />
+<span class="auto-style2">public void onMousePress(MouseEvent m)</span><br />
+This method we have seen before, it is called the moment that the mouse button 
+is pressed down.<br />
+<br />
+<span class="auto-style2">public void onMouseRelease(MouseEvent m)</span><br />
+This method is called the moment that the mouse button is released. It seems 
+very similar to the onMousePress method, but will be useful in detecting if the 
+mouse is currently held down.<br />
+&nbsp;<br />
+<span class="auto-style2">public void onMouseMove(MouseEvent m)</span><br />
+This method is called every single time the mouse is moved. This will be useful 
+for dragging cards because when the mouse moves, the Ace should move with it.<br />
+&nbsp;<br />
+<hr>
+
+<p class="auto-style3"><strong>The Order of Events:</strong></p>
+<p>We don&#39;t want the Ace to move every single time that the mouse does, we want 
+it to only do it if it moves during the time that the mouse is held down.</p>
+<p>The order of events:<br />
+1) The mouse is pressed and is on the Ace, signaling that we want to &quot;grab&quot; an 
+Ace.<br />
+2) The mouse is moved. Since the Ace is currently &quot;grabbed&quot;, it should move<br />
+3) The mouse is release, signaling that we want to let go of the Ace.<br />
+</p>
+<hr>
+<p class="auto-style3"><strong>How to Tell if the Mouse Button is Being Held</strong></p>
+<p>The big question to answer is, &quot;How will the onMouseMove&quot; method know if it 
+should be moving the Ace or not.<br />
+Add a boolean instance field named isAceHeld and start it at false. Our job is 
+to make sure that this variable is true the entire time that the mouse is down 
+after clicking the Ace, and false the entire time that the mouse is up.</p>
+<p>Add a line of code to the onMousePress method so that it sets the boolean to 
+true if the Ace contains the point of the MouseEvent. Add a similar one to the 
+onMouseRelease that sets it to false, no if statement required. We now have made 
+sure that when the Ace is clicked, the boolean is set to true until the mouse 
+button is released.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style3"><strong>How Far Should the Ace Move?</strong></p>
+<p>Now go to the onMouseMove method. We now have the ability to tell if the 
+mouse is down because of our isAceHeld instance field. If the mouse is held 
+down, we want to call Ace&#39;s translate method, but that provides a new problem. 
+The onMouseMove method&#39;s MouseEvent can tell us where the mouse is <strong>currently</strong>, 
+but not where it was the <strong>last time</strong> it was moved.</p>
+<p>The fix:<br />
+Add two more ints as instance fields: lastX and lastY. The idea is that AFTER 
+the onMouseMove has done whatever it&#39;s supposed to do, its <strong>last </strong>
+action will be to put the x and y into those two new instance fields.&nbsp; This 
+means that the next time the onMouseMove method is called, it will have access 
+to the current location AND the last location of the mouse.&nbsp; This will be 
+useful, since the difference between the two is exactly how far the Ace should 
+move.<br />
+</p>
+<p>We finally have the information we need to finish the onMouseMove method. It 
+should first check to see if the Ace is being held. If it is, it should then 
+look at the MouseEvent and the lastX and lastY, and use them to calculate the 
+difference between the x&#39;s and the y&#39;s. Now that you&#39;ve calculated the 
+difference in each direction, pass those two values into the Ace&#39;s translate 
+method.&nbsp; The last two lines of this method should still be setting the 
+lastX and lastY for the next time.</p>
+
+<p>Test out your program.&nbsp; Hopefully when you click and drag the Ace, it 
+follows along with you.</p>
+</body>
+
+</html>

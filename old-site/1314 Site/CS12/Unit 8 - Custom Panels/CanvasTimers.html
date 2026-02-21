@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>CanvasTimers</title>
+<style type="text/css">
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">CanvasTimers</h2>
+<p>In order to add movement to your programs, you&#39;ll need to use a timer of some 
+sort.&nbsp; In our case, the CanvasTimer class should prove useful.</p>
+<p>Copy the following class into your project:</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class Flashing extends SCanvas
+{
+    private Color myColor;
+
+    public Flashing()
+    {
+       myColor = Color.RED;
+    }
+
+    public void paintCanvas(PaintBrush brush)
+    {
+        brush.setColor(myColor);
+        brush.fillOval(150,150,200,200);
+    }
+
+    public static void main()
+    {
+        SFrame frame = new SFrame();
+        frame.add(new Flashing());
+        frame.setSize(500,500);
+        frame.setVisible(true);
+    }
+}</pre>
+<p>Running the program should show a simple red circle on a 
+white background.&nbsp; Our goal is to modify it so that the color of the Circle 
+randomizes once a second.&nbsp; This means that we are going to need a 
+CanvasTimer object to help us out.&nbsp; </p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Setting up the CanvasTimer:</strong></p>
+<p>Add the following instance field:</p>
+<pre>private CanvasTimer timer;</pre>
+<p>This labels <strong>timer</strong> as a variable to hold the CanvasTimer that 
+will be running our program.&nbsp; </p>
+<p>In the Constructor add the following line, which will construct the 
+CanvasTimer:</p>
+<pre>timer = new CanvasTimer(this,1000);
+timer.start();</pre>
+<p>The CanvasTimer&#39;s constructor first takes in an SCanvas, and then takes 
+in a number of milliseconds to represent the delay.&nbsp; Since we are writing 
+the SCanvas, we pass in &#39;this&#39;, and passing in a 1000 means that it will wait 
+about one second in between method calls.&nbsp; Once the CanvasTimer has been 
+set up, calling the start method will start it running.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Coding the action:</strong></p>
+<p>Now that the timer has been started, every second it will call the <strong>
+onTimerTick</strong> method of our SCanvas.&nbsp; At the moment we don&#39;t have 
+one.&nbsp; Add the following:</p>
+<p>&nbsp;</p>
+<pre>@Override
+public void onTimerTick()
+{
+
+}</pre>
+<p>This is the specific method that the timer will call every time it &#39;ticks&#39;.&nbsp; 
+Our job is to randomize the color of the circle so that it&#39;s flashing.&nbsp; Add 
+the following code to the onTimerTick method:</p>
+<pre>int r = (int)(Math.random()*256);
+int g = (int)(Math.random()*256);
+int b = (int)(Math.random()*256);
+myColor = new Color(r,g,b);</pre>
+<p>Now every time the timer ticks, a random color will be put into the myColor 
+variable.&nbsp; Since this variable is what the circle is drawn with, the circle 
+should flash colors.&nbsp; Run the program and make sure that it it flashing.</p>
+<hr>
+<p class="auto-style2"><strong>Assignments:</strong></p>
+<p><strong><span class="auto-style1">TimedRandSquare</span></strong>:&nbsp; This program will start with a blank background 
+picture.&nbsp; Every time the timer &#39;ticks&#39;, a new random square is drawn to the 
+background.</p>
+<p>It will start sparse, but should eventually fill the screen.</p>
+<p><img width ="250" src="../Unit%207%20-%20GUIs%20and%20Objects/images/img99.jpg" />
+<img width ="250"  src="../Unit%207%20-%20GUIs%20and%20Objects/images/img9A.jpg" /></p>
+<p>&nbsp;</p>
+<p><strong><span class="auto-style1">Clock</span></strong>:&nbsp; This program 
+will draw a simple clock face.&nbsp; As time passes, the line should rotate 
+around as if it were a real clock.</p>
+<p>Strategy:&nbsp; The key to this program is using PaintBrush&#39;s drawAngledLine 
+method.&nbsp; You should have an instance field to represent the angle that the 
+&#39;hand&#39; is at, which the timer decreases every time it ticks.</p>
+<p><img width ="250" src="../Unit%207%20-%20GUIs%20and%20Objects/images/img8C.jpg" /></p>
+<p>&nbsp;</p>
+<p><strong><span class="auto-style1">GrowShrink</span></strong>:&nbsp; This 
+program will draw a colored circle centered around the point 250,250.&nbsp; As 
+the timer ticks, the circle grows by a little bit.&nbsp; After it hits a maximum 
+radius of 200, it starts shrinking instead of growing.&nbsp; When the radius 
+makes it below 10, the color is randomized and it starts growing again.</p>
+<p>Strategy:&nbsp; You will need to have instance fields to represent the radius 
+of the circle, the color of the circle, the CanvasTimer, and a boolean to 
+represent if the circle should be growing or not.</p>
+<p>Make sure that the paintCanvas method is using the radius variable to paint 
+the oval.&nbsp; That way all you have to do is change the radius variable in 
+order to change the size of the painted circle.&nbsp; </p>
+<p>The onTimerTick method should look at the boolean instance field variable and 
+either add a small amount to the radius, or subtract a small amount from the 
+radius.&nbsp; This means that changing the boolean to true or false is in charge 
+of whether or not the circle is growing or not.&nbsp; Another thing that the 
+onTimerTick method should do is to have two if statements.&nbsp; If the circle&#39;s 
+radius gets to small, set the &#39;grow&#39; boolean to true,&nbsp; if the circle&#39;s 
+radius gets too big, set it to false.</p>
+<p>&nbsp;</p>
+<p><img  width ="250" src="../Unit%207%20-%20GUIs%20and%20Objects/images/img91.jpg" />
+<img  width ="250" src="../Unit%207%20-%20GUIs%20and%20Objects/images/img92.jpg" /></p>
+<p>&nbsp;</p>
+</body>
+
+</html>

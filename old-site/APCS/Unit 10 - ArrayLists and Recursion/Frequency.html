@@ -1,0 +1,211 @@
+<html>
+
+<head>
+<title>Frequency and Graph</title>
+<style>
+p,h2,h3{
+font-family:Arial;
+}
+
+
+p{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:14px;
+	border: solid black 1px;
+	padding: 10 15 10 15;
+	display: inline-block;
+}
+</style>
+
+</head>
+
+<body>
+<h2>Frequency and Graph</h2>
+
+<p>When gathering data, sometimes it’s useful to keep track of how often a specific value appears in a group of data.  Consider the Frequency class below, which has instance fields to keep track of a specific value and the number of times that value is found</p>
+
+<p>THIS IS ONLY FOR REFERENCE. DO NOT CREATE A CLASS NAMED FREQUENCY. IT IS IN SACCOJAR</p>
+<pre class = "code">public class Frequency
+{
+   //Constructs a Frequency object with the given value
+   public Frequency(int value)
+   { /* implementation not shown */ }
+
+   //Returns this object's value
+   public int getValue()
+   { /* implementation not shown */ }
+
+   //Increments the frequency count 
+   public void incrementCounter()
+   { /* implementation not shown */ }
+
+   //Returns the frequency count
+   public int getCount()
+   { /* implementation not shown */ }
+
+   //Returns a String with the value and its frequency
+   public String toString()
+   { /* implementation not shown */ }
+}</pre>
+
+<p>Copy the Graph class below into your project.  It’s purpose is to represent multiple Frequency objects together:</p>
+<pre class = "code">import java.util.ArrayList;
+import sacco.objects.Frequency;
+public class Graph
+{
+   private ArrayList&lt;Frequency&gt; freqs;
+
+   public Graph()
+   {
+      freqs = new ArrayList&lt;Frequency&gt;();
+   }
+   
+   //adds the given value to the list by incrementing an existing Frequency object in the list or creating 
+   //a brand new Frequency object and inserts it into the list
+   public void add(int val)
+   { /* to be implemented by you */ }
+
+   //adds an entire array of values to the list
+   public void add(int[] vals)
+   { /* to be implemented by you */ }
+
+   //returns the most frequent value added
+   public int mostFrequent()
+   { /* to be implemented by you */ }
+
+   public String toString()
+   {
+      if(freqs.size()==0)
+         return "";
+		
+      String str = "";
+         for(Frequency f: freqs)
+            str+= "\n"+f;
+		
+      return str.substring(1);
+   }
+}</pre>
+<p>When a Graph object is first constructed it has no Frequency objects.  When the add method is called, either an existing Frequency object is incremented or a brand new Frequency object will be inserted into the ArrayList in a way that keeps them in ascending order.</p>
+<br/>
+<hr/>
+<h3>Methods</h3>
+<p style = "font-size:16px; font-family:Courier"><strong>public void add(int val)</strong></p>
+<p>The purpose of the add method is to register a value into the list.  If the list already contains a Frequency object with a matching value, increment its counter.  If no object exists, add a new Frequency object to the list, making sure to keep it in increasing order.  This is a challenging method that may require multiple loops.  Don't forget that if the size of the list is 0 there could be problems.</p>
+<p>Use the following method to test your add method:</p>
+<pre class="code" style = "border:none; padding:0 0 0 0">public static void main()
+{
+   Graph g = new Graph();
+   g.add(5);
+   g.add(2);
+   g.add(7);
+   g.add(7);
+   g.add(5);
+   g.add(7);
+   g.add(5);
+   g.add(4);
+   g.add(2);
+   g.add(8);
+   System.out.println(g);
+}</pre>
+<p>It should print out:</br>
+2 Two's</br>
+1 Four</br>
+3 Five's</br>
+3 Seven's</br>
+1 Eight</br></br></p>
+
+<p style = "font-size:16px; font-family:Courier"><strong>public void add(int[] vals)</strong></p>
+<p>This method is an overloaded version of the previous add method that takes in an entire array of ints that should all be added.</p>
+<p>Use the following method to test your add method:</p>
+<pre class="code" style = "border:none; padding:0 0 0 0">public static void main()
+{
+   Graph g = new Graph();
+   int[] vals = new int[]{9,9,9,8,7,6,6,6,6,6,5,4,3,3,2,2,2,1};
+   g.add(vals);
+   System.out.println(g);
+}</pre>
+<p>It should print out:</br>
+1 One</br>
+3 Twos</br>
+2 Threes</br>
+1 Four</br>
+1 Five</br>
+5 Sixes</br>
+1 Seven</br>
+1 Eight</br>
+3 Nines</br>
+</p>
+</br>
+<p style = "font-size:16px; font-family:Courier"><strong>public int mostFrequent()</strong></p>
+<p>This method returns the value with the highest counter (return the value, not the object).</p>
+<p>Test it with the following method:</p>
+<pre class="code" style = "border:none; padding:0 0 0 0">public static void main()
+{
+   Graph g = new Graph();
+   for(int i = 0; i&lt;10000; i++)
+   {
+      int d1 = (int)(Math.random()*6)+1;
+      int d2 = (int)(Math.random()*6)+1;
+      g.add(d1 + d2);
+   }
+	
+   System.out.println(g);
+   System.out.println("Most Frequent: "+g.mostFrequent());
+}</pre>
+<p>It's random, but should print out something similar tot he following:<br/>
+286 Twos<br/>
+564 Threes<br/>
+867 Fours<br/>
+1094 Fives<br/>
+1094 Fives<br/>
+1356 Sixes<br/>
+1669 Sevens<br/>
+1410 Eights<br/>
+1073 Nines<br/>
+872 Tens<br/>
+518 Elevens<br/>
+291 Twelves<br/>
+Most Frequent: 7</p>
+<p>Due to math, the Sevens should have the most, followed by Sixes and Eights</p>
+
+
+<p>OPTIONAL CHALLENGE:</p>
+<p>A text based toString is still a little bit rough to read. Write a method named histogram(), which will return a String that creates a bar graph to represent the frequencies.</p>
+
+<pre class="code" style = "border:none; padding:0 0 0 0">public static void main()
+{
+   Graph g = new Graph();
+   for(int i = 0; i&lt;10000; i++)
+   {
+      int d1 = (int)(Math.random()*6)+1;
+      int d2 = (int)(Math.random()*6)+1;
+      g.add(d1 + d2);
+   }
+   System.out.println(g.histogram());
+}</pre>
+
+<p>For example, one possible output could be:</p>
+
+<pre>278 Twos    : ***
+575 Threes  : ******
+854 Fours   : **********
+1150 Fives  : *************
+1352 Sixes  : ***************
+1702 Sevens : ********************
+1373 Eights : ****************
+1049 Nines  : ************
+843 Tens    : *********
+534 Elevens : ******</pre>
+
+
+
+
+
+
+</body>
+</html>

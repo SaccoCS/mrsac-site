@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0142)https://dl.dropboxusercontent.com/u/7648734/1314%20Site/CS12/Unit%201%20-%20Beginning%20Java%20and%20Binary/User%20Input%20with%20Scanner.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>User Input with Scanner</title>
+<style type="text/css">
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style7 {
+	color: #C0C0C0;
+}
+</style>
+<style>[touch-action=none]{ -ms-touch-action: none; touch-action: none; }[touch-action=pan-x]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action=pan-y]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action=scroll], [touch-action="pan-x pan-y"], [touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style></head>
+
+<body>
+
+<p class="auto-style4">Using Scanner</p>
+<p class="auto-style8"><strong>Part 1:&nbsp; Getting Strings</strong></p>
+<p class="auto-style6">Copy and paste the class below into a new BlueJ project</p>
+<pre>import java.util.Scanner;
+public class ScannerDemo
+{
+    public static void main()
+    {
+        <span class="auto-style7">//Construct a new Scanner Object</span>
+        <strong>Scanner scan = new Scanner(System.in);</strong>
+        
+        <span class="auto-style7">//Prompt the user to enter his name</span>
+        <strong>System.out.println("Enter your name ");</strong>
+        
+        <span class="auto-style7">//Call the nextLine method to grab the next String the user types
+        //Store that String in a local String variable named result</span>
+        <strong>String result = scan.nextLine();</strong>
+        
+        <span class="auto-style7">//Print out a greeting, using the name that was just entered</span>
+        <strong>System.out.println("Hello "+result+", how are you?");</strong>
+        
+    }
+    
+    
+    public static void favColor()
+    {
+        //Construct a new Scanner Object
+        
+        //Prompt the user to enter his favorite color
+        
+        //Call the nextLine method to grab the next String the user types
+        //Store that String in a local String variable named color
+        
+        //Print out: "______ is a good color, but my favorite color is blue"  (you can put whatever you want for your color)
+        //Be sure to use the color variable
+        
+    }
+
+    public static void cityBragger()
+    {
+        //Construct a new Scanner Object
+        
+        //Prompt the user to enter the city he lives in
+        
+        //Call the nextLine method to grab the next String the user types
+        //Store that String in a local String variable named city
+        
+        //Print out: "I hear the weather in _____ isn't as nice as San Diego"
+        //Be sure to use the city variable
+    }
+    
+    public static void goTeam()
+    {
+        //Construct a new Scanner Object
+        
+        //Prompt the user to enter his favorite sports team
+        //Call the nextLine method and store the result into a local String variable named homeTeam
+        
+        //Prompt the user to enter the team's mascot
+        //Call the nextLine method and store the result into a local String variable named homeMascot
+        
+        //Prompt the use to enter the team's rival
+        //Call the nextLine method and store the result into a local String variable named rivalTeam
+        
+        
+        //Print out:  "I hope that ____ beats _____.  Go _____!!!"
+       
+    }
+    
+}
+</pre>
+<p class="auto-style6">The only method that has been filled out is the main method.&nbsp; Compile 
+and run the main method to test it out.&nbsp; </p>
+<p class="auto-style6">Read through the each line of the main method and the 
+description of what it does. Each of 
+the 4 lines there represents a common step in getting input from the user.</p>
+<p class="auto-style6">Using the main method as a guide, fill in the favColor, cityBragger, and 
+goTeam methods so that the work properly.&nbsp; Test out each method as you 
+complete them, making sure that when you type in different values it the changes 
+the output of the method.</p>
+<p class="auto-style6">&nbsp;</p>
+<p class="auto-style8"><strong>Part 2:&nbsp; Getting ints</strong></p>
+<p class="auto-style6">Complete the following programs.&nbsp; Each of them 
+follows the same general strategy:<br />
+- Construct a Scanner<br />
+- Prompt the user to enter the number<br />
+- Use nextLine to retrieve a String version of the number<br />
+- Pass the String into Integer.parseInt to get an int version<br />
+- Perform some sort of math operation (+,-,*) and store the result in a new 
+variable<br />
+- println out the results</p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+1)&nbsp; Write a Java program named<span class="Apple-converted-space">&nbsp;</span><strong>Favorite</strong><span class="Apple-converted-space">&nbsp;</span>that 
+asks the user for their favorite number, then outputs your favorite number, 
+which happens to be double the input number.&nbsp; The asterisk (*) is used for 
+mutliplication.</span></p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+For example:</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+Enter your favorite number:</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+14</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+Well, my favorite number is 28</span></p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+&nbsp;</p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+2)&nbsp; Write a Java program named<span class="Apple-converted-space">&nbsp;</span><strong>Adder</strong><span class="Apple-converted-space">&nbsp;</span>that 
+will ask the user for two numbers, then output the sum of the two numbers.</span></p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+For example:</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+Enter the first number:</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+5</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+Enter the second number:</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+15</span><br class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;" />
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+The sum of 5 and 15 is 20</span></p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+&nbsp;</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+3)&nbsp; Write a program named<span class="Apple-converted-space">&nbsp;</span><strong>Squarer</strong>, 
+which will ask the user for a number, and then print out its square.&nbsp;</p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small;">
+For example:<br />
+Enter a number:<br />
+6<br />
+6 squared is 36</span></p>
+
+
+
+
+</body></html>

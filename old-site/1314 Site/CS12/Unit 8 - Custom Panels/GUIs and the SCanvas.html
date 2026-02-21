@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>GUIs and the SCanvas</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: large;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">GUIs and the SCanvas</h2>
+<p>Copy the StampCanvas class below. Notice that it does nothing but paint a 
+blank Picture.<br />
+</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class StampCanvas extends SCanvas
+{
+    private Picture bgPic;
+    private PaintBrush bgBrush;
+    
+    public StampCanvas()
+    {
+        bgPic = new Picture(500,500);
+        bgBrush = bgPic.getBrush();
+    }
+    
+    public void paintCanvas(PaintBrush brush)
+    {
+        brush.drawPicture(bgPic,0,0);
+    }
+	
+	//add new methods here
+	
+	
+}</pre>
+<p>In most of the assignments that we&#39;ve been doing, we&#39;ve been creating a 
+simple static method that will create the SFrame and all the elements, like so:</p>
+<pre>public static void main()
+{
+    SFrame frame = new SFrame();
+    frame.add( new StampCanvas() );
+    frame.setSize(500,500);
+    frame.setVisible(true);
+}
+</pre>
+<p>While this is fine for simple programs, it doesn&#39;t help when you want to have 
+a full GUI. Consider the following StampFrame class, which creates a GUI like we 
+used to.</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class StampFrame implements ButtonListener
+{
+    private SButton reset, circle, square;
+    private SFrame frame;
+    
+    public StampFrame()
+    {
+        //Construct the frame and buttons
+        frame = new SFrame();
+        reset = new SButton("Reset");
+        circle = new SButton("Circle");
+        square = new SButton("Square");
+        
+        //register the button listener
+        reset.addButtonListener(this);
+        circle.addButtonListener(this);
+        square.addButtonListener(this);
+        
+        //add the buttons to a panel
+        SPanel buttons = new SPanel();
+        buttons.setLayout(new FlowLayout());
+        buttons.add(square);
+        buttons.add(circle);
+        buttons.add(reset);
+
+        //add the panel to the south of the frame
+        frame.setLayout(new BorderLayout());
+        frame.add(BorderLayout.SOUTH,buttons);
+
+    }
+    
+    public void launch()
+    {
+        frame.setSize(500,500);
+        frame.setVisible(true);
+    }
+    
+    @Override
+    public void onButtonPress(SButton source)
+    {
+        
+    }
+    
+    public static void main()
+    {
+        StampFrame s = new StampFrame();
+        s.launch();
+    }
+}
+</pre>
+<p>If you run the main method you&#39;ll see that it&#39;s a simple frame with buttons 
+on the bottom. Since the StampCanvas extends SCanvas, it can be added to the GUI 
+just like everything else. <br />
+<br />
+1) Add the following instance field:</p>
+<pre>private StampCanvas canvas;</pre>
+<p>2) Go to the very end of the constructor and add the following lines:<br />
+</p>
+<pre>canvas = new StampCanvas();
+frame.add(BorderLayout.CENTER,canvas);</pre>
+<p>This constructs the StampCanvas and adds it to the frame.<br /><br />
+Running the main method one more time should show an SFrame with a background 
+that&#39;s white, the default color for a blank Picture.<br /></p>
+<p>&nbsp;</p><hr>
+<p><strong><span class="auto-style1">How do we get the buttons to affect the GUI?</span></strong><br />
+<br />
+The ButtonListener is all set up, but we&#39;re not quite ready. First we must add 
+methods to the StampCanvas that will change the StampCanvas in some way, and 
+then we can call them from our ButtonListener<br />
+<br />
+<br />
+<strong>Adding the method:</strong><br />
+Our first goal is to make it so that when the Square button is pressed, a random 
+square is drawn on the canvas. Go to the StampCanvas class and add the following 
+method:<br />
+<br />
+</p>
+<pre>public void randomSquare()
+{
+    int r = (int)(Math.random()*256);    
+    int g = (int)(Math.random()*256);    
+    int b = (int)(Math.random()*256);    
+    Color rand = new Color(r,g,b);
+    bgBrush.setColor(rand);
+    
+    int x = (int)(Math.random()*500);
+    int y = (int)(Math.random()*500);
+    
+    bgBrush.fillRectangle(x,y,50,50);
+}
+</pre>
+<p>It uses the bgBrush to draw a random square on the background Picture, but 
+it&#39;s useless unless this method is called.<br />
+<br />
+<br />
+<strong>Linking the method to the button.</strong><br />
+Go to the StampFrame class. In the <strong>onButtonPress</strong> method, add the following:<br />
+</p>
+<pre>if(source == square)
+{
+    canvas.randomSquare();
+    canvas.repaint();
+}</pre>
+<p>This first checks to see if the pressed button was the square button, and 
+then calls the randomSquare method. Now the GUI elements have an effect on the 
+SCanvas.<br />
+<br />
+<br />
+<strong>Finishing up the Demo:</strong><br />
+Modify the project so that it does the following:<br />
+<br />
+1) When the Circle button is pressed, a random circle should be drawn to the 
+background<br />
+2) When the Reset button is pressed, &quot;erase&quot; everything by filling a giant white 
+rectangle over everything.<br />
+<br />
+<br />
+<br />
+</p><hr>
+<p><strong><span class="auto-style2">Assignments:</span></strong><br />
+</p>
+<p>Each of the assignments below will require both a custom SCanvas and a GUI to 
+control it.&nbsp; These are two separate files that will work together.&nbsp; 
+All the GUI elements and ButtonListening will happen in the GUI, all the 
+painting will happen in the custom SCanvas.</p>
+<p>The custom SCanvas class should have the paintCanvas methods, the 
+mouseListening methods, and any custom methods that will help change it.</p>
+<p>The GUI class should have the GUI components like SButtons and SFrames along 
+with the ButtonListening code.</p>
+<p>The onButtonPress method of the GUI should decide which method of the custom 
+SCanvas to call.</p>
+<p>&nbsp;</p>
+<p><strong>ButtonSketch:&nbsp; </strong>The ButtonSketch project should function similarly to ColorSketch. The 
+difference is that there should be a GUI with four SButtons that each represent 
+a Color. 
+Pressing the SButton should change the color of the line.&nbsp; Now that the 
+buttons exist, you no longer have to draw the colored boxes.&nbsp; Create 
+methods within the canvas that will change the color, and then make a GUI with 
+buttons that will call those methods.<br />
+<br />
+</p>
+<p><strong>PicMover:</strong>&nbsp; The PicMover&#39;s canvas should be displaying a 
+Picture of your choosing (school appropriate).&nbsp; There should be buttons 
+that control the location of the picture.&nbsp; This means that the SCanvas 
+should have variables to represent the x and y, along with methods that change 
+them a little.</p>
+<p><img  src="images/PicMover.PNG" width="258" /><br />
+</p>
+</body>
+
+</html>

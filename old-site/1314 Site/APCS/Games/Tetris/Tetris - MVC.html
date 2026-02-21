@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Model, View, Controller</title>
+
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Model-View-Controller</h2>
+<p>One of the biggest challenges that occurs when creating large object oriented 
+applications is determining how it all comes together. One common way of 
+dividing up the information is to break it up into three parts: The Model, The 
+View, and The Controller.</p>
+<p>The <strong>Model</strong> is in charge of all the core data that represents 
+the program that we&#39;re dealing with. So far this is what we’ve been working on. We’ve created Location, 
+Block, and TetrisGrid all to represent the current state of the game. Notice that 
+so far we have not done anything that deals with how the game should look 
+(except for having a getColor method, which is only a model of a real Color).</p>
+<p>The <strong>View</strong> is in charge of the visible portion of the game. The View 
+reads the 
+Model and determines what the user actually sees.</p>
+<p>
+The <strong>Controller</strong> is in charge of determining when and how the Model should change. 
+The Controller is the portion of the project that the user interacts with. The 
+Controller is the brain of the operation. It listens to all key presses, timer 
+ticks, and mouse events and determines how the Model should change (which should 
+in turn be reflected in the View).</p>
+<p>
+In short: <strong>Controller</strong> Obtains the input, the <strong>Model</strong> 
+stores the data, and the <strong>View</strong> displays the data.&nbsp;</p>
+<p>
+</p>
+<p>
+<img border="1" src="images/MVC-diagram.png" width="562" style="padding:10px 10px 10px 10px" /></p>
+<p>
+</p>
+<hr/>
+
+<h3>Formalizing the MVC</h3>
+<p>In order to make sure that we’re using the MVC model, we are going to create 
+objects that each represent one of the important parts of the project.&nbsp; 
+Read through the responsibilities of each of the objects below.</p>
+<p><img src="images/TetrisModel.png" width="465" /></p>
+<p><img src="images/TetrisView.png" width="465" /></p>
+<p><img src="images/TetrisController.png" width="465" /></p>
+<p>So far we&#39;ve been working on several classes that belong to the Model.&nbsp; 
+First we&#39;re going to finish up some of the Model&#39;s structure, and then we can 
+start working on the look and the control.</p>
+<p></p>
+<hr/>
+<h3>TetrisPiece</h3>
+<p>So far, we&#39;ve been working on the Model portion.&nbsp; The TetrisGrid is a huge 
+part of the Model, which needed the Block and Location class to function, but 
+the grid is not the only piece of information that a Tetris model would need 
+in order to represent itself.&nbsp; It would also need to know about the four 
+Blocks that make up the Tetris Piece.</p>
+<p>The Tetris Piece is a class that will have a few complicated methods.&nbsp; 
+We will definitely be returning to it later, but for now simply create an empty 
+class named TetrisPiece&nbsp;and compile it.</p>
+<p></p>
+<hr/>
+<h4>TetrisModel:</h4>
+<p><img src="images/TetrisModel.png" width="465" /></p>
+<p>We have already been working on the Model portion of Tetris, so we&#39;re just 
+going to <strong>add a class named TetrisModel</strong> which will contain references to all of 
+the important data for the game. Any object that wants to access the information 
+about the game will call the model&#39;s getPiece or getGrid method, and then other 
+methods from there.</p>
+<p>For now, the <strong>instance fields</strong> that the 
+TetrisModel should have is a TetrisGrid and a TetrisPiece.&nbsp; Even though 
+TetrisPiece 
+is incomplete, we can still establish it&#39;s existence in the Model.</p>
+<p>The <strong>Constructor</strong> should construct a new TetrisGrid with 20 rows 
+and 10 columns into the 
+instance field.</p>
+<p>Add a <strong>getGrid</strong> method that will return the TetrisGrid instance 
+field.&nbsp; This means that any object that has a reference to the TetrisModel 
+can access the grid using getGrid().</p>
+<p>Similarly, add a <strong>getPiece</strong> method to return the TetrisPiece.</p>
+<p>That&#39;s about it.&nbsp; The model is more that just the one class.&nbsp; The 
+TetrisModel class is simply the place that other bits of the program will go 
+through to access the </p>
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+
+</body>
+
+</html>

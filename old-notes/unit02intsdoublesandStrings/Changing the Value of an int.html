@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Changing the Value of an int</title>
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p,pre {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+<h1>Changing the Value of an int</h1>
+<p>Once an int has been declared and a value has been assigned to it there are many ways of changing its value.</p>
+<pre>int num = 7;</pre>
+<p>Variables are reusable, so if you would like to put a brand new number in, you simply have to write another assignment statement.</p>
+<pre>num = 15;</pre>
+<h3>Performing Math on an int</h3>
+<p>When you want to change the value of an int, you need to be careful.  Assume that the following variable has been declared:</p>
+<pre>int year = 1985;</pre>
+<p>An <strong>operator</strong> is a symbol that is used to denote that some <strong>operation</strong> should be done with two pieces of data and yield a result.  The basic math functions will work using the symbols +, - , *, and /.  Assuming that you would like to increase the value of the year variable by 30, you may try the following:</p>
+<pre>year + 30;</pre>
+<p>This does add the two values together, but we have been irresponsible with the value.  In the end we need the value of the year variable to change.  To do that looks like the following:</p>
+<pre>year = year + 30;</pre>
+<p>At first this seems weird, but you have to think of this in two distinct steps.  First the RIGHT side of the equals sign is evaluated. (1985+30 is 2015).  AFTER the new value is determined it then replaces the value in year, which is a very important step.   If you don't re-assign to the year variable, it will still contain the value 1985.  Below is a slo-mo version of what happens.</p>
+<pre>year = year + 30;
+year = 1985 + 30;
+year = 2015;</pre>
+<hr/>
+<h3>Shortcuts: mathmatical assignment operators </h3>
+<p>The process of performing a simple math operation and then assigning the value back into the original variable is a very common operation. 
+ For that reason there are actually several brand new operators that both perform a math operation AND assign the result back into the original value. </p>
+
+ <h2>+= , -= , *= , /=</h2>
+ <p>Back to our original example, if there is a variable named year, with a value of 1985, and you want to add 30 to it.</p>
+ 
+ <pre>year += 30;</pre>
+ <p>is the same statement as</p>
+ <pre>year = year + 30;</pre>
+ <p>but not as laborious to write.  The += operator first adds the two values together and then stores the value back into the year variable.
+   These shortcuts are very convenient when you need to quickly increase a variable.</p>
+   <hr/>
+   <p>Consider the following code:</p>
+   <pre>int year = 2001;
+int age = 22;
+<span style = "color:red"><strong>year -= age</strong>;</span>
+System.out.println("You were born in " + year);</pre>
+<p>This snippett shows a method for determining the year someone is born when you know the current year and the age of the person.  The line that is red is decreasing the year variable by whatever the value of age is (22).  The age variable does not change.  Only the variable on the left is affected.</p>
+ 
+ <hr/>
+ 
+ <h3>Super Shortcuts:  the increment and decrement operators</h3>
+ <p>The mathmatical  assignment operators above make it easy to quickly modify the contents of a variable, but there an even quicker one specifically when when you want to add or subtract <strong>one</strong>.
+ They are known as the increment and decrement operators</p>
+ 
+ <pre>int val = 10;
+val = val + 1;
+val += 1;
+val++;</pre>
+ 
+ <p>Following a variable with a ++ is the increment operator, which increases the value of the variable it's attached to by one.  
+ The last three lines of the code above do exactly the same thing.  They increment the value of val by 1.</p>
+ 
+ <p>Example:</p>
+ <pre>int num = 5;
+num++;
+System.out.println(num);
+num++;
+System.out.println(num);
+num--;
+System.out.println(num);
+ </pre>
+ <p>The output of the above code would be:<br/>
+ 6<br/>
+ 7<br/>
+ 6</p>
+ <p>The value of num changes several times.  Each time a ++ is used, the value is incremented and each time a  -- is uses, it's decremented.</p>
+ 
+ 
+ 
+ 
+ 
+ </body>
+</html>

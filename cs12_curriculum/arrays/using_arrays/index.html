@@ -1,0 +1,270 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+Using Arrays</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+   Using Arrays
+  </h1>
+  
+  
+  
+  
+  <p>You may have already noticed that our bigger programs are starting to keep track of a lot of information. This inevitably ends up in the wonderful situation of numbered variables.</p>
+<p>Open the Exploring Arrays workspace, which has five different size variables:</p>
+<table class="s_table s_table_border">
+    <tbody>
+        <tr>
+            <td>
+              
+                <p><img title="" src="images/circles.png" alt="" /></p>
+            </td>
+            <td>
+                <pre>let size0, size1, size2, size3, size4;
+
+function setup() {
+  createCanvas(240, 100);
+  strokeWeight(2)
+  size0 = 20;
+  size1 = 12;
+  size2 = 45;
+  size3 = 18;
+  size4 = 32;
+}
+
+function draw() {
+  background(220);
+
+  ellipse(40, 50, size0);
+  ellipse(80, 50, size1);
+  ellipse(120, 50, size2);
+  ellipse(160, 50, size3);
+  ellipse(200, 50, size4);
+}</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>Each circle has its own variable, and we've numbered them. This is not necessarily bad, but it doesn't&nbsp;<strong>scale well</strong>&nbsp;because it is a lot of copy-paste-change-ing of code. We can explore a more dynamic option that will allow us to do more.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Arrays</h2>
+<p>An Array is a&nbsp;<strong>data structure</strong>, meaning it's designed to handle multiple pieces of data, allowing us to have fewer variables cluttering our code.&nbsp; Make the following changes:</p>
+<p>1) Replace all the Global Variables with a&nbsp;<strong>single</strong> variable names&nbsp;<strong>sizes</strong>. It is responsible for an entire collection of sizes instead of just one.</p>
+<pre> let sizes;</pre>
+<p>2) In the setup function initialize&nbsp;<strong>sizes</strong> to be an array of the desired values.</p>
+<pre>sizes = [20,12,45,18,32];</pre>
+<p>This is a quick way of creating an array, known as an array&nbsp;<strong>literal</strong> because you literally know <strong>all</strong> the values that your want when you create it.&nbsp;</p>
+<p>The&nbsp;<strong>sizes&nbsp;</strong>variable itself is a container for many variables</p>
+<p>&nbsp;</p>
+<p>3) Since&nbsp;<strong>sizes&nbsp;</strong>now refers to the container for <strong>all</strong> the values, but in the draw function we need to access all the <strong>individual</strong> values for drawing. When an array is created, each location is put at a certain&nbsp;<strong>index</strong>, starting with 0. You can use&nbsp;<strong>square-brackets</strong>&nbsp;to access a value from the array.</p>
+<p>The first value is at index 0, so it is&nbsp;<strong>sizes[0]</strong>, the second value is&nbsp;<strong>sizes[1],</strong> and so forth.</p>
+<p>Go to where the ellipses are being drawn in the draw function. Right now they refer to the old variables size0, size1, etc.&nbsp; Modify each of them to access a different location in the sizes array. The first one should change to:&nbsp;</p>
+<pre>ellipse(40, 50,<strong> sizes[0]</strong>);</pre>
+<p>&nbsp;Complete the other four and run the sketch again. You'll know if you've used the array properly if the same ellipses as before pop up.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+
+  
+  
+ 
+<br><br><hr>
+  <h2>Dynamic Indexing</h2>
+<p>The previous demonstration didn't use arrays in a way that is too beneficial, it consolidated all of the values into a single variable but replacing size0 with size[0] isn't a game changer.</p>
+<p>Open the Indexed Circles workspace</p>
+<pre>let sizes;
+
+function setup() {
+  createCanvas(100, 100);
+  strokeWeight(2)
+  sizes = [20,12,45,18,32];
+}
+
+function draw() {
+  background(220);
+
+  ellipse(width/2,height/2, sizes[0]);
+}</pre>
+<p>The global variable is the same array of values as before, but this time we're only drawing a single circle with&nbsp;<strong>size[0]</strong>&nbsp;as the size. Looking at index 0 of the array we can see a 20, and running the sketch should confirm that it displays a circle that is 20 wide.&nbsp; Arrays are useful because the index that you provide can be a&nbsp;<strong>variable</strong>&nbsp;that changes states as your program runs.</p>
+<p>Add a variable named&nbsp;<strong>index</strong>, and initialize it to&nbsp;<strong>0</strong>&nbsp;in the setup function.&nbsp; After that go to the draw function and change&nbsp;<strong>size[0]&nbsp;</strong>to&nbsp;<strong>size[index]</strong>.&nbsp;</p>
+<p>Since index is 0, running the sketch should give you the same 20px circle as before, but if you change the initialization of index to be&nbsp;<strong>1</strong>, the width will be <strong>size[1]</strong>, which is&nbsp;12px (the second value in the array).</p>
+<p><br />The use of variables as indices is what makes arrays powerful.</p>
+<p>&nbsp;</p>
+<p><strong>Index Cycling on Mouse Press</strong></p>
+<p>Now that you have a sketch where the size of the circle is based on the index variable, add a mousePressed() function to your sketch that will increase the index variable each time it's run.&nbsp; This will cause the circle to change to the next size when we click.&nbsp;</p>
+<p>But increasing the index will eventually go beyond the boundaries of the array. If you run your program and click enough, it will eventually disappear. When you as an array for a value that's out of range, it gives you&nbsp;<strong>undefined&nbsp;</strong>to use as your size.</p>
+<p>To have it infinitely cycle, make the index&nbsp;<strong>wrap around</strong> as well. The largest possible index should be 4, so use an if statement that will help the index go back to zero once it's been incremented past 4.</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  
+  
+<br><br><hr>
+  
+  
+  
+  <h2>'Murica Cycle</h2>
+<h3><strong><iframe src="https://s3-us-west-1.amazonaws.com/srhs-site-sacco/javascript/demos/arrays/murica_cycle/index.html" width="100" height="100" loading="lazy" data-mce-fragment="1"></iframe></strong></h3>
+<p>&nbsp;</p>
+<p><strong>Fun Fact:</strong><span>&nbsp;</span>We usually&nbsp;<strong>fill</strong><span>&nbsp;</span>or&nbsp;<strong>stroke</strong><span>&nbsp;</span>with three numbers, but there are a few Strings that we can use to quickly make some of the basic colors.</p>
+<p>&nbsp;</p>
+<p>Open the Cycling Colors workspace:</p>
+<pre>function setup() {
+  createCanvas(100, 100);
+  strokeWeight(2)
+}
+
+function draw() {
+  background(255);
+
+  fill("red");
+  ellipse(width/2,height/2, 90);
+}</pre>
+<p>The String "red" is translated into 255,0,0 behind the scenes to make it easy for us.</p>
+<p>&nbsp;</p>
+<p>Your job will be two use this to your advantage to make a sketch that cycles through the colors "red" "white" and "blue".&nbsp;</p>
+<p>To accomplish this, you will need to have two global variables: an array with the value ["red", "white" ,"blue"] assigned to it, and an&nbsp;<strong>index</strong><span>&nbsp;</span>variable to track your current position in the array. Use the two variables to help decide the&nbsp;<strong>fill</strong><span>&nbsp;</span>of the ellipse.</p>
+<p>Instead of increasing the index on mouse press, do it at the end of the draw function. This will go very fast until you drop the frame rate (unless you are Xtreme and like the speed).</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+<br><br><hr>
+  
+  
+  
+  <h2>Animating</h2>
+<p>When attempting to animate character with images, you will need to represent each frame of animation with its own image. The challenge is deciding which image to display and when. Again we can use the structure of arrays to help us.</p>
+<p>Open the Animating Images workspace</p>
+<p>There you will be met with three images being loaded into variables. The starting code is there to show you how to load images into variables and then drawing them, but we will be making lots of changes.</p>
+<p><img title="" src="images/marios.png" alt="" />
+  </p>
+<p>The three images being loaded are three frames of animation that would make Mario walk when animated. They're currently displayed side-by-side.</p>
+<p>&nbsp;</p>
+<p>Our animation strategy will involve creating an array with the frames that we want to see&nbsp; in the order that we want to see them animated. From there we can use a cycling strategy to show a different image in each frame.</p>
+<p>&nbsp;</p>
+<p><strong>Create a Global Variable named&nbsp;runImages</strong><br />The purpose of this is to have the same images that are already being loaded, but in an array and in a specific order. In the setup function,&nbsp;<strong>after you've loaded run0, run1, and run2</strong>,&nbsp;<br />assign the following array to the runImages variable.</p>
+<pre>runImages = [run0,run1,run2,run1];</pre>
+<p>Notice that run1 appears twice. It is the leg-state that is in between the running and standing, so it has to happen between each frame.</p>
+<p>We haven't actually created any new information, we're just organizing our images a little bit better.</p>
+<p>&nbsp;</p>
+<p><strong>Draw a Single Image from the Array</strong></p>
+<p>The draw function currently draws three different images around the screen. Change that function so that it only draws a single image,&nbsp;<strong>runImages[0]</strong>, which should be the 'run0' image.</p>
+<p>Run your code to make sure that the appropriate image appears, then change to&nbsp;<strong>runImages[1]</strong> and make sure that a different image appears.</p>
+<p><br />&nbsp;<img src="images/mario_run.gif" alt="mario_run.gif" width="80" height="160" /></p>
+<p><strong>Cycling</strong><strong> Images</strong></p>
+<p>Now we need to cycle to a different image once per frame.&nbsp; Like we've been doing, create a number that will represent the index of the image that we want to display. At the end of each draw cycle, that index should be incremented and wrapped around to zero when appropriate, causing an infinite cycle of Marios.</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+<br><br><hr>
+  
+  <h2>Random Array Choices: Rock Paper Scissors</h2>
+<p>Copy the following into your project:</p>
+<pre>let choices;
+let index;
+
+function setup() {
+  createCanvas(400, 100);
+  textAlign(CENTER, CENTER);
+  textSize(32);
+
+  choices = ["Rock", "Paper", "Scissors"];
+  index = -1
+}
+
+function draw() {
+  background(220);
+  if (index == -1) {
+    text("Click to Play", width / 2, height / 2);
+  } else {
+    text("I choose " + choices[index], width / 2, height / 2);
+  }
+}
+
+function mousePressed(){
+
+}</pre>
+<p>This is the beginning of a basic rock-paper-scissors game. Notice that the variables are an array representing the choices, and an index to represent the choice.</p>
+<p>What's strange is that the index variable&nbsp;is&nbsp;<strong>initialized</strong> to -1. This is not a valid index to use in the array, but if you look at the if statement in the draw function you'll see that it is a special value that's being looked for. When index is -1, the text "Click to Play" is displayed. Any other value for index will display that location's String.</p>
+<p>Test out this function a few times with a different index each time to see the four different messages that can be displayed.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Picking a Random Index:</h4>
+<p>When the mouse is pressed, we want the program to make a random choice. The way that this sketch is designed means that the choice is tied to the value of&nbsp;<strong>index</strong>. We need to assign a random value to the index variable, which will cause it to display a different message. One attempt would be to add the following to the mousePressed() function:</p>
+<pre>index = random(3)   //random number less than 3</pre>
+<p>This is a good attempt, but it makes a crucial mistake. Running the program should confirm that pressing the mouse does not function properly. The issue is that random(3) will return a&nbsp;random decimal in the range: 0 - 2.99999. The problem is that index needs to be an&nbsp;<strong>integer value</strong>&nbsp;like 0, 1, or 2, but instead it will be random decimals like:&nbsp;1.2957392, 0.006845, or 2.8701. Since these are not whole numbers, choices[index] doesn't know what to return and you get&nbsp;<strong>undefined</strong>.</p>
+<p>&nbsp;</p>
+<h5>Use floor() to help you get a random&nbsp;<strong>Integer</strong></h5>
+<p>One common programming function is the&nbsp;<strong>floor()</strong>&nbsp;function, which is similar to a rounding function, except it will always round down. Its opposite is the ceiling function that always rounds&nbsp;<em>up</em>. The benefit of putting a random number through this function is that it will always produce an integer value:&nbsp;<strong></strong></p>
+<p><strong><iframe style="background-image: url('/template/img/iframe.gif');" src="demos/random_floor/index.html" width="330" height="160" loading="lazy"></iframe></strong></p>
+<div class="lrn_question">
+    <div class="lrn_stimulus lrn_clearfix">
+        <div id="stimulus-7e2e5baa-1273-4015-bd38-1643b742a537_3ef8b132196c62639bb30ae2c4cd6169" class="lrn_stimulus_content lrn_clearfix">
+            <p><strong>Be Careful</strong></p>
+            <p>Notice that this example has a random(5), but the largest number returned would be 4.999. This means that 5 will never be a returned value. Instead the numbers 0 through 4 are generated.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <h4>Fixing mousePressed()</h4>
+            <p>We can use the trick above to help us choose a random integer for index to be:</p>
+            <pre>index = floor( random(3) ) //random INTEGER less than 3
+</pre>
+            <p>Now running the sketch should allow a random Rock, Paper, Scissors choice to appear when you click the canvas.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <h4>Expanding our Options</h4>
+            <p><strong>...Lizard Spock</strong></p>
+            <p>The five choice version of Rock-Paper-Scissors adds the choices Lizard and Spock to the mix. Change your initialization of choices to be:</p>
+            <pre>choices = ["Rock", "Paper", "Scissors", "Lizard", "Spock"];</pre>
+            <p>If you run your program now, you'll see that our code is not that adaptable. You can click as much as you want and you will never come across Lizard or Spock.&nbsp; This is because our code relies a little bit on&nbsp;<strong>hard coded</strong><span>&nbsp;</span>values, which tend to work for one scenario, but fail if a little bit changes.</p>
+            <p>The problem is that we haven't changed the range of our random numbers. Previously we had chosen&nbsp;<strong>3</strong><span>&nbsp;</span>because that's how many values the array had. Now that there are&nbsp;<strong>5</strong><span>&nbsp;</span>values, that should be the number used.&nbsp; Make that change and run the sketch and you'll see that it now functions properly.</p>
+            <p>&nbsp;</p>
+            <p><strong>Writing Robust Code</strong></p>
+            <p>The hard coded value means that we always have to change our code in multiple places when changing the number of choices in our array. Instead of manually counting up the number of values and typing a 3 or a 5, the random number could use the following:</p>
+            <pre>index = floor( random( <span><strong>choices.length</strong></span> ));  </pre>
+            <p>&nbsp;</p>
+            <p><strong>choices.length?</strong></p>
+            <p>Arrays are powerful pieces of data, they keep track of their own length for you. To access what the length is, you use&nbsp;<strong>dot</strong><strong><span>&nbsp;</span>notation</strong>. The line of code&nbsp;<strong>choices.length</strong>, means that we're trying to access the&nbsp;<strong>length</strong><span>&nbsp;</span>variable that belongs to the&nbsp;<strong>choices</strong><span>&nbsp;</span>variable. This is a confusing way of saying 'I don't know how many values there are, let's ask the array'.&nbsp;</p>
+            <p>The result is that we no longer have to manually change the random number statement to fit our choices. If you wanted to add "Sacco" to the list (obviously he beats all others), then all you have to do is change the array.</p>
+            <pre>choices = ["Rock", "Paper", "Scissors", "Lizard", "Spock", "Sacco"];</pre>
+            <p>Since the code is designed in a way that the random number's range is automatically tied to the length of the array, no changes need to be made to the random statement.&nbsp;While this doesn't necessarily make the original program any better, choosing to put&nbsp;<strong>choices.length</strong><span>&nbsp;</span>instead of&nbsp;<strong>3</strong><span>&nbsp;</span>the first time is a more&nbsp;<strong>elegant</strong><span>&nbsp;</span>solution.</p>
+            <p>&nbsp;</p>
+            
+        </div>
+    </div>
+</div>
+  
+  </body>
+</html>

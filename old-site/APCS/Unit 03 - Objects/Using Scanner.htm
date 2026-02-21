@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0142)https://dl.dropboxusercontent.com/u/7648734/1314%20Site/CS12/Unit%201%20-%20Beginning%20Java%20and%20Binary/User%20Input%20with%20Scanner.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>User Input with Scanner</title>
+<style type="text/css">
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style7 {
+	color: #C0C0C0;
+}
+</style>
+<style>[touch-action=none]{ -ms-touch-action: none; touch-action: none; }[touch-action=pan-x]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action=pan-y]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action=scroll], [touch-action="pan-x pan-y"], [touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }
+.auto-style9 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style></head>
+
+<body>
+
+<p class="auto-style4">Using Scanner</p>
+<p class="auto-style6">Scanner is an object that is an alternative to 
+JOptionPane.&nbsp; It allows you to communicate with the user purely through the 
+terminal.</p>
+<p class="auto-style6">Copy and paste the class below into a BlueJ project</p>
+<pre>import java.util.Scanner;
+public class ScannerDemo
+{
+    public static void main()
+    {
+        <span class="auto-style7">//Construct a new Scanner Object</span>
+        <strong>Scanner scan = new Scanner(System.in);</strong>
+        
+        <span class="auto-style7">//Prompt the user to enter his name</span>
+        <strong>System.out.println("Enter your name ");</strong>
+        
+        <span class="auto-style7">//Call the nextLine method to grab the next String the user types
+        //Store that String in a local String variable named result</span>
+        <strong>String result = scan.nextLine();</strong>
+        
+        <span class="auto-style7">//Print out a greeting, using the name that was just entered</span>
+        <strong>System.out.println("Hello "+result+", how are you?");</strong>
+        
+    }
+    
+        
+}
+</pre>
+<p class="auto-style6">There are three important parts:</p>
+<p class="auto-style6">1) importing java.util.Scanner;</p>
+<p class="auto-style6">2) Constructing the Scanner object. Don&#39;t forget the
+<strong>System.in.</strong>&nbsp; It represents the terminal window.</p>
+<p class="auto-style6">3) Calling that object&#39;s nextLine method when you need to 
+get a String from the user.&nbsp; The program will pause an wait for you to type 
+something and hit <strong>enter</strong> in the terminal.</p>
+<p class="auto-style6">&nbsp;</p>
+<p class="auto-style6">ALWAYS PROMPT!</p>
+<p class="auto-style6">Since we are working only with the terminal, it is 
+important that you print out some sort of prompt before you call the nextLine 
+method.&nbsp; Otherwise the terminal won&#39;t appear and the computer will seem to 
+be stuck.&nbsp; It won&#39;t let you compile or run anything else.&nbsp; In this 
+case you must manually restart BlueJ&#39;s Virtual Machine.</p>
+<p class="auto-style6">&nbsp;</p>
+<p class="auto-style6">&nbsp;</p>
+<p class="auto-style6">&nbsp;</p>
+<p class="auto-style9"><strong>Assignment:</strong></p>
+<p class="auto-style6">Go back to the PigLatin Assignment and modify its main method to use a Scanner object to take in from the user instead of the JOptionPane.  Don't forget that with objects, they must be CONSTRUCTED first ( the word new is how you construct)</p>
+<p class="auto-style6">&nbsp;</p>
+
+
+
+
+</body></html>

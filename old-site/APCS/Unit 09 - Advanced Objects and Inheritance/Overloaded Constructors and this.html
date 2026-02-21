@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Overloaded Constructors and this</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	font-size: medium;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Overloaded Constructors and <span style="color:blue">this</span></h2>
+<p>In the Comparable Interface project we used the Circle class combined with the CircleViewer in order to show that the Circles were being sorted.  The only constructor that the Circle class had took in a location for the center of the Circle.  That constructor would randomize the radius and the Color.
+</p>
+<pre>
+//Construcs a Circle with a specific x and y while randomizing the radius and Color
+public Circle(int x, int y)</pre>
+
+<p>This served its purpose just fine, but sometimes you want objects that can construct themselves in different ways.  Our goal today will be to <strong><span class="auto-style1">overload</span></strong> Circle's constructor.  This means we are going to add more constructors with the same name, but with different parameters. </p>
+ <br/>
+
+<p>Go to the Circle class and add a SECOND constructor, which takes in no parameters.  This constructor should randomize everything in the Circle.  The color should be random as it was before, the x and y should be random between 0 and 500, and the radius should be randomized between 30 and 60.  There will now be two separate constructor headers:</p>
+
+<pre>
+//Construcs a Circle with a specific x and y while randomizing the radius and Color
+public Circle(int x, int y)
+
+<pre>
+//Construcs a Circle with a random x and y while randomizing the radius and Color
+public Circle()</pre></pre>
+
+
+
+
+
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>How does Java know which constructor to call?</strong></p>
+<p>When overloading Constructors or methods, they must take in different 
+parameters.&nbsp; You cannot have two constructors with the same parameters ( 
+public Circle(int x, int y) and public Circle( int x, int y) are duplicate 
+constructors ).&nbsp; The choice of which method is run is determined by simply 
+passing in the necessary parameters of the right type.</p>
+<p>At the moment there is one static method named main in the 
+CircleViewer class.&nbsp; Read through the method and you&#39;ll see that each 
+Circle is constructed using new Circle(250,250).&nbsp; Since the parameters are 
+two ints, the constructor that runs is the one with the header public Circle(int 
+x, int y).&nbsp; The other constructor is simply ignored and not used.</p>
+<p>Copy the following method to the CircleViewer class and notice that the only 
+change that&#39;s been made is that the Circles are construced with no parameters ( 
+new Circle() ).&nbsp; This means that the Circles will be constructed using the 
+original constructor that randomizes the x and y, along with randomizing the 
+radius to a smaller range.</p>
+<pre>public static void randRunner()
+{
+   Circle[] circs = new Circle[50];
+
+   for(int i=0; i&lt;circs.length; i++)
+   {
+      circs[i] = new Circle();
+   }
+
+   CircleViewer c = new CircleViewer(circs);
+   c.setVisible(true);
+}</pre>
+<p>Run this method and you should see the familiar Circle that are all over the place, all because we changed the parameters a little bit.</p>
+<p><img src="images/img6E.jpg" /></p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>More Overloading</strong></p>
+<p>Let&#39;s add another constructor to Circle.&nbsp; Our goal with this one will be 
+that it should act almost the same as the <strong>default constructor</strong> ( 
+the constructor with no parameters ) except that the user should be able to pass 
+in whichever red, green, and blue values they want the Circle to be.&nbsp; It 
+should have the following header:</p>
+<pre>//Constructs a Circle with a random x,y and radius.  The color of the Circle will have the red green and blue values as the parameters
+public Circle(int red, int green, int blue)</pre>
+<p>Fill in the code to make this constructor act as described.&nbsp; Remember 
+that if this constructor is run, none of the others will be run, so make sure 
+you assign values to all the instance fields.</p>
+<p>Add the following method to the CircleViewer class.&nbsp; Notice again that 
+the only thing that has changed is the parameters of the constructor.&nbsp; Now 
+there&#39;s three ints, which represent the color that all the Circles should be.</p>
+<pre>public static void colorRunner()
+{
+   Circle[] circs = new Circle[50];
+
+   for(int i=0; i&lt;circs.length; i++)
+   {
+      circs[i] = new Circle(255,150,80);
+   }
+
+   CircleViewer c = new CircleViewer(circs);
+   c.setVisible(true);
+}</pre>
+<p>&nbsp;</p>
+<p>
+<img src="images/img76.jpg" /></p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1">Let&#39;s use <strong>this</strong></p>
+<p>If you&#39;re like most students, you probably have a Circle constructor that 
+looks like the following:</p>
+<pre>public Circle(int tmpX, int tmpY)</pre>
+<p>This is a technique that Mr. Sacco taught you earlier in the year as a way to 
+avoid shadowing, but it&#39;s not classy to have such ugly variable names in the 
+parameter.&nbsp; A much cleaner version would have the following:</p>
+<pre>public Circle(int x, int y)</pre>
+<p>The problem that occurs is that your instance fields are probably named 
+exacly the same as the parameters.&nbsp; An incorrect attempt to set the 
+instance fields might look like the following:</p>
+<pre>x = x;
+y = y;</pre>
+<p>but this will have<strong> no effect </strong>on the instance fields x and y, 
+it will only take from the parameter variable and assign to the same temporary 
+variable.</p>
+<p>The keyword <strong>this</strong> is a way of forcing Java to look at this 
+particular instance of the object.&nbsp; When put before a variable it means 
+that we&#39;re specifically talking about the instance fields.</p>
+<pre>this.x = x;
+this.y = y;</pre>
+
+<p>this allows us to name our parameters and instance fields the same, logical 
+names and maintain the ability to change both.</p>
+<p>Change the two constructors that take in parameters so that they have 
+parameteers x, y or red, green, blue and then use <strong>this </strong>to set 
+the instance fields.&nbsp; Run each of the runners again to make sure that you 
+get the same results as before after the modification.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1">A Different Use of <strong>this</strong></p>
+<p>Right now you should have two constructors that look similar to the 
+following:</p>
+<pre>public Circle()
+{
+   x = (int)(Math.random()*500);
+   y = (int)(Math.random()*500);
+   radius = (int)(Math.random()*31+30);
+        
+   color = new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
+}
+
+public Circle(int red, int green, int blue)
+{
+   x = (int)(Math.random()*500);
+   y = (int)(Math.random()*500);
+   radius = (int)(Math.random()*31+30);
+
+   color = new Color(red,green,blue);
+}</pre>
+<p>Ugh, look at all that repeated code.&nbsp; The first three lines randomize 
+the x,y and radius in exactly the same way.&nbsp; Let&#39;s use some trickery to 
+make our lives easier.</p>
+<p>Imagine the second constructor as a two step process:</p>
+<p>1)&nbsp; Do EXACTLY the same as the first constructor<br />
+2)&nbsp; Replace the randomized red, green, and blue with the parameters</p>
+<p>Since the only difference between the two constructors was the red, green, 
+and blue values.&nbsp; Following this procedure would produce the same result as 
+what we currently have.</p>
+<p>A second use of the keyword <strong>this</strong> is actually to 
+automatically call and run a different constructor without having to retype all 
+of the code.&nbsp; You follow the word <strong>this</strong> with parentheses 
+just as you would if it were a method.&nbsp; Change your three-int constructor 
+to be the following:</p>
+<pre>public Circle(int red, int green, int blue)
+{
+   //call the no argument constructor, randomizing x, y, radius, red, green, and blue
+   this();
+
+   //since red, green, and blue were supposed to be specific, replace them with the parameters
+   color = new Color(red,green,blue);
+}</pre>
+<p>This saved us so much time!&nbsp; All three lines!!!&nbsp; While it&#39;s not 
+necessary, being clever with the use of <strong>this</strong> can be useful when 
+trying to make your objects work.</p>
+<p>The constructor that you call using this will depend on the parameters that 
+you give.&nbsp; If I wanted the above to be centered at 250,250, I would have 
+called this(250,250) to start.</p>
+<p class="auto-style1">THE ONE RULE OF <strong>this</strong></p>
+<p>The only requirement of using <strong>this</strong> is that if you want to 
+use it to call a constructor it MUST be the first line.&nbsp; No Exceptions.</p>
+<p>&nbsp;</p>
+<hr>
+
+<p class="auto-style1"><strong>The Gray Circles:</strong></p>
+<p>A color is gray if the red, green, and blue values are all the same number.&nbsp;&nbsp; 
+Create a constructor with the following header:</p>
+<pre>//constructs an object with a random x, y, and radius.  All three color values should be set to the parameter
+public Circle(int grayVal)</pre>
+
+<p>We could use several lines of code to write this constructor, but that&#39;s a 
+lot of work.&nbsp; Using the <strong>this</strong> trick you can write this 
+using only <strong>one</strong> <strong>line of code</strong>.&nbsp; Look at the 
+three constructors you have available to you and decide which one you want to 
+call.</p>
+<p>Test it out with the following runner, which you can see only passes one int 
+in as the value.</p>
+<pre>public static void grayRunner()
+{
+   Circle[] circs = new Circle[50];
+
+   for(int i=0; i&lt;circs.length; i++)
+   {
+      circs[i] = new Circle(200);
+   }
+
+   CircleViewer c = new CircleViewer(circs);
+   c.setVisible(true);
+}</pre>
+<p>
+<img src="images/img92.jpg" /></p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>Overloaded Methods</strong></p>
+<p>Methods can be overloaded in the same way that constructors are.&nbsp; They 
+should have the same exact name, but different parameters.</p>
+<p>Add a method with the following header to the Circle class:</p>
+<pre>public void setLocation(int x, int y)</pre>
+<p>The purpose of the method is to set the x and y of the Circle to the 
+parameters.&nbsp; Add the two lines of code necessary to make this happen.</p>
+<p>&nbsp;</p>
+<p>While passing in an x and y for the location is fine, it&#39;s possible that the 
+client might want to use a Point object instead.</p>
+<p>Add a method with the following header to the Circle class:</p>
+<pre>public void setLocation(Point p)</pre>
+<p>This method has the same exact purpose, it just takes in an x and y bundled 
+as a Point object.&nbsp; To complete this method, use only one line of code. 
+Hint:&nbsp; the one line that you need is a call to the <strong>other</strong> 
+setLocation method.</p>
+<p>&nbsp;</p>
+<p>To test, add the following method to the CircleViewer class.&nbsp; Its 
+purpose is to arrange a bunch of Circles along a diagonal using their radius.&nbsp; 
+The math is not important, but if you look at the method you&#39;ll notice that the 
+first half are set using one setLocation method (using an x and y), while the 
+second half are set using the other setLocation method (using a Point)</p>
+<pre>public static void diagonalCircles()
+{
+
+    Circle[] circs = new Circle[300];
+
+    for(int i=0; i &lt; circs.length; i++)
+    {
+       circs[i] = new Circle(0,0);
+    }
+
+    Sorter.selectionSort(circs);
+
+    for( int i = 0 ; i &lt; circs.length; i++)
+    {
+
+      int x = (circs[i].getRadius()-20)*500/180;
+      int y = x;  //diagonals are on the x-y line
+
+      if( i &lt; circs.length/2)
+      {
+          circs[i].setLocation(x,y);
+      }
+      else
+      {
+          Point p = new Point(x,y);
+          circs[i].setLocation(p);
+      }
+ 
+   }
+
+   CircleViewer c = new CircleViewer(circs);
+   c.setVisible(true);
+}</pre>
+<p>
+<img src="images/imgA2.jpg" /></p>
+<p>
+&nbsp;</p><hr>
+<p class="auto-style1">
+<strong>An Overloaded Method We Already Use:</strong></p>
+<p>
+An example of a highly overloaded method is System.out.println.&nbsp; The idea 
+is that it prints out the parameter, but many times that isn&#39;t a String.&nbsp; 
+It needs to be able to take in ints, doubles, booleans, Objects, etc.&nbsp; We 
+haven&#39;t had to worry about it too much since we just call the same method each 
+time.&nbsp; This is thanks to overloading.</p>
+<p>
+Technically System.out is a PrintStream object.&nbsp; Check out the API <a href="http://docs.oracle.com/javase/7/docs/api/java/io/PrintStream.html">HERE</a> 
+and scroll down to see just how many println methods there are.</p>
+<p>
+&nbsp;</p>
+<hr>
+
+<p class="auto-style1"><strong>Recap:</strong></p>
+<p>- Overloading means having the same method/constructor but with different 
+parameters.&nbsp; Each of the methods acts differently and the one chosen is 
+based on the parameters when called.</p>
+<pre>public Circle()
+public Circle(int x, int y)
+public Circle(int red, int green, int blue)
+public Circle(int grayValue)</pre>
+
+<p>-&nbsp; <strong>this</strong> can be used to make sure that the variable 
+you&#39;re referencing is an instance field.&nbsp; It&#39;s the ultimate protection 
+against shadowing.</p>
+<p>- <strong>this</strong> can be used within a constructor to first run another 
+constructor.&nbsp; It is useful when two constructors act in similar ways.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - If this is used, it must be the first line.&nbsp; 
+The compiler will make sure of this.</p>
+<p>&nbsp;- methods can also be overloaded using the same strategy&nbsp;</p>
+<pre>public void setLocation(int x, int y)
+public void setLocaiton(Point p)</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

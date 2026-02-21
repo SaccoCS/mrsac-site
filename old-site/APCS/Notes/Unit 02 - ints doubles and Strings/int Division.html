@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>int Division</title>
+
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p,pre {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h1>int Division</h1>
+<p>When dealing with ints, much of the math works the way that we expect it to.&nbsp; 
+Consider the following snippet of code:</p>
+<pre>int i = 15;
+System.out.println( i );
+i = i + 5;
+System.out.println( i );
+i = i * 2;
+System.out.println( i );
+i = i - 3;
+System.out.println( i );
+</pre>
+<p>The output for this would be:<br />
+15<br />
+20<br />
+40<br />
+37</p>
+<p>&nbsp;</p>
+<p>The weird stuff occurs when dividing ints.&nbsp; Consider the following:</p>
+<pre>int a = 35;
+int b = 3;
+System.out.println( a/b );</pre><p>When we think about the output, we have to be 
+careful.&nbsp; The result of dividing two ints must be an int.&nbsp; In real 
+math, the answer would be 11.6666666666, but there is a rule that if you do math 
+with two ints, the result must be an int.&nbsp; Since ints can only hold whole 
+numbers, the result of 35/3 is simply 11.</p>
+<p>In mathematical terms, int division only results in the <strong>quotient</strong></p>
+<h3>This means you must be very careful:</h3>
+<p>Consider the following code, which attempts to find the area of a triangle 
+when given the base and the height:</p>
+<pre>String input = JOptionPane.showInputDialog("Please enter the base of the triangle");
+int base = Integer.parseInt(input);
+
+input = JOptionPane.showInputDialog("Please enter the height of the triangle");
+int height = Integer.parseInt(input);
+
+int area = 1/2*base*height;
+
+</pre>
+<p>Even though the formula looks right, doing it this way will <strong>guarantee 
+a zero</strong> in the area variable.&nbsp; This is because the first part of 
+the formula that is calculated is the 1/2.&nbsp; Since 1 and 2 are both ints, 
+dividing them results in a 0.&nbsp; From there it doesn&#39;t matter what you 
+multiply by, because multiplying by the zero causes the result to always be 0.</p>
+<p>It&#39;s worth noting that there is no perfect way to calculate the area of a 
+triangle since even integer values for a base and height could give a 
+non-integer area.&nbsp; If we work the equation around a little bit, we can get 
+closer than the guaranteed 0 that we previously were calculating.</p>
+<pre>int area = base*height/2;</pre>
+<p>Note that this time we are first doing the multiplication of the base and the 
+height.&nbsp; This should give us a number larger than 1 to divide, thus solving 
+the issue from before.&nbsp; It doesn&#39;t give you a perfect area because any 
+decimals will be lost, but it&#39;s interesting to see how the order that you 
+perform math in can change your result.</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

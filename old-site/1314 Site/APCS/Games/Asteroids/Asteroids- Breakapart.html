@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Break Apart</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Breaking the Asteroids</p>
+<p class="auto-style2">As we have the game right now, all the Asteroids just 
+suddenly disappear when they&#39;re struck by a Bullet.&nbsp; Previously we&#39;ve set 
+up the Asteroids to have one of three sizes.&nbsp; The intention is that when a 
+LARGE Asteroid is hit, it creates two MEDIUM Asteroids.&nbsp; A MEDIUM Asteroid 
+generates two SMALL Asteroids.&nbsp; The SMALL Asteroids just disappear like 
+they do now.</p>
+<p class="auto-style2">First we&#39;re going to need to have another way of 
+constructing the Asteroids with information from another Asteroid.&nbsp; Add 
+another constructor to the Asteroid class that takes in 4 things: doubles for x 
+and y, an int for the size, and a Picture.&nbsp; Use them to set all the 
+instance fields, using inherited methods when appropriate.&nbsp; The size value 
+must be put into the width <strong>and</strong> the height.</p>
+<p class="auto-style2">Right now there is already a getX,getY,and getWidth 
+method.&nbsp; Add one more method to the Asteroids class named getPicture, which 
+will return the instance field.&nbsp; This will be used to make sure that the 
+two Asteroids that break apart are not different colors.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>AsteroidsBoard:</strong></p>
+<p class="auto-style1"><span class="auto-style3">Go to the bulletsVSAsteroids 
+method.&nbsp; At the point where you remove the bullets and Asteroids before you 
+return, check the size of the Asteroid being returned (getWidth OR getHeight is 
+the size).&nbsp; If that size is Asteroid.LARGE, then extract the x,y, and 
+Picture out of the removed Asteroid and construct </span><strong>
+<span class="auto-style3">two</span></strong><span class="auto-style3"> new 
+Asteroids, passing those values in as parameters to the new constructor.&nbsp; 
+The only parameter that isn&#39;t exactly the same as the&nbsp; original Asteroid is 
+the size, which should be set to Asteroid.MEDIUM.&nbsp; Add each of those 
+Asteroids to the ArrayList so that they are now a part of the program.</span></p>
+<p class="auto-style2">Create a second if statement that checks to see if the 
+size is Asteroids.MEDIUM and adds two SMALL Asteroids.&nbsp; Do not create a 
+third if statement.&nbsp; The SMALL ones just disappear.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Test out your program.&nbsp; Hopefully the larger 
+Asteroids break apart into smaller ones when they are shot.</p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

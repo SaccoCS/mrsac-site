@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Math methods</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Math methods</h2>
+					<p>The Math class is a library of methods that are useful for performing math operations.  Each method is static, meaning that you use the class name when calling the methods i.e. <span class = "code">Math.sqrt(num)</span> </p>
+
+				</div>
+				
+				<div class = "note-div">
+					<h3>Absolute Value: abs</h3>
+					<p class = "code" style = "font-size:16px">public static double abs(double val)</br>
+					public static int abs(int val)</p>
+					<p>The abs method is used to compute the absolute value of a number.  There are two method headers above because there is actually an abs method designed to take in each type of data.  This means that if you give the method an int, it will return an int, giving a double will return a double.</p>
+					<p></p>
+					<div class = "code-block">
+						<p>Math.abs(3) --> 3<br/>
+						Math.abs(-5) --> 5</br/>
+						Math.abs(-9.9) --> 9.9 
+						</p>
+					</div>
+					<hr/style = "clear:left">
+					<h4>Example</h4>
+					<p>In a normal curve, about 68% of the data falls within one standard deviation of the mean.  If the mean is 10 and the standard deviation is 2, then the values within one standard deviation include 8,9,10,11,12.  If you're given the mean along with a sample value, you can tell how far apart they are using absolute values.</p>
+					 <p style = "color:black">&#x7c;mean - value&#x7c; = distance</p>
+					 <p>The absolute value is to make sure that you don't get a negative distance.  Once you have the distance, you can tell if it's less than the standard deviation.</p>
+					 
+					 <div  class="code-block">
+						<p>double mean = 10;<br/>
+						double value = <span style = "color:#aaa">//some value from the user.</span></br>
+						double distance = Math.abs(mean - value);</p>
+						
+					 </div>
+					 <p style = "clear:left">From here you could use if statements to determine if the value is within a standard deviation.</p>
+				</div>
+				
+				<div class = "note-div">
+					<h3>Square Root: sqrt</h3>
+					<p class = "code" style = "font-size:16px">public static double sqrt(double val)</p>
+					<p>The sqrt function is used to calculate the square root of a value.  It takes in a double and it returns its square root.</p>
+					<div class = "code-block">
+						<p>Math.sqrt(2) --> 1.4142135623730951<br/>
+						Math.sqrt(4) --> 2.0</br/>
+						Math.sqrt(9.5) --> 3.082207001484488<br/>
+						Math.sqrt(16) --> 4.0</br/>
+						</p>
+					</div>
+					<p style ="clear:left">This method says that it only takes in a double, but don't forget that all ints are accepted as doubles.</p>
+					<hr/>
+					<h4>Example</h4>
+					<p>One special right triangle is the 45-45-90 triangle.  If one of the legs of a 45-45-90 has a value o x, you can calculate the hypotenuse of the triangle with x&radic;<span style="text-decoration: overline">2</span>.</p>
+					<div  class="code-block">
+						<p>double leg = <span style = "color:#aaa">//some value from the user.</span></br>
+						double hyp = leg*Math.sqrt(2);<br/>
+						System.out.println("The hypotenuse is " + hyp);</p>
+						
+					 </div>
+					 <p style = "clear:left">
+				</div>
+				
+				<div class = "note-div">
+					<h3>Calculating Powers: pow</h3>
+					<p class = "code" style = "font-size:16px">public static double pow(double base, double exp)</p>
+					<p>The power function is for calculating exponents.  There are two parameters that you must provide, a base and an exponent which will be calculated as <span class = "code">base<sup>exponent</sup></span></p>
+					<div class = "code-block">
+						<p>Math.pow(3,2) --> 3<sup>2</sup> --> 9.0<br/>
+						<p>Math.pow(2,10) --> 2<sup>10</sup> --> 1028.0<br/>
+						<p>Math.pow(1,99) --> 1<sup>99</sup> --> 1.0<br/>
+						<p>Math.pow(4,0.5) --> 4<sup>0.5</sup> --> 2.0
+						</p>
+					</div>					
+					<p style = "clear:left">This last calculation shows that in a pinch you can use this function as a substitute for a sqrt if you know about fractional exponents. </p>
+					
+					<h4>pow only returns doubles</h4>
+					<p>The way that the pow method is defined, it will always return a double.  Mathematically, if you only give it whole number values you can expect back a whole number value.  This will happen when using the pow method, but the returned whole number values will still be doubles.  They'll just end in .0.</p>
+					<div class = "code-block">
+						<p>
+						int base = 2;</br>
+						int exp = 3;</br>
+						int power = Math.pow(base,exp); <span style="color:#a00">// <-- Will not compile.  pow returns a double</span>
+						</p>
+					</div>
+					<p style = "clear:left">The code above expects a value like 8, but since we always get a double we actually get an 8.0.  If you're writing a program that needs exponents and you <strong>know</strong> that the result is an int, you could cast it to keep your variables neat.</p>
+					
+					<div class = "code-block">
+						<p>
+						int base = 2;</br>
+						int exp = 3;</br>
+						int power = (int)Math.pow(base,exp); 
+						</p>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

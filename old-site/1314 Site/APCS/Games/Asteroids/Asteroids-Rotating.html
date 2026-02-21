@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Asteroids</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Asteroids:&nbsp; Rotating</p>
+<p class="auto-style4">
+<img class="auto-style2" height="329" src="images/img56.jpg" width="444" /></p>
+<p class="auto-style1"><span class="auto-style3">Previously you used the Sprite 
+class to create an AsteroidSprite that is going to be foundational to the 
+Asteroids game that we&#39;re making.&nbsp; Since the AsteroidsSprite class was
+</span><strong><span class="auto-style3">abstract</span></strong><span class="auto-style3"> 
+it was important to have a DriftingSquare class if we wanted to test it.&nbsp; 
+The hierarchy is getting a little hefty, here&#39;s a quick reminder.</span></p>
+<p class="auto-style2"><strong>The Sprite class:</strong><span class="auto-style2"><br />
+- Primarily concerned with the x,y,width,height, along with the xVector and 
+yVector.</span><br class="auto-style2" />
+<span class="auto-style2">- The Sprite&#39;s bounding Rectangle is an instance 
+field, but the processBoundary method is abstract, meaning taken care of at 
+another level</span><br class="auto-style2" />
+<span class="auto-style2">- update is the driving method, it causes the move and 
+the processBoundary method to be called.</span></p>
+<p class="auto-style2"><strong>The AsteroidSprite class:</strong><span class="auto-style2"><br />
+- Overrides the processBoundary method to move like the sprites do in an 
+Asteroid game.&nbsp; Go out one side, pop back in the other.</span><br class="auto-style2" />
+<span class="auto-style2">- Contains an isActive variable to control the calling 
+of the update method.</span></p>
+<p><span class="auto-style2"><strong>The DriftingSquare class:</strong></span><br class="auto-style2" />
+<span class="auto-style2">- Overrides the paintSelf method so that a 
+DriftingSquare draws a Square centered at x and y</span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>Adding Rotation:</strong></p>
+<p class="auto-style2">You may have noticed that the Squares being drawn by the 
+DriftingSquare class are not rotated at all.&nbsp; Both the Asteroids and the 
+Ship class are going to have to rotate if they&#39;re going to act the way that we 
+want.&nbsp; Now we&#39;re going to modify the <strong>AsteroidSprite</strong> class to have the 
+ability to rotate.&nbsp; Afterwards we will have to do a minor modification to 
+the DriftingSquare class for compilation purposes.</p>
+<p class="auto-style2"><strong>In AsteroidSprite:</strong></p>
+<p class="auto-style2">- Add an int to the instance field that represents the 
+rotation angle that the sprite should be drawn at.</p>
+<p class="auto-style2">- Add a getRotation and setRotation method.</p>
+<p class="auto-style1"><span class="auto-style3">Previously we did </span>
+<strong><span class="auto-style3">not</span></strong><span class="auto-style3"> 
+override the paintSelf method at this level; we let the DriftingSquare override 
+it to draw a square.&nbsp; Now that rotation is in the mix we are going to have 
+to do a little bit of painting work.</span></p>
+<p><span class="auto-style2">Rotating an image is a three step process:</span><br class="auto-style2" />
+<span class="auto-style2">1) Rotate the PaintBrush around the center of the 
+image to be drawn</span><br class="auto-style2" />
+<span class="auto-style2">2) Draw the image</span><br class="auto-style2" />
+<span class="auto-style2">3) Reset the PaintBrush &#39;s rotation so that the next 
+thing to be drawn with it isn&#39;t rotated</span></p>
+<p class="auto-style2">This causes a problem.&nbsp; When we override the 
+paintSelf method, we can rotate and reset the brush, but at this level we still 
+don&#39;t know how the sprite is going to draw itself.&nbsp; We need to use a 
+different abstract method so that any inheriting class can paint itself.&nbsp;
+</p>
+<p class="auto-style2">Add the following abstract method:</p>
+<p class="auto-style2">public abstract void paintSprite(PaintBrush brush);</p>
+<p class="auto-style2">At the lowest level, this method has the same purpose of 
+the original paintSelf method.&nbsp; It will be where the actual drawing occurs.</p>
+<p class="auto-style2">Now we can follow the three steps:</p>
+<p><span class="auto-style2">1) Rotate the PaintBrush around the center of the 
+image to be drawn</span><br class="auto-style2" />
+<span class="auto-style1"><span class="auto-style3">2) </span><strong>
+<span class="auto-style3">Call the paintSprite method</span></strong></span><br class="auto-style2" />
+<span class="auto-style2">3) Reset the PaintBrush &#39;s rotation so that the next 
+thing to be drawn with it isn&#39;t rotated</span></p>
+<p class="auto-style1"><span class="auto-style3">Since we haven&#39;t dealt with 
+rotation before, here&#39;s the paintSelf method that should be in the 
+AsteroidSprite class.&nbsp; It only will compile if your rotation variable is 
+named </span><strong><span class="auto-style3">rotation</span></strong></p>
+<pre>public void paintSelf(PaintBrush brush)
+{
+   brush.rotateAroundPoint(<strong>rotation</strong>,getX(),getY());
+   paintSprite(brush);
+   brush.resetRotation();
+}</pre>
+<p class="auto-style2">Compile your project.&nbsp; The AsteroidSprite class 
+should compile fine, but the DriftingSquare class will now be angry.&nbsp; 
+Previously, paintSelf was an abstract method and paintSprite didn&#39;t exist.&nbsp; 
+Now, paintSelf is not abstract to DriftingSquare and paintSprite is the abstract 
+one.&nbsp; The simple solution is to change the name of the paintSelf method in 
+DriftingSquare to paintSprite.&nbsp; Compile your project again and run it.&nbsp; 
+Since the rotation is 0,&nbsp; the program should look exactly as it did before.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>The RotatingSquare class:</strong></p>
+<p class="auto-style5">
+<img border="1" height="349" src="images/img59.jpg" width="297" /></p>
+<p class="auto-style1"><span class="auto-style3">Now that we&#39;ve set up the 
+ability to rotate our images, it&#39;s time to use it.&nbsp; Create a new class 
+named RotatingSquare which <strong><span class="auto-style3">extends</span></strong><span class="auto-style3"> 
+DriftingSquare.&nbsp; This means that the vectors, colors, and painting are all 
+taken care of.&nbsp; Our job is only to change the rotation as time goes on.&nbsp;
+</span></p>
+<p class="auto-style2">The only instance field that this class needs is an int 
+to represent the rotation speed.&nbsp; This will be the change in rotation that 
+occurs each time the Sprite is updated.&nbsp; For example, if the rotation 
+starts at 0 and the rotation speed is 5, the sprite will first be drawn with a 
+rotation of 0, then move a little and have a rotation of 5, then move a little 
+and have a rotation of 10.&nbsp; This will make it look like it&#39;s spinning.</p>
+<p class="auto-style2">Add a default constructor to the RotatingSquare class.&nbsp; 
+It should first call super(), and then set the rotation speed to a value between 
+3 and 10.&nbsp; Then use the inherited method to set the initial rotation to a 
+random value between 0 and 360.</p>
+<p class="auto-style2">The only thing left to do is make the update method 
+change the rotation.&nbsp; Override update so that it updates as usual, but also 
+increases the rotation variable by however large the the rotation speed is.&nbsp; Don&#39;t forget what variables you 
+have access to at this level.&nbsp; There are many inhererited methods to help 
+you.</p>
+<p class="auto-style1">&nbsp;</p>
+</span>
+<p class="auto-style6"><strong>&nbsp;AsteroidsBoard</strong></p>
+<span class="auto-style3">
+<p class="auto-style1">The last thing to do is modify 
+the AsteroidsBoard so that it loads RotatingSquares instead of DriftingSquares.&nbsp; 
+Because every RotatingSquare IS-A AsteroidSprite, you <strong>
+<span class="auto-style3">don&#39;t</span></strong><span class="auto-style3"> have 
+to change the ArrayList to hold a different (hooray Polymorphism!).&nbsp; Add a 
+method named loadRotatingSquares that is very similar to loadDriftingSquares, 
+then go to the constructor and call the loadRotatingSquares method <strong>
+instead of</strong> the loadDriftingSquares method.</span></p>
+<p class="auto-style2">Compile and run to see if everything worked out.&nbsp; 
+The squares should spin as they move like they did before.</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+
+</style>
+
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Battlers</title>
+</head>
+
+<body>
+
+
+<p></p>
+<p><span style="font-size: 20px;">Battler:</span></p>
+<p>For this inheritance tree we are going to create objects that can &ldquo;battle&rdquo; each other. &nbsp;We&rsquo;ll start with the top of the hierarchy:</p>
+<p><img src="images/Battler.jpg" border="1"/></p>
+<p>Create a class named Battler which is to simulate one character in the &lsquo;battle&rsquo;. This class should have three instance fields: A String for the name and two ints to represent the health and the attack strength of the character..<br /><br />- Add a constructor that takes in the name, health, and attack of the Battler and assigns them to the instance fields.<br /><br />- Add the three basic accessors for the attack, health, and name.<br /><br />- Add a void method named loseHealth, which will take in a value and subtract it from the health. Since the minimum health points should be 0, add an if statement to prevent the health instance field from being negative.Add a boolean method isAlive(), which returns true if the Battler&rsquo;s health is above 0.<br /><br />- Add a toString that will return a String that contains the name, health, and attack of the Battler. The formatting is up to you.</p>
+<p>&nbsp;</p>
+<p>- In order to give the Battler the ability to attack another Battler, add the following method:</p>
+<pre>public void attack(Battler other)</pre>
+<p>This method will simulate attacking another Battler. &nbsp;First you should check if both Battlers are still alive, and if so the parameter Battler should lose health according to your attack value.</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><strong>Visual Battling:</strong></span></p>
+<p>Text based battling is a little chaotic and hard to follow. Instead, Sacco has designed a simple GUI that will allow you to take your time. In order to keep the GUI up to date, each Battler is going to be able to provide an SPanel object that has the prudent information on it (think of it like a visual toString.</p>
+<p>You probably haven&rsquo;t used any of these objects before (they're saccojar specific), so I&rsquo;ve commented the basics. Don&rsquo;t forget that my variables <strong>name</strong>, <strong>healthPoints</strong>, and <strong>attackValue</strong> may need to be modified to fit your object's instance fields.</p>
+<p><span style="color: #ff0000;">&nbsp;<span style="background-color: #ffffff;"><strong>YOU MUST IMPORT sacco.gui.*;</strong></span></span></p>
+<pre>public SPanel getPanel()<br />{<br />    //Construct an SPanel object that's a Grid with 3 rows and 1 column<br />    SPanel pan = new SPanel(new GridLayout(3,1));<br />    <br />    //Add a border with the Battler's name on it<br />    pan.setTitledBorder(name);<br />    <br />    //Add two labels with the health and attack<br />    pan.add(new SLabel("Hit Points: "+healthPoints));        <br />    pan.add(new SLabel("Attack Points: "+attackValue));<br /><br />    <br />    //Add one more label that says "Alive" or "Dead"<br />    String isAlive;<br />    if(this.isAlive())<br />        isAlive = "Alive";<br />    else<br />        isAlive = "Not Alive";<br />    pan.add(new SLabel(isAlive));<br />    <br /><br />    return pan;<br />}</pre>
+<p>&nbsp;</p><hr/>
+<p><span style="font-size: 14px;"><strong>The BattleArena:</strong></span></p>
+
+<p>The BattleArena class is a simple GUI that displays the SPanels that each Battler returns, as well as two buttons so you can choose which Battler to do the attacking. &nbsp;You do not have to know how this class works, just know that it is constructed with two Battler objects and that calling the launch method will display it. &nbsp;</p>
+<p>Copy the class below into your project:</p>
+<p>&nbsp;</p>
+<pre>import sacco.gui.*;
+public class BattleArena implements ButtonListener
+{
+    private Battler a,b;
+
+    private SFrame frame;
+    private SPanel battlerPan;
+    private SButton avb,bva;
+    public BattleArena(Battler a, Battler b)
+    {
+        this.a = a;
+        this.b = b;
+        initFrame();
+    }
+
+    private void initFrame()
+    {
+
+        frame= new SFrame("Battle Arena");
+        frame.setLayout(new BorderLayout());
+
+        
+        battlerPan = new SPanel(new GridLayout(1,2));
+        updateBattlers();
+        frame.add(BorderLayout.CENTER, battlerPan);
+
+        avb = new SButton("Attack "+b.getName());
+        bva = new SButton("Attack "+a.getName());
+
+        avb.addButtonListener(this);
+        bva.addButtonListener(this);
+
+        SPanel buttons = new SPanel(new GridLayout(1,2));
+        buttons.add(avb);
+        buttons.add(bva);
+        frame.add(BorderLayout.SOUTH, buttons);
+        frame.exitOnClose();
+
+    }
+
+    public void onButtonPress(SButton source)
+    {
+        if(source == avb)
+            a.attack(b);
+
+        if(source == bva)
+            b.attack(a);
+
+        updateBattlers();
+    }
+
+    private void updateBattlers()
+    {
+        battlerPan.getSwing().removeAll();
+        battlerPan.add(a.getPanel());
+        battlerPan.add(b.getPanel());        
+        frame.getSwing().revalidate();
+    }
+
+    public void launch()
+    {
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+}</pre>
+<p><span style="font-size: 14px;">Runner:</span></p>
+<p>To get things started, we&rsquo;ll create two Battler objects and use them to construct an arena:</p>
+<pre>public static void battlerRunner()<br />{<br />   Battler a = new Battler("Steve",50,3);<br />   Battler b = new Battler("Stefan",50,4);<br />   BattleArena arena = new BattleArena(a,b);<br />   arena.launch();<br />}</pre>
+<p>Once this is running, click to attack and make sure that one of the healths goes down by 3 while the other goes down by 4. &nbsp;Also make sure that nobody's health passes 0.&nbsp;<br /><br /><br /></p>
+<p>&nbsp;</p>
+<hr />
+<p><span style="font-size: 18px;">Extending Battler: &nbsp;DualDamageBattler</span></p>
+<p><img src="images/DualDamage.jpg" border="1"/></p>
+<p>In some games, when you attack another character you automatically take their attack damage. &nbsp;Create a class named DualDamageBattler, which should extend Battler. &nbsp;This class should act the same way as the Battler does, but when attacking both characters should take damage. &nbsp;</p>
+<p>- Add a three argument constructor with the same three parameters that Battler&rsquo;s constructor does.</p>
+<p>- Override the attack method and change it so that it deals the damage to both of the Battlers.&nbsp;</p>
+<p>&nbsp;Try it out with the following runner. &nbsp;This time either button should cause both characters to lose health.</p>
+<pre>public static void dualDamageRunner()
+{
+    DualDamageBattler a = new DualDamageBattler("Oasis Snapjaw",7,2);
+    DualDamageBattler b = new DualDamageBattler("Warden",7,1);
+    BattleArena arena = new BattleArena(a,b);
+    arena.launch();
+}</pre>
+<p>Thank you POLYMORPHISM! &nbsp;If I couldn&rsquo;t say that every DualDamageBattler IS-A Battler. &nbsp;They would not be compatible with the BattleArena.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr />
+<p><span style="font-size: 18px;">Extending Battler Differently: Pokemon</span></p>
+<p><img src="images/pokemon.jpg" border="1"/></p>
+<p>Pokemon are like Battlers, but they have a &ldquo;type&rdquo;. &nbsp;Certain types of Pokemon are stronger against other types of Pokemon and their attacks are larger.</p>
+<p>Create the Pokemon class, which should extend Battler. &nbsp;A Pokemon should also have two Strings as instance fields that will represent the type that the Pokemon is, as well as the type that this Pokemon is strong against.</p>
+<p>- Add a basic accessor to the Pokemon class.</p>
+<p>- The constructor for Pokemon will take in 5 parameters. &nbsp;The name, the type, the type it&rsquo;s strong against, the health points, and the attack.</p>
+<p>A Pokemon does double damage to other Pokemon that are the type that it is strong against. &nbsp;It is time to override the attack method.</p>
+<pre>public void attack(Battler other)</pre>
+<p>Resist the urge to change the parameter to be Pokemon instead of Battler. &nbsp;We have to override the <strong>original</strong> method, which takes in Battler specifically. &nbsp;We&rsquo;ll just have to be careful to only battle Pokemon with each other. &nbsp;Implement the attack method so that the Pokemon will first check the type and then do double damage if it&rsquo;s the this Pokemon is strong against. &nbsp;Beware: &nbsp;This method may require the use of casting.</p>
+<p>One last thing that the attack method should do is to System.out.println the name of the Pokemon, in all caps and followed by at least three exclamation points.</p>
+<p>Test out your Pokemon class with the following runner:</p>
+<pre>public static void pokeRunner()
+{
+    Pokemon a = new Pokemon("Mr. Sacco", "teacher", "student",Integer.MAX_VALUE,20);
+    Pokemon b = new Pokemon("John Doe", "student", "homework",100,1);
+
+    BattleArena arena = new BattleArena(a,b);
+    arena.launch();
+}</pre>
+<p>Make sure that when Mr. Sacco attacks John Doe, John loses 40 points and when John Doe attacks Mr. Sacco, Sacco loses 1 point.<br /><br /></p>
+<p style="line-height: 15.27272605896px;"><span style="font-size: 14px;"><strong>Changing the Panel:</strong></span></p>
+<p>Right now the SPanel that Pokemon returns is lacking. &nbsp;Override the <strong>getPanel</strong> method by copy/pasting from the Battler class and modifying it so that the GridLayout is 5x1 instead of 3x1. &nbsp;After that modify the code so that it adds two more labels that include the type and what it&rsquo;s strong against. &nbsp;Look at the existing code to assist you. &nbsp;Run the runner one more time to make sure that it works.</p>
+<p>&nbsp;<span style="line-height: 15.27272605896px;">&nbsp;</span></p>
+<p>&nbsp;</p>
+<hr style="line-height: 15.27272605896px;" />
+<p><span style="line-height: 1.4; font-size: 18px;">Specific Pokemon Classes:</span></p>
+<p><img src="images/morepoke.jpg" border="1"/></p>
+<p><span style="line-height: 15.27272605896px;">Now that we've defined the behavior of the Pokemon class, we'll create two specific Pokemon. &nbsp;Since most of the work is already done, these classes should be relatively simple using inheritance.</span></p>
+<p>Create a class named <strong>Charmander</strong>, which extends the Pokemon class. &nbsp;</p>
+<p>Charmander should have a DEFAULT constructor that sets the name to &ldquo;Charmander&rdquo;, the type to &ldquo;fire&rdquo;, the type to be strong against is &ldquo;Ice&rdquo;, the health to 39, and the attack to 9. &nbsp;We&rsquo;ve inherited so much from Pokemon, we don&rsquo;t need to override any methods.</p>
+<p>&nbsp;</p>
+<p>Create a class named <strong>GeoDude</strong>, which extends the Pokemon class.</p>
+<p>GeoDude should have a DEFAULT constructor that sets the name to &ldquo;Geo Dude&rdquo;, the type to &ldquo;rock&rdquo;, the type to be strong against is &ldquo;fire&rdquo;, the health to 39, and the attack to 5. &nbsp;We&rsquo;ve inherited so much from Pokemon, we don&rsquo;t need to override any methods.</p>
+<p>&nbsp;Once both of those compile, use the following runner:</p>
+<pre>public static void geoVsChar()
+{
+    Pokemon a = new Charmander();
+    Pokemon b = new GeoDude();
+    BattleArena arena = new BattleArena(a,b);
+    arena.launch();
+}</pre>
+<p>Run the runner. &nbsp;When Charmander attacks Geo Dude, &ldquo;CHARMANDER!!!&rdquo; should print out and Geo Dude should lose 9 points. &nbsp;When Geo Dude attacks charmander, &ldquo;Geo DUDE!!!&rdquo; should print out and Charmander should lose 10 damage (instead of 5).</p>
+<p style="line-height: 15.27272605896px;">&nbsp;</p>
+<p style="line-height: 15.27272605896px;">&nbsp;</p>
+<p style="line-height: 15.27272605896px;">&nbsp;</p>
+<p style="line-height: 15.27272605896px;">&nbsp;</p>
+
+</body>
+
+</html>

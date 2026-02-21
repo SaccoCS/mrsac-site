@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Method Headers</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Method Headers</h2>
+					<p>As we define and use our own custom methods it is important that we understand the structure of a method header.  The header is only a few words long, but each word tells you something about how to use the method. </p>
+					
+					<p>The general format of a static method header is:</p>
+					<div class = "code-block">
+						<p>public static <span style = "color:#a00">returnType</span> <span style = "color:#000">methodName(<span style = "color:#a00">Parameter list</span>)</span>	</p>
+					</div>
+					<p style = "clear:left">The two important parts of a method header to pay attention to are the <strong>parameters</strong> and <strong>return type</strong>.</p>
+
+				<hr >
+				
+				<h3>Parameters</h3>
+					<p>When calling a method, the parameters are the extra information that methods require in order to run properly.  For example, consider the two lines of code below, which are a common way of getting an int from the user.</p>
+					
+					<div class = "code-block">
+						<p>String input = JOptionPane.showInputDialog(<span style = "color:#a00">"Enter a number"</span>);<br/>
+						   int num = Integer.parseInt(<span style = "color:#a00">input</span>);</p>
+					</div>
+				
+				<p style = "clear:left">There are two methods being called here.  First the showInputDialog method is called and retrieves a String from the user, and then the parseInt is used to turn that String into an int.  Each of those method calls required the use of a <strong>String</strong> to operate.
+				</p>
+				<p>The <strong>showInputDialog</strong> method's parameter is "Enter a number", which is so it knows what message to display. The <Strong>parseInt</Strong> method was called to turn a String into an int.  The parameter, is the <span class="code">input</span> variable that we want turned into the int.</p>
+				
+				
+				
+				<hr style = "clear:left">
+				
+				<h3>Return Type</h3>
+				<p>The return type of a method is the type of data that the method will generate. </p>
+				<div class = "code-block">
+						<p>
+						   <span style = "color:#a00">int</span> num = Integer.parseInt("642");</p>
+					</div>
+					<p style = "clear:left">In the code above, the value of <span class = "code">num</span> is an int because the parseInt method takes in a String and <strong>returns</strong> that as an int.  Since its return type is an int, it wouldn't make sense to assign it to a String or a double variable.</p>
+					<p>Return types are situational and depend on what the method's purpose is.  The showInputDialog method, for example, returns whatever the user typed into a text box, so its return type is a String.</p>
+				</div>
+				
+				<div class = "note-div">
+					<h3>Method Headers vs. Method Usage</h3>
+					<p>It's important to know both how methods are <strong>used</strong> and how they are <strong>defined</strong>.  You should be able to look at how a method is used and determince what its header should look like.  Let's use the parseInt method as an example.</p>
+					
+					<div class = "code-block">
+						<p>
+						   <span style = "color:#a00">int</span> num = Integer.parseInt(<span style = "color:#a00">"642"</span>);<span style = "color:#aaa"> //<-- takes in a String and returns an int</span></p>
+					</div>
+					<p style="clear:left">You can see that this method takes int a <strong>String</strong> as a parameter and returns a value that's an <strong>int</strong>.  The general formula is <span class = "code"><span style = "color:#a00">returnType</span> methodName(<span style = "color:#a00">Parameter list</span>)</span>, so the method header for the parseInt method must be:</p>
+					<div class = "code-block">
+						<p>public static <span style = "color:#a00">int</span> parseInt(<span style = "color:#a00">String</span> str)</p>
+					</div>
+					<p style = "clear:left">Note that the parameter's variable name is not very important.  While it's class to name it something useful, we only really care about the type.</p>
+					<hr/>
+					<h4>Reading a Method's Header Tells You How to Use It</h4>
+					<p>When you're only given a method's header, you can read it to tell which types of data to use with it.  For example, the showInputDialog method's header is:</p>
+					<div class = "code-block">
+						<p>public static String showInputDialog(String str)</p>
+					</div>
+					<p style = "clear:left">We can see that both the return type and the parameter are a String, which is why we supply a String and also expect one to be returned when using the method.</p>
+					<div class = "code-block">
+						<p><span style = "color:#a00">String</span> name = JOptionPane.showInputDialog(<span style = "color:#a00">"Enter your name"</span>);</p>
+					</div>
+					<p style = "clear:left">When dealing with <strong>static</strong> methods, you start the method call with the name of the class that the method's located.  In this case it is JOptionPane.</p>
+				</div>				
+				
+				<div class = "note-div">
+					<h3>void</h3>
+					<p>Not all methods are supposed to return a type.  One common example is the println method that we frequently use.</p>
+					<div class = "code-block">
+						<p>System.out.println("Hello World!!!");</p>
+					</div>
+					<p style = "clear:left">This style of method is to perform a useful action, but it does not generate and return any data, which is why you don't see the following in your code.</p>
+					<div class = "code-block">
+						<p><span style = "color:#a00">String str =</span> System.out.println("Hello World!!!");</p>
+					</div>
+					<p style = "clear:left">This will not compile because the println method doesn't return a String.  In this situation, the word <span class = "code" style = "color:#a00">void</span> is used in place of a specific return type.  The println method takes in a String and returns nothing, meaning it has a String as a parameter and <span class = "code" style = "color:#a00">void</span> as a return type.</p>
+					<div class = "code-block">
+						<p>public static <span style = "color:#a00">void</span> println(<span style = "color:#a00">String</span> str)</p>
+					</div>
+					<p style = "clear:left">
+				</div>				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

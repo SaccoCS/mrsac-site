@@ -1,0 +1,392 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  
+</head>
+
+<body><h1>Giving our Sketches a STATE</h1>
+<p>The <strong>state </strong>of a program is determined by the 'current' values in its variables. So far we've mostly been making sketches that change according to p5's special variables, like frameCount. When we use frameCount to help us make things move over time, we were creating State-Based Sketches. Our draw functions are written in a way that they draw the 'current' state, and as that state changes, so does what's drawn.</p>
+<p>For example, when we worked with the circle equations we used the frameCount variable as an <strong>angle</strong> to guide where things are drawn. Since the drawing was based on the state of the sketch(frameCount's value), as the state changed, so did the drawing.</p>
+<p>While frameCount is helpful, as our sketches develop into more interactive programs, we're going to need to rely on some more customized variables in our code.</p>
+<p>&nbsp;</p>
+<h3>State Based Drawing</h3>
+  
+  
+  <p>p5's magic variables are automatically created and maintained for us, but we can make our own variables representing the state of our sketch</p>
+    
+  </p>
+  
+
+  <h3>Declare, Initialize, Use</h3>
+<p>Unlike local variables, global variables need to be declared and initialized in a special way.</p>
+<p><strong>Declare</strong>&nbsp;the variable at the top of the program using the keywork&nbsp;<strong>var</strong>.&nbsp; This tells p5 that you want to use this as a variable</p>
+<p><strong>Initialize</strong>&nbsp;the variable (give it its first value) during the setup function.&nbsp;&nbsp;<strong>setup</strong>&nbsp;is run one time before the draw function, and its purpose is initialization and other program setup.</p>
+<p><strong>Use</strong>&nbsp;the variable to draw something</p>
+<p>&nbsp;</p>
+<p>Consider the simple example below. It creates a variable named&nbsp;<strong>size</strong>, declares it to be a 100, and then draws three rectangles with that variable</p>
+<pre><strong><span>let size;   //DECLARE a variable named size</span></strong>
+
+function setup() {
+  createCanvas(250, 250);
+  rectMode(CENTER);
+
+  <span><strong>size = 200;   //INITIALIZE the size variable to 100</strong></span>
+}
+
+function draw() {
+  background(0);
+
+  fill(255);
+  rect(width/2,height/2, <span><strong>size</strong></span>, <span><strong>size</strong></span>); <strong><span> //USE size</span></strong>
+
+  fill(0);	
+  rect(width/2,height/2, <span><strong>size</strong></span>*2/3, <span><strong>size</strong></span>*2/3); <span><strong> //USE size: 2/3	</strong></span>
+
+  fill(255);	
+  rect(width/2,height/2, <span><strong>size</strong></span>/3, <span><strong>size</strong></span>/3);  <span><strong>//USE size: 1/3	</strong></span>	
+}</pre>
+<p>If you run the program right now, you'll get this:</p>
+<p><img src="images/big_squares.png" alt="Capture (46).PNG" width ="180px" /></p>
+<p>&nbsp;</p>
+<h3>Variables CHANGE</h3>
+<p>The thing about variable based drawing is that it's easy to change the values.&nbsp; If you were to go to&nbsp;the setup function and change the size variable&nbsp;to 100 instead of 200.&nbsp; Running he sketch&nbsp;would get a much smaller drawing.</p>
+<p><img src="images/small_squares.png" alt="Capture (47).PNG"  width ="180px"/></p>
+<p>Keep in mind that we didn't change anything about the draw function. The size variable is what the draw function relies on. All we have to do is modify that variable to change what we see.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>You Try</h3>
+<p>Open the Square and Circle workspace.&nbsp; It has the beginning of a variable based sketch, but none of the variables have been initialized.</p>
+<pre>let size, gray, x1, y1, r, x2, y2;
+
+function setup() {
+  createCanvas(400, 200);
+  rectMode(CENTER);
+
+  //INITIALIZE VARIABLES HERE
+
+
+}
+
+function draw() {
+  background(255);
+
+  //circle
+  fill(gray,gray,gray);
+  ellipse(x1,y1,120);
+
+  //square
+  fill(r, 0, 0);
+  rect(x2, y2, size, size);
+}</pre>
+<p>Since none of the variables have been initialized, nothing will show up when we run the sketch.&nbsp; Our goal will be to get both the Circle and the Square to show up on the screen by finishing the&nbsp;<strong>setup</strong>&nbsp;function.</p>
+<p>Looking at the way that the ellipse is drawn in the code, it relies on three variables: x1, y1, and gray.&nbsp;&nbsp;<strong>In the setup function</strong>, initialize those three variables like so:</p>
+<pre>x1 = 64;
+y1 = 64;  
+gray = 200;</pre>
+<p>Run your program again and you should see the gray circle appears in the upper corner.&nbsp; The rectangle still doesn't appear because the variables used in the&nbsp;<strong>fill&nbsp;</strong>and&nbsp;<strong>rect</strong>&nbsp;function, like x2 and y2, weren't initialized to any values.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Your job is to keep assigning to variables in the setup function until the sketch looks like it does below. You should make NO CHANGES to the draw function itself.&nbsp;</p>
+<p>All values are multiples of 20</p>
+<p><img src="images/square_circle.png" /></p>
+
+  
+  
+  <hr>
+  <h2>Why Use Global Variables?</h2>
+<p>Assume that you were writing a program and you wanted it to be a little different each time that you run it. The random function is useful for generating little differences, but it has no memory.</p>
+<p>For example: Lets say I want to write a sketch that has a circle of a different radius every time I run it.</p>
+<p><strong><iframe src="demos/refresh_radius/index.html" width="170" height="200" data-mce-fragment="1"></iframe></strong></p>
+<p>&nbsp;</p>
+<p>The circle has a diameter between 10 and 70 each time.&nbsp;</p>
+<p>&nbsp;</p>
+<p>Open the Random Circle workspace, which is a flawed attempt at a solution:</p>
+<pre>function setup() {
+  createCanvas(150, 150);
+  frameRate(30);
+}
+
+function draw() {
+  background(0);
+  fill(222, 0, 0);
+
+  let size = random(10, 70);
+
+  ellipse(width / 2, height / 2, size);
+}</pre>
+<p>&nbsp;</p>
+<p>I may be sick...</p>
+<p>&nbsp;<strong><iframe src="demos/refresh_radius/broken/index.html" width="160" height="160" data-mce-fragment="1"></iframe></strong></p>
+<p>The Problem is that we used a&nbsp;<strong>local&nbsp;</strong>variable to represent the size.&nbsp; That variable is set to a random value <strong>every time the draw function is called,</strong> which you can see is frequently.</p>
+<p>Instead, what we want is a value that's randomly generated in the beginning and then referred to when its time to draw, without changing it.&nbsp; We can fix our code with the following changes:</p>
+<p><strong>Declare size as a GLOBAL variable</strong></p>
+<p>At the top of the code, outside of all functions, declare size as a variable.&nbsp; This means that it's shared by the whole program.</p>
+<pre>let size;</pre>
+<p><strong>Assign to it during SETUP</strong></p>
+<p>The constant flickering from before was because assigning a random value in the&nbsp;<strong>draw</strong>&nbsp;function meant it was called constantly.&nbsp; Instead, assign it to be a random value during the setup function, which only runs&nbsp;<strong>one</strong> time before any drawing has occurred.</p>
+<pre>size = random(10,70);</pre>
+<p>&nbsp;</p>
+<p>After you make those changes, running your program should give you a circle with a random diameter, but it should only change when you run the program again.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Your Task: Random Color</h3>
+<p>Add on to the Random Circle sketch by making it generate a random color each time that it's run as well. This will require you to add three more global variables to represent the red, green, and blue of the chosen color.</p>
+<p>&nbsp;</p>
+<p><strong><iframe src="demos/refresh_radius/rand_col/index.html" width="170" height="200" data-mce-fragment="1"></iframe></strong></p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  <hr>
+  
+  <h2>Random Triangle</h2>
+<p><strong><iframe src="demos/rand_tri/index.html" width="170" height="200" data-mce-fragment="1"></iframe></strong></p>
+<p>Create a sketch that will draw a triangle with three randomly generated points every time it's run. You don't have to have a 'Run Again' button. It's just there to simulate repeatedly running the program.</p>
+
+<h3>Re-Randomize on Mouse Press</h3>
+<p>p5 has many built in functions that will help us respond to user input (besides simply using the mouseX and frameCount variables).&nbsp; All you need to do is add them to your sketch with the correct spelling. Add the following function to the bottom of the sketch.</p>
+<pre>function mousePressed(){
+
+&nbsp;   console.log("Mouse Pressed at: (" + mouseX+ ", "+mouseY+")" );
+}
+</pre>
+<p>This function is the one that is called whenever you click the mouse. Run the program and click around on the canvas. You should see a message in the console whenever you do.</p>
+<p>Your task is to re-randomize your triangle whenever the mouse is pressed. Modify the mousePressed() function so that it puts different random values in each of the six global variables, which you can likely copy from the setup() function.</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Boolean Variables</h2>
+<p>Numbers are the easiest things to imageing variables holding, but another type of data that they can hold is&nbsp;<strong>boolean</strong> data, which may only be&nbsp;<strong>true</strong> or&nbsp;<strong>false</strong>.&nbsp; When you store information in this particular data type, you often use&nbsp;<strong>if statements</strong> to interpret what they mean</p>
+<p>Open the Three Circles workspace, which has the following&nbsp;</p>
+<pre>let showRed;
+
+function setup() {
+  createCanvas(400, 140);
+
+  showRed = true;
+}
+
+function draw() {
+  background(0);
+  strokeWeight(6);
+  stroke(255);
+
+  fill(255, 0, 0);
+  ellipse(80, 70, 100);
+
+
+  fill(0, 255, 0);
+  ellipse(200, 70, 100);
+
+
+  fill(0, 0, 255);
+  ellipse(320, 70, 100);
+}</pre>
+<p>Notice that the only global variable is called&nbsp;showRed.&nbsp; When the showRed variable is initialized during the setup function, it is assigned a value of&nbsp;<strong>true</strong>.</p>
+<p>&nbsp;</p>
+<p>The intended purpose of the showRed variable is to signify if we should paint the leftmost circle or not. Currently it is assigned to be&nbsp;<strong>true</strong>, so I expect to see the red circle, but if we initialize it to false instead:</p>
+<pre>showRed = false;</pre>
+<p>I would expect it to not show the circle</p>
+<p>&nbsp;</p>
+<p><strong>Booleans and&nbsp;if statements</strong></p>
+<p>When you use boolean variables, they naturally work with if statements, which make their decisions by looking at a true/false situation.&nbsp; With boolean values, you can put them directly into the if statements without using ==</p>
+<p>Find the location in the draw function where the red circle is drawn, and change it to have this if statement around it</p>
+<pre><strong>  if (showRed</strong><strong>) {</strong>
+    //Draw Red  
+    fill(255, 0, 0);
+    ellipse(80, 70, 100);
+<strong> }</strong></pre>
+<p>This means that when the&nbsp;showRed variable<strong>&nbsp;</strong>is <strong>true</strong>, the red circle will be drawn.&nbsp; When showRed is <strong>false </strong>it won't.&nbsp;</p>
+<p>Test this out right now by switching between&nbsp;<strong>true</strong> and&nbsp;<strong>false</strong> for showRed and seeing if it's drawn or not.</p>
+<p>&nbsp;</p>
+<h4>Keep Going</h4>
+<p>Modify the Three Circles sketch to have two more global variables: showGreen&nbsp;and showBlue.&nbsp; Use them in the same way that showRed was to help hide and show the center and right circles.</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>Our goal is to make the sketch reacts to the values in the three 'show' variables Test the sketch a few times with different combinations of true and false in these variables to make sure that the correct circle disappears when its variable is set to false.</p>
+<p>&nbsp;</p>
+
+  
+  <hr>
+  
+  <h3>Clicking the Circles</h3>
+<p>Copy the following mousePressed() to the bottom of the Three Circles workspace:</p>
+<pre>//Responds to the mouse being pressed
+function mousePressed() {
+  showRed = false;
+  showGreen = false;
+  showBlue = false;
+}</pre>
+<p>This function will be automatically called when the mouse is pressed. Notice that is sets all three variables to false. Since we just spent time making sure that each circle is drawn based on each of those variables, when those get set to false, the corresponding circles should disappear.</p>
+<p><strong><iframe src="demos/three_circles/index.html" width="400" height="180" data-mce-fragment="1"></iframe></strong></p>
+<p>Test it out. One of the problems with this sketch is that it's boring. The circles disappear, but don't have a way of coming back. Pressing the mouse will only set the values to false again, which won't make the sketch drawn any differently.</p>
+<p>&nbsp;</p>
+<h4>Determining the Clicked Circle</h4>
+<p>Since we have three different circles, each with a different boolean representing them, we can write code that will focus on each circle.</p>
+<p>1)<span>&nbsp;</span><strong>Return<span>&nbsp;</span></strong>to the Mouse In a Circle&nbsp;workspace from the previous assignment<br />2)<span>&nbsp;</span><strong>Copy<span>&nbsp;</span></strong>your mouseInCircle() function (and no more)<br />3)<span>&nbsp;</span><strong>Paste<span>&nbsp;</span></strong>it at the bottom of your Three Circles Sketch</p>
+<p>With this function now available, we can use it whenever the mouse is pressed to tell us if any of the circles were clicked.<span>&nbsp;</span><strong>Replace<span>&nbsp;</span></strong>the current mousePressed function with the following:</p>
+<pre>function mousePressed() {
+
+  if ( mouseInCircle(80,70,50) ) {   
+    console.log("RED CIRCLE CLICKED!");
+    showRed = false;
+  }
+
+}</pre>
+<p>All three circles have different locations, but a radius of 50. This if statement uses the red circle's centerpoint&nbsp;(80,70) to see if the mouse is inside of it. if it is, it announces it to the console and sets the&nbsp;showRed variable to false.</p>
+<p>Test this out by running your program and clicking the red circle.&nbsp; It should put some text on the console and then disappear.</p>
+<p>&nbsp;</p>
+<h4>Use the VARIABLES to affect the drawing</h4>
+<p>Notice that we did not do any&nbsp;<strong>drawing</strong>&nbsp;to make the circle disappear. Any drawing commands would be overridden by the background of the next frame drawn.</p>
+<p>Instead, we have set up the draw function to react to<span>&nbsp;</span><strong>variable's values</strong>.&nbsp; When we want to change the draw function, we simply change the<span>&nbsp;</span><strong>variables<span>&nbsp;</span></strong>that it relies on.&nbsp; Trying to draw outside of the draw function often doesn't give you the result that you want.</p>
+<p>&nbsp;</p>
+<h4>Your Task:</h4>
+<p>Expand the mousePressed() function&nbsp;to perform the same thing when clicking the green or the blue circle. You should have to do little more than adding two more if statements with centerpoints and variables modified to represent the different circles.</p>
+<p>Test your sketch by running it to make sure that you can make all three circles disappear individually by clicking them.</p>
+<p>&nbsp;</p>
+  
+  
+  <hr>
+  
+  
+  <h2>Flip-Flop</h2>
+<p>Open the Flip Flop workspace, which is another copy of Three Circles for you to modify.</p>
+<p><strong><iframe src="demos/three_circles/toggle/index.html" width="400" data-mce-fragment="1"></iframe>
+ </p> <p>
+    
+  </strong>Each time a circle is clicked, one of two things happen: it disapears or it reappears. Meaning its variable is set to false or true.&nbsp;</p>
+<p>To accomplish this you will need to add more logic to the if areas of the mousePressed method. Now just knowing that we're&nbsp;<strong>close</strong>&nbsp;to each circle is enough. We also need to look at the current value of the 'show' variable so that we can determine its opposite.</p>
+<p>One way to do this is to nest an&nbsp;if-else statement&nbsp;inside of each if statement that will&nbsp;</p>
+<pre>if( showRed )               //the same as if(showRed == true)
+   showRed = false;    //if it's true, set it to false
+else
+   showRed = true;    //if it's false, set it to true</pre>
+<p>&nbsp;</p>
+<p>Alternately we could use the&nbsp;<strong>negation operator !</strong>, which will flips the value of any boolean to its opposite:</p>
+<pre>showRed = !showRed;</pre>
+<p>In this case there is no if-else statement deciding the value of showRed. If showRed is true, then !showRed will evaluate to false and be assigned over it. If it starts as false, then true will be assigned.</p>
+<p>&nbsp;</p>
+<p>Choose whichever strategy makes more sense to you and modify the sketch so that all three circles will separately flip on and off when you click on them.</p>
+<p>&nbsp;</p>
+
+
+<hr>
+
+<h2>Last Clicked Color</h2>
+<p>Open the Flip Flop workspace, which is another copy of Three Circles for you to modify.</p>
+<p><strong><iframe src="demos/three_circles/last_clicked/index.html" width="400" height="200" data-mce-fragment="1"></iframe></strong></p>
+<p>This time our circles will not be turning off or on, so the showRed, showGreen, and showBlue variables will not be used. They should be set to true during setup and not set back.</p>
+<p>You will want to modify your canvas to be a little bit taller, and then use the&nbsp;<strong>text()&nbsp;</strong>function to draw the word&nbsp;<strong>"Last:"</strong>&nbsp;toward the bottom.</p>
+<p>&nbsp;</p>
+<h3>Remembering the Last Color with Variables</h3>
+<p>As you click the circles in the demo above, notice that the last color that you successfully clicked is in the text at the bottom. This time there is only&nbsp;<strong>one</strong>&nbsp;piece of information that is being tracked, with many different values</p>
+<p>Create a global variable named lastColor<br />Assign it a value of "None" during setup()<br />Modify the&nbsp;<strong>text()</strong>&nbsp;function to include the value of the lastColor variable.</p>
+<p>With these changes made, run the program to make sure that you can test to see the word&nbsp;<strong>None</strong>&nbsp;has been included in your text.&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Changing the Sketch</h3>
+<p>Now that the sketch is designed to always draw the value that's assigned to lastColor, we can change the sketch by changing the value of lastColor.</p>
+<p>Modify the mousePressed() function&nbsp;to simply assign "Red", "Green", or "Blue" to lastColor&nbsp;depending on which circle is clicked.</p>
+<p>&nbsp;</p>
+
+
+
+<hr>
+<h2>Dice Roller&nbsp;</h2>
+<p>&nbsp;</p>
+<p>Notice how the dice change values as you click the window above. This is just a fancy interpretation of two integers that the sketch is tracking.</p>
+<p>Open the Dice Roller workspace</p>
+<p>There you will find a sketch that is attempting to draw six dice at six different locations:</p>
+<p><img src="images/all_dice.png" width="233" height="155" /></p>
+<pre>drawDie(1,30,30);
+drawDie(2,90,30);
+drawDie(3,150,30);
+drawDie(4,30,90);
+drawDie(5,90,90);
+drawDie(6,150,90);</pre>
+<p>The issue is that the drawDie() function that this code relies on&nbsp;does nothing but draw a white square at the given location:</p>
+<pre>//Draws the die defined by val, x, and y&nbsp;
+function drawDie(val,x,y){
+&nbsp;&nbsp;rectMode(CENTER);
+&nbsp; strokeWeight(2);
+&nbsp;&nbsp;square(x,y,50,5);
+&nbsp;&nbsp;
+}</pre>
+<p>&nbsp;</p>
+<p>The next step is to go to the&nbsp;drawDie()&nbsp;function and&nbsp;add all of the dots to represent the number that we've been given. For example: Since we're in rectMode(CENTER), the dot in the center of the square should have the same x and y as the square.&nbsp;</p>
+<p>Add the line&nbsp;<strong>circle(x,y,4)</strong>&nbsp;to the end of the drawDie()&nbsp;function and run your sketch. Notice how this&nbsp;<em>will</em>&nbsp;add the center dot, but in&nbsp;<strong>every</strong>&nbsp;die. As far as dice go, the center pip only belongs when drawing the 1, 3, or 5. We can tell what we're supposed to draw because we were passed the parameter&nbsp;<strong>val</strong>. To make sure that we only draw the center dot when those values are passed in, we could use an if statement:</p>
+<pre>//draw the center circle on die 1, 3, and 5
+if( val == 1 || val == 3 || val == 5){
+    circle(x,y,4);
+}
+</pre>
+<p>Adding this if statement will cause the center dot to only appear on the appropriate dice.</p>
+<p><img src="images/three_ones.png" width="234" height="156" /></p>
+<p>&nbsp;</p>
+<h4>Continue the Process:</h4>
+<p>This procedure of focusing on a single dot and using if statements to determine which values use that dot should continue six more times to cover all the possible dot locations. To find the off-center locations, add or subtract 15 from the center x or y to place the dots up and down the screen. For example, the&nbsp;<strong>upper-right&nbsp;</strong>pip would be circle( x + 15, y - 15, 4);.&nbsp;&nbsp;</p>
+<p>Go to the drawDie function and change it so that it draws the given value as dots on a rectangle.</p>
+<p>Mr. Sacco's strategy is to use an if statement when drawing each pip. For example, the center pip would only be drawn if the parameter&nbsp;<strong>val</strong> was 1,3, or 5. Repeat this for all seven pips.</p>
+<p>When you're done, all six dice should be showing their appropriate values.</p>
+<p><img src="images/all_dice.png" width="233" height="155" /></p>
+<p>&nbsp;</p>
+<h3>Add Variables!</h3>
+<p>Now that we have the <strong>ability</strong>&nbsp;to draw any die using our drawDie function, we can use it to represent the two dice that our sketch is going to represent. But instead of just painting all six dice, we're going to use variables that allow us to change what we see on the canvas.</p>
+<p><strong>Declare two global variables</strong> to your sketch, one to represent the values of each die.&nbsp; In the setup function, set these variables to their initial values, like 1 and 1.</p>
+<p>Now <strong>change the draw function </strong>to only have two calls to drawDie(), each one using a one of the&nbsp;global variables as its value. Hopefully when you run the sketch it displays the two dice with their initial values.&nbsp; Make sure that the dice rely on those variables by changing them to something else in the setup function and running the sketch again.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Rolling on Click</h4>
+<p>Now that the images rely on the global variables, let's randomize when we click the screen. Add the mousePressed() function to your sketch and add some code so that it puts a random number from&nbsp; 1 - 6 in each of the variables. Remember that the random function acts weird, to get a value from 1 - 6, you need the call random( 1 , <strong>7</strong>), and you will need another function call to get an integer value out of it.</p>
+<pre>dice1 = floor( random(1,7) );</pre>
+<p>Remember that you will not be drawing during this function. If the sketch is already set up to draw whatever is in the variables, you should only have to change their values to see a different value drawn.</p>
+<p>Run you sketch and start clicking.&nbsp; Hopefully the dice randomize each click.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr>
+
+<h3>Drag-n-Drop</h3>
+<p>Dragging and Dropping is very common way of moving things around on a window. In order to do that, the location of the item&nbsp;being dragged must be remembered using variables.&nbsp;</p>
+<h3><iframe src="demos/drag_n_drop/index.html" width="302px" height="202px" data-mce-fragment="1"></iframe></h3>
+<p>Open the Drag-n-Drop workspace. There you will find a circle whose location is represented using two variables: x and y. This gives us the ability to decide where the ball is simply by changing some variables. To make the circle's location match the mouse's, we only need to say:</p>
+<pre>//move the circle to the mouse
+x = mouseX;
+y = mouseY;
+</pre>
+<p>But we must be careful when we do these assignment statements. Try out these two options quickly and observe the results:</p>
+<p>1) Put them in the mousePressed method: This should cause the mouse to only moved locations when you click the window. Try it out and you'll see that it causes the circle to teleport to the mouse whenever you click. Not quite what we want.</p>
+<p>2) Put them in the draw function: The draw function is called constantly, put the two assignment statements there and you'll have the circle always following the mouse around on the canvas. While this is closer to what we want, it's still a little&nbsp;<strong>too much</strong>.</p>
+<p>Once you've tested these out to see that they're imperfect, remove them from your code and return to the original sketch. We'll put them back when we're more prepared.</p>
+<p>&nbsp;</p>
+<h4>A Variable in Charge of Dragging</h4>
+<p>In order to get our sketch working we are going to need to be more careful with when to move the circle to the mouse. Doing it blindly in the draw function is close, but too frequent. What we need is a variable that will represent 'Drag Mode' vs 'No-Drag-Mode'.&nbsp; Add a new variable to the others name&nbsp;<strong>dragMode</strong>. Since dragMode is always going to be one of two values, it is a perfect fit for a boolean variable. In the setup function initialize it to be&nbsp;<strong>true</strong>.</p>
+<p>The dragMode variable has no power unless we decide it does. Add the following to the draw function:</p>
+<pre>if( dragMode == true){
+   x = mouseX;
+&nbsp;  y = mouseY;
+}
+</pre>
+<p>&nbsp;</p>
+<p>With these statements now tucked inside of an if statement we are now saying to teleport to the mouse when dragMode is true. Run the sketch two times: Once with the setup function assigning&nbsp;<strong>true</strong>&nbsp;to dragMode and once with false. You should see that the true value causes following while the false value causes nothing to happen. dragMode is officially in charge of dragging and we can change its value to change the sketch.</p>
+<p>&nbsp;</p>
+<h4>When Should we Drag?</h4>
+<p>At this point we can forget about assigning mouseX to x. and mouseY to y. Changing dragMode is now our only concern. Since our goal is to be able to drag the mouse around we will be using the mousePressed and mouseReleased functions.</p>
+<p>Go to the mousePressed function and have it set dragMode to true. In the mouseReleased set dragMode back to false. This means that pressing the mouse will activate dragging and releasing will let go. Test this out now by running the sketch and making sure that you can start and stop the dragging with a click of the mouse.</p>
+<p>&nbsp;</p>
+<h4>Activating Drag Mode</h4>
+<p>The last thing that we need to do is only activate dragMode when the user's click is&nbsp;<strong>inside the circle</strong>.</p>
+<p>It's time to dust of the old dist() function. In the mousePressed method, calculate the distance from the mouse to the location of the circle. If that distance is less than the radius (25), the mouse is inside of the circle and you should&nbsp;<strong>set dragMode to true</strong>.</p>
+<p>Now that dragMode is only set to true when we click inside of the circle our sketch will feel a lot better. Run it and try interacting with the circle. Now clicking outside of the circle should have no effect, while clicking inside of the circle should activate dragging.</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+
+</html>
+

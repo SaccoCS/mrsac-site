@@ -1,0 +1,351 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Self Drawing Objects</title>
+<style type="text/css">
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	color: #FF0000;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">SaccoWindows and Self Drawing Objects</p>
+<p class="auto-style3">Previously we&#39;ve extended SaccoWindows that drew some 
+pictures.&nbsp; In more complicated programs objects get involved to make things 
+easier.&nbsp;</p>
+<p class="auto-style3">Copy the following class into your project.&nbsp; Notice that it does the 
+three things that every SaccoWindow needs:</p>
+<p><span class="auto-style3">1)&nbsp;import sacco.*;</span><br class="auto-style3" />
+<span class="auto-style3">2) extends SaccoWindow</span><br class="auto-style3" />
+<span class="auto-style3">3) overrides the paintWindow method</span></p>
+
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td style="width: 743px"><pre>import sacco.*;
+
+public class QuestionBlockWindow extends SaccoWindow
+{
+
+   public QuestionBlockWindow()
+   {
+
+   }
+
+   public void paintWindow(Canvas c)
+   {
+      //draw sky
+      c.setColor(&quot;blue&quot;);
+      c.fillRectangle(0,0,500,500);
+
+      //draw grass
+      c.setColor(&quot;green&quot;);
+      c.fillRectangle(0,336,500,200);
+
+      //draw border line
+      c.setColor(&quot;black&quot;);
+      c.setThickness(3);
+      c.drawLine(0,336,500,336);
+
+      //draw cloud
+      c.setColor(&quot;white&quot;);
+      c.fillOval(288,48,144,48);
+
+      c.setColor(&quot;black&quot;);
+      c.drawOval(288,48,144,48);
+   }
+
+}</pre>
+		</td>
+	</tr>
+</table>
+
+<p class="auto-style3">Now set up the following runner, which constructs a new QuestionBlockWindow 
+and calls its showWindow method:</p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td><pre>public class QuestionBlockWindowRunner
+{
+    public static void main()
+    {
+        QuestionBlockWindow myWindow = new QuestionBlockWindow();
+        myWindow.showWindow();
+    }
+}</pre></td>
+	</tr>
+</table>
+
+<p class="auto-style3">Test it out, hopefully it looks like the beautiful landscape below:<br />
+<img src="../Unit%2003%20-%20Objects/images/img22.jpg" />&nbsp;</p>
+<hr>
+<p class="auto-style5"><strong>Wait.... Why so many class files?</strong></p>
+<p class="auto-style3">Now that the two classes are made, you may run your program by right clicking 
+the QuestionBlockWindowRunner class and selecting the main method.&nbsp; At this 
+point only a blank screen will pop up, but let&#39;s think about the Runner class.</p>
+<p class="auto-style3"><img src="../Unit%2003%20-%20Objects/images/img1D.jpg" /></p>
+<p class="auto-style3">We now know that static methods don&#39;t have anything to do with the instance 
+fields or any other method in the same class.&nbsp; This means that it isn&#39;t 
+actually important where the method is located.</p>
+<p class="auto-style3"><strong>Scary Proposition:</strong></p>
+<p class="auto-style3">To save a little bit of time, you can put the main method inside the 
+QuestionBlockWindow class.&nbsp; Since static methods are so independent, having 
+the method here will not affect how the object works.&nbsp; In the end you&#39;ll 
+only need the QuestionBlockWindow class, which now both defines a constructable 
+object and has a method when will actually construct that object and do 
+something with it.</p>
+
+<table class="auto-style1" style="width: 58%; height: 364px;">
+	<tr>
+		<td style="width: 549px"><pre>import sacco.*;
+
+public class QuestionBlockWindow extends SaccoWindow
+{
+
+   public QuestionBlockWindow()
+   {
+
+   }
+
+   public void paintWindow(Canvas c)
+   {
+      //draw sky
+      c.setColor(&quot;blue&quot;);
+      c.fillRectangle(0,0,500,500);
+
+      //draw grass
+      c.setColor(&quot;green&quot;);
+      c.fillRectangle(0,336,500,200);
+
+      //draw border line
+      c.setColor(&quot;black&quot;);
+      c.setThickness(3);
+      c.drawLine(0,336,500,336);
+
+      //draw cloud
+      c.setColor(&quot;white&quot;);
+      c.fillOval(288,48,144,48);
+
+      c.setColor(&quot;black&quot;);
+      c.drawOval(288,48,144,48);
+   }
+
+   <strong><span class="auto-style2">public static void main()</span>
+<span class="auto-style2">   {</span>
+<span class="auto-style2">       QuestionBlockWindow myWindow = new QuestionBlockWindow();</span>
+<span class="auto-style2">       myWindow.showWindow();</span>
+<span class="auto-style2">   }</span></strong>
+
+}</pre>
+		</td>
+	</tr>
+</table>
+
+<p class="auto-style3">When thinking about how this class worksas an object, you simply pretend all of the 
+static methods don&#39;t exist.&nbsp; From here on out, when told to make a runner 
+you may put the static main method in another class or within the object class 
+that you&#39;re working with.&nbsp; </p>
+<p class="auto-style3"><img src="../Unit%2003%20-%20Objects/images/img1F.jpg" />&nbsp;</p>
+<hr>
+<p class="auto-style5"><strong>Using a Self Painting Object:</strong></p>
+<p class="auto-style3">The QuestionBlockWindow class is set up to draw a basic background which 
+we&#39;re going to improve with some self drawing objects.&nbsp; In sacco.jar there 
+is a QuestionBlock class, which has instance fields that keep track of an x, y, 
+and an image to display.&nbsp; We want to display this QuestionBlock, so we&#39;ll 
+need to incorporate it into our project.</p>
+<p class="auto-style3">1)&nbsp; Make it an instance field:<br />
+This object is one that we want to keep track of for the life of the Window, so 
+we&#39;ll declare it as an instance field.</p>
+<p class="auto-style6">private QuestionBlock myBlock;</p>
+<p class="auto-style3">2)&nbsp; Set it up in the constructor:<br />
+Go to the QuestionBlockWindow&#39;s constructor and use it to set up the instance 
+field that you just created.&nbsp; You can&#39;t set the x,y or scale using just the 
+constructor, so this is a multi-step process.</p>
+<p class="auto-style6">myBlock = new QuestionBlock();<br />
+myBlock.setX(240);<br />
+myBlock.setY(192);<br />
+myBlock.setScale(3);</p>
+<p class="auto-style3">Now we&#39;ve got an instance field that has an x,y, and scale that we want, but 
+when we run our program it still doesn&#39;t show up.&nbsp; That&#39;s because our 
+paintWindow method hasn&#39;t been changed to draw the QuestionBlock object.</p>
+<p class="auto-style3">Read through the current paintWindow method; it uses 
+Canvas&#39; methods 
+like fillRectangle and drawLine to get the background, but there is no 
+drawQuestionBlock method.&nbsp; The answer lies in the QuestionBlock class.&nbsp; 
+There is a <strong>paintSelf</strong> method that will accept a Canvas and draw the 
+QuestionBlock using it.</p>
+<p class="auto-style3">The paintWindow method&#39;s strategy is now going to be the following:<br />
+- paint the background using the Canvas object<br />
+- hand the Canvas variable to the QuestionBlock so that it can draw itself on it.&nbsp; 
+This is how the images get combined.</p>
+<p class="auto-style3">Change your paintWindow method to be the following:</p>
+<pre><span class="auto-style3"> </span>       //draw sky
+        c.setColor("blue");
+        c.fillRectangle(0,0,500,500);
+
+        //draw grass
+        c.setColor("green");
+        c.fillRectangle(0,336,500,200);
+
+        //draw border line
+        c.setColor("black");
+        c.setThickness(3);
+        c.drawLine(0,336,500,336);
+
+        //draw cloud
+        c.setColor("white");
+        c.fillOval(288,48,144,48);
+        
+        c.setColor("black");
+        c.drawOval(288,48,144,48);
+
+       <span class="auto-style2"><strong> //have the block paint itself using the </strong>Canvas</span><strong>
+</strong><span class="auto-style2"><strong>        myBlock.paintSelf(c);</strong></span></pre>
+<p class="auto-style3">The only difference is the the very last line, which 
+hands off the Canvas to the QuestionBlock so that it can paint itself on 
+top.</p>
+<p class="auto-style3">Now run the main method, hopefully you get the window 
+below:<br />
+<img src="../Unit%2003%20-%20Objects/images/img2A.jpg" /></p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style5"><strong>Assignment 1:</strong></p>
+<p class="auto-style3">-Add two more QuestionBlocks to the QuestionBlockWindow 
+class and attempt to recreate the following window.&nbsp; Hint:&nbsp; When the 
+scale is 3, the QuestionBlock has a width and height of 48.<br />
+<br />
+-Add a StandingMario object in the same way.&nbsp; 
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/StandingMario.html">Use the API</a> to determine the 
+best way to construct it.&nbsp; Hint:&nbsp; Mario&#39;s x and y should be set to 144 
+and 240 with the scale set to 3.</p>
+<p class="auto-style3"><img src="../Unit%2003%20-%20Objects/images/img37.jpg" /></p>
+
+<p class="auto-style3">&nbsp;</p>
+
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style7"><strong>Assignment 2:&nbsp; Creating a self-painting object</strong></p>
+<p class="auto-style3">Create a class named CIrcle, which will be in charge of 
+keeping track of a circle&#39;s location, radius, and color.</p>
+<p class="auto-style3">Add three ints as instance fields to represent the 
+Circle&#39;s location and radius.&nbsp; Also add a String to represent the Color.</p>
+<p class="auto-style3">The Constructor for Circle should take in three ints as 
+parameters, an x,y, and radius.&nbsp; The color should default to &quot;red&quot;.</p>
+<p class="auto-style3">Add a method with the following header:</p>
+<pre>public void paintSelf(Canvas c)</pre>
+<p class="auto-style3">This method should use the Canvas object to paint a 
+Circle like the one below, using the x,y,radius, and color instance fields</p>
+<p class="auto-style3">
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/Canvas.html">
+CANVAS API</a></p>
+<p class="auto-style3"><img src="../Unit%2003%20-%20Objects/images/imgC.jpg" /></p>
+<p class="auto-style3">Copy the following class into your project.&nbsp; Notice 
+that it&#39;s similar to the QuestionBlockWindow above</p>
+
+<pre>import sacco.*;
+public class CircleWindow extends SaccoWindow
+{
+    private Circle circ;
+    
+    public CircleWindow()
+    {
+        circ = new Circle(0,0,64);
+    }
+    
+    @Override
+    public void paintWindow(Canvas c)
+    {
+        circ.paintSelf(c);
+    }
+    
+    public static void main()
+    {
+        CircleWindow cWind = new CircleWindow();
+        cWind.showWindow();
+    }
+}</pre>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">Keyboard interaction with SaccoWindows:</p>
+<p class="auto-style3">Similar to using MouseEvents, SaccoWindows can handle 
+keyboard events as well.</p>
+<p class="auto-style3">In the <strong>CircleWindow</strong> class, add the following method:</p>
+<pre>@Override
+public void onKeyPress(int key)
+{
+   System.out.println(key);
+}</pre>
+<p class="auto-style3">Every key on the keyboard has an int assosciated with it.&nbsp; 
+Run the program and hit a few keys.&nbsp; You&#39;ll notice that a different int 
+will be printed out each time.</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style5"><strong>Adding the Ability to Move the Circle:</strong></p>
+<p class="auto-style3">Now that we&#39;ve got the ability to listen for key presses 
+we can make the circle move in all four directions.&nbsp; The issue is that we 
+need a good way to communicate what direction the Circle should move.</p>
+<p class="auto-style3">Add four <strong>public</strong> constants named UP, 
+DOWN, LEFT, and RIGHT to the <strong>Circle</strong> class.&nbsp; Put any random int that you want into them.&nbsp; 
+As long as they are<strong> different,</strong> we don&#39;t care about the values because we are only going to use the four named 
+variables.</p>
+<p class="auto-style3">Add a mutator method named <strong>move</strong>, which takes in 
+an int as a parameter and is in charge of moving the circle in one of the four 
+directions by changing the x or y variable.&nbsp; The int passed in will be 
+equals one 
+of the four direction constants.&nbsp; You should use four if statements, each 
+one testing if the parameter matches a direction constant and you should 
+increase or decrease the x or y variable by one radius. </p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style5"><strong>Helping the Window Control the Circle:</strong></p>
+<p class="auto-style3">Now that the Circle has the ability to change its 
+location, we just need to have the <strong>window&#39;s</strong> onKeyPress method control the circle.&nbsp; 
+It&#39;s time for another set of if statements.&nbsp; This time the if statements 
+are looking at the key int and looking for the four arrow keys ( left is 37, up 
+it 38, right is 39, down is 40).</p>
+<p class="auto-style3">Depending which keycode you find, you should call the 
+circle&#39;s move method and pass in the appropriate public constant:</p>
+<p class="auto-style3">For Example:</p>
+<pre>if( key == 37 )
+   circ.move(Circle.LEFT);</pre>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">This is one use of the public constants.&nbsp; We don&#39;t 
+care about the exact values stored in them, but they allow us to tell the move 
+method which direction to go while still remaining readable.</p>
+<p class="auto-style3">Run the program one more time.&nbsp; Try out the arrow 
+keys and check to see if you can move the circle around.</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+
+</body>
+
+</html>

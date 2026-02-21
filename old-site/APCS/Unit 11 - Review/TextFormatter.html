@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>TextFormatter</title>
+
+<style>
+
+p,h2,h3,li,ul,ol{
+font-family:Arial;
+}
+
+
+p,li{
+	
+	font-size:14px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 10 15 10 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<h2>TextFormatter</h2>
+<p>The TextFormatter class was released as a possible AP test question after doing the ChatBot assignment.  Though a for loop could be appropriate for traversing, try to use a while loop in a similar way to how the ChatBot class did it.</p><hr/>
+<p>When Web developers want to convert plain text documents to HTML, they need to make changes to
+the text to insert tags and replace certain characters. For this question, you will write part of the class to
+convert text to HTML. You will write methods to replace underscores ("_") with tags indicating the
+text should be in italics.</p>
+
+<p>Copy the following class to your project:</p>
+<pre class = "code">public class TextFormatter
+{
+    private String line; // The line to format
+    
+    public TextFormatter (String lineToFormat)
+    { line = lineToFormat; }
+
+    /**
+     * Finds the first single instance of str in line,
+     * starting at the position start
+     * @param str the string of length 1 to find.
+     * Guaranteed to be length 1.
+     * @param start the position to start searching.
+     * Guaranteed to be in the string line.
+     * @return the index of the first single instance of
+     * str if the string is found or -1 if it is not found.
+     */
+    private int findString (String str, int start)
+    { /* To be implemented in part a) */ }
+
+    /**
+     * Count the number of times single instances of str appear in
+     * the line.
+     * @param str the string to find.
+     * Guaranteed to be length 1.
+     * @return the number of times the string appears in the line
+     */
+    private int countStrings (String str)
+    { /* To be implemented in part b) */ }
+
+    /**
+     * Replace all single instances of underscores in the line given by
+     * line with italics tags. There must be an even number of underscores
+     * in the line, and they will be replaced by &lt;I&gt;, &lt;/I&gt;, alternating.
+     * @param original a string of length 1 to replace
+     * @param replacement the string (of any length) use as a replacement
+     * @return the line with single instances of underscores replaced with
+     * &lt;I&gt; tags or the original line if there are not an even number of
+     * underscores.
+     */
+    public String convertItalics ()
+    { /* To be implemented in part c) */ }
+}</pre>
+<ol>
+<li style="list-style-type:lower-alpha"><p>Write the method <span style = "font-family:Courier">findString</span>. This method will take a string of length 1 to find in the line, at a given starting point. It will return the location of the goal string. This differs from the indexOf method of the String class because it requires the string be just a single instance of the string, so if the string appears two or more times consecutively, it will not return any of
+those values. If there is no single instance, the method should return -1.</p><p>Consider the following
+examples, where line has the value "aabaccb".</p>
+	<ul>
+	<li><span style = "font-family:Courier">findString("a",0)</span> should return a 3, since the first two a's are duplicates</li>
+	<li><span style = "font-family:Courier">findString("b",4)</span> should return a 6 because the first time that "b" occurs at or after position 4 is in postion 6.</li>
+	<li><span style = "font-family:Courier">findString("c",0) </span>should return a -1 because there is no single instance of "c" in the line</li>
+	</ul></li><br/>
+
+
+<li>Write the method <span style = "font-family:Courier">countStrings</span>. This method will take a string of length 1 to find in the
+line. It will return the number of times single instances of the goal string appear in the string.</li><br/>
+<li>Write the method <span style = "font-family:Courier">convertItalics</span>. If the line has an even number of single underscores,
+a line with those underscores converted to alternating <span style = "font-family:Courier">&lt;I&gt;</span> and <span style = "font-family:Courier">&lt;/I&gt;</span> tags should be returned. The
+first underscore will be converted to <span style = "font-family:Courier">&lt;I&gt;</span>, the second to <span style = "font-family:Courier">&lt;/I&gt;</span>, the third to <span style = "font-family:Courier">&lt;I&gt;</span>, and so on. If the
+line does not have an even number of <span style = "font-family:Courier">&lt;I&gt;</span> tags, the original line should be returned. Consider
+the following examples.
+
+<ul>
+<li>"This is _very_ good." should return "This is <span style = "font-family:Courier">&lt;I&gt;</span>very<span style = "font-family:Courier">&lt;I&gt;</span> good."</li>
+<li>"_This_ is _very_ _good_." should return "<span style = "font-family:Courier">&lt;I&gt;</span>This<span style = "font-family:Courier">&lt;/I&gt;</span> is <span style = "font-family:Courier">&lt;I&gt;</span>very<span style = "font-family:Courier">&lt;/I&gt;</span> <span style = "font-family:Courier">&lt;I&gt;</span>good<span style = "font-family:Courier">&lt;/I&gt;</span>."</li>
+<li>"This is _very good." should return "This is _very good."</li>
+<li>"This is __very good." should return "This is __very good."</li>
+</ul>
+
+
+</li>
+</ol>
+</body>
+</html>

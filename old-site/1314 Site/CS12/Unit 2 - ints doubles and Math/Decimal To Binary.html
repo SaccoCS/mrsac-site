@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Converting to Binary from Decima</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	border-style: solid;
+	border-width: 1px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style3">Converting to Binary from Decimal</p>
+<p class="auto-style1">One way to convert to binary is to use mod and int 
+division repeatedly:</p>
+<p class="auto-style1">1)&nbsp; Mod your number by 2.&nbsp; The result is the 
+next largest digit.</p>
+<p class="auto-style1">2)&nbsp; Divide your number by 2 using int division.&nbsp; 
+The result is your new number.</p>
+<p class="auto-style1">3)&nbsp; Repeat steps 1 and 2 until your number is 0.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">For Example:&nbsp; 11</p>
+<p class="auto-style1">11 % 2 = 1</p>
+<table class="auto-style2" style="width: 41%; height: 266px;">
+	<tr>
+		<td style="width: 130px">11%2 = <span class="auto-style4">1</span></td>
+		<td style="width: 317px">Binary number so far:&nbsp;
+		<span class="auto-style4">1</span></td>
+	</tr>
+	<tr>
+		<td style="width: 130px">11/2 = 5</td>
+		<td style="width: 317px">New number:&nbsp; 5</td>
+	</tr>
+	<tr><td></td></tr>
+	<tr>
+		<td style="width: 130px">Repeat</td>
+		<td style="width: 317px">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px">5%2 = <span class="auto-style4">1</span></td>
+		<td style="width: 317px">Binary number so far: <span class="auto-style4">1</span>1</td>
+	</tr>
+	<tr>
+		<td style="width: 130px">5/2 = 2</td>
+		<td style="width: 317px">New number: 2</td>
+	</tr>
+		<tr><td></td></tr>
+	<tr>
+		<td style="width: 130px">Repeat</td>
+		<td style="width: 317px">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px">2%2 =<span class="auto-style4"> 0</span></td>
+		<td style="width: 317px">Binary number so far: <span class="auto-style4">0</span>11</td>
+	</tr>
+	<tr>
+		<td style="width: 130px">2/2 = 1</td>
+		<td style="width: 317px">New number: 1</td>
+	</tr>
+		<tr><td></td></tr>
+	<tr>
+		<td style="width: 130px">Repeat</td>
+		<td style="width: 317px">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px">1%2 = <span class="auto-style4">1</span></td>
+		<td style="width: 317px">Binary number so far:&nbsp; 
+		<span class="auto-style4">1</span>011</td>
+	</tr>
+	<tr>
+		<td style="width: 130px">1/2 = 0</td>
+		<td style="width: 317px">New number: 0</td>
+	</tr>
+	
+</table>
+
+<p>&nbsp;</p>
+<p class="auto-style1">Create a program named <strong>DecToBin</strong>, which 
+prompts the user for a number less than 64, and then converts it to a binary 
+String.&nbsp; Use the following strategy:</p>
+<p class="auto-style1">Store the input number in a variable named num.</p>
+<p class="auto-style1">Mod num by 2 and store the result in a variable named 
+onesPlace</p>
+<p class="auto-style1">Divide num by 2 and store the result back into num ( num 
+= num / 2 )</p>
+<p class="auto-style1">Mod num by 2 and store the result in a variable named 
+twosPlace</p>
+<p class="auto-style1">Divide num by 2 and store the result back into num ( num 
+= num / 2 )</p>
+<p class="auto-style1">Repeat this process until you&#39;ve put values into the 
+onesPlace, twosPlace, foursPlace, eightsPlace, sixteensPlace, and 
+thirtyTwosPlace variables.</p>
+<p class="auto-style1">Now print out the number, starting with the 
+thirtyTwosPlace variable.&nbsp; Be Warned:&nbsp; If you don&#39;t include a String 
+in your output it will literally add together all the ones and zeros.&nbsp; 
+Meaning 101101 will print out a 4.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">For example: </p>
+<p class="auto-style1">Please enter a number less than 64:<br />
+41<br />
+41 in binary is 101001</p>
+
+</body>
+
+</html>

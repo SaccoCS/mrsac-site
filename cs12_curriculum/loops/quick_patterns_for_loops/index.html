@@ -1,0 +1,195 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Quick Patterns with For Loops</title>
+  
+</head>
+
+<body>
+  <h1>
+  Quick Patterns with For Loops
+  </h1>
+ 
+  
+  <h2>Using for Loops</h2>
+<p>So far we've been relying on the repetition of the draw() function to create repetitive designs that can be modeled using a number pattern.</p>
+<p>For example, drawing a line of circles:</p>
+<p><img src="images/circles.png" width="410" height="50" /></p>
+<p>Each of these circles has a different x value that falls into a specific pattern.</p>
+<p><img src="images/circles_with_x.png" width="410" height="70" /></p>
+<p>- The initial value is 25<br />- Each circle's x is 30 pixels larger than the previous one<br />- The largest x is 385</p>
+<p>&nbsp;</p>
+<p>Open the Circle Frame workspace in CodeHS, where a variable has been set up to represent this number pattern:</p>
+<pre>let x;      
+function setup() {
+&nbsp; createCanvas(410, 50);
+&nbsp; x = 25;                         //Initialization
+&nbsp; background(220);
+}
+
+function draw() {&nbsp;&nbsp;<br />
+&nbsp;if( x &lt;= 385 ){                  //Permissive if statement<br />
+&nbsp; &nbsp; fill(255);
+&nbsp; &nbsp; circle(x,25,30)
+&nbsp; }&nbsp; <br />
+&nbsp; x+=30;                          //Incremental Step
+}</pre>
+<p>&nbsp;</p>
+<p><iframe src="demos/circle_line/index.html" width="412px" height="52px" data-mce-fragment="1"></iframe></p>
+<p>&nbsp;</p>
+<h4>Problem: Too Slowwwww</h4>
+<p>We're relying on drawing one circle per frame, but it takes 13 frames to draw all of the circles. While a dramatic reveal is nice, we simply want all of the circles to appear during the first draw cycle. This will require&nbsp;</p>
+<p>&nbsp;</p>
+<h3>The for Loop</h3>
+<p>The for loop is a way to process through an entire number pattern as fast as possible. This way we can draw every single circle the first time that draw comes around and they will all be displayed.</p>
+<p>A for loop has a structure similar to an if statement, but the parentheses are a little scary. To generate the number pattern above, we would use the following loop:&nbsp;</p>
+<pre style="margin-top: 1em;">for (let x = 25<strong>;</strong>  x &lt;= 385<strong>;</strong>   x += 30) {
+
+}</pre>
+<p>A for loop has three sections, separated by semicolons. Each of these has a different purpose in the loop. Look at the three statements individually, they are identical to the three important lines in our previous pattern.</p>
+<p><strong>let x = 25; </strong>&nbsp;The first section of a for loop is about&nbsp;<strong>initialization</strong>. This is where we declare our variable and set its first value</p>
+<p><strong>x &lt;= 385&nbsp;</strong>The second section is the&nbsp;<strong>permissive boolean statement</strong>. Just like above, as long as it is true, the loop will continue.</p>
+<p><strong>x += 30</strong>&nbsp;The third section is all about the&nbsp;<strong>incremental change&nbsp;</strong>that should be made to the variable each time to make a pattern.</p>
+<p>&nbsp;</p>
+<p>Using this for loop, we can make the draw() function draw all 13 circles in the first frame, eliminating the 'gradual reveal' that our programs have had so far.</p>
+<pre>function setup() {
+&nbsp; createCanvas(410, 50);
+}
+
+function draw() {
+&nbsp; background(220);&nbsp;&nbsp;
+
+&nbsp; for ( let x = 25; x &lt;= 385; x += 30 ) {
+&nbsp; &nbsp; fill(255);
+&nbsp; &nbsp; circle(x, 25, 30) &nbsp; &nbsp;
+&nbsp; }
+}</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Your Task: Frame</h3>
+<p><img src="images/frame.png" alt="c06c70bb-0560-4ff5-84d5-0c4bf3f22a2a.png" /></p>
+<p>Start with the above code to start, but modify the height of the canvas to be&nbsp;<strong>410</strong>. This will give you enough room to make the entire frame.</p>
+<p>The original line of circles was drawn by using a fixed y of 25, and drawing every x from 25 through 385. You can modify the original loop's strategy to help produce the other four sides:<br />- The circles on the bottom have the same x values, but their y values are 385 instead of 25.<br />- The circles on the left have a fixed x value of 25, and the&nbsp;<strong>y</strong>&nbsp;values range from 25 to 385<br />- The circles on the right have a fixed x value of 385, and the&nbsp;<strong>y</strong>&nbsp;values range from 25 to 385</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>For Loop Patterns</h2>
+<p>Open the 'The for Loop' workspace</p>
+<p>There you are met with a simple program that uses a for loop to output numbers to the console&nbsp;</p>
+<pre>//for( Initialization; Permissive Boolean; Step)<br />for( let i = 0; i &lt; 10; i++)<br />{<br />&nbsp; &nbsp; console.log( i );<br />}</pre>
+<p>The provided code is a simple loop that will log its values to the console.</p>
+<p>Looking at the loop, you can see that the pattern starts at zero (&nbsp; let i = 0 ),&nbsp; increases by one each step ( i++ )&nbsp; and continues until it hits nine ( i &lt; 10 ).&nbsp;</p>
+<p>Run the program and confirm that the values 0 through 9 appear in the console.</p>
+
+
+  
+  <p>
+    
+  </p>
+  
+  <h3>
+    Your Task: For Loops Questions
+  </h3>
+  
+  <p>
+    Take the 'For Loops Questions' quiz in CodeHS
+The questions there ask you to determine the pattern that a for loop is producing. Do the best to answer on your own, but this workspace may be used to test.</p>
+  
+  <hr>
+  
+  <h2>Updating Old Programs</h2>
+<p>We have done many assignments that use a number pattern to help generate a drawing, but they all require the draw() function to be called many times before the design is finished. The for loop is a much better choice to get the whole thing done at once.</p>
+<p>Today's exercises will have you looking back at the number patterns your old programs were using, and designing a for loop that will replicate the same pattern. In the end, the programs that used to take a few seconds to complete should now be drawn instantly.</p>
+<p>Your new versions will no longer have any global variables that grow slowly. Instead everything should be handled using a for loop within the draw function, similar to how the Circle Frame program was.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Quicker Grid</h3>
+<p><img src="images/grid.png" alt="image.png" /></p>
+<p>&nbsp;</p>
+<p><img title="" src="/system/files/attachments/page_embeds/m/2019-01/Capture_5c5206f6d18a0.PNG" alt="" />In the previous assignment you were asked to create a grid using a number pattern. For this sketch you will be making the same grid, but using a&nbsp;<strong>for loop</strong>&nbsp;to make the entire grid appear right away. If you need inspiration, go look at your previous submission and think about:</p>
+<p>- What is the initial value of your variable?<br />- How much does it increase by each time?<br />- How does your if statement stop it from looping forever?</p>
+<p>The three sections of the for loop will look very similar to how you've done it there, but all contained in the loop header.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Quicker Circle Ring</h2>
+<p><img src="images/ring.png" width="287" height="288" /></p>
+<p>The previous version of the Circle Ring program drew bigger and bigger hollow circles to form a doughnut. Since we relied on the draw() function to help, it was&nbsp;<strong>slow</strong>.</p>
+<p>Like you did with the Grid program, look at your previous Circle Ring program and look at the variable you created that represents the&nbsp;<strong>size&nbsp;</strong>of each circle being drawn.</p>
+<p>- What is the initial value of your variable?<br />- How much does it increase by each time?<br />- How does your if statement stop it from looping forever?</p>
+<p>&nbsp;</p>
+<p>Once you know this information, rewrite the Circle Ring program to use a for-loop to draw all the circles in at once. This means that we will no longer see it 'grow' like in the previous version. The loop will cause the whole thing to be drawn at once.</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  
+  <h2>Multiple Number Patterns</h2>
+<p>The original for loop demo used a loop to represent the x values that a series of circles were to be drawn at.</p>
+<pre>function setup() {
+&nbsp;&nbsp;createCanvas(410, 50);
+}
+
+function draw() {
+&nbsp;&nbsp;background(220);&nbsp;&nbsp;
+
+&nbsp;&nbsp;for (let x = 25; x &lt;= 385; x += 30) {
+&nbsp;&nbsp;&nbsp;&nbsp;fill(255);
+&nbsp;&nbsp;&nbsp;&nbsp;circle(x, 25, 30) &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+}</pre>
+<p>&nbsp;</p>
+<p>Right now the fill(255) is making sure that all the circles are white, but what if we wanted them each to have a slightly different color, fading from white to black.</p>
+<p><img src="images/circle_fade.png" width="328" height="40" /></p>
+<p>This situation has <strong>two different number patterns </strong>happening simultaneously: one for the x location of each circle, and one for the fill value. The fill value should start at 255, but each circle's fill should be 20 lower.</p>
+<p>To represent this, we should&nbsp;<strong>not</strong>&nbsp;use global variables. We need one that is created and updated similarly to the x variable.</p>
+<p>Consider the solution below.</p>
+<pre>function setup() {
+&nbsp;&nbsp;createCanvas(410, 50);
+}
+
+function draw() {
+&nbsp;&nbsp;background(220);&nbsp;&nbsp;
+&nbsp;&nbsp;
+&nbsp; <strong>let f = 255;                       //Create and initialize before the loop</strong>
+&nbsp;&nbsp;for (var x = 25; x &lt;= 385; x += 30) {
+&nbsp;&nbsp;&nbsp;&nbsp;fill( <strong>f</strong> );
+&nbsp;&nbsp;&nbsp;&nbsp;circle(x, 25, 30);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <strong>f -= 20;                          //Decrease by 20 each time the loop iterates</strong>
+&nbsp;&nbsp;}
+}</pre>
+<p>The f variable is created and initialized to 255 right before the loop begins.&nbsp; To make each circle have a different fill, the f variable is decreased by 20 right before each loop ends, causing the next circle to be darker.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Quick Number List</h3>
+<h4><img src="images/number_line.png" width="44" height="260" /></h4>
+<p>&nbsp;</p>
+<p>Your task is to create a version of Number List that uses a loop to draw all the numbers at once.&nbsp;</p>
+<p>The two changing variables are the y location of the number and the number itself. Like before, design your for loop to control one value and use a separate number pattern to control the other.</p>
+  
+  <hr>
+  
+  <h2>Quick Spiral</h2>
+<p><img src="images/spiral.png" width="225" height="225" /></p>
+<p>Create a copy of your spiral generator program and name it 'Quick Spiral'.</p>
+<p>The previous version had two variables following a number pattern: an angle and a radius that each start small and increase for a long time before filling the screen. Rewrite it to use a for loop to do a similar process, but all at once.</p>
+<p>Note: if you choose the angle as your looping variable, keep in mind that the angle will go well beyond 360. It increases by another 360 each time it circles around the center.</p>
+</body>
+
+
+</html>
+

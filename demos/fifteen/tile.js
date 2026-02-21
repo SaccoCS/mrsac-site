@@ -1,0 +1,79 @@
+function Tile(val) {
+
+  this.loc = new p5.Vector(width / 2, height / 2);
+  
+  this.dest = this.loc;
+  this.value = val;
+  this.onArrival = undefined;
+  this.color = -1;
+  this.showVal = true;
+  
+  this.border = color(0);
+  
+//console.log(this.color);
+
+
+  this.paint = () => {
+    strokeWeight(2);
+    stroke(this.border);
+
+    if (this.color!=-1) {
+    //  colorMode(HSB);
+      fill(this.color);
+    //  colorMode(RGB);
+    } else {
+      fill(255);
+    }
+    rect(this.loc.x, this.loc.y, 36,36,5);
+
+    fill(0);
+    // if (this.color!=-1 ){
+    //   colorMode(HSB);
+    //   fill(this.color, 255, 255);
+    //   colorMode(RGB);
+    // }
+noStroke();
+   // fill(255-red(this.color),255-green(this.color),255-blue(this.color))
+    textSize(22);
+if(this.showVal)
+    text(this.value, this.loc.x, this.loc.y + 2)
+  }
+
+
+
+  this.move = () => {
+
+
+    if (this.dest != undefined) {
+      this.loc = p5.Vector.lerp(this.loc, this.dest, 0.15);
+
+      if (this.loc.dist(this.dest) < 1) {
+        this.loc = this.dest;
+        this.dest = undefined;
+
+        if (this.onArrival) {
+          this.onArrival();
+          this.onArrival = undefined;
+
+        }
+
+      }
+    }
+
+
+  }
+
+  this.contains = (x, y) => {
+    return x > this.loc.x - 18 && x < this.loc.x + 18 && y > this.loc.y - 18 && y < this.loc.y + 18;
+
+
+  }
+
+  this.isMoving = () => {
+    return this.dest != undefined;
+  }
+
+  
+ // console.log(this.loc);
+
+}

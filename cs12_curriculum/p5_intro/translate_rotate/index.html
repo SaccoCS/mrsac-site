@@ -1,0 +1,292 @@
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  
+</head>
+
+<body>
+  
+   
+
+  <h1>
+    map() and noise()
+  </h1>
+<h1>Rotation</h1>
+<p>Sometimes you would like to draw a shape that is rotated by some amount.</p>
+<p>&nbsp;</p>
+  
+  <img src = "images/spinning_head.gif"></img>
+<p>p5.js has a function named&nbsp;<strong>rotate</strong>&nbsp;that is used for this purpose, but there are a couple of errors that we need to address.</p>
+<p>&nbsp;</p>
+<h4><strong>Problem #1:&nbsp; Radians vs Degrees</strong></h4>
+<p>At this point most teenagers are more comfortable with using the 0-360 scale of degrees instead of the 0-6.28 scale of Radians.&nbsp; p5 defaults to using Radians, so one line that you should include when using rotation should be:</p>
+<pre>angleMode(DEGREES);</pre>
+<p>This will be important to remember, because using values like 120 as a radian would mean something way different that 2*pi/3</p>
+<p>&nbsp;</p>
+<h4><strong>Problem #2: The Center of Rotation</strong></h4>
+<p>Now that the angles are degrees, we can do things like:&nbsp;<strong>rotate(45)&nbsp;</strong>to rotate what we're drawing. The problem is that rotation needs to be around a&nbsp;<strong>center of rotation</strong>, and when you do that problems can arise.</p>
+
+  <img src = "images/orbit_face.gif"></img>
+<p>The difference between this example and our original spinning face is that the original is rotated around the center of the ellipse, while this one is rotating around (0,0), which rotate defaults to. This causes our face to be off screen for most of the time.</p>
+<hr />
+<h4>Solution: Center Everything at (0,0)&nbsp;</h4>
+<p>Open the 'Using Translate and Rotate' workspace in CodeHS</p>
+<p>You will see a function named smiley() that will draw a smiley face for us. You will not have to change that during this entire assignment. We're going to focus on the draw() method.</p>
+<pre>function draw() {<br />&nbsp; &nbsp; background(136,225,243);<br />&nbsp; &nbsp; angleMode(DEGREES);&nbsp;<br />  &nbsp; <br />&nbsp;<br />&nbsp; &nbsp; smiley();<br />}</pre>
+<p>&nbsp;</p>
+<p>At the moment it is simply calling the smiley() function with no modification. Running the program should produce this:</p>
+<p><img src="images/corner_still.gif" alt="image.png" /></p>
+<p>Notice that the smiley function is now drawing everything centered around (0,0). This leaves a big portion of the face off of the canvas, but it does allow rotation.</p>
+<p>Modify the draw() function to call rotate() before drawing:</p>
+<p>&nbsp;</p>
+<pre>function draw() {<br />&nbsp; &nbsp; background(136,225,243);<br />&nbsp; &nbsp; angleMode(DEGREES);&nbsp;<br />  &nbsp;&nbsp;<br />  &nbsp; <span style="color: #2dc26b;"><strong>rotate(45);&nbsp;</strong></span> &nbsp; <br />&nbsp; &nbsp; smiley();<br />}</pre>
+<p>Run the program again and you'll see the 45 degrees does change how it's drawn</p>
+<p><img src="images/corner_45.gif" alt="Capture (88).PNG" /></p>
+<p>But using rotate(frameCount) shows that it is centered properly</p>
+<p><img src="images/corner_spin.gif" alt="Capture (88).PNG" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre></pre>
+<p>This works and it doesn't work. rotate(45) rotates the smiley face 45 degrees, but centered at (0,0) is impractical.</p>
+
+<p>We need to be able to have the centerpoint be wherever we want. If we could move it to the center of the canvas, it would be perfect<br />
+<p><img src="images/center_spin.gif" alt="Capture (88).PNG" /></p>
+
+<h2><strong>Translation</strong></h2>
+<p>Translate is another way to draw things around the screen that works by moving the frame of reference.&nbsp; The basis behind it is that it will&nbsp;<strong>move the point (0,0)</strong>&nbsp;to another location on the screen.&nbsp; For example:&nbsp; The happy face is rotating around (0,0), but we want it to be rotating around (50,50). This means that we should first <strong>translate </strong>the origin by (50,50) and then <strong>rotate </strong>around that location&nbsp;</p>
+<pre style="margin-top: 1em;">function draw() {
+  background(136,225,243);
+  angleMode(DEGREES); 
+
+&nbsp; <span style="color: #2dc26b;"><strong>translate(50,50);</strong> </span> //move the origin to (50,50)
+  rotate(45);        //rotate around the origin
+  smiley();          //draw a face centered around the origin
+}</pre>
+<p>Now we have a circle centered and rotated around (50,50)</p>
+<p>&nbsp;<img src="images/center_45.png" alt="Capture (89).PNG" /></p>
+<p>&nbsp;</p>
+<p><strong>Perpetual Spinning?</strong></p>
+<p>Above we've rotated&nbsp;<strong>45</strong>&nbsp;degrees.&nbsp;&nbsp;If you want the face to rotate perpetually, you could use p5's&nbsp;<strong>frameCount</strong>&nbsp;variable as an angle.&nbsp; It is set up to count every frame that it displays.&nbsp;We don't really care what value it is, but we can make use of the fact that it is continually increasing at about 60 per second. If we use it as our rotation angle we will be increasing the angle at about 60 degrees per second.</p>
+<pre style="margin-top: 1em;">rotate(frameCount);  //continuously rotating clockwise</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Your Turn</h3>
+<p>Above we solved the rotation problem by modifying the<span>&nbsp;</span><strong>xy values</strong>&nbsp;of each of the drawing functions so that they would draw their image&nbsp;<strong>centered at 0.</strong>&nbsp;This allows us to then use the new translate() and rotate() methods to create a spinning version of it. You are going to perform a similar task.</p>
+<p>Open the Centered Rotation workspace.</p>
+<p>There you are met with a similar situation. The only thing that the draw() function does is call the design() function to draw something simple.</p>
+<p><img src="images/corner_square.png" alt="image.png" /></p>
+<p>&nbsp;</p>
+<p><strong>Center the Design at (0,0)</strong></p>
+<p>Right now it draws a simple design, but it is not centered at (0, 0). If you un-comment the call to <span style="font-family: 'courier new', courier;">rotate(frameCount)</span> that's in the draw function you should see that it is very off center when it rotates.</p>
+<p><img src="images/orbit_corner_square.gif" alt="rot (2).gif" /></p>
+<p>&nbsp;</p>
+<p>You need to fix it by first<strong><span>&nbsp;</span></strong>c<span>entering the design at (0,0). The design is currently centered at (30,30), so to shift its center we need to subtract 30 from all the&nbsp;</span><strong>x's and y's</strong><span> that are used in the design function. Be careful that you don't blindly subtract from all values. For example, the call rect(5,5,50,50); only has two values that are x and y so the result would be rect(-25, -25, 50, 50); If we were to subtract from the size of the rectangle it would change the shape of the design. Only the location parameters should ever change.</span></p>
+<p><img src="images/corner_square_stationary.png" alt="image.png" /></p>
+<p>&nbsp;</p>
+<p>After you've adjusted all the locations, make it so that your draw function says exactly this:</p>
+<pre>function draw() {
+  background(220);
+  translate(width/2,height/2);
+  rotate(frameCount);
+  design();
+}</pre>
+<p>This says to move to the center of the window, rotate and then draw the design. When run, the design should be perfectly centered in the middle of the canvas.</p>
+<p><img src="images/center_orbit_square.gif" alt="rot.gif" /></p>
+
+<hr>
+
+<h3>Translation Builds Up</h3>
+<p>The translate function is an&nbsp;<strong>increase</strong> in the location of the origin.&nbsp;&nbsp;</p>
+<p>Open the Building Translation workspace</p>
+<p>There you will find the familiar smiley function, but draw is where we want to focus:</p>
+<pre>function draw() {
+  background(136,225,243);
+  angleMode(DEGREES);  
+
+  translate(50,50);
+  smiley(); 
+
+  translate(50,0);
+  smiley();
+
+  translate(50,0);
+  smiley();
+}</pre>
+<p>First the origin is moved to (50,50), the second translate&nbsp;<strong>increases</strong> by (50,0) to get a location of (100,50).&nbsp; The next translate increases x by 50 again, changing it to (150,50).&nbsp; Calling the same translate over and over will cause it to increase by the same amount.</p>
+<p>&nbsp;<img src="images/three_heads.png" alt="Capture (90).PNG" /></p>
+<p>&nbsp;</p>
+<h3>Your Task</h3>
+<p><img src="images/four_heads.png" alt="Capture (91).PNG" /></p>
+<p>Modify the draw function to recreate the above sketch using the translation strategy.</p>
+<ul>
+    <li>Keep in mind that translate using <strong>negative</strong>&nbsp;<strong>x values</strong><span>&nbsp;</span>if you want to go&nbsp;<strong>left</strong>.</li>
+    <li>The bottom-left smiley should be the&nbsp;<strong>last</strong> one drawn in order to be drawn on top.</li>
+</ul>
+<p>&nbsp;</p>
+
+<hr>
+<h3>Mixing Rotations and Translation</h3>
+<p>Open the Translating Axis workspace</p>
+<p>Like the smiley function before, it has a function named&nbsp;<strong>axis</strong>&nbsp;that is meant to help us get a frame of reference for how rotations and translations work.&nbsp; It draws (0,0) as a green dot and a line in the x and y direction.&nbsp; It then draws a rectangle at (40,50).</p>
+<p>&nbsp;</p>
+<p>If you look at the draw function you can see the combination of translate and&nbsp;<strong>axis</strong>&nbsp;that it's using, it starts by drawing the initial axis, and then translating and calling axis again.&nbsp; Each one is numbered so that you can fine where it is in the code. You can see that the translations between axis calls shift everything over.&nbsp; Even though we always draw rect(20,30,60,40), they are draw from different reference points.</p>
+<pre>function draw() {
+  background(0);
+  stroke(0);
+  angleMode(DEGREES);
+
+  axis(0);  //Default
+
+  translate(100,100);  //diagonal
+  axis(1);
+
+  translate(150,0);   //right 150
+ <span> /<strong>/rotate(30);</strong></span>
+  axis(2);
+
+  translate(0,100);   //down 100
+  axis(3);
+}</pre>
+<p>&nbsp;<img src="images/right_angle_four.png" alt="Capture (92).PNG" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Rotation Affects Translate</h3>
+<p>Pay attention to the relationship between #2 and #3.&nbsp; Between them we translate(0,100), which moves the origin straight down.&nbsp; Notice that there is a&nbsp;<strong>rotate(30)</strong>&nbsp;command commented out right before drawing axis(2).&nbsp; Uncomment it and notice what happens to axis 2 and 3.&nbsp; Axis 2 has been rotated clockwise 30 degrees.&nbsp; Axis 3 is still&nbsp;<strong>straight down</strong>, but since we've already rotated 30 degrees, 'straight down' is angled.&nbsp;This isn't a problem, but you should be aware that it exists because funny things can happen.</p>
+<p>&nbsp;</p>
+<p><img src="images/two_tilt.png" alt="Capture (93).PNG" /></p>
+<p>&nbsp;</p>
+<p>The location of the rotate is important.&nbsp; If you rotate before or after different translations, a different centerpoint is chosen. Each of the following can be achieved by moving the rotate statements before different calls to <strong>axis</strong>.</p>
+<p>&nbsp; &nbsp;<img src="images/chain_1.png" style = "width:200px" alt="Capture (94).PNG" /><img src="images/chain_2.png" style = "width:200px" alt="Capture (96).PNG" /><img src="images/chain_3.png" style = "width:200px" alt="Capture (95).PNG" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Drawing Multiple Rotated Things at Specific Locations</h3>
+<p>Rotating seems to mess with translation when you chain it together because we think of increasing x as to the 'right', but that changes with rotation and that can make things complex.</p>
+<p>For example: What if we want the following</p>
+<img src = "images/three_spin.gif"></img>
+
+<p>There are three different faces, each at a different location and rotated the same amout (they're spinning because we use&nbsp;<strong>rotate(frameCount)</strong>&nbsp;to keep the angle changing constantly.</p>
+<pre>  translate(100, 100);
+  rotate(frameCount);
+  smiley();
+
+  translate(100, 0);
+  rotate(frameCount);
+  smiley();
+
+  translate(100, 0);
+  rotate(frameCount);
+  smiley();</pre>
+<p>Here's an attempt to simply translate between the three smileys.&nbsp; Take a look at how it turns out:&nbsp;</p>
+
+
+<img src = "images/face_whip.gif"></img>
+<p>&nbsp;</p>
+<p>The rotation messes with the frame of reference for every following translation</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Your Task: The Whip</h3>
+<p>The persistence of rotation and translation is a problem for the spinning smileys, but can be used to get some complex motions.&nbsp; Your task will be to recreate the sketch below, which takes advantage of this system.</p>
+
+<img src = "images/whip.gif"></img>
+<p>While this seems complex, we can first think of it without rotation.&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>Open the 'The Whip' workspace</p>
+<p>The key part of the start here is a simple drawing:</p>
+<pre>translate(100,height/2); //starting position
+ellipse(0,0,10);
+line(0,0,50,0);</pre>
+<p>This moves to the starting position, draws a dot and a line to the 'right'.</p>
+<p><img title="" src="/system/files/attachments/page_embeds/m/2018-11/Capture_5be5cab77de34.PNG" alt="" />To form the next link, we translate to the right and draw another dot and line:</p>
+<pre>translate(50,0);  //move right
+ellipse(0,0,10);  //another dot
+line(0,0,50,0);   //another line</pre>
+<p><img title="" src="/system/files/attachments/page_embeds/m/2018-11/Capture_5be5ca96888c4.PNG" alt="" /></p>
+<p>A little copy paste and we'll be there in no time.&nbsp; Add a few more segments in the same way.</p>
+<p><img title="" src="/system/files/attachments/page_embeds/m/2018-11/Capture_5be5cbeb4ba01.PNG" alt="" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Causing Rotation:</h3>
+<p>We're always drawing a line to the 'right' of the dot, but rotation messes with what 'right' is.&nbsp; Insert a single&nbsp;<strong>rotate(frameCount);</strong>&nbsp;call into your draw function right <strong>before </strong>the last call to <strong>line</strong>.&nbsp; Hopefully this gets the end to spin.</p>
+
+
+<img src = "images/whip1.gif"></img>
+<p>&nbsp;</p>
+<p>Once you've verified that you've done it right, add another call.</p>
+
+
+<img src = "images/whip2.gif"></img>
+<p>&nbsp;</p>
+<p>Repeat the pattern all the way until you have every segment rotating.</p>
+<p>&nbsp;</p>
+
+<hr>
+
+<h3>Call resetMatrix to avoid the Translation Issue</h3>
+<p><br />It can be fun to make designs using the translation/rotation issue, but sometimes you just want to rotate individual drawings.&nbsp; Back to our original example.</p>
+
+<img src = "images/three_spin.gif"></img><p>We ran into an issue because rotating the first face caused the others to spin out of control.</p>
+<p>The information about the rotation and translation is stored in 'the matrix', so when you call the function&nbsp;<strong>resetMatrix</strong>, (0,0) is put back in the corner and the rotation is reset.&nbsp; This means that you have to start back at the beginning, but you also won't have to worry about the angles that were caused by a previous rotation.</p>
+<p>Now our strategy changes a little bit.&nbsp; If we think about it, the circles are at (100,100), (200,100), and (300,100) with each individually rotated.&nbsp; Our strategy will now be to reset between each smiley to help keep it&nbsp;</p>
+<p>- translate to (100,100)<br />- rotate<br />- simley()</p>
+<p>-<strong>&nbsp;reset back to 0</strong><br />- translate to (200,100)<br />- rotate<br />- smiley</p>
+<p><strong>- reset back to 0</strong><br />- translate to (200,100)<br />- rotate<br />- smiley</p>
+<p>The draw function will look a little different, but reseting the matrix allows us to control our location a little bit better.</p>
+<pre>function draw() {
+  background(136,225,243);
+  angleMode(DEGREES); 
+  strokeWeight(3);  
+
+  translate(100,100);
+  rotate(frameCount);
+  smiley();
+
+<strong>  resetMatrix();</strong>
+  translate(200,100);
+  rotate(frameCount);
+  smiley();
+
+<strong>  resetMatrix();</strong>
+  translate(300,100);
+  rotate(frameCount);
+  smiley();  
+}</pre>
+<p>The resetMatrix calls are very important to knowing where we are.&nbsp; Try commenting them out and observing what happens.</p>
+<p>&nbsp;</p>
+<h3>Your Task</h3>
+<p>Open the Smiley Corners workspace</p>
+<p>Modify that sketch's draw function to replicate the below sketch using the resetMatrix strategy. These faces are not spinning, they are rotated to specific values. To make like easier, use the provided&nbsp;<strong>smiley</strong>&nbsp;function .</p>
+<p><img src="images/smiley_corners.png" alt="Capture (97).PNG" /></p>
+<p>&nbsp;</p>
+
+<hr>
+<h3>Off-Center Rotation</h3>
+<p>When we want things to rotate around a centerpoint, we have to draw them at (0,0), but sometimes you want to be off center on purpose.</p>
+<p>Open the Concentric Orbits workspace</p>
+<pre>function draw() {
+  strokeWeight(3);
+  angleMode(DEGREES);
+  background(0);
+  stroke(255);
+
+  translate(width/2,height/2);  //translate to the center
+
+  ellipse(0,0,80);    //centered circle
+  ellipse(150,0,30);  //off center
+}</pre>
+<p>Notice that there is no rotation going on. We translate (0,0) to the center of the canvas and then draw two circles.&nbsp; Once is at (0,0), but the other is drawn 150 pixels off center.</p>
+<p><img src="images/no_orbit.png" alt="Capture (98).PNG" /></p>
+<h3>Making it rotate</h3>
+<p>When rotating, anything that's off-center will 'orbit' the center.&nbsp; Add a call to&nbsp;<strong>rotate(frameCount)</strong>&nbsp;right before drawing the ellipses and you'll see the small one start to orbit the big one.</p>
+<p>&nbsp;</p>
+<h3>&nbsp;</h3>
+<h3>Concentric Orbits</h3>
+<p><img src="images/orbit.gif" alt="Capture (98).PNG" /></p><p>Modify the demo to have multiple orbs rotating around the same center.</p>
+<p>OPTIONAL CHALLENGE: Try to get them going in different directions.</p>
+<p>&nbsp;</p>
+
+  </body>

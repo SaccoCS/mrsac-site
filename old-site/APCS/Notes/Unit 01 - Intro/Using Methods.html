@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Using Other Methods</title>
+
+
+<style>
+
+h2,h3,h4{
+font-family:Arial, Helvetica, sans-serif;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	font-size: medium;
+	font-weight: normal;
+}
+
+.auto-style2 {
+	font-size: medium;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Using Methods from Other 
+Classes<br />
+<span class="auto-style1">User Input</span></h2><p>So far the programs that we&#39;ve written are not useful in any way.&nbsp; They 
+simply create a variable, store a value in it, and then print it out.</p>
+<pre>public class Pointless
+{
+   public static void main()
+   {
+      String description = "unnecessary";
+      System.out.println("Programming like this is " + description);
+    }
+}</pre>
+<p>While this is good for practicing declaring variables and assigning a value 
+to it, the truth is that the variable <strong>description</strong> isn&#39;t needed.&nbsp; 
+This is because we already know the value that will be stored in it.&nbsp; The 
+program would gain a little pizazz (though not a ton) if we were to incorporate 
+the user in some way.</p>
+<p>&nbsp;</p>
+<hr/>
+<h2>Using other classes:</h2>
+<p>Java comes with a library of classes that can do all sorts of things that are useful.&nbsp; 
+With a little knowledge we can take advantage of them.</p>
+<p>In order to call a static method from another class, you must know three things:  the name of the class that the method is in, the name of the method, and are there any parameters.  Once you know those, you may call the method using the following format:</p>
+<h4><span style="color:red">ClassName</span>.<span style="color:blue">methodName</span>(<span style="color:green">parameters</span>);</h4>
+
+<p>In order to get input from the user, we&#39;re going to use another class named 
+JOptionPane.&nbsp; JOptionPane has many methods that deal with putting simple 
+windows up on the screen.&nbsp; One of the functions that JOptionPane has is a 
+method named showInputDialog, which will pop up on the screen and wait for the 
+user to hit the <strong>OK</strong> button.</p>
+<p><img src="images/imgD.jpg" /></p>
+<p>Similar to the println method that we&#39;ve been using , the showInputDialog 
+method requires a String to function.  The String that you give it will appear on the window that pops up.&nbsp; In the image above, the String would 
+have been &quot;Hello World!!!&quot;.&nbsp; </p>
+<p>Now that we know the class name, the method name, and the parameters, we know what the method call is going to look like:</p>
+<h4><span style="color:red">JOptionPane</span>.<span style="color:blue">showInputDialog</span>(<span style="color:green">"Hello World"</span>);</h4>
+
+<p>Since the showInputDialog method is in a class that&#39;s a part of the Java 
+Library, we first have to <strong>import</strong> it.&nbsp; This means we need 
+an import statement before our class header.&nbsp; For JOptionPane, the import 
+is javax.swing.JOptionPane (you will never have to memorize any import statement 
+for a test).</p>
+<div style="border:1px solid black;">
+<pre><span style="color:red">import javax.swing.JOptionPane;</span>
+public class Pointless
+{
+   public static void main()
+   {
+      String description = "unnecessary";
+      System.out.println("Programming like this is " + description);
+    }
+}</pre></div>
+<p>Now that our program is aware of the JOptionPane class we can call the 
+showInputDialog method, so the full method call would be <strong>
+JOptionPane.showInputDialog</strong></p>
+<p>&nbsp;</p>
+
+<div style="border:1px solid black;">
+<pre>import javax.swing.JOptionPane;
+public class Pointless
+{
+   public static void main()
+   {
+      String description = <span style="color:red">JOptionPane.showInputDialog(&quot;Please Enter a Description&quot;);</span>
+      System.out.println("Programming like this is " + description);
+    }
+}</pre>
+</div> 
+
+<p><strong>Warning:</strong>This method is a little bit buggy.  Sometimes when the window pops up it appears behind all of the other windows and it doesn't put an icon on the taskbar.  It looks like it doesn't exist.</p>
+<p>One way to cycle through your windows is by using the <strong>alt-tab</strong> keyboard shortcut.  While holding the Alt key, tap the tab key.  This will open up a selection window for as long as you're holding the alt key.  If you continue to hold</p>
+<p>&nbsp;</p>
+<hr/>
+<p>Notice that the method call is in the location where the String &quot;unnecessary&quot; 
+is.&nbsp; This is because the showInputDialog method is a method that <strong>
+returns</strong> a String.&nbsp; In this case, the resulting String is assigned 
+to the <strong>description</strong> variable so that it can be used later in the 
+program.</p>
+<p>&nbsp;</p>
+<p><strong>Warning: Common Mistake:</strong></p>
+<p>If you want to keep the data that you get from a method you MUST assign it to 
+a variable.&nbsp; It is very common for students to forget this</p>
+<p>&nbsp;</p>
+<pre>import javax.swing.JOptionPane;
+public class Pointless
+{
+   public static void main()
+   {
+      JOptionPane.showInputDialog(&quot;Please Enter a Description&quot;);
+      ...
+ </pre>
+
+<p>This is technically allowed and it will compile,&nbsp; but since the returned 
+String isn&#39;t assigned to a variable it&#39;s lost into nothingness. </p>
+
+<hr/>
+<p>Recap:  The JOptionPane class has a method named showInputDialog.  When called, this method will get a String from the user using a small window.  This method "returns" that String, which can then be assigned to a variable and used in the program.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

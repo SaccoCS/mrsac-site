@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>ArrayList Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style4 {
+	border: 1px solid #000000;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style7 {
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">ArrayList Programs:</h2>
+<p class="auto-style1"><span class="auto-style7">Look over the 
+</span> 
+<a href="ArrayList%20Notes.htm">
+<span class="auto-style7">ArrayList 
+Notes for sample code and more information.</span></a></p>
+<p>1<span class="auto-style1"><span class="auto-style7">) Create a program named 
+</span> <strong><span class="auto-style7">IntSplitter</span></strong><span class="auto-style7"> 
+that takes in 8 ints from the user. Create two ArrayList&lt;Integer&gt;, and add all 
+the odd numbers to one and all of the even numbers to the other. After you’re 
+done taking in its, print out all of the even numbers on one line and all of the 
+odd ones on another.</span></span><br class="auto-style6" />
+<br class="auto-style6" />
+<br class="auto-style6" />
+<span class="auto-style6">For Example: if the numbers entered were 
+1,4,6,3,6,8,7,9</span><br class="auto-style6" />
+<span class="auto-style6">The output would be:</span><br class="auto-style6" />
+<span class="auto-style6">The even numbers entered were: 4,6,6,8</span><br class="auto-style6" />
+<span class="auto-style6">The odd numbers entered were: 1,3,7,9</span></p>
+<hr>
+<p>
+<span class="auto-style1"><span class="auto-style7">2) Create a program named 
+</span> <strong><span class="auto-style7">BigSmallAve</span></strong><span class="auto-style7"> 
+that takes in 5 ints from the user and stores them into an ArrayList. After the 
+5 ints are entered the program will output the largest and smallest values, then 
+the average of the data. When programming, focus on one of the outputs at a 
+time, trying them all at once can be overwhelming.</span></span><br class="auto-style6" />
+<br class="auto-style6" />
+<br class="auto-style6" />
+<span class="auto-style6">For Example: if the numbers were 1,4,6,3,5</span><br class="auto-style6" />
+<span class="auto-style6">The output would be:</span><br class="auto-style6" />
+<span class="auto-style6">The smallest value is: 1</span><br class="auto-style6" />
+<span class="auto-style6">The largest value is: 6</span><br class="auto-style6" />
+<span class="auto-style6">The average is 3.8</span><br class="auto-style6" />
+</p>
+<p class="auto-style6">&nbsp;</p>
+<table class="auto-style4" style="width: 100%">
+	<tr>
+		<td>
+		<p class="auto-style6">How to determine what the largest value in an 
+		ArrayList is.</p>
+		<p class="auto-style1"><span class="auto-style7">a)&nbsp; Before looping, create an int called
+		</span>
+		<strong><span class="auto-style7">largest </span> </strong>
+		<span class="auto-style7">and put the first value of the ArrayList into 
+		it.&nbsp; At this point, largest will probably not contain the largest 
+		value.</span></p>
+		<p class="auto-style1"><span class="auto-style7">b)&nbsp; While looping, use the get method to 
+		grab the int at each index.&nbsp; If this value is larger than the value 
+		currently in </span> <strong><span class="auto-style7">largest</span></strong><span class="auto-style7">, then that value should be put 
+		into </span> <strong><span class="auto-style7">largest</span></strong><span class="auto-style7">.</span></p>
+		<p class="auto-style1"><span class="auto-style7">c)&nbsp; Since the value of 
+		</span> <strong><span class="auto-style7">largest</span></strong><span class="auto-style7"> 
+		is only replaced when a larger value is found, at some point the largest 
+		value of the ArrayList will be stored there.&nbsp; After the largest 
+		value of the ArrayList is stored into </span> <strong>
+		<span class="auto-style7">largest </span> </strong>
+		<span class="auto-style7">it will 
+		never get replaced.&nbsp; Therefore, after the loop has run completely
+		</span>
+		<strong><span class="auto-style7">largest</span></strong><span class="auto-style7"> will contain the correct value.</span></p>
+		</td>
+	</tr>
+</table>
+<p class="auto-style6">&nbsp;</p><hr>
+<p class="auto-style6">3)&nbsp; Create a class named <strong>CardLists</strong> and add the following method:</p>
+<pre>public static ArrayList&lt;String&gt; generateCardList()</pre>
+<p class="auto-style6">This method&#39;s job is to create and return an 
+ArrayList&lt;String&gt;&nbsp; made up of all 52 cards in a deck.&nbsp; DO NOT DO THIS 
+USING 52 add statements.</p>
+<p><span class="auto-style6">Strategy:</span><br class="auto-style6" />
+<span class="auto-style6">You will need the following arrays to make this method 
+easier.&nbsp; </span><br class="auto-style6" />
+</p>
+<pre>String[] vals = {"Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King","Ace"};
+String[] suits = {"Clubs","Diamonds","Hearts", &quot;Spades&quot;};</pre>
+</p>
+<p class="auto-style1"><span class="auto-style7">Each time you add a new String, 
+it should be made up of one String from vals, and one String from suits.&nbsp; 
+Since you are traversing through two arrays you will need </span><strong>
+<span class="auto-style7">nested loops</span></strong><span class="auto-style7"> 
+to loop through each one.&nbsp; This time, set up the outer loop&#39;s variable to 
+represent all the indices of the suits array, and the inner loop&#39;s variable to 
+represent all the indices of the vals array.&nbsp; Each time the loop runs, get 
+a String from each array and add it to the ArrayList named cards.</span></p>
+<p class="auto-style6">&nbsp;</p>
+<p class="auto-style6"><strong>Testing:&nbsp; </strong>ArrayLists are harder to see in BlueJ.&nbsp; To test if 
+your method works, add the following method which will take the list from the 
+generateCardList method and print it out.&nbsp; You should see all 52 cards 
+printed out.</p>
+<pre>public static void printCardList()
+{
+   ArrayList< String > cardList = generateCardList();
+   System.out.println(cardList);
+}</pre>
+<p class="auto-style6">&nbsp;<br class="auto-style6" />
+<span class="auto-style1"><span class="auto-style7">4) Add a method to the 
+CardLists class with the following header:</span></span></p>
+<pre>
+public static ArrayList&lt;String&gt; shuffledCards()</pre>
+<p>
+This method<span class="auto-style1"><span class="auto-style7"> will start by calling the generateCardList method to get an 
+ArrayList&lt;String&gt; that represent all of the cards. After that is set up create a new empty 
+ArrayList of Strings. One at a time remove a random String from the first 
+ArrayList and add it to the new one. Eventually the new ArrayList will have all 
+of the Strings from the first array in a shuffled order.&nbsp; Return that 
+ArrayList.</span></span></p>
+<p>
+<br class="auto-style6" />
+<br class="auto-style6" />
+<span class="auto-style6">REMINDER: if I want a random number from 0 to 5, it 
+would look like this</span><br class="auto-style6" />
+<br class="auto-style6" />
+<span class="auto-style6">int rand = (int)(Math.random()*6);</span><br class="auto-style6" />
+</p>
+
+
+<p class="auto-style1"><strong><span class="auto-style7">Do not use 6 when calculating the random number.</span></strong><span class="auto-style7">&nbsp; 
+You should use the current size of the ArrayList.&nbsp; That way it will always 
+return a number from 0 to size-1, exactly what is needed.</span></p>
+<table class="auto-style4" style="width: 100%">
+	<tr>
+		<td>
+		<p class="auto-style1"><strong><span class="auto-style7">Warning</span></strong><span class="auto-style7">:&nbsp; 
+		If your for loop says &nbsp; for(int i =0; 
+		i&lt;cardList.size(); i++), this will only process half the Strings 
+		in cardList.&nbsp; This is because as you remove cards, cardList.size() 
+		shrinks.&nbsp; By the time i is halfway through the list, the size is 
+		half of what it originally was and the loop will quit.</span></p>
+		<p class="auto-style6">One solution is to store the size of the 
+		ArrayList into a variable before you start looping and use that variable 
+		as the boundary of the loop.</p>
+		<p class="auto-style1"><span class="auto-style7">int listSize = cardList.size();</span><br class="auto-style7" />
+		<span class="auto-style7">for(int i =0; i&lt;listSize; i++)</span></p>
+		</td>
+	</tr>
+</table>
+
+<p class="auto-style6">&nbsp;</p>
+<p class="auto-style6">Testing:&nbsp; Add the following method to test your 
+method.</p>
+<pre>public static void printShuffledCardList()
+{
+   ArrayList< String > cardList = shuffledCards();
+   System.out.println(cardList);
+}</pre>
+
+
+</body>
+
+</html>

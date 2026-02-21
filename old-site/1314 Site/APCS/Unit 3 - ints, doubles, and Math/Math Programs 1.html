@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Math Programs 1</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+	font-size: medium;
+	color: rgb(0, 0, 0);
+	letter-spacing: normal;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	color: rgb(0, 0, 0);
+	letter-spacing: normal;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+	color: rgb(0, 0, 0);
+	letter-spacing: normal;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style5 {
+	font-size: small;
+	color: rgb(0, 0, 0);
+	letter-spacing: normal;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style7 {
+	font-size: small;
+}
+.auto-style8 {
+	font-size: x-large;
+}
+.auto-style9 {
+	color: rgb(0, 128, 0);
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<strong><span class="auto-style8">Math Programs 1</span></strong></p>
+<p class="auto-style2" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+&nbsp;</p>
+<p class="auto-style3" style="color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style7">1)&nbsp;<span class="Apple-converted-space">&nbsp;</span><strong>Averager</strong>:&nbsp;</span><span class="Apple-converted-space"><span class="auto-style7">&nbsp;</span></span><span class="auto-style6">Create 
+a class named Averager that will, once constructed, be able to accept ints one 
+at a time using a method named registerValue.&nbsp; At any time the Averager 
+should be able to tell you the sum of all the ints that have been added, how 
+many numbers have been entered, and the average of the numbers that have been 
+added.</span></p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Averager should only have two instance fields, one to represent the<strong> total sum</strong> of 
+the numbers that have been entered so far, and one to represent the <strong>count</strong> of the 
+numbers that have been entered so far.</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Add a method named registerValue, which takes in an int as a parameter.&nbsp; 
+This method should add the parameter to the total instance field and also 
+increment the count instance field.</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Add a method named getSum which will return the sum of all the numbers that have 
+been entered.</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Add a method named getCount, which will return the count of the numbers that 
+have been entered.</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Add a method named getAverage, which will calculate and return the average of 
+the numbers that have been entered so far.&nbsp; DO NOT CREATE AN INSTANCE FIELD 
+FOR THE AVERAGE, CALCULATE IT USING THE INSTANCE FIELDS YOU ALREADY HAVE.&nbsp; 
+Remember that if you have only ints, your average will calculate as a whole 
+number.&nbsp; One way to force a double operation is to multiply by 1.0 before 
+you start dividing.&nbsp; For example, if a and b are ints then a/b is different 
+than 1.0*a/b<br />
+</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Create a runner that uses no user input, but does the following:</p>
+<p class="auto-style6" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: medium; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style2">
+Construct a new Averager object.</span><br class="auto-style2" />
+<span class="auto-style2">
+use the registerValue method 3 times to pass in the numbers&nbsp;<span class="Apple-converted-space">&nbsp;</span>5,2, 
+and 7</span><br class="auto-style2" />
+<span class="auto-style2">
+println out “The average of the____ numbers entered so far is _____&quot;<br />
+use the registerValue method 2 more times to pass in a 4 and a 6</span><o:p><span class="auto-style5"><br class="auto-style4" />
+</span><span class="auto-style2">
+println out “The average of the ____ numbers entered so far is _____&quot;</span></o:p></p>
+<hr>
+<p class="auto-style3" style="color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<span class="auto-style7">2)&nbsp;<span class="Apple-converted-space">&nbsp;</span><strong>DigitExtractor</strong>:&nbsp;</span><span class="Apple-converted-space"><span class="auto-style7">&nbsp;</span></span><span class="auto-style6">Write 
+a class named DigitExtractor that will healp break an int into individual digits 
+in reverse order.&nbsp; You will only need one instance field to hold the number 
+that is being broken up.</span></p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Write a constructor that takes in an int as a parameter and sets it to the 
+instance field.</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Write one method named nextDigit that will take in no parameters.&nbsp; 
+nextDigit should both return the last digit of the instance field <strong>and</strong> 
+modify the instance field to no longer have that digit at the end.&nbsp; Again, 
+use a local variable to hold thevalue that you are going to return while you 
+modify the instance field.</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+&nbsp;</p>
+<p class="auto-style6" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Create a runner for DigitExtractor, which will ask the user to input a 5 digit 
+number, construct a DigitExtractor using that int, and then repeatedly call the 
+nextDigit method and print out the result.&nbsp; If you use System.out.<strong>print</strong> 
+instead of System.out.<strong>println</strong>, no new line is added after each 
+print.</p>
+<p class="auto-style2" style="font-variant: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+System.out.print( myDigEx.nextDigit() );<br />
+System.out.print( myDigEx.nextDigit() );<br />
+...</p>
+<p class="auto-style2" style="font-variant: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Example:<br />
+Please enter a number:<br />
+95006</p>
+<p class="auto-style2" style="font-variant: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Backwards, that number is:<br />
+60059</p>
+<hr>
+<p class="auto-style2" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+3)<span class="Apple-converted-space">&nbsp;</span><strong>Easter:</strong><span class="Apple-converted-space">&nbsp;</span>Write 
+a program named Easter that is in charge of calculating what day is Easter Sunday 
+based on the year given.</p>
+<p class="auto-style2" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Prompt the user to enter a year, and then determine the day and month using 
+Gauss&#39; algorithm below.&nbsp; Once the day and month have been calculated, print 
+out &quot;Easter Sunday is ___/___/___&quot; but using month day and year in the date.&nbsp;</p>
+<p class="auto-style2" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Be careful about implied parentheses.&nbsp;&nbsp; Divide a+2 by 7 would not be 
+a+2/7, it would be (a+2)/7.</p>
+<table border="1" cellpadding="0" cellspacing="0" class="MsoNormalTable" style="font-size: 10pt; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; border: medium none inherit; border-collapse: collapse;">
+	<tr>
+		<td style="width: 414.9pt; border: 1pt solid windowtext; padding: 0in 5.4pt; height: 664px;" valign="top" width="553">
+		<p class="auto-style4" style="font-size: medium;">Gauss’ algorithm for 
+		calculating Easter</p>
+		<p class="MsoNormal">Let y be the year<o:p></o:p></p>
+		<p class="MsoNormal">Divide y by 19 and call the remainder a.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Divide y by 100 to get a quotient b and a 
+		remaiinder c<o:p></o:p></p>
+		<p class="MsoNormal">Divide b by 4 to get a quotient d and a remainder e<o:p></o:p></p>
+		<p class="MsoNormal">Divide 8*b+13 by 25 to get a quotient g.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the remainder<o:p></o:p></p>
+		<p class="MsoNormal">Divide 19*a+b-d-g+15 by 30 to get a remainder h.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Divide c by 4 to get a quotient j and a remainder k<o:p></o:p></p>
+		<p class="MsoNormal">Divide a +11*h by 319 to get a quotient m.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the remainder<o:p></o:p></p>
+		<p class="MsoNormal">Divide 2*e+2*j-k-h+m+32 by 7 to get a remainder r.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Divide h – m + r + 90 by 25 to get a quotient n.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the remainder<o:p></o:p></p>
+		<p class="MsoNormal">Divide h – m +r +n +19 by 32 to get a remainder p.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Then Easter falls on day p of month n.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>For 
+		Example, if y is 2001:<o:p></o:p></p>
+		<p class="MsoNormal">a = 6<br />
+		b = 20<br />
+		c = 1<br />
+		d = 5, e = 0<br />
+		g = 6<br />
+		h = 18<br />
+		j = 0, k = 1<br />
+		m = 0<br />
+		r = 6<br />
+		<span class="auto-style3" style="color: rgb(255, 0, 0);">n = 4</span><br class="auto-style3" style="color: rgb(255, 0, 0);" />
+		<span class="auto-style3" style="color: rgb(255, 0, 0);">p = 15</span><o:p></o:p></p>
+		<p class="MsoNormal">Therefore Easter Sunday fell on April 15, 2001.<o:p></o:p></p>
+		</td>
+	</tr>
+</table>
+<p style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" class="auto-style6">
+When you get the wrong answer, use the following println:&nbsp;</p>
+<pre>System.out.println("a="+a+"\nb="+b+"\nc="+c+"\nd="+d+"\ne="+e+"\ng="+g+"\nh="+h+"\nj="+j+"\nk="+k+"\nm="+m+"\nr="+r+"\nn="+n+"\np="+p);
+<p class="auto-style2" style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Run the program again with 2001 and you should be able to locate the problem 
+that way by finding the first value that is different than the example.</p>
+<hr>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+4)&nbsp; <strong>DecToBin</strong>:&nbsp; One way to convert to binary is to use 
+mod and int division repeatedly:</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+1)&nbsp; Mod your number by 2.&nbsp; The result is the next largest digit.<br />
+2)&nbsp; Divide your number by 2 using int division.&nbsp; The result is your 
+new number.<br />
+3)&nbsp; Repeat steps 1 and 2 until your number is 0.</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+For Example:&nbsp; 11</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+11 % 2 = 1</p>
+<table class="auto-style2" style="border-style: solid; border-width: 1px; font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; width: 509px; height: 266px;">
+	<tr>
+		<td style="width: 130px;"><strong>11</strong>%2 =<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+		<td style="width: 317px;">Binary number so far:&nbsp;<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;"><strong>11</strong>/2 = 5</td>
+		<td style="width: 317px;">New number:&nbsp;<strong> </strong>
+		<span class="auto-style9"><strong>5</strong></span></td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">Repeat</td>
+		<td style="width: 317px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;"><span class="auto-style9"><strong>5</strong></span>%2 =<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+		<td style="width: 317px;">Binary number so far:<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span>1</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;"><span class="auto-style9"><strong>5</strong></span>/2 = 2</td>
+		<td style="width: 317px;">New number: <span class="auto-style9"><strong>2</strong></span></td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">Repeat</td>
+		<td style="width: 317px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;"><span class="auto-style9"><strong>2</strong></span>%2 =<span class="auto-style4" style="color: rgb(255, 0, 0);"><span class="Apple-converted-space">&nbsp;</span>0</span></td>
+		<td style="width: 317px;">Binary number so far:<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">0</span>11</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">2/2 = 1</td>
+		<td style="width: 317px;">New number: <span class="auto-style9"><strong>1</strong></span></td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">Repeat</td>
+		<td style="width: 317px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;"><span class="auto-style9"><strong>1</strong></span>%2 =<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+		<td style="width: 317px;">Binary number so far:&nbsp;<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span>011</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;"><span class="auto-style9"><strong>1</strong></span>/2 = 0</td>
+		<td style="width: 317px;">New number: <strong>0</strong></td>
+	</tr>
+</table>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Create a program named<span class="Apple-converted-space">&nbsp;</span><strong>DecToBin</strong>, 
+which prompts the user for a number less than 64, and then converts it to a 
+binary String.&nbsp; Use the following strategy:</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Store the input number in a variable named num.&nbsp; Create an <strong>empty 
+string</strong> to hold the result, a String with only the value &quot;&quot;</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Mod num by 2 and store the result in a variable named placeVal<br />
+Add placeVal to the <strong>front</strong> of the result String ( str = placeVal 
++ str; )<br />
+Divide num by 2 and store the result back into num ( num /= 2 )</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Mod num by 2 and store the result into placeVal<br />
+Add placeVal to the <strong>front </strong>of the result String<br />
+...</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Repeat this process until you&#39;ve added 6 values to the String, and then print 
+out the number.</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+For example:</p>
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Please enter a number less than 64:<br />
+41<br />
+41 in binary is 101001</p>
+<p class="auto-style1" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+&nbsp;</p>
+
+</body>
+
+</html>

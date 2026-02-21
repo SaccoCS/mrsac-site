@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>While Loops Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style4 {
+	border-style: solid;
+	border-width: 2px;
+}
+.auto-style5 {
+	font-size: large;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">While Loops Programs</p>
+<p class="auto-style1">Create one class named WhileLoops, which will contain the 
+static void methods below.&nbsp; Each method will have no parameters, so all 
+input should be taken in using Scanner.</p>
+<p class="auto-style3">Methods:</p>
+<p class="auto-style1"><strong>oddCounter</strong> - Prompt the user to enter a number, then 
+print out all ODD numbers that are less than that number.</p>
+<p>Example:<br />
+Enter a number:<br />
+10<br />
+The odd numbers less than 10 are:<br />
+1<br />
+3<br />
+5<br />
+7<br />
+9</p>
+<table align="left" class="auto-style4" style="width: 82%">
+	<tr>
+		<td class="auto-style1">
+<p class="auto-style5">Useful Method Alert:</p>
+		<p>Normally we use scan.nextLine() to get a String from the user:<br />
+		<span class="auto-style6">String str = scan.nextLine();</span><br />
+		<br />
+		If we want an int, we need one more step.&nbsp; The 
+		Integer.parseInt(_____) method will take whatever String is passed as a 
+		parameter and attempt to convert it to an int.&nbsp; If the String 
+		cannot be made into an int, the program will crash.</p>
+		<p><span class="auto-style6">String str = scan.nextLine();<br />
+		int num = Integer.parseInt(str); </span>&nbsp; //now the int version of 
+		whatever was passed in is stored in the <strong>num</strong> variable</p>
+		<p>There is also a method for Doubles<br />
+		<span class="auto-style6">String str = scan.nextLine();<br />
+		double num = Double.parseDouble(str); </span>&nbsp; //now the double version of 
+		whatever was passed in is stored in the <strong>num</strong> variable</p>
+		</td>
+	</tr>
+</table>
+<br>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<hr>
+<p class="auto-style1"><strong>verticalString</strong> - Prompt the user to enter a String, then 
+print the String out one letter at a time until there are no more letters.&nbsp; 
+The length of the String should not matter.</p>
+<p>Example:<br />
+Enter a String:<br />
+Hello<br />
+H<br />
+e<br />
+l<br />
+l<br />
+o</p>
+<hr>
+<p class="auto-style1"><strong>sentenceSplitter</strong> - Prompt the user to enter a sentence.&nbsp; 
+Output the sentence one word at a time until there are no words left.&nbsp; This 
+should work for sentences of ANY length.&nbsp; Hint:&nbsp; Use indexOf(&quot; &quot;) to 
+drive your while loop.&nbsp; Don&#39;t forget what it returns when the String cannot 
+be found.</p>
+<p>Example:<br />
+Enter a sentence:<br />
+Mr. Sacco is totally awesome<br />
+Mr.<br />
+Sacco<br />
+is<br />
+totally<br />
+awesome</p>
+<hr>
+<p class="auto-style1"><strong>safeDivider</strong> - Prompt the user to enter a 
+number, then a number to divide by.&nbsp; Generally, the program should output 
+the quotient and remainder of the division.</p>
+<p>Example:<br />
+Enter a numerator:<br />
+20<br />
+Enter a denominator:<br />
+3<br />
+20 divided by 3 has a quotient of 6 with a remainder of 2</p>
+<p class="auto-style1">Make a loop for the program that will protect the program 
+from dividing by zero.&nbsp; If the user enters a zero in the denominator, print 
+out &quot;Please enter a non-zero denominator&quot; and ask again.</p>
+<p><br />
+</p>
+
+</body>
+
+</html>

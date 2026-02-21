@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Helper Method Programs</title>
+<style type="text/css">
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">String Helper Method Programs</p>
+<p class="auto-style2">Each of the following programs should have a main method, 
+and also a helper method in the same class.&nbsp; Start by creating the helper method and focusing 
+on getting it functioning the way you want it to.&nbsp; After that create a main 
+method that uses the helper method to complete the given task.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">1)&nbsp; <strong>UpperLower</strong>:&nbsp; This program 
+will take in a five letter String from the user, and then print out each letter 
+several times per row with alternating caps and lowercase.</p>
+<p><span class="auto-style2">Example:</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a 5 letter String:</span><br class="auto-style2" />
+<span class="auto-style2">apple</span></p>
+<p><span class="auto-style2">AaAaAaAaA</span><br class="auto-style2" />
+<span class="auto-style2">PpPpPpPpP</span><br class="auto-style2" />
+<span class="auto-style2">PpPpPpPpP</span><br class="auto-style2" />
+<span class="auto-style2">LlLlLlLlL</span><br class="auto-style2" />
+<span class="auto-style2">EeEeEeEeE </span></p>
+<p class="auto-style2">&nbsp;</p>
+<p><span class="auto-style2">To do this create a method with the following 
+header :</span><br class="auto-style2" />
+</p><pre>public static String getUpperLower(String letter)</pre>
+<p class="auto-style2">The goal of this method is to take the variable letter, 
+find its upper case and lower case versions, and then put them together at least 
+nine times in a String.&nbsp; Be sure to test your program and make sure that 
+putting a parameter of &quot;c&quot;&nbsp; will return &quot;CcCcCcCcC&quot;</p>
+<p class="auto-style2">Once the getUpperLower functions properly, write a main 
+method that prompts the user to input a five letter String and then uses the 
+getUpperLower method to help produce the correct output.</p>
+<hr>
+<p class="auto-style2">2) <strong>Shifter</strong>:&nbsp; This program will take 
+in a five letter string from the user and then print out a shifted version (the 
+last letter is moved to the front)&nbsp; five times</p>
+<p><span class="auto-style2">Please enter a five letter word:</span><br class="auto-style2" />
+<span class="auto-style2">apple</span></p>
+<p><span class="auto-style2">eappl</span><br class="auto-style2" />
+<span class="auto-style2">leapp</span><br class="auto-style2" />
+<span class="auto-style2">pleap</span><br class="auto-style2" />
+<span class="auto-style2">pplea </span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">To do this, create a helper method with the following 
+header:</p>
+<p class="auto-style2">public static String shiftOneLetter(String str)</p>
+<p><span class="auto-style2">The purpose of this method is to return a new 
+string that is made up of str, but with the last letter located in the front.</span><br class="auto-style2" />
+<span class="auto-style2">Test out this method using BlueJ, passing in &quot;hello&quot; 
+should return &quot;ohell&quot;</span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Once the shiftOneLetter method functions, write a main 
+method that prompts the user to enter a String, and then keeps printing out a 
+shifted version over and over.&nbsp;&nbsp; It is important that you save the 
+previous shifted version so that you may use it when you call the shiftOneLetter 
+method again.</p>
+<hr/>
+<p class="auto-style2">3) <strong>PigLatin</strong>:&nbsp; This program will ask 
+the user for a five word sentence, and then print out that same sentence in pig 
+latin.</p>
+<p class="auto-style2">For Example:<br />
+Please enter a five word phrase:<br />
+my pig speaks funny latin</p>
+<p class="auto-style2">In pig latin that is:<br />
+ymay igpay peakssay unnyfay atinlay</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">In order to accomplish this you will 
+be creating <strong>three</strong> different helper methods to assist your main method.&nbsp; One 
+to convert a single word into pig-latin, and two to help chop the sentence into 
+single words.</p>
+<p class="auto-style2">Start by creating a class named PigLatin.&nbsp; Then add 
+the following helper methods:</p>
+<p class="auto-style2">- Create a method named <strong>toPig</strong>, which 
+takes in a String as a parameter and returns a String that is the Pig Latin 
+version of the parameter.&nbsp; </p>
+<p class="auto-style2">For those that don’t know how to speak pig latin, the 
+first letter is moved to the back of the word, and then it attached an “ay” to 
+the end. For example, hello becomes ellohay.&nbsp; In reality this only works 
+for words that start with a consonant and then a vowel, but the other rules 
+require a little more knowledge of programming than we currently have so we’re 
+going to pretend that it has simpler rules.</p>
+<p class="auto-style2">Test your method with several words of different lengths 
+to make sure that it works properly with one word.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">- Create a method named <strong>firstWord</strong>, which takes in a 
+String as a parameter and returns the first word of that String.&nbsp; For 
+example, the String &quot;Sacco is amazing&quot; will return simply &quot;Sacco&quot;.&nbsp; This 
+accomplished similarly to how you&#39;ve done it before using indexOf to locate the 
+space.&nbsp; You may be afraid of what happens to the rest of the parameter, but 
+that&#39;s not this method&#39;s problem.</p>
+<p class="auto-style2">You may assume that the parameter contains at least one 
+space, meaning the indexOf method will return a good value.</p>
+<p class="auto-style2">Test this method out completely before moving on.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">- Create a method named <strong>postFirst</strong>, which 
+is the complement of the firstWord method that you just wrote.&nbsp; It takes in 
+a String as a parameter and returns a String that contains everything but the 
+first word of the parameter String.&nbsp; For example, the String &quot;Sacco is 
+amazing&quot; will return &quot;is amazing&quot;.&nbsp; Make sure that you do not include the 
+space this new String.&nbsp; Start your substring on the index after the space.</p>
+<p class="auto-style2">You may assume that the parameter contains at least one 
+space, meaning the indexOf method will return a good value.</p>
+<p class="auto-style2">Test this method out completely before moving on.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">- Now it&#39;s time to write PigLatin&#39;s <strong>main</strong> method.&nbsp; 
+While you write this method you should keep in mind that you have methods that 
+will help you: convert a single word to pig latin, extract the first word from a 
+String, and get everything <strong>but</strong> the first word.</p>
+<p class="auto-style2">This program should prompt the user to input a 5 word 
+String (you may assume that it is exactly 5 words).&nbsp; Your job will be to 
+use the helper methods that you&#39;ve already created to create and print out a 
+String that contains all five words in Pig Latin.</p>
+<p class="auto-style2">Hint: Assuming str is a String, consider&nbsp; str = 
+postFirst(str);&nbsp;&nbsp;&nbsp; Since str is both being passed as the 
+parameter and recieving the returned value, that line of code will replace str 
+with itself, but with the first word removed.&nbsp; You will repeatedly access 
+the first word, convert it to pig latin, and then change the String to no longer 
+have the first word.&nbsp; Once you&#39;ve converted all 5 words, print out the five 
+new words with spaces in between.</p>
+<hr/>
+<p class="auto-style2"><strong>BetterCash</strong>:&nbsp; This program is going to 
+ask the user how much their bill is, and then add 7.5% tax and print out how 
+much the total is.&nbsp; This class will have a helper method that will have the 
+ability to take a double and put it into a cash format, meaning there are 
+exactly two digits after the decimal point.&nbsp; Instead of manipulating the 
+double directly, you are going to use String methods to accomplish the task.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">For Example: </p>
+<p class="auto-style2">How much was the bill?<br />
+18.84</p>
+<p class="auto-style2">After 7.5% tax, a bill of $18.84 is $20.25</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Create a helper method named <strong>cashFormat</strong>.&nbsp; This 
+method will take in a double and return a String in &#39;cash format&#39;, meaning there 
+is a dollar sign and <strong>exactly</strong> two digits after the decimal 
+point.&nbsp; You will want to do this using String methods instead of casting 
+the double.</p>
+<p class="auto-style2">Tip:&nbsp; Since you will be taking in a double, you will 
+want to convert it to a String.&nbsp; The cheap way to do this is to add an 
+empty String to it.&nbsp; For example, if the double is named <strong>value</strong>, 
+the following line will get a String version of it:</p>
+<pre>String valueStr = value + "";</pre>
+<p class="auto-style2">Since a String is involved in the addition Java <strong>
+concatenates</strong> them together, resulting in a new String that has only the 
+double. </p>
+<p class="auto-style2">From there your job will be to create and return a String 
+that has a dollar sign and exactly two digits past the decimal.</p>
+<p class="auto-style2">Caution!!!!!&nbsp; Some doubles don&#39;t have more than one 
+digit past the decimal point.&nbsp; This could have StringIndexOutOfBounds 
+consequences.&nbsp; You should add a &quot;0&quot; to the bask of the String before you 
+start manipulating it.</p>
+<p class="auto-style2">Test this method out with a variety of doubles, like 
+4.1365213 and 9.2.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Once the cashFormat method works, create a main method 
+that will prompt the user to input a cost, and then output the original cost 
+along with the cost after tax.&nbsp; Both should be formatted using the 
+cashFormat method.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

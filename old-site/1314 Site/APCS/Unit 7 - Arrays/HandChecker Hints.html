@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Hints for HandChecker Please att</title>
+<style type="text/css">
+ p.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="MsoNormal" style="font-size: large">Hints for HandChecker<br />
+<span class="auto-style1">Please attempt to devise your own strategy before 
+checking.&nbsp; Stretch your brain!</span></p>
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class="MsoNormal"><strong>isFlush</strong>: use an early return to return a 
+false when you find two cards with differing suits.<o:p><br />
+</o:p></p>
+<p class="MsoNormal"><strong>isPair</strong> and <strong>isThreeOfAKind</strong>:<span style="mso-spacerun: yes">&nbsp;
+</span>These two methods are similar.<span style="mso-spacerun: yes">&nbsp;
+</span>While looping through your array, use a nested loop to add up the number 
+of cards that match your ‘current’ card’s value.<span style="mso-spacerun: yes">&nbsp;
+</span>Then observe that counter to see if it’s 2 or 3<o:p><br />
+</o:p></p>
+<p class="MsoNormal"><strong>isTwoPair</strong>:<span style="mso-spacerun: yes">&nbsp;
+</span>This method is similar to the isPair and isThreeOfAKind, but a little 
+trickier.<span style="mso-spacerun: yes">&nbsp; </span>Create an array that will 
+keep a count of how many times the Card at each index appears within the array.</p>
+<p class="MsoNormal">For Example:<span style="mso-spacerun: yes">&nbsp; </span>
+if the array is [Ace, Two, Ace,Five,King], the array counter should have 
+[2,1,2,1,1].<o:p></o:p></p>
+<p class="MsoNormal">Or if the array is [Ace, Two, Ace,Five,Five], the array 
+counter should have [2,1,2,2,2].<o:p></o:p></p>
+<p class="MsoNormal">Once you’ve tallied up that array, you only need to count 
+the number of 2’s to determine how many pairs there are.<o:p></o:p></p>
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class="MsoNormal"><strong>isStraight</strong>:<o:p></o:p></p>
+<p class="MsoNormal">Use a for loop to find the smallest rank in the array (I&#39;ll 
+call it smallRank)<o:p></o:p></p>
+<p class="MsoNormal" style="orphans: 2; text-align: start; widows: 2; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; word-spacing: 0px">
+Loop from smallRank through smallRank + 4 and each time search for that rank 
+within cards (boolean flag). If that rank is not present in those cards, return false.<o:p></o:p></p>
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+
+</body>
+
+</html>

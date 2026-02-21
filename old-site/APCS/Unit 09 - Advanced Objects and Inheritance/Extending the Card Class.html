@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Extending the Card Class</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;font-size:small;
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Extending the Card class</h2>
+<p><a href="../../saccojar/doc/sacco/Card.html">Card API</a><br />
+<a href="../../saccojar/doc/sacco/Canvas.html">Canvas API</a></p>
+<p>For this project you will need the Sorter class from the previous 
+assignments.</p>
+<p>sacco.jar already has a Card class that has a few helpful methods.&nbsp; Read 
+through the api <a href="../../saccojar/doc/sacco/Card.html">HERE</a>.</p>
+<p><img height="327" src="images/CardDiagram.PNG" width="406" /></p>
+<p>One thing to notice is that there are three different ways to construct a 
+Card:</p>
+<p class="auto-style1">public Card()&nbsp; //Constructs a completely randomized Card</p>
+<p class="auto-style1">public Card(String v, String s)&nbsp; //Constructs a card with the given suit 
+and value.&nbsp; Either the full String or the single character versions will 
+work ( ex. a v value of &quot;A&quot; and &quot;Ace&quot; will produce the same card.</p>
+
+<p>Create a class named CardRunners and add the following method to it:</p>
+<pre>public static void manyCards()
+{
+   Card[] cards = new Card[50];
+   for( int i =0; i &lt; cards.length; i++)
+   {
+      cards[i] = new Card("A","S");
+   }
+   printCards(cards);
+}
+
+public static void printCards(Card[] theCards)
+{
+   System.out.print("["+theCards[0]);
+   for( int i = 1; i &lt; theCards.length; i++)
+   {
+      System.out.print(", "+theCards[i]);
+   }
+   System.out.println("]");
+}</pre>
+<p>If you run this, you should see that you&#39;ve created 50 Ace of Spades.&nbsp; 
+Since this constructor is overloaded, we can get random cards by making a little 
+adjustment.</p>
+<p>Go to the line that says
+<span style="font-family:'Courier New', Courier, monospace">cards[i] = new Card(&quot;A&quot;,&quot;S&quot;); </span>and 
+replace it with the line <span style="font-family:'Courier New', Courier, monospace">cards[i] = new Card();</span></p>
+<p>Note that this is a completely different constructor, and in this case it 
+randomizes the value and suit.&nbsp; Run the method now and you should get fifty 
+random cards printed out.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style2"><strong>Using inheritance to create a better Card</strong></p>
+<p>While the Card class is useful for creating Cards, we can make Card even 
+better.&nbsp; Since we&#39;ve been working with Sorter&#39;s selecttionSort method, it 
+would be nice if it was comparable so we could sort the array of Cards that 
+we&#39;ve created.</p>
+<p>It&#39;s time to create a class named SCard, which will have the same purpose as 
+the Card class, except it should implement Comparable so that the array can be 
+sorted by our Sorter class.</p>
+<p><strong>Don&#39;t repeat code!</strong></p>
+<p>If we want to have a class that acts like the Card class, we want to use 
+inheritance to get the job done.&nbsp; Create a class named SCard that has the 
+following header:</p>
+<p>import sacco.*;<br />
+public class SCard <strong>extends Card</strong></p>
+<p>Leave the rest of the class empty for now.&nbsp; At the moment we have done a 
+very minimal amount of inheritance&nbsp; By saying SCard <strong>extends Card</strong> 
+we are asking that this method inherit all the instance fields and methods of 
+the Card class.</p>
+<p>Go back to the CardRunner class and change all the words &#39;Card&quot; to &#39;SCard&#39;. 
+Since the SCard class is just a bare extension of the Card class, running the 
+method should get the same result as before.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style2"><strong>Why Does printCards work with SCards?</strong></p>
+<p>When we updated the CardRunner to have an SCard array, we changed the type 
+that was being passed into the parameter of the printCards method.&nbsp; The 
+method&#39;s definition says that it takes in an array of Cards, but an array of 
+SCards are being passed.</p>
+<p>The answer is:&nbsp; Because Polymorphism!</p>
+<p>Since every SCard extends from Card, every SCard IS-A Card.&nbsp; Every 
+method that a Card has, an SCard has as well.&nbsp; The only thing that the 
+printCards method really needed from each Card was the toString method, which is 
+used when printing.&nbsp; Polymorphism allows us to reuse this method without 
+having to replace any of the Code&nbsp;</p>
+<hr>
+<p class="auto-style2"><strong>Making SCard Better with compareTo</strong></p>
+<p>Our real goal is to make the SCard class work with the Sorter class.&nbsp; 
+That means it has to implement the Comparable interface.</p>
+<p>SCard&#39;s new header should read:</p>
+<pre>public class SCard extends Card implements Comparable&lt;SCard&gt;</pre>
+<p>This means that you have to add the following method:</p>
+<pre>public int compareTo(SCard other)</pre>
+<p>This compareTo method will still return a negative, positive, or a zero based 
+on the following rules:</p>
+<p>if this SCard&#39;s rank is less than the parameter SCard&#39;s rank, a negative 
+value is returned</p>
+<p>if this SCard&#39;s rank is greater than the parameter SCard&#39;s rank, a positive value 
+is returned</p>
+<p>if the two SCards have equal ranks, then the suits are compared according to 
+the following list:<span style="font-family:'Courier New', Courier, monospace">"Clubs","Diamonds","Hearts","Spades". </span></p>
+<p>&nbsp;<strong>How to access the rank and suit</strong>:</p>
+<p>Inheritance means that the SCard has all the variables that the Card class 
+has, but there is a problem.&nbsp; Since the suit and value are <strong>private</strong> 
+in Card, you have no direct access to them.&nbsp; The way that you must interact 
+with them is through the public methods that you&#39;ve inherited.</p>
+<p>The two important methods that have been inherited are the getRank() and 
+getSuit() method.&nbsp; When you are writing the compareTo, you will want to use 
+the lines <strong>this.getRank()</strong> and <strong>other.getRank()</strong> 
+to access the values from the two important SCards.&nbsp; </p>
+<p>Adding a useful method to help with sorting:</p>
+<p>The hard part about the compareTo method is that you have to find the 
+strength of a suit in order to sort the SCards properly, but Card never had a 
+getSuitRank method.&nbsp; Since the purpose of inheritance is to build upon the 
+original class, let&#39;s add the following to the SCard class:</p>
+<pre>public int getSuitRank()</pre>
+<p>This method should return a 0 for &quot;Clubs&quot;, a 1 for &quot;Diamonds&quot;, a 2 for 
+&quot;Hearts&quot;, and a 3 for &quot;Spades&quot;.&nbsp; If nothing is found, return a -1.</p>
+<p>Now that this helper method is finished, make sure that you use it in your 
+compareTo method in the case that the ranks are ties.</p>
+<p>&nbsp;</p>
+<p>To test out and see if your sorter works, add the following two lines to the 
+manyCards method:</p>
+<pre>Sorter.selectionSort(cards);
+printCards(cards);
+</pre>
+<p>The cards are sorted using the compareTo method that you just created, and 
+then printed again so that we can see them on the terminal.&nbsp; Run the method 
+and it should print out a sorted version of the SCards.&nbsp; Double check to 
+make sure that for cards of the same rank, they go int &quot;Clubs&quot;, &quot;Diamonds&quot;, 
+&quot;Hearts&quot;, &quot;Spades&quot; order.&nbsp; If not, fine tune your compareTo method.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style2"><strong>Creating a Deck:</strong></p>
+<p>Go to the CardRunners class and add a method with the following header:</p>
+<pre>//returns an array of all 52 possible SCards
+public static SCard[] deckOfCards()</pre>
+
+<p>The purpose of the method is to not just create a random array, but to create 
+specifically all 52 SCards in an array and to return that array.</p>
+<p><strong>Problem:&nbsp; Constructors are not automatically inherited</strong></p>
+<p>When you extend a class you automatically inherit all the public methods, and 
+these can be used immediately, but Constructors are treated differently.&nbsp; 
+If no Constructors are supplied, the default constructor (the one with no 
+parameters) is inherited.&nbsp; This is what we have done so far.&nbsp; That is 
+why cards[i] = new SCard(); is working.</p>
+<p>For the sake of the deckOfCards method, we will want to add the constructor 
+that takes in two Strings as parameters.</p>
+<p>Add a constructor to SCard with the following header:</p>
+<pre>public SCard(String value, String suit)</pre>
+<p><strong>How to set up the instance fields</strong>:</p>
+<p>The Constructor&#39;s job is to put values into the instance fields, but our 
+problem is that we are extending, so we don&#39;t have direct access to the instance 
+fields.&nbsp; What we do get when extending is the ability to call the 
+constructor from the <strong>super-class.</strong>&nbsp; Since we want the SCard 
+to be set up the exact same way, we&#39;ll call that comstructor using the keyword<strong> 
+super.</strong>&nbsp; The full constructor&#39;s code is below:</p>
+<pre>public SCard(String value, String suit)
+{
+   super(value, suit);
+}</pre>
+<p>What this means is that the SCard&#39;s constructor calls the Card constructor 
+(using the keyword <strong>super</strong>), passing the value and suit String as 
+parameters.&nbsp; The idea is that the Card construcor has access to those 
+instance fields and can initialize them correctly, so passing them along should 
+work fine.</p>
+<p>&nbsp; <strong>A Sudden Problem:</strong></p>
+<p>If you compile your program now, you&#39;ll see that now the CardRunners class is 
+now unhappy with the line:</p>
+<pre>cards[i] = new SCard();</pre>
+<p>The previous&nbsp; default constructor that was being used was automatically 
+used for SCard since we hadn&#39;t prvided a single constructor.&nbsp; Now that 
+we&#39;ve just added a constructor that is not the default constructor, Java doesn&#39;t 
+automatically add the default constructor.&nbsp; That makes this line no longer 
+function.</p>
+<p>Add the following constructor:<br />
+</p>
+<pre>public SCard()</pre>
+<p>This should be one line, that makes a call to super();&nbsp; This implies 
+that we want the default constructor to work the same way that Card&#39;s default 
+constructor worked.&nbsp; Now that we&#39;ve specifically defined the default 
+constructor, that should put an end to the compiling problem.</p>
+<hr>
+<p class="auto-style2"><strong>Finishing the deckOfCards method:</strong></p>
+<p>Now that we can use two Strings to create an SCard, we can finish the 
+deckOfCards method.&nbsp; The best way to do it is to create two local String[] 
+in the deckOfCards method:</p>
+<pre>String[] vals = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
+String[] suits = {"D","C","H","S"};</pre>
+<p>Start by creating an array of SCards that is size 52</p>
+<p>Using a nested for loop to create every combination of suit an value 
+possible.&nbsp; Each loop should be responsible for the index of one of the 
+arrays.&nbsp; You will also need to have a separate int to represent the index 
+of the SCard[] that you&#39;re creating, since it isn&#39;t 2D.&nbsp; Don&#39;t 
+forget to return the array after you&#39;ve constructed an SCard into every index.</p>
+<p>Test the deckOfCards method by adding the following method to the CardRunners 
+class:</p>
+<pre>public static void deckTest()
+{
+   SCard[] deck = deckOfCards();
+   printCards(deck);
+}</pre>
+
+<p>Running this should print a list of all the cards in the deck.&nbsp; They 
+should appear in a pretty clear pattern because of the looping.</p>
+<p>&nbsp;</p>
+<hr>
+
+<p class="auto-style2"><strong>Adding more instance fields:&nbsp; The Graphical Card</strong></p>
+<p>Another useful part of inheritance is that you can also add more instance 
+fields to the object that you&#39;re extending (we&#39;re <strong>extending</strong> the 
+information that his object can stor along with the methods that it has)</p>
+<p>The SCard class holds the two Strings, but we would like it to also be able 
+to represent itself Graphically. This means that just having th inherited value 
+and suit will not be sufficient. Add the following instance fields to the SCard 
+class:</p>
+<pre> private Picture cardPic;
+private int x, y, width, height;</pre>
+<p>Now we&#39;ve got everything to make an SCard able to keep track of a location 
+and Picture to represent it.&nbsp; We&#39;ve just got to modify it a little bit.&nbsp; 
+Mostly the constructor.</p>
+<p>Go the constructor with two parameters.&nbsp; Ad the moment it does nothing 
+but call the super-class&#39; constructor.&nbsp; Previously that was fine to set up 
+the instance fields, but now there are more instance fields to deal with.&nbsp; 
+After the super call, assign zeros to x and y, and assigns a width of 72 and a 
+height of 96.&nbsp; These are the width an height of all the card images are in 
+the sacco.jar.</p>
+<p>As for the cardPic.&nbsp; All of the Card images are stored in the sacco.jar 
+cards/ folder.&nbsp; To load the Ace of Spades into the cardPic variable, 
+it would look like the following:</p>
+<pre>cardPic = Picture.loadFromJar("cards/AS.png");</pre>
+<p>Notice the <strong>AS</strong> denotes which card is to be loaded.</p>
+<p>The two pieces of the card are given to you as parameters.&nbsp; It&#39;s your 
+job to stitch them togethre and make sure the right image is loaded.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style2"><strong>More methods to add:</strong></p>
+<p>Now that there&#39;s new instance fields, add the following methods to the SCard 
+class that deal with the new instance fields:</p>
+<pre>public int getX()
+public int getY()
+public int getWidth()
+public int getHeight()
+public void setX(int x)
+public void setY(int y)</pre>
+<p>Also add a paintSelf method that uses Canvas&#39;s <strong>drawPicture</strong> 
+method to paint the cardPic</p>
+<pre>public void paintSelf(Canvas c)</pre>
+<p>&nbsp;</p>
+<hr>
+
+<p class="auto-style2"><strong>Testing out with the CardViewer class</strong></p>
+<p>Copy the following class into your project.&nbsp; It&#39;s a SaccoWindow that 
+handles an array of SCards.</p>
+<pre>import sacco.*;
+public class CardViewer extends SaccoWindow
+{
+    private SCard[] cards;
+    
+    public CardViewer(SCard[] cards)
+    {
+        this.cards = cards;
+        this.setSize(800,140);
+    }
+
+    public void paintWindow(Canvas c)
+    {
+        c.setColor(4,180,4);
+        c.fillRectangle(-50,-50,900,240);
+        
+        for( int i = 0; i&lt;cards.length; i++)
+        {
+            cards[i].paintSelf(c);
+        }
+    }
+    
+    public SCard[] getCards()
+    {
+       return cards;
+    }
+    
+}</pre>
+
+<p>Now add the following method to the CardRunners class, which gives a deck of 
+SCards to the CardViewer and then displays it.</p>
+<pre>public static void cardView()
+{
+   SCard[] deck = CardRunners.deckOfCards();
+   CardViewer view = new CardViewer(deck);
+   view.setVisible(true);
+}</pre>
+
+<p>At the moment all the x&#39;s and y&#39;s are 0, so you should get an image like the 
+following:</p>
+<p><img src="images/img85.jpg" /></p>
+<p>Looks like the CardViewer class needs a way to space out the SCards.&nbsp; Add 
+a method with the following header to the <strong>CardViewer</strong> class</p>
+<pre>public void spaceCards()</pre>
+<p>This method will loop through all of the SCards in the array and set each 
+one&#39;s x value 14 pixels apart from the one before it.&nbsp; Go to the 
+constructor and make sure that <strong>this.spaceCards()</strong> is called as 
+the last line.&nbsp; Run the program one more time</p>
+
+<p><img src="images/img11.jpg" /></p>
+<hr>
+<p class="auto-style2"><strong>One More Function:</strong></p>
+<p>For turn-in, add the following method to the CardViewer class:</p>
+<pre>public void onMousePress(MouseEvent m)
+{
+   Sorter.selectionSort(cards);
+   this.spaceCards();
+}</pre>
+<p>This method sorts all the cards by rank and suit according the compareTo 
+method.&nbsp; It then calls the sortCards method to make sure that each card&#39;s 
+location matches its place in the list.</p>
+<p>&nbsp;</p>
+<p><img height="785" src="images/full%20diagram.PNG" width="400" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

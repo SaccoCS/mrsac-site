@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>More Pieces</title>
+<style>
+
+td{
+	padding:10px 10px 10px 10px;
+	align="center";
+	width="219px;"
+}
+
+h2,h3,h4,h5,p,td{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p,td{
+	border: 1px;
+	font-size: small;
+}
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style2 {
+	vertical-align: top;
+}
+
+tr{
+	
+	text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<h2>More Pieces</h2>
+<p>We&#39;re close!&nbsp; At the moment we&#39;ve got a Model and View that are very 
+close to being complete.&nbsp; The only problem right now is that we&#39;ve only 
+modeled one piece, the L.&nbsp; In reality there are 7 different pieces, each 
+with a different color, orientation, and starting position.</p>
+<p><img height="81" src="images/pieces.png" width="581" /></p>
+<p>Our goal is to add seven more classes named Z, O, S, J, T, L, and I.&nbsp; 
+Each piece has much in common with the other, but copying and pasting the entire 
+TetrisPiece code seven times will not only be too much work, it will also break 
+the program that we&#39;ve been working on so far.&nbsp; Every part of the program is set up to deal with 
+TetrisPieces; if we want to make these new classes work with our situation, they 
+should all be subclasses of TetrisPiece.</p>
+<p>&nbsp;</p><hr/>
+<h3>Preparing TetrisPiece to be a Parent Class</h3>
+<p>The TetrisPiece is a class that has lots of information to set up.&nbsp; At 
+the moment its constructor takes in only a Tetris grid, and then sets the Color, 
+anchor Location, and size to be values specific to the L-Piece.&nbsp; The 
+setInitialLocations method is also sets the initial locations to be in the L 
+orientation.</p>
+<p>The copy method of the TetrisPiece class still needs to be able to construct 
+using only a grid, so we are not going to remove it.&nbsp; Instead, let&#39;s change 
+it to have a default shape that&#39;s different so it will signify that it&#39;s not one 
+of the main seven.&nbsp; Set the color to PINK and modify the 
+setInitialLocations method so that it&#39;s a shape different than a normal 
+TetrisPiece.&nbsp; </p>
+<p><img height="100" src="images/defaultpiece.png" width="100" />&nbsp;</p>
+<p>Theoretically this piece should never actually appear.&nbsp;&nbsp; The purpose of having this be the default shape is that you will able to 
+instantly recongnize that you&#39;ve created a generic TetrisPiece, not one of the 
+specific ones that we&#39;re about to create.&nbsp; Run the program to make sure 
+that this is the piece that show up.</p>
+<p></p>
+<hr>
+<h3>Overloading the Constructor:</h3>
+<p>Since each individual peice will have to set up many instance fields, it will 
+be easiest if the TetrisPiece has a constructor that takes in a large amount of 
+information as parameters.</p>
+<p>Create a second constructor that has<strong> four</strong> parameters:&nbsp; 
+A grid, a Color, an Achor Location, and an int to represent the size.&nbsp; 
+Inside the constructor, make sure that all the parameters make it into the 
+proper instance fields.&nbsp; Remember, the constructor is in charge of the 
+initial set up of the instance fields.&nbsp; If your code just has four lines in 
+the constructor you&#39;re not finished.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<h3>Extending TetrisPiece:</h3>
+<p>Now that we&#39;ve got a constructor to make our lives easier.&nbsp; Create a 
+class named L that extends TetrisPiece.&nbsp; </p>
+
+<table><tr>
+		<td style="height: 23px; width: 179px;">L-Piece</td>
+		<td style="height: 23px">Starting Position</td>
+			</tr>
+
+	<tr>
+		<td style="vertical-align:top; width: 179px;"> <img height="121" src="images/L-Piece.png" style="float: left" width="121" /></td>
+		<td>
+<img  src="images/full5.png" width="201" /></td>
+		
+	</tr></table>
+<p>The constructor for <strong>L</strong> 
+should only take in a TetrisGrid.&nbsp; Use super to call the constructor that 
+we just created, passing in values that are specific to the <strong>L</strong> 
+piece&#39;s specific color, starting anchor, and size.</p>
+<p>The only thing left to do is to override the setInitialLocations method so 
+that it forms the L shape that we&#39;ve done before.</p>
+<p>&nbsp;</p>
+<p>Testing:</p>
+<p>First, change the TetrisModel&#39;s newPiece method to return a new L object 
+instead of the default TetrisPiece that it&#39;s currently returning.&nbsp; Run the 
+program again, hopefully the Blue L piece appears in the appropriate starting 
+location on the window.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr/>
+<h3>The Rest:</h3>
+<p>Now it&#39;s time to finish the rest of the pieces.&nbsp; Following a similar 
+strategy as before, create classes J, O, T, S, Z, and I.&nbsp; Test out each one 
+to be sure that they start at the correct position in the window before moving 
+on.</p>
+<table class="auto-style1"  >
+	<tr>
+		<td style="height: 23px; width: 179px;" class="auto-style3">Z-Piece</td>
+		<td style="height: 23px" class="auto-style3">Starting Position</td>
+			</tr>
+	<tr>
+		<td style="vertical-align:top; width: 179px;">
+		<img style="" height="121" src="images/Z-Piece.png" class="auto-style2"  /></td>
+		<td>
+<img  src="images/full0.png" width="201" /></td>
+		
+	</tr>
+	</table>
+	<p></p>
+	<table class="auto-style1" >
+
+	<tr>
+		<td style="height: 23px; width: 179px;">T-Piece</td>
+		<td style="height: 23px">Starting Position</td>
+			</tr>
+
+	<tr>
+		<td style="vertical-align:top; width: 179px;"><img height="121" src="images/T-Piece.png"  width="121" /></td>
+		<td>
+<img  src="images/full6.png" width="201" /></td>
+		
+	</tr>
+	</table>
+	<p></p>
+	<table class="auto-style1" >
+
+	<tr>
+		<td style="height: 23px; width: 179px;">S-Piece</td>
+		<td style="height: 23px; width: 219px;">Starting Position</td>
+			</tr>
+
+	<tr>
+		<td style="vertical-align:top; height: 203px; width:139px;"><img height="121" src="images/S-Piece.png"  /></td>
+		<td style="width: 219px; height: 203px;">
+<img  src="images/full3.png" width="201" /></td>
+		
+	</tr>
+	
+	</table>
+	<p></p>
+	<table class="auto-style1" >
+
+	<tr>
+		<td style="height: 3px; width: 179px;">O-Piece</td>
+		<td style="height: 3px; width: 219px;">Starting Position</td>
+			</tr>
+
+	<tr>
+		<td  style="vertical-align:top; width: 179px;"><img height="81"   src="images/O-Piece.png"  width="81" /></td>
+		<td style="width: 219px">
+<img  src="images/full1.png" width="201" /></td>
+	
+	</tr>
+	
+	</table>
+	<p></p>
+	<table class="auto-style1" >
+<tr>
+		<td style="height: 23px">J-Piece</td>
+		<td style="height: 23px; width: 219px;">Starting Position</td>
+			</tr>
+
+	<tr>
+		<td style="vertical-align:top; width: 179px; height: 203px;"><img height="121" src="images/J-Piece.png"  width="121" /></td>
+		<td style="width: 219px; height: 203px;">
+<img  src="images/full2.png" width="201" /></td>
+	
+	</tr>
+	
+	</table>
+	<p></p>
+	<table class="auto-style1" >
+
+	<tr>
+		<td style="height: 23px">I-Piece</td>
+		<td style="height: 23px; width: 219px;">Starting Position</td>
+			</tr>
+
+	<tr>
+		<td style="vertical-align:top; width: 179px;"><img height="161" src="images/I-Piece.png" style="float: left" width="161" /></td>
+		<td style="width: 219px">
+<img  src="images/full4.png" width="201" /></td>
+		
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p>Randomizing the Piece:</p>
+<p>At the moment, TetrisModel&#39;s newPiece method returns a single type of 
+TetrisPiece.&nbsp; Change it so that it will randomly construct and return one 
+of the seven pieces that you&#39;ve created.&nbsp; Rememer that Polymorphism 
+means you can return any object that is an extension of TetrisPiece.</p>
+<p>Run it one more time, test out moving the pieces to the bottom and hitting 
+the L key to get a new random piece.&nbsp; Make sure that you&#39;re getting all 
+seven pieces, and that they all start at the right location at the top of the 
+screen.&nbsp;</p>
+
+<p><img  height="341" src="images/nolines.png" width="201" border="2" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

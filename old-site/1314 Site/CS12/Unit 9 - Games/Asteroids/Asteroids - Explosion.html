@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Explosions</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+h2,h3{
+	font-family:Arial, Helvetica, sans-serif;
+}
+</style></head>
+
+<body>
+
+<h2>Explosions</h2>
+<p>Create a class named Explosion. An explosion is simply in charge of 
+displaying a series of pictures to make an animated explosion.</p>
+<p>An explosion’s instance fields include x,y,width, height, and a Picture
+<strong>array</strong>. <br />
+Explosion’s constructor should take in an x,y,width, and height and apply them 
+to the instance fields.</p>
+<p>In order to initialize the Picture array, during the constructor call 
+SpriteLoader.getExplosionPics(); and assign the returned value to the instance 
+field. This array has 32 Pictures in it that should be cycled through one at a 
+time when painted. To accomplish this, add an int as an instanced field to 
+represent the index of the array that you’re currently on.</p>
+<p>Add an update method that will simply increment the index.</p>
+<p>Add a paintSelf method that will draw the Picture in the array at the index, 
+but only after first checking to make sure the index isn’t too large.</p>
+<p><br />
+</p>
+<h3>Incorporating it into the project:</h3>
+<p>Add an Explosion variable as an instance field in the Canvas class. We 
+don’t always want the explosion to be on the screen, so we’ll keep it null until 
+it’s time. It is very dangerous to keep a variable null because calling a method causes a NullPointerException.  To check if a variable is not null, you may use an if statement such as <strong>if( var != null )</strong></p>
+<p>In the <strong>paintCanvas</strong> and <strong>onTimerTick</strong> methods, first check to make sure that the 
+Explosion variable isn’t null, and then call the <strong>paintSelf</strong> and 
+<strong>update</strong> methods if the 
+object exists.</p>
+<p>&nbsp;</p>
+<h3>Testing</h3>
+<p>To test out the explosion, override the onMousePress method in the 
+Canvas class</p>
+<pre>public void onMousePress(MouseEvent m)</pre>
+<p>in this method, extract the x and y out of the MouseEvent and construct an 
+Explosion object into the instance field, giving it a width and height of around 
+50.</p>
+<p>Run the program and click around the screen.&nbsp; Hopefully wherever you 
+click, an explosion will appear and animate.</p>
+<p>&nbsp;</p>
+
+<h3>Exploding on Contact:</h3>
+<p>At the moment the entire game stops awkwardly when the ship hits an Asteroid.&nbsp; 
+Instead, we&#39;re going to make sure that when the ship is not active, it&#39;s 
+invisible and has no hitBox.  In order to do this, add a boolean as an instance field called isActive and make sure that it starts out as true.  Then add a methods <strong>public void setActive(boolean b)</strong> and <strong>public boolean getActive()</strong> which should act similarly to setX and getX.
+<p>In order to make the ship stop interacting with the other objects in the 
+screen, we need to prevent some things from happening.&nbsp; In the 
+Canvas class, go to the the following places and modify the if statements 
+to also require that the ship is active:</p>
+<p>- Checking to see if the ship overlaps the asteroids<br />
+- Checking to see if the ship overlaps the powerup<br />
+- When it&#39;s time to shoot the bullets</p>
+<p>Now go to the piece of code that stops the timer when the ship is hit by an asteroid.  .&nbsp; Instead of telling everything to stop, 
+make it only set the ship to inactive (and now invisible).&nbsp; Immediately 
+construct a new Explosion at the ship&#39;s x and y.&nbsp; The width and height of 
+the Explosion is your choice.  Run your program to test it. Hopefully when the ship is hit an explosion will be created at the location of the ship.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

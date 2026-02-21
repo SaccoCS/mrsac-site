@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>SRadioButtons and SCheckBoxes</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">SRadioButtons and SCheckBoxes</h2>
+<p>Another element that is commonly added to GUIs is the radio button or the 
+check box.&nbsp; These are most often found when thre are multiple options to 
+choose from.</p>
+<p>Copy the following class to a new project.</p>
+<pre>import sacco.gui.*;
+
+public class RSVP implements ButtonListener
+{
+    private SFrame frame;
+    private SPanel attendPan, radioPan, pizzaPan,checkPan,center,south;
+    private SLabel attendLabel,pizzaLabel;
+    private SRadioButton yes,maybe,no;
+    private SCheckBox pep,pin,onion;
+    private SButton select;
+    
+    public RSVP()
+    {
+        frame = new SFrame();
+        
+        ////////Attending Panel
+        radioPan = new SPanel();
+        attendLabel = new SLabel("Will you attend?");
+        
+        yes = new SRadioButton("Yes");
+        maybe = new SRadioButton("Maybe");
+        no = new SRadioButton("No");
+        
+        radioPan.add(yes);
+        radioPan.add(no);
+        radioPan.add(maybe);
+       
+        attendPan = new SPanel();
+        attendPan.setLayout(new GridLayout(2,1));
+        attendPan.add(attendLabel);
+        attendPan.add(radioPan);
+        
+        ////////Pizza Panel
+        pizzaPan = new SPanel();
+      
+        pizzaLabel = new SLabel("What pizza toppings do you prefer?");
+        
+        pep = new SCheckBox("Pepperoni");
+        pin = new SCheckBox("Pineapple");
+        onion = new SCheckBox("Onion");
+        
+        checkPan = new SPanel();
+        checkPan.add(pep);
+        checkPan.add(pin);
+        checkPan.add(onion);
+        
+        
+        pizzaPan.setLayout(new GridLayout(2,1));
+        pizzaPan.add(pizzaLabel);
+        pizzaPan.add(checkPan);
+        
+        
+        ///////Adding to frame
+        
+        center = new SPanel();
+        center.setLayout(new GridLayout(1,2));
+        center.add(attendPan);
+        center.add(pizzaPan);
+        
+        
+        frame.setLayout(new BorderLayout());
+        frame.add(BorderLayout.CENTER,center);
+        
+        
+        select = new SButton("Reply");
+        select.addButtonListener(this);
+        frame.add(BorderLayout.SOUTH, select);
+        frame.pack();       
+    }
+    
+    public void launch()
+    {
+        frame.setVisible(true);
+    }
+
+    public void onButtonPress(SButton source)
+    {
+ 
+    }
+    
+    public static void main()
+    {
+        RSVP r = new RSVP();
+        r.launch();
+    }
+}</pre>
+<p>There&#39;s a lot going on here.&nbsp; Run the main method and you should get the 
+following:</p>
+<p>
+<img src="images/img3.jpg" /></p>
+<p>The left panel has a group of SRadioButtons, while the right panel has a 
+group of SCheckBoxes.&nbsp; You can click to turn them &#39;on&#39; and &#39;off&#39;.&nbsp; 
+Essentially they are the exact same thing, they just draw themselves a little 
+differently.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Panel Borders:</strong></p>
+<p>There are two panels here that are in different groups.&nbsp; The left is all 
+about attending an event, while the right is about a choice of pizza toppings.&nbsp; 
+There are two methods that belong to SPanel that are useful, the setBorder and 
+the setTitledBorder methods.&nbsp; Add the following lines of code to the RSVP 
+constructor.</p>
+<pre>attendPan.setBorder(true);
+pizzaPan.setTitledBorder("Pizza");</pre>
+<p>These are simple borders that a panel can show to separate it from the rest 
+of the GUI.&nbsp; One takes in a boolean because the border is either &#39;on&#39; or 
+&#39;off&#39;, while the other takes in a String that becomes the text of the titled 
+border.</p>
+<p><img src="images/img6.jpg" /></p>
+<p>Personally I like the titled border more.&nbsp; Modify the code to get the 
+following:</p>
+<p><img src="images/img14.jpg" /></p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>How to read a SRadioButton/SCheckBox</strong></p>
+<p>Both SRadioButton and SCheckBox have one important method:</p>
+<p>public boolean isSelected()</p>
+<p>Calling this method returns true if the radio button/check box is currently 
+filled in.&nbsp; You can use this in if statements to help guide your decisions.</p>
+<pre>public void onButtonPress(SButton source)
+{
+   String rsvp = "";
+        
+   if( yes.isSelected() )
+      rsvp = "Yes";
+   if( no.isSelected() )
+      rsvp = "No";
+   if( maybe.isSelected() )
+      rsvp = "Maybe";
+        
+   System.out.println("You have replied: "+rsvp);
+}</pre>
+<p>When the button is pressed, an Empty String is created.&nbsp; Then a series 
+of if statements are created to fill the variable with either yes, no, or maybe.</p>
+<p>Run the program and test it out.&nbsp; Select an option on the left and hit 
+the button.&nbsp; Hopefully it prints out an accurate statement.</p>
+<hr>
+
+
+<p class="auto-style1"><strong>Controlling what&#39;s selected using a ButtonGroup</strong></p>
+<p>This code has several problems.&nbsp; For example:&nbsp; If you select 
+multiple options and hit the button you&#39;ll notice that it breaks down.&nbsp; If 
+you think about the philosophy of this GUI.&nbsp; You should really only be able 
+to select ONE of the buttons at a time.&nbsp; This is what the ButtonGroup 
+object is for.</p>
+<p>A ButtonGroup is not a visual object.&nbsp; Adding things to it will not 
+cause them to appear on a panel in any way.&nbsp; Adding things to a ButtonGroup 
+just makes sure that only one of its buttons are selected at a time.</p>
+<p>At the end of the constructor add the following code:</p>
+<pre>ButtonGroup group = new ButtonGroup();
+group.add(yes);
+group.add(no);
+group.add(maybe);</pre>
+<p>After this code, the yes,no, and maybe SRadioButtons are linked together.&nbsp; 
+Run the program now and it only lets you select one of them at a time.&nbsp; 
+This is what we wanted.&nbsp;&nbsp; The other checkboxes can be clicked as much 
+as they want since they haven&#39;t been added to the Group</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style1"><strong>Assignment:</strong></p>
+<p>1)&nbsp; Modify the onButtonPress method of the program so that it generates 
+a more complicated String.&nbsp; It should be in the following format:</p>
+<p><strong>You have replied: Yes<br />
+<br />
+You preferred pizza topings are:<br />
+Pepperoni<br />
+Pineapple</strong></p>
+<p>Use if statements to make sure that the following happens:</p>
+<p>- If the person replies <strong>No</strong>, don&#39;t even print out anything 
+about the pizza toppings.<br />
+<br />
+- If no pizza toppings are selected, print <strong>&quot;No Preference&quot;</strong> 
+instead of a specific topping.</p>
+<p>&nbsp;</p>
+<p>2)&nbsp; <strong>TextSelecter</strong>:&nbsp; Recreate the following GUI.&nbsp; The Color 
+Radio Buttons should be in a ButtonGroup, but the Style CheckBoxes should not.&nbsp; 
+There should be panels for the NORTH, SOUTH, EAST, and WEST, but <strong>not</strong> 
+the center.</p>
+<p>
+<img src="images/imageJBox002.jpg" /></p>
+<p><strong>Function:</strong></p>
+<p>Everything on this GUI will modify the central label in some way.</p>
+<p>Add a ButtonListener to the left, right, and center buttons.&nbsp; When those 
+are clicked, align the central label to the left, right, or center.&nbsp; Hint:&nbsp; 
+SLabel has methods alignLeft() alignRight() and alignCenter() that will be 
+useful</p>
+<p>Add a KeyListener that, every time a key is <strong>RELEASED</strong>, the 
+text of the center label is set to whatever is in the field in the north panel.</p>
+<p>Add a method with the following header:</p>
+<pre>public void updateFont()</pre>
+<p>This method&#39;s job is to look at the values of the red,green, and blue 
+radiobuttons as well as the Bold and Italic checkboxes and updating the central 
+label.</p>
+<p>Use the red, green, and blue to construct a color object and to set the color 
+to that.</p>
+<p>You will also have to construct a new Font object and then call its setBold 
+and setItalic method before setting the Font of the central label.</p>
+<p>This method is not called automatically, but it is something that should be 
+called both when a button is pressed and when a key is typed.&nbsp; Make it so 
+that the very last thing that is in both the onButtonPress and onKeyRelease 
+method is:<strong> this.updateFont().&nbsp; </strong>&nbsp;This makes it so that 
+you don&#39;t have to repeat code for both of those methods.</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

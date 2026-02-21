@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Turtle Designs</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Turtle Designs</h2>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/Turtle.html">
+Turtle API</a></p>
+<p>In sacco.jar there is a class named Turtle, which can be used to draw some 
+designs on a window using movement commands.&nbsp; Copy the code below, which 
+constructs a Turtle object and then instructs it to put its pen down (so it will 
+draw when it moves) and then move forward 100 pixels, turn left 90 degrees, and 
+move another 100 pixels.</p>
+<pre>import sacco.*;
+
+public class TurtleDesigns
+{
+    public static void demo()
+    {
+        Turtle t = new Turtle();
+        t.penDown();
+        t.move(100);
+        t.turnLeft(90);
+        t.move(100);
+    }
+
+}</pre>
+<p>
+<img src="images/img45.jpg" /></p>
+<p>&nbsp;</p>
+<p>We have the beginning of a square here, but copy and paste is old-fashioned.&nbsp; 
+Let&#39;s use a loop:</p>
+<pre>public static void demo()
+{
+    Turtle t = new Turtle();
+    t.penDown();
+    for( int i =0; i&lt;4;i++)
+    {
+        t.move(100);
+        t.turnLeft(90);
+    }
+}
+</pre>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1">Assignment:</p>
+<p>Add methods to the TurtleDesigns class that will make the following designs:</p>
+<p>&nbsp;</p>
+<p>1)&nbsp; snowflake:&nbsp; This design is created by drawing ten squares, each 
+time rotating a little bit before drawing the next one.</p>
+<p><img src="images/img49.jpg" /></p>
+<p>&nbsp;</p>
+<p>2) star:&nbsp; You may draw the traditional five pointed star, or a star with 
+more points if you would like.&nbsp; It does not have to be centered, but it&#39;s 
+classier if it is.</p>
+<p><img src="images/img4B.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>3)&nbsp; spiral:&nbsp; This is mady by repeatedly rotating and moving.&nbsp; 
+The angle that&#39;s rotated is always the same, but the distance moved is 
+increasing steadily.</p>
+<p><img src="images/img4C.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

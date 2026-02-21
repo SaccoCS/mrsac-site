@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Snake - Growing</title>
+
+<style>
+
+h3,h4,h2{
+font-family:Arial, Helvetica, sans-serif;
+}
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+<h3>The Food Class</h3>
+<p>An important game mechanism is that the Snake is constantly trying to eat a food block that is somewhere in the grid.  When the Snake overlaps the food, it grows.</p>
+<p>Create a class named Food, which extends Square and only has a constructor.  The constructor for Food should take in two ints, but they are not the row/column.  They are the number of rows and number of columns.  The Food needs to set its row/column to a random selection of the number of rows and number of columns.  It should also set the color to something beside the Snake's color.  Don't create any new instance fields; use the inherited methods.</p>
+<hr/>
+<p>In the SnakeWindow class, add a Food variable as an instance field and in the constructor create and assign a new Food object using the numRows and numCols instance fields. </p>
+<p>In the paintWindow method, make sure that the Food object gets painted.  Don't forget that it extends Square, so you can use the paintSquare method from before.</p>
+<p>Run your project a few times to make sure that the Food appears at random locations within your grid</p>
+<hr/>
+<h3>Interacting with Food</h3>
+<p>So far our game is purely visual.  We can control the snake, but nothing game-like happens.  Since the game is all about the Snake overlapping either the Food or itself, we are going to first give the snake the ability to detect overlap.  In the Snake class, add a method with the following header:</p>
+<pre>public boolean overlaps(Square sq)</pre>
+<p>This method's purpose is to return true if any of the Squares in the Snake's body overlap the parameter Square.</p>
+<p>To test this method, go to the SnakeWindow's onTimerTick method.  After the Snake moves, call Snake's overlaps method an pass in the Food object.  If it overlaps, construct a new Food object similar to before.</p>
+<p>Run your program and guide your Snake toward the food.  When it overlaps, the food should appear somewhere else in the grid.</p>
+<hr/>
+<h3>Growing the Snake</h3>
+<p>Another affect of getting the food is that the snake should grow.  Add a void method named grow that will simply increase the size instance field by 2 (you may grow by however much you want).  Back in the SnakeWindow class's onTimerTick method, when you detect the food overlaps the Snake, call the snake's grow method.</p>
+<p>Test out your program again.  Chase down the food and make sure that the Snake grows when you eat it.  Some people may want to temporarily grow by more than two so that you can see the effect immediately.</p>
+</body>
+</html>

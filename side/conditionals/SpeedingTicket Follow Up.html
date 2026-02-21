@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>SpeedingTicket Follow Up</title>
+<style type="text/css">
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-right: 0px;
+}
+td{
+	vertical-align:top;
+	
+	}
+
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	border-color: #c0c0c0;
+	border-width: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style5">SpeedingTicket Follow Up</p>
+<p class="auto-style2">Often programs have more than one way of accomplishing 
+the same task.&nbsp; It is important that you are flexible in your programming 
+style so that you don&#39;t get stuck using one method that might not work for every 
+situation.&nbsp; </p>
+<p class="auto-style2">For Example:&nbsp; Look at the following three methods, 
+which all tell if a value is positive.</p>
+<table class="auto-style4" style="width: 100%;vertical-align:top" >
+	<tr>
+		<td style="width: 304px;border:solid 1px;"><p class="auto-style3">A very common solution</p>
+		<pre><span class="auto-style3">public boolean isPositive(int x)</span>
+{
+<span class="auto-style3">   if( x &gt; 0 )</span>
+<span class="auto-style3">   {</span>
+<span class="auto-style3">      return true;</span>
+<span class="auto-style3">   }</span>
+<span class="auto-style3">   else</span>
+<span class="auto-style3">   {</span>
+<span class="auto-style3">      return false;</span>
+<span class="auto-style3">   }</span>
+}
+<span class="auto-style3">		</span></pre>
+		</td>
+		<td style="width: 360px;border:solid 1px;"><span class="auto-style3">This solution works similar to the previous, 
+		but instead of immediately returning a true or false, the value is 
+		stored in a variable that is returned later
+		</span>
+		<pre><span class="auto-style3">public boolean isPositive(int x)</span>
+{
+<span class="auto-style3">   boolean toReturn = false;</span>
+
+<span class="auto-style3">   if( x &gt; 0 )</span>
+<span class="auto-style3">   {</span>
+<span class="auto-style3">      toReturn = true</span>
+<span class="auto-style3">   }</span>
+<span class="auto-style3">   else</span>
+<span class="auto-style3">   {</span>
+<span class="auto-style3">      toReturn = false;</span>
+<span class="auto-style3">   }</span>
+
+<span class="auto-style3">   return toReturn;</span>
+}
+<span class="auto-style3">		</span></pre>
+		</td>
+		<td style="border:solid 1px;"><span class="auto-style3">This minimalistic solution takes a different approach.&nbsp; Instead 
+		of following the &quot;if (x&gt;0) is true I&#39;ll return true and if (x&gt;0) is 
+		false I&#39;ll return false&quot; strategy, this method just returns the result 
+		of (x&gt;0).&nbsp; </span> <br class="auto-style3" />
+		<br class="auto-style3" />
+		<span class="auto-style3">This is the strategy that scares people the most.&nbsp; Remember that 
+		x&gt;0 is going to be a true or false value.&nbsp; Returning that value is 
+		fine if it fits the situation.</span><br class="auto-style3" />
+		<pre><span class="auto-style3">public boolean isPositive(int x)</span>
+{
+<span class="auto-style3">   return  x &gt; 0;</span>
+}
+<span class="auto-style3">		</span></pre>
+		</td>
+	</tr>
+</table>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style6">Speeding Ticket:</p>
+<p class="auto-style2">Read through the solutions to the speedingTicket method 
+below and take note of what makes each of them different.</p>
+<table class="auto-style2" style="width: 100%;border:1px" border="1">
+	<tr>
+		<td>Problem Statement:<br class="auto-style2" />
+		<br class="auto-style2" />
+		The speedingTicket method is meant to return true if a speeding ticket 
+		is issued, and false if not. There are two parameters that are passed 
+		in. The speed variable is an int represents how fast the car is going, 
+		and the isRed variable is a boolean which will be true if the car is red 
+		and false if not.<br class="auto-style2" />
+		<br class="auto-style2" />
+		For most cars, they will recieve a ticket if the car is going above 65 
+		miles per hour. If the car is red, a ticket is given for driving over 60 
+		miles per hour.</td>
+	</tr>
+</table>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style2">The area below contains many different ways of solving 
+the speedinTicket problem.&nbsp; Read through them and try to follow the logic 
+of each one.&nbsp; Essentially there are four combinations that you can test:&nbsp; 
+A red car going over 60, a red car going 60 or lower, a non-red car going over 
+65, and a non-red car going 65 or under.</p>
+<table class="auto-style1" style="width: 82%; height: 1917px;">
+	<tr>
+		<td class="auto-style3" style="width: 464px"><pre>public static boolean speedingTicket(int speed, boolean isRed)
+{
+    if( isRed )
+    {
+        if( speed > 60 )
+            return true;
+        else
+            return false;
+    }
+    else
+    {
+        if( speed > 65)
+            return true;
+        else
+            return false;
+   }
+}</pre>&nbsp;</td>
+		<td class="auto-style3" style="width: 321px">This is a very common way 
+		of solving this problem.&nbsp; It first uses the isRed variable to split 
+		the code into two parts: the red car and the non-red car.&nbsp; In each 
+		section they use the different speed limits to determine if they get a 
+		ticket or not.</td>
+	</tr>
+	<tr>
+		<td class="auto-style3" style="width: 464px"><pre>public static boolean speedingTicket(int speed, boolean isRed)
+{
+    int limit = 65;
+
+    if( isRed )
+       limit -= 5;
+
+    if( speed > limit )
+        return true;
+    else
+        return false;
+}</pre>&nbsp;</td>
+		<td class="auto-style3" style="width: 321px">In this case the speed 
+		limit of 65 is put into a variable named <strong>limit</strong>.&nbsp; 
+		If the car is red, the variable limit is lowered by 5.&nbsp; After that 
+		point in code, the speed is compared to whatever the value of limit is.</td>
+	</tr>
+	<tr>
+		<td class="auto-style3" style="width: 464px"><pre>public static boolean speedingTicket(int speed, boolean isRed)
+{
+    int limit;
+
+    if( isRed )
+        limit = 60;
+    else
+        limit = 65;
+
+    if( speed > limit )
+        return true;
+    else
+        return false;
+}</pre>&nbsp;</td>
+		<td class="auto-style3" style="width: 321px">Similar to the previous 
+		code, this method relies on a variable named <strong>limit</strong>.&nbsp; 
+		The&nbsp; first if statement decides whether or not the limit should be 
+		65, and then the second if statement compares the speed to that limit.</td>
+	</tr>
+	<tr>
+		<td class="auto-style3" style="width: 464px"><pre>public static boolean speedingTicket(int speed, boolean isRed)
+{
+    if( speed >60 && isRed )
+    {
+        return true;
+    }
+    else if( speed <=60 && isRed )
+    {
+        return false;
+    }
+    else if( speed >65 && !isRed )
+    {
+        return true;
+    }
+    else
+    {
+        return false
+    }
+}</pre>&nbsp;</td>
+		<td class="auto-style3" style="width: 321px">This method is a bit 
+		laborious.&nbsp; Each part of the if statement checks a specific one of 
+		the four cases using and statements.</td>
+	</tr>
+	<tr>
+		<td class="auto-style3" style="width: 464px"><pre> public static boolean speedingTicket(int speed, boolean isRed)
+{
+    int limitChange=0;
+
+    if( isRed )
+        limitChange = -5;
+
+    if( speed > 65 +limitChange)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}</pre>&nbsp;</td>
+		<td class="auto-style3" style="width: 321px">This method uses a variable 
+		named <strong>limitChange</strong> to represent how much the speed limit 
+		should be modified.&nbsp; If the car is red, the limitChange is is set 
+		to -5.<br />
+		<br />
+		Later, the if statement checks the speed against 65 with the addition of 
+		that limitChange variable, meaning that for red cars the speed limit 
+		would be 65+ -5 -&gt;<strong>60</strong></td>
+	</tr>
+	<tr>
+		<td class="auto-style3" style="width: 464px"><pre>public static boolean speedingTicket(int speed, boolean isRed)
+{
+    if( speed > 65 )
+    {
+        return true;       
+    }
+    else if( speed > 60 && isRed )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}</pre>&nbsp;</td>
+		<td class="auto-style3" style="width: 321px">This method uses a process 
+		of elimination to determine the two situations that would return a true.&nbsp; 
+		If the else is reached, that means that none of the &quot;true&quot; situations 
+		occur and a false must be the correct value to return.</td>
+	</tr>
+	
+<tr>
+		<td class="auto-style3" style="width: 464px"><pre>public static boolean speedingTicket(int speed, boolean isRed)
+{
+    if( speed <= 60)
+        return false;
+
+    if( !isRed && speed <= 65)
+        return false;
+
+    return true;
+
+}</pre></td>
+		<td class="auto-style3" style="width: 321px">This is similar to the 
+		previous strategy.&nbsp; The two if statements check to see if the 
+		situation should not provide a ticket.&nbsp; If the last line of the 
+		method is reached, that means that the program made it past both of the 
+		if statements without returning.&nbsp; Therefore, the only possibility 
+		left is to return true.</td>
+	</tr>
+<tr>
+		<td class="auto-style3" style="width: 464px"><pre>public static boolean speedingTicket(int speed, boolean isRed)
+{
+    return (speed > 65 && !isRed ) || (speed > 60 && isRed ); 
+
+}</pre></td>
+		<td class="auto-style3" style="width: 321px">This method does it all in one line.  Either the speed it greater than 65 and the car is not red, or the speed is greater than 60 and the car is red.  If neither of those cases are true, this will evaluate to false</td>
+	</tr>
+		</table>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+
+</body>
+
+</html>

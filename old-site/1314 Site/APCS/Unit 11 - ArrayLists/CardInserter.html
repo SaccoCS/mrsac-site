@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>CardInserter</title>
+
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">CardInserter</h2>
+<p>Create a class named CardInserterBoard, which is a subclass of CardBoard.</p>
+<p>Override the loadCards method so that it only loads the 2 theough King of 
+Spades.&nbsp; Since you don&#39;t have access to the ArrayList instance field, 
+construct a local one, add all the cards to it, and then call the setCards 
+method to make sure that the instance field is set.</p>
+<p>
+<img height="188" src="images/img6.jpg" style="-webkit-user-select: none; cursor: -webkit-zoom-out;" width="816" /></p>
+<hr>
+<p class="auto-style1"><strong>Add the following method:</strong></p>
+<pre>public void insertCard(FlipCard c)</pre>
+
+<p>The goal behind this method is to<strong> insert</strong> the parameter at a 
+specific location as to keep the ArrayList in an increasing order.&nbsp; For 
+example:&nbsp; If the parameter were the five of diamonds, the result would be 
+the following:</p>
+<p>
+<img height="188" src="images/img7.jpg" style="-webkit-user-select: none; cursor: -webkit-zoom-out;" width="816" /></p>
+<p><strong>How to accomplish this:</strong></p>
+<p>If you notice above, every card to the left of the new 5 is &#39;less than&#39; the 
+Five of Diamonds, and everything to the right is &#39;greater than&#39;.&nbsp; Your job 
+will be to find the index where that&#39;s true and add the card at that specific 
+location.</p>
+<p>The most important thing to remember is that FlipCard has a <strong>compareTo</strong> 
+method that you wrote earlier.&nbsp; This will allow us to determine whether or 
+not a card is &#39;greater than&#39; or &#39;less than&#39; the given card.</p>
+<p>Create a variable to represent the location to insert and start it at 0.&nbsp; 
+Then write a loop that will increment the index variable every time the card at 
+that index is &#39;less than&#39;&nbsp; the parameter card.&nbsp; Assuming that the list 
+is already in some sort of order, the index should stop incrementing entirely 
+once it finds the spot it&#39;s supposed to be.</p>
+<p>After the loop has completed, insert the card at that location.</p>
+<p>The last thing that the insertCard method should do is call <strong>
+arrangeCards</strong> to make sure that everything is in order.</p>
+<p>&nbsp;</p><hr>
+<p>To test out your program, override the onTimerTick method to construct a Five 
+of Diamonds and then call the <strong>insertCard</strong> method with it.&nbsp; </p>
+<p>Run the program and hit <strong>F1</strong> to start the timer.&nbsp; If done properly, the result 
+should look like the example below (it will add them pretty fast)..</p>
+<p><img height="188" src="images/insert5s.PNG" width="816" /></p>
+<p>&nbsp;</p><hr>
+<p><strong>Watch for IndexOutOfBounds</strong></p>
+<p>When dealing with arrays/ArrayLists you should always fear going out of 
+bounds.&nbsp; Modify the onTimerTick method to add an Ace of Diamonds instead of 
+the 5 and run it again.&nbsp; This time there are no cards in the list that are 
+higher than the Ace, meaning if you add an Ace there is a chance of going out of 
+bounds.</p>
+<p>Run the program.&nbsp; If it runs, you&#39;ve already taken card of the out of 
+bounds issue.&nbsp; If it crashes you&#39;ve got an infinite loop.&nbsp; Modify your 
+code so that it stops when it reaches the end of the list.</p>
+<p><img height="188" src="images/insertAs.PNG" width="816" /></p>
+<p>&nbsp;</p>
+<hr>
+<p>For Turning in, replace the current onTimerTick method with the following:</p>
+<pre>public void onTimerTick()
+{
+    String[] valChar = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
+    String[] suitChar = {"D","C","H","S"};
+    int v = (int)(Math.random()*valChar.length);
+    int s = (int)(Math.random()*suitChar.length);
+
+    FlipCard rand = new FlipCard(valChar[v],suitChar[s]);
+
+    this.insertCard(rand);
+}
+</pre>
+<p>Also replace your loadCards method so that it doesn&#39;t add any cards to the 
+ArrayList before calling setCards.&nbsp; This will cause the board to start 
+initially with no cards on the board.&nbsp;</p>
+<p>When you run it, random cards should be generated and inserted into the list.&nbsp; 
+Make sure that they&#39;re inserting in the proper order.</p>
+
+</body>
+
+</html>

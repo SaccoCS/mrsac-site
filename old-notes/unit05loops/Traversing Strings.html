@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Traversing Strings</title>
+<style type="text/css">
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Traversing Strings:</h2>
+<p>Loops are a powerful tool in programming.&nbsp; One way that they are useful 
+is when analyzing data and coming up with a new piece of data.</p>
+<p><strong>Strings are a Group of Data:</strong></p>
+<p>If you think about a String, you can start thinking of it as a data type that 
+holds many smaller bits of data.&nbsp; The String &quot;Sacco&quot; is actually five 
+individual characters (their data type is <strong>char</strong>) organized by 
+index.&nbsp; This is the first group of data that we can traverse across.&nbsp; 
+To traverse a set of data is to loop trhough it and analyze it one piece at a 
+time with the hopes of determining something new.</p>
+<p>For example, consider the countTheAs method below:</p>
+<pre>public static int countTheAs(String str)</pre>
+<p>The purpose of this method will be to return an int that represents the 
+number of lowercase A&#39;s appear in the parameter String.</p>
+<p>&nbsp;</p>
+<p><strong>One Letter at a Time:</strong></p>
+<p>In order to determine how many a&#39;s there are, were going to have to substring 
+out every single letter and check to see if its an &quot;a&quot;.&nbsp; Without loops we 
+might attempts the following:</p>
+<pre>String first = str.susbtring(0,1);
+String second = str.substring(1,2);
+String third = str.substring(2,3);
+String fourth = str.substring(3,4);
+etc...</pre>
+<p>This would only work if we knew exactly how many letters were in the String, 
+but we don&#39;t.&nbsp; Look at the pattern in the substrings: the two values are 
+exactly one apart, and each time the starting index is different.&nbsp; This is 
+what loops are good at doing.&nbsp; Consider the following substring, which uses 
+an int i instead of a set value.</p>
+<pre>String letter = str.substring(i,i+1);</pre>
+<p>When i is 0, the result is the first letter, when it&#39;s 1 the result is the 
+second letter, 2 is the third letter, etc.</p>
+<p>&nbsp;</p>
+<p><strong>Loop the entire String:</strong></p>
+<p>We have a substring that can grab the letter at a value <strong>i.</strong>&nbsp; 
+Now we just need a loop that will make i be every index that a String has.</p>
+<p>Remember:&nbsp; A String&#39;s first index is 0, and the last one is one less 
+than the length of the String.</p>
+<pre>for(int i = 0; i &lt; str.length(); i++)</pre>
+<p>Notice the use of str.length().&nbsp; We don&#39;t know how long the string is, 
+but it doesn&#39;t matter.&nbsp; This loop is set up so that the last value of i is 
+one less than the length of the String.&nbsp; This prevents the out-of-bounds 
+issue that occurs.&nbsp;</p>
+<pre>for( int i =0; i&lt;str.length(); i++)
+{
+    String letter = str.substring(i,i+1);
+    System.out.println(letter);
+}</pre>
+
+<p>In the code above, assume that str is &quot;Sacco&quot;.&nbsp;</p>
+<p>- The first iteration of the loop has i being 0.&nbsp; This makes the 
+substring grab a letter at index 0, which is &quot;S&quot;.&nbsp; It&#39;s printed&nbsp;<br />
+- The second iteration of the loop has i being 1.&nbsp; This makes the 
+substring grab a letter at index 1, which is &quot;a&quot;.&nbsp; It&#39;s printed&nbsp;<br />
+- The third iteration of the loop has i being 2.&nbsp; This makes the 
+substring grab a letter at index 2, which is &quot;c&quot;.&nbsp; It&#39;s printed&nbsp;<br />
+- The fourth iteration of the loop has i being 3.&nbsp; This makes the 
+substring grab a letter at index 3, which is &quot;c&quot;.&nbsp; It&#39;s printed<br />
+- The fifth iteration of the loop has i being 4.&nbsp; This makes the 
+substring grab a letter at index 4, which is &quot;o&quot;.&nbsp; It&#39;s printed</p>
+<p>The loop stops when i hits 5, because that&#39;s the length of the String.&nbsp; 
+Had we kept looping, the program would have crashed.</p>
+<p>The result here is that each of the letters is printed out one at a time.</p>
+<p>S<br />
+a<br />
+c<br />
+c<br />
+o</p>
+<p>&nbsp;</p>
+<p><strong>Counting the As:</strong></p>
+<p>Now that we can look at every letter of the String individually, it should be 
+easy to count the a&#39;s.&nbsp; To do this we will need a counter variable to 
+accumulate the number of &quot;a&quot; characters that we come across.&nbsp; We will 
+declare it to be 0 at the beginning, and then increment it every time that we 
+find an &quot;a&quot;.&nbsp; </p>
+
+<pre>&nbsp;</pre>
+<pre>
+public static int countTheAs(String str)
+{
+<span class="auto-style1">   int count = 0;</span>
+   for( int i =0; i&lt;str.length(); i++)
+   {
+       String letter = str.substring(i,i+1);
+
+       if(letter.equals(&quot;a&quot;))
+          <span class="auto-style1">count++;</span>
+   }
+
+   return <span class="auto-style1">count</span>;
+}</pre>
+
+<p>&nbsp;</p>
+<p>If the method above was run with &quot;alphabet&quot; as the parameter, the returned 
+value should be 2.</p>
+<p>&nbsp;</p>
+<p><strong>When traversing a set of data:</strong></p>
+<p>Let your looping variable represent the index of the data.<br />
+Access one piece of data at a time to analyze it.<br />
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

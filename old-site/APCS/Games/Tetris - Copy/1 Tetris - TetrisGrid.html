@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>TetrisGrid</title>
+
+<style>
+h3,h2,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>TetrisGrid</h2>
+<p>So far we&#39;ve created the Location class so that we can pass row/column data around easily and now we can start looking at how to represent the game.  We have to think differently about the two different ways that the colored blocks are represented in the game.</p>
+<p>1) The TetrisPiece:&nbsp; Four Blocks that are movable and rotatable.<br />
+2) The TetrisGrid:&nbsp; All of the stationary Blocks left over in the grid.  Here we will need to be able to</p>
+
+<p><img  src="images/gridvspiece.png" width="376" border="1" style="padding:15px 15px 15px 5px"/></p>
+
+
+<p><strong>Create a class named TetrisGrid</strong>.&nbsp; The TetrisGrid class will represent the grid as a whole. At its core will be a 
+2D <strong>Color</strong> array with each Location corresponding to where it appears on the 
+screen.</p>
+<p>The <strong>Constructor</strong> for TetrisGrid should take in two ints. The number of row and 
+columns that the TetrisGrid should have. It should then use those values to 
+construct a <span style ="font-family:Courier">Color[][]</span> of the matching size into the instance field.</p>
+<p>Add <strong>methods</strong> <span class="auto-style1">numRows</span> and 
+<span class="auto-style1">numCols</span> to return the dimensions of the grid.</p>
+<hr/>
+<h3>More Methods</h3>
+<p>The TetrisGrid will have a 2D array as an instance field, but since it&#39;s a 
+private instance field it cannot be directly accessed externally.&nbsp; In order 
+to allow this object to be controlled, some methods need to be added to allow 
+the TetrisGrid object to be modified.</p>
+<p><span class="auto-style1">public Color get(Location loc)</span>: returns the Color.
+value at the given Location.&nbsp; You will have to extract the row and column 
+out of the parameter so you can access that part of the array.</p>
+<p><span class="auto-style1">public void set(Location loc, Color c)</span>: 
+This method puts the given Color in the array at the given Location.</p>
+<p><span class="auto-style1">public void randomBlock(Location loc)</span>: 
+This method will construct a random Color and add it to the grid at 
+the parameter location.</p>
+
+<p><span class="auto-style1">public void clear(Location loc)</span>:  This method will 'clear' the given location by assigning a null value to that spot in the array.</p>
+
+<p><span class="auto-style1">public void clearAll()</span>:  This method will 'clear' the entire array.  While this may be done using a fancy loop, constructing a brand new Color[][] with the same dimensions as the original.</p>
+
+
+<p><span class="auto-style1">public boolean isValid(Location loc)</span>: This 
+method is to help make sure that we don&#39;t crash the program by going out of 
+bounds.&nbsp; Extract the row and columns from the parameter and return false if 
+the row or column is either too large or to small.&nbsp; Returning a true value 
+should only happen if accessing both the row and the column will not cause an 
+indexOutOfBounds exception.</p>
+<!-- <p><span class="auto-style1">public void clearLoc(Location loc)</span>: This 
+method will set the location in the grid to be null. This essentially removes it 
+from existence.</p> -->
+<p><span class="auto-style1">public ArrayList&lt;Location&gt; getOccupiedBlocks()</span>: This 
+method creates and returns an ArrayList of all the occupied locations that are in the 2D 
+array.&nbsp; You will have to loop through every location in the grid and add a new Location object to your ArrayList if that location is occupied.  You can tell if a location is occupied or not by checking to see if the value there is null or not.</p>
+
+<p><strong>Override the </strong> <span class="auto-style1"><strong>toString</strong></span><strong> method</strong> to return a 
+String that contains &quot;TetrisGrid:&quot; and is followed by the toString of every occupied  
+Location in the grid. The easiest way to do this is to rely on the  getOccupiedLocations method that you just wrote.</p>
+<hr/>
+<!-- <h3>The Location Conundrum:</h3>
+<p>A big part of this project is how we are going to store the Location of the 
+Block. Currently the Block has a Location instance field, but Block’s Location 
+is already being indirectly stored when we put it into the array. A Block stored 
+at grid[5][3] kind of has a Location of 5,3 even if the Block’s Location 
+variable says something else. In order for this project to work the way that we 
+want it to, we are going to have to pay careful attention when a Block is added 
+to the Grid.</p>
+<p>Go back to the addBlock method. Make sure that two things are happening. 
+First, the Block is being put into the array, and second you should call the 
+Block’s setLocation method. This should ensure that both objects are aware of 
+the Location.</p>
+<hr/> -->
+<h3>Testing:</h3>
+<p>Add the following tester method, which tests many of the methods that you&#39;ve 
+just created.</p>
+<pre>public static void tetrisGridTester()
+{
+   System.out.println("Testing Constructor and adding methods:");
+   //Testing Constructor, set, randomBlock, and toString
+   TetrisGrid tet = new TetrisGrid(9,13);
+   
+   
+   tet.set(new Location(7,3),Color.RED);
+   tet.set(new Location(2,1),Color.GREEN);
+   tet.set(new Location(4,2),Color.BLUE);
+   tet.randomBlock(new Location(8,9));
+   
+   System.out.println(tet);
+   
+    
+   //Testing clearLoc        
+   Location loc = new Location(2,1);
+   System.out.println("\nclearLoc Test: "+loc);
+    
+   System.out.println("Before clearLoc:");
+   System.out.println(tet.get(loc));
+   
+    tet.clear(loc);
+   System.out.println("After clearLoc:");
+   System.out.println(tet.get(loc));   
+   
+   //Testing numRows/numCols
+    System.out.println("\nnumRows(): "+tet.numRows());
+    System.out.println("numCols(): "+tet.numCols());
+    
+    
+    //Testing isValid
+    System.out.println("\nValid Location Test:");
+    Location[] goodLocs = new Location[]{new Location(5,7),new Location(0,3), new Location(7,0),new Location(8,4),new Location(2,12)};
+    for(Location tmpLoc : goodLocs)
+    {
+        System.out.println(tmpLoc+" isValid:"+tet.isValid(tmpLoc));
+    }
+    
+    System.out.println("\ninValid Location Test:");
+    Location[] badLocs = new Location[]{new Location(-1,5),new Location(2,-1), new Location(9,2),new Location(4,13),new Location(2,113)};
+    for(Location tmpLoc : badLocs)
+    {
+        System.out.println(tmpLoc+" isValid:"+tet.isValid(tmpLoc));
+    }
+    
+    System.out.println("\nTesting getOccupiedLocations()");
+    System.out.println(tet.getOccupiedLocations());
+}</pre>
+<!-- <pre>public static void tetrisGridTester()
+{
+    System.out.println("Testing Constructor and adding methods:");
+    //Testing Constructor, addBlock, addRandomBlock,and toString
+    TetrisGrid tet = new TetrisGrid(9,13);
+
+    tet.addBlock(new Location(7,3),new Block(Color.RED));
+    tet.addBlock(new Location(2,1),new Block(Color.GREEN));
+    tet.addBlock(new Location(4,2),new Block(Color.BLUE));
+    tet.addRandomBlock(new Location(8,9));
+    
+    System.out.println(tet);
+          
+    
+    //Testing clearLoc        
+    System.out.println("\nclearLoc Test:");
+    Location loc = new Location(2,1);
+    System.out.println("Before clearLoc:");
+    System.out.println(tet.get(loc));
+    
+    tet.clearLoc(loc);
+    System.out.println("After clearLoc:");
+    System.out.println(tet.get(loc));
+    
+    
+    //Testing numRows/numCols
+    System.out.println("\nnumRows(): "+tet.numRows());
+    System.out.println("numCols(): "+tet.numCols());
+    
+    
+    //Testing isValid
+    System.out.println("\nValid Location Test:");
+    Location[] goodLocs = new Location[]{new Location(5,7),new Location(0,3), new Location(7,0),new Location(8,4),new Location(2,12)};
+    for(Location tmpLoc : goodLocs)
+    {
+        System.out.println(tmpLoc+" isValid:"+tet.isValid(tmpLoc));
+    }
+    
+    System.out.println("\ninValid Location Test:");
+    Location[] badLocs = new Location[]{new Location(-1,5),new Location(2,-1), new Location(9,2),new Location(4,13),new Location(2,113)};
+    for(Location tmpLoc : badLocs)
+    {
+        System.out.println(tmpLoc+" isValid:"+tet.isValid(tmpLoc));
+    }
+    
+    System.out.println("Testing getBlocks()");
+    System.out.println(tet.getBlocks());
+}
+</pre> -->
+<p>Check your output against the following. The toString may be formatted a 
+little different, but the core data should match.</p>
+<p>Testing Constructor and adding methods:<br/>
+Loc(2,1) Color[R:0 G:255 B:0]<br/>
+Loc(4,2) Color[R:0 G:0 B:255]<br/>
+Loc(7,3) Color[R:255 G:0 B:0]<br/>
+Loc(8,9) Color[R:189 G:119 B:141]<br/>
+<br/>
+<br/>
+clearLoc Test: Loc(2,1)<br/>
+Before clearLoc:<br/>
+Color[R:0 G:255 B:0]<br/>
+After clearLoc:<br/>
+null<br/>
+<br/>
+numRows(): 9<br/>
+numCols(): 13<br/>
+<br/>
+Valid Location Test:<br/>
+Loc(5,7) isValid:true<br/>
+Loc(0,3) isValid:true<br/>
+Loc(7,0) isValid:true<br/>
+Loc(8,4) isValid:true<br/>
+Loc(2,12) isValid:true<br/>
+<br/>
+inValid Location Test:<br/>
+Loc(-1,5) isValid:false<br/>
+Loc(2,-1) isValid:false<br/>
+Loc(9,2) isValid:false<br/>
+Loc(4,13) isValid:false<br/>
+Loc(2,113) isValid:false<br/>
+<br/>
+Testing getOccupiedLocations()<br/>
+[Loc(4,2), Loc(7,3), Loc(8,9)]<br/></p>
+
+
+
+
+
+<!-- 
+
+<p>Testing Constructor and adding:<br />
+TetrisGrid:<br />
+Block at Loc(2, 1) with Color[R:0 G:255 B:0]<br />
+Block at Loc(4, 2) with Color[R:0 G:0 B:255]<br />
+Block at Loc(7, 3) with Color[R:255 G:0 B:0]<br />
+Block at Loc(8, 9) with Color[R:246 G:121 B:3]<br />
+<br />
+clearLoc Test:<br />
+Before clearLoc:<br />
+Block at Loc(2, 1) with Color[R:0 G:255 B:0]<br />
+After clearLoc:<br />
+null<br />
+<br />
+numRows(): 9<br />
+numCols(): 13<br />
+<br />
+Valid Location Test:<br />
+Loc(5, 7) isValid:true<br />
+Loc(0, 3) isValid:true<br />
+Loc(7, 0) isValid:true<br />
+Loc(8, 4) isValid:true<br />
+Loc(2, 12) isValid:true<br />
+<br />
+inValid Location Test:<br />
+Loc(-1, 5) isValid:false<br />
+Loc(2, -1) isValid:false<br />
+Loc(9, 2) isValid:false<br />
+Loc(4, 13) isValid:false<br />
+Loc(2, 113) isValid:false<br />
+<br />
+Testing getBlocks()<br />
+[Block at Loc(4, 2) with Color[R:0 G:0 B:255], Block at Loc(7, 3) with 
+Color[R:255 G:0 B:0], Block at Loc(8, 9) with Color[R:246 G:121 B:3]]<br />
+<br />
+</p> -->
+<hr/>
+
+
+<h3>The quickLoad method:</h3>
+<p>Getting a block into the grid takes a decent amount of code.&nbsp; You have 
+to construct the Blocks, construct the Location, and call the addBlock method.&nbsp; 
+This isn&#39;t too bad for one Blocks, but for the future it would be nice if we 
+could add many Blocks at a time for testing purposes.</p>
+<p>Add a method with the following header:</p>
+<p class="auto-style1">public void quickLoad(int[][] locs)</p>
+<p>The purpose of this method is to accept a 2D array of ints with exactly two 
+columns.&nbsp; Each row of this array represents a different location with it&#39;s 
+two ints.&nbsp; This method should loop through each row, extract the values at 
+index 0 and 1 and add a random block at that location.&nbsp; This way we can 
+call quickLoad(new int[][]{{1,2},{3,4},{5,6}}; and it will quickly add 
+three blocks to the grid for us.</p>
+<p>&nbsp;</p>
+<p>Test it with the following runner:</p>
+<pre>public static void quickLoadTester()
+{
+    TetrisGrid tet = new TetrisGrid(19,13);
+	
+    tet.quickLoad(new int[][]{ {6,2},	
+                               {6,6},	
+                               {8,4},	
+                               {9,1},	
+                               {9,7},	
+                               {10,2},	
+                               {10,6},	
+                               {11,3},	
+                               {11,4},	
+                               {11,5}  });
+    System.out.println(tet);
+}
+</pre>
+
+
+<p>Make sure you get an output similar to the following (the colors are random, 
+but the Locations should match):</p>
+<p>TetrisGrid:<br/>
+Loc(6,2) Color[R:170 G:227 B:2]<br/>
+Loc(6,6) Color[R:230 G:61 B:126]<br/>
+Loc(8,4) Color[R:143 G:109 B:28]<br/>
+Loc(9,1) Color[R:166 G:71 B:31]<br/>
+Loc(9,7) Color[R:216 G:21 B:168]<br/>
+Loc(10,2) Color[R:231 G:34 B:200]<br/>
+Loc(10,6) Color[R:26 G:78 B:5]<br/>
+Loc(11,3) Color[R:40 G:154 B:61]<br/>
+Loc(11,4) Color[R:68 G:71 B:148]<br/>
+Loc(11,5) Color[R:146 G:243 B:23]</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

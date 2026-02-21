@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Character Containment</title>
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+
+</head>
+
+<body>
+<h3>Character Containment</h3>
+<p>You may have noticed that it's possible to have one of the block push your character off of the screen.  This is because the blocks will always move, even if the character is trapped.</p>
+<p>The solution is to use two types of movement.  When a character is moving to the right it can be shown by either moving the world to the left or by moving the character to the right.  Essentially, when your character is in the middle/left side of the screen, moving to the right should be done to the character itself, but once it hits a certain point, the world should move instead</p>
+
+<p>Add a moveLeft and moveRight method to the JumpMan class that is similar to the one in the Block class.  This will allow us to move the character in the same way that we move the Blocks.</p>
+
+<p>In your Canvas class, add an int as an instance field named MaxX and assign a value of 512 to it.  You may modify this later if you want.</p>
+
+<p>Now go to the location in your onTimerTick method that detects if the <strong>right</strong> arrow is pressed.  At the moment it has a loop that moves all the blocks and xAligns mario at the same time. </p>
+
+ 
+<p>You will need to separate this action into two parts.  First take care of the movement.  If mario is less than the max, he moves to the <strong>right</strong>, and if he's greater than the MaxX you should loop through all the blocks and move them in the opposite direction.  After that you can worry about xAligning, which will require a <strong>completely separate loop.</strong></p>
+<p>Test out your game.  You character should be jumping around freely until it gets to the far right, were the world should then move to meet it.</p>
+
+<p>After your right boundary works, add another int for the <strong>minX</strong>, and do a similar process for moving mario to the left.</p>
+
+</body>
+</html>

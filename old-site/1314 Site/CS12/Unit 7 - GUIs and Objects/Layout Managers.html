@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Layout Managers</title>
+
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Layout Managers</h2>
+<p>import sacco.gui.*;</p>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/SFrame.html">
+SFrame API</a><br />
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/SButton.html">
+SButton API</a><br />
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/FlowLayout.html">
+FlowLayout API</a><br />
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/GridLayout.html">
+GridLayout API</a><br />
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/BorderLayout.html">
+BorderLayout API</a></p>
+<p>So far we’ve added a few buttons to an SFrame and they’ve all been thrown into 
+the window as a grid. This is how an SFrame arranges its items by default. </p>
+<p><img src="images/defaultLayout.PNG" height="102" width="492" /></p>
+<p>We’re not stuck with things this way. If we look at the SFrame API, there’s a 
+method named setLayout(LayoutManager manager)<br />
+This method is a little different. It can take ANY object that qualifies as a 
+LayoutManager. There are 3 main ones that we care about: FlowLayout, GridLayout, 
+BorderLayout</p>
+
+<h3 style="font-family:Arial, Helvetica, sans-serif">FlowLayout</h3>
+<p style="font-family:Arial, Helvetica, sans-serif">This is the default 
+LayoutManager for SFrames. It makes no attempt to resize the elements inside it.<br />
+Create a class named <strong>LayoutManagerPrograms</strong> and add the 
+following method to it (don’t forget to import sacco.gui.*;)</p>
+<pre>public static void firstFlowLayout()
+{
+    SFrame frame = new SFrame("First FlowLayout");
+ 
+    //Construct a Flowlayout object to set the frame's layout
+    FlowLayout flow = new FlowLayout();
+
+    //Line A:  Add Code Here
+    frame.setLayout(flow);
+ 
+    //Construct and add four buttons to the frame
+    SButton button = new SButton("Check");
+    frame.add(button);
+       
+    button = new SButton("Out");
+    frame.add(button);
+       
+    button = new SButton("The");
+    frame.add(button);
+      
+    button = new SButton("FlowLayout");
+    frame.add(button);
+ 
+       
+    //set size and view
+    frame.setSize(300,150);
+    frame.setVisible(true);
+}</pre>
+
+
+<p>This is very similar to a project that you’ve done, but there’s an extra step 
+where the FlowLayout object is created and then set as the layout. If you look 
+at the FlowLayout API, there’s really only a few things that can be done to 
+change the layout. Mainly the alignLeft() , alignRight(), and alignCenter() 
+methods.</p>
+<p>The default LayoutManager is aligned center.  In order to change that, we are going to create a new FlowLayout object and modify it to be aligned differently.   Go to the line of code that says      
+<em>//Line A:  Add Code Here</em> and add a line that calls layout’s alignLeft method.  This should set that attribute of the FlowLayout right before the frame is told to use that layout.
+ </p>
+<p>Test your code and make sure that the buttons are all aligned to the left.<br />
+ </p>
+<p>
+<img src="images/imgE1.jpg" /><br />
+<br />
+ </p>
+<p>Add a method with the following header:</p>
+<pre>public static void secondFlowLayout()</pre>
+<p>Write the method so that it recreates the gui below.&nbsp;&nbsp; When run you 
+should not have to resize it to get it to be the right size.</p>
+<p><img src="images/img10.jpg" /></p>
+<p>&nbsp;</p>
+<h3 style="font-family:Arial, Helvetica, sans-serif">GridLayout</h3>
+<p style="font-family:Arial, Helvetica, sans-serif">A GridLayout object is used 
+to organize elements in a grid form. Start by copy and pasting the method below.
+</p>
+<table class="auto-style1" style="width: 100%;font-family:Arial, Helvetica, sans-serif;font-size:small">
+	<tr>
+		<td>NOTICE: For brevity, I have started combining statements. Previously 
+		I’ve used a variable named button to hold the SButton object.<br />
+		<br />
+		<span style="font-family:'Courier New', Courier, monospace">SButton button = new SButton(“A”);<br />
+		frame.add(button);<br />
+		<br />
+		</span>But Since I don’t really use button later, it can really be shortened to the following:<br />
+		<br />
+		<span style="font-family:'Courier New', Courier, monospace">frame.add(new SButton(“A”));</span>
+		<p>This way the button variable is no longer acting as the middle man.  This will not always be the case.  Many times you are going to want to keep track of the buttons, making a variable necessary.</p>
+		</td>
+	</tr>
+</table>
+
+<pre>public static void firstGridLayout()
+{
+    SFrame frame = new SFrame("First GridLayout");
+ 
+    //Line B:  Add Code Here
+ 
+    frame.add(new SButton("A"));
+    frame.add(new SButton("B"));
+    frame.add(new SButton("C"));
+    frame.add(new SButton("D"));
+    frame.add(new SButton("E"));
+    frame.add(new SButton("F"));
+ 
+    frame.setSize(300,150);
+    frame.setVisible(true);
+}</pre>
+
+<p>When run, it should look like this:</p>
+<p><img height="188" src="images/aToF.PNG" width="366" /></p>
+<p>&nbsp;</p>
+<p>This is already a GridLayout, which is the default layout for SFrames, but 
+let&#39;s make it more of a Grid.</p>
+<p>If you look at the GridLayout API, you’ll see that the only way to construct 
+a GridLayout is by giving it two parameters. Go to the line that says //Line B: 
+Add Code Here and construct a new GridLayout object with 3 rows and 2 columns 
+and store it into a new variable named grid (Look at the GridLayout API to see 
+what kind of Constructor it has). <br />
+<br />
+After you’ve constructed the GridLayout, call frame’s setLayout method with grid 
+as the parameter. Now run the method. It should look as follows:<br />
+<br />
+<img height="188" src="images/firstGrid.png" width="366" /><br />
+<br />
+<br />
+Notice that the natural size of the buttons is ignored. Each element gets an 
+equal spacing.<br />
+<br />
+Since you constructed a GridLayout with 3 rows and 2 columns, the maximum that 
+you should really add to your frame should be 6. Let’s test to see what happens 
+when you keep going. Modify the code to add one more SButton with a “G” on it. 
+Run it to get the following:<br />
+</p>
+<p><img src="images/img1E1.jpg" /><br />
+<br />
+<br />
+It looks like when we went past the limit of 6, another row was added to 
+accommodate for the extra element.<br />
+<br />
+Does it always add a new Row? Let’s test it out. Add three more SButtons to the 
+frame with “H”, “I”, and “J” on them. Run it again an you’ll have the following:<br />
+<br />
+<img src="images/img1F.jpg" /></p>
+<p><br />
+So it seems that first a new Row was added, but when that was full a new Column 
+was added, causing a very confusing result. The moral of the story is that you 
+should really never be adding more items to a GridLayout than you have made room 
+for. Multiplying the number of rows times the number of columns will tell you 
+the max.<br />
+<br />
+<br />
+Create a method with the following header:<br />
+<span style="font-family:'Courier New', Courier, monospace">public static void secondGrid()</span><br />
+This method should recreate the gui below. Use a size of 250x250. </p>
+<p><img src="images/img22.jpg" /><br />
+<br />
+Sometimes you want to add a little space between. The GridLayout object has a 
+setVgap and setHgap method that allow you to modify the Vertical Gap and the 
+Horizontal Gap. Check the API to see about their parameters and use those 
+methods to set the Horizontal and Vertical Gap to 5.</p>
+
+<p><img src="images/img23.jpg" /></p>
+<p>&nbsp;</p>
+<h3 style="font-family:Arial, Helvetica, sans-serif">BorderLayout</h3>
+<p style="font-family:Arial, Helvetica, sans-serif">The BorderLayout is the most 
+complex of the layouts. It divides the area up into 5 zones. To demonstrate 
+those zones start with the following code, which creates 5 buttons that are 
+labeled after the 5 zones.</p>
+<p style="font-family:Arial, Helvetica, sans-serif">&nbsp;</p>
+<pre>public static void firstBorderLayout()
+{
+    SFrame frame = new SFrame("First BorderLayout");
+ 
+    //Line C: Add code here
+       
+    SButton north = new SButton("North");
+    SButton south = new SButton("South");
+    SButton east = new SButton("East");
+    SButton west = new SButton("West");
+    SButton center = new SButton("Center");
+       
+    frame.add(north);
+    frame.add(south);
+    frame.add(east);
+    frame.add(west);
+    frame.add(center);
+       
+    frame.setSize(400,300);
+    frame.setVisible(true);
+}</pre>
+<p>Run the method. Again it’s only a FlowLayout at the moment. Go to Line C and 
+set the Layout to a BorderLayout by saying frame.setLayout( new BorderLayout() 
+);<br />
+<br />
+Run the program this time and you’ll run into a surprise. The top of the error 
+message should say java.lang.IllegalArgumentException: BorderLayouts are not 
+appropriate here. This occurs because the add method that you’ve used won’t work 
+for the BorderLayout. When adding to a BorderLayout there’s a second method that 
+also requires you to tell it which zone to place it. The way that you call it is 
+a little unique. There is a static variable in the BorderLayout class for each 
+zone.<br />
+<br />
+find the line that says: frame.add(north);<br />
+change it to say: frame.add(BorderLayout.NORTH, north);<br />
+<br />
+This is a legal add for a BorderLayout. Change the other 4 adds to follow this 
+same format. Then run the method and observe the five zones:</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+<strong>North/South</strong>:&nbsp; These zones keep their natural height and 
+stretch their width to match the width of the frame</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+<strong>East/West</strong>:&nbsp; These zones keep their natural width and 
+stretch their height to match the height of the frame (minus the height of the 
+North and South zones)</p>
+<p class="MsoNormal" style="margin: 0px 0px 0.0001pt; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+<strong>Center</strong>:&nbsp; This zone stretches both its height and width to 
+fill in any zone that has nothing added to it.</p>
+<p>&nbsp;</p>
+<p><img src="images/img27.jpg" /></p>
+<p>&nbsp;</p>
+<p>You don’t have to fill every single zone of a BorderLayout. Add the following 
+methods and code them to create the described layout.</p>
+<p><span style="font-family:'Courier New', Courier, monospace">public static void secondBorderLayout()</span>: This method should create a frame 
+that only has buttons at the Center, North, and West of a 400x300 frame<br />
+<br />
+<span style="font-family:'Courier New', Courier, monospace">public static void 
+<span style="font-family:'Courier New', Courier, monospace">thirdBorderLayout</span>()</span>: This method should create a frame that 
+only has buttons at the Center and East of a 450x200 frame<br />
+<br />
+<span style="font-family:'Courier New', Courier, monospace">public static void 
+fourthBorderLayout()</span>: This method should replicate the frame 
+below:</p>
+<p><img src="images/fourthLayout.PNG" height="255" width="538" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+
+</html>

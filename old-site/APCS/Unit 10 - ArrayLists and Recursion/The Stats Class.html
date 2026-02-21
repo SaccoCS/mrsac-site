@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Stats Class</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The Stats Class</h2>
+<p>&nbsp;Create a class named Stats, which will have as its instance field an 
+ArrayList&lt;Integer&gt;. The purpose of the stats class will be to calculate some 
+basic statistical measurements of the data stored in the ArrayList&lt;Integer&gt;.</p>
+<p>Create a default constructor to make sure that the instance field is set up 
+properly to have an empty ArrayList&lt;Integer&gt;<br />
+</p>
+<pre>public void insert(int num) </pre><p>
+The purpose of this method is to add num to the ArrayList at a location that 
+keeps the list in ascending order. Meaning that if the List had two values, 1 
+and 3, a call to insert(2) would leave the List with elements 1,2,3 in order. 
+Use a loop to determine the proper index to add the value. Once this 
+method is working properly, you should only use this method to add elements to 
+the List. Otherwise they could get out of order which would break your code.</p>
+<pre>&nbsp;</pre>
+<pre>public String toString()</pre><p>
+Override the toString method so that it returns the toString of the ArrayList. 
+This is an easy way of tellling what is in the List.</p>
+<p>
+&nbsp;</p>
+<p>
+Use BlueJ to Construct a Stats object. Call the insert method a few times, 
+passing in random values, and then 
+call the toString to make sure they&#39;ve been put in order.</p>
+<hr>
+<p>
+<strong>Second Constructor:</strong></p>
+<pre>public Stats(int[] nums)</pre>
+<p>
+This constructor will first create a new ArrayList into the instance field, and 
+then loop through the parameter array and call the insert method, passing each 
+value from the array in.&nbsp; Do not call the add method, as it doesn&#39;t keep 
+them in order.</p>
+<hr>
+<p class="auto-style1">
+<strong>Basic Stats:</strong></p>
+<pre>public double getMean()</pre>
+<p>
+The <strong>getMean</strong> method&#39;s job is to return the average of the ints</p>
+<p>
+&nbsp;</p>
+<pre>public double getMedian()</pre>
+<p>
+The <strong>getMedian</strong> method&#39;s job is to return the median, which is the number in the 
+very center of the data (assuming that the data is in ascending order). If there 
+is an odd number of elements the answer is simply the number in the center 
+index, but if there is an even number of elements you return the average of the 
+two elements in the center.<br />
+<br />
+<strong>Warning</strong>: Don&#39;t just assume that size()/2 will always give you the index that 
+lies perfectly in the middle. Think of two simple examples, an ArrayList with 
+size 3 and one with size 4 and see what calculation it takes to find the middle. 
+Using simple examples as the foundation for your algorithms can save you a lot 
+of heartache.</p>
+<p>
+&nbsp;</p>
+<pre>public int largestDifference()</pre>
+<p>
+This method will return the largest difference between&nbsp; consecutive 
+elements in the data</p>
+<p>
+<br />
+</p>
+<hr>
+<p class="auto-style1">
+<strong>Variance and Standard Deviation:</strong></p>
+<p>
+<a href="http://www.mathsisfun.com/data/standard-deviation.html">Variance/Standard Deviation Explanation</a><br />
+</p>
+<pre>public double getVariance()</pre>
+<p>
+To calculate the variance of a set of data, you must first calculate the mean. 
+Once you have the mean, the variance is the average of the square of the 
+distance to the mean.<br />
+Example: If the numbers are 1,2,3,4,5,6,7 then the mean is 4. The variance would 
+be the average of (1-4)<sup>2</sup>, (2-4)<sup>2</sup>, (3-4)<sup>2</sup>, (4-4)<sup>2</sup>, (5-4)<sup>2</sup>, (6-4)<sup>2</sup>, and (7-4)<sup>2</sup>. 
+Which is 28/7 = 4.</p>
+<pre>public double getStandardDeviation()</pre>
+<p>
+The standard deviation is nothing more than the square root of the variance. 
+Please don&#39;t rewrite the code you wrote in the previous method.</p>
+<p>
+&nbsp;</p><hr>
+<p>
+<strong>Revamped toString:</strong></p>
+<p>
+Modify the toString so that it will also have each of the important values, 
+similar to below.&nbsp; You don&#39;t have to loop through the data manually, the 
+toString of the ArrayList will provide the list separated with commas and 
+enclosed with square-brackets for you.</p>
+<p>
+Data: [1, 2, 4, 6, 7, 9, 15]<br />
+Largest Difference: 6<br />
+Mean: 6.285714285714286<br />
+Median: 6.0<br />
+Variance: 19.346938775510207<br />
+Standard Deviation: 4.398515519525901 </p>
+<p>
+&nbsp;</p><hr>
+<p>
+<strong><span class="auto-style1">Testing:</span></strong></p>
+<p>
+Use the following runner:</p>
+<pre>
+public static void main()
+{
+    int[] nums = {605,462,173,431,310};
+    Stats myStats = new Stats(nums);
+    System.out.println(myStats);
+}
+</pre>
+<p>
+Which should produce the output:</p>
+<p>
+Data: [173, 310, 431, 462, 605]<br />
+Largest Difference: 143<br />
+Mean: 396.2<br />
+Median: 431.0<br />
+Variance: 21277.359999999997<br />
+Standard Deviation: 145.86761120961705<br />
+</p>
+<p>
+<br />
+&nbsp;</p>
+<p>
+&nbsp;</p>
+<p>
+<br />
+Optional Challenge:<br />
+The mode is the most commonly found number in the data set. If there is a tie, 
+there can be multiple modes. Write the method public ArrayList&lt;Integer&gt; 
+getMode() which returns an ArrayList with a size of at least one that contains 
+all the modes.<br />
+&nbsp;<br />
+</p>
+
+</body>
+
+</html>

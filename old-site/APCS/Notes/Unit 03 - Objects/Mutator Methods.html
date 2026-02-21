@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Mutator Methods</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-size: large;
+}
+.auto-style3 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style4 {
+	color: #FF0000;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Mutator Methods</h2>
+<p>&nbsp;</p>
+<p>Sometimes objects are designed to simply encapsulate together, such as the 
+Point class or the Name class.&nbsp; These objects mostly just hold the data 
+that they are constructed with their entire lifetime, and their methods are 
+mostly accessors.&nbsp; This is not always the case.</p>
+<p>Much of the time objects are meant to have data that changes as the object is 
+being used.&nbsp; The Fighter class, for example, is not meant to simply hold 
+the initial health of the Fighter; it changes over time as the Fighter battles 
+with another.</p>
+<p>A Mutator method is one that <strong>changes</strong> (or mutates) the state 
+of the object by changing the instance fields in some way.&nbsp; </p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>void</strong></p>
+<p>Since the purpose of a mutator method is to change the instance fields, they
+<em>usually</em> do not return any data.&nbsp; When defining a method header, a 
+return type must be provided.&nbsp; When the word void is used as a return type, 
+it signifies that no data will be returned from the method.</p>
+<p>&nbsp;</p>
+<p>When calling a void method from a client class, don&#39;t confuse it with an 
+accessor method and try to deal with a returned value.</p>
+<p>For Example:&nbsp; System.out.println is a void method, meaning the following 
+would not compile:</p>
+<p class="auto-style3"><span class="auto-style4">String str =</span> 
+System.out.println(&quot;Hello World&quot;);</p>
+<p>The variable <strong>str</strong> looks like it&#39;s trying to store a value, 
+but by definition the println method is a void method and doesn&#39;t return 
+anything.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Parameters:</strong></p>
+<p>Mutator methods often take in a parameter, but it is not always necessary.&nbsp; 
+It really depends on the situation.&nbsp; If you were writing a method named 
+setX, which is supposed to change the value of and instance field <strong>x</strong>, 
+then you would probably need a parameter, but if you were writing a method named 
+setXToZero, you can perform that task without any help from parameters.</p>
+<p>&nbsp;</p><hr/>
+<p class="auto-style2"><strong>Example:</strong></p>
+<p>Consider the BankAccount class below:&nbsp;</p>
+<pre>public class BankAccount
+{
+    private double balance;
+    private String accountName;
+
+    public BankAccount(String name, double bal)
+    {
+        accountName = name;
+        balance = bal;
+    }
+
+    public double getBalance()
+    {
+        return balance;
+    }
+
+    public String getAccountName()
+    {
+        return accountName;
+    }
+
+    public void setAccountName(String name)
+    {
+        accountName = name;
+    }
+
+    public void deposit(double cash)
+    {
+        balance += cash;
+    }
+
+    public void withdraw(double cash)
+    {
+        balance -= cash;
+    }
+    
+    public void penalty()
+    {
+        balance -= 20;
+    }
+
+    public String toString()
+    {
+        return "Account Name: "+accountName+"\nBalance: $"+balance+"\n";
+    }
+}</pre>
+<p class="auto-style1"><strong>BankAccount&#39;s Basic Mutator Methods</strong></p>
+<p>The method setAccountName is a Basic Mutator method.&nbsp; The sole purpose 
+of the method is to give the client a way of changing the account&#39;s name <strong>
+after</strong> it&#39;s been constructed.</p>
+<pre>
+BankAccount b = new BankAccount("Mr. Sacco",24000);
+b.setAccountName("Mr. Amazing");</pre>
+<p>In the snippet of code above, the name and balance of the BankAccount object 
+are <strong>intitially</strong> set to &quot;Mr. Sacco&quot; and 24,000.&nbsp; After the 
+setAccountName method is called, the name has been replaced with <strong>&quot;</strong>Mr. 
+Amazing&quot;.&nbsp; This means that the object&#39;s state has been changed, or <strong>
+mutated</strong>.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>BankAccount&#39;s Non-Basic Mutator Methods:</strong></p>
+<p>Not all mutator methods simply replace an instance field.&nbsp; The withdraw 
+and deposit methods are a different type.&nbsp; They still take in an amount, 
+but they do not simply replace the instance field.&nbsp; Each of them is 
+supposed to simulate a bank transaction, meaning they <strong>add</strong> or
+<strong>subtract</strong> from the balance.&nbsp; When writing your mutator 
+methods you should always make sure that you&#39;re a) changing at least one 
+instance field, and b) changing it in an appropriate way, meaning not simply 
+replacing the instance field with the new value.</p>
+<p>&nbsp;</p>
+<p><strong>Parameters are NOT ALWAYS REQUIRED</strong></p>
+<p>Don&#39;t get stuck in the mindset that all mutators need a parameter.&nbsp; 
+Since the bank&#39;s penalty is always 20, the penalty method doesn&#39;t need a 
+parameter to tell it how much to deduct.&nbsp; You only need parameters when the 
+situation calls for it.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

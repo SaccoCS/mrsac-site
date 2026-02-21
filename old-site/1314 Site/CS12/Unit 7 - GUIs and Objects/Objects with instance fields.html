@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Objects with instance fields</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style2 {
+	font-size: medium;
+}
+.auto-style3 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Objects with Instance Fields</h2>
+<p>So far we&#39;ve been creating simple objects with a single action.&nbsp; When a 
+button is pressed, a single action is performed.&nbsp; That action can never be 
+different.&nbsp; A real object has the ability to change each of it&#39;s actions 
+depending on the situation.</p>
+<p>For example, copy the following class into your project. (IT WILL NOT COMPILE 
+UNTIL YOU HAVE THE COUNTER CLASS)</p>
+<pre>import sacco.gui.*;
+
+public class ObjectsWithFields
+{
+    public static void firstField()
+    {
+        SFrame frame = new SFrame(&quot;Count Up");
+        frame.setLayout(new GridLayout(1,1));
+        
+        SButton button = new SButton("Click Count: 0");
+        button.addButtonListener(new CountUp());
+        
+        frame.add(button);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    
+}</pre>
+
+<p>Reading through the method above shows a simple GUI with a single button 
+labeled &quot;0&quot;.&nbsp; This is not a complete program until the <strong>
+CountUp</strong> 
+class is finished.&nbsp; Copy the incomplete CountUp class below and compile 
+your program.&nbsp; At the moment it does absolutely nothing, but you want to 
+make sure that it compiles before you proceed.</p>
+<p>&nbsp;</p><hr>
+<p><strong>The CountUp class</strong></p>
+<pre>import sacco.gui.*;
+
+public class CountUp implements ButtonListener
+{    
+    public CountUp()
+    {
+
+    }
+    
+    public void onButtonPress(SButton source)
+    {
+         
+    }
+}</pre>
+<p><img src="images/imgE3.jpg" /></p>
+<p>&nbsp;</p>
+<p>Clicking the button at this point does absolutely nothing.&nbsp; We can fix 
+that.</p>
+<p><strong>Goal</strong>:&nbsp; To fix it so that every time you click the button, the number 
+increases.</p>
+<p>We need a variable to help us.&nbsp; It should keep track of every click that 
+happens and update the text to have that variable.&nbsp; Since the text already 
+starts at 0, we should first increase the variable and then set the text of the 
+button to what the variable now reads.</p>
+<p>Add the following to the onButtonPress method of the CountUp class:</p>
+<pre>int count = 0;
+count++;
+source.setText("Click Count: &quot;+count);</pre>
+<p>Run the program and test it out.&nbsp; It should start out saying that the 
+click count is 0, but no matter how many times you click, you will get stuck at 
+the following:</p>
+<p><img src="images/img1D1.jpg" /></p>
+
+<p><strong>The Problem:</strong></p>
+<p>The real problem is that the variable is declared as the first line of the 
+method.&nbsp; That means that every time you click, the variable is set to zero.&nbsp; 
+The following line adds one, and then the text of the button is set to that 
+value.&nbsp; This makes it guaranteed to be 1 every time you click it.</p>
+<p><strong>What we need:</strong></p>
+<p>We need a variable that belongs to the object instead of just the method.&nbsp; 
+It should start at zero, but calling the method should change it without having 
+to set it to 0 first.</p>
+<p>&nbsp;</p><hr>
+<p><strong>Object School:&nbsp; Instance Fields</strong></p>
+<p>Instance fields are variables that belong to the object and are part of the 
+information that the object holds as long as it exists.&nbsp; For example, an 
+SButton has an instance field that holds the <strong>text</strong> of the 
+button.&nbsp; When the <strong>setText</strong> method is called it changes that 
+variable, thus changing what letters are shown when the button is displayed.</p>
+<p>The way you define an instance field is by declaring them at the top of the 
+class and OUTSIDE of any method.&nbsp; Change your CountUp class to have the 
+following, which declares an instance field named <strong>count</strong>.&nbsp; 
+The word <strong>private</strong> in front of it means that no other programmer 
+can directly access and change the count variable without your permission.&nbsp; 
+You should always make sure that your instance fields are private.&nbsp;</p>
+<pre>public class CountUp implements ButtonListener
+{
+    private int count;
+        
+    public CountUp()
+    {
+    ...
+</pre>
+<p>Notice that all we&#39;ve done is <strong>declare</strong> the variable.&nbsp; It 
+still needs to be assigned a starting value.&nbsp; This is where the constructor 
+comes into play.</p>
+<p>&nbsp;</p>
+<p><strong>Object School: The Constructor</strong></p>
+<p>The constructor is a special method that is designed to be the first thing 
+that the obejct ever does.&nbsp; The majority of the time, it&#39;s job is to put 
+the starting value into any instance fields that the object may have.&nbsp; This 
+is why our previous constructor&#39;s didn&#39;t do anything.&nbsp; They didn&#39;t have any 
+instance fields.&nbsp; Add a line that sets <strong>count</strong> to 0 in the 
+constructor (and also remove it from the first line fo the onButtonPress method) 
+and you should get the following.</p>
+<p>&nbsp;</p>
+<pre>import sacco.gui.*;
+
+public class CountUp implements ButtonListener
+{
+    <strong>int count;</strong>
+        
+    public CountUp()
+    {
+        <strong>count = 0;</strong>
+    }
+    
+    public void onButtonPress(SButton source)
+    {
+         count++;
+         source.setText("Click Count: "+count);
+    }
+}</pre>
+
+<p>It&#39;s all about managing the variables that make a CountUp what it is.&nbsp; 
+The class above defies a CountUp as a ButtonListener that has an int at its 
+core.&nbsp; The Constructor shows that in the beginning that variable is set to 
+zero, but whenever the button is pressed that variable is increased and the 
+button&#39;s text is changed to include the new value.&nbsp; This is different than 
+before because the variable is no longer set to zero when the button is pressed, 
+meaning that the variable will keep its value when clicked.</p>
+<p>Compile an run the program.&nbsp; Notice that now your clicked number can get 
+much higher than 1:</p>
+<p><img src="images/img2D.jpg" /></p>
+<p>&nbsp;</p>
+<p>Objects can have as many instance fields as you need in order to define what 
+the obejct is.&nbsp; For exampls: an SFrame has instance fields for the title of 
+the frame, the width, the height, the location on the screen, it&#39;s layout 
+manager, all of the components it holds, and more.</p>
+<table  style="font-family:Arial, Helvetica, sans-serif; font-size:small;" border="1">
+	<tr>
+		<td style="width: 541px">Generally when writing objects:<br />
+		<br />
+		- The instance fields define what the object needs to keep track of.<br />
+		- The constructor is in charge of putting the first value in the 
+		instance fields<br />
+		- The rest of the methods either change or return some information about 
+		those instance fields<br />
+		</td>
+	</tr>
+</table>
+<hr>
+<p class="auto-style2"><strong>CountDownFromTen</strong></p>
+<p>Add a method to your ObjectsWithFields class that has the following header:</p>
+<pre>public static void countDown()</pre>
+<p>Have that method create the following GUI:</p>
+<p><img src="images/img39.jpg" /></p>
+<p>&nbsp;</p>
+<p>Now create a ButtonListener Object named <strong>CountDownFromTen</strong>.&nbsp; 
+This object will act very similarly to the CountUp object, but with a few 
+changes.&nbsp; This time our goal is to start at 10 and count down until we hit 
+0.&nbsp; At that point the button should stop counting down and say &quot;Blast 
+Off!!!&quot;.</p>
+<p><img src="images/img3A.jpg" /> ...click...click...
+<img src="images/img3B1.jpg" /> ...click...click...
+<img src="images/img3C.jpg" /></p>
+<p>&nbsp;</p>
+<p>Things to remember to do:</p>
+<p>- This time the starting value is 10, so make sure the constructor sets the 
+instance field to 10.</p>
+<p>- In the onButtonPress method, use an <strong>if statement</strong> to determine if you should 
+either set the text to &quot;T-Minus:...&quot; or to &quot;Blast Off!!&quot;</p>
+<p>- In your ObjectsWithFields class, don&#39;t forget that you need to <strong>
+addButtonListener</strong> to make sure that the 
+object is linked with the button.</p>
+<hr>
+
+
+<p><strong>Using Constructors with Parameters to Change How and Object Behaves:</strong></p>
+<p>Add a method to your ObjectsWithFields class that has the following header:</p>
+<pre>public static void multiCountDown()</pre>
+<p>Implement the method so that it creates the following GUI:</p>
+
+<p><img src="images/img45.jpg" /></p>
+<p>&nbsp;</p>
+<p>The CountDownFromTen Object performed a very specific function.&nbsp; No 
+matter how many times you use the object, it will always start at ten and end at 
+0.&nbsp; </p>
+<p>This time our goal is to have two different count downs.&nbsp; The left 
+button should start counting at 5, while the right button should start counting 
+down at 100.&nbsp; </p>
+<p><img src="images/img48.jpg" />&nbsp;&nbsp; (After one click on each button)</p>
+<p>The fact that neither counter starts at 10 means that we can&#39;t use the 
+CountDownFromTen object as a listener for either button.&nbsp; There are two 
+ways that we can proceed.</p>
+<p>1)&nbsp; We could create two different objects countDownFromFive and 
+countDownFrom100, which looked almost identical, except the constructor would 
+say <strong>count = 5</strong> or <strong>count = 100</strong></p>
+<p>2)&nbsp; We could create ONE object class where the constructor took in a 
+parameter to represent its starting value</p>
+<p>The second option here is smarter.&nbsp; Not only is it less work, but that 
+object could be used to count down from any number.</p>
+<p>Create an object class named <strong>CountDown</strong>, which will look 
+almost identical to the CountDownFromTen class with the exception of the 
+constructor.&nbsp; You should add a parameter that represents where the counter 
+should start.</p>
+<p>&nbsp;</p>
+<pre>...</pre>
+<pre>public CountDown(int startVal)
+{
+   count = startVal;
+}</pre>
+<pre>...</pre>
+<p>Notice that instead of assigning a specific value, we are assigning whatever 
+value is used as a parameter when constructing the object.</p>
+<p>&nbsp;Now go to the ObjectsWithFields class.&nbsp; This time you have to create two 
+different CountDown objects, each with a different parameter:</p>
+<pre>CountDown five = new CountDown(5);
+CountDown hundred = new CountDown(100);</pre>
+<p>&nbsp;</p>
+<p>Since we&#39;ve defined the parameter to be the starting value, this means that 
+one of the CountDowns will start at five and the other will start at 100.&nbsp; 
+This one object is now reusable in different situations, which makes it more 
+valuable than the CountDownFromTen class.</p>
+<p>addButtonListener each of these CountDown objects to a different button and 
+test it out.&nbsp; Hopefully each button starts counting from the correct spot.</p>
+<p>&nbsp;</p><hr>
+<p>Multiple instance fields:</p>
+<p>So far we&#39;ve only made objects with a single instance field, but in reality 
+the number of instance fields that an object should have does not have a limit.&nbsp; 
+The more complex the behavior of the object, the more instance fields may be 
+required.</p>
+<p>Add a method to your ObjectsWithFields class that has the following header:</p>
+<pre>public static void directionFlipper()</pre>
+<p>Implement the method so that it creates the following GUI:</p>
+
+<p><img src="images/img70.jpg" /></p>
+<p>&nbsp;</p>
+<p>The idea behind this is that it will be a counter, as we&#39;ve been doing, but 
+when the &quot;Flip Directions&quot; button is pressed the counting will start going down 
+instead of up.&nbsp; Clicking the &quot;Flip Directions&quot; button again will cause it 
+to switch again.</p>
+<p>Create an object class named FlippingCounter that is also a ButtonListener.&nbsp; 
+This time there will be two instance fields:</p>
+<p>1) An int to represent the current count</p>
+<p>2) A <strong>boolean</strong> that will represent if the count is increasing 
+or not.&nbsp; A true value will represent increasing, while a false value will 
+represent decreasing.</p>
+<p>&nbsp;</p>
+<p>Create a constructor that starts the count at 0 and the boolean to true.&nbsp; 
+This means that the when the button is <strong>first clicked</strong> we&#39;ll 
+expect it to increase.</p>
+<p class="auto-style3">IT IS EXREMELY IMPORTANT THAT YOU DO NOT USE TWO DIFFRENT 
+FLIPPINGCOUNTER OBJECTS&nbsp; Create one FlippingCounter, store it into a 
+variable, and add that variable as the buttonListener to both objects.&nbsp; 
+This is because two different objects would have two separate sets of instance 
+fields.&nbsp; If you change the boolean for one object, it can&#39;t be seen by the 
+other.</p>
+<p><strong>The onButtonPress method:</strong></p>
+<p>Now it&#39;s time to make the onButtonPress method function.&nbsp; This time it 
+will be more complex.&nbsp; The first thing that you want to do is create a big 
+if statement to determine which button was pressed, but we have a problem.&nbsp; 
+Since the text of the counting button is going to be changing frequently, we 
+cannot use its text to determine what button was pressed.&nbsp; We&#39;ll fix this 
+problem in the future, but for now the solution to our problem is to have the 
+first part of the if statement check to see if the &quot;Flip Directions&quot; button was 
+pressed.&nbsp; Then add an <strong>else</strong> statement, which would only be 
+used if the button <strong>wasn&#39;t</strong> the Flip Directions button.&nbsp; </p>
+<p>Now the onButtonPress method is essentially split up into two sections that 
+will be run at different times.&nbsp; Let&#39;s start with the <strong>else</strong> 
+(the counting button).&nbsp; This will act similar to our previous counters, 
+except you will need an if statement to determine whether you should increase 
+your counter or not.&nbsp; If the boolean instance field is <strong>true,
+</strong>increase your counter;&nbsp; if it&#39;s <strong>false</strong>, decrease 
+it.&nbsp; Don&#39;t forget to set the text of the source button.</p>
+<p>Even though the if statement is incomplete, now is a good time to test your 
+program.&nbsp; It should compile and run, but the only functioning part should 
+be the counting button, which should increase.&nbsp; Try temporarily modifying 
+your <strong>Constructor</strong> to start the boolean instance field at <strong>
+false</strong>.&nbsp; If you run it after that the button should decrease the 
+number instead.&nbsp; If this works, you know that you&#39;re using your boolean 
+correctly.</p>
+<p>Now it&#39;s time to finish the if statement that&#39;s in your onButtonPress method.&nbsp; 
+In the section that only runs once the &quot;Flip Directions&quot; button is pressed 
+you&#39;re going to need another if statement, but this time it&#39;s in charge of 
+setting the boolean to its opposite.&nbsp; If it&#39;s currently true, set it to 
+false, otherwise set it to true.</p>
+<p>BE CAREFUL!&nbsp; A Common mistake is to do the following:</p>
+<pre>if( isIncreasing == true )
+{
+   isIncreasing = false;
+}
+if( isIncreasing == false )
+{
+   isIncreasing = true;
+}</pre>
+<p>You should not do this!&nbsp; If the starting value of isIncreasing is true, 
+you set it to false, but then you immediately set it back to true.&nbsp; You 
+should be using an <strong>else</strong> statment to see if it&#39;s false because 
+it will be skipped in the case that the <strong>if</strong> is true.</p>
+<p><img border="1" src="images/img79.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

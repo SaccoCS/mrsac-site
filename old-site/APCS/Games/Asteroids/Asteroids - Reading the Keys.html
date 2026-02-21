@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Reading the State of the Keys</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Reading the State of the Keys</p>
+<p class="auto-style1">&nbsp;As we go further with our game, listening to keys will become more important 
+for controlling our spaceship.</p>
+<p class="auto-style3"><strong>The Problem:</strong></p>
+<p class="auto-style1">The way that the KeyboardListener works is that it only calls the methods 
+when the keys are pressed or released.&nbsp; Holding one key down will call the 
+method repeatedly (like when you hold a letter down while typing).&nbsp; The 
+issue arrives when you try to press multiple keys at once it will stop calling 
+the method, even if you&#39;re still holding the key.&nbsp; This means that we will 
+not be able to accelerate and turn at the same time.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3"><strong>The Solution:</strong></p>
+<p class="auto-style1">With a little bit of trickery we can keep track of which keys are being held 
+down.&nbsp; Add three booleans to the AsteroidsBoard as instance fields: up, 
+left, and right.&nbsp; Our goal is to have these values be true for as long as 
+the keys are being pressed.</p>
+<p class="auto-style1">If you think about it, this means that the boolean needs to be switched to 
+true when key is pressed, and set back to false when it&#39;s released.&nbsp; 
+Luckily we have a method that is called in each of those cases.</p>
+<p class="auto-style1">Go to the onKeyPress method and add the following code:</p>
+<pre>if( keyCode == 37)
+   left = true;</pre>
+
+<p class="auto-style1">37 is the keyCode for the left arrow key.&nbsp; When this key is pressed, the 
+boolean <strong>left</strong> will be set to true.&nbsp; We don&#39;t want this boolean to be true for the rest of time, so go to the 
+onKeyRelease and add the following code:</p>
+
+<pre>if( keyCode == 37)
+   left = false;</pre>
+
+<p class="auto-style1">The combination of these two statements will cause 
+pressing the left arrow to make the boolean true, until it&#39;s released and set 
+back to false.&nbsp; Repeat this strategy for the up (keyCode 38) and right 
+(keyCode 39).</p>
+<p class="auto-style1">To test if this is working properly, add a 
+System.out.println to the step method that prints out a String stating the 
+variable and what it&#39;s value is.&nbsp; For example: it might print out <strong>
+&quot;up = false, left = true, right = false&quot;</strong> if the left key is being 
+pressed.</p>
+<p class="auto-style1">Run the program and hold each of the arrow keys, 
+observing to make sure that they are true as long as you&#39;re holding each of 
+them.&nbsp; Test out holding multiple keys at the same time also.&nbsp; Once you 
+know that this works properly, remove the println.</p>
+<p class="auto-style1"><img height="356" src="images/img89.jpg" width="497" /></p>
+
+</body>
+
+</html>

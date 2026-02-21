@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Mixing ints and doubles</title>
+<style type="text/css">
+.auto-style1 {
+	color: #FF0000;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p>Mixing ints and doubles</p>
+<p>One thing that we already know is that doubles can store ints, but ints can&#39;t 
+store doubles.</p>
+<pre>double thisWorks = 5;
+int notLegal = 4.9;</pre>
+
+<p>In the two lines above, the first line will compile fine, but the second line 
+will have an issue because there is no way to represent 4.9 as an int.</p>
+<p>&nbsp;</p>
+<p>Fear Division!!!</p>
+<p>Previously we saw that int division is different than we&#39;re used to.&nbsp; 
+Since doubles can handle decimals, dividing two doubles ends up with a value 
+that we are more used to seeing.</p>
+<pre>int num = 9/2;
+double div = 9.0/2.0;</pre>
+
+<p>Both of the two lines above are performing a similar operation, but the top 
+will give a value of 4 while the bottom gives a 4.5 .&nbsp;&nbsp; Java looks at 
+the two values being divided and chooses whether to do int division or double 
+division.</p>
+<p>&nbsp;</p>
+<p>What about this?</p>
+<pre>double div = 9/2;</pre>
+<p>There is a mixing of types here.&nbsp; The variable is a double, but the 
+division is between ints.&nbsp; The order that Java processes through things is 
+important.&nbsp; Before Java even looks at the variable on the left it must 
+first &#39;simplify&#39; the right side of the equation.&nbsp; 9/2 has two ints, so the 
+result is a 4.&nbsp; This int division happens despite the fact that div is a 
+double.&nbsp; That comes into play <strong>after</strong> the int division 
+occurs, when it&#39;s time to store that 4 Java will then recognize that div is a 
+double and convert the 4 to a 4.0 before storing it.</p>
+<p>&nbsp;</p>
+<p>Another tricky mix:</p>
+<pre>double result = 4/10 + 4.0/10.0; </pre>
+<p>In the code above, order of operations is very important.&nbsp; If a person 
+were to glance at the math above, he/she might think that since there is a 
+double, all division will be double-style division.&nbsp; This is incorrect.&nbsp; 
+Java actually looks at it using order of operations.&nbsp; Let&#39;s look at it 
+slowly:</p>
+<p>&nbsp;</p><pre>4/10 + 4.0/10.0</pre>
+<p>The since division comes before addition, Java starts with the 4/10 on the 
+left.&nbsp; In that division there are only ints (despite the rest of the 
+equation being full of them).&nbsp; This means that 4/10 is a 0.</p>
+<pre>0 + 4.0/10.0</pre>
+<p>Now Java will move to the next division statement, the 4.0/10.0 .&nbsp; In 
+that statement, the division is between two doubles so double-style division 
+occurs, evaluating to a 0.4</p>
+<pre>0 + 0.4</pre>
+<p>Finally the addition occurs.&nbsp; Since there is a double mixed in, the 
+result will be a double.</p>
+<pre>0.4</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>This is most important when you&#39;re dealing with formulas that use fractions.&nbsp; 
+For example:&nbsp; The formula for a triangle&#39;s area is &frac12;bh.</p>
+<p>The most common way that people have problems is because they forget about 
+int division:</p>
+<pre>double base = 14.9;
+double height = 37.2;
+double area = 1/2*base*height;</pre>
+<p>While this looks like it&#39;s following the rules of the formula, the result of 
+this is always a 0.0 in the area variable.&nbsp; Let&#39;s look at it slowly:</p>
+<p>Since there is only multiplication and division in this expression, Java 
+starts with the first division on the very left:</p>
+<pre><span class="auto-style1"><strong>1/2</strong></span>*base*height</pre>
+<p>Looking at 1/2, one might think that the result is 0.5, but in reality int 
+division is occurring.&nbsp; 1/2 results in a 0.</p>
+<pre>0*base*height</pre>
+<p>From here, Java will multiply 0 times the base, and then times the height and 
+end up with a 0.0.</p>
+<p>&nbsp;</p>
+<p>It&#39;s worth pointing out that putting the numbers in a different order will 
+give a different result.</p>
+<pre>double base = 14.9;
+double height = 37.2;
+double area = base*height*1/2;</pre>
+<p style="height: 19px">This time, since Java works left to right the 
+base*height calculation happens first, resulting in the double 554.28</p>
+<p>&nbsp;</p>
+<pre>554.28*1/2</pre>
+<p>The next step is multiplying the 554.28 and 1, which results in 554.28 again:</p>
+<pre>554.28/2</pre>
+<p>Finally, the division occurs.&nbsp; The difference this time is that a double 
+is involved, so the division goes as expected and the correct result is 
+obtained.</p>
+<pre>277.14</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>&nbsp;<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

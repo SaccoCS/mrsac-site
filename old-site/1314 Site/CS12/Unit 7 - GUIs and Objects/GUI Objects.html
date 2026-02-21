@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>GUI Objects</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	color: #008000;
+}
+
+.auto-style3 {
+	font-size: medium;
+}
+
+.auto-style4 {
+	font-family: "Courier New", Courier, monospace;
+}
+
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 class="auto-style5">GUI Objects</h2>
+<p><strong>import sacco.gui.*;</strong><br />
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/SFrame.html">SFrame API</a><br />
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/SButton.html">SButton API</a><br />
+</p>
+<p>&nbsp;For this unit we will be focusing on a set of objects that can be used to 
+make simple interfaces.&nbsp; These classes (SFrame, SButton, SLabel) are all 
+simplified versions of Java&#39;s <strong>swing</strong> library, which is the 
+official way of creating GUIs in Java.</p>
+<p>&nbsp;</p>
+<p class="auto-style3">What is an Object?</p>
+<p>An Object is a special data type in Java that can do two main purposes:<br />
+1) An Object holds data that pertains to the object. The type and quantity of 
+data held is up to the designer of the Object.<br />
+-Example: Inside an ArrayList is a list of all the data it’s supposed to hold, 
+as well as an int to represent the size.<br />
+<br />
+2) An Object can perform actions using that data (methods). Sometimes it’s as 
+simple as returning information from the object, but sometimes it changes the 
+data inside the object.<br />
+-Example: ArrayLists have methods such as size and get, which return information 
+from the object, but also add and remove, which modify the data inside.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style3">The Life of and Object:</p>
+<p>One of the most important things to know about an object is that you must
+<strong>construct</strong> one before you start using it.&nbsp; When we&#39;ve come 
+across this while using Scanner it looked something like the following:</p>
+<p><span class="auto-style1"><strong>Scanner scan</strong></span> =
+<span class="auto-style2"><strong>new Scanner(System.in);</strong></span></p>
+<p>This line does two things:<br />
+<span class="auto-style1">1) Declares a variable named scan, which will be used 
+to reference the Scanner object for the rest of the program.</span><br />
+<span class="auto-style2">2) Constructs a new Scanner objects and assigns it to 
+that variable.&nbsp; The System.in is the parameter that the Scanner needs when 
+it&#39;s setting up</span></p>
+<p>This is a very common way of creating objects. We just saw it in ArrayLists&#39;s 
+too:<br />
+<span class="auto-style1"><strong>ArrayList&lt;String&gt; strList</strong></span><strong> =
+</strong><span class="auto-style2"><strong>new ArrayList&lt;String&gt;();</strong></span></p>
+<p>After construction it is now fine to start calling methods.&nbsp; For Scanner 
+it would be something like scan.nextLine(), or for ArrayLists it could be 
+strList.add(&quot;Hello&quot;);</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style3">How do you know what parameters to use when constructing</p>
+<p>When professional class files are created, they are documented in a special 
+way using a system called <strong>javadocs</strong>.&nbsp; The are used to 
+create a 
+listing of all of the constructors and methods named the <strong>API</strong>, along with the parameters needed 
+to use these methods.&nbsp; Let&#39;s walk through an example.</p>
+<p>Create a class named <strong>FirstGUIs</strong> and have one method:<br />
+<span class="auto-style4">public static void firstFrame()</span></p>
+<p>This method&#39;s job is to create and show a blank window on the screen using 
+the <strong>SFrame</strong> object that we&#39;ve <strong>imported </strong>from 
+sacco.gui.*;</p>
+<p>Our strategy will be the following:<br />
+1)&nbsp; Construct a new SFrame with the appropriate parameters to set up an 
+initial frame<br />
+2)&nbsp; Call some methods to help set up some more attributes<br />
+3)&nbsp; Call the method that will display the SFrame</p>
+<p>All of the information we need is in the <a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/gui/SFrame.html">SFrame API</a>
+, which you should keep open in a separate window for reference.</p>
+<p>1)&nbsp; Constructing:</p>
+<p>Before we construct an object we have to know what parameters are needed.&nbsp; 
+If you open the SFrame API, you&#39;ll notice a section named <strong>Constructor 
+Summary</strong></p>
+<p>
+<img src="images/img7.jpg" border="1" /></p>
+<p>There are two possible options when constructing an SFrame.&nbsp; Either we 
+can give it zero parameters, or we can give it a String that will represent the 
+title.&nbsp; Since this is our first GUI, let&#39;s add a &quot;Hello World&quot; as the 
+title.&nbsp; Add the following line of code to your firstFrame method, which 
+uses the second constructor on the list:</p>
+<pre>SFrame frame = new SFrame("Hello World");</pre>
+<p>The data type is SFrame, the variable name is frame, and the parameter is the 
+&quot;Hello World&quot; String.&nbsp; Don&#39;t run it yet, nothing will happen.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>2)&nbsp; Call any methods needed to set the frame up further.&nbsp; </p>
+<p>One thing that&#39;s true about an SFrame is that there is no way to set the 
+width and the height with a constructor.&nbsp; It&#39;s time to check the methods to 
+see if it&#39;s a possibility.&nbsp; Go back to the SFrame API and scroll down until 
+you see a section named <strong>Method Summary</strong>.&nbsp; This is where 
+they list all of the methods that you can use with an SFrame, along with the 
+important parameters.&nbsp; We&#39;re currently concerned about the width and the 
+height, and we find a helpful method at the end of the list.</p>
+<p>
+<img src="images/imgB.gif" border="1" /></p>
+<p>The setSize method allows us to affect the width and the height of the 
+SFrame.&nbsp; It is written here that both a width and a height are necessary 
+when setting the size.&nbsp; We&#39;ll choose a width of 300 and a height of 200.&nbsp; 
+Add the following line to your method:</p>
+<pre>frame.setSize(300,200);</pre>
+<p>This should change the SFrame to be the right size.&nbsp; We&#39;re now as ready 
+as we can be for this example.</p>
+<p>&nbsp;</p>
+<p>3)&nbsp; Display the SFrame</p>
+<p>SFrames keep track of several bits of information, such as the width and 
+height.&nbsp; One of the things it also keeps track of is if it should be 
+displayed or not.&nbsp; The API shows that there is a method named setVisible.&nbsp; 
+A value of true will make the window display.&nbsp; Add one last line to your 
+method:</p>
+<pre>frame.setVisible(true);</pre>
+
+<p>This should be all we need to get a very basic SFrame operating.&nbsp; 
+Compile and run the program,&nbsp; a window should pop up (Sometimes it pops up 
+behind&nbsp; the other windows)</p>
+<p><img src="images/img12.jpg" /></p>
+<p>While it&#39;s not terribly exciting, the frame has a title of &quot;Hello World&quot;, the 
+width is 300 and the height is 200.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style3">Combining multiple objects:</p>
+<p>While launching a blank frame can be fun, it&#39;s really meant to be a container 
+that holds some other components.&nbsp; Some of the methods are there to help 
+add things to that container.&nbsp; For example, there are several methods named
+<strong>add.</strong>&nbsp; Let&#39;s look at the first one:</p>
+<p>
+<img src="images/img15.jpg" border="1" /></p>
+<p>Notice that the parameter is not as simple as a String or an int.&nbsp; It 
+actually takes in an entire SButton object.</p>
+<p>Add a new method with the following header:</p>
+<pre>public static void firstButton()</pre>
+<p>This method will create an SFrame like before, but also construct an add a 
+button to it.</p>
+<p>1)&nbsp; Like before, construct an SFrame object with a title &quot;My First 
+Button&quot; and set the size to 300x200, but don&#39;t set the visibility yet.&nbsp; We 
+still want to modify it to have a button.</p>
+<p>2)&nbsp; Before we can call the add method, we need to have an SButton fully 
+constructed and ready to go.&nbsp; Open up the SButton API and look for the 
+constructor section.&nbsp; Use one of the Constructors listed to construct an 
+SButton object with your name as the text.</p>
+<p>3)&nbsp; Now that you have a constructed SButton object, it&#39;s time to let the 
+SFrame know about it.&nbsp; Call the SFrame&#39;s <strong>add</strong> method (don&#39;t 
+say SFrame.add, use the variable you created earlier) and pass the SButton&#39;s 
+variable as the parameter.</p>
+<p>4)&nbsp; Now it&#39;s time to call the setVisible method to display the frame.&nbsp; 
+After that, run the method and observe the results.</p>
+<p><img src="images/img1E.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style3">Exploring other sizing options:</p>
+<p>Add a method with the following header:</p>
+<pre>public static void firstPack()</pre>
+<p>Use what you know about SFrames and SButtons to try and recreate the 
+following GUI.&nbsp; This time there are two SButtons, so you should construct 
+two of them and <strong>make sure that you add both of them to the frame</strong>.</p>
+<pre><img src="images/img26.jpg" /></pre>
+<p>If you look at the list of methods for SFrame, there are actually two methods 
+that affect the size of the frame.&nbsp; The setSize method is used to set it to 
+very specific values, but there is also another method named <strong>pack</strong>, 
+which takes in no parameters and sets the size based on what is currently being 
+held by the SFrame.&nbsp; </p>
+<p>Go to your code.&nbsp; Instead of calling the setSize method, call the pack 
+method to automatically set the size.&nbsp; There are two options for<strong> 
+when</strong> you call<strong> </strong>the pack method:&nbsp; before you&#39;ve 
+added the buttons to the frame, or after you&#39;ve added them.&nbsp; Try both and 
+keep the one that looks like the following:</p>
+<p><img src="images/img25.jpg" /></p>
+<p>&nbsp;</p><hr>
+<p>Add a method with the following header:</p>
+<pre>public static void manyButtons()</pre>
+<p>In this method, create an SFrame and then use a loop to add twenty buttons to 
+it.&nbsp; </p>
+<p><img src="images/img2F.jpg" /></p>
+<p>SFrames allow you to modify them so that they are not resizable.&nbsp; Look 
+at all the SFrame methods in the API and try to find the one that affects 
+resizing.&nbsp; Look at the parameters that it requires and use it to change 
+your SFrame to non-resizable.</p>
+<p>&nbsp;</p><hr>
+<p>When turning in these programs, make sure that you have the following.&nbsp; 
+They should open to the appropriate size and the window titles should match.</p>
+<p>firstFrame()<br />
+<img src="images/img12.jpg" /></p>
+<p>&nbsp;</p>
+<p>firstButton()<br />
+<img src="images/img1E.jpg" /></p>
+<p>firstPack()<br />
+<img src="images/img25.jpg" /></p>
+<p>&nbsp;</p>
+<p>manyButtons():&nbsp; Make sure that it is not resizable<br />
+<img src="images/img2F.jpg" /></p>
+<p>&nbsp;</p>
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Timer Driven Objects</title>
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Timer Driven Objects</h2>
+<p>In the sacco jar there is a class named SaccoTimer, which can be used to repeatedly call a method. Copy the following class into your project:<br />
+</p>
+<pre>import sacco.*;
+public class Timer extends SaccoTimer
+{
+    public Timer()
+    {
+        this.setDelay(1000);
+    }
+
+    @Override
+    public void onTimerTick()
+    {
+        System.out.println("Hello World!!!");
+    }
+
+    
+}
+</pre>
+<p>
+Don’t stress too much about how that works yet (next unit). The important thing 
+to know is that the code in the onTimerTick method is called repeatedly with a 
+one second delay each time. Think of it as an infinite while loop with a delay.  When the main method of the Timer class is run, "Hello World" will repeatedly be called <br />
+<br />
+Use the following main method to verify that it works.</p>
+<pre>public static void main()
+    { 
+        Timer t = new Timer();
+        t.launch();
+    }
+</pre>
+
+
+<p>
+<br />
+</p><hr>
+
+
+<p class="auto-style1"><strong>The Cat Class</strong></p>
+<p>Consider the simpleCat class below, which has a speak method that, when 
+repetitively called, will say “mew” five times and then start saying “MEOW”.</p>
+<pre>public class Cat
+{
+   private int count = 0;
+   private String sound = &quot;mew&quot;;
+
+   public void adjustSound()
+   {
+	count++;
+      if(count&gt;=5)
+         sound = &quot;MEOW!&quot;;
+      
+   }
+
+   public void speak()
+   {
+      System.out.println(sound);
+      this.adjustSound();
+   }
+}
+</pre>
+
+
+<p>In order to simulate a lonely cat, we’re going to create a timer class that 
+will have a Cat as its instance field and will call the speak method every time 
+that the timer ticks.</p>
+<pre>import sacco.*;
+public class CatTimer extends SaccoTimer
+{
+    private Cat myCat;
+
+    public CatTimer(Cat tmpCat)
+    {
+        this.setDelay(1000);
+        myCat = tmpCat;
+    }
+
+    @Override
+    public void onTimerTick()
+    {
+        myCat.speak();
+    }
+}
+</pre>
+
+
+<p>Now that we have two objects that are made to work together, we’ll need a 
+main method to get things started.</p>
+<pre>public static void main()
+{
+    Cat kat = new Cat();
+    CatTimer timer = new CatTimer(kat);
+    timer.launch();
+}
+</pre>
+
+
+<p>Run this method and make sure that the cat is meowing on the terminal.</br>
+What's happening is that the CatTimer depends on a Cat object.  Every time the timer 'ticks', the cat is told to speak, which is output to the termi.nal</p><br />
+<br /><hr>
+<p><strong class="auto-style1">The Dog Class</strong></p>
+<p>Now consider the Dog class below: <br />
+</p>
+
+<pre>public class Dog
+{
+    private String sound = "Howl";
+    
+    public void lengthenHowl()
+    {
+         sound = sound.substring(0,sound.length()-1)+"wl";
+    }
+    
+    public void speak()
+    {
+       System.out.println(sound);
+       this.lengthenHowl();
+    }
+}</pre>
+<p>Create a class named <strong>DogTimer</strong> that is exactly the same as the CatTimer class 
+except modified to work with a Dog. Use 
+the following method to test it out:</p>
+<pre>public static void main()
+{
+   Dog d = new Dog();
+   DogTimer t = new DogTimer(d);
+   t.launch();
+}
+</pre>
+<p>You should get increasingly long howls</p><hr>
+<p class="auto-style1">The Parrot Class</p>
+<p>Now, just to make you mad, do it again with the Parrot Class below.&nbsp; 
+Copy and Paste is your friend.<br />
+</p>
+<pre>public class Parrot
+{
+    private String sound1 = "SQUAWK!", sound2 = "Polly want a cracker!";
+    private boolean bool = true;
+
+    public void flipSound()
+    {
+        bool = !bool;
+    }
+
+    public void speak()
+    {
+        if(bool)
+            System.out.println(sound1);
+        else
+            System.out.println(sound2);
+
+        this.flipSound();
+    }
+}</pre>
+<p><strong>What am I supposed to get out of this?</strong></p>
+
+<p>Hopefully you've noticed that the three timer classes are very repetetive.  Imagine if there was also a class named Lizard, Cow, and Moose that you had to provide Timers for.  Copy and paste is a useful skill, but this unit is all about creating one object that will work with many similar objects.</p><br /><br />
+</body>
+
+</html>

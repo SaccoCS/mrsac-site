@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Selection Sort with String Arrays</title>
+<style type="text/css">
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:small;
+	
+}
+.auto-style1 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Selection Sort with String Arrays</h2>
+
+
+<p>&nbsp;</p>
+<p class="MsoNormal">When dealing with large amounts of data, the ability to 
+sort things becomes important.<span style="mso-spacerun:yes">&nbsp; </span>There 
+are many common strategies that are used, but today we’re going to use the 
+Selection Sort strategy.<span style="mso-spacerun:yes">&nbsp; </span>The general strategy 
+is as follows:<o:p></o:p></p>
+<p>1)&nbsp; Start with the first index as your ‘focus index’<br />
+2)&nbsp; Find the index of the lowest value in the array, but only the values at 
+the focus index and after.<br />
+3)&nbsp; Swap the lowest value with the value at the focus index.<br />
+4)&nbsp; Increment the focus index.<br />
+5)&nbsp; Repeat steps 2-4 until the focus index has been every index in the 
+array (technically you don’t need to do the last index).</p>
+<p><strong><span class="auto-style1">
+<a href="images/SelectionSort%20Diagram.png">Follow through this example that shows each step of 
+selection sorting an int[ ]</a></span></strong><br />
+</p>
+<hr>
+
+<p><strong>Copy the following class into your project:</strong></p>
+<pre>public class SelectionSorter
+{
+
+    //compares all of the Strings in arr at or after the startIndex and returns
+    //the index of the lowest value.  Use compareTo to help determine this.
+    public static int indexOfLowest(String[] arr, int startIndex)
+    {
+       return 0; //Dummy Statement
+    }
+
+    //Uses a selection sort strategy to sort arr
+    //briefly: loop through every index and swap it with the lowest value in the array at or after that index
+    public static void selectionSort(String[] arr)
+    {
+
+        
+    }
+
+    //Tests the two methods above by creating an array of 30 random letters  
+    //and attempting to sort them using the selectionSort method.
+    public static void main()
+    {
+
+        //Create an array of random letters using char trickery (you do not have to understand
+        String[] arr = new String[30];
+        for( int i=0; i< arr.length; i++)
+        {
+            arr[i] = (char)(Math.random()*26+65)+"";
+        }
+
+        //print the array before sorting
+        System.out.print("Unsorted:  ");
+        for( int i=0; i< arr.length; i++)
+            System.out.print(arr[i]+" ");
+        System.out.println();
+
+
+        //sort the array
+        selectionSort(arr);
+
+
+        //print the array after sorting
+        System.out.print("Sorted:    ");
+        for( int i=0; i< arr.length; i++)
+            System.out.print(arr[i]+" ");
+    }
+
+}</pre>
+<hr>
+<pre>public static int indexOfLowest(String[] arr, int startIndex)</pre>
+<p>This method is in charge of looking at the values in arr at an index greater 
+than or equal to startIndex and returning the index of the lowest value found.&nbsp; 
+<br />
+<br />
+Hint:&nbsp; While it&#39;s tempting to create a variable that represents the lowest 
+value, all you actually need&nbsp; is a variable to represent the <strong>index</strong> 
+that it&#39;s at.&nbsp; When you need to compare with the lowest value, simply 
+compare with arr[<strong>index</strong>].</p>
+<p>Test your method out with the following arrays as parameters and make sure 
+that you get the correct index returned:<br />
+</p>
+<pre>{"Scripps","Ranch","High","School"}  should return a 2 if the startIndex is 0
+{"Mr.","Sacco","Is","Totally","Amazing"} should return a 4 for any valid startIndex
+{"A", "D", "G", "E", "F" } should return a 0 if the startIndex is 0 and a 3 if the startIndex is 2</pre>
+<hr>
+<pre>public static void selectionSort(String[] arr)</pre>
+<p>This method is where the sorting actually happens.&nbsp; Follow the steps of 
+the selection sort algorithm at the top of the page.&nbsp; Don&#39;t forget that 
+the indexOfLowest method already does step 2 for you.&nbsp; All you have 
+to do is call it and deal with the returned value.</p>
+<p>&nbsp;</p>
+<p><strong>Important to know:&nbsp; &quot;Why don&#39;t we return a sorted array?&quot;</strong></p>
+<p>The main method does four things:</p>
+<p>1) Create array <strong>arr</strong> and populates it with 30 random letters<br />
+2) print out the values of <strong>arr</strong> so you can see how unsorted they 
+are<br />
+3) <strong>selectionSort(arr)<br />
+</strong>4) print out the values of <strong>arr</strong> so you can see how 
+sorted they are</p>
+<p>How can arr be any different if we don&#39;t say <strong>arr = selectionSort(arr)</strong>?</p>
+<p>Arrays are technically objects.&nbsp; We&#39;ve previously discussed that when an 
+object is passed as a parameter the method doesn&#39;t just get a copy of the 
+object, it actually gets a reference to the original.&nbsp; When you make 
+changes to the parameter array in the selectionSort method, it will actually 
+affect the original array.&nbsp; You can test this out by commenting the line 
+that says selectionSort(arr) and running the main.&nbsp; You&#39;ll notice then that 
+the two arrays printed out are unchanged when the method is not called.</p>
+<p>Remember:&nbsp; <strong>Objects</strong> are passed by reference, meaning 
+that modifying a parameter will change the original.&nbsp; <strong>Primitives</strong> 
+(int, double, boolean) are passed by value, meaning the parameter is simply a 
+copy of the original&#39;s value.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

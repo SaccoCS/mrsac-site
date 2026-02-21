@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>booleans and the Relational Operators</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>The boolean Primitive Type</h2>
+					<p>A boolean variable is one that can only hold true or false.  It is one of the simplest pieces of data that you can have because it is only really representing one bit of data, meaning a single 1 or 0.  In some languages you even use a 1 for true and a 0 for false.</p>
+					<p class  = "code">
+						boolean b1 = <span style ="color:#7dbbf9"><strong>true</strong></span>;<br/>
+						boolean b2 = <span style ="color:#7dbbf9"><strong>false</strong></span>;
+					</p>
+					<p>
+						Be careful that you recognize the difference between the boolean value <span style ="color:#7dbbf9"><strong>true</strong></span>, which has no quotes and <span style ="color:#70cc5e"><strong>"true"</strong></span>, which is a String.
+					</p>
+
+				</div>
+				
+				
+				<div class = "note-div">
+					<h3 >
+						The Relational Operators:  &gt;, &gt;=, ==, !=, &lt;=, &lt;
+					</h3>
+					<p>
+						A very common way to generate a boolean value is using one of the Relational Operators, which look at the numbers on either side to generate a boolean value.  The most recogniable being the greater than and less than symbols.
+					</p>
+					<div class ="code-block">
+						<p>
+							boolean b1 = 25.8 > 7;  <span style = "color:#a00">&nbsp;&nbsp;// &lt;--- true</span><br/>
+							boolean b2 = 30 > 99;  <span style = "color:#a00">&nbsp;&nbsp;&nbsp;// &lt;--- false</span><br/>
+							boolean b3 = 7 &lt; 8;  <span style = "color:#a00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// &lt;--- true</span><br/>
+							boolean b4 = 30 > 30;  <span style = "color:#a00">&nbsp;&nbsp;&nbsp;// &lt;--- false</span><br/>
+						</p>
+					</div>
+					<hr style ="clear:left">
+					<h4>
+						...or equal to
+					</h4>
+					<p>
+						Though it may look funny, the two-symbol operators <strong>>=</strong> and <strong>&lt;=</strong> are greater than/less than <strong>or equal to</strong>.  We don't use the symbols &ge; and &le; because they're not symbols that you can type on your keyboard.
+					</p>
+					<div class ="code-block">
+						<p>
+							
+							boolean b4 = 30 > 30;  <span style = "color:#a00">&nbsp;&nbsp;&nbsp;// &lt;--- false</span><br/>
+							boolean b5 = 30 >= 30;  <span style = "color:#a00">&nbsp;&nbsp;// &lt;--- true</span><br/>
+						</p>
+					</div>
+					<p style = clear:left;>
+						The line above can look a little strange with an equals sign and an assignment operator.  Remember that the right side of the assignment operator is evaluated first, 30 >= 30 is true because they are equal values.  That result is then assigned to the boolean variable to the left.
+					</p>
+					
+					
+					<hr style ="clear:left">
+					<h4>
+						Equals and Not Equals
+					</h4>
+					<p>
+						The two-character symbol <strong>==</strong> is the <strong>equals</strong> symbol, which is distinctly different than the assignment operator =.  It will evaluate to true only if the two ints are the same value.  The symbol <strong>!=</strong> is the opposite, only evaluating to true when they are NOT equal (&ne;).
+					</p>
+					<div class ="code-block">
+						<p>
+							int a = 30;<br/>
+							int b = 25;<br/>
+							boolean b6 = 55 == a + b;  <span style = "color:#a00">&nbsp;&nbsp;&nbsp;// &lt;--- true</span><br/>
+							boolean b7 = 55 != a + b;  <span style = "color:#a00">&nbsp;&nbsp;&nbsp;// &lt;--- false</span><br/>
+						</p>
+					</div>
+					<p style = clear:left;>
+					Again this code is a bit of a mess.  First java will simplify the expression a + b, which gives a 55.  Java will then evaluate 55 == 55 and get a true value, which is finally assigned to the b6 variable.  The line after that has the same numbers, but when it reaches 55 != 55, it evaluates to <strong>false</strong> because they are  <strong>not different</strong> values.
+					</p>
+				</div>
+				
+				
+				
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

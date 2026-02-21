@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>do - while</title>
+<style type="text/css">
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style2 {
+	font-family: "Courier New", Courier, monospace;
+	color: #FF0000;
+}
+.auto-style3 {
+	color: #FF0000;
+}
+.auto-style4 {
+	font-size: medium;
+}
+.auto-style5 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">do - while</h2>
+<p>Note:&nbsp; do-while loops are untested.&nbsp; If you would like to forget 
+them after this assignment, you may.</p>
+<p>&nbsp;</p>
+<p>The while loop is useful in many situations, but sometimes causes some 
+awkward coding.&nbsp; Consider the following code, which is meant to loop until 
+the user enters &quot;exit&quot;.</p>
+<pre>public static void main()
+{
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Type EXIT to stop looping");
+    String input = scan.nextLine();
+
+    while(!input.equals("EXIT"))
+    {
+        System.out.println("Type EXIT to stop looping");
+        input = scan.nextLine();
+    }
+    
+    System.out.println("Terminating...");
+}
+</pre>
+<p>The entire loop is controlled by the input variable.</p>
+<p>&nbsp;</p>
+<p class="auto-style4"><strong>Repeated Code:</strong></p>
+<p>If you look at the code above, you&#39;ll notice that there is some repeated 
+code.&nbsp; The println and the scan.nextLine are essentially doing the same 
+thing.&nbsp; The reason that we&#39;re repeating code is that there should be a 
+value stored into <strong>input</strong> before the while loop starts.&nbsp; 
+This is because the first thing that the while loop does is to check if the 
+input is &quot;EXIT&quot;.</p>
+<p>&nbsp;</p>
+<p><strong>Solution:&nbsp; The do-while loop</strong></p>
+<p>The while loop has a cousin named do-while.&nbsp; The structure is as follows</p>
+<p><span class="auto-style1">do</span><br class="auto-style1" />
+{<br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp; &lt;some code&gt;</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">}while( <span class="auto-style3">&lt;boolean condition&gt;</span> 
+);</span></p>
+<p>&nbsp;</p>
+<p>This is very similar to the standard while loop, except for one thing:&nbsp; 
+The body of the loop runs one time before the boolean condition is checked.&nbsp; 
+This can solve the problem that we ran into above.</p>
+<pre>public static void main()
+{
+    Scanner scan = new Scanner(System.in);
+    String input;
+
+    do
+    {
+        System.out.println("Type EXIT to stop looping");
+        input = scan.nextLine();
+
+    }while(!input.equals("EXIT"));
+    
+    System.out.println("Terminating...");
+}
+</pre>
+
+<p>Now that we&#39;re using a do-while we don&#39;t have to worry about setting up the 
+input variable.&nbsp; The loop will run one time <strong>before</strong> 
+checking the input variable, meaning that the first value will be assigned 
+during the loop.</p>
+<p>&nbsp;</p>
+<p><strong>Some Warnings about do-While:</strong></p>
+<p>1)&nbsp; There is a semi-colon after the boolean condition.&nbsp; This is 
+easily forgotten, as it is different than a standard while loop.</p>
+<p>2) The control variable must be declared outside of the loop.&nbsp; Notice 
+the line String input;&nbsp; This is a necessary line because it declares the 
+input variable to exist outside the body of the loop.&nbsp; If it was declared 
+inside the body it would not exist when the while loop tries to check 
+!input.equals(&quot;EXIT&quot;);</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p><strong><span class="auto-style5">Assignment</span></strong>:</p>
+<p>Take a while-loop assignment that you&#39;ve done so far and convert it to use a 
+do-while loop instead.&nbsp; Not all loops are prime candidates for this.&nbsp; 
+The do-while is good in situations where you had to duplicate some of your code 
+so that you could start the while loop with good values.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

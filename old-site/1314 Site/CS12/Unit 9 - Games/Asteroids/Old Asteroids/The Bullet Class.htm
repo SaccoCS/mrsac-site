@@ -1,0 +1,215 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name=Title content="The Bullet Class">
+<meta name=Keywords content="">
+<meta http-equiv=Content-Type content="text/html; charset=macintosh">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="The%20Bullet%20Class_files/filelist.xml">
+<title>The Bullet Class</title>
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:AdjustLineHeightInTable/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Arial;
+	panose-1:0 2 11 6 4 2 2 2 2 2;
+	mso-font-charset:0;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:50331648 0 0 0 1 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Times;}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:22.0pt;
+	font-family:Arial;
+	mso-font-kerning:0pt;
+	font-weight:normal;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+.auto-style1 {
+	font-family: Arial;
+}
+.auto-style2 {
+	font-family: "Courier New", Courier, monospace;
+}
+-->
+</style>
+</head>
+
+<body bgcolor=white lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1>The Bullet Class</h1>
+
+  <p class=MsoNormal><span style='font-family:Arial'>
+    <![if !supportEmptyParas]>
+    &nbsp;
+    <![endif]>
+    <o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><o:p></o:p>
+    <applet code = "Phase5Applet.class" archive="Asteroids.jar" width="500" height="500">
+    </applet>
+    </span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Create a new class named
+Bullet, which is what the ship will shoot.<span style="mso-spacerun:
+yes">&nbsp; </span>The bullet class is very similar to the Asteroid class, with
+a few differences.<span style="mso-spacerun: yes">&nbsp; </span><o:p></o:p>
+</span></p>
+	<p class=auto-style1>
+	<o:p>It should still have instance fields for x,y,speed,direction, and an 
+	Image</o:p></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]>The Bullet class is
+represented by the bullet.png image and it does not rotate, so it doesn't need
+a rotation variable or the fancy rotation code in the paintSelf method.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>The Constructor of the
+Bullet class should take in three ints: two ints to represent the x and y where the Bullet
+should start and one int to represent the direction.<span style="mso-spacerun:
+yes">&nbsp; </span>All three of these are needed to make the Bullet start at
+the correct place and facing the correct direction.<o:p></o:p></span></p>
+	<p class=auto-style2>
+	<o:p>public Bullet(int tmpX, int tmpY, int tmpDir)</o:p></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]><![endif]></p>
+	<p class=auto-style1><![if !supportEmptyParas]>Add the other methods that 
+	are used by Asteroid like update, paintSelf, getX, getY,setX, and setY<![endif]></p>
+	<p class=MsoNormal>&nbsp;</p>
+	<p class=MsoNormal>&nbsp;</p>
+	<p class=MsoNormal>&nbsp;</p>
+	<p class=MsoNormal>&nbsp;</p>
+	<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Adding Bullets to the Panel:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Similar to Asteroids, you
+are going to need an ArrayList&lt;Bullet&gt;.<span style="mso-spacerun:
+yes">&nbsp; </span><b>Unlike</b></span><span style='font-family:Arial'> the
+Asteroids, you don't add the Bullets to the list in the Constructor.<span
+style="mso-spacerun: yes">&nbsp; </span>This code will be in the KeyListener
+because we want to wait until the user presses a key before we add the Bullets
+to the list.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>The list of Bullets will be
+processed the same way as the Asteroids are in the <strong>paintComponent</strong> and
+<strong>actionPerformed</strong> methods.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>In the KeyListener, when the
+space is pressed ( or whichever key you want to be the trigger ), that is when
+you want to add a new Bullet to the list.<span style="mso-spacerun: yes">&nbsp;
+</span>You will first need to get the x, y, and direction of the ship<strong> ( you
+will have to add a &quot;getDirection()&quot; method to the ship class )</strong>, then add a new
+Bullet to the list using those values.<o:p></o:p></span></p>
+	<p class=MsoNormal>
+	<o:p></o:p>
+	</p>
+	<p class=auto-style2>Bullet b = new Bullet( myShip.getX(), myShip.getY(), 
+	myShip.getDirection());<br>bulletList.add(b);</p>
+	<p class=auto-style1>Once a bullet is added to the list the panel should 
+	start drawing and updating it just like the asteroids.</p>
+	<p class=auto-style1>&nbsp;</p>
+	<p class=auto-style1>Fixing the Off Center Bullet Problem:</p>
+	<p class=auto-style1>If you pass the ship&#39;s x and y directly into the 
+	Bullet&#39;s x and y using the code above, you&#39;ll notice that it&#39;s off center.&nbsp; 
+	This is because the x and y represent the upper left hand corner of the ship 
+	and bullet. </p>
+	<p class=auto-style1><img src="images/img19.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<img src="images/img1A.jpg"></p>
+	<p class=auto-style1>Adding half the width to the x and half the height to 
+	the y will move the point to the center of the ship, but it&#39;s still not a 
+	perfect fix.</p>
+	<p class=auto-style1><img src="images/img1C.jpg">
+	<img src="images/img1D.jpg"></p>
+	<p class=auto-style1>In order to match the center of the Bullet to the 
+	center of the ship, we must subtract to accomodate for the width and height 
+	of the bullet.</p>
+	<p class=auto-style1><img src="img21.jpg"><img src="images/img20.jpg"></p>
+	<p class=auto-style1>&nbsp;</p>
+	<p class=auto-style1>Modify your code so that you modify the x and y you 
+	pass into the bullet so that it will be lined up in the center.</p>
+	<p class=auto-style1><strong>Optional</strong>:&nbsp; Bullets that disappear after a time</p>
+	<p class=auto-style1>If you want to make the Bullets only go a certain 
+	distance then you&#39;ll need a few things:</p>
+	<p class=auto-style1>1)&nbsp; Add an instance field int that will serve as a 
+	counter for how long the Bullet has been alive.&nbsp; Start it at 0.</p>
+	<p class=auto-style1>2) Add a method <span class="auto-style2">public int 
+	getCount()</span>, which should return the counter</p>
+	<p class=auto-style1>3) In the update method, increase the counter by one.&nbsp; 
+	This will make it so that the counter will represent how many times the 
+	Bullet has been updated.</p>
+	<p class=auto-style1>4) In the Panel&#39;s actionPerformed method you need to 
+	loop through the Bullets in the bulletList and remove any bullets that have 
+	a count over a certain number ( start with 50, then tweak it from there).&nbsp; 
+	You <strong>cannot</strong> use a for( Bullet tmp: bulletList) loop, you 
+	must use an old fashioned one.</p>
+	<pre>for( int i =0; i < bulletList.size(); i++)
+{
+   //get the bullet at i from the list
+   Bullet tmp = bulletList.get(i);
+   
+   //check if that bullet's count is over 50
+   if( tmp.getCount() &lt 50 )
+   {
+      //if so, remove the bullet using its index
+      bulletList.remove(i);
+   }
+}</pre>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

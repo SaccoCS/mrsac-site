@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Bullet Class</title>
+<style type="text/css">
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style8 {
+	font-size: medium;
+}
+.auto-style9 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style4"><strong>The Bullet Class</strong></span><strong><br class="auto-style3" />
+</strong></p>
+<p><strong>
+<img height="11" src="../../Unit%207%20-%20GUIs%20and%20Objects/images/bullet.png" width="11" class="auto-style3" /></strong></p>
+<applet code="Phase5Applet.class" archive="Asteroids.jar" width="500" height="500"></applet>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">Now that a Ship has been placed on the screen it is time to get some 
+weaponry.&nbsp; Our goal is to be able to press the spacebar and to have a 
+bullet shoot out and last for a specific amount of time before fading out.&nbsp; 
+Create a class named Bullet, which will be similar to the Asteroid or SpaceShip 
+class.</p>
+<p><span class="auto-style3"><strong>Instance Fields</strong></span><br class="auto-style3" />
+<span class="auto-style3">Like the others, A Bullet needs instance field for the 
+x,y,width,height, speed, direction, and Picture.</span></p>
+<p><span class="auto-style3"><strong>Constructor</strong></span><br class="auto-style3" />
+<span class="auto-style3">When the Bullet is created you cannot do as much randomization as was done 
+previously.&nbsp; Make Bullet&#39;s constructor take in three double parameters; two 
+doubles for x and y, and one for the direction that it&#39;s heading.</span></p>
+<p>Set the width and height to be 10, and the Picture name in the jar is 
+&quot;space/bullet.png&quot;.</p>
+<hr/>
+<p class="auto-style8"><strong>Other&nbsp; Methods:</strong></p>
+<p>Add the following methods.&nbsp; They should function the same way that they 
+do in the SpaceShip and Asteroid class.</p>
+<ul>
+<li class="auto-style3">update</li>
+<li class="auto-style3">paintSelf</li>
+<li class="auto-style3">getX, getY, setX, setY, getWidth, getHeight</li>
+</ul>
+<hr/>
+<p class="auto-style6"><strong>Setting up the Canvas</strong></p>
+<p class="auto-style3">The Bullets are going to be set up in a way very similar 
+to how the Asteroids are set up in the Canvas.&nbsp; In the instance 
+fields, add an ArrayList&lt;Bullet&gt;, which is then initialized to a new 
+ArrayList&lt;Bullet&gt; in the constructor.</p>
+<p class="auto-style3">- In the <strong>paintCanvas</strong> method, loop through and 
+tell every Bullet to paintSelf</p>
+<p class="auto-style3">- In the<strong> onTimerTick </strong>method, loop through and 
+tell every Bullet to update.</p>
+<p class="auto-style3">- <strong>Adding Bullets to the canvas:</strong>&nbsp; 
+The ArrayList&lt;Bullet&gt; will not start with any Bullets in it.&nbsp; So far we&#39;ve got the paintCanvas 
+and onTimerTick method looping 
+through lists of empty bullets.&nbsp; Bullets should be added when the spacebar 
+is pressed.&nbsp; Go to the <strong>onKeyPress</strong> method, and if the 
+keyCode is <strong>32 </strong>construct a new Bullet and add it to the list.&nbsp; 
+The three parameters should come directly from the ship (myShip.getX(), etc.).&nbsp; 
+You may have to add a getDirection method so it&#39;s accessible.</p>
+<p class="auto-style3">Compile and run the program.&nbsp; Hit the spacebar a few 
+times and hopefully some Bullets will go flying around.</p>
+<p class="auto-style3">
+<img height="358" src="../../Unit%207%20-%20GUIs%20and%20Objects/images/img1B.jpg" width="476" /></p>
+<p class="auto-style3">
+&nbsp;</p><hr/>
+<p class="auto-style7">
+<strong>Fixing the Off-Center Bullet Problem:</strong></p>
+<p class="auto-style3">
+If you simply set the Bullet&#39;s x, y, and direction to match the ship&#39;s you&#39;ll 
+notice that they don&#39;t appear at the center of the ship.</p>
+<p class="auto-style3">
+<img src="../../Unit%207%20-%20GUIs%20and%20Objects/images/img19.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="images/img1A2.jpg" /></p>
+<p class="auto-style3">
+Adding half the width to the x and half the height to the y will almost solve 
+the problem, but still be off-center.</p>
+<p class="auto-style3">
+<img src="../../Unit%207%20-%20GUIs%20and%20Objects/images/img1C.jpg" />&nbsp;&nbsp;&nbsp;
+<img src="../../Unit%207%20-%20GUIs%20and%20Objects/images/img1D.jpg" /></p>
+<p class="auto-style3">
+&nbsp;</p>
+<p class="auto-style3">
+In order to match the center of the Bullet to the center of the ship, we must 
+subtract half the Bullet&#39;s width and height.&nbsp;</p>
+<p class="auto-style3">
+<img src="../../Unit%207%20-%20GUIs%20and%20Objects/images/img21.jpg" />&nbsp;&nbsp;
+<img src="images/img202.jpg" /></p>
+<p class="auto-style3">
+&nbsp;</p><hr/>
+<p class="auto-style6"><strong>Giving the Bullets a lifespan</strong></p>
+<p class="auto-style3">You may have noticed a little problem.&nbsp; Your Bullets 
+are immortal and the screen is soon filled with them.&nbsp; It&#39;s time to add a 
+way for the Bullets to die of old age, which will clean this up a bit.</p>
+<p class="auto-style3">Add two <strong>instance fields</strong> to Bullet: an 
+int for counting and an int to represent the maximum count before the Bullet 
+should disappear (30 is a good start).</p>
+<p class="auto-style3">Change the <strong>update</strong> method to increase 
+the counter by one as well as change the x and y.</p>
+<p class="auto-style3">Add a method named <strong>isTooOld</strong>, 
+which returns true if the count has passed the maximum.</p>
+<hr/>
+<p class="auto-style7"><strong>Limiting the number of Bullets</strong></p>
+<p class="auto-style9">You&#39;ve probably noticed that holding the spacebar down is 
+a little bit of a cheat mode.&nbsp; In order to make it more fair, go to the 
+section where the Bullets are added to the ArrayList and make sure that they 
+only get added if the size of the ArrayList is less than the maximum number of 
+Bullets.&nbsp; This means that other Bullets will have to &#39;die&#39; before you can 
+add more.</p>
+<hr/>
+<p class="auto-style7"><strong>In the Canvas class:</strong></p>
+<p class="auto-style3">The ArrayList&lt;Bullet&gt; represents every bullet that will 
+appear on the screen.&nbsp; Since we want the bullets to disappear after they 
+get too old, the timer should be looking for bullets that are too old and 
+removing them from the ArrayList.</p>
+<p class="auto-style3">In the onTimerTick method you will need a separate loop 
+that will loop through the ArrayList&lt;Bullet&gt;, check if it&#39;s too old by calling 
+the isTooOld method, and removing it if that method returns a <strong>true</strong> 
+value.</p>
+<p class="auto-style3">WARNING:&nbsp; YOU CAN NOT USE THE NEW FOR-LOOP<br />
+One of the rules of the enhanced for-loop is that you cannot add or remove from 
+an ArrayList while looping.&nbsp; You will have to loop through the old 
+fashioned way.&nbsp; this means that you will set up an int to represent the 
+index, and use the get method to get the Bullet out of the ArrayList before 
+calling the isTooOld method.&nbsp; Don&#39;t forget that ArrayLists have a <strong>
+remove </strong>method.</p>
+<p class="auto-style3">Run the program again.&nbsp; Hopefully this time the 
+Bullets will only last for a while.</p>
+<hr/>
+<!--
+<p class="auto-style7"><strong>Optional Challenge:&nbsp; Special Attack</strong></p>
+<p class="auto-style3">The most useful special attack in this game is to add 
+many bullets at once, all firing in a circle that spreads out from the center.&nbsp; 
+Use the fact that the constructor of Bullet takes in a direction to your 
+advantage. </p>
+<p class="auto-style3">
+<img height="372" src="../../Unit%207%20-%20GUIs%20and%20Objects/images/imgE.jpg" width="500" /></p>-->
+</body>
+
+</html>

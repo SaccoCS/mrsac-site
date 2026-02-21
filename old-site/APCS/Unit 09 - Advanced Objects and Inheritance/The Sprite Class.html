@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Sprite Class</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style3 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: medium;
+}
+.auto-style4 {
+	font-size: large;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The Sprite Class</h2>
+<p>In video game development, a sprite is a graphic that can be moved around and 
+manipulated on the screen. Each character that you see on the screen is 
+represented with a sprite and they often act in a similar fashion.&nbsp; They 
+have locations, dimensions, velocites, and a hitbox.</p>
+<p>Instead of repeating the same code over and over each time we want to create 
+a different character, let&#39;s create a parent class to hold a lot of the basic 
+code and extend it any time that we want to create a new character.</p>
+<p>This project will have many classes so make a new project to hold them all.<br />
+</p>
+<hr>
+
+<p class="auto-style1"><strong>The BoundingBox class</strong></p>
+<p>During the if statements unit we created a class named BoundingBox which was able to tell us if it overlapped another BoundingBox. Copy that class into your project.&nbsp; As a reminder, 
+here&#39;s a list of the methods it should have:</p>
+<pre>public BoundingBox(int x, int y, int width, int height)
+public int getX()
+public int getY()
+public int getWidth()
+public int getHeight()
+public boolean overlaps(BoundingBox other)</pre>
+<hr>
+<p class="auto-style1"><strong>The Sprite class</strong></p>
+<p>The Sprite class will be at the highest level of our hierarchy.&nbsp; It 
+should represent the basic elements that every Sprite should have.&nbsp; The 
+more methods that we have here, the less work we will have to do at all of the 
+lower levels.&nbsp; </p>
+<p><strong>Instance Fields:</strong></p>
+<p>Every Sprite should have instance fields for its location, size and speed.</p>
+<p><strong>ints for width and height</strong>:&nbsp; Even though we don&#39;t need the width and 
+height at this level, they will be useful to each of the classes later on, so 
+we&#39;ll provide them in this class.</p>
+<p><strong>doubles for x and y:</strong>&nbsp; Not that even though a Sprite can only paint 
+itself using an int as a location, x and y are kept as doubles.&nbsp; This will 
+help small movements go smoothly.&nbsp; When it&#39;s time to paint, we can always 
+cast to get an approximation of the actual location.</p>
+<p><strong>A BoundingBox</strong> to represent the boundary of this Sprite.&nbsp; This will be used 
+to determine if the Sprite goes out of bounds.</p>
+<p><strong>doubles for the x-velocity and y-velocity:</strong>&nbsp; When moving diagonally, the 
+motion can be broken down into an x component and a y component (don&#39;t tell your 
+physics teacher that you&#39;re using vectors).&nbsp; The xVelocity and yVelocity 
+variable will hold how much the Sprite will move in each direction every time 
+the timer ticks.</p>
+<p><img class="auto-style2" src="images/img17.jpg" /></p>
+<hr>
+<p><strong class="auto-style1">Constructor</strong>:</p>
+<pre>public Sprite(double x, double y, int width, int height)</pre>
+<p>This constructor should set the four instance fields that are passed in as 
+parameters.&nbsp; Note that the two velocities and the BoundingBox are not 
+initialized.&nbsp; Since the BoundingBox is an object, it will be null.&nbsp; 
+This is dangerous, so we&#39;ll have to keep it in mind.</p>
+<hr>
+
+<p><span class="auto-style1"><strong>Getters and Setters</strong></span><br />
+<br />
+Since there are a lot of variables here that we want subclasses to be able to 
+access, there are a lot of getter and setter methods to write. Implement the 
+following (remember, the more work you do here, the less you have to write 
+later:</p>
+<pre>public double getX()
+public double getY()
+public double getXVelocity()
+public double getYVelocity()
+public int getWidth()
+public int getHeight()
+public BoundingBox getBoundary()
+
+public void setX(double tmpX)
+public void setY(double tmpY)
+public void setXVelocity(double tmpVel)
+public void setYVelocity(double tmpVel)
+public void setWidth(int tmpWidth)
+public void setHeight(int tmpHeight)
+public void setBoundary(BoundingBox bound)</pre>
+
+<hr>
+<p><strong class="auto-style1">Utility Methods:</strong></p>
+<p><strong>Moving: </strong>Other than the basic getters and setters.&nbsp; Sprites should have a few 
+methods to bring everything together.</p>
+<pre>public void move()</pre>
+<p>When this method is called, the Sprite needs to move.&nbsp; All you need to 
+do is add the xVelocity to the x coordinate and add the yVelocity to the y 
+coordinate.</p>
+<p>&nbsp;</p>
+<p><strong>Updating:</strong>&nbsp; Sprites will all be controlled by a timer that continuously 
+update the Sprite.&nbsp; This is the engine that drives the whole Sprite.&nbsp; 
+For now, make it do the following (Note: it will not compile yet):</p>
+<pre>public void update()
+{
+   this.move();
+   this.processBoundary();
+}</pre>
+<hr>
+
+<p class="auto-style1"><strong>Planning Ahead with Abstract Methods:</strong></p>
+<p>The Sprite class is not really meant to be complete on its own.&nbsp; At this 
+level we don&#39;t know what this sprite is going to <strong>look like</strong> or how it&#39;s going to 
+interact with its <strong>boundary</strong>, but for polymorphic purposes we need to have them 
+declared at this level (otherwise the update method will never compile).&nbsp; 
+Add the following abstract methods:</p>
+<pre>public abstract void paintSelf(Canvas c);
+public abstract void processBoundary();</pre>
+<p>Now that the Sprite class has abstract methods, make sure you go to the 
+header and declare it as an abstract class.&nbsp; At this moment the Sprite 
+class should compile.</p><hr>
+<p class="auto-style4"><strong>The BouncingBall Sprite</strong></p>
+<p><img border="1" src="images/img67.jpg" /></p>
+<p class="auto-style4">
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/Canvas.html">
+<strong>Canvas API</strong></a></p>
+<p>Our first Sprite will be a relatively simple one.&nbsp; It will be a randomly 
+colored circle that will go in a random direction at a random speed.&nbsp; The 
+way that it interacts with it&#39;s boundary is by bouncing when it collides with 
+it.</p>
+<p>Create a class named BouncingBall that extends Sprite.&nbsp; Remember that by 
+extending Sprite we&#39;re inheriting all of the instance fields from Sprite, but we 
+don&#39;t have direct access to them.&nbsp; We will need to get creative with the 
+inherited methods when we want to change them (that&#39;s why there&#39;s so many).</p>
+<p><strong>Instance Fields:&nbsp;</strong> The only new instance fields will be three ints for 
+red, green, and blue values.&nbsp; All the other instance fields are inherited.</p>
+<p><strong>Constructor:</strong>&nbsp; Add a constructor with the following header:</p>
+<pre>public BouncingBall(BoundingBox bounds)</pre>
+<p>When the BouncingBall is constructed, it should be given an already 
+constructed BoundingBox.&nbsp; This will give you a foundation to help you with 
+your randomizing.&nbsp; The first call should be to the super constructor with 
+an x and y or 0,0 (to be changed later) and a width and height of 20.&nbsp; 
+After that it&#39;s time to set up the instance fields in the following manner:</p>
+<p>- The <strong>red, green, and blue</strong> instance fields should be randomized from 0-255.&nbsp; 
+These are the only variables that you can access directly.</p>
+<p>- <strong>x and y</strong> should be randomized so that they are within the BoundingBox that 
+was passed into as a parameter.&nbsp; The range is the width/height of the box, 
+while the minimum values are the x/y of the box.</p>
+<p>- The <strong>x and y velocities</strong> should be randomized to values from -8 to +8.</p>
+<p>- Don&#39;t forget to call the inherited <strong>setBoundary</strong> method to officially set the 
+instance field.</p><hr>
+<p><strong class="auto-style1">New methods:</strong></p>
+<p>We&#39;re going to want to change the direction of the BouncingBall in two 
+different ways:</p>
+<pre>public void horizontalBounce()
+public void verticalBounce()</pre>
+<p>To bounce horizontally, you simply need to set the xVelocity to its 
+opposite.&nbsp; Vertically would change the yVelocity.</p>
+<hr>
+<p><strong class="auto-style1">Overriding the abstract methods:</strong></p>
+<p>Before we can construct a BouncingBall object, we need to override the two 
+abstract methods that are inherited.</p>
+<p><strong>paintSelf:</strong> Override the paintSelf method so that it draws a circle using the inherited 
+x,y,width, and height.&nbsp; You will need to cast the x and y in order to fit 
+with the fillOval method.&nbsp; Use your red, green, and blue instance fields to 
+set the color.</p>
+<p>&nbsp;</p>
+<p><strong>processBoundary:&nbsp; </strong>Override the processBoundary method so that it causes the BouncingBall to 
+change direction when it hits the boundary.&nbsp; </p>
+<p>Start by calling the 
+getBoundary method so that you&#39;re able to figure out the x values of the left 
+and right side as well as the y values of the top and bottom side.</p>
+<p>If any part of the ball goes over the left or right side, you must do two 
+things:</p>
+<p>1)&nbsp; Bounce Horizontally using the method you created.</p>
+<p>2)&nbsp; Set the x value of the BouncingBall so that it is up against the 
+boundary.&nbsp; For the right side you will have to take the width of the 
+BouncingBall and the boundary into account.</p>
+<p>Use two if statements to accomplish this, and then two more for the top and 
+bottom of the boundary.</p>
+<hr>
+<p class="auto-style4"><strong>The SpriteViewer class:</strong></p>
+<p>Sprites are not meant to function completely on their own.&nbsp; They will 
+need the help of SaccoWindow&#39;s built in timer and other feature.&nbsp; You have 
+seen this a few times before; the SpriteViewer will handle an array of Sprites.&nbsp; 
+When painting, it will loop and have all the Sprites paint.&nbsp; When the timer 
+ticks, it will call the update method of all the Sprites.&nbsp; This will cause 
+the movement.&nbsp; There is also a launch method that will make sure that the 
+window is visible and the timer is started.&nbsp; We are using Sprites instead 
+of specifically BouncingBalls because there are more Sprites to come.</p>
+<pre>import sacco.*;
+public class SpriteViewer extends SaccoWindow
+{
+    private Sprite[] sprites;
+
+    public SpriteViewer(Sprite[] sprites)
+    {
+        this.sprites = sprites;
+    }
+	
+    public void paintWindow(Canvas c)
+    {
+        for(int i =0; i&lt;sprites.length; i++)
+            sprites[i].paintSelf(c);
+    }
+    
+    public void onTimerTick()
+    {
+        for(int i =0; i&lt;sprites.length; i++)
+            sprites[i].update();
+    }
+    
+    public void launch()
+    {
+        this.setVisible(true);
+        this.start();
+    }
+}
+    
+</pre><hr>
+<p class="auto-style3"><strong>public void onMousePress(MouseEvent m)</strong></p>
+<p>We are going to have many Sprites all over the place and we need to have a 
+way to get them back when we need to.&nbsp; Add an onMousePress method to the 
+SpriteViewer class that will 
+loop through all of the Sprites and set their x and y values to the location of 
+the mouse click.&nbsp; Since the x and y are the upper-left, subtract half the 
+width or height to help it be centered on the mouse click.</p>
+<p>&nbsp;</p>
+
+<hr>
+<p><strong class="auto-style1">Test your program with the following runners:</strong></p>
+<pre>public static void bounceRunner()
+{
+   BouncingBall[] orbs = new BouncingBall[250];
+   for( int i =0; i&lt;orbs.length; i++)
+   {       
+      orbs[i] = new BouncingBall( new BoundingBox(0,0,500,500));
+   }
+
+   SpriteViewer view = new SpriteViewer(orbs);
+   view.launch();
+}</pre>
+<p>&nbsp;</p>
+<pre>public static void bigBounceRunner()
+{
+   BouncingBall[] orbs = new BouncingBall[250];
+   for( int i =0; i&lt;orbs.length; i++)
+   {       
+      orbs[i] = new BouncingBall( new BoundingBox(150,150,200,200));
+   }
+
+   SpriteViewer view = new SpriteViewer(orbs);
+   view.launch();
+}</pre>
+
+<p><img src="images/img5A.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

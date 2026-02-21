@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Returning Objects</title>
+
+<style>
+
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	margin-left: 40px;
+}
+.auto-style2 {
+	font-size: medium;
+}
+.auto-style3 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif;">Objects with Methods: Returning Objects</h2>
+<p>We&#39;ve been working on an object class named <strong>Name</strong>.</p>
+<pre>public class Name
+{
+  private String first;
+  private String last;
+  
+  public Name(String f, String l)
+  {
+     first = f;
+     last = l;
+  }
+  
+  public String getFirst()
+  {
+     return first;
+  }
+  
+  public String getLast()
+  {
+     return last;
+  }
+  
+  public String getInitials()
+  {
+     String initOne = first.substring(0,1);
+     String initTwo = last.substring(0,1);
+     return initOne + "." + initTwo + ".";
+  }  
+  
+  public String toString()
+  {
+    return first + " " + last;
+  }
+}</pre>
+<p class="auto-style2"><strong>Annoying Concept Check!!!!!!</strong></p>
+<p>&nbsp;Read through the Name class above and see if you can answer the 
+following:</p>
+<p>1) Which method is the constructor?&nbsp; How do you know?</p>
+<p>2) In order for the getFirst and getLast method to work properly, their 
+return types must be Strings.</p>
+<p class="auto-style1">a) How can you tell by looking at the method headers that 
+the return types are Strings.</p>
+<p class="auto-style1">b) In order to perform the action of a basic accessor 
+method the return type must be a String.&nbsp; Why must it be a String?</p>
+<p>3)&nbsp; What would be the output of the following client/runner class?&nbsp; 
+What method is secretly called by putting the myName variable directly into the 
+println method?</p>
+<pre>public class NRunner
+{
+   public static void main()
+   {
+      Name myName = new Name("April", "O'Neil");
+      System.out.println(myName);
+      System.out.println(myName.getInitials());
+   }
+}</pre>
+<hr/>
+<p><strong><span class="auto-style2">Returning Objects:</span></strong>&nbsp;</p>
+<p>So far we&#39;ve added a few different types of methods to Name:</p>
+<p>- Basic accessors, getFirst and getLast, which allow a client/runner to 
+retrieve the value stored in an instance field.<br />
+- The getInitials method, which relied on the instance fields, but returned a 
+brand new value.<br />
+- The special toString method, which determines how the object is <strong>
+concatenated</strong> (represented as a String)</p>
+<p>&nbsp;</p>
+<p><strong>Methods that return new Objects:</strong></p>
+<p>Sometimes this feels weird, but an object may have a method that returns an 
+object of the same type.&nbsp; For example, when calling the substring method 
+with a call such as <strong>str.substring(4,18)</strong>.&nbsp; A String object 
+is being asked to generate a new String object.</p>
+<p>&nbsp;</p>
+<p><strong>Our New Goal: </strong> </p>
+<p>&nbsp;To make a method within the Name class that will return a Name object 
+with the same last name, but the first name is replaced with &quot;Doctor&quot;.</p>
+<p>What will this look like to the client classe?</p>
+<p>The client will have some code like the following, which constructs a Name 
+object, asks it for its Doctor&nbsp; Name object, and prints the resulting Nmae 
+object:</p>
+<pre>Name myName = new Name("Kevin","Who");
+Name docName = myName.getDocName();
+System.out.println(docName);
+</pre>
+<p>Based on the instance fields of the myName variable, the docName variable 
+will have the first name &quot;Doctor&quot; and the last name &quot;Who&quot;.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style2"><strong>Modifying the Name class to have the getDocName method:</strong></p>
+<p>Previously our methods have had a return type of String, double, or int.&nbsp; 
+This time the purpose of the method is to return a brand new Name object.&nbsp; 
+Use the following header:</p>
+<pre>public Name getDocName()</pre>
+<p>Note that the return type is a Name object; not a String or an int.</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Implementing the method:</strong></p>
+<p>The method&#39;s purpose is to return a new Name object with the first name being 
+&quot;Doctor&quot; and the last name matching the current last name.&nbsp; Add 
+the following 
+code to your Name class, which constructs the new Name object using &quot;Doctor&quot; and the <strong>last</strong> 
+instance field to construct the new Name.&nbsp; After that it returns that Name 
+object.</p>
+<pre>public Name getDocName()
+{
+   Name retName = new Name("Doctor", last);
+   return retName;
+}</pre>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Modifying the Runner:</strong></p>
+<p>Now we just need to change the runner to use the getDocName method.&nbsp; 
+Don&#39;t forget that when a Name variable is put directly into the println, the 
+toString method is called, meaning the first and last name are printed.&nbsp; 
+Copy the following runner:</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name("Marty","McFly");
+
+        System.out.println("Name: "+ n);
+        System.out.println("Initials: "+n.getInitials());
+
+        Name docName = n.getDocName();
+        System.out.println("Doctor Name: "+ docName);
+
+        
+        Name n2 = new Name("Jon","Snow");
+
+        System.out.println("Name: "+n2);
+        System.out.println("Initials: "+n2.getInitials());
+
+        Name docName2 = n2.getDocName();
+        System.out.println("Doctor Name: "+ docName2);
+    }
+}</pre>
+<p>Notice that each name has a new Name generated when the getDocName is called.</p>
+<p>With the new getDocName method, the output should be:</p>
+<p>Name: Marty McFly<br />
+Initials: M.M.<br />
+Doctor Name: Doctor McFly<br />
+Name: Jon Snow<br />
+Initials: J.S.<br />
+Doctor Name: Doctor Snow<br />
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p><strong><span class="auto-style3">Assignment</span></strong>:</p>
+<p>1)&nbsp; Date: Add a method to the Date class named getTomorrow, which should 
+return a Date object with the date <strong>after</strong> whatever the instance 
+fields currently are.&nbsp; Pretend that you live in a magical wonderland where 
+tomorrow is always one day larger and you never have to worry about the day 
+getting too large.</p>
+<p>Use the following header:</p>
+<pre>public Date getTomorrow()</pre>
+<p>Don&#39;t forget that the return type is a new Date object.</p>
+<p>&nbsp;</p>
+<p>Modify the DateRunner&#39;s main method to print out the Date that results from 
+galling the getTomorrow method.&nbsp; The following might help if you have a 
+Date object d:</p>
+<pre>Date tomorrow = d.getTomorrow();
+System.out.println(tomorrow);</pre>
+<p>&nbsp;</p>
+<p>Run the method, which should now print out &quot;2/22/1983&quot; and &quot;2/23/1983&quot;</p>
+<p>&nbsp;</p>
+<p>2)<strong> Color:</strong> Modify the Color to have a method named getGray, 
+which will be different than the method that returns a double.&nbsp; This method 
+should return a new Color object where all three values are the grayscale value 
+(the average of the red green and blue values).&nbsp; You may calculate the 
+values manually, or you could remember that there&#39;s already a method that will 
+calculate it for you.&nbsp; Once you have the grayscale value, you will have to 
+construct a new Color using that value three times (you may have to cast your 
+doubles into ints).</p>
+<p>Once that is finished, modify the main method of ColorRunner to also call the 
+getGray method.&nbsp; The resulting Color object should then be printed out.</p>
+<p>&nbsp;</p>
+<p>3)&nbsp; Create an object class named Point, which is meant to represent a 
+two-dimensional Point.&nbsp; The instance fields should be two doubles, to 
+represent x and y.</p>
+<p>- Add a constructor for Point, which will take in two doubles as parameters 
+and apply them to the appropriate instance fields.</p>
+<p>- Add two basic accessor methods, named getX and getY.&nbsp; They should 
+simply return the given parameter.</p>
+<p>- Add a toString method, which uses the x and y instance field to create a 
+String with parentheses the way that we&#39;re used to seeing points: &quot;(2.1, 5.8)&quot;.&nbsp; 
+Limit the two values to a single digit after the decimal point.</p>
+<p>- Add a method named getClosestIntPoint, whose job it is to return a new 
+Point object where the x and y are the rounded version of the current x and y.&nbsp; 
+Use the <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html">Math.round</a> method to get the rounded doubles and then construct and 
+return a new Point with those doubles as the x and y.</p>
+<p>&nbsp;</p>
+<p>&nbsp;Create a class named PointRunner.</p>
+<p>The main method of PointRunner should do the following:<br />
+- Construct a Point object with an x and y or 2.345 and 6.789.<br />
+- Print the point by putting its variable directly into a println<br />
+- Call the getClosestIntPoint method and store the result in a new variable 
+named <strong>closest<br />
+</strong>- Print the Point stored in <strong>closest</strong> by putting the 
+variable directly into a println</p>
+<p>&nbsp;</p>
+<p>Hopefully the output is:<br />
+(2.3, 6.7)<br />
+(2.0, 7.0)</p>
+<p>&nbsp;</p>
+<p>4)&nbsp; Rectangle:&nbsp; The rectangle class that we&#39;ve created also has a 
+location (x and y) assosciated with it. In programming, it is common to use x 
+and y to represent the <strong>upper-left</strong> corner of the Rectangle.&nbsp; 
+Another key thing to know is that in computer science, the point (0,0), and an 
+increase in y will bring you <strong>down the screen.</strong> </p>
+<p><img height="307" src="images/RectangeDiagramWithAxes.PNG" width="387" /></p>
+<p>&nbsp;</p>
+<p>Add the four following method headers:</p>
+<pre>public Point getUpperLeft()
+public Point getUpperRight()
+public Point getLowerLeft()
+public Point getLowerRight()</pre>
+<p>The purpose of these methods is to construct and return a <strong>Point</strong> 
+object that contains the x and y of the given location.&nbsp; All of these can 
+be derived if you know the upper left corner, the width, and the height of the 
+Rectangle</p>
+<p>For example:&nbsp; The getLowerLeft method should return the lower-left 
+coordinate, which will have the same x as the upper-left, but the y coordinate 
+will be larger by one height.</p>
+<pre>public Point getLowerLeft()
+{
+   Point ret = new Point(x, y + height);
+   return ret;
+}</pre>
+<p>Fill in the other methods in a similar way.</p>
+<p>Modify the RectangleRunner so that the last thing it does it call the four 
+methods to get four Point objects representing all four corners of the 
+rectangle.&nbsp; Print out the four points using one println.</p>
+<p>Run the runner and make sure that those four points are (15.0, 32.0), (37.0, 
+32.0), (15.0, 62.0), and (37.0, 62.0)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

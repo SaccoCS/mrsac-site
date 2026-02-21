@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Object Methods - toString</title>
+<style type="text/css">
+.auto-style1 {
+	color: #FF0000;
+}
+
+p{font-family:Arial, Helvetica, sans-serif;
+font-size:small;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The toString Method</h2>
+<p>So far we have been working on the Name class.&nbsp; We gave it instance 
+fields, added a constructor, and added some accessor methods.&nbsp; We have been 
+writing some simple Runner classes that have been constructing the objects and 
+then printing out their crucial details.</p>
+<p>&nbsp;</p>
+<p><strong>What happens when we System.out.println an object variable directly?</strong></p>
+<p>Right now NameRunner looks like the following:</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name("Marty","McFly");
+        
+        System.out.println("First Name: "+n.getFirst());
+        System.out.println("Last Name: "+n.getLast());
+        System.out.println("Initials: "+n.getInitials());
+      
+  
+        Name n2 = new Name("Jon","Snow");
+                
+        System.out.println("First Name: "+n2.getFirst());
+        System.out.println("Last Name: "+n2.getLast());
+        System.out.println("Initials: "+n2.getInitials());
+
+    }
+}</pre>
+
+<p>We are accessing every individual instance field and printing them out 
+individually.&nbsp; Change the runner to look like the following:</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name("Marty","McFly");
+        
+        System.out.println(&quot;Name: &quot;+ n);
+        System.out.println("Initials: "+n.getInitials());
+      
+  
+        Name n2 = new Name("Jon","Snow");
+                
+        System.out.println(&quot;Name: &quot;+n2);
+        System.out.println("Initials: "+n2.getInitials());
+
+    }
+}</pre>
+<p>Run this method.&nbsp; It should give you an output similar to the following:</p>
+<p>Name: <span class="auto-style1">Name@145f572</span><br />
+Initials: M.M.<br />
+Name: <span class="auto-style1">Name@1f530d8</span><br />
+Initials: J.S. </p>
+<p>The part highlighted in red is what happens when you put an object into a 
+println.&nbsp; When given to a println, an object is supposed to be represented 
+in text, but complex objects could have 30 different variables and Java doesn&#39;t 
+know what to do with them.&nbsp; So basically it will print out the name of the 
+class, an &#39;@&#39; character, and a seemingly random number (think of it like an 
+object&#39;s serial number).</p>
+<p>&nbsp;</p><hr/>
+<p class="auto-style2"><strong>How to determine how an object represents itself in text:</strong></p>
+<p><strong>Name@145f572</strong> is not how I want my name object to be 
+represented when I try to print it.&nbsp; As the designer of the object, I get 
+to choose the text that represents the object by writing a very specific method.</p>
+<p>Add the following method header:</p>
+<pre>public String toString()</pre>
+<p>This is the exact method header that you need to add to any object if you 
+want to change how it represents itself.&nbsp; When it&#39;s time to <strong>
+concatenate</strong> together an object with another String, this method will 
+secretly be called.</p>
+<p>This means that the line:</p>
+<pre>System.out.println("Name: "+n);</pre><p>Secretly reads</p><pre>System.out.println("Name: "+n.toString());</pre>
+<p>This is automatic, you will rarely have to call the toString method directly.&nbsp; 
+It is called automatically at concatenation time.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Implementing the toString method:</strong></p>
+<p>For the Name object it&#39;s pretty straight forward.&nbsp; The way that a Name 
+object should represent itself is with a simple String that contains the first 
+and last name.&nbsp; Make the toString method look like the following:</p>
+<pre>public String toString()
+{
+  return first+" "+last;
+}</pre>
+<p>&nbsp;</p>
+<p>Now run the main method again.&nbsp; Instead of <strong>Name@145f572, </strong>
+it prints out &quot;Marty McFly&quot; or &quot;Jon Snow&quot;.</p>
+<p>Name: Marty McFly<br />
+Initials: M.M.<br />
+Name: Jon Snow<br />
+Initials: J.S.<br />
+</p>
+<p>You must be exact!</p>
+<p>Java is looking for a specific method with a specific method header.&nbsp; 
+This means you must have the same return type, name (capitalization counts), and 
+parameters (none).&nbsp; If you change any of those slightly, it will revert to 
+the old <strong>Name@145f572</strong> style of String.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr/>
+<p class="auto-style2"><strong>Assignment:</strong></p>
+<p>For each assignment you will be adding a toString method to the classes that 
+we&#39;ve been working with.&nbsp; After that you will be modifying the runners to 
+print the variables directly instead of calling all of their accessor methods 
+individually.</p>
+<p>1) <strong>Car</strong>:&nbsp; Add a toString to Car that is similar to the Name class.&nbsp; 
+It simply returns a String with the make and the model in it.&nbsp; After that, 
+modify the Runner to just have only one println that prints out the Car variable 
+(don&#39;t call toString directly, just put the variable in the println).</p>
+<p>2) <strong>Date</strong>:&nbsp; Add a toString to Date that will return a String for the Date 
+in &quot;mm/dd/yyyy&quot; form.&nbsp; After that, modify the Runner&#39;s println to only 
+print the variable instead of accessing them all individually.</p>
+<p>3) <strong>Fraction</strong>:&nbsp; Add a toString to Fraction that will return a String 
+similar to how you were printint it out in the runner:</p>
+<p>4<br />
+---</p>
+<p>5</p>
+<p>Tip:&nbsp; You cannot return three times.&nbsp; You must create <strong>one</strong> 
+String with three lines in it.&nbsp; Don&#39;t forget that putting \n <strong>INSIDE 
+A STRING</strong> will cause a new line to be added.&nbsp; It must be inside a 
+String in order to function.&nbsp; If it&#39;s not green, it&#39;s not going to compile.</p>
+<p>After that,&nbsp; modify the Runner to have a single println that only prints 
+out the Fraction variable instead of accessing the numerator and denominator 
+individually.&nbsp; Leave the line that prints out the decimal value, as it is 
+not part of the toString.</p>
+<p>&nbsp;</p>
+<p>4)&nbsp; <strong>Color</strong>:&nbsp; Add a toString to Color that will return a String in 
+the form &quot;[R: ___ G: ___ B: ___]&quot;, the same format that was being produced 
+before.&nbsp; After that, modify the runner to only print out the Color 
+variable.&nbsp; Leave the line that prints out the grayscale value.</p>
+<p>&nbsp;</p>
+<p>5) Rectangle:&nbsp; Add a toString to Rectangle that returns a String in the 
+form &quot;[x:___,y:___,w:___,h:___]&quot;, the same format that was being produced 
+before.&nbsp; After that, modify the Runner to only print out the Rectangle 
+variable.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

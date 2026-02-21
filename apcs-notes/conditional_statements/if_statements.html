@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>if Statements</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+	<div class="page">
+		<div id="base-info">
+			<div id="header"></div>
+			<div id="navbar"></div>
+			<div class="notes-content">
+				<div id="note-links"></div>
+				<script>
+					$("#header").load("../../header.html #head");
+					$("#navbar").load("../../notenav.html #notenav");
+					$("#note-links").load("notebar.html #note-bar");
+				</script>
+
+
+				<!--All content divs start here-->
+				<div class="note-div">
+					<h2>if Statements</h2>
+					<p>An if statement is used to make descisions within a program. Its basic structure is as follows:</p>
+					<div class="code-block">
+						<p>
+							if( <span style="color:#aaa">/* boolean expression or value */</span> )<br/> {
+							<br/> &nbsp;&nbsp;&nbsp; <span style="color:#aaa">/* statements to run if the boolean is true */</span><br/> }
+							<br/>
+						</p>
+					</div>
+					<p style="clear:left;">
+						When run, the if statement will look at the boolean value passed into its parentheses. If it's <strong>true</strong>, the code within the curly braces will be run. If it's <strong>false</strong>, the curly braces are skipped all together.
+					</p>
+					<hr/>
+					<p>
+						For example, if you had an int named <span class="code">val</span> and wanted to announce if it was positive, the if statement needs to check and see if the values assigned to <span class="code">val</span> is greater than zero.
+					</p>
+					<div class="code-block">
+						<p>
+							if( val &gt; 0 )<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;System.out.println( val + " is positive");<br/> }
+							<br/>
+						</p>
+					</div>
+					<p style="clear:left;">
+						Java will look at the condition <span class="code">val > 0</span>, which will evaluate to either <strong>true</strong> or <strong>false</strong>. In the case that it's <strong>true</strong>, the println will be run. If it's <strong>false</strong>,
+						the println is skipped and nothing will happen.
+					</p>
+				</div>
+
+				<div class="note-div">
+					<h2>
+						if-else
+					</h2>
+					<p>
+						In the situation above, the code was a little awkward. The if statement makes it so that you either get a println telling you that it's positive, or the program finishes without anything happenning. This is an oversimplified program, but let's fix it
+						so that it always prints out that the number is either positive or negative.
+					</p>
+					<p>
+						To accomplish this, we're going to tack an <strong>else</strong> statement to the end of the if-statement.
+					</p>
+					<div class="code-block">
+						<p>
+							if( val &gt; 0 )<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;System.out.println( val + " is positive");<br/> } <br/> else
+							<br/> {
+							<br/> &nbsp;&nbsp;&nbsp;System.out.println( val + " is negative");<br/> }
+						</p>
+					</div>
+					<p style="clear:left;">
+						An <strong>else</strong> statement doesn't get a boolean condition of its own. It's always connected to an if statement. The else statement runs when the if that it's attached to <strong>doesn't</strong>. This means that when <span class="code">val > 0</span>						evaluates to <strong>true</strong>, "____ is positive" will be printed, but if it's <strong>false</strong>, "____ is negative" will be printed.
+					</p>
+					<hr/>
+					<h4>
+						There's No Way Past an if-else
+					</h4>
+					<p>
+						Previously, our if statement either printed out some code, or it was skipped. Using an <strong>else</strong> statement attached to the if makes it so that it is impossible to get past our snippet of code without one of the two blocks of code running.
+						It either runs one block or it runs the other, but never both.
+					</p>
+				</div>
+				<div class="note-div">
+					<h3>
+						The One Line Rule
+					</h3>
+					<p>
+						The curly braces that follow an if statement allow us to have as many lines of code in each part of an if statement as we want, but sometimes we only need it to run exactly one line of code.  If an if statement is only responsible for a single line of code, you are allowed to omit the braces.  The example above may actually be written like so:
+					</p>
+					<div class="code-block">
+						<p>
+							if( val &gt; 0 )<br/>
+							&nbsp;&nbsp;&nbsp;System.out.println( val + " is positive");<br/>
+							else<br/>
+							&nbsp;&nbsp;&nbsp;System.out.println( val + " is negative");<br/> 
+						</p>
+					</div>
+					<p style="clear:left;">
+						This doesn't mean that it's necessarily wrong to write curly braces, and some students will always use them, but it is common to see simple if statements that don't use curly braces.
+					</p>
+				</div>
+				<div class = "note-div">
+					<h3>
+						Using a boolean variable as the control for an if statement
+					</h3>
+					<p>
+						The condition in the parentheses of an if statement doesn't have to be an expression, it simply has to result in a boolean value.  If you have a boolean value assigned to a variable, you may simply put it alone into the if statement.  Consider this code, which performs the same as the code above.
+					</p>
+					
+					<div class="code-block">
+						<p>
+							boolean isPos = val > 0;<br/><br/>
+							if( isPos )<br/>	
+							&nbsp;&nbsp;&nbsp;System.out.println( val + " is positive");<br/>
+							else<br/>
+							&nbsp;&nbsp;&nbsp;System.out.println( val + " is negative");<br/> 
+						</p>
+					</div>
+					<p style="clear:left;">
+						The first line will evaluate <span class="code">val > 0</span> and assign the resulting true or false value into the <span class = "code">isPos</span> variable.  The if statement will then decide which statement to run based on the value of the isPos variable.  The result is identical to the previous example.
+					</p>
+					<h4>
+						Bad Style
+					</h4>
+					<p>
+						Many students get stuck with the idea that you MUST use an expression of some sort, so they feel compelled to check to see if the boolean is true using an expression.
+					</p>
+					<div class="code-block">
+						<p>
+							boolean isPos = val > 0;<br/><br/>
+							if( <strong>isPos == true</strong> )<br/>	
+							&nbsp;&nbsp;&nbsp;System.out.println( val + " is positive");<br/>
+							else<br/>
+							&nbsp;&nbsp;&nbsp;System.out.println( val + " is negative");<br/> 
+						</p>
+					</div>
+					<p style="clear:left;">
+						This is an unnecessary step.  What the code above is doing is comparing the variable with a true value and generating <strong>another</strong> true value if they do.  The way that this works, the result of the expression  <br/><span class = "code">isPos == true</span> is <strong>identical</strong> to the<span class = "code">isPos</span> variable.  This is just extra work and you will never see a true programmer doing this.
+					</p>
+				</div>
+
+
+
+
+
+
+
+
+
+
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

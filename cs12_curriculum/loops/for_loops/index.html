@@ -1,0 +1,324 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>Drawing with For Loops</title>
+</head>
+
+<body>
+ <h1>For Loops</h1>
+
+  <p>
+    So far we've been working with number patterns that change in predictable ways, using three key ideas:
+  </p>
+
+  <ul>
+    <li><strong>Initial Value</strong> - where the pattern begins</li>
+    <li><strong>Incremental Step</strong> - how the pattern changes each time</li>
+    <li><strong>Permissive Condition</strong> - the rule that determines whether the pattern continues</li>
+  </ul>
+
+  <p>For example, consider the pattern:</p>
+
+  <p><strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</strong></p>
+
+  <ul>
+    <li>Initial Value: <strong>1</strong></li>
+    <li>Incremental Step: <strong>+1</strong></li>
+    <li>Permissive Condition: <strong>x &le; 10</strong></li>
+  </ul>
+
+  <p>
+    Up until now, we've relied on the <code>draw()</code> function to create repeated behavior.
+    But programming languages give us something even better: <strong>loops</strong>, which automatically repeat code as long as a condition is true.
+  </p>
+
+  <br/><hr/>
+
+  <h2>Intro to the For Loop</h2>
+
+  <p>Open the <strong>The For Loop</strong> workspace.</p>
+
+  <p>You'll see a simple program that uses a <code>for</code> loop to print numbers in order:</p>
+
+  <pre><code>// for (Initialization; Permissive Boolean; Step)
+for (let i = 1; i &lt;= 10; i++) {
+  console.log(i);
+}
+</code></pre>
+
+  <p>This loop prints the numbers <strong>1 through 10</strong>, one value per line.</p>
+
+  <h3>The Three Parts of a For Loop</h3>
+
+  <p>The for-loop header may look complicated at first, but it breaks into three very familiar pieces:</p>
+
+  <ol>
+    <li><strong>Initialization</strong>:  <code>let i = 1</code> (the starting value)</li>
+    <li><strong>Permissive Boolean</strong>:  <code>i &lt;= 10</code> (the condition that must remain true for the loop to continue)</li>
+    <li><strong>Incremental Step</strong>:  <code>i++</code> (how the value changes each time)</li>
+  </ol>
+
+  <p>
+    This exactly matches our 1-10 number pattern:
+    Start at 1, increase by 1, stop after reaching 10.
+  </p>
+
+  <p>Run the program and confirm that the loop prints <strong>1 through 10</strong>. This just an example program. Make sure you understand the for loop before moving on.</p>
+
+  <br/><hr/>
+
+  <h2>For Loops Questions</h2>
+
+  <p>Next, open the <strong>For Loops Questions</strong> activity in CodeHS.</p>
+
+  <p>
+    Each question shows a for loop and asks you to determine what it prints.
+    Remember: every for loop defines a number pattern based on:
+  </p>
+
+  <pre><code>for (Initialization; Permissive Boolean; Step)</code></pre>
+  
+ 
+
+  <br/><hr/>
+
+  <h2>Counting By Tens</h2>
+
+  <p>Open the <strong>Counting By Tens</strong> workspace.</p>
+
+  <p>
+    Write a loop that prints the following pattern:
+  </p>
+
+  <p><strong>10, 20, 30, 40, 50, 60, 70, 80, 90, 100</strong></p>
+
+  <p>Think carefully about:</p>
+  <ul>
+    <li>the <strong>initial value</strong></li>
+    <li>the <strong>incremental step</strong></li>
+    <li>the <strong>permissive condition</strong></li>
+  </ul>
+
+  <p><strong>You must use a loop to receive full credit.</strong></p>
+
+  <br/><hr/>
+
+  <h2>Half and Half</h2>
+
+  <p>Open the <strong>Half and Half</strong> workspace.</p>
+
+  <p>
+    Write a loop that prints the pattern:
+  </p>
+
+  <p><strong>64, 32, 16, 8, 4, 2, 1</strong></p>
+
+  <p><strong>You must use a loop to receive full credit.</strong></p>
+
+  <br/><hr/>
+
+  <h2>Countdown From Input</h2>
+
+  <p>Open the <strong>Countdown From Input</strong> workspace.</p>
+
+  <p>Some starter code asks the user for a number:</p>
+
+  <pre><code>let num = Number(readLine("Enter a starting value"));
+</code></pre>
+
+  <p>
+    Your task: write a loop that counts down from the user's number to <strong>1</strong>, printing each value.
+  </p>
+
+  <h3>Examples</h3>
+
+  <p><strong>User input:</strong> 5<br />
+  <strong>Output:</strong> 5, 4, 3, 2, 1</p>
+
+  <p><strong>User input:</strong> 10<br />
+  <strong>Output:</strong> 10, 9, 8, 7, 6, 5, 4, 3, 2, 1</p>
+
+  <br/><hr/>
+
+  <h2>Range</h2>
+
+  <p>Open the <strong>Range</strong> workspace.</p>
+
+  <p>The program reads two numbers:</p>
+
+  <pre><code>let start = Number(readLine("Enter a starting value"));
+let end = Number(readLine("Enter an ending value"));
+</code></pre>
+
+  <p>Assume <code>start</code> is less than <code>end</code>.</p>
+
+  <p>
+    Write a loop that prints all values from <strong>start</strong> through <strong>end</strong>, inclusive.
+  </p>
+
+  <h3>Examples</h3>
+
+  <p><strong>User input:</strong> 5 and 10<br />
+  <strong>Output:</strong> 5, 6, 7, 8, 9, 10</p>
+
+  <p><strong>User input:</strong> 20 and 29<br />
+  <strong>Output:</strong> 20, 21, 22, 23, 24, 25, 26, 27, 28, 29</p>
+
+  <br/><hr/>
+
+  <h2>101 Dalmatians</h2>
+
+  <p>Open the <strong>101 Dalmatians</strong> workspace.</p>
+
+  <p>
+    Your job is to write a loop that prints the word <strong>"dalmatian"</strong> exactly
+    <strong>101 times</strong> using <code>console.log()</code>.
+  </p>
+
+  <p>
+    This exercise is a little different:
+    The loop variable does <strong>not</strong> appear in the output.
+    It only controls how many times the loop runs.
+  </p>
+
+  <h3>Requirements</h3>
+
+  <ul>
+    <li>Your loop must run <strong>101 iterations</strong>.</li>
+    <li>Inside the loop, print <strong>only</strong> the word <code>"dalmatian"</code>.</li>
+    <li>No extra numbers or text.</li>
+    <li>When finished, your console should contain <strong>exactly 101 lines</strong> of <code>"dalmatian"</code>.</li>
+  </ul>
+
+  <p>Double-check your count - we need all <strong>101 dalmatians</strong>!</p>
+
+  <br/><hr/>
+
+  <h2>Odd / Even</h2>
+
+  <p>Open the <strong>Odd/Even</strong> workspace.</p>
+
+  <p>
+    Write a loop that counts from <strong>1</strong> up to the user's number.
+    For each value, print the number and whether it is <strong>odd</strong> or <strong>even</strong>.
+  </p>
+
+  <h3>Examples</h3>
+
+  <p><strong>User input:</strong> 5<br />
+  <strong>Output:</strong></p>
+
+  <pre><code>1 odd
+2 even
+3 odd
+4 even
+5 odd
+</code></pre>
+
+  <p><strong>User input:</strong> 8<br />
+  <strong>Output:</strong></p>
+
+  <pre><code>1 odd
+2 even
+3 odd
+4 even
+5 odd
+6 even
+7 odd
+8 even
+</code></pre>
+
+  <br/><hr/>
+
+  <h2>Fact Finder</h2>
+
+  <p>Open the <strong>Fact Finder</strong> workspace.</p>
+
+  <p>
+    The program asks the user to enter a number.
+    Your task is to print all numbers from <strong>1</strong> through this number,
+    and identify which ones are <strong>factors</strong> of the user's number.
+  </p>
+
+  <p>A number is a factor if it divides the user's number evenly.</p>
+
+  <h3>Examples</h3>
+
+  <p><strong>User input:</strong> 8<br />
+  <strong>Output:</strong></p>
+
+  <pre><code>1 FACTOR
+2 FACTOR
+3
+4 FACTOR
+5
+6
+7
+8 FACTOR
+</code></pre>
+
+  <p><strong>User input:</strong> 12<br />
+  <strong>Output:</strong></p>
+
+  <pre><code>1 FACTOR
+2 FACTOR
+3 FACTOR
+4 FACTOR
+5
+6 FACTOR
+7
+8
+9
+10
+11
+12 FACTOR
+</code></pre>
+
+<!--   <br/><hr/>
+
+  <h2>Fizz-Buzz</h2>
+
+  <p>Open the <strong>Fizz-Buzz</strong> workspace.</p>
+
+  <p>
+    Write a loop from <strong>1</strong> through the user's number using the classic Fizz-Buzz rules:
+  </p>
+
+  <ul>
+    <li>If a number is divisible by <strong>3</strong>, print <strong>FIZZ</strong>.</li>
+    <li>If a number is divisible by <strong>5</strong>, print <strong>BUZZ</strong>.</li>
+    <li>If a number is divisible by <strong>both</strong>, print <strong>FIZZ-BUZZ</strong>.</li>
+    <li>Otherwise, print the number itself.</li>
+  </ul>
+
+  <h3>Example</h3>
+
+  <p><strong>User input:</strong> 17<br />
+  <strong>Output:</strong></p>
+
+  <pre><code>1
+2
+FIZZ
+4
+BUZZ
+FIZZ
+7
+8
+FIZZ
+BUZZ
+11
+FIZZ
+13
+14
+FIZZ-BUZZ
+16
+17
+</code></pre> -->
+
+  
+</body>
+
+
+</html>

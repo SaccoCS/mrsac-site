@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Platformer Wrap Up</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-size: large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Platformer Wrap Up:</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style2">Adding Images</span></p>
+<p class="auto-style1">First find some images that you want to represent your 
+Blocks.&nbsp; There are a few at the bottom of this page.&nbsp; Download them to 
+your project folder.</p>
+<p class="auto-style1">Next make sure that your Block class has the following methods and 
+that they return the appropriate instance fields:</p>
+<pre>     public double getX()
+    public double getY()
+    public int getWidth()
+    public int getHeight()
+</pre>
+
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">Now add the following class to your project.&nbsp; It extends the Block class 
+to have an Image.</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class PicBlock extends Block
+{
+    private Picture myImg;
+    
+    public PicBlock(int x,int y,int w,int h, String imgName)
+    {
+        super(x,y,w,h);
+        myImg = Picture.loadFromFile(imgName);
+    }
+    
+    public void paintSelf(PaintBrush brush)
+    {
+        brush.drawPicture(myImg, (int)getX(),(int)getY(),(int)getWidth(),(int)getHeight());
+    }
+}</pre>
+
+<p class="auto-style1">Now go to the constructor of your Canvas.&nbsp; Change 
+Blocks to PicBlocks and add the String that represents the correct image as the 
+last parameter.&nbsp; For example, blockList.add(new Block(100,400,100,200)) 
+would become blockList.add(new <strong>PicBlock</strong>(100,400,32,32,<strong>&quot;questionblock.png&quot;</strong>)).&nbsp; 
+This would create the same Block, but with the questionblock picture on it.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3"><strong>Creating a Mario Level:</strong></p>
+<p class="auto-style1">The last thing that you need to do for your Platformer game is to make a 
+basic level with at least 10 jumps to make.&nbsp; This can be entirely done in 
+the constructor by creating and adding PicBlocks or Blocks.&nbsp; Don&#39;t worry, 
+you can add both types to the same ArrayList (for more information on this, take 
+AP).&nbsp; Just remember that they take in an x,y,width, and 
+height.&nbsp; The further down the course you go, the larger the x will be.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3">Images you might want:</p>
+<p class="auto-style1">The best sizes for these are multiples of 32.&nbsp; For 
+example: the pipe is 64x128, which is 2*32 and 4*32.</p>
+<p><img height="32" src="images/questionblock.png" width="32" />
+<img height="128" src="images/pipe.png" width="64" />
+<img height="32" src="images/cloudblock.png" width="32" />
+<img height="32" src="images/bluehorizontalpipe.png" width="160" />
+<img height="32" src="images/greenhorizontalpipe.png" width="96" />
+<img height="32" src="images/yellowhorizontalpipe.png" width="128" /> </p>
+<p>Dirt:&nbsp; All blocks are 32x32 and may be combined to create platforms of 
+many sizes.&nbsp; For very large platforms, consider using a for loop where the 
+looping variable increases by 32 each time.</p>
+<p><img height="32" src="images/dirt00.png" width="32" />
+<img height="32" src="images/dirt01.png" width="32" />
+<img height="32" src="images/dirt02.png" width="32" /><br />
+<img height="32" src="images/dirt10.png" width="32" />
+<img height="32" src="images/dirt11.png" width="32" />
+<img height="32" src="images/dirt12.png" width="32" /> <br />
+<img height="32" src="images/dirt20.png" width="32" />
+<img height="32" src="images/dirt21.png" width="32" />
+<img height="32" src="images/dirt22.png" width="32" /></p>
+<p>&nbsp;</p>
+<p>Walking Mario is 32x56</p>
+<p><img height="56" src="images/mariostandright.png" width="32" />
+<img height="56" src="images/mariowalkright2.png" width="32" />
+<img height="56" src="images/mariowalkright1.png" width="32" /></p>
+<p><img height="56" src="images/mariostandleft.png" width="32" /><img height="56" src="images/mariowalkleft2.png" width="32" /><img height="56" src="images/mariowalkleft1.png" width="32" /></p>
+<p>Jumping Marion is 32x62</p>
+<p><img height="62" src="images/mariojumpright.png" width="32" /></p>
+<p><img height="62" src="images/mariojumpleft.png" width="32" /></p>
+<p>&nbsp;</p>
+<p><img height="400" src="images/bg1.png" width="512" /></p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Constants</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Constants</h2>
+<p>Sometimes a class needs some information that isn&#39;t supposed to change.&nbsp; 
+It should remain <strong>constant</strong>.</p>
+<p>The most common example of a constant is the <strong>PI</strong> variable in 
+the Math class.&nbsp; It holds 3.1415926..., and it should never change (pi is 
+always the same).</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Constants are final and static</strong></p>
+<p>A constant is like an instance field, except that it should not change.&nbsp; 
+Adding the keyword <strong>final</strong> makes it unchangable once it&#39;s set; 
+the compiler will make sure of that.&nbsp; They should also be static, making 
+them belong to the whole class and not just a single object.</p>
+<p>For Example:&nbsp; In the Math class there is an instance field defined in 
+the following way:</p>
+<pre>public static final double PI = 3.141592653589793;</pre>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Naming Conventions:</strong></p>
+<p>When naming a constant, it is good style to label the variable with ALL_CAPS, 
+using an underscore between any separate words.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>public or private:</strong></p>
+<p>This depends on the purpose of the constant.&nbsp; A variable like PI is 
+meant for the whole world to use, but it depends on its purpose:</p>
+<p>- If the purpose is for the entire world to have access so that they don&#39;t 
+have to remember it, like PI, then it should be public.</p>
+<p>- If the purpose is to simply hold on to a value that is used within an 
+object, then it should be private.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>For Example, consider the BankAccount class:&nbsp;</strong></p>
+<pre>public class BankAccount
+{
+    private double balance;
+    private String accountName;
+    private static final double PENTALTY = 20;
+    
+    public BankAccount(String name, double bal)
+    {
+        accountName = name;
+        balance = bal;
+    }
+
+    public double getBalance()
+    {
+        return balance;
+    }
+
+    public String getAccountName()
+    {
+        return accountName;
+    }
+
+    public void changeAccountName(String name)
+    {
+        accountName = name;
+    }
+
+    public void deposit(double cash)
+    {
+        balance += cash;
+    }
+
+    public void withdraw(double cash)
+    {
+        balance -= cash;
+    }
+    
+    public void penalty()
+    {
+        balance -= PENALTY;
+    }
+
+    public String toString()
+    {
+        return "Account Name: "+accountName+"\nBalance: $"+balance+"\n";
+    }
+}</pre>
+<p>The penalty method of the BankAccount class is to deduct a flat $20.00 from 
+the balance.&nbsp; Since that number is not going to change, a constant named 
+PENALTY was added to hold it.</p>
+<p>Notice that its private, a programmer&#39;s decision since that variable is 
+really there for use inside of the object.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

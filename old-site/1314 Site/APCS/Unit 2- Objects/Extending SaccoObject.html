@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Extending SaccoObject</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	border-style: solid;
+	border-width: 1px;
+}
+.auto-style4 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style5 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style2">Making Visual Objects by extending SaccoObject</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">
+<a href="https://dl.dropboxusercontent.com/u/7648734/1314%20Site/SaccoJar/javadocs/PaintBrush/sacco/PaintBrush.html">
+PaintBrush API</a><br />
+<br />
+This project assumes that you have a fully functioning <a href="Square.html">
+Square</a> class</span></p>
+<p><span class="auto-style1">
+The Square class is a good way of keeping track of all 
+the information that a square might need, but sometimes text based programs can 
+be a little lackluster.&nbsp; Printing out “The Green Square’s corner is at 
+(250,250) and it has a side length of 100.” just seems dry.&nbsp; Using 
+sacco.jar we can cheat a little bit to make our objects have a visual side to 
+them. </span></p>
+<p><span class="auto-style1">Follow the steps below to modify your Square class 
+to actually show the Square on the screen.</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+1) </span>
+<span class="auto-style4">import sacco.*;</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+2) Change the class header to read “</span><span class="auto-style4">public 
+class Square extends SaccoObject</span><span class="auto-style1">”</span><br class="auto-style1" />
+<span class="auto-style1">A SaccoObject is an object that has a lot of methods 
+already built into it. By extending it, we get all of those methods and can use 
+them to our advantage.&nbsp; This is called inheritance and will be discussed 
+more in second semester.<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">3) Add a method with exactly this header:</span><br class="auto-style1" />
+<span class="auto-style4">public void paintWindow(PaintBrush brush)</span><br class="auto-style1" />
+<span class="auto-style1">If you spell it ANY differently this will not do 
+anything. So double check.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Within the paintWindow method, your job is to use the 
+PaintBrush object to represent the object. There are many commands that a 
+PaintBrush can do that are found in the 
+<a href="../../SaccoJar/javadocs/PaintBrush/sacco/PaintBrush.html">API</a>, but here’s a couple that are useful 
+for Square:</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+<table class="auto-style3" style="width: 100%">
+	<tr>
+		<td>
+<span class="auto-style1">void fillRectangle(int x, int y, int width, int height)</span><br class="auto-style1" />
+<span class="auto-style1">paints a filled in Rectangle with the given x, y, 
+width, and height.</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+void drawRectangle(int x, int y, int width, int height)</span><br class="auto-style1" />
+<span class="auto-style1">paints the outline of a Rectangle with the given x, y, 
+width, and height.</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+void setColor(String col)</span><br class="auto-style1" />
+<span class="auto-style1">sets the color of the PaintBrush to whatever String is 
+passed in</span><br class="auto-style1" />
+<span class="auto-style1"><br />
+void setThickness(int thickness)</span><br class="auto-style1" />
+<span class="auto-style1">sets the thickness of the PaintBrush to whatever int 
+is passed in</span></td>
+	</tr>
+</table>
+</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">For example: if your instance fields were myX,myY, and 
+mySideLength. The following would draw a green square of that at the location 
+and size defined by those fields.</span><br class="auto-style1" />
+<pre>public void paintWindow(PaintBrush brush)
+{
+   //sets the color of the PaintBrush to Green
+   brush.setColor(“yellow”);
+
+   //draws a filled in rectangle using the three instance fields
+   brush.fillRectangle(myX,myY,mySideLength,mySideLength);
+}</pre>
+<span class="auto-style1">Remember, the painting may only be done from this 
+method.&nbsp; If another method wants to affect how the window looks, then it 
+needs to change one of the instance fields that it uses.<br />
+<br />
+The runner code for this might look like the code 
+below:</span><br class="auto-style1" />
+<br class="auto-style1" />
+<pre>public static void main()
+{
+   Square mySquare = new Square(50,100,250);
+   mySquare.showWindow();  //This line causes the window to pop up.
+}</pre>
+<span class="auto-style1">
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+Assignment:<br class="auto-style1" />
+<br class="auto-style1" />
+1)
+Folllow the steps above to make your Square class extend SaccoObject.&nbsp; Make 
+sure that you&#39;re using all of your own instance fields to do the painting.&nbsp; 
+Also, don&#39;t simply use &quot;yellow&quot; as the color of the Square.&nbsp; Use your 
+instance field to set the color.<br />
+<br />
+Go to your original SquareRunner and add lines that call the showWindow() method 
+of each object that you&#39;ve created.&nbsp; Do this on the line immediately 
+following the line that you construct the object.&nbsp; Notice that they don&#39;t appear in the 
+same window.&nbsp; Each SaccoObject gets its own window.<br />
+<br />
+Enhance the paintWindow method so that it draws a black outline around the 
+Square.&nbsp; After the line of code that fills the rectangle, use the brush 
+variable to:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; - set the color to black<br />
+&nbsp;&nbsp;&nbsp;&nbsp; - set the thickness to 5<br />
+&nbsp;&nbsp;&nbsp;&nbsp; - use the <strong>drawRectangle</strong> command with 
+exactly the same parameters as the previous fillRectangle command.</span><br class="auto-style1" />
+<span class="auto-style1">
+<a href="https://dl.dropboxusercontent.com/u/7648734/1314%20Site/SaccoJar/javadocs/PaintBrush/sacco/PaintBrush.html">
+PaintBrush API</a></span></p>
+<p class="auto-style1">2) Messing with the timing using SaccoTools.pauseFor(int)</p>
+<p class="auto-style1">When you run your program, the window will pop up, but 
+since the code worked so fast, you won&#39;t get to see the original Square.&nbsp; 
+The line of code SaccoTools.pauseFor(int millisec)&nbsp; will cause your code to 
+pause for as many milliseconds as you can pass into the parameter (1000ms = 1 
+second).&nbsp; Modify your runner to have the program pause in the following 
+locations:</p>
+<p>
+<span class="auto-style1">- Construct a Square with using the <strong>default</strong> 
+constructor (... </span>
+<span class="auto-style3">= new Square()</span><span class="auto-style1">).<br />
+- call the showWindow method</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString<br />
+<span class="auto-style5"><strong>SaccoTools.pauseFor(2000);</strong></span></span><br class="auto-style1" />
+<span class="auto-style1">- double the side length</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString<br />
+<span class="auto-style5"><strong>SaccoTools.pauseFor(2000);<br />
+</strong></span></span><br class="auto-style1" />
+<span class="auto-style1">- Construct a SECOND Square with a different variable, 
+this time use the constructor using the values of 25,40, and 80 (... </span>
+<span class="auto-style3">= new Square(25, 40, 80)</span><span class="auto-style1"> 
+)<br />
+- call the showWindow method</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString<strong><br class="auto-style5" />
+</strong><span class="auto-style5"><strong>SaccoTools.pauseFor(2000);</strong></span></span><br class="auto-style1" />
+<span class="auto-style1">- set the color to Red</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString</span></p>
+<p>
+<img src="images/img14.jpg" /><img src="images/img15.jpg" /></p>
+
+</body>
+
+</html>

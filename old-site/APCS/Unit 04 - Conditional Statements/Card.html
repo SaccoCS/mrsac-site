@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Card</title>
+<style type="text/css">
+p
+{
+	
+	font-family:Arial;
+	font-size:small;
+}
+.auto-style1 {
+	border: 1px solid #c0c0c0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-size: x-large;
+}
+.auto-style3 {
+	font-size: medium;
+}
+.auto-style4 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style5 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style6 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Card</p>
+<p>We&#39;ve created a class to represent an ace of spades, but now it&#39;s time to 
+make a class that could represent any card that we want.</p>
+<p>Create a new class named Card, which will have two String instance fields, 
+the value and the suit.</p>
+<p>The Card <strong>constructor</strong> should take in a <strong>single</strong>
+<strong>String</strong> as a parameter.&nbsp; This 
+String will be exactly two characters long and the first character will be the 
+code for the value and the second character will represent the suit.&nbsp; For 
+example:&nbsp; &quot;AS&quot; would be the Ace of Spades, &quot;4D&quot; would be the Four of 
+Diamonds, and &quot;TC&quot; would be the Ten of Clubs.&nbsp; </p>
+<p>For those that don&#39;t know all the playing cards:</p>
+<p>Values: Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, 
+Queen, King<br />
+Suits:&nbsp; Clubs, Diamons, Hearts, Spades</p>
+<p>For Ten, Jack, Queen, King, and Ace, the single character representation is 
+the first letter, but for all the numbers (except Ten) the character will simply 
+be the number it represents.</p>
+<p>&nbsp;</p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td><strong>A Note About the Instance Fields:<br />
+		</strong><br />
+		At some point during this program you are going to have to take the 
+		single-character version of the value/suit and turn it into the full 
+		String version.&nbsp; There are two options:<br />
+		<br />
+		1)&nbsp; Simply store the single character version as the instance 
+		field, and then convert to the full String version when it comes time to 
+		find the value/suit<br />
+		2)&nbsp; Use the construtor to determine and Store the full String 
+		version, and then simply refer to that variable when you want the full 
+		Sting version.<br />
+		<br />
+		Both are acceptable and neither really requires more work than the 
+		other.&nbsp; You choose.<br />
+		<br />
+		The only thing that is very important is that you DO NOT USE 52 IF 
+		STATEMENTS TO DETERMINE YOUR VALUE/SUIT.&nbsp; Break the two character 
+		String apart and use a 13 part if statement for the value, and then a 
+		different 4 part if statment for the suit.&nbsp; It still isn&#39;t a lot of 
+		fun, but 17 is much less than 52.<br />
+		<br />
+		<br />
+		Strategy:&nbsp; First declare a String named <strong>value</strong> and 
+		don&#39;t assign anything to it<br />
+		<br />
+		String value;<br />
+		<br />
+		Then use a 13 part else-if chain.&nbsp; Each part should assign a string 
+		into value:<br />
+		<br />
+		value = &quot;Ace&quot;;<br />
+		<br />
+		To appease the compiler, you must make sure that you use a complete 
+		chain with an if, several else ifs, and an else.&nbsp; If you don&#39;t have 
+		an else at the end, the compiler will think that you are not assigning a 
+		value in <strong>all</strong> cases.&nbsp; You will get the error: value 
+		may not have been initialized.<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		You many use a switch statement if you already know what it is, but if 
+		you don&#39;t please use if statements.<br />
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p class="auto-style3"><strong>Accessor Methods:</strong></p>
+<p><span class="auto-style4">String getSuit():</span>&nbsp; Returns the full String version of the suit (&quot;Clubs&quot; 
+instead of &quot;C&quot;)</p>
+<p><span class="auto-style4">String getValue():</span> Returns the full String version of the value (&quot;Two&quot; 
+instead of &quot;2&quot;)</p>
+<p><span class="auto-style4">String toString():</span> Returns the combination of the value and the suit as one 
+String (&quot;Ten of Hearts&quot;)</p>
+<p><span class="auto-style4">int getRank():</span>&nbsp; Returns an int that represents the &#39;rank&#39; of the Card.&nbsp; 
+This will be used later in the year, but the ints go as follows.&nbsp; Any of 
+the numbers return a rank that is themselves.&nbsp; &quot;Two&quot; would return a 2, 
+&quot;Three&quot; a 3, etc.&nbsp; Jack, Queen, King, and Ace return 11, 12, 13, and 14, in 
+that order.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style3"><strong>Testing</strong></p>
+<p>Test your methods with the following method.&nbsp; It has two parts:&nbsp; 
+First it creates and prints every single card in columns by suit, and then it 
+checks the ranks of all the cards to make sure they&#39;re accurate.&nbsp; If the 
+rank is off it will return the rank that it should have returned.&nbsp; If 
+you&#39;ve done it perfectly, it will print &quot;getRank is functional&quot;</p>
+<p>&nbsp;</p>
+<p>Your class must import java.util.ArrayList in order to function</p>
+<pre>import java.util.ArrayList;
+public class CardTester
+{
+    public static void main()
+   {
+       String[] suits = {"C","D","H","S"};
+       String[] vals = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
+       ArrayList< Card > cards = new ArrayList< Card >();
+
+       for( int v=0; v < vals.length;v++)
+       {
+           for( int s=0; s < suits.length;s++)
+           {   
+               cards.add(new Card(vals[v]+suits[s]));
+           }
+       }
+
+       for( int i =0; i< cards.size(); i++)
+       {
+           System.out.print(cards.get(i)+"     \t");
+
+           if( i%4==3)
+               System.out.println();
+       }
+
+        
+       System.out.println("\nChecking getRank...");
+       boolean allGood = true;
+        
+       for( int i = 0; i < vals.length; i++)
+       {
+           Card c = new Card(vals[i]+"S");
+           int rank = c.getRank();
+            
+           if( rank != i+2)
+           {
+               System.out.println(c+" returned a rank of "+rank+" when it should have returned a "+(i+2));
+               allGood = false;
+           }
+       }
+       
+       System.out.printf("getRank is %sfunctional",allGood?"":"not ");
+   }
+}</pre>
+<pre>&nbsp;</pre>
+<p><img width="80%" src="images/imgD.jpg" /></p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style3"><strong>More Accessor Methods:</strong></p>
+<pre>public String getColor()</pre>
+<p>This method will return a String that represents the color of the Card.&nbsp; 
+The Spades and the Clubs will return &quot;black&quot; while the Hearts and Diamonds will 
+return &quot;red&quot;.</p>
+<p>&nbsp;</p>
+<pre>public boolean isFaceCard()</pre>
+<p>In Card games the Jack, Queen, King are considered face cards.&nbsp; Add a 
+method named isFaceCard, which takes in no paramters and returns a boolean 
+value.&nbsp; If the card is a Jack, Queen, or King it should return true.&nbsp; 
+All other cases should return false.</p>
+<p>&nbsp;</p>
+<pre>public boolean isSameSuit(Card other)</pre>
+<p>This method will return true if <strong>this</strong> Card and the parameter 
+Card have matching suits </p>
+<p>&nbsp;</p>
+<pre>public boolean isSameColor(Card other)</pre>
+<p>This method will return true if this Card and the paramter Card are the same 
+color</p>
+<p>&nbsp;</p>
+<pre>public boolean equals(Card other)</pre>
+<p>This method returns true if the two cards have the same value and suit.</p>
+<p>&nbsp;</p><hr/>
+<p class="auto-style6"><strong>Create a Runner:</strong></p>
+<p>Create a Runner that will prompt the user to enter a two-string code, such as 
+&quot;4D&quot; and use a Scanner to get the input.&nbsp; The runner should then construct 
+four Card objects:&nbsp; An Ace of Spades, a Six of Diamonds, a King of Hearts, and 
+whichever Card 
+the user entered.&nbsp; Each thing that you print out should be the result of 
+calling one of the methods above.&nbsp; Don&#39;t manually calculate the color of 
+the card when you already have a <strong>getColor</strong> method built into the 
+Card class.</p>
+<p>The runner should then print out if the <strong>user&#39;s</strong> Card:</p>
+<p>- The Color of the user&#39;s Card</p>
+<p>- If the user&#39;s Card is a Face Card or not</p>
+<p>- if the user&#39;s Card has the same color as the Six of Diamonds</p>
+<p>- if the user&#39;s Card has the same suit as the King of Hearts</p>
+<p>- if the user&#39;s Card is equal to the Ace of Spades</p>
+<p>&nbsp;</p>
+<p>So an example might be:</p>
+<p>Please enter a Card:<br />
+TH</p>
+<p>The Ten of Hearts is a red card.<br />
+It is not a face card.<br />
+It is the same color as the Six of Diamonds<br />
+It is the same suit as the King of Hearts<br />
+It is not equal to the Ace of Spades</p>
+<p>&nbsp;</p>
+<p>Or a second example:</p>
+<p>Please enter a Card:<br />
+AS<br />
+<br />
+The Ace of Spades is a black card.<br />
+It is not a face card.<br />
+It is not the same color as the Six of Diamonds<br />
+It is not the same Suit as the King of Hearts<br />
+It is equal to the Ace of Spades</p>
+<p>&nbsp;</p>
+<p>Resist the urge to println in every section of an if-else.&nbsp; Below is two 
+ways of printing our if the two Card objects <strong>userCard</strong> and
+<strong>aceOfSpades</strong> are equal.&nbsp; For this runner, stick to the 
+style on the left, which uses a variable and a Single println, instead of the 
+right, which has two different printlns.</p>
+<table class="auto-style5" style="width: 100%">
+	<tr>
+		<td><pre>String isEqual;
+if( userCard.equals(aceOfSpades) )
+   isEqual = " is ";
+else
+   isEqual = " is not ";
+
+System.out.println(userCard + isEqual + " equal to the "+ aceOfSpades);</pre></td>
+		<td><pre>
+if( userCard.equals(aceOfSpades) )
+   System.out.println(userCard + " is equal to the "+ aceOfSpades);
+else
+   System.out.println(userCard + " is not equal to the "+ aceOfSpades);
+
+</pre></td>
+	</tr>
+</table>
+<p><br />
+</p>
+<hr>
+<p class="auto-style3"><strong>Self Painting Cards:</strong></p>
+<p>Now we&#39;re going to add the ability for each Card to be 
+viewed on a SaccoWindow.&nbsp; It&#39;s going to need some fields to help draw an 
+image of a Card in the right place.</p>
+<p><strong>Modifications to the Card class:</strong></p>
+<p>- Add instance filelds x,y,width, and height.&nbsp; In the constructor, leave 
+the x and y at (0,0), but make the width 71 and the height 96.</p>
+<p>- Add the basic accessor methods getX() and getY()</p>
+<p>- Add the mutator method void setXY(int tmpX, int tmpY)</p>
+<p>&nbsp;</p>
+<p><strong>Painting A Card Face:</strong></p>
+<p>Now that you have the other instance fields set up, let&#39;s make it so that we 
+can draw a card&#39;s image.</p>
+<p>&nbsp;</p>
+<p><strong>Instance field:</strong></p>
+<p>- import sacco.*;</p>
+<p>- Add a Picture as an instance field.&nbsp; This is an object that represents 
+an image and can be painted on the SaccoWIndow using a Canvas object.</p>
+<pre>private Picture pic;</pre>
+<pre>&nbsp;</pre>
+<p><strong>Loading the Image:</strong></p>
+<p>&nbsp;The <strong>constructor</strong>, which is already complex, will be in charge of 
+putting the correct image into the Picture instance field.&nbsp; They are 
+already in the sacco.jar, you just have to call the static method 
+Picture.loadFromJar and give it the location of the picture in the jar.</p>
+<p>For example, if the instance field is named pic, the following would load 
+the King of Diamonds:</p>
+<pre>pic = Picture.loadFromJar("/cards/KD.png");</pre>
+<p>Luckily, all the Card images have the same location and naming 
+style.&nbsp; The Ace of Spades is at &quot;/cards/AS.png&quot;, and the Two of Clubs is at 
+&quot;/cards/2C.png&quot;.&nbsp; Since the location of the image is a String, use the 
+parameter of the Constructor to create the proper path, and then use it to load 
+the Picture from the jar.&nbsp; DO NOT USE 52 IF STATEMENTS.&nbsp; Generate the 
+location using the parameter String.</p>
+<p>&nbsp;</p>
+<p><strong>Drawing the Picture:</strong></p>
+<p>- Add the paintSelf method, which should simply draw the image of the Card 
+using the Canvas object.&nbsp; You may use the following if you change the 
+variable names to match the ones that you use.</p>
+<pre>public void paintSelf(Canvas c)
+{
+    c.drawPicture(pic,x,y,w,h);
+}
+</pre>
+<p>Test your program with the Runner below.&nbsp; Again you don&#39;t have to 
+understand it, but it should display every Card arranged in a circle:</p>
+<pre>import sacco.*;
+import sacco.Canvas;
+import java.util.ArrayList;
+import java.awt.geom.*;
+import java.awt.*;
+import java.awt.Rectangle;
+public class CardDisplay extends SaccoWindow
+{
+    private ArrayList< Card > cardList = new ArrayList< Card >();
+    private double a,aV=2;
+    private final int CARD_WIDTH = 71, CARD_HEIGHT=96;
+
+    public CardDisplay()
+    {
+        String[] suits = {"C","D","S","H"};
+        String[] vals = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
+        for(String s: suits)
+            for(String v: vals)
+            {
+                cardList.add(new Card(v+s));
+        }
+
+        circle(a);
+    }
+
+    public void circle(double startAngle)
+    {
+        int centerX = this.getWidth()/2 - CARD_WIDTH/2; //offset for default Card width
+        int centerY = this.getHeight()/2 - CARD_HEIGHT/2;  //offset for default Card height
+        int radius = Math.max(85,centerY-20);
+
+        double dAngle = (double)360/cardList.size();
+        for( int i = 0; i < cardList.size(); i++)
+        {
+            double angle = i*dAngle+startAngle;
+            int x =(int)Math.round(centerX +radius*Math.cos(Math.toRadians(angle)));
+            int y = (int)Math.round(centerY -radius*Math.sin(Math.toRadians(angle)));
+
+            cardList.get(i).setXY(x,y);
+        }
+
+    }
+
+    public Shape getClip()
+    {
+        GeneralPath sub = new GeneralPath();
+
+        for(int i =0; i< cardList.size()/6; i++)
+        {
+            Card c = cardList.get(i);
+            sub.append(new Rectangle(c.getX(),c.getY(),CARD_WIDTH,CARD_HEIGHT),false);
+        }
+
+        Area toRet = new Area(new Rectangle(0,0,getWidth(),getHeight()));
+        toRet.subtract(new Area(sub));
+        return toRet;
+    }
+
+
+    public void paintWindow(Canvas brush)
+    {
+        Shape clip =getClip();
+        for( int i = 0; i < cardList.size(); i++)
+        {
+            if( i >cardList.size()/2)
+                brush.setClip(clip);
+
+            cardList.get(i).paintSelf(brush);
+
+        }
+        brush.setClip(null);
+    }
+
+
+    public void onTimerTick()
+    {
+        circle( a += aV);
+    }
+
+    public static void main()
+    {
+        CardDisplay c= new CardDisplay();
+        c.showWindow();
+        c.start();
+    }
+}</pre>
+
+</body>
+
+</html>

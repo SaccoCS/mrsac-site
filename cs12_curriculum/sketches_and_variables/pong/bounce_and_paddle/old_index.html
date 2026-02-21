@@ -1,0 +1,164 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../../style.css">
+
+  
+</head>
+
+<body>
+ 
+  
+  <p><img src="images/og_pong.png" alt="capture (2).jpg" style = "width:300px"/></p>
+<p>Pong is one of the first video games ever created, in part because it is relatively simple to program. We already came pretty close when we had the block moving around the screen. We just need to add a few more layers to make a basic clone of the original.</p>
+<p>&nbsp;</p>
+<h3>Functions Used for Organization</h3>
+<p>In order to prevent random code insertion, Mr. Sacco will be telling you what your<span>&nbsp;</span><strong>draw</strong><span>&nbsp;</span>function will look like. He will list the functions, and you will fill them in.</p>
+<p>Open the Pong workspace in CodeHS, which comes prepopulated with a skeleton to get you started.</p>
+<pre><span style="font-size: 10pt;">let x, y;</span><br /><span style="font-size: 10pt;">function setup() {</span><br /><span style="font-size: 10pt;">  createCanvas(640, 400);</span><br /><span style="font-size: 10pt;">  rectMode(CENTER);</span><br /><span style="font-size: 10pt;">  </span><br /><span style="font-size: 10pt;">  x = width/2;</span><br /><span style="font-size: 10pt;">  y = height/2  </span><br /><span style="font-size: 10pt;">}</span><br /><br /><span style="font-size: 10pt;">function draw() {</span><br /><span style="font-size: 10pt;">  //Draw Everything</span><br /><span style="font-size: 10pt;">  background(0);</span><br /><span style="font-size: 10pt;">  drawBall();</span><br /><span style="font-size: 10pt;">  </span><br /><span style="font-size: 10pt;">  //Update Variables</span><br /><span style="font-size: 10pt;">  moveBall();      </span><br /><span style="font-size: 10pt;">} </span><br /><br /><span style="font-size: 10pt;">//draws the ball at the current location</span><br /><span style="font-size: 10pt;">function drawBall() { </span><br /><br /><span style="font-size: 10pt;">}</span><br /><br /><span style="font-size: 10pt;">//move the ball by updating x and y</span><br /><span style="font-size: 10pt;">function moveBall(){</span><br /><span style="font-size: 10pt;"> </span><br /><span style="font-size: 10pt;">}</span></pre>
+<h3>Breaking up draw()</h3>
+<p>Notice how Mr. Sacco has broken up the draw function into two parts: Drawing and Updating.&nbsp; This is a useful strategy to avoid bugs when projects get larger. Each time we do something it will either draw&nbsp;<strong>or</strong><span>&nbsp;</span>change variables; rarely both. Inside the draw function you can see that there are two new functions: drawBall() and moveBall(), which currently do nothing.&nbsp; It will be our job to fill them in with their functionality.</p>
+<p>&nbsp;</p>
+<p>For example: the drawBall function is a drawing method that's responsible for displaying the ball. The skeleton is already set up to have the variables x and y. We just need to reference them.&nbsp; Update the drawBall function to be the following.</p>
+<pre>function drawBall() {<br />  noStroke();<br />  fill(255);<br />  square(x, y, 16);<br />}</pre>
+<p>Run the sketch. The ball should appear dead center of the canvas because the setup function initializs the x and y to b the center of the screen.&nbsp; If you change those values you'll notice that the ball draws itself elsewhere.</p>
+<p>&nbsp;</p>
+<p><strong>Note</strong>: Mr. Sacco will show you an old fashioned black and white style of Pong.&nbsp; If you want to draw a fancy version that cycles through the rainbow while printing our compliments to Mr. Sacco, you're more than welcome to.</p>
+ 
+  <hr>
+  
+  <h2>moveBall</h2>
+<p><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/move_no_bounce/index.html" width="320" height="200" data-mce-fragment="1"></iframe></strong></p>
+<p>The moveBall function is an Update function, which is meant to update our variables that are linked to the timer. This means we need to change x and y according to their indiviual speeds, like before.</p>
+<p>You sketch currently only has x and y, so you will need to add an xSpeed and ySpeed variable.&nbsp; The <strong>setup</strong> <strong>function</strong> should randomize each speed variable from -5 to +5.</p>
+<p>&nbsp;</p>
+<p>In the past we've modified the location of the ball directly in the draw function, but our new organization method means that we should put it into the&nbsp;<strong>moveBall</strong> function, which was previously empty.</p>
+<pre>function moveBall(){<br />  x += xSpeed;<br />  y += ySpeed;<br />}</pre>
+<p>&nbsp;</p>
+<p><strong>Test it out</strong></p>
+<p>When you run your sketch, the ball should appear in the center and then move off in a random direction with no bouncing.</p>
+<p>&nbsp;</p>
+<p><strong>Mouse Retrieval</strong></p>
+<p>In order to make testing easier, add a mousePressed function that sets the x and y to the mouseX and mouseY.&nbsp; That will teleport the ball to the mouse every time you click the screen. You could re-randomize the speeds if you like.</p>
+  
+  
+  
+  
+  <hr>
+  
+  <h2>Wall Bouncing</h2>
+<p><strong><iframe style="overflow: hidden;" src="../demos/bouncing_ball_no_paddle/index.html" width="340" height="220" data-mce-fragment="1"></iframe></strong></p>
+<p>Like before, we want the ball to bounce around the canvas, and we'll make a function named wallBounce to help us.&nbsp; Your draw function should be exactly this:</p>
+<pre>function draw() {<br />  //Draw Everything<br />  background(0);<br />  drawBall();<br /><br />  <br />  //Update Variables<br />  moveBall();  <br />  wallBounce();  <br />}</pre>
+<p>There is only one new line of code: a call to wallBounce(). This function doesn't exist, so add it to the end of your sketch:</p>
+<pre>function wallBounce(){<br /><br />}</pre>
+<p>The purpose of this function is to take care of any changes in direction that might be necessary due to bouncing off of the walls. Write this function so that it looks at the values of x and y and decides whether or not to flip the xSpeed or ySpeed variables. This should be done entirely within the&nbsp;<strong>wallBounce&nbsp;</strong>function with no extra code in&nbsp;<strong>draw</strong>.</p>
+<p>In the end you should be back to the ball bouncing around the canvas, but with a little more organization in the code.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  <hr>
+  
+  <h2>Adding Paddles</h2>
+<p>It's time to add the Paddles to our Pong game. The first step is to simply get them drawn without worrying about collision.</p>
+<p><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/static_paddle_no_bounce/index.html" width="320" height="200"></iframe></strong></p>
+<p>Update your draw function to be exactly this:</p>
+<pre>function draw() {<br />  //Draw Everything<br />  background(0);<br />  drawBall();<br />  drawPaddle1();<br />  drawPaddle2();<br /><br />  <br />  //Update Variables<br />  moveBall();  <br />  wallBounce();  <br />}</pre>
+<p>The two new functions are drawPaddle1 and drawPaddle2.&nbsp; Mr. Sacco will refer the the left paddle as 1 and the right paddle as 2. Add each of the new functions to your sketch and add the code to draw each paddle.&nbsp; Right now they don't have to move or interact with the ball. They just need to exist.</p>
+  
+  
+  
+  <hr>
+  
+  <h2>Paddle Bounce</h2>
+<p><strong><iframe style="background-image: url('https://app.schoology.com/template/img/iframe.gif');" src="../demos/static_paddle_bounce/index.html" width="320" height="200"></iframe></strong></p>
+<p>Now that the Paddle's appear, we need to make sure that we bounce off of them. The key idea is that each paddle is a&nbsp;<strong>horizontal</strong>&nbsp;bounce that should occur when the ball hits the paddle. This means that we're going to have to see if the ball overlaps with each paddle.</p>
+<p>Let's focus on paddle 1 to get started. Make your draw function exactly this:</p>
+<pre>function draw() {<br />  //Draw Everything<br />  background(0);<br />  drawBall();<br />  drawPaddle1();<br />  drawPaddle2();<br /><br /><br />  //Update Variables<br />  moveBall();<br />  wallBounce();<br />  bouncePaddle1();<br />  //bouncePaddle2();<br />}</pre>
+<p>You will also have to add the bouncePaddle1 function to the end of your sketch:</p>
+<pre>function bouncePaddle1(){<br /><br />}</pre>
+<p>Your job with the bouncePaddle1 function is to see if the ball is currently overlapping with the left paddle, and flip the xSpeed if so.</p>
+<p>Hint: Go Get your&nbsp;<strong>boxOverlap</strong>&nbsp;function from before</p>
+<p>In the last assignment you worked hard to get a function that could determine if two boxes were overlapping.&nbsp; This is the perfect scenario for it.&nbsp; Go copy the boxOverlap function from your last sketch and paste it to the end of your Pong sketch.&nbsp;<strong>You should make no changes to boxOverlap().</strong></p>
+<p>Once you have your copy of boxOverlap() in your sketch, you will not change it. It is now available for&nbsp;<strong>use</strong>&nbsp;in your bouncePaddle1() function. Add a single if statement to bouncePaddle1() that will call boxOverlap</p>
+<pre>function bouncePaddle1(){<br />    if( boxOverlap( , , , , , , , )  ){    // Incomplete: Fill in x,y,w,h for the ball and the left paddle.<br /><br />   }<br />}</pre>
+<p>You will have to provide the values that represent the ball's x,y,w,h and the left paddle's x,y,w,h. It will be eight parameters, making an ugly line of code. Feel free to ask Mr. Sacco for help filling it in.</p>
+<p>If done properly, the if statement will trigger any time that the ball overlaps the left paddle. This is when we want the ball to bounce, so add code that will&nbsp;<strong>flip the xSpeed</strong>&nbsp;as if it were bouncing off the left wall.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Testing using mousePressed</strong></p>
+<p>The problem with testing is that we need to see how the ball responds when it's near the edge of the paddle, but it's bouncing around randomly.&nbsp; You can get a little control over the ball by having the mousePressed function telepor the ball to the mouse and set the speeds so that it's headed directly to the left.</p>
+<pre>function mousePressed() {<br />  x = mouseX;<br />  y = mouseY;<br />  xSpeed = -3;<br />  ySpeed = 0;<br />}</pre>
+<p>This allows you to click around to place the ball, but always have it shoot left.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Add Paddle2</h3>
+<p>Once you've got Paddle1 bouncing, follow a similar process to incorporate the right paddle into the equation. Add a bouncePaddle2() function that will handle the paddle on the right of the screen. Don't forget to modify the draw() function to call bouncePaddle2().</p>
+<p>&nbsp;</p>
+<p>The paddles don't have to move yet, but the ball should bounce off of both paddles.</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  
+<h3>Fixing the Vibration Problem</h3>
+<p>The way that we're handling the paddles has a problem. If it enters the paddle from the top or bottom it will vibrate all the way through the paddle until it shoots out the bottom.</p>
+<p>Change your mousePressed to be this:</p>
+<pre>function mousePressed() {<br />  x = mouseX;<br />  y = mouseY;<br />  xSpeed = -3;<br />  ySpeed = 5;<br />}</pre>
+<p>This has a steep ySpeed so that you can direct the ball to the top of the paddle. If you do, you'll notice that you have a vibration problem.</p>
+<p>&nbsp;<strong><iframe class="sCommonMediaFileIframeUseRelativeUrl-processed" src="../demos/vibration/index.html" width="150" height="220" data-mce-fragment="1"></iframe></strong></p>
+<p>&nbsp;</p>
+<h4>
+  Solution?
+  </h4>
+<p>Fix your code to bounce off paddle1 when moving<span>&nbsp;</span><strong>left</strong>. Right now the bouncePaddle1 function only looks at the location of the ball and the paddle when determining if it should bounce. Modify it so that it&nbsp;<strong>also</strong><span>&nbsp;</span>looks at the xSpeed variable and only bounces if the ball is moving to the&nbsp;<strong>left</strong><span>&nbsp;</span>(xSpeed is<span>&nbsp;</span><strong>negative</strong>). This should prevent the paddles from accidentally bouncing the ball back into themselves.</p>
+<p>&nbsp;</p>
+<h4>
+  Phasing is not a Problem
+  </h4>
+<p>Once you do this you'll notice that the ball will pass right through the paddle when it bounce from&nbsp;<strong>behind</strong>.&nbsp; Go ahead and allow this. In the final version of our game you will remove the outside walls and backwards motion will be impossible.</p>
+<p>&nbsp;</p>
+<p>Fix the vibration problem for both paddle1 and paddle2. Test out both sides fully by modifying your mousePressed and making sure that things work properly.</p>
+  
+  
+  
+  <hr>
+  
+  
+  <h2>Variable Based Paddles</h2>
+<p>In the long run we're going to want these paddles to move in some way to make the game more fun. This means more variables! The paddles don't move in the x direction, so we really only need to keep track of their y.&nbsp; Add two global variables to the sketch: p1Y and p2Y.&nbsp; The setup function should initialize them to be&nbsp;<strong>height/2</strong>, dead center of the canvas.</p>
+<p>Make the sketch depend on these variables by going to both of the drawPaddle functions and editing the y coordinate to be a global varaible instead of a constant value.</p>
+<p>Test out to make sure that p1Y and p2Y actually control the paddle's location by running your sketch with different values assigned to them during setup. Smaller values should place them closer to the top of the screen.&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Variable Based Bouncing</h3>
+<p>The bouncePaddle functions were also previously set up to check a very specific location on the screen. This will cause the ball to bounce off of an invisible paddle in the center of the screen, no matter where the paddle is being drawn.&nbsp; Again, update the bouncePadde functions to use one of the global variables as the paddle's y coordinate.</p>
+<p>&nbsp;</p>
+<p><strong>Test, Test, Test</strong></p>
+<p>Test out your program a lot. Set p1Y and p2Y to different values in the setup, and then use the mousePressed function to make sure that the ball bounces off of the paddle when it should. No ghosting!</p>
+  
+  
+  
+  <hr>
+  
+  <h2>Paddle Speed</h2>
+<p>Most students think that the paddle is moved directly when the key is pressed, but it isn't.&nbsp; In order to get smooth paddle movement we need to attach it to the timer.&nbsp; Make your draw function exactly this:</p>
+<pre>function draw() {<br />  //Draw Everything<br />  background(0);<br />  drawBall();<br />  drawPaddle1();<br />  drawPaddle2();<br /><br /><br />  //Update Variables<br />  moveBall();<br />  movePaddles();<br />  wallBounce();<br />  bouncePaddle1();<br />  bouncePaddle2();<br />}</pre>
+<p>The new function is&nbsp;<strong>movePaddles</strong>, is in charge of changing the paddle's y variable if the keys are being pressed. This is a good time to use p5's keyIsDown() function, that takes a&nbsp;<span><strong><a class="sExtlink-processed" href="http://keycode.info/">keycode&nbsp;</a></strong></span>and returns a boolean telling us if the key is currently pressed.</p>
+<p>Player 1 should be controlled by the 'W' and 'S' keys, which are keycodes 87 and 83. Copy the starter code for movePaddles. which takes care of when&nbsp;<strong>W</strong>&nbsp;is held for you.</p>
+<pre>function movePaddles() {<br />  //If 'W' is held, move up<br />  if( keyIsDown(87) ){<br />     p1Y -= 3;<br />  }<br /><br />}</pre>
+<p>If you run this, you should gain the ability to move the paddle UP when you press the W key, but no way of going down. Add another if statement to the movePaddles() function that will&nbsp;<strong>increase</strong>&nbsp;p1Y when&nbsp;<strong>S&nbsp;</strong>is held (keycode 83).</p>
+<p>After testing the W and S keys together, add two more if statements that tie the&nbsp;<strong>p2Y</strong>&nbsp;variables to the up and down arrows: keycodes 38 and 40 respectively.</p>
+<p>If done properly, you should have two paddles that can move.</p>
+<p>The speed of 3 is an arbitrary number, if you would like faster or slower paddles, change the number accordingly.</p>
+<p>&nbsp;</p>
+<p>In the end you should have control over both paddles and the ball should still bounce wherever it is. There will still be the 'phasing through; problem, but that is not an issue.</p>
+<p>&nbsp;</p>
+  
+</body>
+
+
+</html>
+

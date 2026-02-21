@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Instance Fields and Constructors</title>
+<style type="text/css">
+
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	color: #008000;
+}
+.auto-style3 {
+	color: #FF00FF;
+}
+.auto-style4 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Objects: Instance Fields and Constructors</h2>
+<p>&nbsp;Objects are a very important concept in programming.&nbsp; It is important 
+that we both understand how to <strong>use</strong> objects and also how to
+<strong>design</strong> them.&nbsp; </p>
+<p>&nbsp;<strong>What are Objects?:</strong>&nbsp; Objects can be used in many ways, but it&#39;s best to 
+think of objects as a data type that bundles together multiple pieces 
+of data.</p>
+<p>We have already been using a type of object in our programs.&nbsp; A String 
+is much more complicated than an int or a double.&nbsp; It is a piece of data 
+that bundles together series of characters.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style4">Designing An Object Example:&nbsp; Name</p>
+<p>The first object that we are going to design is a simple object that is 
+designed to bundle together a person&#39;s first and last name.&nbsp; First we must 
+think of the <strong>instance fields</strong>, or data that the object will 
+contain.&nbsp; In this case it&#39;s two Strings.</p>
+<p>In your project, create a class named <strong>Name</strong>, and put the 
+following code in it:</p>
+<pre>public class Name
+{
+    public String first;
+    public String last;
+}</pre>
+<p>&nbsp;</p>
+<p><strong>What&#39;s going on here?</strong></p>
+<p>You must not think of this as your standard &quot;main method&quot; class.&nbsp; This 
+class is meant to be a blueprint for an object called Name.&nbsp; So far, this 
+object has two pieces of information that it stores ( known as <strong>instance 
+fields</strong>);&nbsp; A String for the first named and a String for the last 
+name. </p>
+<p>&nbsp;</p>
+<hr/>
+<p><strong>How do we use objects?</strong></p>
+<p>An object class doesn&#39;t work on its own.&nbsp; It is simply a design for a 
+piece of data.&nbsp; In order to use it, we must have a program with a main 
+method that will run it.&nbsp; This program is known as a <strong>Client</strong> 
+class, a<strong> Tester</strong> class, or a <strong>Runner</strong> class and 
+its purpose is to <strong>use</strong> the object as data.</p>
+<p><img border="1" src="images/img18.jpg" /></p>
+<p>An arrow will be drawn, because the NameRunner class makes use of the Name 
+data type.</p>
+<p>&nbsp;</p>
+<p>In the same project as the <strong>Name</strong> class, put the following 
+class which constructs a Name object and then prints out the values stored in 
+its first and last variables.</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name();
+        
+        System.out.println("First Name: "+n.first);
+        System.out.println("Last Name: "+n.last);
+    }
+}</pre>
+<p>&nbsp;</p>
+
+<p><strong>Constructing:</strong></p>
+<p>When an object is first created, <strong>&nbsp;</strong>it must first be
+<strong>constructed</strong>.&nbsp; 
+In the main method, the following line constructs the Name object and stores it 
+in a variable named <strong>n</strong>:</p>
+<pre>Name n = new Name();</pre>
+<p>The left side of the &#39;=&#39; is Declaring a variable n be a Name variable.&nbsp; 
+This is exactly the name of the <strong>object</strong> class that we first 
+wrote.</p>
+<p>The right side of the &#39;=&#39; is how you construct an object.&nbsp; The word
+<strong>new</strong> is a special word in java that indicates an object is being 
+constructed.&nbsp; After <strong>new</strong> is the constructor, which has the 
+same name as the object.</p>
+<p>If the object were in a class named <strong>Bird</strong>, the construction 
+statement might look like:</p>
+<pre>Bird myBird = new Bird();</pre>
+<p>Notice that the word Bird appears twice, in the same places that Name did in 
+the previous example.&nbsp; This will often be the case.</p>
+<p>&nbsp;</p>
+<p><strong>Accessing the two variables:</strong></p>
+<p>Name was designed so that every name variable had a first and last name.&nbsp; In the second part of the main method, the contents of 
+n&#39;s first and last are 
+printed out.&nbsp; </p>
+<pre>
+       System.out.println("First Name: "+n.first);
+       System.out.println("Last Name: "+n.last);
+</pre>
+<p>Since the design of the <strong>Name</strong> object never puts anything in 
+either the first or last, the value is <strong>null</strong>.</p>
+<p>First Name: null<br />
+Last Name: null</p>
+<p>&nbsp;</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name();
+        
+        System.out.println("First Name: "+n.first);
+        System.out.println("Last Name: "+n.last);
+        
+        Name n2 = new Name();
+        
+        n2.first = "Jon";
+        n2.last = "Snow";
+                
+        System.out.println("First Name: "+n2.first);
+        System.out.println("Last Name: "+n2.last);
+    }
+}</pre>
+<p>This time a second Name variable is made, but the first and last variables 
+are set to &quot;Jon&quot; and &quot;Snow&quot;.&nbsp;&nbsp; Running this again 
+will print out the two null values stored in the <strong>n</strong> variable as 
+well as the &quot;Jon&quot; and &quot;Snow&quot; variables stored in the <strong>n2</strong> 
+variable.</p>
+<p>This time the output should be:<br />
+First Name: null<br />
+Last Name: null</p>
+<p>First Name: Jon<br />
+Last Name: Snow</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style4">Assignment Part 1: Objects with Public Instance Fields</p>
+<p>Each of the following assignments will require that you create<strong> two different 
+classes</strong>.&nbsp; One that will be a design for an object, and one that will have a 
+main method to uses that object in some simple way.</p>
+<p>&nbsp;</p>
+<p>1) Car:&nbsp; First create an object class named <strong>Car</strong>.&nbsp; 
+The Car class should have two Strings as instance fields to represent the 
+Car&#39;s make and model.&nbsp; Please name them exactly <strong>make</strong> 
+and <strong>model</strong>.</p>
+<p>Once you have the two variables in the Car class,&nbsp; copy the following 
+CarRunner class which constructs a Car object and assigns it to a Car variable.&nbsp; 
+It then prints out the make, and model of that variable.&nbsp; </p>
+<pre>public class CarRunner
+{
+    public static void main()
+    {
+        Car c = new Car();
+        
+        c.make = "Ford";
+        c.model = "Mustang";
+        
+        System.out.println("Make: "+c.make);
+        System.out.println("Model: "+c.model);
+    }
+}</pre>
+<p>&nbsp;</p>
+<p>2) Date:&nbsp; Create an object class named <strong>Date</strong>, which 
+should have three ints as instance fields to represent the day, month, and year 
+of a given date.</p>
+<p>Once the Date class has all three instance fields, create a separate class 
+named DateRunner which has only a main method.&nbsp; That main method should 
+construct a Date object, assign a 22 to the day, 2 to the month, 1983 to the 
+year.&nbsp; After that, access all three variables to print out the date in the 
+form &#39;2/22/1983&#39;.&nbsp; Do not just print out the numbers, access each of them.</p>
+<p>&nbsp;</p>
+<p>3) Fraction:&nbsp; Create a class named Fraction, which should have two<strong> 
+ints</strong> as instance fields,<strong> </strong>a numerator and a 
+denominator.</p>
+<p>Once the Fraction class has been created, create a separate class named 
+FractionRunner, which has only a main method.&nbsp; That main method should 
+construct a Fraction object, assign 4 to the numerator and 5 to the denominator.&nbsp; 
+After that access both variables again to print them out as a fraction.&nbsp; 
+Use three lines to represent the fraction; numerator on top, then a line of 
+hyphens, and then the denominator.</p>
+<p>4<br />
+---<br />
+5</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style4">Constructors</p>
+<p>With our Name object, it&#39;s not really complete until you have assigned values 
+to its first and last variables.&nbsp;</p>
+<pre>
+Name n = new Name();        
+n.first = "Martin";
+n.last = "McFly";
+</pre>
+<p>If you think about it, there isn&#39;t really a situation where you would create 
+a name an not immediately assign the first and last variables.&nbsp; In order to 
+get this done, we are going to add a <strong>constructor</strong> to the Name 
+class.&nbsp; A Constructor is a special method that is meant to make assigning 
+the initial values to the instance fields easier.</p>
+<p>&nbsp;</p>
+<p><strong>Our Goal</strong>:&nbsp; To add a constructor to the Name class so that instead of the 
+three lines above, the object could be constructed with one line, like the 
+following:</p>
+<pre>Name n = new Name("Martin", "McFly");</pre>
+<p>Notice that this time, the values of first and last are passed in as 
+parameters during construction.&nbsp; This ability needs to be added to the Name 
+class.</p>
+<p>&nbsp;</p>
+<p><strong>Designing a Constructor</strong>:</p>
+<p>A Constructor&#39;s job is purely to help set the instance fields.&nbsp; In the 
+case of the Name class, the constructor needs to take in two parameters; one for 
+the first name and one for the last.&nbsp; Here is the new version of the Name 
+class with a constructor added.&nbsp;</p>
+<pre>public class Name
+{
+  public String first;
+  public String last;
+  
+  <span class="auto-style1"><strong>public Name</strong></span>(<span class="auto-style2"><strong>String f, String l</strong></span>)
+  {
+   <strong><span class="auto-style3"> first = f;</span>
+<span class="auto-style3">    last = l;</span></strong>
+  }
+}</pre>
+<p>1) <span class="auto-style1">&nbsp;Naming the Constructor</span>:&nbsp; When 
+naming the constructor, it <strong>must</strong> be named exactly the same as 
+the class.&nbsp; We will always make our constructors public.</p>
+<p>2) <span class="auto-style2">Creating Parameter Variables</span>: This is 
+where the programmer decides what information is required by the object upon 
+creation.&nbsp; In our case the first and last name are supposed to be given.&nbsp; 
+By putting String f, and String l, we are providing locations for the first and 
+last name to be passed in when the constructor is called.&nbsp; Over in the 
+Runner program, we will construct using the line <strong>Name n = new 
+Name(&quot;Martin&quot;, &quot;McFly&quot;);</strong>.&nbsp; &quot;Martin&quot; will be passed into the
+<strong>f</strong> parameter, while &quot;McFly&quot; will be passed into the <strong>l</strong> 
+parameter.</p>
+<p>3) <span class="auto-style3">Assigning values to the instance fields:</span>&nbsp; 
+The constructor&#39;s job is to assign values to the instance fields, in this case 
+the <strong>first</strong> and <strong>last</strong> variables.&nbsp; Since the 
+two values that we care about are already given to us as parameters, the only 
+thing that this constructor needs to do is assign the parameters to the instance 
+fields.&nbsp; When the line <strong>Name n = new Name(&quot;Martin&quot;, &quot;McFly&quot;);</strong> 
+is called, &quot;Martin&quot; is passed into the <strong>f</strong> parameter.&nbsp; Since 
+the end goal is to have &quot;Martin&quot; in the <strong>first</strong> instance field, 
+first = f; is a required line.&nbsp; The last name is handled siilarly.</p>
+<p>&nbsp;</p>
+<p><strong>Using the Constructor:</strong></p>
+<p>Now that the Name object has this cool constructor it is unnecessary to set 
+all the instance fields one at a time.&nbsp; Instead we can use the new 
+constructor that we just created.</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name(&quot;Marty&quot;,&quot;McFly&quot;);
+        
+        System.out.println("First Name: "+n.first);
+        System.out.println("Last Name: "+n.last);
+        
+        Name n2 = new Name(&quot;Jon&quot;,&quot;Snow&quot;);
+        
+        
+        System.out.println("First Name: "+n2.first);
+        System.out.println("Last Name: "+n2.last);
+    }
+}</pre>
+
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style4">Assignment Part 2:&nbsp; Adding Constructors</p>
+<p>1)&nbsp; Car:&nbsp; Add a constructor to the Car class.&nbsp; Similar to the 
+Name object example, Car&#39;s constructor should take in two String as parameters 
+and assign them to the instance fields.&nbsp; </p>
+<p>WARNING: When choosing variable names for the constructor&#39;s parameters, make 
+sure that they are different than the instance fields (For example: in the Name 
+class, the instance field is <strong>first</strong>, but the parameter was
+<strong>f</strong>.</p>
+<p>&nbsp;</p>
+<p>Once the Car class compiles, now the Runner class must change.&nbsp; Replace the CarRunner class 
+with the following:</p>
+<pre>public class CarRunner
+{
+    public static void main()
+    {
+        Car c = new Car("Ford","Mustang");        
+        
+        System.out.println("Make: "+c.make);
+        System.out.println("Model: "+c.model);
+    }
+}</pre>
+<p>Notice that we are using the new constructor now instead of c.make = &quot;Ford&quot;;</p>
+<p>&nbsp;</p>
+<p>2) Date:&nbsp; Modify the Date class to have a constructor with <strong>three 
+int parameters</strong> which represent the values of the day, month, and year.&nbsp; 
+After that, modify the DateRunner code to use the constructor instead of 
+assigning the instance fields manually, similar to how it was done previously.</p>
+<p>&nbsp;</p>
+<p>3) Fraction:&nbsp; Modify the Fraction class to have a constructor that takes 
+in two ints as parameters and assigns them to the appropriate instance fields.&nbsp; 
+After that, modify the FractionRunner code to use the constructor instead of 
+assigning the instance fields manually.</p>
+
+</body>
+
+</html>

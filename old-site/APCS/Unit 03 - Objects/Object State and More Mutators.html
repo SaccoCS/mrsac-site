@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Object State and More Mutator Methods</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-size: large;
+}
+.auto-style3 {
+	margin-left: 40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Object State and More Mutator Methods</h2>
+<p>Until recently we have been making objects that are purely for binding 
+together a few pieces of information.&nbsp; This is is mainly so that you can 
+transfer around groups of related information in an organized manner.&nbsp; For 
+example, the Point class is little more than a way of <strong>encapsulating</strong> 
+together an x and y.&nbsp; </p>
+<p>It&#39;s 
+time to think of objects a little differently.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Objects that Change Over Time:</strong></p>
+<p>With the help of mutator methods we now have the ability to change the 
+instance fields simply by calling a method.&nbsp; This means that we can now 
+create objects that change over time.</p>
+<p>Consider the BankAccount object, which will represent a person&#39;s savings 
+account.&nbsp; It has instance fields to represent the Account Name and the 
+balance of the account</p>
+
+<pre>public class BankAccount
+{
+   private double balance;
+   private String accountName;
+   
+   public BankAccount(String name, double bal)
+   {
+      accountName = name;
+      balance = bal;
+   }
+   
+   public double getBalance()
+   {
+      return balance;
+   }
+   
+   public String getAccountName()
+   {
+      return accountName;
+   }
+   
+   public String toString()
+   {
+       return "Account Name: "+accountName+"\nBalance: $"+balance+"\n";
+   }
+   
+   public void changeAccountName(String name)
+   {
+      accountName = name;
+   }
+}</pre>
+<p>By now we should be able to recognize and know how to use the constructor, 
+basic accessors, and toString method.&nbsp; The only mutator method is the 
+changeAccountName method, which modifies the account name.</p>
+<p>&nbsp;</p>
+<p><strong>Why would we want to change the account&#39;s name?&nbsp; Isn&#39;t it set in the 
+constructor?</strong></p>
+<p>Yes, the initial balance and name are set by the constructor, but sometimes 
+we need to think of an object as something that isn&#39;t permanent.&nbsp; If the 
+BankAccount object is to represent a &quot;live&quot; account that lasts for 
+years, it may need the ability to 
+change the name at some point.&nbsp; In real life someone might want to change 
+the name on their account if they get married or divorced.&nbsp; </p>
+<p>Copy the following Runner into your project. </p>
+<pre>public class BankAccountRunner
+{
+    public static void main()
+    {
+        BankAccount b = new BankAccount("Sacco",25000);
+        System.out.println("Initial Account:\n"+b);
+
+        b.changeAccountName("Mister Sacco");
+        System.out.println("After Name Change:\n"+b);
+        
+    }
+}</pre>
+<p>When reading through the runner, think of it as a story over time.&nbsp; For 
+now all of our runners will run as fast as they can, but you can still imagine 
+that they don&#39;t happen instantly.&nbsp;&nbsp; In the method above, an 
+extciting tale unfolds:</p>
+<p>- Once upon a time, &quot;Sacco&quot; opened a bank account with $25,000 <br />
+- After many years, he became &quot;Mister Sacco&quot; and decided to change his name</p>
+<p>Fascinating!</p>
+<p>The important thing to take away is that objects are defined by their 
+instance fields.&nbsp; Those instance fields can change over time.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>State:</strong></p>
+<p>The <strong>state</strong> of the object is a general term that describes the 
+current values stored in the instance field.&nbsp; Since sometimes methods 
+change the values in the instance fields, this means that they are changing the 
+state of the object.</p>
+<p>Consider the BankRunner above.&nbsp; When you run it the two printlns print 
+out two different <strong>states</strong> of the object.&nbsp; In one state the name is &quot;Sacco&quot; 
+and in the other state the name is &quot;Mister Sacco&quot;.&nbsp; This is the same object, but 
+with a different <strong>state</strong>.</p>
+<p>Initial Account:<br />
+Account Name: Sacco<br />
+Balance: $25000.0<br />
+<br />
+After Name Change:<br />
+Account Name: Mister Sacco<br />
+Balance: $25000.0</p>
+<p>The <strong>state </strong>of the account was changed when the name was 
+changed.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>Mutator Methods Change the State of an Object by 
+Changing the Instance fields:</strong></p>
+<p>While accessor methods didn&#39;t have any affect on the state of the object, the 
+main purpose of a mutator method is to affect the state.&nbsp; The 
+changeAccountName method&#39;s purpose was to change the account&#39;s name variable to 
+a new value.</p>
+<p>&nbsp;</p>
+<p><strong>When designing a mutator method, always think about how it affects 
+the state of the object:</strong></p>
+<p>Let&#39;s consider that we want to add a method to the BankAccount class that 
+simulates depositing money in the account.&nbsp; There are a few things that you 
+want to think about when you&#39;re writing a mutator method:</p>
+<p>1)&nbsp; How should this affect the state of the BankAccount?&nbsp; In this 
+case we simply look at the instance fields and think logically at which one 
+should be affected.&nbsp; It should be clear that the <strong>balance</strong> 
+variable is the one that would be affected by a <strong>deposit</strong></p>
+<p>2)&nbsp; Parameters:&nbsp; Do you need any extra information in order to 
+perform the method&#39;s function?&nbsp; In this 
+case depositing will affect the balance variable, but by how much?&nbsp; We 
+could make it so that depositing always meant adding $50, but that wouldn&#39;t be a 
+very useful method.&nbsp; A good deposit method would allow the client to put 
+any amount.&nbsp; This means that the method should have a parameter</p>
+<p>3) Should the method return anything?&nbsp; Most of the time for mutator 
+methods the answer is no, meaning the return type should be <strong>void</strong>.&nbsp; 
+When you think about the purpose of the method it&#39;s to change the state of the 
+object, not to return any information; that&#39;s what accessor methods are for. </p>
+<p>&nbsp;</p>
+<p>Once you&#39;ve answered those three questions you can put the method together.&nbsp; 
+We know that the method should have a void return type and take in a single 
+double as a a parameter.</p>
+<pre>public void deposit(double amount)
+{
+   balance += amount;
+}
+</pre>
+<p>Remember that the goal is to change the state of the object by modifying the 
+balance variable.&nbsp; As you can see, that variable is increased by however 
+much is in the parameter variable.</p>
+<p>Add the following code to the end of the Runner&#39;s main method:</p>
+<pre>        b.deposit(4000);
+       System.out.println("After Deposit:\n"+b);</pre>
+<p>It tests out the account&#39;s deposit method, passing in a 4000 as a parameter.&nbsp; 
+If you run the main method now, the last print out should read:</p>
+<p>After Deposit:<br />
+Account Name: Mister Sacco<br />
+Balance: $29000.0</p>
+<p>Notice that the balance has increased by 4,000 is now at 29,000.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Another Mutator Method: the penalty method</strong></p>
+<p>Banks love to penalize for things like overdrawing or going below a minimum 
+balance.&nbsp; The next method that we are going to add to the BankAccount class 
+is going to be named <strong>deductPenalty</strong>.&nbsp;&nbsp; It should 
+simulate a $20 penalty being taken away from the balance of the account.</p>
+<p>1) How should this affect the state?&nbsp; It should subtract 20 from the 
+balance</p>
+<p>2) Do you need any extra information in order to perform the function? Nope.&nbsp; 
+We have access to the balance and the penalty is always 20</p>
+<p>3) Does this method return anything? Nope.&nbsp; Its purpose does not involve 
+returning a value.</p>
+<p>Now that we know the important information about the method we can write a 
+method header with the appropriate retrun type and parameters and then write a 
+code that will affect the state in the appropriate way.</p>
+<pre>public void deductPenalty()
+{
+   balance -= 20;
+}</pre>
+<p>In this case, the state is affected by deducting 20 from the balance.</p>
+<p>&nbsp;</p><hr/>
+<p class="auto-style2"><strong>Assignment:</strong></p>
+<p>1)&nbsp; <strong><span class="auto-style1">BankAccount</span></strong>: Add a method to the BankAccount class named <strong>withdraw.&nbsp; </strong>This method should simulate withdrawing an amount from the account.&nbsp; 
+It should have a parameter to allow the client to enter the amount to withdraw.</p>
+<p>Be careful:&nbsp; It seems to make sense for this method named withdraw to return 
+something, 
+but don&#39;t.&nbsp; You should simply modify the instance field.</p>
+<p>Add the following lines to the end of the Runner&#39;s main method:</p>
+<pre>
+        b.withdraw(200);
+       System.out.println("After Withdrawl\n"+b);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>2) <strong><span class="auto-style1">Car</span></strong>:&nbsp;&nbsp; At the moment the Car class only has two instance 
+fields: a make and a model.&nbsp; Now we&#39;re going to change it to represent a 
+car with a gasoline tank and an odometer.&nbsp; </p>
+<p>- The new version of Car will need a few more variables to keep track of.&nbsp; 
+Add three doubles to the instance fields: one to represent the gallons of gas in the tank, one to 
+represent the miles per gallon that the Car gets, and one to represent the miles 
+that the car has traveled.</p>
+<p>- Currently Car&#39;s <strong>constructor</strong> only takes in a make and a model.&nbsp; Add one 
+more double parameter to take in the miles per gallon that the car will have.&nbsp; </p>
+<p class="auto-style3"><strong>Note</strong>:&nbsp; The Constructor has three parameters, but 
+there are five instance fields.&nbsp; That&#39;s perfectly fine.&nbsp; Parameters 
+are only necessary if we don&#39;t know the values.&nbsp; As the programmer, we can 
+consider the constructor to be the birth of the object.&nbsp; When a car is 
+first made, it has no gas in the tank and zero miles on the odometer.&nbsp; The 
+three values that we don&#39;t know the intial values to are the make, model, and 
+mpg.</p>
+<p>- Car&#39;s <strong>toString</strong> is now more complicated.&nbsp; Use the following method 
+(changing the variable names to be your own)</p>
+<pre>    public String toString()
+    {
+        String str = "Make: " + make;
+        str += "\nModel: " + model;
+        str += "\nMPG: " + mpg;
+        str += "\nMileage: " + mileage;
+        str += "\nGas Level:" + gallonsInTank;
+        return str + "\n";
+    }
+</pre>
+<p class="auto-style3">This toString is more just to see a print out of the 
+instance fields.&nbsp; It&#39;s followed by an extra line just to make our readouts 
+easier.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Car&#39;s Mutator Methods:</strong>&nbsp; </p>
+<p>When writing these methods, think about their 
+affect on the <strong>state</strong> of the car object.&nbsp; This means you 
+should update any instance fields that should be affected by the action that 
+you&#39;re programming.</p>
+<p>&nbsp;</p>
+<p>&nbsp;<strong>addGas</strong> - Add a method to the Car class named addGas, which will 
+simulate adding gas to the tank.&nbsp; It should take in as a parameter a double 
+that represents how many gallons to add.&nbsp; It should return nothing, but the 
+state of the object should be affected.&nbsp; Make sure that the gallonsInTank 
+instance field is changed in some way.</p>
+<p>Your old CarRunner will no longer compile now that you&#39;ve changed the 
+constructor.&nbsp; Replace it with the following:</p>
+<pre>public class CarRunner
+{
+    public static void main()
+    {
+        Car c = new Car("Ford", "Mustang", 20);
+        c.addGas(14);
+        System.out.println(c);
+    }
+}</pre>
+<p>You should get the following output:</p>
+<p>
+Make: Ford<br />
+Model: Mustang<br />
+MPG: 20.0<br />
+Mileage: 0.0<br />
+Gas Level:14.0</p>
+<p>Make sure that the gas level is 14.0</p>
+<p>&nbsp;</p>
+<p><strong><span class="auto-style1">drive</span></strong>:&nbsp; Add a method to the Car class named <strong>drive</strong>, 
+which will simulate driving a certain distance.&nbsp; It should take in a double 
+that will represent how far the car is driving and not return anythin.&nbsp; 
+This method should affect <strong>two</strong> different instance fields</p>
+<p>&nbsp;</p>
+<p>Now use the following runner:</p>
+<pre>public class CarRunner
+{
+    public static void main()
+    {
+        Car c = new Car("Ford", "Mustang", 20);
+        c.addGas(14);
+        System.out.println(c);
+
+        c.drive(25);
+        System.out.println(c);
+        
+        c.drive(12);
+        System.out.println(c);
+    }
+}</pre>
+
+<p>And make sure that you match this output.</p>
+<p>
+Make: Ford<br />
+Model: Mustang<br />
+MPG: 20.0<br />
+Mileage: 0.0<br />
+Gas Level:14.0<br />
+<br />
+Make: Ford<br />
+Model: Mustang<br />
+MPG: 20.0<br />
+Mileage: 25.0<br />
+Gas Level:12.75<br />
+<br />
+Make: Ford<br />
+Model: Mustang<br />
+MPG: 20.0<br />
+Mileage: 37.0<br />
+Gas Level:12.15<br />
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>3) <strong>Wizard</strong>:&nbsp; Imagine that you&#39;re writing a game and one of the characters 
+is a wizard.&nbsp; Create an Object class named <strong>Wizard, </strong>which 
+will keep track of two important characteristics of the wizard:&nbsp; its
+<strong>mana level</strong> and its <strong>experience level</strong>.&nbsp; Mana is the 
+fuel that the Wizard needs to cast its spells.&nbsp; As the Wizard progresses in 
+the game, its experience level will increase.&nbsp; Add an int instance field for each of 
+them.</p>
+<p>- Add a <strong>Constructor</strong>:&nbsp; This time the constructor will take in <strong>no 
+parameters</strong>.&nbsp; This is because we already know the starting values 
+of all the instance fields.&nbsp; Inside the constructor set the mana level to 
+100 and the experience level to 1.</p>
+<p>- For this assignment we will ignore the basic accessor methods, such as getXP 
+and getMana.&nbsp; </p>
+<p>- Add a toString method that will create and return a String in the form:</p>
+<p>&quot;Wizard:<br />
+Mana Level: ___<br />
+Experience Level: ___<br />
+&quot;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>\n is useful.&nbsp; Make sure it&#39;s INSIDE QUOTES.&nbsp; Add a \n at the very 
+end too so that there&#39;s a little bit of spacing.</p>
+<p>&nbsp;</p>
+<p><strong>Wizard&#39;s Mutator Methods:</strong></p>
+<p>Normally all printlns be in the main method, but for this assignment each 
+mutator method will also have a println.</p>
+<p>- <strong>castMagicMissile</strong>:&nbsp; This method will simulate casting the wizard&#39;s 
+Magic Missile attack by printing out a statement and then adjusting the instance fields.&nbsp; A magic missile costs 5 mana to cast, does damage 
+equal to twice the wizard&#39;s experience level, and increases the experience level by 1.&nbsp;&nbsp;&nbsp; 
+It should take in no parameters and its return type should be void.</p>
+<p class="auto-style3">First it should announce that it&#39;s happening by 
+printing out &quot;I cast Magic Missile!!! KABOOM!!!! It does ___ damage!!! &quot; (or something 
+equivalent).&nbsp; The blank should be the damage done (double your experience level).</p>
+<p class="auto-style3">After the println, this method should also change the
+<strong>state</strong> 
+of the object bay changing the value of both the mana level and the experience 
+level</p>
+<p>&nbsp;</p>
+<p>- <strong>castLightningStorm</strong>:&nbsp; This method will simulate casting the wizard&#39;s 
+Lightning Storm attack by printing out and adjusting the instance fields.&nbsp; 
+A Lightning Storm is an attack that can hit multiple targets and does 5 damage 
+to each target.&nbsp; It costs 2 mana per target increases the experience level 
+by 1 for every 3 targets (truncated).&nbsp; It should take in a number of 
+targets (int) and its return type should be void.</p>
+<p class="auto-style3">First it should announce that it&#39;s happening by printing 
+out &quot;I cast Lightning Storm on ___ targets!!! ZAPPPP!!! It does a total of ___ 
+damage&quot;.&nbsp; The blanks will represent the number of targets and the total 
+damage done to that many targets.</p>
+<p class="auto-style3">After the println it should make the appropriate 
+modifications to the mana level and experience level.</p>
+<p>&nbsp;</p>
+<p>Run it with the following Runner, which simulates an intense battle by 
+calling methods and printing out a toString after each call:</p>
+<pre>public class WizardRunner
+{
+    public static void main()
+    {
+        Wizard w = new Wizard();
+        System.out.println(w);
+
+        w.castMagicMissile();
+        System.out.println(w);
+
+        w.castLightningStorm(4);
+        System.out.println(w);
+
+        w.castMagicMissile();
+        System.out.println(w);
+    }
+}
+</pre>
+<p>Make sure you get the following output:</p>
+<p>Wizard:<br />
+Mana Level: 100<br />
+Experience Level: 1<br />
+<br />
+I cast Magic Missile!!! KABOOM!!!! It does 2 damage!!!<br />
+Wizard:<br />
+Mana Level: 95<br />
+Experience Level: 2<br />
+<br />
+I cast Lightning Storm on 4 targets!!! ZAPPPP!!! It does a total of 20 damage<br />
+Wizard:<br />
+Mana Level: 87<br />
+Experience Level: 3<br />
+<br />
+I cast Magic Missile!!! KABOOM!!!! It does 6 damage!!!<br />
+Wizard:<br />
+Mana Level: 82<br />
+Experience Level: 4<br />
+<br />
+</p>
+<p>&nbsp;</p>
+<p><strong>Questions to ask yourself:</strong></p>
+<p>- Why does castLightningStorm require a parameter and castMagicMissile not?</p>
+<p>- In the castMagicMissile method, the println must come first.&nbsp; How 
+would it be different if the println was the <strong>last</strong> thing that 
+the method did?</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

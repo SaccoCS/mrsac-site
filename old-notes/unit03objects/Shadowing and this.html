@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Shadowing and this</title>
+<style type="text/css">
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	color: #0000FF;
+}
+.auto-style3 {
+	font-size: large;
+}
+.auto-style4 {
+	color: #000000;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Shadowing and this</h2>
+<p>When designing objects, a common issue occurs when using parameters.&nbsp; 
+Consider the semi-useless TwoIntObject class below, whose purpose is to store 
+two ints:</p>
+<pre>public class TwoIntObject
+{
+   private int num1;
+   private int num2;
+   
+   public TwoIntObject(int num1, int num2)
+   {
+      num1 = num1;
+      num2 = num2;
+   }
+
+   public void setNum1(int n)
+   {
+      int num1 = n;
+   }
+}</pre>
+<p>This will compile, but it will not function the way that we want it to.&nbsp; 
+After the object is constructed, the instance field will never get the proper 
+value.</p>
+<p>&nbsp;</p>
+<p class="auto-style3"><strong>Shadowing:</strong></p>
+<p>It is important to notice that there are two <strong>num</strong> variables: 
+the <span class="auto-style1"><strong>instance field</strong></span> and the
+<strong><span class="auto-style2">parameter</span>. </strong>&nbsp;This is known as
+<strong>shadowing</strong> the instance field, and it is completely legal.&nbsp; 
+The only issue is that duplicate variable names can cause confusion.&nbsp; When 
+you use duplicate names, the rule is that the non-instance field is the one 
+used.&nbsp; Look at the TwoIntObject class below again.&nbsp; This time, the 
+instance field is in red and the parameter is in blue.</p>
+<p>&nbsp;</p><pre>public class TwoIntObject
+{
+   private int <span class="auto-style1">num1</span>;
+   private int <span class="auto-style1">num2</span>;
+   
+   public TwoIntObject(int <span class="auto-style2"><strong>num1, </span><span class="auto-style4">int</span><span class="auto-style2"> num2</span></strong>)
+   {
+      <span class="auto-style2"><strong>num1</strong></span> = <span class="auto-style2"><strong>num1</strong></span>;
+      <span class="auto-style2"><strong>num2</strong></span> = <span class="auto-style2"><strong>num2</strong></span>;
+   }
+
+}</pre>
+
+<p>Notice that the constructor does NOTHING to the instance field.&nbsp; On 
+further inspection, all that the constructor does is replace the <strong>
+parameter</strong> with itself, which is not useful in any way.&nbsp; </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p><strong>this</strong></p>
+<p>The word this is a special word in java that is known as the <strong>implicit 
+paramter</strong>.&nbsp; Whenever you use <strong>this</strong> is used as the 
+variable, it means that it&#39;s talking about something that belongs to the <strong>
+object</strong>.&nbsp; Now look at the TwoIntObject class again.&nbsp; This time 
+the constructor&#39;s parameter is assigned to <strong>this.num</strong>, which means that you are 
+talking about the num variable that belongs to the object (the instance field).</p>
+<pre>public class TwoIntObject
+{
+   private int <span class="auto-style1">num1</span>;
+   private int <span class="auto-style1">num2</span>;
+   
+   public TwoIntObject(int <span class="auto-style2"><strong>num1, </span><span class="auto-style4">int</span><span class="auto-style2"> num2</span></strong>)
+   {
+      <span class="auto-style2"><strong>num1</strong></span> = <span class="auto-style2"><strong>num1</strong></span>;
+      <span class="auto-style2"><strong>num2</strong></span> = <span class="auto-style2"><strong>num2</strong></span>;
+   }
+}</pre>
+<p>&nbsp;</p>
+<p>Using <strong>this</strong> allows us to distinguish between the parameter 
+and the instance field, and this allows us to properly implement the 
+constructor.</p>
+<p>&nbsp;</p>
+<pre>public class TwoIntObject
+{
+   private int <span class="auto-style1">num1</span>;
+   private int <span class="auto-style1">num2</span>;
+   
+   public TwoIntObject(int <span class="auto-style2"><strong>num1, </span><span class="auto-style4">int</span><span class="auto-style2"> num2</span></strong>)
+   {
+      <span class="auto-style1"><strong>this.num1</strong></span> = <span class="auto-style2"><strong>num1</strong></span>;
+      <span class="auto-style1"><strong>this.num2</strong></span> = <span class="auto-style2"><strong>num2</strong></span>;
+   }
+}</pre>
+
+<p>It is not a great idea to shadow variables, but if you do you should make 
+sure that you use <strong>this</strong> to specifically refer to the instance 
+field.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Another way of shadowing occurs when you accidentally declare a <strong>local
+</strong>variable (non instance field) with the same name as the instance field.&nbsp; 
+Consider the setNum1 method that&#39;s been added to the TwoIntObject class</p><pre>public class TwoIntObject
+{
+   private int <span class="auto-style1"><strong>num1</strong></span>;
+   private int num2;
+   
+   public TwoIntObject(int num1, int num2)
+   {
+      this.num1 = num1;
+      this.num2 = num2;
+   }
+   
+   public void setNum1( int n )
+   {
+       int <span class="auto-style2"><strong>num1</strong></span> = n;
+   }
+   
+}</pre>
+
+<p>This time the parameter has its own unique name.&nbsp; The issue is that 
+instead of saying:</p>
+<pre>num1 = n;</pre>
+<p>it says:</p>
+<pre>int num1 = n;</pre>
+<p>This is a big mistake because adding the word int makes it a <strong>
+declaration statement</strong> that creates a brand new num1 variable.&nbsp; 
+This new variable is now shadowing the instance field, meanin that the real 
+instance field remains unchanged (which is not the purpose of the method)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

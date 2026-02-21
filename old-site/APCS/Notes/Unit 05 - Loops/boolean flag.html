@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Boolean Flag Notes</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">boolean flags</h2>
+<p>When dealing with traversing a set of data, the concept of a boolean flag 
+becomes important.&nbsp; A boolean flag is a variable that starts out set to a 
+specific value.&nbsp; As the program goes on, if a specific situation occurs, 
+then the flag is set to the opposite.&nbsp; A key to working with boolean flags 
+is that you never set them back to their original state.</p>
+<p>&nbsp;</p>
+<p><strong>For example</strong>:&nbsp; Consider a method that looks at a String and returns true 
+if it has an &quot;a&quot; in it, false if not.&nbsp; </p>
+<p>The strategy is to traverse the String and check each letter to see if it&#39;s 
+an &quot;a&quot;.&nbsp; That is the moment that we know the result of the method is true.</p>
+<p>This is a situation where we want to traverse through the String and look at 
+a single letter at a time.</p>
+<pre>public static boolean hasAnA(String str)
+{
+   for(int i = 0; i&lt;str.length(); i++)
+   {
+      String letter = str.substring(i, i+1);
+   
+   }
+}  </pre>
+<p>This is the standard traversal loop.&nbsp; The int i is set up to represent 
+every index in the String.&nbsp; The substring is set up to get the a single 
+character String that is at i.</p>
+<p>&nbsp;</p>
+<p>Now that we can look at each letter, we need a way to return the appropriate 
+boolean value.&nbsp; Since the purpose of the method is to return true if an &quot;a&quot; 
+is found, we can say that the first &quot;a&quot; we come across is the moment that we 
+know the method will return a true.&nbsp; If we never come across an &quot;a&quot;, then 
+we know that the method will return true.&nbsp; This can be done using a boolean 
+flag.&nbsp;</p>
+<p>&nbsp;</p>
+<pre>public static boolean hasAnA(String str)
+{
+   <span class="auto-style1">boolean hasA = false;</span>
+
+   for(int i = 0; i&lt;str.length(); i++)
+   {
+      String letter = str.substring(i, i+1);
+
+      <span class="auto-style1">if( letter.equals(&quot;a&quot;) )</span>
+<span class="auto-style1">         hasA = true;   </span>
+   }
+
+   <span class="auto-style1">return hasA;</span>
+}  </pre>
+<p>The boolean hasA starts at false, and as the loop progresses it will check 
+each letter and see if it&#39;s an &quot;a&quot;.&nbsp; The first time an &quot;a&quot; is come across, 
+the flag is set to true.&nbsp; If the loop never comes across an &quot;a&quot;, it will 
+remain false until it is eventually returned.</p>
+<p>For Example:&nbsp; if the String is &quot;flamingo&quot;,&nbsp; the boolean&#39;s value 
+will be false for two iterations.&nbsp; Once it comes across the &quot;a&quot;, it is set 
+to true.&nbsp; It remains true for the remainder of the loop, even though none 
+of the other letters are an &quot;a&quot;.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>boolean Flags don&#39;t Change Back:</strong></p>
+<p>Many students are addicted to else&#39;s.&nbsp; They often make the mistake of 
+adding one that ruins the loop.</p>
+<pre>    if( letter.equals("a") )
+      hasA = true;
+   else
+      hasA = false;</pre>
+<p>In this case, if the String was &quot;flamingo&quot; the boolean&#39;s value would be set 
+to true when it came across the &quot;a&quot;.&nbsp; The problem happens the next time the 
+loop comes around.&nbsp; Since the next letter isn&#39;t an &quot;a&quot;, the boolean gets 
+set back to true.&nbsp; This is bad.&nbsp;&nbsp; It changes the variable back to 
+false, making it as if the loop had never come across an &quot;a&quot; before.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Making the Right Assumption:</strong></p>
+<p>When using a boolean flag, it is important to choose which value to assign 
+the boolean first.&nbsp; The hasAnA method would not function properly if it had 
+started as a true value and then set to false the first time you didn&#39;t find an 
+&quot;a&quot;.&nbsp; Think about the two statements below.</p>
+<p>&nbsp;- The first &quot;a&quot; that we find guarantees that the method will return a true</p>
+<p>- The first non-&quot;a&quot; that we come across guarantees that the method will 
+return a false</p>
+<p>&nbsp;Hopefully the first phrase sounds better than the second one.&nbsp; If the 
+second one were true, the &quot;f&quot; in flamingo would mean that there wasn&#39;t an &quot;a&quot; in 
+the String.&nbsp; Always take a moment to make sure that the assumption that 
+you&#39;re making is the right one.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

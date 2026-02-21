@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Painting with Images</title>
+
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Painting with Images</h2>
+<p>While you can draw basic shapes on your SCanvas, using real images is often 
+necessary to make your programs classy.</p>
+<p>Previously we&#39;ve used SLabels to hold our images, but we want them to be a 
+part of our canvas, so NO MORE SLABELS.&nbsp; Only use them when you want them 
+to be a part of a GUI.</p>
+<hr>
+<p class="auto-style1"><strong>The Picture Class:</strong></p>
+<p>We&#39;ve used the Picture class before to represent images on the screen.&nbsp; 
+Remember that if you want to use the images, you should first save them into the 
+folder that all your .java files are.</p>
+<p>Your instance fields should create a variable of type <strong>Picture</strong></p>
+<pre>private Picture myPic;</pre>
+<p>In the constructor, you load the images from the folder using the 
+loadFromFile command:</p>
+<pre>myPic = Picture.loadFromFile("Some Image.jpg");</pre>
+<hr>
+<p>Download the following image to your project folder (and only your project 
+folder)</p>
+<p><img  src="images/srhs-logo.jpg" width="300" /></p>
+<p>Now copy the following program to your project:</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+public class SRHSLogo extends SCanvas
+{
+    private Picture logo;
+    
+    public SRHSLogo()
+    {
+        logo = Picture.loadFromFile("srhs-logo.jpg");        
+    }
+    
+    @Override
+    public void paintCanvas(PaintBrush brush)
+    {
+        brush.drawPicture(logo,0,0);
+    }
+    
+    public static void main()
+    {
+        SFrame frame = new SFrame();
+        frame.add(new SRHSLogo());
+        frame.setSize(500,500);
+        frame.setVisible(true);
+    }
+}</pre>
+<p>The key to this code is the following:</p>
+<pre>brush.drawPicture(logo,0,0);</pre>
+<p>This draws the Picture with its upper-left corner at (0,0).&nbsp; When you 
+draw the image this way, it draws it using the original image&#39;s natural width 
+and height.&nbsp; If you run the program you should get the following:</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img57.jpg" /></p>
+<p>&nbsp;</p>
+<p>The image is too big to fit in the frame.&nbsp; This is because the natural 
+width and height of the image are too large.&nbsp; There is another way of 
+drawing Pictures that involves providing a width and a height.&nbsp; Go to the 
+paintCanvas method and replace the drawPicture line to be the following:</p>
+<pre>brush.drawPicture(logo,0,0,200,300);</pre>
+<p>This will resize the image to be 200x300.&nbsp; Since the original image was 
+nearly a square, it will have to stretch the image and cause some issues.</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img1B1.jpg" /></p>
+<p>Picture has two methods that will tell us what the natrual size of the image 
+is, named getWidth and getHeight.&nbsp; Try the following way of painting, which 
+uses these methods to paint the image at exactly half the width and height:</p>
+<pre>brush.drawPicture(logo,0,0, logo.getWidth()/2, logo.getHeight()/2);</pre>
+<p>&nbsp;</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img58.jpg" /></p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Assignment:</strong></p>
+<p><strong>SaccoFrame</strong>:</p>
+<p>Mr. Sacco will not be your teacher forever.&nbsp; Remember him by creating a 
+picture frame.&nbsp;&nbsp; First download the image below:</p>
+<p>
+<img height="343" src="../Unit%207%20-%20GUIs%20and%20Objects/images/Sacco.png" width="275" /></p>
+<p>And then create a program that displays the image with a 30 pixel border 
+around it.&nbsp; This will require drawing a colored rectangle before drawing 
+the picture.&nbsp; Don&#39;t guess and check.&nbsp; The x and y of the rectangle 
+will be 30 less than the picture, and it will be 60 pixels larger in each 
+direction.</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img2B2.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Building a Better Timer</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Building a Better Timer</h2>
+<p>The use of the multiple timer classes is not very classy.&nbsp; Similar to in 
+the notes, add a new interface to your Timers project named Speaker:</p>
+<pre>public interface Speaker
+{
+   void speak();
+}</pre>
+
+<p>Now that you have a Speaker interface available to you, change the Cat, Dog, 
+and Parrot classes so that they all implement the Speaker interface.&nbsp; They 
+already have the necessary method; they just need to make it official.</p>
+<p>Now create a SINGLE timer class that does not specify Cat, Dog, or Parrot.&nbsp; 
+This timer should only deal with the generic &quot;Speaker&quot; type, but it will still 
+be almost identical to the other timers that you&#39;ve written today.</p>
+<p>Now add the following class to your project.&nbsp; Notice that the 
+CatTimer, DogTimer, or ParrotTimer classes are all replaced by the single 
+SpeakerTimer class.&nbsp; The only difference is which object is actually passed 
+in as the parameter.</p>
+<pre>public class Runners
+{
+   public static void mainCat()
+   {
+        Cat kat = new Cat();
+        SpeakerTimer timer = new SpeakerTimer(kat);
+        timer.launch();
+   }
+
+   public static void mainDog()
+   {
+     Dog pup = new Dog();
+     SpeakerTimer timer = new SpeakerTimer(pup);
+     timer.launch();
+   }
+
+   public static void mainParrot()
+   {
+     Parrot polly = new Parrot();
+     SpeakerTimer timer = new SpeakerTimer(polly);
+     timer.launch();
+   }
+}
+</pre>
+
+<p>Run these methods to assure that they&#39;re functioning.</p>
+<hr>
+<p class="auto-style1"><strong>MORE SPEAKERS!</strong></p>
+<p>Now create your own class that implements Speaker.&nbsp; It&#39;s speak methods 
+should do some sort of println that should change in some way, similar to the 
+three classes I gave you.</p>
+<p>Since we have the Speaker class, there is no need to create a new Timer.&nbsp; 
+All you need is a main method that will construct your new object and pass it in 
+as a parameter to a SpeakerTimer object.</p>
+<p>&nbsp;</p>
+<p><strong>What to upload for full credit:</strong><br />
+- Your SpeakerTimer class<br />
+- Your new Speaker object</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr>
+<p>How Does the Speaker interface help us?</p>
+<p>Before Speaker, every time you wanted to make a new animal, you would have to 
+create ANOTHER Timer that uses that specific type.</p>
+<p><img border="1" height="256" src="images/BeforeSpeaker.PNG" width="737" /></p>
+<p>AFTER the Speaker interface exists, we only need <strong>ONE</strong> timer 
+that works with anything that is of type Speaker.&nbsp; This timer will now work 
+for the animals we have as well as any in the future.&nbsp; We&#39;ve essentially 
+stopped the need to Copy/Paste constantly</p>
+<p><img border="1" height="408" src="images/AfterSpeaker.PNG" width="715" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

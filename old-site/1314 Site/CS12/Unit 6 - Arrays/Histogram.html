@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Histogram</title>
+<style type="text/css">p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Histogram:</h2>
+<p>The programs below relate to <strong>traversing</strong> through a given 
+array.&nbsp; Similar to traversing through a String, set up your looping 
+variable to represent each index of an array.</p>
+<p>For example:&nbsp; if I have an array arr, and I want to create a new array 
+where each value is double the original array</p>
+<pre>public static int[] doubleArr(int[] arr)
+{
+   int[] newArr = new int[arr.length];   //creates a new array the same length as arr
+   for( int i =0; i < arr.length; i++)
+   {
+      int val = arr[i];     //gets the value out of arr at index i
+      newArr[i] = 2*val;    //doubles the value and stores it in the new array at the same location.
+   }
+
+   return newArr;
+}
+</pre>
+<p>By the end of this loop, newArr has been filled with values that are twice as 
+big as the ones in arr.</p>
+<p>&nbsp;</p><hr>
+<p>Create one class named Histogram.&nbsp; Each of the following methods will go 
+into this class.&nbsp;</p>
+<p><strong>public static int largestValue(int[] arr)</strong><br />
+<br />
+This method takes in an already made int array as a parameter and returns the 
+largest value in the array.<br />
+<br />
+Strategy:<br />
+Before looping, create an int named &quot;currentHighest&quot; and put the first value of 
+the array into it. Then write a loop that will go through the array one at a 
+time and check to see if the value at each index is larger than whatever is 
+stored in currentHighest. If it is, put the new value into currentHighest. After 
+the loop finishes, return currentHighest.</p>
+<p><a href="currentHighest.gif">Watch it animated!</a></p>
+<p><br />
+<br />
+Test your program with the following:<br />
+{9,2,7,3,5} should return a 9<br />
+{1,2,3,4,5,6} should return a 6<br />
+{2,6,4,8,5,1} should return an 8<br />
+<br />
+<br />
+<br />
+<br />
+<strong>public static int[] normalizeArray(int[] arr, int maxValue)</strong><br />
+This method will create a new array of the same size as arr, but all the values 
+are proportional to a maxValue.<br />
+<br />
+For example: if the array is {1,2,3,4,5} and the maxValue is 50, then the 
+returned array will be {10,20,30,40,50}, but if the maxValue was 25, then the 
+values would be {5,10,15,20,25}<br />
+<br />
+Strategy: The very first thing you should do is use the previous methods to 
+figure out the largest value in the array. You should create a new array to hold 
+the new values and then start looping through arr. One at a time you should get 
+the value from arr, multiply it by maxValue and then divide by the largest value 
+that you found earlier (it&#39;s important that you divide last because of how int 
+division works). This new value should go into the new array at the same index. 
+Don&#39;t forget to return the new array after the loop has finished.<br />
+<br />
+<br />
+Test your method with the following:<br />
+{1,2,3,4,5} and 100 should return {20,40,60,80,100}<br />
+{2,14,26,50,12,6} and 75 should return {3,21,39,75,18,9}<br />
+{10,9,8,7,6,5,4,3,2,1} and 5 should return {5,4,4,3,3,2,2,1,1,0}<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<strong>public static void printStars(int num)</strong><br />
+<br />
+This method will use a loop to print out the specified number of stars using 
+System.out.print<br />
+<br />
+Test your method:</p>
+<p>5 should print out *****<br />
+2 should print out **<br />
+10 should print out **********<br />
+<br />
+<br />
+<br />
+<strong>public static void displayHistogram(int[] arr,int maxLength)</strong><br />
+<br />
+This method will bring the previous ones together. It will display a histogram 
+(bar graph) using the values of the array that have been passed in as a 
+parameter. Each bar will be represented by a series of stars. The values of the 
+histogram should be normalized to whatever the maxLength variable is.<br />
+<br />
+For example: If the array was {1,2,5,4,5} and the maxLength was 10, the 
+following would be printed<br />
+<br />
+**<br />
+****<br />
+**********<br />
+********<br />
+**********<br />
+<br />
+Strategy: First pass the two variables into the normalizeArray method to get a 
+new normalized array. Then loop through each element in that new array and use 
+the printStars method to print out that number of stars. You may need to add a 
+System.out.println() so that they don&#39;t all print on the same line.<br />
+<br />
+<br />
+Test your program with the sample above and see if the proper histogram prints 
+out.<br />
+</p>
+<p>&nbsp;</p>
+<p><strong>public static void rollDice(int numRolls)<br />
+</strong>
+<br />
+This method will simulate rolling two dice a specified number of times. After 
+the dice have been rolled, the results will be displayed as a Histogram.<br />
+<br />
+Strategy:<br />
+First set up an int[] of size 11 (to hold the numbers 2 through 12).<br />
+Write a for loop that will loop numRolls times. Each time, use random numbers to 
+get two different numbers from 1 to 6 and add them together. Once you have the 
+sum, you need to add one to the index that the sum represents. Since the array 
+starts at index 0 and the lowest roll is a 2, some subtraction should be used.<br />
+<br />
+if the array is named arr, then you would have a line of code like so:<br />
+int val = arr[sum-2] ; //get the value at sum-2<br />
+arr[sum-2] = val + 1; //add one to the value and replace the old value in the 
+array<br />
+<br />
+<br />
+After the loop, call the displayHistogram method. Pass in the array as the first 
+parameter and 36 as the second.<br />
+<br />
+<br />
+To test your method, call the rollDice method with 10000 as the parameter. While 
+nothing is exact, due to the laws of probability the general shape should look 
+like this:<br />
+<br />
+</p>
+<pre>***
+******
+**********
+************
+****************
+********************
+****************
+**************
+*********
+******
+***</pre>
+<p>&nbsp;</p>
+<p>Try it with a smaller number of rolls.&nbsp; Notice that the shape is less 
+exact when you roll fewer times.&nbsp; HOORAY MATH!!!</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+
+</html>

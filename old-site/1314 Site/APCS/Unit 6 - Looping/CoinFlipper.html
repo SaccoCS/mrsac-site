@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>CoinFlipper</title>
+<style type="text/css">
+
+p{
+	font-family:Arial, Helvetica, sans-serif;font-size:small;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">
+CoinFlipper:</h2>
+<p>
+Write a class named CoinFlipper that will be used to simulate repeated flips of 
+a coin and remembers the results.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>The 
+way that we are going to do this is to use a single String a an instance field.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Each 
+time that the coin is flipped, and H or a T is added on to the end of the 
+String.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>In time the 
+String will start to look like &quot;HTHHTHHTT&quot;.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Given 
+the outline and runner below, implement the CoinFlipper class.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>You 
+should add no more instance fields.</p>
+<pre>public class CoinFlipper
+{
+    private String flipTracker;
+ 
+    /**
+     * Default constructor, sets flipTracker to the empty String ""
+     */
+    public CoinFlipper()
+    {
+    }
+ 
+    /**
+     * Simulates flipping numFlips times, storing all results to the end of the instance field String
+     */
+    public void flipIt(int numFlips)
+    {
+    }
+ 
+    /**
+     * returns an "H" or "T" based on the num.  ex:  resultNumber(2) will return the result of the second flip  
+     */
+    public String resultNumber(int num)
+    {
+        return null;//Dummy Statement
+    }
+ 
+    /**
+     * returns the number of Heads so far
+     */
+    public int numHeads()
+    {
+        return 0;//Dummy Statement
+    }
+ 
+    /**
+     * returns the number of Tails so far
+     */
+    public int numTails()
+    {
+        return 0;//Dummy Statement
+    }
+ 
+    /**
+     * returns the total number of flips
+     */
+    public int timesFlipped()
+    {
+        return 0;//Dummy Statement
+    }
+ 
+    /**
+     * returns the percent of the flips that are Heads (out of 100)
+     */
+    public double headsPercent()
+    {
+        return 0.0;//Dummy Statement
+    }
+ 
+    /**
+     * returns the percent of the flips that are Tails (out of 100)
+     */
+    public double tailsPercent()
+    {
+        return 0.0;//Dummy Statement
+    }
+ 
+    /**
+     * returns the largest "streak" of heads.  ex: HTHHHTTHT has a headsStreak of 3.  
+     * Make sure that this method works when the longest streak is at the end of the String ("THHH")
+     * Hint:  Have an int that counts the 'current streak' of heads.  When you come across a tails or the end of the String then the 
+     * streak is over and you should check if it's longer than any other streak you&#39;ve come across so far.
+     */
+    public int headsStreak()
+    {
+        return 0;//Dummy Statement
+    }
+ 
+    /**
+     * returns the largest "streak" of tails.
+     */
+    public int tailsStreak()
+    {
+        return 0;//Dummy Statement
+    }
+ 
+    /**
+     * returns the record of flips
+     */
+    public String toString()
+    {
+        return flipTracker;
+    }
+ 
+}</pre>
+
+<p>&nbsp;</p>
+<p>Test out the class with the following runner:</p>
+<pre>public class CoinFlipperRunner
+{
+    public static void main()
+    {
+       
+        CoinFlipper myFlipper = new CoinFlipper();
+       
+       System.out.println("Flipping 5 times...");
+        myFlipper.flipIt(5);
+       
+        System.out.println("Results: "+myFlipper);
+       
+        System.out.println("Heads was flipped "+ myFlipper.numHeads()+" times, which is "+myFlipper.headsPercent()+"%");
+        System.out.println("Tails was flipped "+ myFlipper.numTails()+" times, which is "+myFlipper.tailsPercent()+"%");
+        System.out.println("The longest Heads streak is: "+myFlipper.headsStreak());
+        System.out.println("The longest Tails streak is: "+myFlipper.tailsStreak());
+       
+        System.out.println("\nFlipping 4 more times...");
+        myFlipper.flipIt(4);
+        System.out.println("Results: "+myFlipper);
+       
+      
+        System.out.println("Heads was flipped "+ myFlipper.numHeads()+" times, which is "+myFlipper.headsPercent()+"%");
+        System.out.println("Tails was flipped "+ myFlipper.numTails()+" times, which is "+myFlipper.tailsPercent()+"%");
+        System.out.println("The longest Heads streak is: "+myFlipper.headsStreak());
+        System.out.println("The longest Tails streak is: "+myFlipper.tailsStreak());
+       
+ 
+        System.out.println("\nFlipping 10 more times...");
+        myFlipper.flipIt(10);
+        System.out.println("Results: "+myFlipper);
+       
+      
+        System.out.println("Heads was flipped "+ myFlipper.numHeads()+" times, which is "+myFlipper.headsPercent()+"%");
+        System.out.println("Tails was flipped "+ myFlipper.numTails()+" times, which is "+myFlipper.tailsPercent()+"%");
+        System.out.println("The longest Heads streak is: "+myFlipper.headsStreak());
+        System.out.println("The longest Tails streak is: "+myFlipper.tailsStreak());
+       
+        System.out.println("\nThe 6th result was "+myFlipper.resultNumber(6));
+    }
+ 
+}</pre>
+
+</body>
+
+</html>

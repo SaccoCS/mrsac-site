@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>FauxrrayList</title>
+
+<style>
+
+p,h2,h3,h4,li,ul,ol{
+font-family:Arial;
+}
+
+
+p,li{
+	
+	font-size:12px
+}
+
+.code{
+	font-family:"Courier";
+	font-size:12px;
+	border: solid black 1px;
+	padding: 10 15 10 15;
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<h2>FauxrrayList</h3>
+<p>Poof!  You've been transported back in time to before ArrayLists existed.  The problem is that you've been dependent on such a useful class and can't possibly program your way back home without it.  You flash back to when Mr. Sacco was blathering about ArrayLists and you remember that they're just objects with normal arrays as their instance field.</p>
+<p>Create a class named FauxrrayList (obviously pronounced foe-ray-list).  This class is going to mimic the ArrayList class, but you are not allowed to use any ArrayList (or any class that implements java.util.List).  The instance field should be an array of Objects so that we can put any type of Object into it.</p>
+<p>FaurrayList should have a no parameter constructor that intializes the instance field to an Object array of size 0.  From there add the following methods that should have the same result as calling them in ArrayList.  The challenge will be that most methods require you to resize your array, which will actually involve creating a whole new array and transferring values to the right locations.  This is not exactly how ArrayList is implemented, but it's good practice for the style of array problem that you may see on the test.</p>
+
+<p>Using objects this way is a little different than ArrayLists actually work.  We are using polymorphism to store whichever Object we choose.  This is good, but the downside is that we are returning generic Objects.  This means that any time we retrieve a value using get, set, or remove we will have to cast.  This is how the original ArrayList class operated (before the &lt; &gt; existed).</p>
+
+<hr/>
+<p><span style = "font-family:Courier">public int size()</span></br>This method returns the length of the array.</p>
+<p><span style = "font-family:Courier">public void add( Object o )</span><br/>This method will increase the length by one and add the object to the very last index.</p>
+
+<p><span style = "font-family:Courier">public String toString()</span></br>This method will return a String that contains the toString of all of the Objects in the array, separated by commas.</p>
+
+<p>Test your code with the method below.  Later you should modify it slightly to test the specific methods that you're trying to test.</p>
+<pre>public static void test()
+{
+   FauxrrayList list = new FauxrrayList();        
+   list.add(7);
+   list.add(2);
+   list.add(8);
+   list.add(3);
+   System.out.println(list);
+}
+</pre>
+<p>It should print out [7, 2, 8, 3]</p>
+
+<p><span style = "font-family:Courier">public void add( int index, Object o )</span></br>This method will increase the size of the array by one and put the parameter Object at the given index.  Elements before the index remain in their locations, while elements at or after the index will be placed at one index higher.</p>
+
+<p><span style = "font-family:Courier">public Object set(int index, Object o)</span></br>This method will not increase the size of the array.  The parameter Object will be placed at the given index.  The Object that was originally at that location should be returned.</p>
+
+<p><span style = "font-family:Courier">public Object get(int index)</span></br>This method simply returns the Object at the given index.  No modifications to the array are needed.</p>
+
+<p><span style = "font-family:Courier">public Object remove(int index)</span></br>This method will remove the Object from the array, and then shrink the array.  Any elements above the removed index should be placed one index lower.</p>
+<hr/>
+<p>To test your code, run the following method:</p>
+<pre>public static void main()
+{
+    FauxrrayList list = new FauxrrayList();        
+    list.add(1);
+    list.add(2);
+    list.add(3);
+    list.add(4);       
+    System.out.println(list);
+    
+    list.add(1,"ADD");
+    System.out.println(list);
+    
+    list.set(3,"SET");
+    System.out.println(list);
+    
+    System.out.println(list.remove(0));
+    System.out.println(list);
+}
+</pre>
+<p>You should get the output:</br>
+[1, 2, 3, 4]</br>
+[1, ADD, 2, 3, 4]</br>
+[1, ADD, 2, SET, 4]</br>
+1</br>
+[ADD, 2, SET, 4]</br>
+</p>
+
+
+</body>
+</html>

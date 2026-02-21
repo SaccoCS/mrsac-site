@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>TextAreas</title>
+</head>
+
+<body>
+
+<p>TextAreas</p>
+<p>Not every program can be all buttons and images.&nbsp; There are other 
+elements that can end up on an SFrame.&nbsp; A basic object for text input is 
+the STextArea.</p>
+<p>Consider the following GUI, which adds three STextFields into a GridLayout:</p>
+<pre>import sacco.gui.*;
+
+public class Info
+{
+    private SFrame frame;
+    private SLabel nameLabel, dateLabel, periodLabel;
+    private STextField nameText, dateText, periodText;
+    
+    public Info()
+    {
+        frame = new SFrame("Information");
+        nameLabel = new SLabel("Name:");
+        dateLabel = new SLabel("Date:");
+        periodLabel = new SLabel("Period:");
+        
+        nameText = new STextField();
+        dateText = new STextField();
+        periodText = new STextField();
+        
+        frame.setLayout(new GridLayout(3,2));
+        frame.add(nameLabel);
+        frame.add(nameText);
+        frame.add(dateLabel);
+        frame.add(dateText);
+        frame.add(periodLabel);
+        frame.add(periodText);
+        
+        frame.setSize(300,200);
+    }
+    
+    public void launch()
+    {
+        frame.setVisible(true);
+    }
+}</pre>
+
+<p>You can run it with the following main method:</p>
+<pre>public static void infoRunner()
+{
+   Info in = new Info();
+   in.launch();
+}</pre>
+<p><img src="img10.jpg" /></p>
+<p>&nbsp;</p>
+<p>Stop the stretching:</p>
+<p>At the moment the STextFields are added to a GridLayout, which causes 
+stretching.&nbsp; One way to avoid this is to add the STextField to an SPanel 
+instead of directly to the frame.&nbsp; Since the SPanels are FlowLayouts, they 
+will let the STextField be its &#39;natural&#39; size.&nbsp; Replace the info object 
+with the following code, which has this extra step:</p>
+<pre>import sacco.gui.*;
+
+public class Info
+{
+    private SFrame frame;
+    private SLabel nameLabel, dateLabel, periodLabel;
+    private STextField nameText, dateText, periodText;
+    private SPanel namePan, datePan, perPan;
+    
+    public Info()
+    {
+        frame = new SFrame("Information");
+        nameLabel = new SLabel("Name:");
+        dateLabel = new SLabel("Date:");
+        periodLabel = new SLabel("Period:");
+        
+        nameText = new STextField();
+        namePan = new SPanel();
+        namePan.add(nameText);
+        
+        dateText = new STextField();
+        datePan = new SPanel();
+        datePan.add(dateText);
+        
+        periodText = new STextField();
+        perPan = new SPanel();
+        perPan.add(periodText);
+        
+        frame.setLayout(new GridLayout(3,2));
+        frame.add(nameLabel);
+        frame.add(namePan);
+        frame.add(dateLabel);
+        frame.add(datePan);
+        frame.add(periodLabel);
+        frame.add(perPan);
+        
+        frame.setSize(300,200);
+    }
+    
+    public void launch()
+    {
+        frame.setVisible(true);
+    }
+}</pre>
+<p><img src="img1A.jpg" /></p>
+<p>Not very good.&nbsp; The problem now is that we didn&#39;t start the STextField 
+obejcts with a widith.&nbsp; Since the layout is now allowing the STextField to 
+be its &#39;natural&#39; size, it is collapsed down to nothing.</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

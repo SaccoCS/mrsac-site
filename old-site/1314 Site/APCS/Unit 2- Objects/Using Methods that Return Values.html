@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Using Methods that Return Values</title>
+<style type="text/css">
+.auto-style1 {
+	border-style: solid;
+	border-width: 1px;
+}
+.auto-style2 {
+	color: #C0C0C0;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Using Methods that Return Values</p>
+<p class="auto-style3">
+<a href="../../SaccoJar/javadocs/TodoList/sacco/TodoList.html">TodoList API</a></p>
+<p class="auto-style3">Copy and paste the following program into a new project.&nbsp; 
+Read through each line and observe how each method is used.&nbsp; Pay attention 
+to how the returned values are handled.</p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td><pre>import sacco.*;
+public class TodoListRunner
+{
+    public static void main()
+    {
+        <span class="auto-style2">//Constructs a new TodoList into the myList variable</span>
+        TodoList myList = new TodoList();
+
+        <span class="auto-style2">//Adds three items to the list</span>
+        myList.addItem("Milk");
+        myList.addItem("Eggs");
+        myList.addItem("Chicken");
+        myList.addItem("Bread");
+        myList.addItem("Cereal");
+<span class="auto-style2">
+        //Calls the toString method and prints the returned value</span>
+        String list = myList.toString();
+        System.out.println(list);
+<span class="auto-style2">
+        //Gets the item count and prints it out</span>
+        int count = myList.getItemCount();
+        System.out.println("There are "+count+" items in the list\n");
+<span class="auto-style2">
+        //Removes item number 2, then prints out the toString</span>
+        myList.removeItemByNumber(2);
+        list = myList.toString();
+        System.out.println(list);
+<span class="auto-style2">
+        //Gets the item count, then prints it out</span>
+        count = myList.getItemCount();
+        System.out.println("There are "+count+" items in the list\n");
+<span class="auto-style2">
+        //Marks item number 2 and 4 as complete, and then prints out the toString</span>
+        myList.completeItemByNumber(2);
+        myList.completeItemByNumber(4);
+        list = myList.toString();
+        System.out.println(list);
+<span class="auto-style2">
+        //Removes all completed items from the list and prints out the toString</span>
+        myList.removeCompletedItems();
+        list = myList.toString();
+        System.out.println(list);
+    }
+}</pre></td>
+	</tr>
+</table>
+
+<p class="auto-style5"><strong>Assignment:</strong></p>
+<p class="auto-style3">Create a program named <strong>HomeworkList</strong>.&nbsp; 
+In the main method, complete the following in the given order.&nbsp; Use the
+<a href="https://dl.dropboxusercontent.com/u/7648734/1314%20Site/SaccoJar/javadocs/TodoList/sacco/TodoList.html">
+TodoList API</a> to assist you.</p>
+<p class="auto-style3">1) Construct a new TodoList object.<br />
+2) Add the following items to the list: <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Math: p253 
+1-35 odd<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; History: Read 
+chapter 7<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; English: 
+Compare and contrast essay<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Science:&nbsp; 
+Finish lab report<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PE:&nbsp; 
+Take a lap<br />
+3) Print out the number of items in the list (call a method, don&#39;t just print 
+out 5)<br />
+4) Call the toString method and print out the returned value<br />
+5) Mark items 2 and 5 as completed<br />
+6) Call the toString method and print out the returned value<br />
+7) Remove the completed items from the list<br />
+8) Call the toString method and print out the returned value</p>
+
+</body>
+
+</html>

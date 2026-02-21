@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Line</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style5 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Line</p>
+<p class="auto-style4"><strong>A different Point class:</strong></p>
+<p class="auto-style1">Previously you&#39;ve created a class named Point, but there 
+is actually already a Point class that is commonly used in Java.</p>
+<p class="auto-style3">import java.awt.Point;</p>
+<p class="auto-style1">Constructor<br />
+<span class="auto-style3">Point(int x, int y)</span></p>
+<p class="auto-style1">Notable Methods:<br />
+<span class="auto-style3">double getX()<br />
+double getY()</span></p>
+<p class="auto-style1">java.awt.Point is a little bit of a flawed class because 
+it only deals with ints, meaning that we&#39;re out of luck if we want to created 
+the point (1.5,3.8).&nbsp; Also, due to some previously created classes, the 
+getX and getY methods both return doubles, even though we know that the instance 
+fields are ints.&nbsp; When dealing with this Point class, casting will become 
+your friend.</p>
+<hr>
+
+<p class="auto-style4"><strong>The Line class</strong></p>
+<p class="auto-style1">Write a class named Line, which will represent the line 
+that goes through two Points.</p>
+<p class="auto-style1"><strong>Instance Fields:</strong><br />
+The only two instance fields that you should have are two Point objects (import 
+java.awt.Point;) that represent the two points used to define the object.&nbsp; 
+We haven&#39;t frequently had objects as instance fields, but just remember that a 
+Point is really just an x and a y, it&#39;s just going to take an extra getX() or 
+getY() call to access the information. </p>
+<p class="auto-style1"><strong>Constructor:</strong><br />
+<span class="auto-style3">Line(Point p1, Point p2)</span><br />
+This constructor will assign the parameters to the instance fields.</p>
+<p class="auto-style1">Methods:<br />
+<span class="auto-style3">public double getSlope()</span> - This method will calculate and return the slope of 
+the line.</p>
+<p class="auto-style1"><img src="images/img4.gif" /></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3">public double getDistance()</span> - This method will calculate 
+and return the distance between the two instance fields using the distance 
+formula.</p>
+<p class="auto-style1"><img src="images/img6.gif" /></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3">public double getYIntercept()</span> - This method will 
+calculate and return the y-intercept of the line.&nbsp; In the equation y = 
+mx+b, b is the y-intercept.&nbsp; Hint:&nbsp; this.getSlope() should help you 
+get a value for m, and from there you may use either of the two Points for x and 
+y.</p>
+<p class="auto-style1"><img src="images/img8.gif" /></p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3">public double getYFromX(int x)</span> - This method will take in 
+an x and return the value of y = mx+b.&nbsp; Hint:&nbsp; use this.getSlope() for 
+m, and this.getYIntercept() for b.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3">public <strong>Point</strong> getMidPoint()</span> - This method will calculate 
+the midpoint of the two instance fields.&nbsp; Notice that this method returns a 
+Point object, meaning you must first calculate the x and the y of the midpoint, 
+and then construct a new Point with those values.&nbsp; Warning:&nbsp; You may 
+get a double from this caluculation, but need an int for constructing the Point.&nbsp; 
+You&#39;ll need to cast your values into ints before you create the Point (To be 
+really close, use Math.round(int) to round the number before casting.&nbsp; Once 
+this is done you may return the Point.</p>
+<p class="auto-style1"><img src="images/imgA.gif" /></p>
+<p class="auto-style1">Note:&nbsp; The getMidPoint method is a good example of 
+using objects to our advantage.&nbsp; Any method can only return ONE thing, and 
+the getMidPoint method generates an x and a y.&nbsp; Luckily, since the Point 
+class <strong>encapsulates</strong> an x and a y, you may return ONE object that 
+has more than just one bit of data in it.&nbsp; If we did not have the Point 
+class we may have had to break it into two methods: getMidPointX() and 
+getMidPointY().&nbsp; This is much less classy.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><span class="auto-style3">public <strong>static</strong> String formatPoint(Point 
+p)</span> -&nbsp; This method is a helper method, meaning it completes a task that you 
+don&#39;t want to repeat in other parts of the code.&nbsp; The parameter is a Point 
+object.&nbsp; Your job is to take the x and y out of it, cast them into ints, 
+and then create and return a String of the form &quot;( __ , __ )&quot;. </p>
+<p class="auto-style1">Note:&nbsp; This method is a little bit different than 
+the rest of the methods.&nbsp; It has ABSOLUTELY NOTHING to do with the instance 
+fields.&nbsp; You simply give it a Point and it returns a String.&nbsp; This 
+method is only a tool, similar to Math.pow and Math.sqrt.&nbsp; For this reason 
+it is going to be STATIC.&nbsp; Since it&#39;s a static method located in the Line 
+class, you can always call it using <strong>Line</strong>.formatPoint(...).&nbsp; 
+You do not have to create a new Line object to use this method.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">Write a toString that creates and returns a String in the 
+following form:</p>
+<p class="auto-style1">Point A: (6,30)<br />
+Point B: (15,55)<br />
+Distance: 26.5706605<br />
+Slope: 2.77777<br />
+Y-Intercept: 13.333333333<br />
+When x is 13, y is 49.4444444444<br />
+MidPoint: (11,43)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="auto-style5">
+&lt;------- This is rounded, you may also have (10,42) if you casted without 
+rounding.</span></p>
+<p class="auto-style1">In order to get this right, you must have three calls to
+<strong>Line.formatPoint</strong>, passing in a point and getting back a String 
+that looks the way you want.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">Write a runner for the Line class that asks the user for 
+4 ints, x1,y1,x2, and y2.&nbsp; One they&#39;re parsed into ints, construct two new 
+Point objects and then use those to construct a new line object.&nbsp; Then 
+print out the toString of that Line. </p>
+
+</body>
+
+</html>

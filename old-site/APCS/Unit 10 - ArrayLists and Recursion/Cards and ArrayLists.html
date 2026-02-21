@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Cards and ArrayLists</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style9 {
+	color: #FF0000;
+}
+.auto-style10 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style11 {
+	border: 1px solid #000000;
+}
+.auto-style12 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+	color: #FF0000;
+}
+.auto-style13 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: med;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Cards and ArrayLists</p>
+<p class="auto-style2">For this assignment, we are going to use the FlipCard class 
+that you created in the last unit.&nbsp; Copy it class into 
+your current project (along with the SCard class that it extends).&nbsp; Though you have already made a 
+CardBoard class, for the purposes of this assignment I am going to provide you 
+with a version that does the same thing.&nbsp; Read through and make sure that 
+you understand my approach.</p>
+<table style="width: 100%">
+	<tr>
+		<td><pre>import sacco.*;
+public class CardBoard extends SaccoWindow
+{
+    private FlipCard[] cards;
+
+    public CardBoard()
+    {
+        loadCards();
+        arrangeCards();
+    }
+
+    public void loadCards()
+    {
+        cards = new FlipCard[52];
+        String[] valChar = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
+        String[] suitChar = {"D","C","H","S"};
+
+        int index = 0;
+        for( int s = 0; s &lt; suitChar.length; s++)
+        {
+            for(int v = 0; v &lt; valChar.length; v++)
+            {
+                FlipCard c = new FlipCard(valChar[v],suitChar[s]);
+                cards[index] = c;
+                index++;
+            }
+        }
+    }
+
+    public void arrangeCards()
+    {
+       
+    }
+
+
+
+    public FlipCard[] getCards()
+    {
+        return cards;
+    }
+
+    public void setCards(FlipCard[] cards)
+    {
+        this.cards = cards;
+    }
+
+    @Override
+    public void paintWindow(Canvas c)
+    {
+        c.setColor(4,180,4);
+        c.fillRectangle(0,0,1000,1000);
+        
+        for(int i = 0; i &lt; cards.length; i++)
+        {
+           FlipCard fc = cards[i];
+           fc.paintSelf(c);
+        }
+    }
+
+    public void onMousePress(MouseEvent m)
+    {
+        loadCards();
+        arrangeCards();
+    }
+    
+    public void launch()
+    {
+        this.setSize(800,150);
+        this.setVisible(true);        
+    }
+
+    public static void cardRunner()
+    {
+        CardBoard board = new CardBoard();
+        board.setTitle("Card Board");
+        board.launch();
+        board.start();
+    }
+}</pre>
+		</td>
+	</tr>
+</table>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">If you run the program, you&#39;ll notice an issue:</p>
+<p class="auto-style2">
+<img src="images/imgF.jpg" /></p>
+<p class="auto-style2">This occurs because the arrangeCards method has no code.</p>
+<hr>
+<p class="auto-style6"><strong>The arrangeCards method:</strong></p>
+<p class="auto-style2">Write the implementation code for the arrangeCards 
+method, but this time you must use a <strong>for-each loop</strong> to set the 
+first card&#39;s coordinate to (10,20) and every sequential card will have an x 
+value that&#39;s 14 larger.&nbsp; This means that you do not know the index and 
+cannot rely on using an &quot;i vs i-1&quot; trick that you could have done with an old 
+fashioned array.&nbsp; Instead declare an int for the x, which starts at 10 and 
+increases by 14 each time the loop iterates.</p>
+<p class="auto-style2">Run the program and make sure that it spaces out the 
+cards like so:</p>
+<p><img class="auto-style2" src="images/img3.jpg" /></p>
+<p class="auto-style1">&nbsp;</p>
+<hr>
+<p class="auto-style13"><strong>onTimerTick</strong></p>
+<p class="auto-style2">add a method with the following header:</p>
+<p class="auto-style5">public void onTimerTick()</p>
+<p class="auto-style2">This is the method that is attached to the SaccoObject&#39;s 
+timer.&nbsp; We <span class="auto-style3">want to modify it so 
+that one of the cards is removed from the array so that it doesn&#39;t display.&nbsp; To 
+do this, you need to first add an instance field that will represent the index 
+to be removed next.</span>&nbsp;</p>
+<p class="auto-style5">private int nextIndex = 0;</p>
+<p class="auto-style1"><span class="auto-style3">Go to the onTimerTick method to the following. Our plan is to make one Card disappear at a 
+time, so each tick it sets another index to be null instead of whatever Card was 
+there.&nbsp; </span></p>
+<p><span class="auto-style5">public void onTimerTick()<br />
+{<br />
+&nbsp;&nbsp;
+if( nextIndex &lt; cards.length)<br class="auto-style2" />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; cards[nextIndex] = null;<br class="auto-style2" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nextIndex++;<br />
+&nbsp;&nbsp; }<br class="auto-style2" />
+}</span></p>
+<p class="auto-style1"><span class="auto-style3">The onMousePress method is set 
+up to reload the CardBoard.&nbsp; Add a line that sets the </span><strong>
+<span class="auto-style3">nextIndex</span></strong><span class="auto-style3"> 
+variable back to 0.</span></p>
+<p><img height="165" src="images/img1E.gif" width="350" /></p>
+<p class="auto-style2">After step 1:</p>
+<p><img height="157" src="images/img20.gif" width="350" /></p>
+<p class="auto-style2">After step 2:</p>
+<p><img height="160" src="images/img22.gif" width="349" /></p>
+<p class="auto-style2">&nbsp;If you run this code it will compile, but running it 
+will cause it to crash.&nbsp; The 
+reason is that setting the first index to null takes the Card out of the array, 
+but at that index there is now a null value.&nbsp; Your paint method crashes 
+because it tries to tell the null to paint itself, causing a 
+NullPointerException.</p>
+<p class="auto-style2">&nbsp;</p>
+<p><span class="auto-style8">How to protect agains a NullPointerException:</span><br class="auto-style2" />
+<span class="auto-style2">in your painting method, you have a line that 
+looks limilar to the one below</span></p>
+<pre>for(int i = 0; i &lt; cards.length; i++)
+{
+   FlipCard fc = cards[i];
+   fc.paintSelf(c);
+}</pre>
+<p class="auto-style2">This causes a problem when <span class="auto-style5">c</span> contains a 
+<strong>null</strong> value.&nbsp; 
+The fix for this is to check and see if the location is not null before trying to 
+call a method.</p>
+<p class="auto-style5"><span class="auto-style9"><strong>if( fc != null)</strong></span><br class="auto-style2" />
+&nbsp;&nbsp; fc.paintSelf(c);</p>
+<p class="auto-style2">This is pretty much the only time you should use == or != 
+with an object.&nbsp; Just like with Strings, == does not do what you think when 
+comparing two objects.&nbsp; It can tell you if the reference variable holds a 
+null or not.</p>
+<p class="auto-style2">Run the program and hopefully you will see the Cards 
+disappear one by one.</p>
+<p class="auto-style1"><span class="auto-style3">This program functions 
+completely fine, but taking care of the null values in this way is a bit of a 
+pain.&nbsp; Arrays are </span><strong><span class="auto-style3">rigid</span></strong><span class="auto-style3">, 
+meaning their size is set on creation and it never changes.&nbsp; The only way 
+to remove something is to make that index null.</span></p>
+<p class="auto-style2">&nbsp;</p><hr>
+<p class="auto-style6">Solution:&nbsp; The ArrayList</p>
+<p class="auto-style1"><span class="auto-style3">ArrayLists are like arrays, but 
+they are </span><strong><span class="auto-style3">dynamic</span></strong><span class="auto-style3">, 
+meaning their size changes to fit the elements.&nbsp; Let&#39;s change the 
+assignment to work with ArrayLists.</span></p>
+<p class="auto-style2">1)&nbsp; <span class="auto-style5">
+import
+java.util.ArrayList;</span>&nbsp; This is where the ArrayList class is.&nbsp; We have to 
+import it to gain access to it.</p>
+<p class="auto-style2">2) <strong>Modify the instance field:</strong>&nbsp;&nbsp; instead of
+<span class="auto-style5">private FlipCard[] cards;</span> , change it to
+<span class="auto-style5">private ArrayList&lt;FlipCard&gt; cards;</span>&nbsp; When you 
+declare ArrayLists, the type is passed in between the &lt; &gt;&#39;s.</p>
+<p class="auto-style2">3)&nbsp; <strong>Modify the getCards and setCards</strong>:&nbsp; 
+It is no longer appropriate to use a FlipCard[].&nbsp; Change it to 
+ArrayList&lt;FlipCard&gt; in both of the method headers</p>
+<p class="auto-style2">4<span class="auto-style3">) <strong>Declaration within the 
+constructor</strong>:&nbsp; Instead of </span><span class="auto-style5">cards = new 
+FlipCard[52];</span><span class="auto-style3"> change it to </span>
+<span class="auto-style5">cards = new ArrayList&lt;FlipCard&gt;();</span><span class="auto-style3">.&nbsp; 
+ArrayLists are just objects, you can declare them just like objects, except add 
+the &lt;FlipCard&gt; to tell java what type you&#39;ll be holding.&nbsp; Note that at this 
+point we don&#39;t state how large the array should be.&nbsp; ArrayLists start with 
+a size of </span><strong><span class="auto-style3">0</span></strong><span class="auto-style3"> 
+and grow as things are added to them.</span></p>
+<p><span class="auto-style2">5) <strong>Adding Cards:&nbsp;</strong> In your nested loop in the<strong> 
+loadCards </strong>you may have a line that looks something like this:</span><br class="auto-style2" />
+</p>
+<p class="auto-style5">FlipCard c = new FlipCard(valChar[v],suitChar[s]);<br class="auto-style2" />
+cards[index] = c;<br />
+index++;</p>
+<p class="auto-style1"><span class="auto-style3">The cards variable is now an 
+ArrayList, which is an object and can&#39;t be used with the special array notation.&nbsp; 
+We add things to an ArrayList using a method called </span><strong>
+<span class="auto-style3">add</span></strong><span class="auto-style3">.&nbsp; 
+The new version of this line would look something like this (if you didn&#39;t have 
+tmpCard originally, add it):</span></p>
+<p class="auto-style5">FlipCard c = new FlipCard(valChar[v],suitChar[s]);<br class="auto-style2" />
+<span class="auto-style9"><strong>cards.add(c);</strong></span></p>
+<p class="auto-style2">Notice that again we don&#39;t have to worry about the index.&nbsp; 
+With ArrayLists, each time something is added it causes the List to get bigger 
+and adds to the end.&nbsp; The first FlipCard will automatically be added to 0, the 
+next at 1, and so on.&nbsp; The index variable is now a little bit useless</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">6)&nbsp; Your paint method currently looks something like this:</p>
+<pre>for( int i =0; i &lt; cards.length; i++)
+{
+   FlipCard fc = cards[i];
+
+   if(fc != null)
+      fc.paintSelf(c);
+}</pre>
+<p class="auto-style1"><span class="auto-style3">Accessing the Cards in the 
+ArrayList 
+is a little more difficult than with Arrays.&nbsp; Since ArrayLists are objects, 
+methods must be used.&nbsp; The </span><strong><span class="auto-style3">get
+</span></strong><span class="auto-style3">method returns the object at that 
+location.</span></p>
+<p class="auto-style5"><span class="auto-style5">for( int i =0; i&lt; cards.<span class="auto-style9">size()</span>; 
+i++)<br class="auto-style2" />
+</span><span class="auto-style2">{</span><span class="auto-style5"><br />
+</span><span class="auto-style2"><span class="auto-style5">&nbsp;&nbsp; FlipCard fc = <span class="auto-style9"><strong>cards.get(i);</strong></span></span></span><span class="auto-style5"><br class="auto-style2" />
+&nbsp;&nbsp; fc.paintSelf(c);<br class="auto-style2" />
+}</span></p>
+<p class="auto-style2">if you wanted, <span class="auto-style10">cards.get(i).paintSelf(c);</span> would also 
+work.&nbsp; You do not need to check and see if the location is null.</p>
+<table style="width: 77%">
+	<tr>
+		<td class="auto-style11" style="width: 816px">
+<p class="auto-style2"><strong>SideNote</strong>:&nbsp; For-Each works with ArrayLists as well.&nbsp; 
+If your paint method looked like this:</p>
+<p class="auto-style5">for( FlipCard fc: cards)
+<br />
+{<br />
+&nbsp;&nbsp; fc.paintSelf(c);<br />
+}</p>
+<p class="auto-style2">then you would actually not have to modify it at all.&nbsp; 
+The get method is still an important one to know.</p>
+		</td>
+	</tr>
+</table>
+<p class="auto-style2"><br />
+</p>
+<p class="auto-style1"><span class="auto-style3">7)&nbsp; <strong>The 
+onTimerTick method:</strong>&nbsp; 
+One great thing about ArrayLists is that you can remove items from them.&nbsp; 
+Delete what is currently in your onTimerTick method and make it so the only line is:&nbsp;<span class="auto-style9">
+</span> </span>
+<span class="auto-style12">cards.remove(0);</span><span class="auto-style3">.&nbsp; 
+This means that whatever is at the first location in the list will be removed 
+from the list.&nbsp; That location does </span><strong>
+<span class="auto-style3">not </span></strong><span class="auto-style3">receive 
+a null value.&nbsp; Every item at a larger index is moved to the index one 
+smaller.&nbsp; This fills in the location that was just removed.&nbsp; No Nulls, 
+No NullPointerException.</span></p>
+<p class="auto-style2">We are continuously removing the first one in the list 
+because each time we remove the one from index 0, the Card at index 1 moves up 
+to fill the location.&nbsp; Eventually all the Cards will be at index 0 and 
+removed.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">8)&nbsp; If you run this, it should function until all of 
+the Cards are gone and then crash with an IndexOutOfBoundsException.&nbsp; This 
+is because when the last card is gone the ArrayList no longer has an index 0, 
+causing your program to crash.&nbsp; The way to protect it is with an if 
+statement:</p>
+<p class="auto-style5">if( <span class="auto-style9"><strong>cards.size()</strong></span> &gt; 0)<br class="auto-style2" />
+&nbsp;&nbsp; cards.remove(0);</p>
+<p class="auto-style1"><span class="auto-style3">That&#39;s right, </span><strong>
+<span class="auto-style3">size</span></strong><span class="auto-style3">, not 
+length.&nbsp; The size method of ArrayList does exactly what calling .length in 
+an array would do.&nbsp; It&#39;s confusing. Memorize it.</span></p>
+<p class="auto-style2">With any luck, running this program will cause all the 
+cards to disappear one at a time until there are none left without crashing.</p>
+
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

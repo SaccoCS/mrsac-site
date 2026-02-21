@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>ints and doubles</title>
+<style type="text/css">
+p,h4,h2,h3{
+	font-family: Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>ints</h2>
+<h3>int division</h3>
+<p>When two ints are being divided, the result is <strong>truncated</strong>.  This means that it is not rounded, but the decimal portion is simply dropped.  Another way to think of this is that it gives the <strong>quotient</strong> of a division expression</p>
+<p>For Example:  if you take 20/3, the result would be an even 6 because 3 goes in to 20 six times</p>
+<h4>int division trick</h4>
+<p>A common use of int division is to take an int and divide it by ten.  The result will be the original number, but with the last digit removed </p>
+<p>For Example: 12345/10 evaluates to 1234</p>
+
+<h3>mod</h3>
+<p>The mod operator ( % ) represents the <strong>remainder</strong> function.  When you take a mod b, the result is what's left over after you remove as many b's as you can from a.</p>
+<h4>mod uses</h4>
+<p><strong>odd/even</strong><br/>A very common use of mod is to determine if a value is odd or even.  When a number is even, modding by two will result in a 0, odd numbers will result in a 1.  </p>
+<pre>if( num%2 == 0)
+   System.out.println(num+" is EVEN!!!");
+else
+   System.out.println(num+" is ODD!!!");</pre>
+
+ <p><strong>Value Wrap Around</strong>
+ <br/>The result of a%b will always be less than b, which means that you may continually increase a number, but make it so that when it passes a certain point, the number is wrapped around to zero.</p>
+ <pre>for( int i = 0; i <= 15; i++)
+{
+   int num = i%4;
+   System.out.print( num );
+}</pre>
+<p>Even though the loop above has i go to 15, the number printed is limited to be less than 4, the resulting numbers printed would be: 0123012301230123</p>
+
+<p><strong>Last Digit</strong><br/>
+Similar to dividing by 10, modding by ten has a use too.  When a number is modded by 10, the result is the last digit in the number.  For example:  12345%10 would result in a 5.</p>
+
+<p>Consider the following code, which will sum up all of the digits in a number using both the /10 trick and the %10 trick</p>
+<pre>public static int digSum(int number)
+{
+   int sum = 0;
+   while(number > 0)  //keep "removing a digit" until you hit 0
+   {
+      sum += number%10;  //add the last digit
+      number /= 10;  //removes the last digit from number
+   }
+   return sum;
+}</pre>
+
+<br/><hr/>
+<h3>doubles</h3>
+<p>doubles are primitive values used to represent decimal numbers in Java.</p>
+<h4>Compatibility with ints</h4>
+<p>It is often the case that you must mix doubles and ints together.  You be careful to respect one fact: Every int may be stored as a double, but not every double may be stored as an int.</p>
+<pre>int intVal = 77;
+double dubVal = 77.5;
+
+int a = dubVal; //ERROR: Possible Loss of Precision
+int b = intVal; //perfectly fine.  All ints are automatically converted.</pre>
+
+<h4>Casting between ints and doubles</h4>
+<p>Sometimes you would like to consider an int as a double or vice versa.  This is when casting is used.</p>
+<p><strong>Casting a double to an int:</strong><br/>When casting a double to an int, the value is <strong>truncated</strong>, meaning that the decimal portion is completely dropped.</p>
+<pre>double d = 7.12345;
+int num = (int)d;</pre>
+<p>After the sample code above, the value of num is 7.  This is most commonly used when dealing with random numbers (See Below).</p><br/>
+<p><strong>Casting an int to a double</strong><br/>Since every int may be represented as a double, the only reason to cast to a double is to force double-division.</p>
+<pre>int a = 25;
+int b = 2;
+double val1 = a/b;
+double val2 = (double)a/b;</pre>
+<p>In the code above, val1 is the result of dividing two ints together, so it has a value of 12.  For val2 a was cast to a double before the division, so that means that double-division was used.  The result is that val2 contains a 12.5</p>
+<hr/>
+<h3>Math Methods</h3>
+<p>You need to be aware of how to use the following methods, as they may be used in some calculations</p>
+<h4>double Math.abs(double val)</h4>
+<p>The abs method calculates the absolute value of an int or double.  This is sometimes useful when trying to calculate the largest difference between two values.  If you have two ints, a and b,  a-b and b-a are opposite values and would require an if statement to get a <strong>positive</strong> difference.  Using Math.abs(a-b) will always give you a positive value, no matter which int is larger.</p>
+<h4>double Math.pow(double base, double exp)</h4>
+<p>The pow method is useful when calculating exponents.  You simply give it a base and an exponent and it will return <strong>base<sup>exp</sup></strong></p>
+
+<h4>double Math.sqrt(double val)</h4>
+<p>sqrt is another utility method used to help find the square root of some value.  For example, the following code uses a combination of Math.pow and Math.sqrt to represent the distance formula</p>
+<pre>double dist = Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));</pre>
+
+<h4>double Math.random()</h4>
+<p>The random method returns an int from 0 to 1 <strong>exclusive</strong>.  This is mostly used for calculating random ints</p>
+<hr/>
+<h3>Random Numbers</h3>
+<pre>int rand = (int)(Math.random()*howMany)+startVal;</pre>
+<p>Random numbers are useful for many purposes.</p>
+<p><strong>Deciding between choices:</strong></p>
+<pre>int val = (int)(Math.random()*3);
+if(val == 0)
+  System.out.println("Choice A");
+if(val == 1)
+  System.out.println("Choice B");
+if(val == 2)
+  System.out.println("Choice C");</pre>
+  <p>Be careful to recognize that the random number above has a minimum value of zero.  If you wanted the numbers 1-3, there would be a <strong>+1</strong> tagged on the to the end of the random number calculation.</p>
+ 
+ <p><strong>Random Index</strong></p>
+ <pre>public String randomVal(String[] arr)
+{
+   int index = (int)(Math.random()*arr.size);
+   return arr[index];
+ 
+}</pre>
+ <p>In this case, the fact that the random number starts at zero works to our advantage since that is the first index of the array.  Also, since the size of the array is used as a multiplier, the random number will be <strong>less than</strong> that value, which will keep it in bounds.</p>
+</body>
+</html>

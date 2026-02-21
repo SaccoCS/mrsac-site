@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Objects</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+	
+		<div id = "header"></div>
+		<script>
+			$( "#header" ).load( "../../header.html #head" );
+		</script>
+		
+		<div id = "navbar"></div>
+		<script>
+			$( "#navbar" ).load( "../../notenav.html #notenav" );
+		</script>
+		
+		<div class = "notes-content">
+			
+			<div class="note-div" >
+				
+				<h2>Objects</h2>
+				
+				<p>This unit lays down the foundation for designing and using objects that we use throughout the course.  Objects are an abstract concept involving the encapsulation of variables and methods under a common type.  We will start with very simple objects and work our way up, building in complexity as we go.  Throughout the year we will continue to design and use more complex objects on our way</p>
+				
+				<div class ="goals">
+					<h3>Unit Goals</h3>
+						<ul>		
+							<li>Understand objects and how they encapsulate information.</li>
+							<li>Design objects that bundle together data under a single variable</li>
+							<li>Create objects that can perform actions using their instance fields</li>
+							<li>Explore objects that model a situation and change state as methods are called</li>
+							<li>Understand what constants are and how they may be used to represent a decision</li>
+						</ul>
+				</div>
+			</div>
+			
+			
+			<div class = "note-div">
+				<div>
+				<h2>Notes</h2>
+				</div>
+				<div id="left"></div>
+					<script>
+						$( "#left" ).load( "notebar.html #left-notes" );
+					</script>
+				
+				<div id="right"></div>
+					<script>
+						$( "#right" ).load( "notebar.html #right-notes" );
+					</script>
+			</div>		
+			
+					
+		</div>				
+				
+				
+				
+	</div>
+			
+			
+		
+	
+	
+</body>
+</html>

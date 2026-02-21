@@ -1,0 +1,286 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>2D Noise</title>
+</head>
+
+<body>
+  <h1>
+    2D Noise Fields
+  </h1>
+<h2>2D Noise Fields</h2>
+<p>We've explored the noise() function before, which generates semi-random numbers. The value that a noise() function generates is based on the parameter given to it.</p>
+<p>The sketch below is essentially a graph of a noise function. The loop generates every x value on the window, feeds it to the noise function. The result is then used as the y value:</p>
+<pre>let n = noise(x*0.01);
+let y = n * height;
+</pre>
+<p>What's the extra math?</p>
+<p><strong>x*0.01?</strong> The noise() function has a quality that very close numbers are close to each other, and x increasing by 1 is just too much. We multiply by 0.01 so that each consecutive x value is only 0.01 away from the previous. This helps generate 'smooth' noise.</p>
+<p><strong>n* height?</strong> The result of noise is always between 0 and 1, which would just be too tiny. We multiply it by the height so that it now ranges from 0 to the height of the canvas.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Noise Based Brightness:</h4>
+<p>This noise value doesn't have to represent a location, like a y value. Instead, it could represent how bright or dark a square is. We could have a loop that chose a square's&nbsp;<strong>fill</strong>&nbsp;based on the noise value returned</p>
+<pre>for(let x =0; x&lt;width;x+=20){
+&nbsp; &nbsp; let n = noise(x*0.01); &nbsp; //get a noise value based on x
+&nbsp; &nbsp; let brightness = n*255; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; fill(brightness); &nbsp; &nbsp;
+&nbsp; &nbsp; rect(x,0,20,20);
+&nbsp; }</pre>
+<p>Running this loop would provides square's who's brightness was random-ish, but close to those that are near.</p>
+  
+  <p><img src = "images/strip1.png" width="600" height="20"/></p>
+  <p><img src = "images/strip2.png" width="600" height="20"/></p>
+  <p><img src = "images/strip3.png" width="600" height="20"/></p>
+  <p><img src = "images/strip4.png" width="600" height="20"/></p>
+  <p><img src = "images/strip5.png" width="600" height="20"/></p>
+
+<p>&nbsp;</p>
+<h4>Two-Dimensional Noise</h4>
+<p>We've been imagining the noise function as one value in, one value out. This make a noise space that we visualize in one dimension, which . But the noise() function is actually set up in at way that it represents a two dimensional noise field, meaning we can give the noise function an x and a y location and it will produce a random-ish value.</p>
+<p>We can use our two-dimensional loops to help visualize&nbsp;</p>
+<p>&nbsp;</p>
+<pre>for (let x = 0; x &lt; width; x += 10) {
+&nbsp; for (let y = 0; y &lt; height; y += 10) {
+
+&nbsp; &nbsp;    let n = noise(x*0.01,y*0.01);   
+&nbsp; &nbsp;   &nbsp;fill(n*255)
+
+&nbsp; &nbsp;   square(x,y,10);
+
+&nbsp; }
+}</pre>
+<p>Notice how this time we're using the x and y location to get a noise() value</p>
+<pre>let n = noise(x*0.01,y*0.01);</pre>
+<p><img src="images/field.png" width="290" height="290" /></p>
+<p>Notice how the brightness of each square is close to the ones next to it, and that extends in all directions.</p>
+<p>&nbsp;</p>
+<h4>Your Task: Map Generator</h4>
+<p>The 'natural randomness' of noise functions are used a lot when creating procedurally generated maps. If we interpret the noise value a little differently, we can create a random map generator.</p>
+<p><img src="images/map.png" width="352" height="352" /></p>
+<p>To generate a map like the one above, the noise value will help you choose between one of five colors for the fill of each square.&nbsp;</p>
+<p>A noise value from 0 to .4 is the water block, and should be blue<br />A noise value from .4 to .5 is the beach block, and should be tan<br />A noise value from .5 to .6 is a forest block and should be light green<br />A noise value from .6 to .7&nbsp; is a mountain forest block and should be dark green<br />A noise value above .7 is the mountaintop and should be white</p>
+<p>Use a series of if statements to help you choose the appropriate fill for each box,</p>
+<p>Feel free to use my rgb values, or make up your own:<br />- Water: 30,30,199<br />- Beach: 210,185,139<br />- Forest: 0,125,100<br />- Mountain Forest: 0,99,99<br />- Mountain Top: 222,222,222</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  <h2>Vector Fields</h2>
+<p>&nbsp;<img src="images/vector1.png" /></p>
+<p>A vector field is a space where every location has a direction associated with it. That direction is usually represented at that location with a vector pointing in the corresponding direction. If we generate them out of a noise() field, it is another way of seeing the shape of the data.</p>
+<p>&nbsp;</p>
+<h4>Drawing the Lines using translation and rotation</h4>
+<p>Using a nested loop and the code above, we can generate every x,y and the associated line, but to get it to point will require switching to a translate() and rotate() style of drawing.&nbsp;</p>
+<p>This means that instead of drawing things at (x,y), we will be translating to (x,y) and drawing at (0,0).</p>
+<p>&nbsp;</p>
+<p><strong>Create a new sketch </strong>and insert a nested loop into it that will generate pairs of (x,y) values that are 20 pixels apart.&nbsp;</p>
+<p>At each location:</p>
+<pre>angleMode(DEGREES);
+translate(x,y);
+rotate(0);
+line(0,0,16,0);
+resetMatrix();   //important during the loop.
+</pre>
+<p>The purpose of this code will be to draw a line pointing to the&nbsp;<strong>right</strong>&nbsp;of each location. We use translate() to change where (0,0) is, we do&nbsp;<strong>no rotation</strong>, and then we draw a line that goes 16 pixels to the right. Lastly it resets the matrix, undoing the translation and rotation before the loop finishes. This is important, sine we are translating the entire x,y each time and we don't want it to grow out of control as the loop runs.</p>
+<p>With this code in your loop, run your sketch and make sure that you see all horizontal, unrotated lines&nbsp;at every location.&nbsp;</p>
+<p><img src="images/vector2.png" width="300" height="225" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Using the Noise Angle</h5>
+<p>In order to generate the vector field using noise(), we are going to perform a similar process as before. We get a noise() value related to our location, then perform a little math to get it into the appropriate range.</p>
+<pre>let n = noise(x*0.01,y*0.01);   //Get a location-based noise() value
+let angle = n * 360;                  //'stretch' its range to fit 0 - 360</pre>
+<p>Modify your loops to use this at each location&nbsp;and then modify the&nbsp;<strong>rotate(0)</strong>&nbsp;call to be<strong> rotate(angle);</strong></p>
+<p>Run your code one more time after this change and you should be generating a proper noise field.</p>
+<p><iframe src="demos/vector_field/with_traveller/index.html" width="304px" height="203px" data-mce-fragment="1"></iframe></p>
+<p>&nbsp;</p>
+<h4>Adding a Traveler</h4>
+<p>If you click on the canvas above, you'll see that it is interactive and you can place a small circle on the field. That circle is a traveler, and&nbsp;will start to wander around, but using the flow of the vector field to guide it.</p>
+<p>The basic setup is much like our Pong ball that moved around the screen:<br />- Declare two global variables to represent the x and y of the traveler's location.<br />- In setup, assign them to represent the middle of the window<br />- In draw, after drawing all of the lines&nbsp;draw a single circle, using the new global variables as the location.</p>
+<p>With this completed, you should be able to run your sketch and see the traveler in the center of the window, not moving.</p>
+<p>&nbsp;</p>
+<h5>Adding Movement</h5>
+<p>We make movement by changing the x and y values a small amount with each draw cycle. In the past we've used speed variables, but now we want each movement to be tied to the noise value at the traveler's location.</p>
+<p>Like before, we want to first get a noise value, and then map it to an angle.&nbsp;Use the noise() function as you have been, except this time using the traveler's x and y variables. After getting an <strong>angle </strong>it's time for a little trig:</p>
+<h5>let dx = cos(angle);<br />let dy = sin(angle);</h5>
+<p>These two lines will calculate the x and y components of you movement. All that's left to do is to move the traveler by increasing its x and y variables by the calculated dx and dy.</p>
+<h5>x += dx;<br />y += dy;</h5>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h3>Noisy Squares</h3>
+<p><iframe src="demos/rotating_squares/index.html" width="244px" height="164px" data-mce-fragment="1"></iframe></p>
+<p>For this sketch, each of the squares is using a two-dimensional noise() value to help it generate its:<br />&nbsp; &nbsp; - size<br />&nbsp; &nbsp; - color<br />&nbsp; &nbsp; - rotation angle</p>
+<p>The motion that you're seeing comes from including the ever-changing frameCount as the third parameter of our noise() function</p>
+<h5>let n = noise(x*0.01, y*0.01<strong>,<span> frameCount*0.005</span></strong><span>)</span>;</h5>
+<p>This means that we can get two-dimensional noise, but it will be slightly different each frame. Once you have the noise value, you can <strong>map()&nbsp;</strong>it to the ranges to help you with the size, color, and rotation.</p>
+<p>&nbsp;</p>
+<p>The best way to draw a rotated square is to rely on the&nbsp;use of translate(), rotate(), and resetMatrix(), as you did in the previous sketch. Translate to the location that you want to draw the square, rotate the angle that you want it to be, and draw it at (0,0) with rectMode(CENTER) on.</p>
+<p>When you've finished, run your sketch to make sure that the you can see the size, color, and rotation of you squares changing in a 'noisy' way.</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Marching Squares</h2>
+<p>&nbsp;<strong><iframe src="demos/marching_squares/index.html" width="400" height="400" data-mce-fragment="1"></iframe></strong></p>
+<p>Marching Squares is a computer graphics technique for creating two dimensional shapes from a scalar field, which is exactly what our noise() function provides.</p>
+<p>- First we will use the idea of a&nbsp;threshold&nbsp;with our noise() field to determine which locations should be included.<br />- Then we will use marching squares to encapsulate them with a border.<br />-&nbsp;If we stop drawing the dots,&nbsp; we will be left with our shape.</p>
+<p><img src="images/dots1.png" width="200" height="200" /> &nbsp;--&gt;&nbsp; <img src="images/dots2.png" width="200" height="200" /> &nbsp;--&gt; <img src="images/no_dots.png" width="200" height="200" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Part 1: Drawing with a Helper Function</h2>
+<p>One major ability that we will need is to draw lines that are separating the dots that we create. Before we start generating those dots, we are going to perfect the drawing function.</p>
+<h5>Open the Marching Squares workspace.</h5>
+<p>The key to a Marching Squares algorithm is to break the entire canvas into squares, each with a corner at one of the key points. If you consider every combination of black/white dots, you will end up with 16 possible lines that you may have to draw.</p>
+<p><img src="images/cases.png" /></p>
+<p>The Marching Squares sketch comes with a function whose entire purpose is to draw the line within one square: drawCase(). The&nbsp;<strong>draw()&nbsp;</strong>function comes prefilled with a call to drawAllCases() to help test your function. When run as it is, it looks like this:</p>
+<p><img src="images/empty_cases.png" /></p>
+<p><strong>function drawCase(c, x, y, size)</strong></p>
+<p>Notice that the drawCase() function takes in a lot of parameters: the case number, <strong>c,</strong> and an <strong>x</strong> <strong>,y</strong>, and <strong>size </strong>that are meant to represent the location and size of their square. Currently, all the function does is draw the square and the case number. This is why the image above looks like that.</p>
+<p>We are going to use it as a reference to make sure that our finished drawCase() covers all possibilities, and then remove the rectangle and text that are there.</p>
+<p><img src="images/done_cases1.png" /> &nbsp; --&gt;&nbsp; &nbsp;<img src="images/done_cases2.png" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Strategy</h3>
+<p>The drawCase() function is essentially a large if-chain that looks at the&nbsp;<strong>c</strong>&nbsp;parameter to see which case we're dealing with, and then responds by drawing the appropriate line.&nbsp;</p>
+<p>Notice that when the lines are drawn, they attach two midpoints in each of the rectangles. Since these points are halfway through our shapes, I will expect a lot of x + size/2 or y + size/2 in our lines.</p>
+<p>For example, when the case is 3, the line is horizontal</p>
+<p><img src="images/single_case.png" /></p>
+<p>Since we are in corner mode<strong> x</strong> represents the <strong>left </strong>side, while <strong>x + size</strong> represents the&nbsp;<strong>right.</strong>&nbsp;Both ends of this line are halfway down the square, which is a y value of<strong> y + size.</strong></p>
+<p>Left Point: (x, y + size/2)<br />Right Point: (x + size, y + size/2)</p>
+<p>Since we only want this to happen when the case is three, we need to use an if statement focusing on the c variable.</p>
+<pre>if( c == 3 ){    //In Case 3
+     let x1 = x;
+&nbsp;    let y1 = y + size/2;
+&nbsp;    let x2 = x + size;
+&nbsp;    let y2 = y + size/2;
+&nbsp;    line( x1, y1, x2, y2 );
+}</pre>
+<p>This uses four extra variables for organization, but they are not required.</p>
+<p>&nbsp;</p>
+<h5><strong>Cut Your Work in Half</strong></h5>
+<p>Note that there are only&nbsp;<strong>eight&nbsp;</strong>unique patterns of lines. Everything past case 7 are duplicates of another one. So you could rewrite the above if statement as&nbsp; if( c == 3 || c == 12) to take care of two situations at once.</p>
+<p>&nbsp;</p>
+<h5><strong>Keep Going</strong></h5>
+<p>Your job now is to add the seven remaining if statements representing all of the other cases. Do them one/two at a time and check with the references above to make sure that you end up with the correct lines.</p>
+<p>Once you've finished, remove the text() and rect() from your drawCase() function to leave just the line drawing.</p>
+<p><img src="images/done_cases1.png" /> &nbsp; --&gt; &nbsp; <img src="images/done_cases2.png" /></p>
+<p>&nbsp;</p>
+<h3>Remove Tester Code</h3>
+<p>The draw function is calling drawAllCases() for the purpose of being able to look at every case at once. After verifying that all cases are drawn properly,&nbsp;<strong>remove the call to drawAllCases() from draw</strong>()<strong>.&nbsp;</strong>This should leave you will a blank canvas when you re-run the sketch.</p>
+  
+  
+  
+  
+  
+  <h2>Part 2: Determining Which Locations are IN</h2>
+<p><img src="images/dotlines.png" width="233" height="241" /></p>
+<p>Now that we have a drawing function, we need to generate a grid of values for us to work with. If you look at the dots in image above,you'll see that they are not random. They are clustered together because they are generated using a <strong>noise()</strong>&nbsp;field. But noise() values are decimals from 0 to 1. In order to get the proper yes/no for each location, we're going to need to use a&nbsp;<strong>threshold</strong>&nbsp;to determine if the dots should be 'included' or not.</p>
+<p>&nbsp;</p>
+<p>The first thing that&nbsp; we will do is try to create a function that will look at a certain location in the noise field and return a boolean if it is larger than a threshold.</p>
+<p>While still working in the 'Marching Squares with Noise' workspace,&nbsp;add the following function to it along side the setup(), draw(), and drawCase() functions:</p>
+<pre>//returns true if the given location is above the threshold
+function thresh(x,y){
+   //get the noise value associated with x,y
+   var n = noise(x*0.01,y*0.01); 
+
+   //return true or false based on the value of n
+
+ 
+}</pre>
+<p>This function takes a location (x,y) and determines its corresponding noise value. Since&nbsp;a noise() value is between 0 and 1, we'll decide that the threshold is <strong>0.5</strong>.</p>
+<p><strong>Your task is to finish the the thresh() function</strong> so that it&nbsp;returns&nbsp;true if the n value is above 0.5, return true. Otherwise return false.&nbsp;</p>
+<p>&nbsp;</p>
+<p>To test your function, put the following in&nbsp;<strong>draw()</strong>. This should replace the loops that were previously there to help create the drawCase() function, so make sure you've finished that one first.</p>
+<pre> if( thresh(mouseX,mouseY) )
+    fill(255);
+  else
+    fill(0);
+  circle(mouseX,mouseY,40);</pre>
+<p>Remember that if a function returns a boolean, it may be used to directly run an if statement. This if statement is using the&nbsp;<strong>thresh()</strong>&nbsp;function in an if to check if the mouse's location is above the threshold. A circle is then drawn at the mouse location using the chosen color. This should allow us to hover over a location on the screen and see if it is above or below the threshold</p>
+<p>When you run your sketch, wave the mouse over the canvas and make sure that the circle changes from black to white. It should not be randomly flashing, instead certain areas of the sketch will be black and the rest be white.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Drawing all the Dots</h4>
+<p>With the thresh() function working, it's time to draw the whole grid using it. Use a nested loop to visit a grid of (x,y) locations. Mine are 20 apart, but you may choose your own spacing. Use an if statement to choose the fill of the color of each circle.&nbsp;</p>
+<p>When run, a grid of dots should appear. Like the image at the top of the page, but different values.&nbsp;They <em>should </em>be semi-grouped together instead of completely random.</p>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h2>Part 3: Surrounding the Dots</h2>
+<p>Now that we have the grid of dots and a function to help draw the lines, we can complete the Marching Squares algorithm by incorporating the functions together.</p>
+<p>&nbsp;</p>
+<h3>Using the drawCase() function everywhere</h3>
+<p>Inside your loop you are currently drawing a single circle each time. The intention will be to simultaneously use the drawCase() function to draw the lines. Before we make it perfect, we can make sure that we can get it to draw&nbsp;<strong>something</strong>&nbsp;at each location. From there we can worry about exactly what.</p>
+<p>Remember that drawCase takes in a lot of parameters representing the&nbsp;<strong>case</strong>, x, <strong>y,</strong> and <strong>size</strong>. Go to the nested loop inside the draw() function&nbsp;and use your looping x/y variables to also call the drawCase() function with this line of code:</p>
+<pre>drawCase( <strong>1</strong>, x, y, 20 );   //Draw case 1, of size 20, at every (x, y)</pre>
+<p>The x and y are the variables that change each time, but here we are always drawing case 1, of a size 20. Since you are always drawing the same case, it should look very repetitive:</p>
+<p><img src="images/one_case.png" width="257" height="319" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Determining Which Case to Draw</h4>
+<p>To make things easy, we drew case 1 every time we used the drawCase() function. The last thing that we need to do is replace that 1 with a value that is actually derived using the location.</p>
+<p>As we visit each location and draw dots, we are also going to want to draw the lines surrounding them. This means that we are going to have to determine which case that is associated with each location.</p>
+<p><img src="images/cases.png" width="194" height="272" /></p>
+<p>The thresh() function can be used to analyze any single location, but in order to determine the case we will need to look at the four different locations that make up our square.</p>
+<p>This means that we will not only care about the threshold at (x,y), but also the other corners. If our squares have a size of 20, the other points would be:&nbsp;(x + 20, y), (x, y+ 20), and (x+20, y + 20).&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Using Binary Patterns</h4>
+<p>The cases are chosen in a way that is very binary friendly. Each of the four corners is given a value:<br />- bottom-left is worth <strong>1</strong><br />- bottom-right is worth <strong>2</strong><br />- top-right is worth <strong>4</strong><br />- top-left is worth <strong>8</strong></p>
+<p>The case is the sum of those values that are above the threshold.</p>
+<p>For example, all corners for Case 0 are white, therefore nothing gets added.</p>
+<p><img src="images/case0.png" /></p>
+<p>But case 12 has the top two values are black, so we add 8 and 4 to get 12.</p>
+<p><img src="images/case12.png"  /></p>
+<p>&nbsp;</p>
+<h5>How to Code this:</h5>
+<p>We know the four locations that we are interested in are <strong>(x,y), (x+20, y), (x, y+20), (x+20, y+20)</strong>, and we know that the thresh() function will tell us if they pass the threshold or not. Consider the code below:</p>
+<pre>let sum = 0;
+
+if( thresh( x,y ) )     //if the location x,y is above the threshold, add eight to the sum variable
+&nbsp;    sum += 8;
+</pre>
+<p>After this code runs, there are two possibilities for the&nbsp;<strong>sum</strong>&nbsp;variable. If the thresh() returned a true value for location (x,y), sum will end at 8. If not, sum will remain at zero. By doing this we are giving the location (x,y) a weight of 8 in our overall sum.</p>
+<p>You will need to do something like this during your loop, as you visit each (x,y). To finish the sum you will need<strong> three more if statements </strong>similar to the one given. Each time you should focus on one of the different corner points and add the related value 4, 2, or 1. After all four if statments the sum's value should be the correct case. Modify the call to drawCase() to use it instead of the previous&nbsp;<strong>1</strong>.</p>
+<pre>drawCase( <strong>sum </strong>, x, y, 20 ); //Draw case  determined by sum, of size 20, at every (x, y)</pre>
+<p>If done properly, running your sketch should now produce a line that separates the groups of values.</p>
+<p><img src="images/dots2.png" width="200" height="358" /> &nbsp; &nbsp; <img src="images/no_dots.png" width="200" height="376" /></p>
+<p>If you comment out the line where you draw the circles, you will be left with just the outline, producing the image on the right.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Morphing Shapes</h4>
+<p>Our noise() grid only uses two of the three possible parameters that you could give a noise() function. If we use frameCount to help the third parameter be different every time, we can get a slightly different noise space each time. In the&nbsp;<strong>thresh()</strong>&nbsp;function is where&nbsp; you have a line generating a noise value:</p>
+<p>let n = noise(x*0.01,y*0.01);</p>
+<p>Modify it to include the frameCount as the third parameter:</p>
+<p>let n = noise(x*0.01,y*0.01, <strong>frameCount*0.003</strong>);&nbsp; &nbsp;//Make 0.003 bigger or smaller to change speed</p>
+<p>After this change, you should see the outlined shape morphing a little bit.</p>
+<p>&nbsp;</p>
+<h4>Optional: Tighten up the resolution</h4>
+<p>We chose a size of 20 to use when deciding how far apart the dots should be. If you want a smoother shape, you can modify your code to be a smaller value, like 4.</p>
+<p>Keep in mind that the noise() function is <strong>heavy</strong>, so as some point your browser will start to lag.</p>
+<p><img src="images/smoothed.png" width="251"  /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+</body>
+
+
+</html>

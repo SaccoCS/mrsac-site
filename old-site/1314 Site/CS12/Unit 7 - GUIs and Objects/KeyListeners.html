@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>KeyListeners</title>
+
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">KeyListeners</h2>
+<p>When SButtons are pressed, they call the onButtonPress method of the 
+ButtonListener that&#39;s been added to it.&nbsp; This required three things.</p>
+<p>1)&nbsp; A class with &#39;implements ButtonListener&#39; in the header <br />
+2)&nbsp; That class should then have the method <strong>onButtonPress<br />
+</strong>3)&nbsp; button.addButtonListener should be called to link the two 
+classes together.</p>
+<p>&nbsp;</p>
+<p>STextAreas can also respond to input, but since they&#39;re not buttons, a 
+ButtonListener is not appropriate.&nbsp; The new listener is known as a <strong>
+KeyListener</strong>, and it works similarly.&nbsp; There are several things 
+that you need all at once:</p>
+<p>1)&nbsp; A class with &#39;implements KeyListener&#39; in the header<br />
+2)&nbsp; That class should have <strong>two</strong> methods with the following 
+headers:</p>
+<p>public void onKeyPress(int keyCode)<br />
+public void onKeyRelease(int keyCode)</p>
+<p>3)&nbsp; textField.addKeyListener(...&nbsp; should be called to link the two 
+classes together</p>
+<p>&nbsp;</p>
+<p><strong>KeyDemo:&nbsp; The a counter</strong></p>
+<p>Let&#39;s start with the demo below, which creates a simple GUI with no abilities 
+yet.</p>
+<pre>import sacco.gui.*;
+
+public class KeyDemo
+{
+    private SFrame frame;
+    private SLabel label;
+    private STextField field;
+
+    public KeyDemo()
+    {
+        frame = new SFrame("KeyListener Demo");
+        frame.setLayout(new GridLayout(2,1));
+
+        label = new SLabel("A count: 0");
+        frame.add(label);
+
+        field = new STextField();
+        frame.add(field);
+
+        frame.pack();
+    }
+
+    public void launch()
+    {
+        frame.setVisible(true);
+    }
+
+    public static void main()
+    {
+        KeyDemo k = new KeyDemo();
+        k.launch();        
+    }
+}</pre>
+
+<p>Notice:&nbsp; The main method is in this class instead of a Runner class.&nbsp; 
+This is perfectly legal.&nbsp; Since the method is static, it doesn&#39;t really 
+matter which class it&#39;s in.&nbsp; From here on out you may continue to use a 
+Runner class if you would like, but putting a static method inside of the class 
+is another option.</p>
+<p>Run the main method and confirm that you get the following:</p>
+<p>
+<img src="images/img33.jpg" /></p>
+<p>You can type what you want, but nothing will happen.&nbsp; In order to make 
+this GUI function without buttons we&#39;re going to have to attach a KeyListener to 
+the STextField.</p>
+<p>1)&nbsp; Change the header of the class to read:</p>
+<pre>public class KeyDemo implements KeyListener</pre>
+
+<p>2)&nbsp; Changing the header will cause this class to no longer compile until 
+you have <strong>two</strong> methods.&nbsp; Add the following methods to the 
+KeyDemo class:</p>
+<pre>public void onKeyPress(int keyCode)
+{
+   System.out.println(keyCode);
+}
+
+public void onKeyRelease(int keyCode)
+{
+
+}</pre>
+
+<p>Note:&nbsp; Even if you&#39;re not going to use both of the methods you still 
+have to include them for compiling purposes.</p>
+<p>3)&nbsp; The last thing to do is to make sure that the STextField knows that 
+it should be listening.&nbsp; In the constructor, after the field variable has 
+been constructed, add the following line:</p>
+<pre>field.addKeyListener(this);</pre>
+<p>These three steps make our class functional.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;Run the program again.&nbsp; This 
+time typing in the STextField will cause ints to be printed out to the terminal.&nbsp; 
+These ints are the &#39;keyCode&#39; of each key that was pressed.&nbsp; If you notice, 
+hitting the space bar will cause the number 32 to print because that&#39;s the 
+keyCode for the space bar.</p>
+<hr>
+<p class="auto-style1"><strong>Finishing the KeyDemo</strong></p>
+<p>Now that we have a GUI set upt to call a specific method every time that a 
+key is pressed, let&#39;s finish up the functionality of the program.&nbsp; Our goal 
+is to have a correct count of the number of times that the A key has been 
+pressed.-Go to the instance fields and add an int that represents how many times 
+the a key has been pressed.&nbsp; Call it aCount and set it to 0.</p>
+<p>- In the onKeyPress method, check to see if the keyCode is the A key ( 
+meaning keyCode is 65 ).&nbsp; If it is, increase the aCount by one.</p>
+<p>- The last thing the onKeyPress method should do is set the label&#39;s text to 
+reflect the actual value of aCount.&nbsp; Don&#39;t forget to keep the &quot;A Count: &quot; 
+text.</p>
+<p>Run your program and type the word &quot;Alphabet&quot;.&nbsp; It should say &quot;A Count: 
+2&quot; in the label.</p>
+<p><img src="images/img40.jpg" /></p>
+<p>&nbsp;</p>
+<p>Note that this is not a perfect system.&nbsp; Deleting and retyping a&#39;s will 
+throw the count off.&nbsp; We can deal with this later.</p>
+<p class="auto-style1"><strong>Assignment:</strong></p>
+<p>Go to the ColorPicker assignment from before.&nbsp; The button that we have 
+is a little unnecessary.&nbsp; Remove the button from the GUI and instead, make 
+ColorPicker a KeyListener and modify it so that when the ENTER key is pressed 
+(keyCode 10) the color is set.&nbsp; You will probably want to copy and paste 
+much of the code from the onButtonPress method to make this function. </p>
+<p><img src="images/img49.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

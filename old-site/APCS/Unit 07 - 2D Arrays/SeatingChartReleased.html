@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Seating Chart</title>
+<style type="text/css">
+
+p,h3{
+	font-family: Arial, Helvetica, sans-serif;
+}
+p{
+
+	font-size:small;
+}
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+</head>
+
+<body>
+<h3>SeatingChart Released Free Response</h3>
+<p>A student in a school is represented by the following class.</p>
+<pre style="background-color: white; font-family: courier;">public class Student<br />{<br />   // There may be instance variables, constructors, and methods that are not shown.<br /><br />   /** Returns the name of this Student. */<br />&nbsp;&nbsp;&nbsp;<span style="background-color: #eeeeee;">public String getName()</span><br />   { /* implementation not shown */ }<br /><br />   /** Returns the number of times this Student has missed class. */ <br />&nbsp;&nbsp;&nbsp;<span style="background-color: #eeeeee;">public int getAbsenceCount()</span><br />   { /* implementation not shown */ }<br />}</pre>
+<p>The class SeatingChart, shown below, uses a two-dimensional array to represent the seating arrangement of students in a classroom. The seats in the classroom are in a rectangular arrangement of rows and columns.</p>
+<pre style="background-color: white; font-family: courier;">public class SeatingChart
+{
+ /** seats[r][c] represents the Student in row r and column c in the classroom. */
+ <span style="background-color: #eeeeee;">private Student[][] seats;</span>
+
+ /** Creates a seating chart with the given number of rows and columns from the students in
+  * students. Empty seats in the seating chart are represented by null.
+  * @param rows the number of rows of seats in the classroom
+  * @param cols the number of columns of seats in the classroom
+  * Precondition: rows &gt; 0; cols &gt; 0;
+  * rows * cols &gt;= students.length
+  * Postcondition:
+  * - Students appear in the seating chart in the same order as they appear
+  * in students, starting at seats[0][0].
+  * - seats is filled column by column from students, followed by any
+  * empty seats (represented by null).
+  * - students is unchanged.
+  */
+  <span style="background-color: #eeeeee;">public SeatingChart(Student[] students, int rows, int cols)</span>
+ { /* to be implemented in part (a) */ }
+
+ /** Removes students who have more than a given number of absences from the
+  * seating chart, replacing those entries in the seating chart with null
+  * and returns the number of students removed.
+  * @param allowedAbsences an integer &gt;= 0
+  * @return number of students removed from seats
+  * Postcondition:
+  * - All students with allowedAbsences or fewer are in their original positions in seat
+  * - No student in seats has more than allowedAbsences absences.
+  * - Entries without students contain null.
+  */
+  <span style="background-color: #eeeeee;">public int removeAbsentStudents(int allowedAbsences)</span>
+  { /* to be implemented in part (b) */ }
+
+ // There may be instance variables, constructors, and methods that are not shown.
+}<br /><br /></pre>
+<p>For this assignment you will be submitting parts A and B together as one object. &nbsp;Copy the class below into the text box below, and complete it according to the descriptions in parts A and B.</p>
+<pre style="background-color: white; font-family: courier;">public class SeatingChart
+{
+ 
+ <span style="background-color: #eeeeee;">private Student[][] seats;</span>
+
+
+  <span style="background-color: #eeeeee;">public SeatingChart(Student[] students, int rows, int cols)</span>
+  { <br />      /* to be implemented in part (a) */ <br />  }
+
+  <span style="background-color: #eeeeee;">public int removeAbsentStudents(int allowedAbsences)</span>
+  { <br />      /* to be implemented in part (b) */ <br />  }
+}</pre>
+<h3>Part A:</h3>
+<p>Write the constructor for the SeatingChart class. The constructor initializes the seats instance variable to a two-dimensional array with the given number of rows and columns. The students in students are copied into the seating chart in the order in which they appear in students. The students are assigned to &nbsp;consecutive locations in the array seats, starting at seats[0][0] and filling the array column by column. Empty seats in the seating chart are represented by null.</p>
+<p>&nbsp;</p>
+<p>For example, suppose a variable Student[] &nbsp;roster contains references to Student objects in the following order.</p>
+<p><img src="https://app.schoology.com/system/files/attachments/page_embeds/m/2016-02/Capture_56b113420b914.PNG" alt="" title="" /></p>
+<p>A SeatingChart object created with the call new SeatingChart(roster, 3, 4) would have seats initialized with the following values.</p>
+<p><img src="https://app.schoology.com/system/files/attachments/page_embeds/m/2016-02/Capture_56b1129d48554.PNG" alt="" title="" /></p>
+<p>&nbsp;</p>
+<h3>Part B:</h3>
+<p>Write the removeAbsentStudents method, which removes students who have more than a given number of absences from the seating chart and returns the number of students that were removed. When a student is removed from the seating chart, a null is placed in the entry for that student in the array seats.</p>
+<p>For example, suppose the variable SeatingChart introCS has been created such that the array seats contains the following entries showing both students and their number of absences.</p>
+<p><img src="https://app.schoology.com/system/files/attachments/page_embeds/m/2016-02/Capture_56b112796a30a.PNG" alt="" title="" /></p>
+<p>After the call introCS.removeAbsentStudents(4) has executed, the array seats would contain the following values and the method would return the value 3.</p>
+<p><img src="https://app.schoology.com/system/files/attachments/page_embeds/m/2016-02/Capture_56b112d52cfec.PNG" alt="" title="" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

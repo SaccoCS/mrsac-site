@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Better Randomization</title>
+<style>p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Better Randomization</h2>
+<p>MultiBall is meant to show the power of using objects and ArrayLists together 
+to simulate many things bouncing around the screen. After running it for a 
+while, you should start to notice that the ball objects don’t move as random as 
+we think they should.</p>
+<p>Override the onMousePress method so that it loops through the ArrayList&lt;Ball&gt; 
+and sets the x and y of every Ball objects to the x and y of the MouseEvent. 
+This involves calling the getX and getY of the MouseEvent, as well as the setX 
+and setY of the Ball object. Don’t forget to subtract half of the width of the 
+ball to center it on the mouse press.</p>
+<p>Run the program one more time and click anywhere on the window. Every ball 
+should spread out form that same spot. Pay special attention to the grid-like 
+pattern that occurs.</p>
+<p>
+<img height="250" border="1" src="../../Unit%207%20-%20GUIs%20and%20Objects/images/grid0.png"  /></p>
+<p>
+<img height="250" border="1" src="../../Unit%207%20-%20GUIs%20and%20Objects/images/grid2.png" /></p>
+<hr/>
+<p>The reason that the grid pattern happens is because we’re dealing with ints 
+too much. If I were to randomize the xVect to be between -10 and +10 
+inclusively, the randomization statement would look like so:</p>
+<pre>xVect = (int)(Math.random()*21)-10;</pre>
+<p>This means that there are only 21 possibilities for an xVect. While that may 
+sound like a lot, if there are 500 Ball objects, each ball will share its xVect 
+with about 23 other Ball objects, causing them to pattern up.</p>
+<p>The solution is to use more doubles. As part of choosing a random number, 
+we’ve always used <span class="auto-style1"><strong>(int)</strong></span> to force a random double to be a random int. This is 
+called <strong>casting</strong>. This is useful when picking random ints, but it 
+restricts the number of random values that you get. </p>
+<p>For example: <br />
+If you had the random doubles 3.5, 3.9, and 3.14 and then cast 
+them the result is the same: (int)3.5 is 3, (int)3.9 is 3, (int)3.14 is 3. This 
+process of dropping the decimal is also known to as truncation.</p>
+<hr/>
+<p class="auto-style2"><strong>Converting to use doubles instead of ints:</strong></p>
+<p>- Go to the statement that randomizes your vector and remove the (int) from 
+the line. Now each random number will be a double and the number of choices 
+won’t be limited to the whole numbers.</p>
+<p>- Now that we’re not casting our vectors, the code will not compile. This is 
+because xVect and yVect need to be doubles. Change those instance fields from 
+ints to doubles.</p>
+<p>- The compiler will still be unhappy. The line that adds the xVect to x will 
+be unhappy because xVect is a double and x is an int, which cannot receive a 
+double. Using a double to represent a location is better because you’re not 
+constrained to just the whole numbers. Change the instance fields x and y to 
+also be doubles.</p>
+<p>- Compiler is still unhappy. Now it’s because all of your methods that deal 
+with x and y have been created to deal with ints. Modify them so that they deal 
+with doubles instead ( return types and parameters).</p>
+<p>- Compiler is still unhappy: Finally, the last reason that the compiler is 
+unhappy is because the brush.fillOval command requires four ints. Now that x and 
+y are doubles, they are not compatible. It is now that they should be cast to 
+ints. The line should look something like the following:<br />
+brush.fillOval((int)x,(int)y, 20, 20);</p>
+<p>- Compiler is HAPPY! (hopefully): Run the program now and click anywhere. 
+Hopefully when the Ball objects spread they are no longer in a grid-like 
+pattern.</p>
+<hr/>
+<p><strong><span class="auto-style2">What happened?</span></strong></p>
+<p>The problem stated with the vectors being ints. This was a necessity because the 
+fillOval command needs ints. The issue is that ints are not very precise, so 
+there are only a few options for vectors. The solution is to use doubles to keep 
+track of all the details (x,y,xVect,yVect). This will keep them as precise as 
+possible until the very last second, when it’s time to paint. We cheat a little; 
+a ball with cords (342.4, 121.1) will be painted at (342,121) which is slightly 
+off, but the core data is not truncated. This should allow for thousands of 
+vector choices instead of 21 choices.</p>
+
+</body>
+
+</html>

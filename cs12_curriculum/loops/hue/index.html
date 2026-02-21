@@ -1,0 +1,162 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>Hue</title>
+</head>
+
+<body>
+  <h1>
+    Hue
+  </h1>
+
+<h2>RGB vs HSB</h2>
+<p>We've been using the RGB system for all of our assignments. This means that whenever we are choosing a color, we choose the amount of red, green, and blue that our color should have.</p>
+<p>Another common representation is HSB, where the three parts of a color break down into&nbsp;<strong>Hue, Saturation, Brightness</strong>.</p>
+<p>Open up Google's Color Picker</p>
+<p><a href="https://www.google.com/search?q=color+picker" data-cke-saved-href="https://www.google.com/search?q=color+picker">https://www.google.com/search?q=color+picker</a></p>
+<p>&nbsp;</p>
+<p>Previously you may have used this to figure out the R, G, B values of a color. But the way that you choose is the more natural choice of adjusting the&nbsp;<strong>Hue, Saturation, and Brightness</strong>.</p>
+<p>When picking a color here, you are not thinking in have to do a few things. The main one is to first pick a <strong>Hue</strong>&nbsp;using the Slider</p>
+<p><img src="images/slider.png" alt="2b2a23de-9958-4fae-aee1-dbff5666977d.png" width = "400px" /></p>
+<p>The <strong>Hue </strong>is a representation of the color all at once. This is where you choose if your color should be red, yellow, or purple. The 'amount' of the color is not chosen yet.</p>
+<p>Once you've selected the Hue, you can control the&nbsp;<strong>Saturation&nbsp;</strong>and&nbsp;<strong>Brightness&nbsp;</strong>in the upper area by dragging the selection circle around.</p>
+<p><img src="images/picker.png" width = "500px" alt="f10a8bcb-4bf4-4396-a6be-28acc4122b58.png" /></p>
+<p>Dragging the circle to the&nbsp;<strong>left and right</strong>&nbsp;affects the&nbsp;<strong>Saturation</strong>&nbsp;of the color, move all the way to the left and you'll see that the color gets washed out until it is just white.</p>
+<p>Dragging the circle <strong>up and&nbsp;down</strong>&nbsp;affects the&nbsp;<strong>Brightness</strong>&nbsp;of the color. Your color is brightest at the top, and black at the very bottom.</p>
+<p>&nbsp;</p>
+<p>Once you've chosen your color, you are given several different numerical&nbsp;representations of it.&nbsp;</p>
+<p><br /><img src="images/hex_hue.png" width = "500px" alt="315d0f26-350a-42e6-88a8-d93a92d4eeed.png" /></p>
+<p>We usually focus on the RGB value, but this time we are focusing on the&nbsp;<strong>HSV</strong>&nbsp;values (essentially the same as the HSB we will use). The above example is a simple red color and you can see has a hue of&nbsp;<strong>0</strong>, and a 100% for the saturation and brightness.</p>
+<p>&nbsp;</p>
+<h4>Hue is an Angle</h4>
+<p>If you drag the hue slider and drag it, you should see that the Hue is not represented in the '256' style that we usually associate with RGB. Hue is represented as an angle on a wheel, where 0 degrees and 360 degrees are both red.</p>
+<p><img src="images/angle.png" width = "300px" alt="821ce2f1-d109-438a-8f5d-0e2ab19e3ed2.png" /></p>
+<p>&nbsp;</p>
+<p>Open the RGB vs HSB workspace in CodeHS</p>
+<p>There you will find a simple program that has a variable counting up from 0, then being used as one of the values that choose the background color.</p>
+<p>Run the sketch and watch as the color&nbsp;goes from the CYAN (0,255,255) to the WHITE (255,255,255) since the sketch is in RGB, after the number passes 255 you will not see any change because the red value is maxed out.</p>
+<p>&nbsp;</p>
+<p>After watching it through, uncomment the line in the setup() function</p>
+<pre>colorMode(HSB);</pre>
+<p>This function call will tell p5 that we are no longer giving RGB values whenever we choose a color, instead we are giving HSB. With this change, the increasing variable is now used to represent the&nbsp;<strong>hue</strong>&nbsp;of the color. The other two values, saturation and brightness, are maxed out at 255 so that our colors aren't washed out or dark.</p>
+<p>Run the sketch again and watch&nbsp;this time as the sketch cycles&nbsp;through all of the colors of the rainbow.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Infinite Cycling</h4>
+<p>Again, if you wait long enough the color will eventually stop changing. This time any hue above 360 is accepted as 360 and the sketch freezes at red.</p>
+<p>Your task is to modify the code to make it cycle forever. Add an if statement that sets the a variable back to zero if it makes it above 360. If done properly, this should cause the colors to infinitely cycle through the rainbow, never maxing out.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Hue Strip</h2>
+<p><img src="images/strip.png" alt="f5019432-ba95-4e52-b355-2aaa4b85f46a.png" /></p>
+<p>As you just saw, using colorMode(HSB); makes it so that we can cycle through the rainbow with a single variable.</p>
+<p>To produce the Hue Strip above was produced by drawing 360 vertical lines, each with a different&nbsp;<strong>hue angle</strong>&nbsp;in their color.</p>
+<p>Open the Hue Strip workspace, which starts on a strategy that draws three vertical lines, with hue angles 0, 1, and 2.&nbsp;</p>
+<pre>function setup() {
+  createCanvas(360, 40);
+  colorMode(HSB);
+}
+
+function draw() {
+  background(220);
+
+  //Replace this with a for loop
+  stroke( <span><strong>0</strong></span>, 255, 255 );
+  line( <span><strong>0</strong></span>, 0, <span><strong>0</strong></span>, 40);
+
+  stroke( <strong><span>1</span></strong>, 255, 255 );
+  line( <strong><span>1</span></strong>, 0, <strong><span>1</span></strong>, 40);
+
+  stroke( <span><strong>2</strong></span>, 255, 255 );
+  line( <span><strong>2</strong></span>, 0, <span><strong>2</strong></span>, 40);
+  
+  
+}</pre>
+<p>&nbsp;</p>
+<p>The strategy that has been started here is going to get old very quickly. To make the whole strip we need all 360 lines. Take a look at how each line drawn has an x value that matches its&nbsp;<strong>hue</strong>&nbsp;value, then rewrite the strategy with a for loop helping to represent every number from 0 to 360, each time choosing a stroke with that hue value and drawing a line at that x value.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+<h2>Hue Circles</h2>
+<p><img src="images/circles.png" alt="e2570e6b-dce3-4b5d-ad2c-ce40169f14eb.png" width="250" height="250" /></p>
+<p>The sketch above draws colorful circles arranged into a bigger circle. Each circle's color has a hue angle related to its location in the bigger circle.</p>
+<p>We will be using HSB colors and trigonometry, so don't forget:<br />&nbsp; colorMode(HSB);<br />&nbsp; angleMode(DEGREES);</p>
+<p>&nbsp;</p>
+<p>Remember that we can figure out a location on a circle at a certain angle using a little trigonometry:</p>
+<p>&nbsp; &nbsp; let x = centerX + radius*cos(angle);<br />&nbsp; &nbsp; let y = centerY + radius*sin(angle);</p>
+<p>Choose values to represent the centerX, centerY, and radius of your bigger circle. Then create a for loop to iterate through every angle, 20 degrees at a time and draw a circle using the location derived by the above calculations. The fill for each circle should have a hue angle that matches the angle used to derive its location.</p>
+<p>&nbsp;</p>
+<h3>Hue Ring</h3>
+<p>If you draw your circles using&nbsp;<strong>noStroke()</strong>&nbsp;and space them 1 degree apart instead of 20, you get a nice hue ring</p>
+<p>&nbsp;<img src="images/ring.png" alt="dd830d2a-5aad-46e5-8184-12e5eeabe360.png" width="249" height="249" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  <hr>
+  <h3>Stretching the Hue Strip</h3>
+<p><img src="images/long_strip.png" alt="5aba14b2-034d-4684-9d9d-fed3f4ac6edd.png" /></p>
+<p>Re-open the Hue Strip assignment. The previous version of it had a width of 360 for convenience. This made it easy for every x value to find a hue, which also had a range of 360.</p>
+<p>Modify the canvas&nbsp;to have a width of 700. This will cause a problem that is not simply solved by changing the loop. Any x value above 360 is not valid, and p5 will cap it to red (the 360 value).</p>
+<p>&nbsp;</p>
+<p>What we need is to stretch the hue's 0 - 360 range across the 0 - 700 range of the window.</p>
+<p>The&nbsp;<strong>map()</strong>&nbsp;function is perfect for that. Remember that it takes a value that exists in one number range and returns its corresponding location in the new range:</p>
+<pre>map( value, originalMin, originalMax, newMin, newMax)</pre>
+<p>If your loop is representing every x value from 0 to 700, you can find its hue</p>
+<pre>let h = map( x, 0, 700, 0, 360);     //maps an x value to its corresponding hue.</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  <h3>Spinning Beach Ball</h3>
+<p><img src="images/beach_ball.png" alt="c6c08651-41f7-4354-8cd2-76180fdba5d7.png" width="233" height="233" /></p>
+<p>&nbsp;</p>
+<p>Another variation of the Hue Circle is to create a colorful 'beach ball'. This time the colors are arranged into a swirling effect that can be achieved by many differently colored arcs.</p>
+<p>First, copy this starter code into an empty sketch:</p>
+<pre>function setup() {<br />&nbsp; createCanvas(200, 200);<br />&nbsp; angleMode(DEGREES);<br />&nbsp; colorMode(HSB);<br />&nbsp; strokeWeight(2);<br />&nbsp; noFill(); &nbsp;<br />}<br/><br/>function draw() {<br />&nbsp; background(255);<br />&nbsp;&nbsp;<br />&nbsp; translate(width/2, height/2);<br />&nbsp;&nbsp;<br />&nbsp; arc(40,0,80,80, 0, 180)<br />&nbsp;&nbsp;<br />}</pre>
+<p>&nbsp;</p>
+<p>Here you've been given some code that first translates to the center of the canvas, and then it draws an arc 40 pixels to the right of center. The purpose is so we can use the rotate() function to help us spin around the center.</p>
+<p><img src="images/arc.png" width = "300px" alt="39d396a5-27a9-4400-b59f-268b76bb6882.png" /></p>
+<p>To get the beach ball&nbsp;use a loop that will draw 360 of the same arc, rotating 1 degree between each one. To create the rainbow effect, each arc should b drawn with a different <strong>stroke</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h3>Colorful Squiggle</h3>
+<p>&nbsp;<strong><iframe src="demos/rainbow_squiggle/index.html" width="210" height="210" data-mce-fragment="1"></iframe></strong></p>
+<p>When we first used the noise() function, we created a drifting ball by calling the noise function twice. Open the Colorful Squiggle workspace</p>
+<p>function setup() {<br />&nbsp; createCanvas(400, 400);</p>
+<p>&nbsp; noStroke();<br />&nbsp; colorMode(HSB);<br />}</p>
+<p>function draw() {<br />&nbsp; background(0);<br />&nbsp; let x = noise( frameCount*0.005 , 5)*width;<br />&nbsp; let y = noise( frameCount*0.005 , 10)*height;<br />&nbsp;&nbsp;<br />&nbsp; fill(255);<br />&nbsp; circle(x,y,15);<br />}</p>
+<p>&nbsp;</p>
+<p>We are going to use a similar strategy to create a colorful squiggle, that with wiggle around.</p>
+<p>First, we need to get the sketch to draw a line instead of a single ball. Again instead of using frameCount*0.01 and drawing a single circle, create a for loop that will draw the first 1000 circles. Your looping variable should count from 0 to 1000, and you should&nbsp;<strong>replace frameCount</strong>&nbsp;with the looping variable. This will help you generate a thousand locations every frame instead of just one.</p>
+<p>The result should be random, but generate a small blob</p>
+<p>&nbsp;&nbsp;<img src="images/white1.png" width = "200px" alt="7cba3c9e-8f1d-4719-b59d-5730f63f9a2d (1).png" /> <img src="images/white2.png" width = "200px" alt="a1840653-c2d5-4a69-b8a0-0e2df9f04798 (1).png" /></p>
+<p>&nbsp;</p>
+<h4>Adding Color</h4>
+<p>You can see a little bit more depth if the circles all have different hue values. Again, use map() to help you give each of your 1000 circles a different hue.</p>
+<p>&nbsp;&nbsp; <img src="images/color1.png" width = "200px" alt="41b82abc-cfdc-4e06-8c1a-ae16d8672c29 (1).png" /> <img src="images/color2.png" width = "200px"  alt="28690a60-4c56-46af-bc8f-47a973107e6c (1).png" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Putting the Squiggle in your Squiggle</h4>
+<p>We started with a sketch that was a little bit alive, due to the use of frameCount*0.005 as one of the values fed to the noise function. This caused every frame to generate a slightly different number. The current version of that program has you replacing that frameCount with a looping variable:<br /><br />&nbsp;&nbsp;let x = noise( f*0.005 , 5) * width;&nbsp; &nbsp; &nbsp; &nbsp;//f is my looping variable<br />&nbsp; let y = noise( f*0.005 , 10) * height;</p>
+<p>These functions are using the same value as noise's first parameter,&nbsp;f*0.005. This would give us exactly the same value, except we are using the fact that noise() is a two dimensional function and adding two random values, 5 and 10. This means that even though the first values are the same, we are at different locations in the 'noise space', causing the values to differ.</p>
+<p>To bring back a little bit of change per frame, we are going to insert the frameCount back into our noise function, but this time as the&nbsp;<strong>third parameter</strong>.</p>
+<p>&nbsp; let x = noise( f*0.005 , 5<strong>, frameCount*0.001</strong>) * width;&nbsp; &nbsp; &nbsp; &nbsp;//f is my looping variable<br />&nbsp; let y = noise( f*0.005 , 10<strong>, frameCount*0.001</strong>) * height;</p>
+<p>This means that we can still cycle the first values&nbsp;while holding the second two steadily apart from each other. Since the third value is now slightly different each time, that mean that the resulting values will all be slightly different each time.</p>
+<p>Now you should have a nice, undulating rainbow squiggle.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+</body>
+
+
+</html>

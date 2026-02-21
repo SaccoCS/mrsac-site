@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>What is and int?</title>
+
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p,pre {
+	font-size: medium;
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<h1>What is an int?</h1>
+<p>An int is one of the basic data types that we will be using in our programs.&nbsp; 
+It is short for integer, and may only be used to store whole numbers.&nbsp; Any 
+time a number is typed with no decimal and no quotes, it will be considered an 
+int.</p>
+<p>For example, the following snippet of code declares an int variable named 
+num, and assigns a value of 4 to it:</p>
+<pre>int num = 4;</pre>
+<p>You may not assign any value to an int variable that is not a whole number.&nbsp; 
+For example, the following lines will not compile:</p>
+<pre>int num = 4.0;</pre>
+
+<p>This is a fine attempt, but even though 4.0 is a whole number including the 
+decimal point technically changes the type from an int to a different data type 
+that is meant to handle decimal values (a double). </p>
+<pre>int num = "4";</pre>
+<p>In this case the value being assigned to the num variable looks like an int, 
+but by surrounding it with quotation marks it is being transformed into a String 
+that has the character 4 in it.&nbsp; This strips the 4 of any mathematical 
+value.&nbsp; It is simple another character, such as an &quot;A&quot; or a &quot;#&quot;.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

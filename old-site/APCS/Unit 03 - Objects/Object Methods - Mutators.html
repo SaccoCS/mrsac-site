@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+</head>
+
+<body>
+
+<p>Objects with Methods: Mutator Methods</p>
+<hr/>
+<p>Mutating the Data:</p>
+<p>Accessor methods like getFirst and getLast mere made because reading from 
+n.first and n.last is no longer allowed.&nbsp; Another problem will occur when 
+trying to change (or <strong>mutate</strong>) the instance fields.&nbsp;</p>
+<pre>Name n = new Name("Steve","Urkle");
+n.last = "Harvey";
+</pre>
+
+<p>This snippet of code is attempting to change the last name to be &quot;Harvey&quot; 
+instead of &quot;Urkle&quot;.&nbsp; Similar to before, this is no longer allowed.</p>
+<p>&nbsp;</p>
+<p>Mutator Methods:</p>
+<p>Just like we needed to add methods to help us read the information back out 
+of an object, we are going to have to add methods that will help us <strong>
+change</strong> the data.</p>
+<p>Let&#39;s think of the method that we would like:</p>
+
+<pre>Name n = new Name("Steve","Urkle");
+n.setLast("Harvey");
+System.out.println(n.getLast());</pre>
+
+<p>As you can see from </p>
+
+</body>
+
+</html>

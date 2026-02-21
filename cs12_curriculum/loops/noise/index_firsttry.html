@@ -1,0 +1,280 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Noise</title>
+  
+</head>
+
+<body>
+  <h2>
+    The noise() Function
+  </h2>
+  
+  <p>
+    The random() function performs its function, and will fit your needs nicely, but there are different types of random that can be more useful in some situations. In the window below, random numbers are repeatedly generated and drawn as a vertical line. Notice the difference in behavior of each.
+
+  </p>
+  <p>
+    Evenly Distributed Random: This gives an equal chance of each value. You can see that as values are added, they evenly spread across the window.
+
+  </p>
+  <p>Gaussian Random: This random function gives a Normal Distribution of random numbers, grouped around a specific centerpoint.
+  </p>
+  <p>Perlin Noise/Simplex Noise: This function generates random numbers, but in a way where sequential numbers are close to each other.
+
+  </p>
+  
+  <iframe>
+    
+  </iframe>
+  
+  
+  <p>
+    The results of the noise() function are what we will be exploring today. Its results are random, but not so chaotic as fully random.  </p>
+  <p>
+Open the Noise Demo workspace, where will you be met with the following loop:
+
+  </p>
+  
+  <pre>  for(let x = 0; x &lt; width; x++){
+      let y = random();
+      circle(x,y,5);
+  }
+</pre>
+  
+  <p>
+    
+    The looping variable x is representing every x location in the canvas, and at each point it is drawing a circle with a random y value.
+Run the program and you’ll see a relatively boring line gets drawn:
+
+  </p>
+  
+  <img src = "images/">
+  
+  <p>
+    This is because the random() function generates a value from 0 to 1, meaning each circle is drawn relatively close to the top of the canvas.
+
+  </p>
+  
+  <h3>
+    "Stretching" the Random Value
+
+  </h3>
+  <p>
+    What we really want is a random value with a larger range. While the random() function is built to take parameters for this purpose, we are going to use a more mathy approach and multiply the random() value by the height of the canvas:
+
+  </p>
+  <pre>let y = random()<span style = "color:red">*height</span>;
+</pre>
+  <p>With this modification, run the program again and inspect the result:
+
+    
+  </p>
+  <img src = "images/">
+  
+  <p>
+    The circle drawn at each location has chaotic randomness. Each random number has nothing to do with the one before it.
+
+  </p>
+  
+<h3>The noise() Function</h3>
+
+<p>
+The <code>noise()</code> function is also random, but it’s random-ish. It accepts a parameter,
+and is designed in a way that calling it twice with two parameters that are close to each other
+will result in random values that are close.
+</p>
+
+<p>
+For example, consider these three calls to <code>noise()</code>:
+</p>
+
+<pre><code>
+let n1 = noise( 5 );
+let n2 = noise( 10 );
+let n3 = noise( 5.01 );
+</code></pre>
+
+<p>
+<code>n1</code> and <code>n2</code> are generated using two numbers that are far away from each other:
+5 and 10. The result will be two random values that don't seem related.
+</p>
+
+<p>
+<code>n1</code> and <code>n3</code>, however, were generated with numbers that are very close:
+5 and 5.01. You can expect that the resulting generated values will be close as well.
+</p>
+
+<h3>Using noise() Instead of random()</h3>
+
+<p>
+The way that we are going to use this in our code will be to call the <code>noise()</code>
+function instead of <code>random()</code>. To get parameters that are close to each other,
+we are going to be using our x-location.
+</p>
+
+<p>
+Modify the line that initializes <code>y</code> to be a random number, so that it uses
+<code>noise()</code> instead:
+</p>
+
+<pre><code>
+let y = noise( x * 0.01 ) * height;
+</code></pre>
+
+<p>
+Multiplying by <code>0.01</code> may look odd here. The reason is that we want the parameters
+to be very close to each other. Each x value is 1 apart, which is too far for the
+<code>noise()</code> function to consider them “close”. Multiplying by <code>0.01</code>
+will generate values that are sufficiently close.
+</p>
+
+<p>
+The <code>noise()</code> function, like <code>random()</code>, generates a value from
+0 to 1, so we still need to use multiplication to “stretch” its range to be between
+0 and the height of the canvas.
+</p>
+
+<p>
+The result should be a program that gives you something like this:
+</p>
+
+<p><strong>IMAGE</strong></p>
+
+<p>
+Notice the semi-randomness that appears. Each circle’s y location is random, but still
+close to the number that comes before it. The result is a value that more naturally
+grows and shrinks.
+</p>
+  
+    <h2>Mapping Values</h2>
+  <p>Often times numbers come in expected ranges, and sometimes mixing ranges requires a little bit of math to adjust. For example: If you call Math.random(), the result is only from 0 - 1. If you want a different range, multiplication could help you 'stretch' that random number. If you wanted to get a random y value, you could multiply it by the height of the canvas, causing the final numbers to fall in a bigger.</p>
+  <pre>let y = random()*height;</pre>
+  <p>This is the basic idea of mapping. We start with a value that has a <span style = "color:blue">natural range that we don't like (0 - 1)</span> and we turn it into a corresponding value in a <span style = "color:magenta">different range (0,height)</span></p>
+  <p>Since mapping values isn't always as simple as multiplying by a simple value, p5 has a&nbsp;<strong>map</strong>&nbsp;function that helps you covert values between different ranges. In order to tell it what we specifically want it to do, we're going to have to give it a lot of information.</p>
+  <pre>map( value, <span style = "color:blue">originalMin, originalMax</span>, <span style = "color:magenta">newMin, newMax</span>)</pre>
+  <p>The map function is for converting from one range to another.&nbsp; In order to do this, you must first figure out the minimums and maximums that you're dealing with:</p>
+  <p>For example: Below is an example of the map function.&nbsp; The slider at the top controls the value of x, which can range from <span style = "color:blue">0 to 100.&nbsp;</span> The top bar is filled using this value, but the bottom two bars are&nbsp;<em>mapped</em> to different ranges. <span style = "color:magenta">0-256</span> and <span style = "color:magenta">0-360</span>.&nbsp; As you drag the slider, notice that map maintains the proportions between the new ranges.&nbsp; When x is 50 it's halfway through its range, mapping that to a range of 256 would mean its 128, halfway through.</p>
+  <p><iframe  src="demos/map_demo/index.html" width="650" height="200" data-mce-fragment="1"></iframe></p>
+  
+  
+
+
+  
+  <p>When mapping a value, you give the function the <strong>value </strong>to map, followed by its <strong>original range</strong> and its <strong>new range</strong>. So mapping the value of 25 from the range 0-100 to 0-500 would be:</p>
+  <pre>let m = map(25,0,100,0,500);</pre>
+  
+  <br/>
+  <h4>
+    Mapping Noise
+  </h4>
+  <p>
+    In the Noise Demo workspace, you have a line of code like this:
+  </p>
+  <pre>let y = noise(x * 0.01)*height</pre>
+  <p>Its purpose is to first generate a noise value, and then use multiplication to stretch it to its new value</p>
+  <p>Update that portion of your code to be these two lines:</p>
+  <pre>let n = noise( x * 0.01 );
+let y = map( n, <span style = "color:blue">0, 1</span>, <span style = "color:magenta">0, height</span>);</pre>
+  
+  <p>
+    This is a longer way of performing the task that we already had already done. The first line generates a noise value, and the second 'stretches' it from its original <span style = "color:blue">0-1</span> range to its new <span style = "color:magenta">0-height</span> range.
+  </p>
+  <p>
+    Running the program after making this change should make a squiggle as it did before.
+  </p>
+  
+  
+  <img src = "images/"></img>
+  
+  <h4>
+    Noise's Actual Range
+  </h4>
+  <p>
+    We like to think of the <code>noise()</code> function's range as between 0 and 1, but in reality it doesn't quite go that far. Notice that your squiggly lines never really hit the top or the bottom. A better 'original' rangle to consider for noise is more like 0.2 - 0.8.
+  </p>
+  <p>
+    Update your code one more time. This time using 0.2 to 0.8 as the original range:
+  </p>
+ <pre>
+let y = map( n, <span style = "color:red">0.2, 0.8</span>, 0, height);</pre>
+  
+  <p>
+    Run the program again and notice that the line gets closer to the top and bottom of the canvas.
+  </p>
+  
+  <br/><br/>
+  <hr>
+  
+  <h2>
+    Noisy Rainbow
+  </h2>
+  <img src = "images/">
+  <p>
+    Open the Noisy Rainbow Workspace
+  </p>
+  
+  <div class = "head_list">
+    
+  <p>
+    In the Noise Demo, we saw a way to get noisy values in two steps:
+  </p>
+  <ol>
+    <li>Call noise with 'close values' as a parameter</li>
+    <li>Use map() to take it from its original range to its new one</li>
+  </ol>
+  
+  </div>
+  <pre>let n = noise( x * 0.01 );
+let mappedNoise = map( n, 0.2, 0.8, _____, ______);</pre>
+  
+  
+  <p>
+    In the Noisy Rainbow workspace, your task is to create a 'noisy rainbow' design like the above image
+  </p>
+  
+  <p>
+    Notice that <code>colorMode(HSB)</code> has been called, changing how our call to stroke() and fill() are interpreted.
+  </p>
+  
+<!--   <hr>
+  <h1>
+    Programming Assignments
+  </h1>
+  <h2>Mapped Rectangles</h2>
+  <p><iframe src="demos/mapped_rectangles/index.html" width="202" height="152" data-mce-fragment="1"></iframe></p>
+  <p>First, open the Mapped Rectangles workspace in CodeHS, which is an unfinished version of the sketch above.</p>
+  <p>&nbsp;</p>
+  <p>There are currently two things being drawn: a circle that follows the mouse, and a rectangle. The goal will be to draw another circle inside the rectangle that is proportionally the same as where the mouse is in the canvas. When the mouse is halfway through the canvas, the circle will be halfway through the rectangle. To figure out where this circle should be, we're going to be&nbsp;<strong>mapping</strong>&nbsp;the value of mouseX from the window&nbsp; to the rectangle. We know all of the important information:</p>
+  <p><strong>Value</strong>: mouseX<br /><strong>Original Range</strong>: 0 - width<br /><strong>New Range:</strong> 30 - 110</p>
+  <p>Add the following to the end of the draw function.</p>
+  <pre>let x = map( mouseX, 0, width, 30, 110 ); 
+let y = 30;
+circle(x,y,10);
+  </pre>
+  <p>You now have a circle that should be mapped between the sides of the rectangle, but only in the x direction. Run the sketch and wave the mouse from left to right to confirm that it stays between the two sides while being stuck on the top at y = 30;</p>
+  <p>&nbsp;</p>
+  <h3>Your Task(s)</h3>
+  <p><strong>Fix y</strong></p>
+  <p>To unstick the circle from the top of the rectangle, we need to map it in a way similar to x. The value of x was mapped from 30 - 110 because the rectangle being drawn had an x of 30 and a width of 80. Your job is to fix the y value by mapping it in a similar way. This should be a separate call to map that doesn't interfere with the x mapping.&nbsp;Run your sketch to confirm that it works. The circle should remain entirely within the small rectangle.</p>
+  <p>&nbsp;</p>
+  <p><strong>Repeat for Two More Rectangles</strong></p>
+  <p>Modify the draw function to draw two more rectangles:</p>
+  <pre>rect(120, 200, 200, 75);
+rect(200, 50, 120, 100);</pre>
+  <p>&nbsp;</p>
+  <p>As was done with the first rectangle, draw a circle inside of each of these new rectangles using calls to the map function to keep it proportional.</p>
+  <p>In the end you should have three rectangles, each with their own circle mapped inside them.</p>
+  <p>&nbsp;</p> -->
+  <hr>
+  
+  
+  
+  
+</body>
+
+
+</html>
+

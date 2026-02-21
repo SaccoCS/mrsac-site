@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Recursive Drawing and Fractals</title>
+
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	border-color: #c0c0c0;
+	border-width: 0;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+.auto-style3 {
+	text-align: center;
+}
+.auto-style4 {
+	font-size: medium;
+}
+.auto-style5 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Recursive Drawing and 
+Fractals</h2>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/Turtle.html">
+Turtle API</a></p>
+<p><strong>Turtle Graphics</strong>:&nbsp; Included in the sacco.jar class is the <strong>Turtle</strong> 
+class.&nbsp; On construction, a Turtle opens up a window.&nbsp; If you then put 
+the Turtle&#39;s penDown it will draw lines as you tell it to move and turn.</p>
+<p>For Example:&nbsp; Create a class and run the following static method:</p>
+<pre>public static void turtleDemo()
+{
+    Turtle t = new Turtle();
+    t.setTimeDelay(200);
+    
+    //initial position
+    t.turnRight(90);
+    t.move(150);
+    t.turnLeft(90);
+    t.move(150);
+    t.turnLeft(90);
+    
+    //drawing a square
+    t.penDown();
+    t.move(300);
+    t.turnLeft(90);
+    t.move(300);
+    t.turnLeft(90);
+    t.move(300);
+    t.turnLeft(90);
+    t.move(300);
+    t.turnLeft(90);
+}</pre>
+<p>The turtle always starts in the center and facing north, so there is some 
+moving in order to get into the correct starting position, and then it draws a 
+300 x 300 square.</p>
+<p>&nbsp;</p>
+<p class="auto-style4"><strong>Fractal making objects:</strong></p>
+<p>Copy the following class into your project.&nbsp; Note that it has a Turtle 
+as an instance field, the constructor sets up that Turtle, and the design method 
+draws a triangle.&nbsp; At the moment this is not a recursive fractal; it&#39;s just 
+the framework that the Fractal will build on.</p>
+<pre>import sacco.*;
+public class Koch
+{
+    private Turtle t;
+
+    public Koch()
+    {
+        t = new Turtle();
+        
+        //initial setup
+        t.setTimeDelay(20);
+        t.turnLeft(120);
+        t.move(250);
+        t.turnRight(150);
+    }
+
+    public void design(int count)
+    {
+        int sideLength=430;
+        t.move(sideLength);
+        t.turnRight(120);
+        t.move(sideLength);
+        t.turnRight(120);
+        t.move(sideLength);
+    }
+
+    public static void main()
+    {
+        Koch k = new Koch();
+        k.design(0);
+    }
+}</pre>
+<p>Run the main method.&nbsp; It should get the following</p>
+
+<p>
+<img  src="images/0.png" width="250" /></p>
+<p>
+Our goal is to replicate the Koch Snowflake.&nbsp; Which follows a simple 
+pattern.&nbsp; Each generation it takes a straight line and put an equilateral 
+triangle into it:</p>
+<table class="auto-style1" style="width: 100%">
+	<tr>
+		<td class="auto-style2">One Generation:</td>
+		<td class="auto-style2">Two Generations:</td>
+		<td class="auto-style2">Three Generations:</td>
+	</tr>
+	<tr>
+		<td class="auto-style3">
+<img width="250" src="images/1.png"  /></td>
+		<td class="auto-style3">
+<img  src="images/2.png" width="250" /></td>
+		<td class="auto-style3">
+<img  src="images/3.png" width="250" /></td>
+	</tr>
+</table>
+<p>
+&nbsp;</p>
+<p>
+The way that we are going to make this fractal is by making a recursive method 
+that will either draw a straight line, or draw a line with a kink in it.</p>
+<p>
+1)&nbsp; Change your design method:&nbsp; At the moment, the design method draws 
+lines using the <strong>move</strong> method.&nbsp; We need to do more than 
+this, so replace every t.move(sideLength); with this.kochLine(sideLength,count);&nbsp; 
+This will not compile yet.&nbsp; The sideLength variable will be used to 
+determine how long the line should be, and the count variable is going to keep 
+track of what generation we&#39;re on.&nbsp; At the moment, the main method is 
+keeping it at 0, which will be the base case and simply draw a straight line.</p>
+<p>
+2)&nbsp; Add the kochLine method:&nbsp; </p>
+<p>
+Add the following incomplete method to the class.&nbsp; Notice that when the 
+count is zero, a simple move method is called and no recursion happens.&nbsp; </p>
+<pre> public void kochLine(double length, int count)
+{
+    t.penDown();
+    if(count==0)
+    {
+       t.move(length);
+    }
+    else
+    {
+
+    }
+    t.penUp();
+}</pre>
+<p>If you compile and run your program now, since the method called is delay(0), 
+It will draw the same exact triangle as before.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style4">
+<strong>Finishing the kochLine method:</strong></p>
+<p>
+First, go to the main method and change the <strong>k.design(0);</strong> line 
+to read <strong>k.design(1);</strong> We will just be testing with one 
+generation just in case things get out of hand.</p>
+<p>
+Now go to the kochLine method:</p>
+<p>
+The idea is that when count is zero, a simple straight line is drawn (this is 
+already provided for you):<br />
+<img src="images/img1E.gif" /></p>
+<p>
+Otherwise, a kochLine has a kink in it:</p>
+<p>
+<img src="images/img1C.gif" /></p>
+<p>
+Fill in the else statements that will cause the turtle to make this design.&nbsp; 
+Each segment is exactly one third the length of the whole line.</p>
+<p>
+<strong>Keep in mind:</strong><br />
+1)&nbsp; The kink in the middle is an equilateral triangle, meaning that turning 
+60 and 120 degrees at some points would be a good idea.<br />
+<br />
+2) We don&#39;t want to draw with just regular old<strong> move</strong> method 
+calls.&nbsp; Instead each of these lines should be <strong>kochLine</strong>s.&nbsp; 
+Every place that you think a t.move(length/3) would be appropriate, instead use 
+this.kochLine(length/3, count - 1);&nbsp; This will cause the count to get 
+closer to zero, but still add kinks when there </p>
+<p>
+3) In order for this recursion to work, the Turtle must end up in the exact same 
+location and in the exact same direction it would if we had just drawn the 
+straight line.&nbsp; If you don&#39;t take care of this, the fractal will spiral out 
+of control.</p>
+<p>
+&nbsp;</p>
+<p>
+<strong>Testing it out:&nbsp; </strong> </p>
+<p>
+Once you think you&#39;ve drawn the line properly, run the main method.&nbsp; If 
+everything&#39;s done properly, the design should look like this:</p>
+<p>
+<img width="250" src="images/1.png"  /></p>
+<p>
+&nbsp;</p>
+<p>
+Test the next generation:&nbsp; Change the main method to read <strong>
+k.design(2);</strong>&nbsp; and hopefully you have the following:</p>
+<p>
+<img  src="images/2.png" width="250" /></p>
+<p>
+If those work, you&#39;re probably set.&nbsp; You can quickly&nbsp; run the designs 
+by adding the following method, which lets you enter the number of generations 
+as a parameter:</p>
+<pre>
+public static void kochSnowflake(int count)
+{
+    Koch k = new Koch();
+    k.design(count);
+}</pre>
+<p>
+Test it on some higher numbers, but be warned that each generation increases the 
+amount of moves exponentially and you might get stuck waiting for the thing to 
+finish for a long time.</p>
+<hr/>
+<h3 style="font-family:Arial, Helvetica, sans-serif">
+Branches:</h3>
+<p>
+<img  src="images/8.png" width="250" /></p>
+<p>
+Copy the following code to your project folder:</p>
+<pre>import sacco.*;
+
+public class Branches
+{
+    private Turtle t;
+    
+    public Branches()
+    {
+        t = new Turtle();        
+        t.setTimeDelay(10);   
+    }
+    
+    public void design(int count)
+    {
+        branch(100,count);
+        t.turnRight(120);
+        branch(100,count);
+        t.turnRight(120);
+        branch(100,count);
+        t.turnRight(120);
+    }
+    
+    public void branch(double length, int count)
+    {       
+        double mult = .6;
+        
+    }
+    
+    public static void main(int count)
+    {
+        Branches b = new Branches();
+        b.design(count);
+    }
+}</pre>
+<p>
+This time the branch method is the recursive one.&nbsp; The count and length 
+variables are going to have the same purpose that they did in the previous 
+fractal.&nbsp; Fill in the code so that it does the following:</p>
+<p>
+When count is equal to 0:<br />
+<img src="images/img31.gif" /></p>
+<p>
+Notice that theTurtle drew a line and then returned to the exact position that 
+it started.&nbsp; When backtracking, it looks cleanest if you call t.penUp().</p>
+<p>
+When count is greater than zero:</p>
+<p>
+<img src="images/img33.gif" /></p>
+<p>
+The two red lines are calls to this.branch(mult*length), count -1);.&nbsp; Keep 
+in mind that since the red lines are calls to the branch method, the Turtle will 
+end up exactly where it started and you will not have to backtrack.&nbsp; You 
+will still have to backtrack over the black line to return back to the original 
+position.</p>
+<p>
+&nbsp;</p>
+<p>
+The design method draws three trees in a circle:</p>
+<table class="auto-style5" style="width: 100%">
+	<tr>
+		<td class="auto-style2">Zero Generation</td>
+		<td class="auto-style2">One Generations</td>
+		<td class="auto-style2">Four Generations</td>
+		<td class="auto-style2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="auto-style3">
+		<img src="images/1branches.png" width="250" class="auto-style6" /></td>
+		<td class="auto-style3">
+		<img  src="images/2branches.png" width="250" class="auto-style6" /></td>
+		<td class="auto-style3">
+		<img  src="images/5branches.png" width="250" class="auto-style6" /></td>
+		<td class="auto-style2">&nbsp;</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<hr/>
+<p>&nbsp;</p>
+<h3 style="font-family:Arial, Helvetica, sans-serif">Sierpinski Triangle:</h3>
+<table class="auto-style5" style="width: 100%">
+	<tr>
+		<td class="auto-style2">One Generation</td>
+		<td class="auto-style2">Two Generations</td>
+		<td class="auto-style2">Three Generations</td>
+				<td class="auto-style2">Six Generations</td>
+	</tr>
+	<tr>
+		<td class="auto-style3">
+		<img  src="images/pinski0.png" width="250" class="auto-style6" /></td>
+		<td class="auto-style3">
+		<img src="images/pinski1.png" width="250" class="auto-style6" /></td>
+		<td class="auto-style3">
+		<img src="images/pinski2.png" width="250" class="auto-style6" /></td>
+		<td class="auto-style3">
+		<img src="images/pinski6.png" width="250" class="auto-style6" /></td>
+		<td class="auto-style2">&nbsp;</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p>Copy the following class to your project folder:</p>
+<pre>import sacco.*;
+
+public class Sierpinski
+{
+    private Turtle t;
+    
+    public Sierpinski()
+    {
+        t = new Turtle();
+        t.setTimeDelay(10);
+
+        t.turnRight(90);
+        t.move(225);
+        t.turnRight(90);
+        t.move(190);
+    }
+
+    public void design(int count)
+    {
+        //Draws the top two sides of the triangle, which the recursion doesn't cover
+        int sideLength = 450;
+        t.penDown();
+        t.turnLeft(210);
+        t.move(sideLength);
+        t.turnLeft(120);
+        t.move(sideLength);
+        t.turnLeft(120);
+        
+        this.triLine(sideLength,count);
+    }
+
+    public void triLine(double length, int count)
+    {
+        t.penDown();
+       //code goes here
+    }
+
+    public static void main(int count)
+    {    
+        Sierpinski s = new Sierpinski();
+        s.design(count);
+    }
+
+}</pre>
+<p>The key to this fractal is to know that we&#39;re only drawing the upside-down 
+triangles to achieve the effect we&#39;re looking for.&nbsp; As part of the design the top and bottom of the triangle are drawn 
+manually, and then 
+the triLine method is called.</p>
+<p>Fill in the triLine method so that it does the following:</p>
+<p>When count is 0:<br />
+<img src="images/img4A.gif"  width="250"/></p>
+<p>When count is greater than 0</p>
+<p><img src="images/img4C.gif"  width="250"/></p>
+<p>The turtle will go halfway, draw a triangle using triLines of half the 
+length, and then finish out the line.</p>
+<p>We are making it so that triangles can sprout out of the left of the triLine.&nbsp; 
+This means that the path that the turtle takes is very important.&nbsp; Follow 
+the path below to ensure that the triangles spawn on the outside.</p>
+<p><img src="images/img4E.gif" width="250"/></p>
+
+<p>One more generation would add the other three triangles:</p>
+<p><img src="images/img55.gif" width="250"/></p>
+<p>&nbsp;</p>
+<hr>
+<h3 style="font-family:Arial, Helvetica, sans-serif">Squares:</h2>
+<p>
+<img  src="images/Square.png" width="250" /></p>
+<p>
+This design is accomplished by first drawing a square, and then drawing a 
+smaller square inside of that one, and a smaller one inside of that.</p>
+<p>
+<img  src="images/Square1.png" width="250" />
+<img  src="images/Square2.png" width="250" /></p>
+<p>
+&nbsp;</p>
+<p>
+Copy the following program to your project folder:</p>
+<pre>import sacco.*;
+
+public class Square
+{
+    private Turtle t;
+
+    public Square()
+    {
+        t = new Turtle(501,501);
+        t.setTimeDelay(20);
+        t.move(250);
+        t.turnLeft(90);
+        t.move(250);
+        t.turnLeft(90);
+    }
+
+    public void drawSquare(double length, int count)
+    {
+        t.penDown();
+
+    }
+
+    public static void main()
+    {
+        Square s = new Square();
+        s.drawSquare(500,1);
+    }
+}</pre>
+<p>
+&nbsp;</p>
+<p>
+<strong>Finishing drawSquare:</strong></p>
+<p>
+The drawSquare method&#39;s job is to always first draw a square of the given length 
+and ending up facing the exact way as it started.&nbsp; After that, if the count 
+is greater than 0, move forward a little bit, turn left a little bit, then call 
+the drawSquare method with a smaller length and count.</p>
+<p>
+The amount that you move needs to be precise.&nbsp; Use the following variables:</p>
+<pre>double portion = .1; 
+double angle = Math.toDegrees(Math.atan(portion/(1-portion)));
+double newLen= portion*length/Math.sin(Math.toRadians(angle));</pre>
+<p>
+The portion variable represents how far down the outer tringle to move before 
+turning, the angle variable represents how far to turn, and the newLen variable 
+is the length of the smaller triangle.</p>
+<p>
+&nbsp;</p>
+<p>
+Test out your program and see if it draws a square inside of another square.&nbsp; 
+If that works, modify the main method so that it works with higher numbers of 
+generations.</p>
+<p>
+<strong></strong></p>
+<p>
+<strong>Modifying it to lose the count:</strong></p>
+<p>
+For this project, the count variable is not actually necessary.&nbsp; We want 
+the design to continue until the squares are as tiny as can be.&nbsp; Go to the 
+drawSquare method and delete the count variable from its parameters.&nbsp; Then 
+modify your if statement so that the recursive method is called as long as the 
+length is greater than 2.&nbsp; This should cause it to draw as many squares as 
+it needs to until they are very tiny.&nbsp; You will also have to remove the 
+parameter from any calls to the drawLine method in order to get it to compile.</p>
+<p>
+Run the main method.&nbsp; It should continue looping, but stop one it has 
+filled in the center. </p>
+
+
+</body>
+
+</html>

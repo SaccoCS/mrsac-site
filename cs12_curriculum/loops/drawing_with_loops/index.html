@@ -1,0 +1,311 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>For Loops</title>
+</head>
+
+<body>
+  <h1>Drawing with For Loops</h1>
+
+  <p>
+    In the <strong>Iterative Number Patterns</strong> assignment, we relied on the
+    <code>draw()</code> function's repetition to help us create a repeated pattern. This made designs that developed over time, as each new frame added more to the image.
+  </p>
+
+  <p>
+    Now that we have <strong>for loops</strong>, we can create the entire design in a single call to <code>draw()</code>, making the full design appear in the very first frame.
+  </p>
+
+  <h2>For Loop Line Fill</h2>
+  <img src="images/line_fill.png" width="400px"></img>
+  <p>
+    Open the <strong>For Loop Line Fill</strong> example. There you will find code that is similar to what you've done before. It draws randomly colored vertical lines across the screen at
+    <code>x = 0</code>, <code>x = 1</code>, <code>x = 2</code>, and so on. The difference this time is that the <code>x</code> pattern is represented with a loop:
+  </p>
+
+  <pre><code>for (let x = 0; x &lt; width; x++) {
+  stroke(random(256), random(256), random(256));
+  line(x, 50, x, 150);
+}</code></pre>
+
+  <p>
+    This loop starts <code>x</code> at 0 and increments it by 1 each step until it reaches the width of the canvas. When you run this code, notice that the design appears immediately in a single frame.
+  </p>
+
+  <h3><code>noLoop()</code>?</h3>
+
+  <p>
+    Notice the call to <code>noLoop()</code> in the <code>setup()</code> function. This function tells p5 that it should only call the <code>draw()</code> function once.
+  </p>
+
+  <p>
+    This is important here because we're using random numbers. If the <code>draw()</code> function were called repeatedly, each frame would have completely different colored lines, and the drawing would constantly change instead of staying as a single
+    finished picture.
+  </p>
+  <br/>
+  <br/>
+  <hr>
+  <h2>Square Spacing</h2>
+
+  <img src="images/squares.png" width="340px"></img>
+  <p>
+    Open the <strong>For Loop Square Spacing</strong> workspace.
+  </p>
+
+  <p>
+    Your task is to recreate the design from your <strong>Iterative Pattern: Square Spacing</strong> assignment, but this time using a <strong>for loop</strong> instead of relying on the repeated calls to <code>draw()</code>.
+  </p>
+
+  <p>
+    An example showing the first few squares has been provided for you, but your final solution should use a <strong>single for loop</strong> to draw all of the squares in the pattern.
+  </p>
+
+  <br/>
+  <br/>
+  <hr>
+  <h2>For Loop Circle Ring</h2>
+
+  <img src="images/ring.png" width="240px"></img>
+  <p>
+    Open the <strong>For Loop Circle Ring</strong> workspace.
+  </p>
+
+  <p>
+    Your task is to recreate the design from your <strong>Iterative Pattern: Circle Ring</strong> assignment, but using a for loop instead. Again, an example showing the first few circles has been provided, but your solution should use a loop to draw
+    all of them.
+  </p>
+
+  <p>
+    Specifically, use a loop to draw circles with sizes from <strong>50 through 100</strong> (inclusive), following the same pattern as your original iterative version.
+  </p>
+
+  <br/>
+  <hr>
+  <h2>Ten Rings</h2>
+
+  <img src="images/ten_rings.png" width="200px"></img>
+  <p>
+    Open the <strong>Ten Rings</strong> workspace.
+  </p>
+
+  <p>
+    Once again, your task is to generate the same image you did before, but this time using a
+    <strong>loop to draw all of the rings in a single frame</strong>. Instead of relying on the repeated calling of <code>draw()</code>, use a for loop to create the full pattern at once.
+  </p>
+
+  <br/>
+  <br/>
+  <hr>
+  <h2>Drawing a Scene</h2>
+
+  <img src="images/full_scene.png" width="210px"></img>
+  <p>
+    Open the <strong>Drawing a Scene</strong> workspace. This program is intended to draw a full outdoor scene, but most of the functions are incomplete. As a result, only a small portion of the scene appears.
+  </p>
+
+  <img src="images/blank.png" width="210px"></img>
+
+
+  <p>
+    Your task is to implement each of the missing functions using loops to complete the scene.
+  </p>
+
+<br/>
+
+  <h3>Grass</h3>
+  <img src="images/grass.png" width="210px"></img>
+
+  <p>
+    Locate the <code>drawGrass()</code> function. The grass is made up of many small vertical lines.
+  </p>
+<div class = "head_list">
+  <p>Write a loop that will:</p>
+
+  <ul>
+    <li>Iterate <strong>900 times</strong>.</li>
+    <li>
+      Each iteration, generate a random <code>x</code> and <code>y</code> in the bottom portion of the canvas:
+      <ul>
+        <li><code>x</code> should be between <code>0</code> and <code>width</code>.</li>
+        <li>
+          <code>y</code> should be between <strong>150</strong> and <code>height</code> (the bottom of the canvas).
+        </li>
+      </ul>
+    </li>
+    <li>
+      Draw a vertical line from that random location to a point <strong>5 pixels above it</strong> (same <code>x</code>, <code>y - 5</code>).
+    </li>
+  </ul>
+</div>
+  <p>
+    When you are done, run the program to make sure the grass looks similar to the reference image shown in class.
+  </p>
+
+<br/>
+  <h3>Fence</h3>
+
+  <img src="images/fence.png" width="210px"></img>
+  <p>
+    Locate the <code>drawFence()</code> function. The fence is made up of horizontal rails and vertical posts.
+  </p>
+
+  <p>
+    <strong>Fence rails:</strong> The rails are two long horizontal rectangles. Draw these first so that they appear <strong>behind</strong> the posts.
+  </p>
+<div class = "head_list">
+  <p>
+    <strong>Fence posts:</strong> The posts are made of a series of rectangles with:
+  </p>
+
+  <ul>
+    <li><code>y = 156</code></li>
+    <li>Width = <strong>5</strong> pixels</li>
+    <li>Height = <strong>16</strong> pixels</li>
+    <li>
+      The <code>x</code> coordinates are all <strong>15 pixels apart</strong>, ranging from
+      <strong>0 to 120</strong>.
+    </li>
+  </ul>
+</div>
+  <p>
+    Use a for loop to generate these <code>x</code> values and draw each post. Then run the program to verify that the fence looks correct.
+  </p>
+
+<br/>
+  <h3>Sun's Rays</h3>
+
+  <img src="images/sun.png" width="210px"></img>
+  <p>
+    Locate the <code>drawSun()</code> function. It starts by drawing the circle of the sun, and then draws a single ray using translation and rotation:
+  </p>
+
+  <pre><code>// draw a rotated line
+resetMatrix();
+translate(50, 40);   // translate to sun center
+rotate(0);           // rotate
+line(0, 0, 36, 0);   // draw line</code></pre>
+
+  <p>
+    The line is drawn this way so that it can be easily rotated to different angles by changing the value passed to <code>rotate()</code>.
+  </p>
+
+
+<div class = "head_list">
+  
+  <p>
+    Your task is to draw rays going out in all directions around the sun.
+  </p>
+
+  <ul>
+    <li>
+      Wrap the ray-drawing code in a <strong>for loop</strong> whose loop variable represents the angle (in degrees).
+    </li>
+    <li>
+      Start the angle at <strong>0</strong> and increase it by <strong>18</strong> each step, stopping before you reach <strong>360</strong> degrees (this will give you 20 rays).
+    </li>
+    <li>
+      In each iteration:
+      <ul>
+        <li>Reset the matrix and translate to the sun's center.</li>
+        <li>Rotate by the current angle.</li>
+        <li>Draw the ray line.</li>
+      </ul>
+    </li>
+  </ul>
+
+</div>
+<br/>
+  <h3>Trees</h3>
+
+  <img src="images/trees.png" width="210px"></img>
+  <p>
+    Locate the <code>drawTrees()</code> function, which is responsible for drawing a forest to the right of the house.
+  </p>
+
+  <p>
+    A helper function <code>drawTree(x, y)</code> has been provided for you. It draws a single tree with its base at the given <code>(x, y)</code> position. One example call is:
+  </p>
+
+  <pre><code>drawTree(170, 160);</code></pre>
+
+  <h4>Layering Properly</h4>
+
+  <p>
+    We want to place trees at random <code>x</code> positions, but we also want them to overlap in a way that looks natural. To do this, we'll control the <code>y</code> values so that trees in the back (smaller <code>y</code>) are drawn first, and trees
+    in the front (larger
+    <code>y</code>) are drawn later.
+  </p>
+<div class = "head_list">
+  <p>
+    Write a for loop where the loop variable represents <code>y</code>:
+  </p>
+
+  <ul>
+    <li>Have <code>y</code> loop from <strong>150</strong> to <strong>220</strong>.</li>
+    <li>Increase <code>y</code> by <strong>10</strong> each step.</li>
+    <li>
+      On each iteration:
+      <ul>
+        <li>Choose a random <code>x</code> between <strong>145</strong> and <strong>350</strong>.</li>
+        <li>Call <code>drawTree(x, y)</code> to draw a tree at that position.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+  <p>
+    Because you are drawing smaller <code>y</code> values first, the trees with larger
+    <code>y</code> (closer to the front) will naturally overlap those behind them, creating better depth.
+  </p>
+
+  <br/>
+  <br/>
+  <h3>Clouds</h3>
+
+  <img src="images/clouds.png" width="210px"></img>
+  <p>
+    Locate the <code>drawCloud()</code> function. Clouds are created by drawing many circles at random positions within a given area. The circles will be slightly transparent so that when they overlap, they form a soft, wispy texture.
+  </p>
+
+  <p>
+    The function has four parameters representing the cloud's position and size:
+    <code>(cx, cy, cw, ch)</code>, where:
+  </p>
+
+  <ul>
+    <li><code>cx, cy</code> is the top-left corner of the cloud area.</li>
+    <li><code>cw</code> is the cloud's width.</li>
+    <li><code>ch</code> is the cloud's height.</li>
+  </ul>
+
+  <p>
+    We are going to use <strong>40 circles</strong> to draw each cloud. Write a loop that will iterate 40 times. Each time, draw a circle with:
+  </p>
+
+  <ul>
+    <li>
+      A random <code>x</code> chosen between <code>cx</code> and <code>cx + cw</code>.
+    </li>
+    <li>
+      A random <code>y</code> chosen between <code>cy</code> and <code>cy + ch</code>.
+    </li>
+    <li>
+      A radius equal to <strong>half</strong> the cloud's height: <code>ch / 2</code>.
+    </li>
+  </ul>
+
+  <p>
+    When you are finished, run the program to check that the clouds, trees, sun, fence, and grass all come together to form the complete scene.
+  </p>
+
+<hr>
+
+
+
+
+
+</body>
+
+
+</html>

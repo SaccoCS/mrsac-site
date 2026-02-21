@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Math and Casting Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	color: rgb(34, 34, 34);
+	letter-spacing: normal;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style1" style="font-family: Arial, Helvetica, sans-serif; font-size: x-large; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+Math Programs 2:</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+<strong>DataSet</strong>: Write a class named DataSet, which will have the 
+ability to register values one at a time and keep track of the largest value 
+entered and the smallest value entered.&nbsp; DataSet doesn’t need to keep track 
+of every number, but should have instance fields to keep track of the <strong>
+largest</strong> and <strong>smallest</strong> value that have been registered.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+For example:</p>
+<pre style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">DataSet mySet = new DataSet();
+mySet.registerInt(8);
+mySet.registerInt(16);
+mySet.registerInt(-4);
+System.out.println( mySet.toString() );</pre>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+The code above should output:&nbsp; &quot;So far the largest value entered is 16, and 
+the smallest is -4, this is a range of 20&quot;<br />
+</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Add a constructor to DataSet that takes in no parameters and assigns some good 
+initial values to the largest and the smallest instance fields.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Add a method named registerInt that takes in an int as a parameter.&nbsp; When 
+an int is registered, it should be compared with whatever is currently in the 
+largest value using.&nbsp; The larger of the two should be stored in the largest 
+value field.&nbsp; This may be done using math.max. &nbsp;A similar strategy should be used to update the smallest value 
+field.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Add a method named getRange() that will return the difference between the 
+largest and smallest values</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Add a toString method that returns a String in the form of “So far the largest 
+value entered is _____, and the smallest is _____, this is a range of _____”.&nbsp; 
+Do not create an instance field to hold the range, you should be using a method 
+that you’ve created to help you.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+<strong>Quadratic</strong>: Create a class named Quadratic, which will represent 
+an equation in the form of ax^2+bx+c=y.&nbsp; There should be instance fields to 
+represent the a,b, and c values.&nbsp; The constructor should take in three ints 
+as parameters and assign them to the appropriate instance fields.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Add a method named <strong>getVal(int x) </strong>&nbsp;which takes in an x 
+value and returns the value that the equation would give for y.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Add two methods, <strong>rootOne</strong> and <strong>rootTwo</strong>, which 
+will use the quadratic formula to return one of the two roots of the equation:</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+The quadratic equation is<span class="Apple-converted-space">&nbsp;</span><img alt="x=\frac{-b \pm \sqrt {b^2-4ac}}{2a}," src="3ea647783b5121989cd87ca3bb558916.png" />, 
+which is actually two separate solutions because of the ‘plus or minus’.&nbsp; 
+rootOne will use the ‘+’ while rootTwo will use the ‘-‘.&nbsp; I recommend that 
+you don&#39;t try and solve this all in one line.&nbsp; For example, you could 
+calculate everything under the square root and store it in a variable, and then 
+later the calculation wouldn&#39;t be so messy.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Add a <strong>toString</strong> method that returns a String in the form of&nbsp; 
+“The equation __x^2+__x+__ has roots at ___ and ___</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+WARNING!&nbsp; The Quadratic formula has a chance of giving back imaginary 
+numbers.&nbsp; If you give an a,b, and c value that has an imaginary number as a 
+solution, it will return<span class="Apple-converted-space">&nbsp;</span><strong>NaN<span class="Apple-converted-space">&nbsp;</span></strong>(Not 
+A Number).&nbsp; We don&#39;t know enough programming to prevent this from 
+happening, so we&#39;re just going to put in numbers that we know have real 
+solutions.</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+Test out your program with the following:<br />
+a=1, b=-17, c=60 should return solutions of 5 and 12<br />
+a=14, b=23, c=3 should return solutions of -1.5 and -0.14285</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+<strong>HourMinSec</strong>:&nbsp; Create a class named HourMinSec that will 
+prompt the user for a number of seconds and then tell the user how many Hours, 
+Minutes, and Seconds it is.</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+Example:<br />
+Please enter a value in seconds:<br />
+5000<br />
+5000 seconds is 1 hour(s) 23 minute(s) and 20 second(s)</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+Hints:&nbsp; There are 3600 seconds in an hour.&nbsp; Use a combination of int 
+division and mod to determine how many hours there are and how many seconds are 
+left over.&nbsp; After that you can do a similar action to split the remaining 
+seconds into minutes and seconds.</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+<strong>DistanceDescriber</strong>:&nbsp; Create a class named 
+DistanceDescriber, which will take in a double from the user that represents a 
+number of miles.&nbsp; The program will then print out how many miles, feet, and 
+inches that decimal is representing.</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+Example:</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+Please enter a distance in miles:<br />
+5.285<br />
+That distance is 5 mile(s) 1504 feet and 9 inches<br />
+</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+The input is a double, but the output is three ints.&nbsp; You may discard 
+fractions of an int.</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style1" style="font-variant: normal; line-height: normal; text-align: start; text-indent: 0px; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; orphans: 2; widows: 2; margin: 0px; background-color: rgb(255, 255, 255)">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+<p class="auto-style2" style="font-family: Arial, Helvetica, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin: 0px; color: rgb(34, 34, 34); orphans: 2; widows: 2; background-color: rgb(255, 255, 255);">
+&nbsp;</p>
+
+</body>
+
+</html>

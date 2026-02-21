@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Objects: Accessor Methods</title>
+<style>
+
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	margin-left: 40px;
+}
+.auto-style2 {
+	font-size: medium;
+}
+.auto-style3 {
+	color: #FF0000;
+}
+.auto-style4 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Objects with Methods:&nbsp; Accessor Methods</h2>
+<p>Objects are more than just a way of grouping data together.&nbsp; The second 
+major feature of objects is that they also have methods that have the instance 
+fields available to them.&nbsp; These methods are added by the designer to make 
+the object easier to work with.</p>
+<p>For example:&nbsp; Strings are objects that store many characters, but 
+Strings also have methods that will tell you something about the instance 
+fields.&nbsp; The most common one that we use is the <strong>substring</strong> 
+method.&nbsp; The way that substring can work so well is that it has direct 
+access to all of the characters of the String.</p>
+<p>In reality, we don&#39;t have direct access to the instance fields of a String.&nbsp; 
+The substring method helps us by telling us information that we want to know 
+about the String.</p>
+<hr/>
+<p><strong><span class="auto-style4">Previously:</span></strong></p>
+<p><img border="1" src="images/img18.jpg" /></p>
+<p>In the last assignment, we were designing the <strong>Name</strong> object 
+below:&nbsp;</p>
+<pre>public class Name
+{
+   public String first;
+   public String last;
+   
+   public Name(String f, String l)
+   {
+      first = f;
+      last = l;
+   }
+}</pre>
+<p>- A Name object will have two instance fields, Strings for the first name and 
+the last name.</p>
+<p>- Name&#39;s constructor takes in two Strings as parameters.&nbsp; Those Strings 
+get applied to the instance fields.&nbsp; The constructor is what makes it ok to 
+write: Name n = new Name(&quot;Ian&quot;, &quot;Sacco&quot;); and have the first and last names end 
+up in the appropriate instance fields.</p>
+<p>&nbsp;</p>
+<p>The NameRunner class constructs a Name object using a custom constructor and 
+then prints out the first and last name</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name(&quot;Marty&quot;,&quot;McFly&quot;);
+        
+        System.out.println("First Name: "+n.first);
+        System.out.println("Last Name: "+n.last);
+        
+        Name n2 = new Name(&quot;Jon&quot;,&quot;Snow&quot;);
+        
+        
+        System.out.println("First Name: "+n2.first);
+        System.out.println("Last Name: "+n2.last);
+    }
+}</pre>
+
+<p>&nbsp;</p>
+<p>We&#39;ve been cheating a little bit.&nbsp; Accessing the variables directly 
+using c.make or c.model is allowed when you have public instance fields.&nbsp; 
+This is a problem because part of designing good higher level objects, you must 
+have more control over the instance fields.</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>All instance fields must be private:</strong></p>
+<p>Our first Name object had public instance fields which made it easier to see how the 
+instance fields worked.&nbsp; In some programming languages, it&#39;s common to use 
+objects like this, but in this class we&#39;re going to always make our instance 
+fields <strong>private</strong>.&nbsp; This forces us to think a little more 
+about how to access the instance fields.&nbsp; &nbsp;</p>
+<p>Go to the name class and make the instance fields <strong>private</strong>.</p>
+<pre>public class Name
+{
+   private String first;
+   private String last;
+   
+   public Name(String f, String l)
+   {
+      first = f;
+      last = l;
+   }
+}</pre>
+
+<p>This won&#39;t cause any problems in the Name class, but the NameRunner class 
+will not compile.&nbsp; Now that the instance fields are <strong>private</strong>, 
+they are no longer directly accessible.&nbsp; This means accessing <strong>n.first</strong> or 
+<strong>n.last</strong> is no longer allowed.</p>
+<p>&nbsp;</p>
+<p class="auto-style3"><strong>WARNING!!!!!&nbsp; FOR THE REST OF THIS CLASS, 
+EVERY INSTANCE FIELD THAT YOU CREATE IS REQUIRED TO BE PRIVATE.&nbsp; USING 
+PUBLIC INSTANCE FIELDS WILL RESULT IN A LOSS OF CREDIT, EVEN IF IT PRODUCES THE 
+PROPER RESULT.</strong></p>
+<hr/>
+<p class="auto-style2"><strong>Objects have methods!!!!</strong></p>
+<p>Objects do more than just bundle data together under one variable.&nbsp; They 
+can also have methods.&nbsp; You&#39;ve seen this before with Strings.</p>
+<pre>String str = "Hello World!!!";
+System.out.println( str.substring(2,8) );</pre>
+<p>This code will print out &quot;llo Wo&quot;.&nbsp; </p>
+<p>The snippet above is using one of String&#39;s built in methods, named substring.&nbsp; 
+These methods are different than the helper methods that we have been writing 
+because they specifically deal with the instance fields of the object.&nbsp; For 
+example, the substring method must have access to what characters are stored in 
+a String in order to function.</p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style2"><strong>Adding Accessor Methods to Name:</strong></p>
+<p>As the designer, we get to add any methods that we want.&nbsp; First we need 
+to solve the problem of the private instance fields.&nbsp; Our previous programs 
+printed out the Name&#39;s variables because they were public and easy to access, 
+but now there&#39;s no way to retrieve them.</p>
+<p>&nbsp;</p>
+<p><strong>Our first Accessor Method: getFirst</strong></p>
+<p>The following line will no longer compile:</p>
+
+<pre>Name n = new Name("Han","Solo");
+System.out.println("First Name: "+n.first);</pre>
+<p>This is because first is now private within Name.&nbsp; In reality, we have 
+no way of knowing what&#39;s stored in the <strong>first</strong> variable, but we 
+have the ability to add methods to the objects that we&#39;re designing.&nbsp; The 
+first method that we are designing is called getFirst, and its job is to simply 
+return what&#39;s stored in first.&nbsp; </p>
+<p>Once we&#39;ve finished writing the getFirst method, we will be able to use 
+methods to acccess the first variable like so:</p>
+<pre>Name n = new Name("Han","Solo");
+String f = n.getFirst();
+System.out.println("First Name: "+f);</pre>
+<p>or, we can put it all in one line.</p>
+<pre>Name n = new Name("Han","Solo");
+System.out.println("First Name: "+n.getFirst());</pre>
+
+<p>As you can see, instead of using <strong>n.first</strong>, which would access 
+the first variable directly, we call the getFirst method, which will return the 
+value stored in the <strong>first</strong> variable.&nbsp; This is a minor 
+difference, but a necessary one if the instance fields are private.</p>
+<p>&nbsp;</p>
+<p><strong>Designing the getFirst method:</strong>&nbsp; </p>
+<p>Just like the helper methods that we&#39;ve 
+written, we must be careful to think about the parameters and the return type:</p>
+<p>- parameters:&nbsp; The purpose of this method is to simply return one of the 
+instance fields.&nbsp; There will be no need for any parameters because all of 
+the necessary information is stored in the instance fields.</p>
+<p>- return type:&nbsp; The purpose of this method is to return the value stored 
+in the <strong>first</strong> variable.&nbsp; Since first is a String, the 
+return type is a String.</p>
+<p>&nbsp;</p>
+<p>Now it&#39;s time to write the method header:</p>
+<pre>public String getFirst()</pre>
+<p>This method has a return type of a String and no parameters.</p>
+<p>Where&#39;s the static?<br />
+We&#39;ll talk more about what static means later, but follow the simple rule:&nbsp;
+<strong>If a method relies on instance fields, it&#39;s non-static</strong>.&nbsp; 
+Essentially every method that you write <strong>within</strong> an object should 
+be non-static.&nbsp; Others, such as your main methods, should be static.</p>
+<p>&nbsp;</p>
+<p>Add the getFirst method to your Name class an you should have the following:</p>
+<pre>public class Name
+{
+    private String first;
+    private String last;
+    
+    public Name(String f, String l)
+    {
+        first = f;
+        last = l;
+    }
+    
+    public String getFirst()
+    {
+       
+    }
+    
+}</pre>
+<p>&nbsp;</p>
+<p><strong>Access to the instance fields:</strong></p>
+<p>The getFirst method is non-static, meaning that it has access to the instance 
+field of the object that it&#39;s a part of.&nbsp; In this case, we can do whatever 
+we want to the <strong>first</strong> or <strong>last</strong> variables.&nbsp; 
+This is similar to String objects, where methods like substring have access to 
+all of the letters in a String.</p>
+<p>&nbsp;</p>
+<p><strong>Implementing the method (writing the code):</strong></p>
+<p>The getFirst method is supposed to return the value of the first variable, 
+which is really easy since we have direct access to the instance fields.&nbsp; 
+We don&#39;t even have to modify the instance field in any way.&nbsp; Add one line 
+to your method:</p>
+<pre>public String getFirst()
+{
+  return first;
+}</pre>
+<p>This is a simple as a method can be.</p>
+<p>&nbsp;</p>
+<p>What does this do?</p>
+<p>As the designer of Name we want people to be able to know what&#39;s stored in 
+the instance fields, but instance fields are private.&nbsp; Now that we have the 
+getFirst method, any name variable can tell you the value stored in its <strong>
+first</strong> variable.&nbsp;</p>
+<pre>Name n = new Name("Han","Solo");
+String f = n.getFirst();
+System.out.println("First Name: "+f);</pre>
+
+<p>&nbsp;</p>
+<hr/>
+<p><strong>Accessing last:</strong></p>
+<p>Similar to before, let&#39;s add a method that will allow the client to access 
+the <strong>last</strong> variable.&nbsp; Add the following method to the Name 
+class:</p>
+<pre>public String getLast()
+{
+   return last;
+}</pre>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style2"><strong>Modifying the Runner to use the getFirst and getLast methods:</strong></p>
+<p>BEFORE:<br />
+Notice that NameRunner previously used lines like <strong>n.first</strong> and 
+<strong>n.last</strong>, which will 
+not work now that the instance fields are private.</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name("Marty","McFly");
+        
+        System.out.println("First Name: "+n.first);
+        System.out.println("Last Name: "+n.last);
+        
+        Name n2 = new Name("Jon","Snow");
+        
+        
+        System.out.println("First Name: "+n2.first);
+        System.out.println("Last Name: "+n2.last);
+    }
+}</pre>
+<p>AFTER:</p>
+<p>Instead of directly accessing the variable, use the appropriate Accessor 
+Method instead:</p>
+<pre>public class NameRunner
+{
+    public static void main()
+    {
+        Name n = new Name("Marty","McFly");
+        
+        System.out.println("First Name: "+n.getFirst());
+        System.out.println("Last Name: "+n.getLast());
+        
+        Name n2 = new Name("Jon","Snow");
+        
+        
+        System.out.println("First Name: "+n2.getFirst());
+        System.out.println("Last Name: "+n2.getLast());
+    }
+}</pre>
+<hr/>
+<p class="auto-style2"><strong>Common Mistake:</strong></p>
+<p>Previously we&#39;ve were accessing all of our instance fields directly with a 
+line similar to the following:</p>
+<pre>System.out.println("First Name: "+ n.first);</pre>
+<p>This only works when the variables are public, which we are banned from 
+doing.</p>
+<p>&nbsp;</p>
+<p>To solve this problem we created the getFirst method.&nbsp; A common attempt 
+to call this method look like the line below, which will not compile:</p>
+<pre>System.out.println("First Name: "+ n.getFirst);</pre>
+<p>&nbsp;</p>
+<p><strong>Why won&#39;t this compile?</strong></p>
+<p>This is ALMOST correct.&nbsp; The problem is that n.first and n.getFirst look 
+too similar.&nbsp; n.first would imply that there is a public instance field 
+named <strong>first</strong> that we want to access directly.&nbsp; Similarly, 
+n.getFirst implies that there is a public instance field named <strong>getFirst,
+</strong>which is not the case.</p>
+<p>Methods <strong>ALWAYS</strong> have parentheses.&nbsp; It&#39;s the way that 
+Java knows what we&#39;re talking about:</p>
+<p>n.getFirst is attempting to access a public <strong>instance field </strong>
+named getFirst, which does not exist</p>
+<p>n.getFirst() is attempting to call a public <strong>method </strong>named 
+getFirst, which does exist.&nbsp; This is the appropriate way to call a method.&nbsp; 
+It is a small, but important difference.</p>
+<hr/>
+<p><strong><span class="auto-style4">Assignment</span></strong>:</p>
+<p>Now we&#39;re going to modify the objects that we&#39;ve been making to have <strong>
+private </strong>instance fields and <strong>accessor</strong> methods to help 
+access each of the variables.</p>
+<p>1)&nbsp; <strong>Car</strong>:&nbsp; </p>
+<p class="auto-style1">First make the make and model instance fields private.</p>
+<p class="auto-style1">Add two accessor methods named getMake and getModel</p>
+<p class="auto-style1">Change the CarRunner to the following:</p>
+<pre class="auto-style1">public class CarRunner
+{
+    public static void main()
+    {
+        Car c = new Car("Ford","Mustang");        
+        
+        System.out.println("Make: "+c.getMake());
+        System.out.println("Model: "+c.getModel());
+    }
+}</pre>
+<p>&nbsp;</p>
+<p>2)&nbsp; Modify <strong>Date</strong> so that the instance fields are private and there are
+<strong>three</strong> accessor methods (be careful, the return type is not a 
+String).&nbsp; Once you&#39;ve done that, modify the Runner to use the accessor 
+methods instead of accessing the variables directly.</p>
+<p>3) Modify <strong>Fraction</strong> so that the instance fields are private and there are two 
+accessor methods (be careful, the return type is not a String).&nbsp; Once 
+you&#39;ve done that, modify the Runner to use the accessor methods instead of 
+accessing the variables directly.</p>
+<p>&nbsp;</p>
+<p>4)&nbsp; When storing colors in the computer, it is common to represent it 
+using three ints form 0-255, each representing the levels of red, green, and 
+blue.&nbsp; Create a class named <strong>Color</strong>.&nbsp; The Color class 
+should have three ints as instance fields (red, green, and blue).&nbsp; Color&#39;s 
+constructor should take in three ints as parameters and assign them to the 
+appropriate instance fields.&nbsp; Add three accessor methods, getRed, getGreen, 
+and getBlue which should return the corresponding color value.</p>
+<p>After creating the Color class create a class named ColorRunner, which will 
+have a single main method.&nbsp; That method should do the following:</p>
+<p>- Construct a Color object with the values 0 for red, 100, for green, and 255 
+for blue.<br />
+- Use the accessor methods to print out the information in the red, green, and 
+blue instance fields in the form <strong>[Red: 0, Green: 100, Blue:255]</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

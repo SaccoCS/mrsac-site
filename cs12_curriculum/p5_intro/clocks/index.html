@@ -1,0 +1,83 @@
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  
+</head>
+
+<body>
+  <h1>Checking the Time</h1>
+<p>p5 comes with three methods to help you look at your computer's clock.</p>
+<pre><strong>hour()</strong><br /><strong>minute()<br />second()</strong></pre>
+<p>Each of these functions returns a number representing that particular section of time. This allows us to write programs that act as a clock.</p>
+<p><iframe src="https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/demos/jitter/index.html" width="180" height="50" data-mce-fragment="1"></iframe></p>
+<p>Open the Displaying the Time workspace. There you will find a simple sketch that calls each of the time functions, then display's the current time.</p>
+<pre> &nbsp;let h = hour();
+&nbsp; let m = minute();
+&nbsp; let s = second();&nbsp;&nbsp;
+&nbsp;&nbsp;
+&nbsp; text(h+":", 10 , 35);&nbsp;
+&nbsp; text(m+":", 70, 35); &nbsp;
+&nbsp; text(s, 130 , 35 );&nbsp;
+</pre>
+<p>Since it uses the hour(), minute(), and second() functions, the time displayed should match that of your computer's clock.</p>
+<p>&nbsp;</p>
+<h3>Your Task: Guaranteeing Two Digits</h3>
+<p><strong><iframe src="https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/demos/jitter/final/index.html" width="180" height="50" data-mce-fragment="1"></iframe></strong></p>
+<p>Right now the Clock display looks a little weird if there is only one digit. It's better if there is always the same number of digits, so adding a leading 0 would be good for the formatting.&nbsp; Modify the clock to have an if statement that first looks at the value of&nbsp;<strong>s</strong> to see if it's less than 10.&nbsp; If it is, draw the seconds with a leading zero in front.&nbsp; If not, just draw like normal.</p>
+<p>For example:&nbsp; 9 seconds should be represented with&nbsp;<strong>'09'</strong>, while 15 seconds should still be&nbsp;<strong>'15'</strong>. All numbers should be represented with exactly two digits.</p>
+<p>Though you're only going to really be able to check the seconds, you should perform the same action with the minutes and the hours.</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Slider Clock</h2>
+<p><iframe src="https://s3-us-west-1.amazonaws.com/srhs-site-sacco/javascript/demos/clocks/slider_clock/index.html" width="400" height="170" data-mce-fragment="1"></iframe></p>
+<p>The Slider Clock represents the time as a circle that's drawn along a line, like slider.</p>
+<p>Mapping Hint: Notice in the example that the time changes the&nbsp;<strong>x location</strong> of each circle. Since each line is drawn from x:50 to x:350, we can use that as our desired range.</p>
+<p>This means that we need to map seconds, for example, from 0-60 to 50-350. It may be weird that the destination range doesn't start at 0, but the map function handles it just fine.</p>
+<pre>let secX = map( s, 0, 60, 50, 350);</pre>
+<p>&nbsp;</p>
+<p><strong>Warning</strong><strong>: Hour is 0 - 24</strong></p>
+<p>The hour function returns the hour in the non-ambiguous military format, so it is in the range 0-24.&nbsp; Since we want it to be in our more familiar '1-12' range.&nbsp; Have an if statement that will look at the hour and subtract 12 from it if it's too large.&nbsp; Note: This strategy technically doesn't work for <strong>midnight</strong>, but you don't have to fix it.&nbsp; Mr. Sacco won't be grading your assignments then.</p>
+<p>&nbsp;</p>
+<p>Create a Slider Clock that is similar to the example.&nbsp;&nbsp;<strong>FOR FULL CREDIT:&nbsp;</strong>You may not use the range 50-350, like the demo.&nbsp; Use different values.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  <hr>
+  
+  <h2>Representing H:M:S as RGB</h2>
+<p><iframe src="https://s3-us-west-1.amazonaws.com/srhs-site-sacco/javascript/demos/clocks/color_time/index.html" width="216" height="87" data-mce-fragment="1"></iframe></p>
+<p>This time your job will be to create a clock where the current time is represented as a color:</p>
+<p>- Red is derived from hour()<br />- Green is derived from minute()<br />- Blue is derived from second()</p>
+<p>Since there are different ranges involved here, the map() function should be on the hour(), minute(), and second() values&nbsp;to get a number in the RGB range of 0 - 256.</p>
+<p>&nbsp;</p>
+<h4>Step 1) Setting the background to the time</h4>
+<p>Every new sketch has a default background(220); statement as its first line, giving a gray background. But that can be changed to represent a more colorful background if you give it three RGB parameters: background(255, 0, 0); would be a red background.</p>
+<p>Your first task is to make the background color match the time. First use the map() function three time to get the proper red, green, and blue values and assigning them to variables. Only after that should you call background(r,g,b); using those variables. If done properly, your background should match the demo above.</p>
+<p>&nbsp;</p>
+<h4>Step 2) Set the text to the Negative color</h4>
+<p>After your program's background matches the example, you can move on to writing the text.&nbsp; The fill of the text should be the&nbsp;<strong>negative</strong> of the background.&nbsp; The <strong>negative</strong> of an&nbsp;R, G, and B color is the color you get by subtracting each of them from 255.&nbsp; A negative would be (255-R,255-G,255-B).&nbsp; Use that to write the time on top of your background.&nbsp; Again, since everything is based on the current time the colors should match the examples exactly if it's done right.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h1>Traditional Clock Face</h1>
+<p><iframe src="https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/demos/clocks/partial_face/index.html" width="300" height="300" data-mce-fragment="1"></iframe></p>
+<p>A traditional clock has hands that rotate with the time.</p>
+<p>There are ways of drawing the hands, but the first thing that you must do is to think of the&nbsp;<strong>angle</strong>&nbsp;that each hand should have. For this, you will need to map() each value from it's natural range to the 360 range.</p>
+<p>&nbsp;</p>
+<p>There are two different ways that the hands can be drawn. Choose your favorite:</p>
+<p>&nbsp;</p>
+<h2>Drawing the Hands Using Rotation</h2>
+<p>- To draw a line rotated to a specific angle, first translate to the center of the clock, rotate to the angle you want, and then draw a vertical&nbsp;line from (0, 0) to (0, -50).&nbsp; Even though you're always drawing the line 'up', the rotation before it will cause 'up' to be the appropriate direction.</p>
+<p>Be careful: Don't forget that the rotations you make will persist.&nbsp; You may need to <strong>resetMatrix()</strong>&nbsp;between drawing hands.</p>
+<p>&nbsp;</p>
+<h2>Drawing the Hands Using Trig</h2>
+<p>Each hand is just a line, where one end is at the centerpoint, and the other is somewhere on a circle. Since you know the angle that you want to draw the hands, and the center of the circle,&nbsp;you can break out our circle equations to calculate where the other endpoint would be.</p>
+<pre>let x = centerX + radius * cos( angle );
+let y = centerY + radius * sin( angle );
+</pre>
+<p>Note: With trigonometry, angle 0 is directly to the right of center, which will cause the hands to be rotated 90 from where you want them to be. You can counteract this by using&nbsp;<strong>angle-90</strong>&nbsp;in the equations instead.</p>
+<p>&nbsp;</p>
+  </body>

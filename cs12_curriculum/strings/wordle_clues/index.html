@@ -1,0 +1,63 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+ Wordle Clues</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+    Wordle Clues
+  </h1>
+<p>The game of Wordle has you guessing five letter words, trying to discover the secret word. After each guess, the squares are colored to give you a hint.</p>
+<p>A green square means that you have the correct&nbsp;letter at the correct location<br />A yellow square means the letter is at some other location in the secret<br />A gray square means that the letter is not in the secret at all</p>
+<p>For example: if the secret string were "SACCO" and the guess was "SPACE", we would see this:</p>
+<p><img src="images/space.png" width="160" height="30" /></p>
+<p>Based on the colors, I can see that:<br />-&nbsp;The S and the C are at the correct locations.<br />- An A exists in the word, just not at that index.<br />- P and E are not in the secret.<br />&nbsp;</p>
+<h5>Open the Wordle workspace in CodeHS</h5>
+<p>There you are met with a&nbsp;basic outline to get you started. Looking at the top of the sketch&nbsp;you should see some variables:<br />- The&nbsp;<strong>secret</strong>&nbsp;variable will hold this puzzle's solution. Of course it's "SACCO" right now, but we can change it later.<br />- Color variables: GREEN, YELLOW, and DARK_GRAY, which contain some html color codes.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Part 1: The getColor() Function</h4>
+<p>There is not a draw function yet, but there is a new function named&nbsp;getColor(), and a setup() function with a little bit of code to test it.</p>
+<p>The getColor() function accepts two parameters, a five-letter&nbsp;<strong>guess</strong>&nbsp;and the focus&nbsp;<strong>index</strong>&nbsp;of that guess. Its purpose is to return the&nbsp;<strong>color </strong>that the box at that index should be. This will involve determining the letter at the focus index and comparing it with the global&nbsp;<strong>secret</strong>&nbsp;variable to see what you should return. When returning, you should return one of the global color variables: GREEN, YELLOW, DARK_GRAY</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>The setup() function is testing one of each of these situations, keep in mind that the secret is currently "SACCO"<br />&nbsp; - getColor( "SPACE", 0 ) is GREEN because the S at index 0 is a match<br />&nbsp; - getColor( "SPACE", 2 ) is YELLOW&nbsp;because the A at index 2 is found elsewhere<br />&nbsp; - getColor( "SPACE", 4 ) is DARK_GRAY because the E at index 4 is not found at all</p>
+<p>&nbsp;</p>
+<h5>Your Task:</h5>
+<p>Write the getColor() function, which should rely on string functions to decide on returning GREEN, YELLOW, or DARK_GRAY:<br />&nbsp;-&nbsp;<strong>charAt(&nbsp; </strong><span style="font-size: 0.8em;"><em>index&nbsp;</em></span><strong>):&nbsp;</strong>&nbsp;Return the character at a given index<br />&nbsp;-&nbsp;<strong>indexOf(&nbsp;</strong><span style="font-size: 0.8em;"><em>str&nbsp;</em></span><strong>) :&nbsp;</strong>Returns the first index that <em>str&nbsp;</em>is found,&nbsp;<strong>or a -1 if not</strong>.</p>
+<p>&nbsp;</p>
+<p>The three pieces of information that you'll need are:<br />1) The letter from the guess at the given index<br />2) The letter from the secret at the given index<br />3) The index of the 'guess letter' in the secret ( which may be -1 if it doesn't exist)</p>
+<p>&nbsp;</p>
+<h5>Test</h5>
+<p>The setup() function is already doing a basic test of the getColor() function. Run it to confirm that you have these values output to the console:<br /><br />#6ca965&nbsp;<br />#c8b653&nbsp;<br />#787c7f&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img src="images/space.png" width="320" height="60" /></p>
+<h3>Part 2: Drawing the&nbsp;Guess</h3>
+<p>Further down the sketch, find the&nbsp;drawGuess() function, which&nbsp;takes in a guess as a parameter and is responsible for drawing it to the window.&nbsp; Right now, the window is 360 pixels wide. This is enough for five 60x60 squares, spaced 5 pixels apart, with a buffer of 20 on each side.</p>
+<p>For each index in the guess parameter, you will need to:<br />&nbsp; - Get the character at that index<br />&nbsp; - Call getColor() and draw a square with a fill() of the resulting color.<br />&nbsp; - Draw the character in white on top of that square</p>
+<p>&nbsp;</p>
+<p>Remember that an accumulator variable would be helpful for tracking the x values of each square:<br />&nbsp; - Create a local x variable and assign it to 20 before the loop ( 50 if using rectMode(CENTER) )<br />&nbsp; - During the loop, draw each square at x<br />&nbsp; - After drawing, add 65 to the x to increase&nbsp;it for the next square</p>
+<p>&nbsp;</p>
+<h5>Test</h5>
+<p>Run your program. The default guess is SPACE, which will look like the above example, but you should be able to type others and get an accurate drawing.</p>
+<p><img src="images/space.png" width="160" height="30" /></p>
+<p><img src="images/cased.png" width="160" height="30" /></p>
+<p><img src="images/ccccc.png" width="160" height="30" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  
+  
+</body>
+</html>

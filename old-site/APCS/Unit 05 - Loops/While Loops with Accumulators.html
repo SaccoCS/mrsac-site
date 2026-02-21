@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>While Loops with Accumulators</title>
+<style type="text/css">
+
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	color: #FF0000;
+}
+.auto-style2 {
+	font-size: medium;
+}
+.auto-style3 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">While Loops with Accumulators</h2>
+<p>Sometimes a loop is created for the purpose of gathering or manipulating a 
+piece of data.&nbsp; In these situations, an accumulator variable is often used.&nbsp; 
+An accumulator is a variable which is modified a little bit each time the loop 
+comes around.&nbsp; After the loop has finished, the accumulator has the desired 
+number in it.</p>
+<p>For example:&nbsp; Write a program named Summer, which will repeatedly prompt 
+the user to enter numbers.&nbsp; The user can trigger the end of the loop by 
+entering the word &quot;exit&quot;.&nbsp; The program will then print out the sum of the 
+numbers that the user has entered.</p>
+<p>First, let&#39;s get the basics of the loop going.&nbsp; We need to set up a loop 
+that asks the user for a value and stops once the value is &quot;exit&quot;</p>
+<pre>import java.util.Scanner;
+public class Summer
+{
+    public static void main()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Please enter a number, or type exit");
+        String input = scan.nextLine();
+        
+        while(!input.equals("exit"))
+        {
+            
+            System.out.println("Please enter a number, or type exit");
+            input = scan.nextLine();
+        }
+    }
+}</pre>
+
+<p>Notice that the input variable is in charge of the loop.&nbsp; The first 
+value is stored into it, and then it is replaced each time the loop comes 
+around.&nbsp; As long as the input variable isn&#39;t &quot;exit&quot;, it should continue 
+looping.</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Accumulator Time!</strong></p>
+<p>In order to keep track of the sum of all the numbers entered, we do not need 
+to keep track of the individual values, just a running total of all of them.&nbsp; 
+To do this, we will declare a single variable named sum, and as the loop 
+continues we will add each value on to the sum.</p>
+<p>&nbsp;</p>
+<pre>import java.util.Scanner;
+public class Summer
+{
+    public static void main()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Please enter a number, or type exit");
+        String input = scan.nextLine();
+        
+        <span class="auto-style1">int sum = 0;</span>
+        
+        while(!input.equals("exit"))
+        {
+            int num = Integer.parseInt(input);
+            
+            <span class="auto-style1">sum += num;</span>
+            
+            input = scan.nextLine();
+        }
+        
+        System.out.println("The sum is: "+<span class="auto-style1">sum</span>);
+    }
+}</pre>
+<p>Assume that the user enters the input 3,6,8, and exits.&nbsp; The sum 
+variable would start at 0 before the loop, adding the 3 would make it 3, adding 
+the 6 would make it 9, and adding the 8 would make it 17.&nbsp; Take note that the sum variable is not finished until the loop is completely 
+over; only at that point we can print out the sum.&nbsp; This is often the case with 
+accumulators.&nbsp;&nbsp; </p>
+<p>&nbsp;The two most often seen accumulators are variables used to <strong>sum</strong>, 
+and variables that are used to <strong>count</strong>.</p>
+<p>&nbsp;</p>
+<p class="auto-style3"><strong>Assignments:</strong></p>
+<p>&nbsp;</p>
+<p>1) <strong>GradeStats</strong>: Write a program named GradeStats that repeatedly prompts the 
+user to enter the percent that a student got on an exam. This program should use 
+the standard grade scale to determine the grade that each student got and keep 
+track of all the A&#39;s, B&#39;s, C&#39;s, D&#39;s, and F&#39;s that were earned. After a &quot;exit&quot; 
+has been entered, print out how many of each grade was recieved.<br />
+<br />
+For Example:<br />
+Please enter a percent:<br />
+75<br />
+Please enter a percent:<br />
+99<br />
+Please enter a percent:<br />
+82<br />
+Please enter a percent:<br />
+71<br />
+Please enter a percent:<br />
+33<br />
+Please enter a percent:<br />
+79<br />
+Please enter a percent:<br />
+exit<br />
+<br />
+Grade Statistics:<br />
+A&#39;s: 1<br />
+B&#39;s: 1<br />
+C&#39;s: 3<br />
+D&#39;s: 0<br />
+F&#39;s: 1</p>
+<p>You will need 5 different accumulator variables in order to accomplish this.</p>
+<p>&nbsp;</p>
+<p>2)&nbsp; <strong>BioPopulation</strong>: In a biology experiment, Mr. Sacco finds that a 
+certain type of bacteria doubles its population every 12 hours. Write a program 
+that will ask the user for the starting population, and then calculate how many 
+hours it will take for that population to reach 1,000,000 or more. Hint: You 
+will need a variable to hold the population, but also one to count how many 
+times the loop has to run until the population is past 1,000,000. <br />
+<br />
+For Example:<br />
+Enter a starting population:<br />
+1000<br />
+<br />
+It would take 120 hours to pass 1,000,000</p>
+<p>&nbsp;</p>
+<p>3) <strong>FirstToFive</strong>: This program will simulate flipping a coin many times in a 
+row. Each time the coin is flipped, &quot;Heads&quot; or &quot;Tails&quot; is printed. The catch is 
+that the game is over when either five heads or five tails have been reached. 
+After that happens, the score will be printed.<br />
+<br />
+For Example:<br />
+Heads<br />
+Tails<br />
+Heads<br />
+Tails<br />
+Tails<br />
+Tails<br />
+Tails<br />
+Head Count: 2 Tail Count: 5</p>
+<p><br />
+</p>
+<p>4) <strong>Averager</strong>:&nbsp; This program will be able to calculate 
+the average of a series of ints that the user enters.&nbsp; It will first prompt 
+the user to say how many values should be entered, and then repeatedly prompt 
+the user for ints one at a time.&nbsp; Once all the values are entered, the 
+average should be printed.</p>
+<p>For Example:</p>
+<p>How many values are there?<br />
+4</p>
+<p>Enter a value<br />
+17<br />
+Enter a value<br />
+-4<br />
+Enter a value<br />
+6<br />
+Enter a value<br />
+3<br />
+The average of the 4 values is 5.5<br />
+</p>
+<p>To accomplish this, you will need two accumulators.&nbsp; One to keep count 
+of how many times that the loop has run, and one to keep track of the sum of all 
+the values entered.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

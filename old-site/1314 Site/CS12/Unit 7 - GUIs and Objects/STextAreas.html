@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<style>
+
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: large;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>STextAreas</title>
+</head>
+
+<body>
+
+<p>STextAreas</p>
+<p>
+<a href="https://s3-us-west-1.amazonaws.com/srhs-site-sacco/saccojar/doc/sacco/gui/STextArea.html">
+STextArea API</a></p>
+<p>TextFields are good for representing a small amount of code, but often times 
+you want an area with more than one line available.&nbsp; This is what the 
+STextArea is for.</p>
+<p>Copy the following class into your project.&nbsp; It is a simple layout that 
+puts an STextArea</p>
+<pre>import sacco.gui.*;
+public class AreaDemo implements ButtonListener
+{
+    private SFrame frame;
+    private SButton button;
+    private STextArea area;
+    
+    public AreaDemo()
+    {
+        frame = new SFrame();
+        frame.setLayout(new BorderLayout());
+
+        button = new SButton("Click");
+        button.addButtonListener(this);
+        frame.add(BorderLayout.SOUTH, button);
+
+        area = new STextArea();
+        frame.add(BorderLayout.CENTER, area);
+
+
+        //new code goes here
+
+
+        frame.pack();
+
+    }
+
+    public void onButtonPress(SButton source)
+    {
+ 
+    }
+
+    public void launch()
+    {
+        frame.setVisible(true);
+    }
+
+    public static void main()
+    {
+        AreaDemo a = new AreaDemo();
+        a.launch();
+    }
+
+}</pre>
+
+<p>&nbsp;</p>
+<p>Running the program will get the following result:</p>
+<p>&nbsp;</p>
+<p><img src="images/img16.jpg" /></p>
+<p>That just looks like a text field.&nbsp; The problem is that we didn&#39;t decide 
+on the size of the TextArea when we were constructing it, so frame.pack() put it 
+at it&#39;s smallest size.</p>
+<p>&nbsp;</p>
+<p>An STextField&#39;s size is created using a number of <strong>rows</strong> and
+<strong>columns</strong>.&nbsp; A <strong>row</strong> is just a line of text, 
+while a <strong>column</strong> is less clear.&nbsp; Really you should guess and 
+check the number of columns until you get what you want.</p>
+
+<p>&nbsp;Change the line that constructs the STextField to say the following:</p>
+<pre>area = new STextArea(10,25);</pre>
+
+<p>This means that the STextArea will try to have 10 lines and 25 columns 
+(whatever that is).&nbsp; Run it and you should get the following:</p>
+<p><img src="images/imgE4.jpg" /></p>
+<p>&nbsp;</p>
+<p>Now the <strong>pack</strong> method respects the size of the STextField.</p>
+<p>Modifying the Text:</p>
+<p>Just like a TextField, TextAreas have getText and setText methods.&nbsp;&nbsp; 
+Go to the code where it says &#39;//new code goes here&#39; and add the following:</p>
+<pre>area.setText("Computer Science");</pre>
+<p>Run the program again and you should get the following:</p>
+<p><img src="images/img20.jpg" /></p>
+<p>&nbsp;</p>
+<p>Other ways of putting text on the STextArea:</p>
+<p>The setText method completely replaces the text that&#39;s there.&nbsp; Sometimes 
+this is preferred, but sometimes you&#39;d like to just add on to the end.&nbsp; 
+There are two methods that will help us with this:</p>
+<p>void append( String text )</p>
+<p>void appendln( String text )</p>
+<p>You can think of these as the print and println method of the STextArea 
+object.&nbsp; They will add the given text onto the end of the existing text.&nbsp; 
+If you want it to be followed by a line, use the appendln method.</p>
+<p>Add the following line of code to the onButtonPress method:</p>
+<pre>area.append("Hello World!");</pre>
+<p>Now when you click the button, &quot;Hello World!&quot; will be added to the end of the 
+current text.</p>
+<p><img src="images/img43.jpg" /></p>
+<p>Keep pressing the button and you&#39;ll notice that scrollbars automatically 
+appear.</p>
+<p><img src="images/img1A.jpg" /></p>
+<p>Sometimes this is helpful, but sometimes not.&nbsp; You can control if they 
+appear or not using the following methods:</p>
+<p>public void setHorizontalScroll(boolean b)<br />
+public void setVerticalScroll(boolean b)</p>
+<p>By default they only appear when needed, but we can set them to always on or 
+always off by passing a true or false into these methods.</p>
+<p>Add the following to the &#39;//new code goes here&#39; location in the constructor:</p>
+<pre>area.setHorizontalScroll(false);</pre>
+<p>Now when you click the button many times, the scollbars will not appear:</p>
+<p><img src="images/img1D3.jpg" /></p>
+<p>Often when there&#39;s a text field, the horizontal scroll is off but the text 
+will automatically go on to the next line.&nbsp; This is known as <strong>
+wrapping</strong> the text onto the next line.&nbsp; By default it is off, but there is a method that will 
+affect that as well.&nbsp; In that same location in the constructor, add the 
+following:</p>
+<pre>area.setLineWrap(true);</pre>
+<p>Now when you click the button, the extra text appears on the next line</p>
+<p><img src="images/img51.jpg" /></p>
+<p>&nbsp;</p>
+<p>You may have noticed that there is a cursor that appears at the beginning of 
+the STextArea.&nbsp; You can type in here freely.&nbsp; Sometimes this is a good 
+idea, like whe you&#39;re using the text area for input, but sometimes it&#39;s not.&nbsp; 
+Add the following to the constructor of the demo:</p>
+<pre>area.setEditable(false);</pre>
+<p>This will make it so that you are not allowed to type in the text area.&nbsp; 
+It&#39;s just for displaying text.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Assignments:</strong></p>
+<p>1)<strong> InputLog</strong>:</p>
+<p>Create the following GUI which includes an STextArea, STextField, SPanel and an SButton:</p>
+<p><img src="images/img2A1.jpg" /></p>
+<p>Make sure that the STextArea is not editable.&nbsp; The purpose of this is to 
+keep track of the entered lines of text one at a time.&nbsp; The user will type 
+in some text in the field below:</p>
+<p><img src="images/img2C1.jpg" /></p>
+<p>When the user hits the Enter key, the text from the field is added to the 
+STextArea and the STextField is cleared:</p>
+<p><img src="images/img2E2.jpg" /></p>
+<p>The user can enter as many messages as they want.</p>
+<p><img src="images/img52.jpg" /></p>
+<p>When the Clear button is pressed, the STextArea will be cleared.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>2) <strong><span class="auto-style2">RouletteDisplay</span></strong>:</p>
+<p>In a Casino, the game of Roulette involves spinning a wheel and betting on 
+what number a marble will land on.&nbsp; Casinos have discovered that when they 
+display the numbers that have already landed, people will play more because they 
+think that a certain number or color is &quot;due&quot;.&nbsp; Mathematically this is 
+stupid, but gambling isn&#39;t for those that know how probability works.</p>
+<p>&nbsp;</p>
+<p>Create the following Roulette GUI:</p>
+<p><img src="images/img53.jpg" /></p>
+<p>When the Spin button is pressed, simulate spinning the wheel by getting a 
+random number from 1 to 34.&nbsp; That number should be displayed on the 
+STextArea</p>
+<p><img src="images/img54.jpg" /></p>
+<p><strong><span class="auto-style2">BUT WAIT</span></strong>:&nbsp; If we use 
+the appendln method, the next number will be added to the END of the text area.&nbsp; 
+In order to draw in the most suckers, we should make sure that the new number is 
+added to the <strong>beginning</strong> 
+of the TextArea.&nbsp; That will involve using the <strong>getText</strong> 
+method, adding the new number to the beginning of that text, and then using the
+<strong>setText</strong> method to display that String.</p>
+<p>In order for this to look good, you must do two things:</p>
+<p>- Turn off vertical scrolling<br />
+- use a line such as <strong>area.setCaretPosition(0); </strong>&nbsp;Which will 
+set the position of the cursor to index 0 (the top).&nbsp; If we don&#39;t do this, 
+the bottom of the list will be shown, which is unacceptable and will not make us 
+any profits.</p>
+<p>&nbsp;</p>
+<p><strong>Adding the Colors:</strong></p>
+<p>&nbsp;Each number in Roulette has a color associated with it. For the sake of 
+this assignment, each number is either Red or Black. We’re going to modify the 
+RouletteDisplay class to tell us if the number is red or black along with the 
+number.<br />
+<br />
+Create a method with the following header in the RouletteDisplay class:</p>
+<pre>public String getColor(int num)</pre><p>
+The purpose of this method is to return a String “Red” or “Black” according to 
+the number that is passed into the parameter.<br />
+Start this method with the following two arrays that are lists of the black 
+numbers and the red numbers<br /></p>
+<pre>
+int[] blackNums = {2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33};
+int[] redNums = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34};
+</pre><p>
+<strong>Strategy:</strong><br />
+Start with a String variable that contains the String “ERROR”. Set up a loop 
+that will loop through the the blackNums array and check to see if the num 
+parameter matches any of the elements in the array. If it does, put the String 
+“Black” into the variable you created earlier.&nbsp; Yes
+</p>
+<p>
+&nbsp;Repeat the process with the redNums array. After that’s finished, return the 
+String variable. Theoretically if the parameter num is from 1 to 34, either 
+“Red” or “Black” will be in that String. If something went wrong, “Error” will 
+still be there.<br />
+<br />
+<strong>Using the getColor method</strong><br />
+Now jump to the onButtonPress method, where you generate a number and then add 
+it to the String. Modify it so that it also passes that number into the getColor 
+method, and incorporated the resulting String into your setText so that it 
+displays the number, followed by its color.<br />
+</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

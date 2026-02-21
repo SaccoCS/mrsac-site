@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Tokenizer</title>
+<style type="text/css">
+
+.ms-simple3-main {
+	border: 1.5pt solid black;
+}
+.ms-simple3-tl {
+	font-weight: bold;
+	color: white;
+	border-style: none;
+	background-color: black;
+}
+.ms-simple3-left {
+	border-style: none;
+}
+.ms-simple3-top {
+	font-weight: bold;
+	color: white;
+	border-style: none;
+	background-color: black;
+}
+.ms-simple3-even {
+	border-style: none;
+}
+
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style2 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+<!--
+This method is both an accessor and a mutator.  The purpose of the currentIndex instance field is to track the starting location of the next token.
+
+For example:  If the Tokenizer's String is "To be or not to be", the currentIndex is 0.  
+
+
+
+Use currentIndex to substring out the next token.  Before returning the token, the currentIndex instance field should be set to the next location.
+
+Determining the next token:
+
+When doing this, you must be careful that there are really two situations.
+
+1)  There is at least one space after the currentIndex, meaning the indexOf method will give you a value that's useful for substring.
+
+2)  There are no spaces after the currentIndex, meaning the indexOf will return a -1.
+
+Use an if statement to determine what situation that you're in before you start to substring.  Otherwise that -1 could cause an OutOfBoundsException
+
+
+Setting the value of currentIndex to its next location:
+
+Again, there are two situations:
+
+1)  There is at least one space after currentIndex.  In this case the next value of currentIndex is simply the index AFTER the space.
+
+2)  There are no spaces after the currentIndex.  In this case the next value of currentIndex should be the length of the String.
+
+You don't necessarily have to make a new if statement to accomplish this, as these are the same situations as the first if statement did.  You may simply add more code.
+
+In the end the next token should be returned
+-->
+<h2 style="font-family:Arial, Helvetica, sans-serif">Tokenizer</h2>
+<p>Create a class named Tokenizer.&nbsp;&nbsp; A Tokenizer is 
+an object that will hold a String as an instance field and be able to return 
+that String one word at a time until there are no more words left in the String.&nbsp; 
+At that point it will simply return the empty String &quot;&quot;.</p>
+<p>The <strong>constructor</strong> of Tokenizer should take in a String and 
+apply it to the instance field.</p>
+<p>&nbsp;</p>
+<p>The way that we are going to keep track of what the next token should be is to have an int that will represent the index that the next token starts from.  Each time a token is taken, the int will be changed to the location of the next </p>
+<p class="auto-style2"><strong>A Tokenizer should have the following methods:</strong></p>
+<p class="auto-style1">public String getToken()</p>
+<p>This method is both an accessor and a mutator.&nbsp; It&#39;s purpose is to 
+return the first word in the String, but also to remove the first word from the 
+instance field so that the next time the getToken method is called it returns a 
+different result.&nbsp;&nbsp; </p>
+<p>Warning:&nbsp; Spaces are useful, but make sure that your code is ready 
+for the situation when there is no space.&nbsp; It can cause 
+problems if you&#39;re not prepared for it.&nbsp; If the last word is returned, the 
+instance field should be set to the empty String &quot;&quot;.</p>
+<p>For example:&nbsp; Consider a Tokenizer that is constructed with &quot;Hey Mister 
+Sacco&quot; and then the getToken method is called four times.</p>
+<table class="ms-simple3-main" style="width: 100%; font-family: Arial, Helvetica, sans-serif">
+	<!-- fpstyle: 3,011111100 -->
+	<tr>
+		<td class="ms-simple3-tl">Starting instance field</td>
+		<td class="ms-simple3-top">Returned from getToken</td>
+		<td class="ms-simple3-top">Instance field after getToken is called</td>
+	</tr>
+	<tr class="auto-style1">
+		<td class="ms-simple3-left">&quot;Hello Mister Sacco&quot;</td>
+		<td class="ms-simple3-even">&quot;Hello&quot;</td>
+		<td class="ms-simple3-even">&quot;Mister Sacco&quot;</td>
+	</tr>
+	<tr class="auto-style1">
+		<td class="ms-simple3-left">&quot;Mister Sacco&quot;</td>
+		<td class="ms-simple3-even">&quot;Mister&quot;</td>
+		<td class="ms-simple3-even">&quot;Sacco&quot;</td>
+	</tr>
+	<tr class="auto-style1">
+		<td class="ms-simple3-left">&quot;Sacco&quot;</td>
+		<td class="ms-simple3-even">&quot;Sacco&quot;</td>
+		<td class="ms-simple3-even">&quot;&quot;</td>
+	</tr>
+	<tr class="auto-style1">
+		<td class="ms-simple3-left">&quot;&quot;</td>
+		<td class="ms-simple3-even">&quot;&quot;</td>
+		<td class="ms-simple3-even">&quot;&quot;</td>
+	</tr>
+</table>
+<p>Don&#39;t forget that you cannot do anything after you say &quot;return ____&quot;.&nbsp; 
+For this accessor/mutator method I suggest putting the value that you would like 
+to return into a variable instead of returning it right away.&nbsp; This will 
+allow you to make modifications to the instance field before you return.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style1">public boolean hasMoreTokens()</p>
+<p>This method is an accessor that will return true if there are one or more 
+words remaining.&nbsp; Some might think that it it has to do with the index of 
+the space, but it does not.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Testing:</strong></p>
+<p>Use BlueJ to test out your Tokenizer.&nbsp; Construct a Tokenizer with 
+&quot;Computer Science is awesome&quot; and then inspect that object.&nbsp; After that, 
+alternate calling the hasMoreTokens() and getToken() method, making sure that 
+they work properly without crashing.&nbsp; In the end, you should be able to 
+keep calling the getToken and hasMoreTokens methods and getting <strong>false</strong> 
+and <strong>&quot;&quot;</strong> as a result.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

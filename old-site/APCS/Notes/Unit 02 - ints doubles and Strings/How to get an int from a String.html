@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Getting an int from a String</title>
+
+
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p,pre {
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Getting an int from a String</h2>
+<p>Often times when you recieve information from the user it&#39;s in the form of a 
+String.&nbsp; This isn&#39;t always the best option for you to work with.&nbsp; 
+Strings have no mathematical value and much of the time programming requires 
+that you perform some sort of math calculation to get the job done.</p>
+
+<p>Be careful.  The + symbol has two different purposes.  For example:</p>
+<pre>String num = "17";
+num = num + 5;
+System.out.println(num);</pre>
+
+<p>At first glance it may look like the output of this code would be 23, but that is incorrect.  When the + symbol is between a String and anything, it <strong>concatenes</strong> the data into a new String.  This means that the 5 is just added to the end, and the output is <strong>175</strong>.</p>
+
+<hr/>
+<h3>Converting to an int</h3>
+<p>Luckily, there is a class named Integer, which has one particular method 
+named parseInt that is useful for getting ints from a String.&nbsp; The purpose 
+of the parseInt method is to accept a String as a parameter and return the int 
+version of the contents of the String.  Since it is a static method, we call it using Integer as the class name, parseInt as the method name, and give it a String as a parameter.</p>
+<p>For example, consider the following snippet of code:</p>
+<pre>String numStr = "439";
+int num = Integer.parseInt(numStr);</pre>
+<p>Even though &quot;439&quot; looks like an int, the fact that it&#39;s a String means that 
+it has no mathematical value.&nbsp; The second line of code passes <strong>
+numStr</strong> into the parseInt method, which will examine the &quot;439&quot; String 
+and return the int version of it.</p>
+
+<h3>What's the difference?</h3>
+<p>Consider the code below, which has added two printlns to the previous 
+snippet.&nbsp; </p>
+<pre>String numStr = "439";
+int num = Integer.parseInt(numStr);
+System.out.println( numStr + 22 );
+System.out.println( num + 22 );</pre>
+<p>The output of this code will be:</p>
+<p>43922<br />
+461</p>
+<p>The reason that the two outputs are different is because the first println 
+has a String being added to an int.&nbsp; In this case, the plus symbol means
+<strong>concatenate</strong> and it simply tacks the 22 onto the end of the 
+String 439.&nbsp; The second println contains two ints, the value stored in num 
+and the 22 that&#39;s being added.&nbsp; Adding two ints together works 
+mathematically, and the printed value is the actual addition of the two values.</p>
+<hr/>
+<h3>Getting from the User</h3>
+<p>We already know how to get a <strong>String</strong> from the user using JOptionPane</p>
+<pre>String value = JOptionPane.showInputDialog("Enter a number");</pre>
+<p>But a String is the ONLY thing that you can get, so in reality getting an int is a two-step process.  One line to get the String version of the input, and another to convert that input to an int.</p>
+<pre>String value = JOptionPane.showInputDialog("Enter a number");
+int num = Integer.parseInt(value);</pre>
+<p>Now that we have an int, we can perform the necessary math to accomplish our task.</p>
+
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Ship Collision</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Ship Collision</p>
+<p class="auto-style1">The entire purpose of the Asteroids game is that the ship 
+needs to avoid the Asteroids, but so far that has not been a part of our game.&nbsp; 
+Go to the AsteroidsBoard and add a method named shipVsAsteroids.&nbsp; This 
+method should return a true if the ship&#39;s hitbox overlaps any of the Asteroids&#39; 
+hitboxes.</p>
+<p class="auto-style1">Create a method named stopGame, which will pass a false 
+into the setActive method of all the Asteroids, the Bullets and the ship.&nbsp; 
+This should cause the game to pause right where it is.&nbsp; THIS WILL NOT WORK 
+PERFECTLY.&nbsp; Because of some design flaws, the Asteroids will still spin and 
+you&#39;ll still have the ability to shoot.&nbsp; This will still earn full credit.</p>
+<p class="auto-style1">Call shipVsAsteroids from the onTimerTick method, and if it 
+returns a true call the stopGame method.&nbsp; Test out your program to make 
+sure that an Asteroid hitting a ship is causing the game to stop.</p>
+<p class="auto-style1">At this point it might be a good idea to change the game 
+so that it starts out with a few Asteroids.&nbsp; Otherwise you might find that 
+the game is a little overbearing.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3">Reset</p>
+<p class="auto-style1">Add a method named reset which will set the ship back to 
+the original position, clear all the Bullets from the list, clear the Asteroid 
+list and add some new ones.&nbsp; This method should also make sure that the 
+ship is set back to active.</p>
+<p class="auto-style1">Go to the onKeyPress method and make sure that when R is 
+pressed (keyCode 82) that the reset method is called.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3">&nbsp;Leveling System</p>
+<p class="auto-style1">To make this more like a game, add a level system.&nbsp; 
+Add an int to represent the level, and start it at 1.&nbsp; Make sure that 
+you&#39;ve used PaintBrush&#39;s drawString method to display the level on the screen 
+(don&#39;t forget about the setFontSize and setColor methods that PaintBrush has).</p>
+<p class="auto-style1">During the onTimerTick method, check to see if the Asteroid list 
+is empty.&nbsp; If it is, increment the level and add more asteroids.&nbsp; It 
+works best if the number of Asteroids added is determined using the level with a 
+formula like 2*level+2.&nbsp; </p>
+<p class="auto-style1">You will also have to modify the reset method to set the 
+level back to 1 and make sure that the starting number of Asteroids is 
+appropriate for level 1 of you game.</p>
+
+</body>
+
+</html>

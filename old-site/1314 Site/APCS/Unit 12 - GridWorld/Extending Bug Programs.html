@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Extending Bug Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style2">Extending Bug Programs:</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Complete the following Extensions of Bug. If possible, 
+complete by only overriding one method of Bug. Read through the Bug code for 
+inspiration.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style3">LeftyBug</span><span class="auto-style1">:</span><br class="auto-style1" />
+<img alt="Description: LeftyBug" border="0" class="auto-style1" height="40" src="images/LeftyBug.gif" v:shapes="Picture_x0020_1" width="39" /><br />
+<br class="auto-style1" />
+<span class="auto-style1">Create a Bug that turns to the left instead of right. 
+This can be done by only overriding the turn() method.</span><br class="auto-style1" />
+</p>
+<pre>public static void main()
+{
+    ActorWorld world = new ActorWorld();
+    world.add(new Location(1,1), new LeftyBug() );
+    world.add(new Bug(Color.BLUE));
+    world.show();
+}</pre>
+<hr>
+<p><span class="auto-style3">RockWalkerBug</span><span class="auto-style1">:</span><br class="auto-style1" />
+<img alt="Description: RockWalkerBug" border="0" class="auto-style1" height="48" src="images/RockWalkerBug.gif" v:shapes="Picture_x0020_2" width="46" /><br />
+<br class="auto-style1" />
+<span class="auto-style1">Create a Bug that only will move to squares that 
+contain a Rock. Test this Bug by laying down a trail of Rocks for him to move 
+on. When there are no more Rocks, the RockWalkBug will just spin. This can be 
+done by only overriding the canMove()</span><br class="auto-style1" />
+<br class="auto-style1" />
+<pre>public static void main()
+{
+    BoundedGrid<Actor> grid = new BoundedGrid<Actor>(5,5);
+    ActorWorld world = new ActorWorld(grid);
+        
+    world.add(new Location(1,0),  new RockWalkerBug() );
+    world.add(new Location(1,1),  new Rock() );
+    world.add(new Location(1,2),  new Rock() );
+    world.add(new Location(2,2),  new Rock() );
+    world.add(new Location(3,2),  new Rock() );
+    world.add(new Location(4,2),  new Rock() );
+    world.add(new Location(4,3),  new Rock() );
+        
+    world.show();
+}</pre>
+<hr>
+<span class="auto-style3">PetriBug</span><span class="auto-style1">:</span><br class="auto-style1" />
+<img alt="Description: C:\Dropbox\Public\Sites\APCS\Unit 10 - GridWorld\APCS Extending Bug\PetriBug.gif" border="0" class="auto-style1" height="39" src="images/PetriBug.gif" v:shapes="Picture_x0020_3" width="64" /><br />
+<br class="auto-style1" />
+<span class="auto-style1">Create a Bug that moves like a Bug, but before he 
+acts, he first checks the space in front of him. If it is a Flower, PetriBug 
+turns it into a Rock of the same Color as PetriBug. Override the act method, but 
+look at the code from the move method for inspiration.</span><br class="auto-style1" />
+<br />
+<pre> public static void main()
+{
+   ActorWorld world = new ActorWorld();
+   PetriBug pb1 = new PetriBug();
+   PetriBug pb2 = new PetriBug();
+        
+   pb1.setColor(Color.RED);
+   pb2.setColor(Color.BLUE);
+        
+   world.add(pb1);
+   world.add(pb2);
+        
+   world.show();
+
+}</pre>
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Constructors</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+	
+}
+.auto-style1 {
+	font-size: mediium;
+}
+.auto-style2 {
+	font-size: medium;
+}
+.auto-style3 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif;">Constructors</h2>
+<p class="auto-style1"><strong>What is the purpose of the Constructor?</strong></p>
+<p>When writing an object, you don&#39;t know exactly what values should be in your 
+instance fields.&nbsp; The constructor is a special method whose purpose is to 
+put the initial values into the instance fields.</p>
+<p>Consider the Student class below:</p>
+<pre>public class Student
+{
+   private String name;
+   private double gpa;
+   
+   public Student(String n, double g)
+   {
+      name = n;
+      gpa = g;
+   }
+}</pre>
+
+<p>The constructor is this method:</p>
+<pre> public Student(String n, double g)
+{
+   name = n;
+   gpa = g;
+}</pre>
+<p>This constructor has two parameters, a String and a double.&nbsp; This is 
+what allows us to construct our objects and pass in the information at the same 
+time, like so:</p>
+<pre>Student stu = new Student("Gerald I. Joe", 3.85);</pre>
+
+
+<p>&quot;Gerald I. Joe&quot; would be passed into the parameter <strong>n</strong> in the 
+constructor above.&nbsp; As you can see, that value is assigned to the instance 
+field (the more important variable).&nbsp; The gpa is handled similarly.</p>
+<p>&nbsp;</p>
+<p class="auto-style2"><strong>Naming the Constructor:</strong></p>
+<p>Objects can have many methods, but in order to count as a constructor you 
+must follow two rules:</p>
+<p>1) It must be named <strong>exactly</strong> the same as the class.&nbsp;</p>
+<p>&nbsp;In 
+our example of the Student class, the constructor&#39;s header was:</p>
+<pre>public Student(String n, double gpa)</pre>
+<p>You can also see that this is where any parameters that the constructor needs 
+would go.</p>
+<p><br />
+2) There is no return type.</p>
+<p>A common mistake is to accidently provide a return type for the constructor.&nbsp; 
+For example:</p>
+<pre>public <span class="auto-style3"><strong>String</strong></span> Student(String n, double gpa)</pre>
+<p>This will compile, but it doesn&#39;t count as a constructor.&nbsp; It is just a 
+normal method with a poorly chosen name.&nbsp; Don&#39;t ever do this.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

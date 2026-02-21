@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Scope and Shadowing</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Scope</h2>
+					<p>When discussing the <strong>scope</strong> of a variable, we are considering what parts of an object a variable is accessible from.  The general rule is that <strong>a variable is accessible by any element that is within the same block of code (curly braces) as the variable's declaration statement</strong>.</p>
+					</div>
+					<div class = "note-div">
+					<h3>Local Variables/Parameters Belong to the Method They're Declared In</h3>
+					<p>Consider the AreaCalculators class, which is meant to have a collection of static method that will calculate the area of a geometric shape when given the dimensions.</p>
+				<div class ="code-block" style = "clear:left"> 
+						<p>public class AreaCalculators<br/>
+						{<br/>
+						&nbsp;&nbsp;&nbsp;public static double triangleArea(double <strong><span style = "color:red">base</span></strong>, double <strong><span style = "color:red">height</span></strong>)<br/>
+						&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double <strong>area</strong> = <strong><span style = "color:red">base</span></strong>*<strong><span style = "color:red">height</span></strong>/2;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return <strong>area</strong>;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/>
+				
+						<br/>
+						&nbsp;&nbsp;&nbsp;public static double rectArea(double <strong><strong><span style = "color:blue">base</span></strong></strong>, double <strong><span style = "color:blue">height</span></strong>)<br/>
+						&nbsp;&nbsp;&nbsp;{<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double <strong>area</strong> = <strong><span style = "color:blue">base</span></strong>*<strong><span style = "color:blue">height</span></strong>;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return <strong>area</strong>;<br/>
+						&nbsp;&nbsp;&nbsp;}<br/>
+					
+						}
+					</div>
+					<p style = "clear:left">Notice that both methods have the same three variable names: base, height, and area.  These are NOT the same variables.  <strong>Each method get creates its own version</strong> of the variables that it declares. This means that it's perfectly ok for these methods to have the same name.</p>
+					<p>Nervous students who don't understand scope will often worry that they need different variables for every method.  They end up having variables base1, base2, base3, base4, etc...  While this is legal to do, it is unnecessary because each method is allowed to have its own version of a variable named base.</p>
+					
+				</div>
+				
+				<div class = "note-div">
+				<h3>Instance Fields Are Shared by All the Methods of the Object</h3>
+				<p>Instance fields aren't defined within any individual methods.  This means that they are visible (and shared by) to every method in the object.</p>
+				<p>Consider the Name class below. </p>
+				<div class = "code-block">
+				<p>public class Name<br/>
+				{<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:red">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;<br/>
+				&nbsp;&nbsp;&nbsp;public Name(String first, String last)<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:green">firstName</span> = first;<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:red">lastName</span> = last;<br/>
+				&nbsp;&nbsp;&nbsp;}<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+				&nbsp;&nbsp;&nbsp;public String getFirstName()<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return <span style = "color:green">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;}<br/><br/>
+				&nbsp;&nbsp;&nbsp;public String getLastName()<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return <span style = "color:red">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;}<br/>
+				&nbsp;&nbsp;&nbsp;<br/>
+				&nbsp;&nbsp;&nbsp;public String getInitials()<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return <span style = "color:green">firstName</span>.substring(0,1) + "." + <span style = "color:red">lastName</span>.substring(0,1)+".");<br/>
+				&nbsp;&nbsp;&nbsp;}</br/>
+				}</p>
+				</div>
+				<p>Name's two instance fields belong to the <strong>entire object</strong>, meaning that every method is referring to the <strong>same</strong> two variables.  If a method changes the variables, like the constructor does, then the value is changed for every method in the object.</p>
+				</div>
+				
+				
+				<div class = "note-div">
+				<h2>Shadowing</h2>
+				<p>Shadowing is a situation that occurs when you have the same exact name for a local variable that you do for an instance field.  Consider the following simplified version of the Name class where the <strong>instance fields</strong> are green and the <strong>parameters</strong> are red.</p>
+				
+				<div class = "code-block">
+				<p>public class Name<br/>
+				{<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;<br/>
+				&nbsp;&nbsp;&nbsp;public Name(String <span style = "color:red">first</span>, String <span style = "color:red">last</span>)<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:green">firstName</span> = <span style = "color:red">first</span>;<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:green">lastName</span> = <span style = "color:red">last</span>;<br/>
+				&nbsp;&nbsp;&nbsp;}<br/>
+				}</br/>
+				</div>
+				<p style = "clear:left">The way this is written, the instance fields have different names than the parameters of the constructor.  This makes it easy to distinguish the difference between the two.</p>
+				<h4>It is LEGAL to have instance fields and parameters with the same exact name.  Just be careful.</h4>
+				<p>While it might be counter intuitive, it is absolutely legal to give parameters the same name as instance fields.  This causes some confusion though and you must be careful.</p>
+				<div class = "code-block">
+				<p>public class Name<br/>
+				{<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;<br/>
+				&nbsp;&nbsp;&nbsp;public Name(String <span style = "color:red">firstName</span>, String <span style = "color:red">lastName</span>)<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:blue">firstName</span> = <span style = "color:blue">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:blue">lastName</span> = <span style = "color:blue">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;}<br/>
+				}</br/>
+				</div>
+				<p style = "clear:left">The compiler will allow the above class to compile, but look at the blue variables inside the constructor.  The constructor is within the scope of both the instance fields and its parameters.  Now that they have identical names it's no longer clear which variables are the instance fields and which variables are the parameter. This constructor is now broken; you must be careful.</p>
+				<h4>Rule: When shadowing, the LOCAL variable is chosen over the instance field by default</h4>
+				<p>Whenever shadowing has occurred, when the shadowed variable is referred to, java sees the variable as the LOCAL version of variable.  This means that Java views <strong>all</strong> the  variables referenced inside the constructor as the parameters, and not the instance field.</p>
+				
+				<div class = "code-block">
+				<p>public class Name<br/>
+				{<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;<br/>
+				&nbsp;&nbsp;&nbsp;public Name(String <span style = "color:red">firstName</span>, String <span style = "color:red">lastName</span>)<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:red">firstName</span> = <span style = "color:red">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:red">lastName</span> = <span style = "color:red">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;}<br/>
+				}</br/>
+				</div>
+				<p style = "clear:left">This causes a problem.  The constructor needs to assign to the <strong>instance fields</strong>, but it shadowing has caused us to only assign back into the <span style = "color:red">parameters</span>.  This causes the instance fields to always be <strong>null</strong> because they never recieve a real value.</p>
+				
+			<h3>Use <span style = "color:blue">this</span> to refer specifically to the instance field</h3>
+			<p>When put in front of a variable, the keyword <span style = "color:blue">this</span> will tell Java that we are referring to the variable that <strong>belongs to the class</strong>,meaning the <strong>instance field</strong>.  This is how to solve the problem above of not being able to reference the instance fields when shadowing.  Consider the fixed Name class below.</p>
+			
+			<div class = "code-block">
+				<p>public class Name<br/>
+				{<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;private String <span style = "color:green">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;<br/>
+				&nbsp;&nbsp;&nbsp;public Name(String <span style = "color:red">firstName</span>, String <span style = "color:red">lastName</span>)<br/>
+				&nbsp;&nbsp;&nbsp;{<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:green"><span style = "color:blue">this</span>.firstName</span> = <span style = "color:red">firstName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style = "color:green"><span style = "color:blue">this</span>.lastName</span> = <span style = "color:red">lastName</span>;<br/>
+				&nbsp;&nbsp;&nbsp;}<br/>
+				}</br/>
+				</div>
+				<p style = "clear:left">Now the two different versions of the variable can be differentiated.  The firstName variable with 'this' in front is the instance field, while the naked one is still the parameter.</p>
+				<p>Shadowing is not necessarily the wrong thing to do, but you must be careful and use 'this' when appropriate.</p>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

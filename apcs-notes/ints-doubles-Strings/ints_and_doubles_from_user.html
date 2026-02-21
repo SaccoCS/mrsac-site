@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Numbers from Strings</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Getting ints and doubles from a String</h2>
+					<p>Often times when we are getting information from the user it comes in as a String.  When a program calls for an int or a double, the number that the user types is still stored as a String.  This is a big deal because Strings don't do math, no matter what characters they have.</p>
+					<div class = "code-block"><p>String numStr = "125";<br/>
+					int numInt = 125;
+					</p>
+					</div>
+					<p style = "clear:left">Both of the variables above represent 125, but in different ways.  The int <span class = "code">num</span> is a number that can be added, subtracted, or multiplied, but the String <span class = "code">numStr</span> is not a number.  It is a String of characters with no mathematical value that happen to represent an int.</p>
+					<p>Because Java is very concerned with data type, the compiler will stop you if you casually try to do math without considering the type.  Consider the code below, which is an attempt to print out five less than the value of each variable.
+					</p>
+					
+					<div class = "code-block" >
+						<p>System.out.println( numStr - 5 ); <span style = "color:#d00"> // <-- WILL NOT COMPILE</span></br>
+						System.out.println( numInt - 5 );</p>
+					</div>
+					<p style = "clear:left;">The first println will not compile simply because the <span class = "code">numStr</span> variable is a String.  Java sees <span class="code">numStr - 5</span> as a String minus an int, meaning it could be <span class="code">"Hello World" - 5</span>, which makes no sense.  The fact that the value in the numStr String has numeric characters is irrelevant to the compiler. Type is important.</p>
+				
+				</div>
+				
+				<div class = "note-div">
+					<h3>Converting a String to an int</h3>
+					<p>Luckily, if you know that you have a String that only has numeric characters there is a method that will help you convert it to the type you need.  It is a static method in the Integer class named parseInt.  As a parameter it takes in a String and returns an int.  Consider the code below.</p>
+					<div class = "code-block" >
+					<p>String numStr = "125";<br/>
+					int num = Integer.parseInt(numStr);
+					</p>
+					</div>
+					<p style = "clear:left">The parseInt method has the String <span class = "code">"125"</span> passed in as a parameter.  It looks at each character an figures out what the actual <strong>numeric</strong> value is and returns it as an int.  From there, the <span class = "code">num</span> variable can have math operations performed on it.</p>
+					
+				</div>
+				
+				<div class = "note-div">
+					
+					<h3>Watch for crashes with a NumberFormatException</h3>
+					<p>One important thing to know is that not all Strings have an int stored in them.  This can cause a problem.  Consider the code below.</p>
+					<div class = "code-block" style="border:none"><p>String str = "Hello Mr. Sacco";<br/>
+					int num = Integer.parseInt(str);
+					</p>
+					</div>
+					<p style = "clear:left">In this situation the str variable is in no way a number.  What int would you expect to be returned?  It's an impossible question to answer.  This will cause the code to crash with a <strong>NumberFormatException</strong>.  As the programmer, you are responsible for making sure that you only provide Strings that <strong>only contain ints</strong>.</p>
+					
+				</div>
+				
+				<div class = "note-div">
+					<h3>Converting a String to a double</h3>
+					<p>The parseInt method from the previous section will crash if it is not given a String that contains an int.  This means that the String <span class = "code">"Sacco"</span> will crash the method, but also the String <span class = "code">"3.14"</span>, which is also not an int (anything with a decimal point is a double).</p>
+					
+					<p>Luckily, there is a method that performs the same operation, but converts to doubles.</p>
+					<div class = "code-block" style="border:none"><p>String str = "3.14";<br/>
+					double dubNum = Double.parseDouble(str);
+					</p>
+					</div>
+					<p style = "clear:left">Whenever you have a String that you want to turn into an int, make sure that you know whether or not you need a double or an int.  Choosing the wrong one may cause a crash.</p>
+					
+					
+				</div>
+				
+				<div class = "note-div">
+					<h3>Getting a Number from the User</h3>
+					<p>Getting a number from the user is a multi-step process.  First you get the user's input as a String, and then you call the appropriate parsing method to get the value that you actually want.</p>
+					
+					<div class = "code-block">
+					<p>String userInStr = JOptionPane.showInputDialog("Enter an amount of money");</br>
+					double cash = Double.parseDouble(userInStr);</p>
+					</div>
+					<p>These two lines work together to get specifically a double from the user that we can then do math with.  For an int, simply choose the Integer class method.</p>
+					<div class = "code-block">
+					<p>String userInStr = JOptionPane.showInputDialog("How many hamburgers?");</br>
+					int numBurgers = Integer.parseInt(userInStr);</p>
+					</div>
+				<p style = "clear:left">You should always make sure that the information you take from the user turns into the appropriate type.</p>
+				</div>		
+	
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

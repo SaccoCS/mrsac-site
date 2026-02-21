@@ -1,0 +1,19 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+p{
+  margin:2px
+}
+canvas {
+  display: block;
+}
+::-moz-selection {
+    background-color: transparent;
+    color: #000;
+}
+
+::selection {
+    background-color: transparent;
+    color: #000;
+}

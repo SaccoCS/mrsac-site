@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Protecting Your Program There ar</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body style="margin-top: 15px">
+
+<p class="auto-style4">Protecting Your Program</p>
+<p><span class="auto-style2">There are many ways to accidentally crash your program. The following programs 
+have you perform a task that has a chance of crashing if the wrong input is 
+entered. Use if statements to make sure that the program will run without 
+crashing.</span><br class="auto-style2" />
+&nbsp;<br class="auto-style2" />
+</p>
+<p class="auto-style2"><strong>SafeDivider</strong> - This program will prompt the user to enter 
+ints for the numerator and denominator of a fraction, and then calculate the 
+quotient and the remainder.&nbsp; The dangerous case is when the denominator is 
+zero.&nbsp; Since dividing by zero is impossible, use an if statement to print 
+out &quot;undefined&quot; when this occurs.</p>
+<p class="auto-style1"><span class="auto-style3">For example</span><br class="auto-style3" />
+<span class="auto-style3">Please enter a numerator:</span><br class="auto-style3" />
+<span class="auto-style3">35</span><br class="auto-style3" />
+<span class="auto-style3">Please enter a denominator:</span><br class="auto-style3" />
+<span class="auto-style3">4<br />
+35 / 4 = 8 r. 3 </span></p>
+<p class="auto-style1"><span class="auto-style3">Please enter a numerator:</span><br class="auto-style3" />
+<span class="auto-style3">35</span><br class="auto-style3" />
+<span class="auto-style3">Please enter a denominator:</span><br class="auto-style1" />
+<span class="auto-style3">0<br />
+35 / 0 = undefined </span></p>
+<p>&nbsp;</p>
+<p><span class="auto-style2"><strong>SafeSlope</strong> - Write a program which asks the user for the coordinates of two 
+points on a graph and calculates the slope of a line passing through them. 
+DANGER:&nbsp; Remember that the slope of a line can be undefined when the 
+denominator of the slope formula is zero.&nbsp;&nbsp;If the slope is undefined, do not 
+calculate it.&nbsp;&nbsp;Instead use the word &quot;undefined&quot;</span></p>
+<p>&nbsp;<img src="../../APCS/Unit%203%20-%20ints,%20doubles,%20and%20Math/images/img4.gif" /><br class="auto-style2" />
+&nbsp;<br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample input data and results:</span><br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter first coordinate&#39;s x value:&nbsp;&nbsp;2</span><br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enter first 
+coordinate&#39;s y value:&nbsp;&nbsp;5</span><br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter second coordinate&#39;s x value:&nbsp;&nbsp;4</span><br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enter second 
+coordinate&#39;s y value:&nbsp;&nbsp;6</span><br class="auto-style2" />
+&nbsp;<br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The slope passing through (2,5) and (4,6) 
+is 0.5</span><br class="auto-style2" />
+&nbsp;</p>
+<p><br class="auto-style2" />
+<span class="auto-style2">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enter first coordinate&#39;s x 
+value:&nbsp;&nbsp;3</span><br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enter first 
+coordinate&#39;s y value:&nbsp;&nbsp;7</span><br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter second coordinate&#39;s x value:&nbsp;&nbsp;3</span><br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enter second 
+coordinate&#39;s y value:&nbsp;&nbsp;-9</span><br class="auto-style2" />
+&nbsp;<br class="auto-style2" />
+<span class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The slope passing through (3,7) and (3,-9) is undefined</span><br class="auto-style2" />
+&nbsp;<br class="auto-style2" />
+&nbsp;<br class="auto-style2" />
+&nbsp;<br class="auto-style2" />
+<span class="auto-style1"><span class="auto-style3"><strong>SafeQuad</strong> -Previously you&#39;ve written a program that solves the Quadratic formula.&nbsp; 
+The problem was that only certain values of&nbsp; a,b, and c have real 
+solutions that can be calculated.&nbsp; This is when the part under the square 
+root ( b</span><sup><span class="auto-style3">2</span></sup><span class="auto-style3">-4ac ) is 
+</span> <strong><span class="auto-style3">positive</span></strong><span class="auto-style3">.&nbsp; Modify the 
+program so that it will work essentially the same when real solutions are 
+possible, but if not, it simply prints out &quot;There are no real solutions&quot;</span></span></p>
+<p>
+<img alt="x=\frac{-b \pm \sqrt {b^2-4ac}}{2a}," src="../../APCS/Unit%203%20-%20ints,%20doubles,%20and%20Math/3ea647783b5121989cd87ca3bb558916.png" /></p>
+<p><span class="auto-style2">For Example:</span><br class="auto-style2" />
+</p>
+<p>
+<span class="auto-style2">Sample input data and results:</span><br class="auto-style2" />
+<span class="auto-style2">Enter the value for the a coefficent: 1</span><br class="auto-style2" />
+<span class="auto-style2">Enter the value for the b coefficent: -2</span><br class="auto-style2" />
+<span class="auto-style2">Enter the value for the c coefficent: 15</span><br class="auto-style2" />
+<span class="auto-style2">There are no real solutions</span><br class="auto-style2" />
+</p>
+<p>
+<span class="auto-style2">Sample input data and results:</span><br class="auto-style2" />
+<span class="auto-style2">Enter the value for the a coefficent: 1</span><br class="auto-style2" />
+<span class="auto-style2">Enter the value for the b coefficent: -12</span><br class="auto-style2" />
+<span class="auto-style2">Enter the value for the c coefficent: -28</span><br class="auto-style2" />
+<span class="auto-style2">The two solutions are 14 and -2</span><br class="auto-style2" />
+</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;<strong>SafeSummer</strong> - Create a program that prompts the user to enter a five digit 
+number, and then caluculates the sum of all the digits.&nbsp; To do this you 
+will have to separate the String into it&#39;s individual characters before you 
+parse.</p>
+<p class="auto-style2">
+<span class="auto-style2">Make sure that you protect your program from the situation where the number 
+entered is exactly the right length.&nbsp; If this is not the case, simply print out &quot;Invalid Input: 
+Shutting Down.</span></p>
+<p><span class="auto-style2">Please enter a five digit number:</span><br class="auto-style2" />
+<span class="auto-style2">12345</span><br class="auto-style2" />
+<span class="auto-style2">The sum of all five digits is 15</span><br class="auto-style2" />
+<br class="auto-style2" />
+</p>
+<p class="auto-style2"><span class="auto-style2">Please enter a five digit number:</span><br class="auto-style2" />
+<span class="auto-style2">1234</span><br class="auto-style2" />
+<span class="auto-style2">Invalid Input: Shutting Down</span></p>
+<p class="auto-style2"><span class="auto-style2">Please enter a five digit number:</span><br class="auto-style2" />
+<span class="auto-style2">123456</span><br class="auto-style2" />
+<span class="auto-style2">Invalid Input: Shutting Down</span></p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>
+

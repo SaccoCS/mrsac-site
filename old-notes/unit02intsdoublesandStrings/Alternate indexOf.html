@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Alternate indexOf</title>
+<style>
+p,h2{
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	
+	p{
+		font-size:small;
+	}
+}
+
+}
+</style>
+</head>
+
+<body>
+<h2>Alternate indexOf</h2>
+<p>Previously you wrote a program that took a single String with three names and extracted the initials.  This method was especially challenging to write because of how the indexOf method works.  Since the last initial lies after the SECOND space you had to do some extra steps to chop off the first space.</p>
+<p>There is an alternative indexOf method that is useful in situations like these.  It has the following header:</p>
+<pre>public int indexOf(String target, int start)</pre>
+<p>The only difference here is that you give the method an int as a parameter.  In this case the indexOf method will only look at the String starting at that index.  Any characters before that index are ignored.</p>
+
+<pre>String str = "Mellow-Yellow";
+int oldStyle = str.indexOf("ello");
+int newStyle = str.indexOf("ello", 4);</pre>
+
+<p>The two indexOf calls above return different ints.  The oldStyle variable will be assigned the int 1, because that is the FIRST index of "ello".  The newStyle variable is assigned the int 8, because that's the first time it appears when only the characters starting at index 4 are considered.  Keep in mind that the index 4 is where the method starts looking.  str.indexOf("ello", 1)  would return a 1 because that's where the "ello" starts, but str.indexOf("ello", 2) would return the 8.</p>
+
+<p>Here's a version of the getInitials program that uses the new indexOf method to its advantage.</p>
+
+<pre>public class Initials
+{
+    public static void main()
+    {
+        String fullName = JOptionPane.showInputDialog("Please enter your full name:");
+        &nbsp;
+        <span style="color:gray">//get the first initial</span>
+        String firstInitial = fullName.substring(0,1);
+        &nbsp;
+        <span style="color:gray">//find the index of the first space</span>
+        int space = fullName.indexOf(" ");        
+        String secondInitial = fullName.substring(space+1,space+2);
+        &nbsp;
+        <span style="color:gray">//use the alternate indexOf method to find the space AFTER the first one</span>
+        <span style="color:red"><strong>space = fullName.indexOf(" ",space+1);        
+        String thirdInitial = fullName.substring(space+1,space+2);</strong></span>
+        &nbsp;
+        System.out.println("Your initials are "+firstInitial+"."+secondInitial+"."+thirdInitial+".");
+    }
+}</pre>
+
+<p>Getting the first two initials is not that bad using the old indexOf.  The red line of code uses the new indexOf method to search for a space, but starting at one index <strong>after</strong> the index of the first space.  Even though this version of the method is not officially part of the AP subset of Java, it is still allowed and can be useful.</p>
+<p>&nbsp;</p>
+
+</body>
+</html>

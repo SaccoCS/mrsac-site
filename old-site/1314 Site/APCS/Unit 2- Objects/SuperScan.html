@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>SuperScan</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style3 {
+	font-size: medium;
+}
+.auto-style4 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style5">SuperScan</p>
+<p class="auto-style1">The process of using a Scanner to get an int from the user can be a little 
+bit arduous. After constructing a Scanner it requires prompting, getting from 
+the user, and then parsing into an int.</p>
+<pre>Scanner scan = new Scanner(System.in);
+System.out.println(“Enter a number”);  //prompting
+String str = scan.nextLine();  //String retrieval
+int num = Integer.parseInt(str); // parsing
+</pre>
+<p class="auto-style1">Since much of this process is the same each time we run it.&nbsp; We are 
+going to write a class named SuperScan, which will have methods that combine all 
+of the prompting retrieving and parsing all in one.&nbsp; Our goal in the end is 
+to only have to do the following:</p>
+<pre>SuperScan scan = new SuperScan();
+int num = scan.getUserInt("Enter a number");</pre>
+<p class="auto-style1">Notice that the getUserInt method takes in a String and returns an int.&nbsp; 
+It takes care of all of the prompting, retrieving, and parsing for us.</p>
+<hr>
+<p class="auto-style1"><strong><span class="auto-style3">Setting Up the Project Folder:</span></strong></p>
+<p class="auto-style1">In your AP Computer Science folder, create a project named My Tools. This is 
+where you are going to put the tools you create for use through the rest of the 
+year, so don’t put it in a specific unit folder.</p>
+<p class="auto-style1">Now, similar to how you set up sacco.jar, go to BlueJ&#39;s preferences and the 
+libraries tab.&nbsp; Click to add a new library and this time you will simply 
+find the My Tools project and click Open.&nbsp; This will allow you to use this 
+tool in every project you have on this computer.</p>
+<p class="auto-style1">You should now have two libraries that BlueJ loads.&nbsp; The sacco.jar, and the My Tools 
+project.</p>
+<hr class="auto-style1">
+<p class="auto-style2"><strong>Creating the SuperScan Class:</strong></p>
+<p class="auto-style1">Create a class named SuperScan. The only instance field a SuperScan object will 
+have is a <strong>Scanner</strong>. It is perfectly fine to have an object as an instance field. 
+Don’t forget to import java.util.Scanner;<br />
+<br />
+private Scanner myScan;<br />
+<br />
+SuperScan is deep down inside a Scanner, but the methods will be a little more 
+useful for our purposes.&nbsp; Creating a class that does this is known as
+<strong>wrapping</strong> the Scanner class.&nbsp;
+</p>
+<p class="auto-style1">The <strong>constructor</strong> of SuperScan should construct a new Scanner and assign it to the 
+instance field. Now that the constructor has set up the Scanner for use, the 
+rest of the methods may use the variable without worrying about it being set up.<br />
+</p><hr>
+<p class="auto-style1"><span class="auto-style3"><strong>Methods</strong></span><br />
+<br />
+<span class="auto-style4">public String getUserString(String prompt) </span> <br />
+This method should use System.out.println to first print out the prompt, and 
+then return the String that the user inputs. Normally our objects don’t do the 
+println, but this objects purpose is to do the work for us, so it’s ok.<br />
+<br />
+<span class="auto-style4">public int getUserInt(String prompt)</span><br />
+This method is similar to the previous, but with one extra step. It will print 
+out the prompt, get the String from the user, and parse it into an int before 
+returning it.</p>
+<hr>
+<p class="auto-style2"><strong>Testing:</strong></p>
+<p class="auto-style1">Once your class compiles add the following runner to your project. It does the same 
+exact thing, but two different ways. One is the old way using a Scanner object, 
+the other is the new way using a SuperScan object.&nbsp; Read through and you&#39;ll 
+notice that user input is a little bit easier to get now.&nbsp; You may use this 
+in any project that requires input from the user from here on out.<br />
+</p>
+<pre>import java.util.Scanner;
+public class SuperScanRunner
+{
+    public static void newWay()
+    {
+        SuperScan scan = new SuperScan();
+        
+        String str = scan.getUserString("Please enter a String");
+        System.out.println("The returned String is: "+str);
+        
+        int num = scan.getUserInt("Please enter an int");
+        System.out.println("The returned int is: "+num);
+      
+    }
+    
+    public static void oldWay()
+    {
+        Scanner scan = new Scanner(System.in);
+        
+        System.out.println("Please enter a String");
+        String str = scan.nextLine();        
+        System.out.println("The returned String is: "+str);
+        
+        System.out.println("Please enter an int");
+        String intStr = scan.nextLine();   
+        int num = Integer.parseInt(intStr);
+        System.out.println("The returned int is: "+num);
+    }
+}</pre>
+</body>
+
+</html>

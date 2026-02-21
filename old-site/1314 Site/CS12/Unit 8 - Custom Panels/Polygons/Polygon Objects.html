@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Polygon Objects</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Polygon Objects</h2>
+<p>You can draw/fill polygons by creating a new Polygon object 
+and adding all of the points of the vertices of the polygon you want to draw 
+using the method addPoint(x, y). Once all the points have been added, you may 
+use brush.fillPolygon or brush.drawPolygon. The points may be emptied from the 
+Polygon using the clear() method.<br />
+&nbsp;<br />
+The order of the points is important. They should be listed in ORDER, either 
+clockwise or counterclockwise. If you don’t, the points will criss-cross and it 
+will look terrible.<br />
+&nbsp;<br />
+Check out the following demo that adds points to a Polygon which the 
+paintCanvas method then paints on the screen.<br />
+</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+ 
+public class PolygonDemoCanvas extends SCanvas
+{
+ 
+    private Polygon myPoly;
+ 
+    public PolygonDemoCanvas()
+    {   
+        myPoly = new Polygon();  
+ 
+        myPoly.addPoint(200,50);
+        myPoly.addPoint(350,150);
+        myPoly.addPoint(350,350);
+        myPoly.addPoint(50,350);
+        myPoly.addPoint(50,150);
+ 
+        
+    }
+ 
+    public void paintCanvas(PaintBrush brush)
+    {
+        brush.setColor(Color.WHITE);
+        brush.fillRectangle(0,0,500,500);
+ 
+        brush.setColor(Color.RED);
+        brush.fillPolygon(myPoly);
+ 
+    }
+    
+    public static void main()
+    {
+        SFrame frame = new SFrame();
+        frame.setLayout(new BorderLayout());
+        frame.add(BorderLayout.CENTER, new PolygonDemoCanvas());
+        frame.setSize(500,500);
+        frame.setVisible(true);
+    }
+ 
+}
+</pre>
+<p>Assignment:</p>
+<p>PolygonCreator: Create a program that will allow users to create polygons on 
+the screen. This program should have instance fields for the Polygon&#39;s Color, 
+the background image, and the &quot;current&quot; Polygon. <br />
+&nbsp;<br />
+The paintCanvas method will first paint the background image, then paint the 
+&quot;current&quot; polygon to the screen. If a person left clicks, all you have to do is 
+add that point to your current polygon. If a person RIGHT clicks, you have to 
+paint the current polygon to the background, then reset the current polygon ( 
+use Polygon&#39;s reset() method )and change the polygon color. <br />
+</p>
+<p>&nbsp;</p>
+<span style='font-family:Arial'>
+    <applet code="PolygonApplet.class" 
+            width=500 
+            height=500
+            codebase="."
+            alt="Your browser understands the &lt;APPLET&gt; tag but isn't running the applet, for some reason."
+         >
+      Your browser is ignoring the &lt;APPLET&gt; tag! 
+    </applet></span>
+</body>
+
+</html>

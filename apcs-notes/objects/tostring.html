@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>toString</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>The toString Method</h2>
+					
+					<p>Object design is useful for creating customized variables with as many pieces of information as the designer would like.  This can become a problem when an object get printed.  Java is not smart enough to look at our design and know exactly how to arrange the instance field into something that a human would read and understand.  For this reason if you print out a new object, it will not appear in a useful fashion.</p>
+					<div class = "code-block" style ="float:none">
+					<p>Name@1a3914<br/>
+					Date@f35cc7<br/>
+					Student@ad1c80</p>
+					</div>
+					
+					<p>As usual, the solution lies in adding a method.  This time you don't have to think about the method header at all.  It must be <strong>exactly</strong> this:</p>
+
+					<div class = "code-block" style ="float:none;">
+					<p style =" font-size:18px">public String toString()</p>
+					</div>
+					<p>This is a special method in Java and must be defined this way.</p>
+					<p>The purpose of this method is to return a String that represents this object.   This String could contain as many of the instance fields as the designer feels are important.</p>
+					
+					<hr/>
+					<h4>Example: Name</h4>
+					<p>The Name object has two instance fields, to represent the first and last names of a person.  We know that the first name goes before the last name, but the computer doesn't know anything about how we arrange our names.  Consider the Name class, whose toString method returns a String in the order that we know to be important.</p>
+					<div class = "code-block" style = "border:1px solid #a00">
+					<p>public class Name<br/>
+						{<br/>
+						   &nbsp;&nbsp;&nbsp;private String first, last;<br/>
+						   <br/>
+						   &nbsp;&nbsp;&nbsp;public Name(String f, String l)<br/>
+						   &nbsp;&nbsp;&nbsp;{<br/>
+						   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = f;<br/>
+						   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last = l;<br/>
+						   &nbsp;&nbsp;&nbsp;}<br/>
+						   <br/>
+							   &nbsp;&nbsp;&nbsp;public String getFirst()<br/>
+							   &nbsp;&nbsp;&nbsp;{<br/>
+							   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return first;<br/>
+							   &nbsp;&nbsp;&nbsp;}<br/>
+							   <br/>
+							   &nbsp;&nbsp;&nbsp;public String getLast()<br/>
+							   &nbsp;&nbsp;&nbsp;{<br/>
+							   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return last;<br/>
+							   &nbsp;&nbsp;&nbsp;}<br/></p>
+						  
+						  
+						   <br/>
+						   <div class = "code" >
+							   <p style = "background-color:#fee">&nbsp;&nbsp;&nbsp;public String toString()<br/>
+							   &nbsp;&nbsp;&nbsp;{<br/>
+							   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return first +" "+ last;<br/>
+							   &nbsp;&nbsp;&nbsp;}</p>
+							   
+						   </div>
+						   <p>}
+						   </p>
+					</div>
+					<div class = "half-div-right" style = "margin-top:80px;width:400px">
+						<p>The addition of the toString method to the Name class allows the object to be concatetnated.</p>
+						<p class = "code">Name ghost = new Name("Jacob","Marley");<br/>
+						String str = "I'm haunted by "+ ghost;</p>
+						<p>This code now creates the String: <strong>"I'm haunted by Jacob Marley"</strong>.</p>
+						<p>If the toString was not added, then the String would be <strong>"I'm haunted by Name@76ca21"</strong>, which is less useful.</p>
+					</div>
+					<p style = "clear:left"></p>
+					
+					
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

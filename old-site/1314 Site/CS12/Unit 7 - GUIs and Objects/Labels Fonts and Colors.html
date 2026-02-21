@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Labels Fonts and Colors</title>
+
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	color: #FF0000;
+	font-size: medium;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Labels, Fonts, and Colors</h2>
+<p>import sacco.gui.*;<br />
+import sacco.*;</p>
+<p>So far the only thing that we’ve added to our frames are 
+buttons and panels.  There are many 
+other objects that work with SFrames, and the next one we’re going to work with 
+is called an SLabel.</p>
+<p>An SLabel is simply some text that you can put at a location 
+of a frame or a panel that is not a button. You 
+cannot click it, but you may have noticed that too many buttons can look a 
+little nuts.></p>
+<p >Create a class named LabelPrograms and add the following 
+method:</p>
+<pre>public static void manyLabels()
+{
+   SFrame frame = new SFrame("Mult Table");
+   frame.setLayout(new GridLayout(10,10));
+	
+   for( int r = 1; r<=10; r++)
+   {
+      for( int c = 1; c<=10; c++)
+      {
+         SLabel label = new SLabel(r*c);
+
+         //Line A: Code Goes Here
+
+         frame.add(label);
+      }
+   }
+
+   frame.pack();
+   frame.setVisible(true);
+}
+</pre>
+
+<p>You don’t have to know exactly what the for loops are doing, but notice that 
+the item being added to the frame is an SLabel instead of an SButton.<br />
+<br />
+Run the program and you should get the following:<br />
+</p>
+<p>
+<img src="images/img5.jpg" /></p>
+<p>These can go essentially everywhere that an SButton can do and they act 
+pretty much the same way.<br />
+<br />
+<br />
+</p>
+<hr>
+<p><span class="auto-style1"><strong>More about Obejcts:&nbsp; The Font Class</strong></span><br />
+</p>
+<p>So far we’ve actually been dealing with some complex objects that do lots of 
+crazy things. Object are not always this tricky. Some objects are only created 
+so that some group of instance fields can be grouped together.<br />
+<br />
+For example, there is an Object class named Font that is very simple. It has 
+four instance fields:<br />
+-a String to represent the font name<br />
+-an int to represent the font size<br />
+-a boolean to represent if it’s bold<br />
+-a boolean to represent it it’s italic<br />
+<br />
+The reason for having an object like this is that it makes it easy to pass all 
+of this information around using a single variable instead of having to use four 
+separate variables. Once a Font object is constructed it may be passed along to 
+the SLabel using the setFont method.<br />
+<br />
+Go to the location in the code that reads //Line A: Code Goes Here and add the 
+following:<br />
+</p>
+<pre>Font f = new Font("Comic Sans MS",20);
+f.setBold(true);
+label.setFont(f);
+</pre>
+
+<p>We’ve created a Font object with “Comic Sans MS” as the font and 20 pts as 
+the size.&nbsp; Once that Font object was created, we used the SLabel method
+<strong>setFont</strong> to change the font to what we&#39;ve created.&nbsp; Notice 
+that the constructor of the Font class does not take in any information relating 
+to Bold or Italic.&nbsp; Those must be take care of separately.&nbsp; Running 
+the program should give you the following:</p>
+<p><img src="images/img31.jpg" /></p>
+<hr>
+
+
+<p class="auto-style1"><strong>What Fonts to use:</strong></p>
+<p>The issue with using these fonts is that they have to be already stored on 
+the computer. If a default font can’t be found, the default font will be used.<br />
+<br />
+There is a command that will help you determine what fonts are already on the 
+computer.<br />
+Add a method with the following header:</p>
+<pre>public static void printFontList()</pre>
+
+
+<p>The first line of the method should be the following:</p>
+<pre>String[] fontArray = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();</pre>
+
+
+<p>This call is terrifyingly long, but after it’s completed, the fontArray 
+variable should have an array of Strings that are all of the font names that 
+this computer can use. In order to read it you’re going to have to print it out. 
+Use a for loop to get every String in the fontArray and print it out.<br />
+<br />
+When you run this method you should be able to see the large list of Fonts that 
+your computer can use.&nbsp;&nbsp; Try taking copying one of the printed Font 
+names and changing your program&#39;s Font from &quot;Comic Sans MS Bold&quot; to the new Font 
+name.<br />
+</p>
+<p>&nbsp;</p>
+<hr>
+
+<p><strong class="auto-style1">Randomizing Fonts</strong></p>
+<p>Add another method with the following header:</p>
+<pre>public static String getRandomFontName()</pre>
+
+<p>The purpose of this method will be to return the random name of a font from 
+the list of available fonts. The first line of this method should again be that 
+big ugly line of code necessary to get the array of Fonts from the operating 
+system.<br />
+<br />
+After you have the String[] you’ll want to get a random one. First you need to 
+get a random number from 0 to the length of the array. That random number will 
+be the index of the String that you should return.<br />
+<br />
+Test out your method by compiling and running the method several times. If you 
+get a different font name every time you’re good to go.<br />
+</p>
+<p>&nbsp;</p><hr>
+
+<p class="auto-style1"><strong>Utilizing the getRandomFontName method</strong></p>
+<p>Since our demo has so many labels, we should assign random fonts to each of 
+them. Go back to the firstLabel method and instead of using the font name that 
+you chose, put the method getRandomFontName() there. When you run it you should 
+get something similar (but not identical) to the picture below. It’s alright if 
+some of the Fonts are represented with empty rectangles. That will happen from 
+time to time.</p>
+<p>
+<img src="images/img2F1.jpg" /></p>
+<p>&nbsp;</p><hr>
+
+
+<p class="auto-style1"><strong>The Color Class&nbsp;</strong></p>
+<p>Another common simple object is the Color class. When images are created, 
+each pixel is made up of a red, a green, and a blue value. Each of these numbers 
+has a maximum value of 255. For example: A pure red color would have a Red:255 
+Green:0 Blue:0. <br />
+<br />
+A Color object’s instance fields are simply those three ints; one for red, one 
+for green, and one for blue.<br />
+<br />
+Head back to that same section of code that we’ve been working with. Before the 
+loop begins, add the following line of code:<br />
+</p>
+<pre>Color col = new Color(255,255,255);  //White
+frame.setBackgroundColor(col);</pre>
+<pre>
+</pre>
+<p>If you run the program now you should see that the background has changed to 
+white instead of that ugly grey.</p>
+<p><img src="images/img2E1.jpg" /></p>
+<p>&nbsp;</p>
+<hr>
+
+<p><strong class="auto-style1">More Randomizing:</strong></p>
+<p>Add another method with the following header:</p>
+<pre>public static Color getRandomColor()</pre>
+<p>The purpose of this method is to construct and return a Color object with 
+random values for the red, green, and blue. Don’t use one random number for all 
+three, you will have to create three different random ints in order to get a 
+random color. This time the method is returning an ENTIRE COLOR OBJECT, so 
+return the variable that holds your constructed Color.<br />
+<br />
+Since this method returns an object instead of a String, it will be much harder 
+to test.<br />
+<br />
+Back in our multiplication table, in the same area where you’re setting a random 
+font you should add the following line of code:<br />
+</p>
+<pre>Color randCol = getRandomColor();
+label.setColor(randCol);
+</pre>
+
+
+<p>Our methods used to return simple Strings or ints, but this time it returns a 
+Color object, so we have to use a Color variable. The only thing left to do is 
+to set the color of the SLabel using the setColor command.<br />
+<br />
+Hopefully running this will display a white background and each label is a 
+random font and color. An example is below:<br />
+</p>
+<p><img src="images/img2C.jpg" /></p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Labels with Images:</strong></p>
+<p>One thing about SLabels is that they can also have an image attached to them, 
+but again this requires a new object type called Picture, which represents an 
+image.&nbsp; THIS IS NOT IN SACCO.GUI.*;, IMPORT SACCO.*;</p>
+<p>First we need an image to work with.&nbsp; Right-click and &quot;save as&quot; the 
+following image INTO YOUR PROJECT FOLDER.&nbsp; Name it java-logo.png</p>
+<p><img  src="images/java-logo.png" /></p>
+<p>Now that the image is in your folder, we need to get a Picture object using 
+the file that we&#39;ve just downloaded.&nbsp; Be careful, Picture objects get 
+constructed differently.&nbsp; You need to use the Picture.loadFromFile method 
+and pass the file name.</p>
+<p>For example:&nbsp; Picture logo = Picture.loadFromFile(&quot;java-logo.png&quot;);&nbsp; 
+should load the image and give us the Picture object <strong>logo</strong> to 
+work with (assuming you&#39;ve downloaded it correctly).&nbsp; Once you have a 
+Picture object, you can use SLabel&#39;s .setImage method to attach the Picture to a 
+Label.</p>
+<p>Add the following method to your class:</p>
+<pre>public static void firstImageLabel()
+{
+   SFrame frame = new SFrame(&quot;First Image Label&quot;);
+   frame.setLayout(new GridLayout(1,1));
+   
+   SLabel lab = new SLabel();
+   Picture pic = Picture.loadFromFile(&quot;java-logo.png&quot;);
+   lab.setImage(pic);
+
+   frame.add(lab);
+   frame.pack();
+   frame.setVisible(true);
+}</pre>
+<p>Run the program an test it out.&nbsp; You should see the logo in your frame 
+where the label was placed.</p>
+<p>&nbsp;</p>
+<hr>
+<p>Create a new method with the following header:</p>
+<pre>public static void chessBoard()</pre>
+<p>This method will be in charge of the following layout:</p>
+
+
+<p>
+<img src="images/img4B.jpg" /></p>
+<p>There are many different images here, but they&#39;re located in a different 
+location and you&#39;re going to load them in a different way.&nbsp; These are 
+actually packaged inside of sacco.jar and instead of loadFromFile, we&#39;re going 
+to use <span class="auto-style2"><strong>loadFromJar </strong></span>to get things going.&nbsp; Since there are so many images, 
+here&#39;s a String[] will all of the Strings necessary to load each piece.</p>
+<pre>String[] names = {"Chess/Black P.gif", "Chess/Black P.gif", "Chess/Black P.gif", "Chess/Black P.gif", "Chess/Black P.gif", "Chess/Black P.gif", "Chess/Black P.gif", "Chess/Black P.gif", "Chess/Black R.gif", "Chess/Black N.gif", "Chess/Black B.gif",  "Chess/Black Q.gif", "Chess/Black K.gif", "Chess/Black B.gif", "Chess/Black N.gif", "Chess/Black R.gif"};</pre>
+<p>Your method should construct a frame (GridLayout) and then loop through the 
+array, each time using <strong>Picture.loadFromJar</strong> to get a picture using a String 
+from the array, set a new SLabel&#39;s image to that Picture, and then add it to the 
+frame.&nbsp; You should do this instead 
+of copying and pasting 16 times.</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>String Methods 2</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">String Methods 2</p>
+<p class="auto-style3">Create a separate program for each of the following.&nbsp; 
+Use a Scanner for your inputs, and don&#39;t forget the import statement. </p>
+<p class="auto-style3">import java.util.Scanner;</p>
+<p class="auto-style3">1)&nbsp; <strong>FindTheX</strong> - Write a program 
+named FindTheX, which will ask the user to input a String, and then print out 
+the index of the first x that it finds.</p>
+<p class="auto-style3">Example:</p>
+<p><span class="auto-style3">Please enter a String:</span><br class="auto-style3" />
+<span class="auto-style3">saxophone</span><br class="auto-style3" />
+<span class="auto-style3">The x is located at index 2</span></p>
+<p class="auto-style3">2)&nbsp; <strong>SentenceMaker</strong> - Write a program 
+named SentenceMaker, which will ask the user to input a String, and then print 
+it out like a sentence with the first letter capitalized and the rest in lower 
+case.</p>
+<p class="auto-style3">Example:</p>
+<p><span class="auto-style3">Please Enter a String:</span><br class="auto-style3" />
+<span class="auto-style3">HelLo WoRLD</span><br class="auto-style3" />
+<span class="auto-style3">In sentence form that would say: Hello world</span></p>
+<p class="auto-style3">Strategy:&nbsp; The key is to separate the first letter 
+from the rest of the String.&nbsp; Create a String named firstLetter and use a 
+substring to put the first letter into it.&nbsp; Create a String named theRest 
+and put everything but the first letter in it.&nbsp; Once you have those, you 
+can use the toUpperCase and toLowerCase methods to finish.</p>
+<p class="auto-style3">3)&nbsp; <strong>FirstWord</strong> - Write a program 
+named FirstWord, which will take in a String of many words from the user and 
+then print out only the first word.</p>
+<p class="auto-style3">Example: </p>
+<p><span class="auto-style3">Please enter a String:</span><br class="auto-style3" />
+<span class="auto-style3">Computer Science Rules</span><br class="auto-style3" />
+<span class="auto-style3">The first word in that sentence is Computer</span></p>
+<p class="auto-style3">Strategy:&nbsp; The important piece of information here 
+is the location of the first space in the String.&nbsp; Use the indexOf method 
+and pass in a String with just a space in it &quot; &quot;, store the result of than in an 
+int named spaceIndex.&nbsp; Now you can use spaceIndex to get a substring from 
+the beginning to the first space.</p>
+<p class="auto-style3">4)&nbsp; <strong>CapitalA</strong> - Write a program 
+named CapitalA, which will take in a String from the user and print it out with 
+the first &quot;a&quot; capitalized</p>
+<p class="auto-style3">Example:</p>
+<p><span class="auto-style3">Please enter a String:</span><br class="auto-style3" />
+<span class="auto-style3">Scripps Ranch High School</span><br class="auto-style3" />
+<span class="auto-style3">Scripps RAnch High School</span></p>
+<p class="auto-style1"><span class="auto-style2">Strategy:&nbsp; The input 
+String needs to be separated into two parts:&nbsp; The part before the first a, 
+and the part after the first a.&nbsp; In order to create these we will need to 
+figure out what the location of the first a is.&nbsp; Create an int named aIndex 
+and use the indexOf method to get the index of the a.&nbsp; Once you have that, 
+create two Strings named before and after.&nbsp; Use aIndex in a substring to 
+get the part of the String that was </span><strong><span class="auto-style2">
+before</span></strong><span class="auto-style2"> the a and another to get the 
+part that was </span><strong><span class="auto-style2">after</span></strong><span class="auto-style2"> 
+the a.&nbsp; At the very end you can put them back together with before + &quot;A&quot; + 
+after</span></p>
+
+<p class="auto-style1">&nbsp;</p>
+
+</body>
+
+</html>

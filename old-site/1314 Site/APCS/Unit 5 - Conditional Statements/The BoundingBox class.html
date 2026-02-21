@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The BoundingBox class</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	color: #FF0000;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The BoundingBox class</h2>
+<p class="auto-style1">Start by creating a new project named <strong>JumpMan</strong>.&nbsp; 
+We will most likely return to this project later, so it does not necessarily 
+have to be in the Unit 5 folder.</p>
+<hr>
+<p class="auto-style1">Create a class named BoundingBox, which will be 
+responsible for representing a rectangle that surrounds an object.</p>
+<p class="auto-style1">Add ints for the x,y,width, and height of the box.</p>
+<p class="auto-style1">The constructor should take in four ints and apply them 
+to the appropriate instance fields</p>
+<p class="auto-style1">Add the basic accessor methods: getX(), getY(), 
+getWidth(), and getHeight()</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3"><strong>The overlaps method:</strong></p>
+<p class="auto-style1">The most important thing that a BoundingBox is going to 
+be used for is to tell if it overlaps another BoundingBox object.&nbsp; Add the 
+following method header.</p>
+<p class="auto-style6">public boolean overlaps(BoundingBox other)</p>
+<p class="auto-style1">The idea is to use the x,y,width and height of both 
+&#39;this&#39; box and the other box to see if they overlap adn return true if they do.&nbsp; 
+This can be tricky to do, unless you look at it a specific way.</p>
+<p><span class="auto-style1">Instead of thinking &quot;What is true when two boxes 
+overlap?&quot;, you should think &quot;What is true when they are NOT overlapping?&quot;.&nbsp; 
+If two boxes are NOT overlapping, at least one of four things must be true:</span><br class="auto-style1" />
+<span class="auto-style1">1)&nbsp; The other box is completely to the right of 
+this box (other&#39;s left edge is greater than this&#39; right edge)</span><br class="auto-style1" />
+<span class="auto-style1">2)&nbsp; The other box is completely to the left of 
+this box (other&#39;s right edge is less than this&#39; left edge)</span><br class="auto-style1" />
+<span class="auto-style1">3)&nbsp; The other box is completely above this box 
+(other&#39;s bottom edge is less than this&#39; top edge)</span><br class="auto-style1" />
+<span class="auto-style1">4)&nbsp; The other box is completely below this box 
+(other&#39;s top edge is greater than this&#39; bottom edge)</span></p>
+<p class="auto-style5">BE CAREFUL:&nbsp; It is <strong>never</strong> just 
+comparing an x and another x.&nbsp; In order to be completely to the right, an
+<strong>x</strong> must be greater than an <strong>x+width</strong></p>
+<p class="auto-style1">Your method should look for any of these cases and return 
+false.&nbsp; If none of those return, then the boxes must be overlapping.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">Copy and paste the following runner.&nbsp; Move the mouse 
+until the two boxes overlap.&nbsp; When they do, the center square should turn 
+red.&nbsp; Move the mouse all around to make sure that it only turns red when 
+the boxes are overlapping.</p>
+<p class="auto-style1">
+<img style ="width:25%;" src="images/img3.jpg" />&nbsp;&nbsp;
+<img style ="width:25%;" src="images/img6.jpg" /></p>
+<table class="auto-style2" style="width: 100%">
+	<tr>
+		<td><pre>import sacco.*;
+
+public class BoundingBoxTester extends SaccoObject
+{
+    private int x,y;
+    private BoundingBox stationary, drag;
+    
+    public BoundingBoxTester()
+    {
+        x = Integer.MAX_VALUE;
+        y = Integer.MAX_VALUE;  
+        stationary = new BoundingBox(170,200,160,100);    
+    }
+
+    public void paintWindow(PaintBrush brush)
+    {
+
+        if(drag != null && drag.overlaps(stationary))
+        {
+            brush.setColor("RED");
+            brush.fillRectangle(170,200,160,100);    
+        }
+        
+        brush.setThickness(4);
+        brush.setColor("black");
+        brush.drawRectangle(170,200,160,100);    
+
+        
+        brush.drawRectangle(x-50,y-80,100,160);
+    }
+
+    public void onMouseMove(MouseEvent m)
+    {
+        x=m.getX();
+        y=m.getY();
+        drag = new BoundingBox(x-50,y-80,100,160);
+    }
+
+    public static void main()
+    {
+        BoundingBoxTester b = new BoundingBoxTester();
+        b.showWindow();
+    }
+}</pre></td>
+	</tr>
+</table>
+
+</body>
+
+</html>

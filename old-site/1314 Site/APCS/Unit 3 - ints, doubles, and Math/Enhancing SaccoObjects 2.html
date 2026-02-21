@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Enhancing SaccoObjects Part 2</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	color: #FF0000;
+}
+.auto-style5 {
+	font-family: "Courier New", Courier, monospace;
+	border: 1px solid #c0c0c0;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style8 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style9 {
+	border-style: solid;
+	border-width: 1px;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style6">Enhancing SaccoObjects</span><br class="auto-style2" />
+<span class="auto-style7">Part 2:&nbsp; Public Constants and Timers</span></p>
+<p class="auto-style2">In the previous assignment you used some self drawing 
+objects to create the scene below.&nbsp; This project will continue to modify 
+that code.</p>
+<p><img src="images/img37.jpg" class="auto-style2" height="289" width="273" /></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style7"><strong>Using Static Constants to Represent a State:</strong></p>
+<p class="auto-style2">Previously we constructed a QuestionBlock using the 
+default constructor (new QuestionBlock() ).&nbsp; The default QuestionBlock is 
+yellow, but there is also a red QuestionBlock.&nbsp; The only way to control 
+this by using a different constructor; one that takes in an int.</p>
+<p><img class="auto-style2" src="images/img3D.gif" /></p>
+<p class="auto-style2">If you construct a QuestionBlock with an int as a 
+parameter, the int represents what type of QuestionBlock you would like.&nbsp; 
+Notice that 9999 is yellow, while 2475 is red.</p>
+<p class="auto-style1"><span class="auto-style3">Go to the QuestionBlockWindow 
+constructor and change one of the QuestionBlock&#39;s construction statements from
+</span><strong><span class="auto-style3">new QuestionBlock();</span></strong><span class="auto-style3"> 
+to </span><strong><span class="auto-style3">new QuestionBlock(<span class="auto-style4">2475</span>);</span></strong></p>
+<p class="auto-style2"><img height="314" src="images/img3F.jpg" width="300" /></p>
+<p class="auto-style2">By constructing a QuestionBlock with a 2475 as a 
+parameter, we&#39;ve told it to be a red question block instead of a yellow!!</p>
+<p class="auto-style2">Yes, 2475 is arbitrary and forgettable.&nbsp; It would be 
+a real pain to have to remember this random number on a regular basis.&nbsp; 
+Fortunately, within the QuesionBlock class there are two constants that will be 
+helpful.</p>
+<p class="auto-style2">public static final int RED_BLOCK = 2475;<br />
+public static final int YELLOW_BLOCK = 9999;</p>
+<p class="auto-style2">These constants are less about carrying a value that&#39;s 
+useful in calculations and more about putting a variable name to a forgettable 
+value</p>
+<p class="auto-style2">Since these values are public and static, we can use them 
+in any other class to make them more readable.&nbsp; Remember that when using 
+static elements, we call them using the class name instead of a variable (QuestionBlock.RED_BLOCK and 
+QuestionBlock.YELLOW_BLOCK).&nbsp; We&#39;ve seen this before with Math.PI and 
+Math.E.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Head back to the QuestionBlockWindow&#39;s constructor and 
+instead of<strong> new QuestionBlock(</strong><span class="auto-style4"><strong>2475</strong></span><strong>),</strong> 
+use <strong>new QuestionBlock( </strong><span class="auto-style4"><strong>
+QuestionBlock.RED_BLOCK</strong></span><strong> );</strong></p>
+<p class="auto-style2">Since QuestionBlock.RED_BLOCK is simply a variable 
+holding the int 2475, this change will not change anything about how the code 
+functions.&nbsp; It simply makes the code more readable.&nbsp; Remembering that 
+QuestionBlock.RED_BLOCK represents the red question block is much easier to 
+remember than 2475.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style7"><strong>Using SaccoObject&#39;s Timer:</strong></p>
+<p class="auto-style2">SaccoObject has a few methods that make your programs a 
+little bit more fun.&nbsp; Already we&#39;ve seen the paintWindow method, which is 
+important for describing what the window will look like.&nbsp; Now let&#39;s take a 
+look at SaccoObject&#39;s built in timer.</p>
+<p class="auto-style2">Go to your QuestionBlockWindow class and add the 
+following method header:</p>
+<p class="auto-style8">public void onTimerTick()</p>
+<p class="auto-style2">This is another special method that is called 
+incrementally if the SaccoObject has been &quot;started&quot;.</p>
+<p class="auto-style2">inside the onTimerTick method, add one line of code:</p>
+<p class="auto-style8">myBlock.update();</p>
+<p class="auto-style2">Calling QuestionBlock&#39;s update method changes an&nbsp; 
+instance field so that the displayed image is a different one.&nbsp; Since this 
+is now hooked up with the timer, the image will be continually changing.</p>
+<p class="auto-style2">Go to your runner and change it to read:</p>
+<pre>public static void main()
+{
+    QuestionBlockWindow myWindow = new QuestionBlockWindow();
+    myWindow.showWindow();
+    myWindow.setDelay(300);
+    myWindow.start();
+}</pre>
+<p class="auto-style2">The setDelay affects SaccoObject&#39;s built-in timer to wait 
+.3 seconds between calls to onTimerTick.&nbsp; The timer defaults to off, so you 
+must call the start method to kick off the action.</p>
+<p class="auto-style2">Run the program.&nbsp; Hopefully you will see the 
+QuestionBlock do some animating.</p>
+<hr>
+<p class="auto-style7"><strong>Creating Your Own Self-Drawing Object</strong></p>
+<p class="auto-style2">Create a class named CenteredCircle, which will have 
+instance fields to represent an x, y, radius, and a maximum radius (all ints).&nbsp; 
+Also, have a String to represent the color of the circle.</p>
+<p class="auto-style2">The Constructor for CenteredCircle should take in an x 
+and y as parameters and assign them to the instance fields.&nbsp; The 
+constructor should set the default radius to be 50, the color to red, and the 
+maximum radius to 100.</p>
+<p class="auto-style2">Add the mutator methods setColor, setRadius and 
+setMaxRadius.</p>
+<p class="auto-style2">
+<a href="../../SaccoJar/javadocs/PaintBrush/sacco/PaintBrush.html">PaintBrush 
+API</a><br />
+Add a method with the header public void 
+paintSelf(PaintBrush brush).&nbsp; Inside the method, use the PaintBrush object 
+to draw a circle that is <strong>centered</strong> around the x and y in your 
+instance fields.&nbsp; This means that you cannot simply say brush.fillOval( 
+x,y,...., you must first calculate the x and y that the circle should be drawn 
+from.</p>
+<p class="auto-style2"><img height="414" src="images/Capture.PNG" width="424" /></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style7"><strong>Creating a Window<br />
+<img class="auto-style9" src="images/img2.jpg" /></strong></p>
+<p class="auto-style2">Create a <strong>second</strong> class named CircleWindow.&nbsp; This 
+class is very similar to th QuestionBlockWindow, so have it open while coding.&nbsp; 
+The only instance field should be a CenteredCircle.&nbsp; In the constructor, 
+assign a CenteredCircle to the instance field and make sure that it has an x and 
+y of (250,250).</p>
+<p class="auto-style2">In your paintWindow method, don&#39;t forget to call the 
+paintSelf method of the CenteredCircle.&nbsp; Otherwise the object will exist, 
+but not be drawn.</p>
+<p class="auto-style2">Run your program,&nbsp; make sure that the circle drawn 
+is perfectly centered in the window (myWindow.showGrid() can be useful in 
+determining this).&nbsp;</p>
+<p class="auto-style2"><img height="315" src="images/img47.jpg" width="300" /></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style7"><strong>Adding a Timer effect:</strong></p>
+<p class="auto-style2">Open your CenteredCircle class and add a new method named 
+grow, which will take in no parameters, and make the circle&#39;s radius increase by 
+2.&nbsp; </p>
+<p class="auto-style2">Open your CenteredCircleWindow class and override the 
+method onTimerTick, similar to the QuestionBlockWindow.&nbsp; Inside this 
+method, call the instance field&#39;s grow method.&nbsp; Also, go to the runner and 
+make sure that you&#39;ve called the window&#39;s start method.</p>
+<p class="auto-style2">Run this program, a circle should start small and then 
+grow beyond the edges of the window.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style7"><strong>Cycling the circle&#39;s growth:</strong></p>
+<p class="auto-style2">The grow method is useful for our animation, but it 
+allows the radius to go well past the maximum radius.&nbsp; We can use a mod 
+trick to keep the radius in a range that we like.</p>
+<p class="auto-style2">Look at the following table and look at the pattern that 
+modding by 4 reveals</p>
+<table align="left" class="auto-style5" style="width: 31%">
+	<tr>
+		<td style="width: 672px">num</td>
+		<td style="width: 769px">num%4</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">0</td>
+		<td style="width: 769px">0</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">1</td>
+		<td style="width: 769px">1</td>
+	</tr>
+	<tr>
+		<td style="width: 672px; height: 22px;">2</td>
+		<td style="width: 769px; height: 22px;">2</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">3</td>
+		<td style="width: 769px">3</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">4</td>
+		<td style="width: 769px">0</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">5</td>
+		<td style="width: 769px">1</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">6</td>
+		<td style="width: 769px">2</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">7</td>
+		<td style="width: 769px">3</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">8</td>
+		<td style="width: 769px">0</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">9</td>
+		<td style="width: 769px">1</td>
+	</tr>
+	<tr>
+		<td style="width: 672px">10</td>
+		<td style="width: 769px">2</td>
+	</tr>
+			</table>
+
+<p class="auto-style2">&nbsp;</p>
+
+<p class="auto-style2">&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<p class="auto-style2">Notice that when you mod by 4, the maximum possible value 
+is 3.&nbsp; Going past 3 causes the result to loop back to 0.</p>
+<p class="auto-style2">In your grow method, after you increase your radius, mod 
+it by the maximum radius and assign it back into the radius variable.&nbsp; This 
+will make sure that the radius never goes past the maximum, it just loops back 
+to 0.</p>
+<p class="auto-style2">Run your program and make sure that when the radius of 
+the cricle grows too large, it jumps back to 0.</p>
+<p class="auto-style7">&nbsp;</p>
+<p class="auto-style7"><strong>Assignment:</strong></p>
+<p class="auto-style2">Modify your CenteredCircleWindow to have three CenteredCircles on the 
+same window.&nbsp; A red one at (125,375) with a maximum radius of 60, a blue 
+one at (250,250)&nbsp; with a maximum radius of 120, and another red one at 
+(375,375) with a maximum radius of (60).</p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

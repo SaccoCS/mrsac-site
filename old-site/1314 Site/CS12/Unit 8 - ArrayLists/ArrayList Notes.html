@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Draggable Objects</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.med {
+font-family:Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.larg {
+font-family:Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+
+</style>
+
+</head>
+
+
+<p>import java.util.ArrayList;</p>
+<p.larg>ArrayList Notes:</p>
+
+<p>Here's an example program that uses many of ArrayLists methods, put it into BlueJ and read through the comments.</p>
+ 
+<p>ArrayLists are objects that can hold multiple things.  To set up an ArrayList, you declare it like so:</p>
+ 
+<p>ArrayList<String> strList = new ArrayList<String>();</p>
+ 
+ 
+<p>The add method:</p>
+<p>Now the variable strList is set up to hold many Strings.  At the moment the list has nothing in it.  We can add things to it using the add method.</p>
+ 
+<p>strList.add("Hello");</p>
+ 
+<p>Now str has one String in it at index 0. Each time the add method is used, the String is added at a new index, so if I make two more commands:</p>
+ 
+<p>strList.add("World");</p>
+<p>strList.add("!!!");</p>
+ 
+<p>"World" is added at index 1, and "!!!" is added at index 2, resulting in the table below.</p>
+index
+0
+1
+2
+value
+"Hello"
+"World"
+"!!!"
+ 
+ 
+<p>The get method:</p>
+<p>You can use the "get" method to retrieve the String at a given slot.</p>
+ 
+<p>String tmp = strList.get(1);</p>
+ 
+<p>by saying get(1), we are asking the strList for the String at index 1.  After this line is excecuted the String "Hello" is stored in tmp.</p>
+ 
+<p>Traversing through the ArrayList</p>
+<p>Suppose I wanted to print out every String in strList.</p>
+ <pre>
+for( int i =0; i< strList.size() ; i++)   //loop through every index in the String
+{
+   String tmp = strList.get( i );         //get the i'th String out of the list
+ 
+   System.out.println( tmp );          //prints out that String
+}
+ </pre>
+<p>The remove method:</p>
+<p>You can use the remove method to remove a String from the list entirely.</p>
+ 
+if strList is below
+index
+0
+1
+2
+value
+"Hello"
+"World"
+"!!!"
+ 
+ 
+<p>strList.remove(1);  removes the element in slot 1 ("World") from the list.  All the elements that come after index 1 are shifted to fill the gap that's created.</p>
+ 
+index
+0
+1
+value
+"Hello"
+"!!!"
+ 
+ 
+<p>The enhanced add method:</p>
+<p>We can add strings at a specific index if we use the other version of the add method that takes in an int before the String.</p>
+ 
+<p>strList.add(1, "Sacco");  adds the String "Sacco" to index 1.  Everything at index 1 and above is shifted to one index higher.</p>
+ 
+index
+0
+1
+2
+value
+"Hello"
+"Sacco"
+"!!!"
+ 
+ 
+ 
+<p>ArrayLists can hold any type of Object, but requires a small twist for ints and doubles.  An ArrayList of ints shoud be declared of type Integer and doubles need to be capitalized:</p>
+ 
+<p>ArrayList<Integer> intList = new ArrayList<Integer>();</p>
+<p>or</p>
+<p>ArrayList<Double> doubleList = new ArrayLlist<Double>();</p>
+ 
+<p>Suppose I have an ArrayList of Integers and I want to find the total sum of all the ints.</p>
+ 
+ArrayList<Integer>  intList... somehow contains a full ist of Integers</p>
+ <pre>
+int sum =0;
+for( int i =0; i< intList.size(); i++)      //loops through the entire list
+{
+   int tmp = intList.get( i );          //retrieve each int from the list
+   sum += tmp;                    //adds that number to the sum
+}
+ 
+System.out.println( "The sum is "+sum );
+ </pre>
+ 
+ </html>
+ 

@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Grade</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style1">Grade</p>
+<p class="auto-style3">Create a class named Grade, which will be used to 
+represent a Grade on a report card.</p>
+<p class="auto-style3">The only instance field a Grade object should have is the 
+String that represents the Grade.&nbsp; It will contain Strings like &quot;A-&quot; or 
+&quot;C+&quot; or even just &quot;B&quot;</p>
+<p class="auto-style3">Add a constructor that will take in a String as a 
+parameter and assign it directly to the instance field.&nbsp; Beware: the String 
+may be 1 or 2 characters long.&nbsp; Try to avoid IndexOutOfBounds exceptions.</p>
+<hr>
+<p class="auto-style4">gpaVal</p>
+<p class="auto-style3">Add a method named gpaVal that will take in no parameters 
+and use the instance field to return a grade point value based on college rules.&nbsp; 
+In college, an A is worth 4 and a B is worth 3 like normal, but plusses and 
+minuses count for .3.</p>
+<p class="auto-style3">For example:&nbsp; A C is worth 2 points, but a C+ is 
+worth 2.3, and a C- is worth 1.7.</p>
+<p class="auto-style3">There are also exceptions to the rule.&nbsp; An A+ is 
+only worth 4.0, and anything starting with F is a 0.</p>
+<p class="auto-style3">Hint:&nbsp; Don&#39;t simply write a gigantic chain of 
+else-ifs.&nbsp; Create a local variable and use the first letter to assign 
+4,3,2, or 1.&nbsp; After that, check the second character to see if you should 
+add/subtract a .3</p>
+<hr>
+<p class="auto-style4">toString</p>
+<p class="auto-style3">The toString method should simply return the instance 
+field.</p>
+<hr>
+<p class="auto-style4">GradeRunner1</p>
+<p class="auto-style3">Test your class with the following runnner.&nbsp; Make 
+sure that you&#39;ve correctly handled all the cases.</p>
+<pre>public class GradeRunner1
+{
+    public static void main()
+    {
+        String[] grades = {"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F+","F","F-"};
+        
+        for( String str: grades)
+        {
+            Grade g = new Grade(new String(str));
+            System.out.println(str+(str.length()==2?"":" ")+" is worth "+g.gpaVal());
+        }
+    }
+}</pre>
+
+<hr>
+
+<p class="auto-style4">compareTo</p>
+<p class="auto-style3">Once you have tested with the first runner, create a method named compareTo 
+which takes in a Grade and returns an int according to the following rules:</p>
+<p><span class="auto-style3">if &#39;this&#39; Grade&#39;s gpaVal is lower than the parameter&#39;s 
+gpaVal, return any negative 
+number</span><br class="auto-style3" />
+<span class="auto-style3">if &#39;this&#39; Grade&#39;s gpaVal is greater than the parameter&#39;s 
+gpaVal, return any positive 
+number</span><br class="auto-style3" />
+<span class="auto-style3">if &#39;this&#39; Grade&#39;s gpaVal is equal to the parameter&#39;s 
+gpaVal, return 0</span><br />
+</p>
+<hr>
+
+<p class="auto-style4">GradeRunner2</p>
+<p class="auto-style3">To test your compareTo method, use the following runner.&nbsp; It will create 
+50 random grades and sort them from highest to lowest using your compareTo 
+method.&nbsp; If the second list is unsorted, your compareTo needs work.</p>
+<pre>import java.util.ArrayList;
+
+public class GradeRunner2
+{
+    public static void main()
+    {
+        ArrayList&lt;Grade&gt; grades = new ArrayList&lt;Grade&gt;();
+        ArrayList&lt;Grade&gt; unsorted= new ArrayList&lt;Grade&gt;();
+        
+        System.out.println("Creating 50 random grades...");
+        
+        for( int i =0; i<50; i++)
+        {
+            String[] grade = {"A","B","C","D","F"};
+            String[] plusOrMinus = {"+","","-"};
+            
+            int gradeNum = (int)(Math.random()*grade.length);
+            int sign = (int)(Math.random()*plusOrMinus.length);
+            
+            Grade tmp = new Grade(grade[gradeNum]+plusOrMinus[sign]);
+            unsorted.add(tmp);
+            grades.add(tmp);
+            
+        }
+        
+        
+        System.out.println("Sorting using compareTo...\n");
+        for(int i = 0; i < grades.size()-1;i++)
+        {
+            
+            int bigIndex = i;
+            for(int j =i; j < grades.size();j++)
+            {
+                
+                if(grades.get(j).compareTo(grades.get(bigIndex))>0)
+                   bigIndex = j;
+                              
+            }
+            
+            Grade tmp = grades.remove(bigIndex);
+            grades.add(i,tmp);
+            
+        }
+        System.out.println("Unsorted\t\tSorted");
+        for(int i = 0; i < grades.size() ; i++)
+        {
+         System.out.println( "   "+unsorted.get(i)+" \t\t\t   "+grades.get(i));   
+        }
+        
+    }
+}</pre>
+
+<hr>
+
+<p class="auto-style4">Create your own runner:</p>
+<p class="auto-style3">Create a runner named MyGradeRunner, which will ask the user to input two 
+Grades and will tell you how they compare.&nbsp; Follow the steps in the 
+comments.</p>
+<pre>import java.util.Scanner;
+public class myGradeRunner
+{
+   public static void main()
+   {
+       Scanner scan = new Scanner(System.in);
+       
+       //Ask the user to input the first Grade
+       //use their input to construct a new Grade object
+       
+       //Ask the user to input the second Grade
+       //use their input to construct a new Grade object
+       
+       //use the compareTo method to print out one of the following:
+       //____ is greater than ____
+       //____ is less than ____
+       //____ is equal to ____
+   }
+
+}</pre>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

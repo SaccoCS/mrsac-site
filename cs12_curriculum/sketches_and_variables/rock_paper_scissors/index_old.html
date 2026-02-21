@@ -1,0 +1,301 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  
+</head>
+
+<body>
+  <h1>Rock Paper Scissors</h1>
+<p><iframe src="demos/Rock_Paper_Scissors/index.html" width="352" height="290" data-mce-fragment="1"></iframe></p>
+<p>&nbsp;</p>
+<p>For this assignment our goal will be to create a Rock-Paper-Scissors&nbsp;game like the one above. Play around with it and make sure you see all the great features:<br />- The user can choose any of three options to trigger a round<br />- The computer randomly chooses something to throw<br />- A winner is determined in each round and is announced in an onscreen message<br />- Score is kept for the player and the computer automatically</p>
+<p><br /><br /></p>
+  
+  <hr>
+  <h2>Creating a p5js.org Account</h2>
+<p>CodeHS is a good way to keep assignments organized, but they have limited what we can do with extra files.&nbsp; For this assignment we are going to be using a few images, which means we're going to have to switch platforms a little bit.</p>
+<p>There is a decent web-based editor provided by the official p5 website that we are going to use today:</p>
+<p><a class="inline_disabled" href="https://editor.p5js.org/" target="_blank" rel="noopener">https://editor.p5js.org/</a></p>
+<p>Follow the link above and create an account using your school email.&nbsp;&nbsp;</p>
+<p>Warning: It is easy to lose work if you haven't logged in while coding. Make sure that you've logged in and are saving often so that you don't have to redo anything.</p>
+  
+  <p>
+    &nbsp;
+  </p>
+  
+  <h3>
+    Duplicating the Workspace
+  </h3>
+  <p><a href="https://editor.p5js.org/isacco@sandi.net/sketches/8y9L84AR8" data-cke-saved-href="https://editor.p5js.org/isacco@sandi.net/sketches/8y9L84AR8">Duplicate the Rock Paper Scissors Workspace</a>.&nbsp; This does NOT mean to just copy-paste the code. Make sure that you've logged in, and then try to save your own version of it by going to the <strong>File</strong> menu. Instead of a 'save' option you will be given a choice to 'Duplicate'. This will copy the program text as well as the image files that we are going to need for this program.</p>
+  <p>
+    &nbsp;
+  </p>
+  <hr>
+<h3>Design Decision: Using Integers as Choices</h3>
+<p>For reasons that will make sense as we get further into the program, we are going to establish a rule. Each of the three choices: Rock, Paper, and Scissors, will have an&nbsp;<strong>integer</strong>&nbsp;value associated with it:</p>
+<pre>Rock&nbsp; &nbsp; &nbsp;--&gt;&nbsp; &nbsp;0<br />Paper&nbsp; &nbsp; --&gt;&nbsp; &nbsp;1<br />Scissors --&gt;&nbsp; &nbsp;2</pre>
+<p>&nbsp;</p>
+<h4>Helper Functions: drawChoice() and textChoice()</h4>
+
+<p>Open the Rock Paper Scissors Workspace</p>
+<p>There you will find lots of empty functions that we will fill in ass we get to them, but for now the draw() function is filled with tester code that is testing the results of two functions that are currently incomplete: drawChoice() and textChoice()</p>
+<pre>function draw() { &nbsp;&nbsp;&nbsp;
+&nbsp;  background(255);
+&nbsp; &nbsp;//TEST CODE #1: Drawing all three choices with drawChoice()
+&nbsp; drawChoice(0, 50,50); &nbsp;//rock
+&nbsp; drawChoice(1, 150,50); //paper
+&nbsp; drawChoice(2, 250,50); //scissors
+
+&nbsp; //TESTING CODE #2: Converting all three choices to text
+&nbsp; let rockText = textChoice(0);
+&nbsp; let papText = textChoice(1);
+&nbsp; let sciText = textChoice(2);
+
+&nbsp; text("Rock",50,110);
+&nbsp; text("Paper",150,110);
+&nbsp; text("Scissors",250,110);&nbsp;
+}</pre>
+<p>Each of them is meant to help us work with integers as choices. If you read the code, you'll see that each is called with 0, 1, and 2 so that we can see the result.</p>
+<p>The&nbsp;<strong>drawChoice()</strong>&nbsp;function is meant to accept an integer choice as a parameter and <strong>draw </strong>the matching&nbsp;<strong>image</strong>&nbsp;at a given location<br />The <strong>textChoice()</strong> function is meant to accept an integer choice as a parameter, and <strong>return </strong>the&nbsp;matching&nbsp;<strong>String</strong>&nbsp;"Rock", "Paper", or "Scissors"</p>
+<p>If they were done properly, the sketch would look like this:</p>
+<p><img src="images/rps_options.png" width = "300px"/></p>
+<p>Right now, neither of our helper functions work properly and will produce this image:</p>
+
+<p><img src="images/rps_options2.png" width = "300px"/></p><p>- drawChoice() drew a rock image all three times, despite the different parameters<br />- textChoice() doesn't convert to "Rock", "Paper", or "Scissors". It just uses the number itself as the text.</p>
+<p>&nbsp;</p>
+<h3>Your Task: Fix drawChoice() and textChoice()</h3>
+<p>These problems come from the lazy implementation of drawChoice() and textChoice(). Your task is to modify both of them so that they pay more attention to their&nbsp;<strong>choice</strong>&nbsp;parameter. Follow the rules of&nbsp;<strong>Rock -&gt; 0, Paper -&gt; 1, Scissors -&gt; 2</strong>&nbsp;to make drawChoice() choose the correct image, and textChoice() return a proper String.</p>
+<p>If successful, running your program should look like this:</p>
+
+<p><img src="images/rps_options.png" width = "300px"/></p><p>When your sketch produces the above image you can move to the next section</p>
+  
+  <hr>
+  
+  <h2>Designing Your Game Layout</h2>
+<p>At this point we can trust that the drawChoice() and textChoice() functions will work as intended. We can now start the layout of our game.</p>
+<p>&nbsp;</p>
+<h4>Removing the Test Code</h4>
+<p>The draw() function that you were provided only had code that was meant to test the three choices for our helper functions. We can remove it now that they are working properly.</p>
+<p>Replace the draw() function with this new one:</p>
+<pre>function draw() { &nbsp;
+&nbsp;  drawBoard();
+ &nbsp; drawChoices();
+&nbsp;  drawScores();
+&nbsp;  drawMessage();
+}</pre>
+<p>While it looks like this draw() function does a lot of work, in reality it is calling four functions that don't do anything yet, so running the program&nbsp;will currently display a blank canvas().&nbsp;</p>
+<p>The purpose of these functions is to provide a little organization as we design the portions of our layout. It will be our task to implement each of the functions to get our game looking the way that we want it to.</p>
+<p>Our game currently has no global variables yet. For now&nbsp;we will try to draw the specific example that we see here.</p>
+<p><img src="images/game_layout.png" width = "352px" /></p>
+<p>Your game doesn't have to look exactly like the one above, but you should implement them so they&nbsp;still have the same basic information. Try to remain organized and use each of the provided functions to focus on a specific portion of the canvas.</p>
+<p><strong>drawBoard()</strong><br />This function is in charge of the portions of the sketch that will never change:<br />- Background color<br />-&nbsp;Labels for Player/Computer and places for images to go<br />- Buttons for rock, paper, scissors</p>
+<p><strong>drawChoices()</strong><br />This function is in charge of drawing the images on the screen. Remember that you wrote the <strong>drawChoice()</strong>&nbsp;to do all the hard work. This means that your drawChoices() function should simply be two lines, each calling drawChoice() with a different choice and location.&nbsp;For now, see if you can get it to represent a "rock" and a "scissors" to match&nbsp;the above example.</p>
+<p><strong>drawScores()</strong><br />This function draws both player's scores using the&nbsp;<strong>text()</strong>&nbsp;command.&nbsp;For now, see if you can get it to represent a 3 and a 2 to match the above example.</p>
+<p><strong>drawMessage()</strong><br />This function draws the 'results message' using the&nbsp;<strong>text()</strong>&nbsp;command. Again, try to make it say the example's "Rock defeats Scissors"</p>
+<p>&nbsp;</p>
+<p>After implementing all four functions&nbsp;you should have the layout and look of your game determined, but nothing&nbsp;interactive yet. It is time to add some variability to our sketch so that we can turn it into a game.</p>
+  
+  
+  <hr>
+  
+  <h2>Global Variables</h2>
+<p>When designing a game to be interactive, we need to rely on&nbsp;<strong>Global Variables</strong>&nbsp;to help us control the parts of the game that change as time goes on. This means we need to:<br />- Define variables that represent the&nbsp;<strong>state</strong>&nbsp;of the game<br />- Give them initial values<br />- Write drawing functions that rely of the value of the&nbsp;<strong>variables</strong><br />- When input is received, update the&nbsp;<strong>variables</strong>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Choosing the Correct Global Variables</h3>
+<p>While playing the game you may get distracted by Mr. Sacco's amazing visual design skills, but try to think about the&nbsp;<strong>data</strong>&nbsp;that is being represented. What is the game tracking to show us? What is changing as we interact with it.</p>
+<p>You can really break it down into two pieces of information for both the computer and the player:<br />&nbsp;- The player and computer's <strong>choice</strong>. Always one of three options representing&nbsp;Rock, Paper, or Scissors. (0, 1 , or 2)<br />&nbsp;- The player and computer's <strong>score</strong>.&nbsp;A number that increases as the player or computer win the round</p>
+<p>&nbsp;</p>
+<p><img src="images/game_layout.png" width = "352px" /></p>
+<p>&nbsp;</p>
+<h4>Adding Global Variables</h4>
+<p>Remember that the key to interactivity is to use global variables. In the image above we see:<br />- The player has chosen&nbsp;<strong>rock</strong>&nbsp;and the computer has chosen&nbsp;<strong>scissors</strong><br />-&nbsp;The player has <strong>3 points</strong>&nbsp;and the computer has&nbsp;<strong>2 points</strong></p>
+<p>Add the following as the first line of your program:</p>
+<pre>let playerScore = 3, compScore = 2, playerChoice = 0, compChoice = 2;</pre>
+<p>These are the four values that represent what we're seeing. The important thing to keep in mind is that the&nbsp;<strong>choices</strong>&nbsp;are represented as numbers:</p>
+<p>Rock -&gt; 0&nbsp;<br />Paper -&gt; 1<br />Scissors -&gt; 2</p>
+<p>The player's choice is <strong>rock</strong>, so 0 is assigned to the global variable. Similarly the computer's choice holds a 2 to indicate <strong>scissors</strong>. As the game goes on&nbsp;these values will change, but keeping them as numbers will help us.</p>
+<p>&nbsp;</p>
+<h4>Infusing the Global Variables into the Drawing Functions</h4>
+<p>Now that we've added some global variables to represent the state of our game, we need to update our drawing function so that they refer to them when drawing.&nbsp;Modify each of the following functions in your sketch to rely on the new variables for their information. If done properly, simply changing the value of any of the global variables in the first line should change how the overall sketch looks.</p>
+<p>&nbsp;</p>
+<h4>drawScores()</h4>
+<p>Currently drawScores() is simply drawing a 3 and a 2 on the screen. Update those lines of code to use the&nbsp;<strong>playerScore</strong>&nbsp;and&nbsp;<strong>compScore</strong>&nbsp;variables.</p>
+<p>&nbsp;</p>
+<h4>drawChoices()</h4>
+<p>Currently drawChoices() should be two calls to the drawChoice() function, once with a 0&nbsp; and once with a 2. Modify those two lines to use the&nbsp;<strong>playerChoice</strong>&nbsp;and&nbsp;<strong>compChoice</strong>&nbsp;variables instead.&nbsp;</p>
+<p>&nbsp;</p>
+<h4>drawMessage()</h4>
+<p>This function needs the most work. For now we will forget about it determining who wins, but instead create a message that tells us the two choices, like "Rock vs Paper" or "Scissors vs Rock"</p>
+<p>The key to this will be calling the&nbsp;<strong>textChoice()</strong>&nbsp;function that you created earlier. It translates integer choices into Strings for us. You should start the drawMessage() function by calling it with each of the choice variables.</p>
+<pre>let playerChoiceText = textChoice( playerChoice );
+let compChoiceText = textChoice( compChoice );
+</pre>
+<p>After this, playerChoiceText and compChoiceText will be Strings that you can display. Modify the&nbsp;<strong>text()</strong>&nbsp;command that you already have to give you a "vs" message.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>These drawing functions should all rely on the four state variables at the top of the sketch. Test this out by modifying them to be different and running your sketch to verify that it works.</p>
+<pre>let playerScore = <span><strong>3</strong></span>, compScore = <span><strong>2</strong></span>, playerChoice = <span><strong>0</strong></span>, compChoice =<span> <strong>2</strong></span>;</pre>
+<p>These values would represent the "Rock vs Scissors" scenario, with a score of 3 to 2.</p>
+  
+  <hr>
+  
+  <h2>Simulating a Throw</h2>
+<p>At this point we have made a sketch whose look is completely determined by the four global variables: playerScore, compScore, playerChoice, and compChoice. They represent the current state of our game, and all of the images and messages match whatever their value is.</p>
+<p>It's time to start thinking about the&nbsp;<strong>actions</strong>&nbsp;that can happen in our game&nbsp;and specifically how that might affect our state variables. Look in the workspace for the&nbsp;<strong>throwDown()&nbsp;</strong>function that you've been provided:</p>
+<pre>//Simulates the player 'throwing' a specific choice.
+function throwDown( choice ){
+&nbsp; &nbsp; playerChoice = choice;
+
+}</pre>
+<p>&nbsp;</p>
+<p>The purpose of this function is to represent the moment that the user makes a choice of Rock, Paper, or Scissors. We will expect that choice to be given to us as the parameter&nbsp;<strong>choice</strong>&nbsp;variable, and our task is to simulate a turn.</p>
+<p>Right now the function is incomplete. The only response that it makes is to set the&nbsp;<strong>playerChoice</strong>&nbsp;variable to the parameter choice. But we just did a lot of work to make the drawChoices() and drawMessage() function rely on playerChoice, so changing it should have a significant effect on what we see.</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>The throwDown() function is not tied to any user input, so to test it we are going to take advantage of p5's interactive console.</p>
+<p>Run your sketch, then look at the bottom of the <strong>Console </strong>area for a text input bar.</p>
+<p><br /><img src="images/empty_console.png" alt="ee1cd268-3e3b-49f1-af54-329d34bf7e7f.png" /></p>
+<p>This is a 'live interpreter', which will run any code that we type as part of our program. This will allow us to test the effects of throwDown() as we develop it.&nbsp;Type throwDown(2); into the console and hit enter. The console will respond with&nbsp;<strong>undefined</strong>&nbsp;(because trhowDown() doesn't return anything).</p>
+<p><img src="images/one_line_console.png" alt="9a68c1ad-3570-4b65-bec1-45cb0e84e880.png" /> &nbsp; --&gt; <img src="images/full_console.png" alt="42c21515-25f4-4875-afa4-28ca989f9890.png" /></p>
+<p>Performin this action will run the throwDown() function with <strong>Scissors</strong>&nbsp;as the choice. In reponse, the player's image and the message should update to be&nbsp;Scissors. If it does, repeat your test with throwDown(0); and throwDown(1); to confirm that it works for the Rock and Paper parameters a well.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Adding Button Functionality</h2>
+<p>In the final game, we don't want the user to have to type any input. Instead, we want thee three rectangles to act as buttons to trigger the calls to throwDown() that they correspond with.</p>
+<p>&nbsp;</p>
+<h4>Borrowing mouseInBox()&nbsp;</h4>
+<p>The buttons that you've created are rectangles, and as we click the mouse we are going to want to detect which button has been clicked. At the beginning of this unit you created a function&nbsp;<strong>mouseInBox()</strong>&nbsp;which is helpful for this exact purpose.&nbsp;</p>
+<p>- Return to the 'Mouse In Box' workspace or the Boolean Functions assignment<br />- Copy the mouseInBox() function<br />- Paste it in your Rock-Paper-Scissors workspace, taking care not to paste it within the curly-braces any other functions.<br />- Do not modify it in any way. It should remain unchanged throughout this assignment.</p>
+<p>&nbsp;</p>
+<h4>Reminder: How to use mouseInBox()</h4>
+<p>We have previously used the mouseInBox() function to help us detect if we were hovering over a specific rectangle. Here is a snippet of how we used it in the RGB Hover workspace:</p>
+<pre>function drawBG(){
+&nbsp; &nbsp;if( &nbsp;mouseInBox(100,40,60,30) &nbsp;) &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;background("red");
+&nbsp; &nbsp;else&nbsp;
+&nbsp; &nbsp; &nbsp; background("white");
+}
+</pre>
+<p>We first called the mouseInBox() function, but with specific parameters to match the x,y,width, and height of the rectangles that were in our sketch. Since the function returns a&nbsp;<strong>boolean</strong>&nbsp;value, we can use it to drive an if statement directly.&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Detecting Button Pressed</h4>
+<p><strong>Add a mousePressed() function to your sketch</strong>, taking care not to insert it within the curly braces of any other functions.</p>
+<pre>function mousePressed(){
+
+}
+</pre>
+<p>&nbsp;</p>
+<p>This function is called <strong>every time</strong> that the mouse is pressed. Our goal will be to use the mouseInBox() function to help determine specifically when one of the three buttons are pressed. In response to each button, we will call our new throwDown() function with the matching parameter.</p>
+<p>Add three if statements to the mousePressed() function. Each one should be driven using a call to mouseInBox(), but with parameters that match one of the three buttons that you've drawn on your sketch. The response to each of these if statements should be a call to throwDown(0), throwDown(1), or throwDown(2), depending on which button is pressed.</p>
+<p>&nbsp;</p>
+<h3>Test Your Buttons</h3>
+<p>Remember that the throwDown() function is currently only in charge of changing the player's image. Run your program and click around. Make sure that the player's image only changes when one of the buttons is pressed, and that it changes to match the clicked button.</p>
+  
+  <hr>
+  
+  <h2>Simulating the Computer's Choice</h2>
+<p>The throwDown() function is now set up to be the main brain of our game. It is called once&nbsp;each time that the user clicks a button, and the parameter is the user's new choice. We can now focus on programming the rest of the game, including the computer's random choice and the scoring mechanism.</p>
+<p>&nbsp;</p>
+<h4>Random Decision</h4>
+<p>Move to the throwDown() function, where we effectively make the player's choice by assigning a value to the playerChoice variable. The next step will be to simulate the computer's choice by assigning a value to the compChoice variable.</p>
+<p>Here is one place where our choice of&nbsp;<strong>Integers</strong>&nbsp;to represent Rock, Paper, or Scissors is useful. To make a random choice for the computer, we only need to assign a random integer to the compChoice variable.</p>
+<p>- Use the random() function to generate a random value less than three<br />-&nbsp;floor() the result to guarantee that it is an integer.&nbsp;<br />- Assign that random value to the&nbsp;compChoice variable</p>
+<p>&nbsp;</p>
+<p>Test your program by running it and repeatedly pressing any button. If done properly, the computer's choice should change to a random option with each press. Double check to make sure that it is possible to get all three options before moving on. Your random number may need tweaking.</p>
+  
+  <hr>
+  
+  <h2>Win, Lose, or Tie</h2>
+<p>The last major hurdle that we need to worry about is scoring each throw, which breaks down to a simple analysis of each throw. Is it a win, a loss, or a tie for the player. With that knowledge, we will be able to properly</p>
+<p>- Update the message to more properly say "Rock&nbsp;<strong>defeats</strong>&nbsp;Scissors" instead of "Rock vs Scissors".<br />- Make a change to the score each round</p>
+<p>&nbsp;</p>
+<h4>Another Helper Function</h4>
+<p>Since we will need to know results of the throw in two different places, it makes sense to create a function to perform that action. Add a function named&nbsp;<strong>result()</strong>&nbsp;to your sketch:</p>
+<pre>function result(){
+
+}
+</pre>
+<p>&nbsp;</p>
+<h3>What to return?</h3>
+<p>The purpose of this function is to look at the playerChoice and compChoice variables and to return something indicating which situation the player is in&nbsp;in: win, loss, or tie. Since there are three different situations, we need to decide what to return to represent each. We will keep it simple and return a descriptive String: "win", "loss", "tie". This will make the results simple to interpret.</p>
+<h4>Determining the Winner... with Math!</h4>
+<p>While we&nbsp;<em>could </em>w<span>rite a nine part if-</span><span>statement, painstakingly looking at every possible combination of rock, paper, and scissors in the playerChoice and compChoice variables and deciding what to return in each situation. We are instead going to use a&nbsp;</span><strong>Mod&nbsp;Trick&nbsp;</strong>to help us mathematically determine who wins.</p>
+<p>&nbsp;</p>
+<h4>Modulus and Circular Addition</h4>
+<p>If you look at our integer choices for Rock, Paper, and Scissors. They almost fall into an order where each choice is defeated by the value one larger than it:<br />-&nbsp;Rock[<strong>0</strong>] is defeated by Paper[<strong>1]<br />-&nbsp;</strong>Paper[<strong>1</strong>] is defeated by Scissors[<strong>2</strong>]<br /><span><strong>- Scissors[2] loses to Rock[3]</strong></span></p>
+<p>This pattern falls apart a little bit with the last example, as rock isn't represented with a 3. For now, lets imagine that it we kept labeling our options until each option has two possibilities that keep the pattern:</p>
+<p>0: Rock<br />1: Paper<br />2: Scissors<br />3: Rock<br />4: Paper<br />5: Scissors</p>
+<p>With this adjustment, we could say that Each option loses to option that is&nbsp;<strong>one larger than itself</strong>. This value is identified with simple addition:</p>
+<pre>let playerLosesTo = playerChoice + 1;  //SORT OF...</pre>
+<p>Similarly, with the extra options we could say that the player defeats the option that is&nbsp;<strong>two larger than itself</strong>.</p>
+<p>- Rock[0] defeats Scissors[2]<br /><span><strong>- Paper[1] defeats Rock[3]<br />- Scissors[2] defeats Paper[4]</strong></span></p>
+<p>We can also calculate this approximation with simple addition</p>
+<pre>let playerDefeats = playerChoice + 2; //SORT OF...</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Using Mod For Wrapping Around</h5>
+<p>We now have two calculations to help us determine if the player has won or lost</p>
+<pre>let playerLosesTo = playerChoice + 1;   //SORT OF...
+let playerDefeats = playerChoice + 2;   //SORT OF...
+</pre>
+<p>But these calculations are in danger of being larger than our established range of 0 - 2.<br />&nbsp;- 3 could represent Rock[0]&nbsp;<br />&nbsp;- 4 could represent Paper[1]&nbsp;<br />&nbsp;- 5 could represent Scissors[2]</p>
+<p>This kind of 'circular numbering' is common in programming, and we can use the&nbsp;<strong>Modulus</strong>&nbsp;operation to help. Consider the table below, comparing the values of x with that same value after modding by 3.</p>
+<pre>x     : 0 1 2 3 4 5 6 7 8 9 
+x % 3 : 0 1 2 0 1 2 0 1 2 0</pre>
+<p>Notice how mod creates a pattern that resets at every multiple of 3. This is useful in our situation where we are adding and getting values that are possibly larger than 2. If we take our 'maybe too large' values and mod them by 3, we will get a result that is&nbsp;within our range of choices, while still maintaining the proper ordre.</p>
+<p>3 % 3 -&gt; 0, which is Rock<br />4 % 3 - &gt;1, which is Paper<br />5 % 3 -&gt; 2, which is Scissors</p>
+<p>This means that we can update our calculations and make them more accurate by modding the result.</p>
+<pre>let playerLosesTo = ( playerChoice + 1) % 3; &nbsp; 
+let playerDefeats = ( playerChoice + 2 ) % 3; &nbsp;</pre>
+<p>These two expressions will now calculate which&nbsp;<strong>integer choice</strong>&nbsp;the player will lose to/defeat. The addition of the&nbsp;<strong>% 3</strong>&nbsp;ensures that it is within the range of 0 - 2, while still 'keeping its order'.</p>
+<p>&nbsp;</p>
+<h3>Your Task: Finish result()</h3>
+<p>With this knowledge, you should be able to complete the result() function. Remember that its end goal is to return either "win", "loss", or "tie". This can be accomplished by first calculating which integer option&nbsp;represent a win or loss for the player (see above)), and then using an if statement to see which one the computer matches.</p>
+<p>&nbsp;</p>
+<h4>Testing</h4>
+<p>To tests your result() function we will need to incorporate it into your program.</p>
+<p>Right now, your drawMessage() function is calling the textChoice() method twice and drawing the result for us to see, like "Rock vs Paper".</p>
+<p>Modify the drawMessge() function to also call the result() function, and then include it in the message that is being drawn, like "Rock vs Paper loss" or "Scissors vs Paper win".</p>
+<p>After this modification we should be able to see if our results() function works by running the sketch and playing the game and looking at the results to verify that they are correct. You should never see "Rock vs Scissors loss", for example.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Making a Better Message</h3>
+<p>After confirming that the results() function is returning the correct value, we need to make one more adjustment to make the message a little more&nbsp;</p>
+<p>Instead of "Rock vs Paper loss" or "Scissors vs Paper win", we would like the message to be "Rock loses to Paper" or "Scissors defeats Paper". This means that you will no longer be putting the&nbsp;results() word directly into the message. Instead you will want to&nbsp;call results() and&nbsp;<strong>intepret</strong>&nbsp;the value that is returned.</p>
+<pre>let res = results()
+if( res == "win"){ 
+   //Player has won
+}
+</pre>
+<p>You can use if statements like this to decide if you should insert "loses to", "defeats", or "ties" into your message.</p>
+<p>&nbsp;</p>
+<h4>More Testing</h4>
+<p>Once again run your program to make sure that the message is turning out properly, no longer displaying "win" or&nbsp;"loss", instead opting for a better sentence.</p>
+  
+  
+  
+  <hr>
+  
+  
+  <h2>Scoring!</h2>
+<p>So far we haven't been tracking the score at all, but at this point in the project we have enough structure to make it simple.</p>
+<p>Move to the throwDown() function, which currently just sets the choice variables&nbsp;for the user and the computer. Our next job will be to expand on it so that it changes the score variable of the winning player.</p>
+<p>Don't reinvent the wheel. Just like with the drawMessage() function, this should be simple if we rely on the results() function to do the logic.&nbsp;</p>
+<p>- Set the playerChoice and compChoice variables<br />- Call results() and assign the returned value to a variable.<br />- Use an if statement to increase playerScore for a "win", or compScore for a "loss"</p>
+<p>With this adjustment to throwDown(), our game should be functional. Test it by again running it and clicking on the buttons and paying attention to the score increases.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Final Test</h4>
+<p>Double check your game to make sure that it has all the features that we set out to have:<br />- The user can choose any of three options to trigger a round<br />- The computer randomly chooses something to throw<br />- A winner is determined in each round and is announced in an onscreen message<br />- Score is kept for the player and the computer automatically</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+</body>
+
+
+</html>
+

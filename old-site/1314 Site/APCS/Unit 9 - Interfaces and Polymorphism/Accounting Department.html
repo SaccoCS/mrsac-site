@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Accounting Department</title>
+
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Accounting Department:</h2>
+<p><img border="1" src="images/img4.jpg" /></p>
+<p>The AccountingDept class below is meant to handle the funds that a company 
+has.&nbsp; The most important method is the pay method, which takes in an array 
+of Employees, extract how much is owed to them, and attempt to pay them.&nbsp; 
+The payments stop the moment that the funds are exceeded by the debts.</p>
+<pre>public class AccountingDept
+{
+    private double funds;
+    
+    public AccountingDept(double initialFunds)
+    {
+        funds = initialFunds;
+    }
+
+    public void addFunds(double money)
+    {
+        funds += money;
+    }
+
+    public double getFunds()
+    {
+        return funds;
+    }
+
+    public void pay(Employee[] payees)
+    {
+        System.out.println("Beginning Payments with "+formatMoney(funds)+"\n");
+        for(int i =0; i &lt; payees.length; i++)
+        {
+            //Get payment amount and format it
+            double payment = payees[i].getPaymentAmount();
+            String payStr = formatMoney(payment);
+            System.out.println(payStr+" is owed to:\n"+payees[i]);
+           
+            //Check if it's affordable
+            if( payment &lt;= funds )
+            {
+                payees[i].receiveFunds(payment);
+                funds -= payment;
+                System.out.println("Payment complete. "+formatMoney(funds)+" remaining\n");
+            }
+            else
+            {
+                System.out.println("Insufficient funds: Only "+formatMoney(funds)+" remaining.  Stopping payments");
+                return;
+            }
+        }
+        
+        System.out.println("All debts paid with "+formatMoney(funds)+" remaining");
+    }
+    
+    public static String formatMoney(double money)
+    {
+        double cash = Math.round(money*100)/100.0;
+        String dollars = "$"+cash+"0";
+        dollars = dollars.substring(0,dollars.indexOf(".")+3);
+        return dollars;
+    }
+
+}</pre>
+
+<p>The Acompanying Employee class is below.&nbsp; It handles the pertinent 
+information that defines an Employee, as well as how much they are owed by the 
+company.</p>
+<pre>public class Employee
+{
+    private String name, jobTitle;
+    private double amountOwed, hourlyRate;
+
+    public Employee(String name, String title, double hourly)
+    {
+        this.name = name;
+        jobTitle = title;
+        hourlyRate = hourly;
+    }
+
+    public void work(double hours)
+    {
+        amountOwed += hours*hourlyRate;
+    }
+
+    public double getPaymentAmount()
+    {
+        return amountOwed;
+    }
+
+    public void receiveFunds(double funds)
+    {
+        amountOwed -= funds;
+    }
+
+    public String toString()
+    {
+        return name+" : "+jobTitle+" : Owed "+AccountingDept.formatMoney(amountOwed);
+    }
+
+}</pre>
+<p>Copy and run the following method, which creates an array of Employees, tells 
+them to work for a while, and then tells an AccountingDept object to pay them.</p>
+<pre>public static void employeeRunner()
+{
+    Employee[] employees = {
+            new Employee("Ned Stark", &quot;Guest Services", 8.89), 
+            new Employee("Petyr Baelish",&quot;Cashier",8.48),
+            new Employee("Joffrey Baratheon","Manager",8.52),
+            new Employee("Jaime Lannister",&quot;Handy Man",11.18),
+            new Employee("Theon Greyjoy",&quot;Shipping Department",9.67),
+            new Employee("Dany Targaryen","Queen of Dragons",15.56)
+        };
+    int[] hoursWorked = {75,80,70,65,80,80};
+
+    for( int i =0; i&lt;employees.length; i++)
+    {
+        employees[i].work(hoursWorked[i]);
+    }
+                
+    AccountingDept accounting = new AccountingDept(3000);
+    accounting.pay(employees);
+}
+</pre>
+
+<p>The AccountingDept will run out of money with about 330 dollars remaining.</p>
+<hr>
+
+<p class="auto-style1"><strong>A Better AccountingDept Object:</strong></p>
+<p>AccountingDept is too specific an object because it only works with Employees.&nbsp; 
+There are other things that a company has to worry about.&nbsp; Copy and paste 
+the Invoice class and the ShadyDeal class into your project.&nbsp; They both are 
+similar to Employee in that they need to be paid, but they are also distinctly 
+different.</p>
+<pre>public class Invoice 
+{
+    private double initialCost;
+    private double amountRecieved;
+    private String item;
+
+    public Invoice(String itemName,double itemCost)
+    {
+        initialCost = itemCost;
+        item = itemName;
+    }
+
+    public double invoiceCost()
+    {
+        return initialCost;
+    }
+
+    public void payInvoice(double funds)
+    {
+        amountRecieved += funds;
+    }
+
+    public boolean isPaid()
+    {
+        return initialCost &lt;= amountRecieved; 
+    }
+
+    public String toString()
+    {
+        String paidOrDue;
+        if( this.isPaid())
+            paidOrDue = "Paid";
+        else
+            paidOrDue = "Due";
+
+        return "Invoice: "+item+"\nAmount:  "+AccountingDept.formatMoney(initialCost)+"\nStatus:  "+paidOrDue;
+    }
+}</pre>
+<pre>public class ShadyDeal
+{
+    private double price;
+    private String description;
+    
+    public ShadyDeal(String description, double price)
+    {
+        this.price = price;
+        this.description = description;
+    }
+    
+    public double costForDeal()
+    {
+        return price;
+    }
+    
+    public void payForDeal(double funds)
+    {
+        price -= funds;
+    }
+    
+    public String toString()
+    {
+        return "Shady Deal: "+description+"\nOwed: "+price;
+    }
+
+}</pre>
+<hr>
+<p class="auto-style1"><strong>Assignment:</strong></p>
+<p>Modify the AccountingDept class so that you will be able to pay for 
+Employees, Invoices, and ShadyDeals with the same method.</p>
+<p>1)&nbsp; Design an interface based on the Employee class, including only the 
+important methods that the AccountingDept requires.&nbsp; Don&#39;t forget about the 
+return types and the parameters.</p>
+<p>2)&nbsp; Modify the Employee, Invoice, and ShadyDeal interface to implement 
+that interface.&nbsp; You may change the names of certain methods in order to 
+make implementing easier, but you cannot change how the methods function.</p>
+<p>3)&nbsp; Modify AccountingDept to no longer use Employee objects, but to use 
+objects of the interface type that you created.</p>
+<p><img src="images/img13.jpg" /></p>
+<p>Copy the following Runner class to your project.&nbsp; If you&#39;ve properly 
+used your interface and polymorphism, it should compile without modification.&nbsp; 
+If it doesn&#39;t compile, make the appropriate changes to the other objects in 
+order to get it functioning.</p>
+<pre>public class AccountingRunners
+{
+    public static void employeeRunner()
+    {
+       Employee[] employees = {
+            new Employee("Ned Stark", &quot;Guest Services", 8.89), 
+            new Employee("Petyr Baelish",&quot;Cashier",8.48),
+            new Employee("Joffrey Baratheon","Manager",8.52),
+            new Employee("Jaime Lannister",&quot;Handy Man",11.18),
+            new Employee("Theon Greyjoy",&quot;Shipping Department",9.67),
+            new Employee("Dany Targaryen","Queen of Dragons",15.56)
+        };
+        int[] hoursWorked = {75,80,70,65,80,80};
+
+        for( int i =0; i &lt; employees.length; i++)
+        {
+            employees[i].work(hoursWorked[i]);
+        }
+
+        AccountingDept accounting = new AccountingDept(3000);
+        accounting.pay(employees);
+    }
+
+    public static void invoiceRunner()
+    {
+        Invoice[] invoices = {
+                new Invoice("Legal Fees",5200), 
+                new Invoice("New Cash Registers",1500),
+                new Invoice("Cleaning Equipment",2475),
+                new Invoice("Uniforms",1985),
+                new Invoice("New Neon Sign",1200),
+                new Invoice("Receipt Paper Spools",200)
+            };
+
+        AccountingDept accounting = new AccountingDept(10000);
+        accounting.pay(invoices);
+    }
+
+    public static void shadyRunner()
+    {
+        ShadyDeal[] deals = {
+                new ShadyDeal("Congressman Bribery",5200), 
+                new ShadyDeal("Mob Protection",1500),
+                new ShadyDeal("Hitman Services",2475),
+                new ShadyDeal("Insurance Fraud",1985),
+                new ShadyDeal("Hostile Takeover",1200),
+                new ShadyDeal("Fake Passports",200)
+            };
+
+        AccountingDept accounting = new AccountingDept(10000);
+        accounting.pay(deals);
+    }
+}</pre>
+</body>
+
+</html>

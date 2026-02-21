@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Shuffler</title>
+
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+</style>
+</head>
+
+<body>
+
+<h2 = style="font-family:Arial, Helvetica, sans-serif">Shuffler</h2>
+<p>Previously you created a class named CardBoard that was responsible for 
+removing FlipCards from an ArrayList one at a time.&nbsp; While the removal is 
+nice, we will be extending this class and don&#39;t want to have it constantly 
+happening.&nbsp; Go to the <strong>launch</strong> methods and remove the 
+this.start() line.&nbsp; If you ever need to remove some cards, F1 is the 
+SaccoWindow&#39;s timer toggler.&nbsp; Run it one more time to make sure that the 
+cards appear, but nothing happens.</p>
+<p>&nbsp;</p>
+<p>Create a class named <strong>ShuffleBoard</strong>, which extends CardBoard.&nbsp; What we 
+want is to override the <strong>onMousePress</strong> method so that any time the mouse is 
+pressed, the FlipCards in the ArrayList are shuffled.&nbsp; Since we&#39;re inheriting 
+and don&#39;t have direct access to the instance field, you first line should be the 
+following:</p>
+<pre>ArrayList&lt;FlipCard&gt; cards = this.getCards(); </SCard></pre>
+<p>To accomplish shuffling, you should first create a <strong>second</strong> 
+ArrayList&lt;FlipCard&gt;.&nbsp; Use a while loop to repeatedly remove the 
+FlipCard at a 
+random location from the instance field ArrayList and simply add it to the end 
+of the local ArrayList (don&#39;t forget that the remove method also returns the 
+element, so you might need a local FlipCard variable as well).&nbsp; Once all 
+FlipCard are in the local ArrayList, use the setCards method to assign it to the instance 
+field.</p>
+<p>To get the program running use the following runner:</p>
+<pre>public static void shuffleRunner()
+{
+    ShuffleBoard shuf = new ShuffleBoard();
+    shuf.setTitle("ShuffleBoard");
+    shuf.launch();
+}
+</pre>
+<p>If you run the program at this point and click, you will see that we have run 
+into a design flaw.&nbsp; The fact is that all of the cards in the ArrayList 
+have their x and y already set.&nbsp; Putting them at a different location in an 
+ArrayList will not change that location; it only means that they will be painted 
+in a different order.</p>
+<p>
+<img height="188" src="images/img4.jpg"  width="816" /></p>
+
+<p>&nbsp;</p>
+<p>Back in the onMousePress method, make the last line a call to the inherited 
+arrangeCards method.&nbsp; This should re-order them according to their place in 
+the list.</p>
+<p>
+<img height="188" src="images/img5.jpg" width="816" /></p>
+
+</body>
+
+</html>

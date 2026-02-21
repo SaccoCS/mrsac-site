@@ -1,0 +1,149 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  indexOf()</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+    indexOf()
+  </h1>
+  
+  <p>We've been using the substring method to determine which characters were at a specific location. You give it indices and get back a String in return. The indexOf() method works in the opposite way. It is a <strong>searching</strong>&nbsp;method whose purpose is to find the index of a specific String.</p>
+<p>It accepts a String as a parameter and will return the index that it can be found.</p>
+<pre>let name = "Mr. Sacco";
+let saccoIndex = name.indexOf("Sacco");   //returns the index where 'Sacco' can be found (4);
+</pre>
+<p>Again, we are using functions that belong to the String as an object, so we call it using dot-notation. We are asking the String to tell us information about itself.</p>
+<p>&nbsp;</p>
+<h4>Special Value: -1</h4>
+<p>The indexOf() function is great at locating a String within another String, but we need to consider the situation where a specific substring cannot be found. Consider the ridiculous example below.</p>
+<pre>let schoolName = "Scripps Ranch High";
+let saccoLoc = schoolName.indexOf( "Sacco" );              //CANNOT BE FOUND:    -1
+</pre>
+<p>The String "Sacco" is nowhere to be found in "Scripps Ranch High". To indicate that it does not exist in the string, a special value of -1 is returned.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Open the Get Initials Example workspace in CodeHS</h4>
+<p>Like before, there is a text input that is set to call the getInitials() function using its input. The code provided will pass your input as a parameter to the getInitials() function, then display your returned value as the output.</p>
+<p>The goal of the getInitals() function is to return a String representing the initials of the parameter. <strong>The provided code is very flawed.&nbsp;</strong></p>
+<pre>function getInitials(name){ <br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; let firstInitial = name.charAt(0);&nbsp;<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; //The last initial in "Ian Sacco" is at index 4<br />&nbsp; &nbsp; let lastInitial = name.charAt( 4 ); &nbsp; &nbsp;&nbsp;<br /><br />  &nbsp; let bothInitials = firstInitial +". " + lastInitial + ".";&nbsp; &nbsp;&nbsp;<br />  &nbsp; return bothInitials ;<br />}</pre>
+<p>Test this with the name "Ian Sacco" and you will get the expected "I. S." returned. The problem is that we are assuming that the last name starts at index 4.</p>
+<p>Try another name, like "George Washington" and you will get: "G. g." returned. Our code doesn't adapt to the length of the first name at all and simply grabs a character from index 4. In this case it's a lowercase g.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>We need to think of the last initial differently. Instead of always being at index 4, we can think of it as the first character after the first space in the String.</p>
+<p>The indexOf() function is useful here. The idea is often to use the returned index as a key point for a call to charAt or substring. For example, if you have a String with a first and last name in it, like "Ian Sacco",&nbsp; you can use the location of the <strong>space </strong>as a key point in the String when trying to separate it. Consider the code below, and notice how the last initial is found to be the letter located directly after the space.</p>
+<p>&nbsp;</p>
+<h3>Your Task: Fix getInitials()</h3>
+<p>Update the getInitials() function to use&nbsp;<strong>indexOf()</strong> to locate the space in the string first, then use that location to guide the call to charAt().</p>
+<pre>let firstInitial = name.substring(0,1);         //The first initial is always at index 0
+
+<span style="color: #169179;"><strong>let space = name.indexOf(" ");                  //Find the space
+let lastInitial = name.charAt( space + 1 );     //The last initial is directly after the space</strong></span>
+
+let bothInitials = firstInitial +". " + lastInitial + ".";<br />return bothInitials;</pre>
+<p>&nbsp;</p>
+<p>With this change, your function will work for names of any length. Trying "Ian Sacco" will return "I. S." and "George Washington" will now return "G. W."</p>
+  
+  
+  <br>
+  <br>
+  <hr>
+  
+  
+  <h2>First L.</h2>
+<p>Open the First L workspace. The firstL() function's purpose is to take a parameter that is a String made up of a first and last name, separated by a space. The goal of the firstL() function is to keep the first name, but anonymize the last name down to a single initial.</p>
+<p>"Ian Sacco"&nbsp; -&gt; "Ian S."<br />"Walter White"&nbsp; -&gt; "Walter W."<br />"Tony Stark" -&gt; "Tony S."</p>
+<p>This may be accomplished in a way similar to the getInitials() example. Use indexOf() to locate the space, then use that value to get a portion of the parameter name.&nbsp; The previous example used charAt(), but the simplest version of this function will use a single substring call to get all the characters from the beginning of the String through the first character of the second name.</p>
+  <p>When testing, make sure that it will work for names of different lengths</p>
+    
+   
+  <br>
+  <br>
+  <hr>
+  
+  <h2>Delete the A</h2>
+<p>Open the Delete the A workspace.&nbsp; The deleteTheA() function's purpose is to accept a string of characters, and return a version of that String with the first "a" removed. You may assume that the input String is all lowercase.</p>
+<p>"happy birthday"&nbsp; -&gt;&nbsp; "hppy birthday"<br />"scripps ranch"&nbsp; -&gt; "scripps rnch"<br />"school"&nbsp; -&gt;&nbsp; "school"</p>
+<p>Notice that the last example doesn't have an "a" in it and the original String is returned. Use an if statement to make sure that your code is ready for the situation that the indexOf() function returns a -1.</p>
+<p>&nbsp;</p>
+<p>Test your code multiple times on inputs with and without a's to make sure that it functions properly</p>
+    
+   
+  <br>
+  <br>
+  <hr>
+  
+  <h2>Go Falcons!</h2>
+<p>The goFalcons() function is meant to take in a long String of characters, find the "srhs", and return a version of the same String with the srhs capitalized:</p>
+<p>"abcdefsrhsghijk"&nbsp; --&gt;"abcdefSRHSghijk"<br />"qwertysrhsqwerty" --&gt;&nbsp;"qwertySRHSqwerty"</p>
+<p>This time you may assume that the parameter has an "srhs" for you to find.</p>
+<p>Hint: You are going to want to keep track of the text&nbsp;<strong>before</strong>&nbsp;and <strong>after</strong>&nbsp;the srhs. In the end, your final string is:&nbsp;&nbsp;before +"SRHS" + after</p>
+<p>&nbsp;</p>
+<p>Test it multiple times with different Strings. Make sure that there are no characters from the original&nbsp;lowercase srhs remaining in the end.</p>
+   
+  <br>
+  <br>
+  <hr>
+<h2>Pig Latin 2.0</h2>
+<p>Our first version of Pig Latin was 'Lazy' because it assumes that the first letter of the word is the same as the first syllable and thus hardcodes index 1 as the index that we need to use to break the String apart. This works a lot of the time, but fails for many words:</p>
+<p>"school" -&gt; "choolsay"<br />"thunder" -&gt; "hundertay'<br />"storm"&nbsp; -&gt; "tormsay"</p>
+<p>&nbsp;</p>
+<p>The pigLatin2() function is meant to be more careful about where the String is broken up. Instead of always assuming that index 1 will be the dividing point, it will instead use the <strong>location of the first vowel</strong>&nbsp;as the basis for your substrings.</p>
+<p>- Find the index of all five vowels<br />- Determine the lowest one that is&nbsp;<strong>not&nbsp;-1</strong></p>
+<p>&nbsp;</p>
+<h4>King of the Mountain Strategy</h4>
+<p>We are attempting to find the lowest index in a group of five possible indices.The best way to accomplish this is to use a king of the mountain strategy. We will first call indexOf() with all five vowels to get five different possible indices: aIndex, eIndex, iIndex, oIndex, uIndex.&nbsp;To find the lowest, we will create a separate variable that represents our 'lowest so far'. Then, one-by-one we will look at each vowel&nbsp;index and see if it is lower. If so, it becomes the new 'lowest so far' to be compared with the next.</p>
+<pre>let lowIndex = inStr.length;          //lowIndex represents the 'lowest so far'. 
+&nbsp;                                     //We are starting it at a large value, and 
+&nbsp;                                     //replacing when we come across a smaller one
+
+if(  aIndex != -1 &amp;&amp; aIndex &lt; lowIndex )         //if a is found and its index is less than the 'lowest so far', 
+&nbsp;    lowIndex = aIndex;                          //It becomes the 'lowest so far'
+
+//repeat the process for the eIndex, iIndex, oIndex, and uIndex
+//After all possibilities have been considered, the lowIndex variable will be the lowest of the bunch
+</pre>
+<p>Notice how the if statement is checking two things:<br />- Is there an "a" in the word:&nbsp; aIndex != -1<br />- It's index the lowest that we've found so far&nbsp; &nbsp;(aIndex &lt; lowIndex )</p>
+<p>After the if statement runs, the lowIndex variable&nbsp;<strong>may</strong>&nbsp;contain the location of the "a", but it is only the lowest&nbsp;<strong>so far</strong></p>
+<p>&nbsp;</p>
+<h4>Your Task</h4>
+<p>Continue this process for the remaining vowels. If they exist in the word and at a lower index than the lowIndex variable, then they should replace the lowIndex variable. After you've completed this process for all five vowels, you can be certain that the lowIndex variable contains the location of the first vowel in the String. You can then finish creating a pig latin word using the lowIndex variable as the break-point.</p>
+<p>&nbsp;</p>
+<p>To test out your pigLatin2() function, try it out with the following, previously problematic words.</p>
+<p>"school" -&gt; "oolschay"<br />"thunder" -&gt; "underthay'<br />"storm"&nbsp; -&gt; "ormstay"</p>
+  
+  
+  <br><br><hr>
+  <h2>OPTIONAL CHALLENGE: Cash Format</h2>
+<p>The purpose of the cashFormat() function is to accept a String that is meant to represent a dollar amount. Your job is to make sure that it is in 'Cash Format'. This means that there are two key features:</p>
+<p>1) A dollar sign at the very front<br />2) A decimal point followed by two digits</p>
+<p>"45.23"&nbsp; -&gt; "$45.23"<br />"$18"&nbsp; --&gt; "$18.00"<br />"25"&nbsp; &nbsp;--&gt; "$25.00"<br />"1.5"&nbsp; --&gt; "$1.50"</p>
+<p>Your function needs to detect if the input is missing either the dollar sign or the decimal with two digits and return the corrected version.</p>
+<p>&nbsp;</p>
+<h4>Detecting Missing Elements with indexOf()</h4>
+<p>A key to this function will be the ability to detect if a String is <strong>missing </strong>something. It's easy to tell if the dollar sign is missing because it should always be at index 0, but what about the decimal point? Depending on the number, it could be at almost any index.</p>
+<p>Don't forget that indexOf() will signal to you that something cannot be found by returning a -1.</p>
+<p>if( inStr.indexOf( "." )&nbsp; == -1 )&nbsp; &nbsp; //if a decimal doesn't exist inside of inStr</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Lots to Check</h4>
+<p>There are lots of ways that a number cannot be in 'cash format'. Check to make sure that your code will make corrections for the following problems:</p>
+<p>Missing Dollar Sign:&nbsp; "12.34"&nbsp; &nbsp;-&gt; "$12.34"<br />Missing Decimal Point:&nbsp; &nbsp;"$12"&nbsp; -&gt;&nbsp; "$12.00"<br />Too few digits after the decimal point:&nbsp; "$12.5"&nbsp; -&gt;&nbsp; "$12.50"<br />Too many digit after the decimal point:&nbsp; $3.14159</p>
+<p>All four of these situations can be detected by finding the index of the dollar sign and the decimal point. A -1 will indicate that either is missing, and you can&nbsp;<strong>compare the decimal's index to the String's length</strong>&nbsp;to determine if you need to add a "0" to make the string longer, or a substring() to make it shorter.</p>
+<p>Don't forget that there may be multiple problems, like no dollar sign&nbsp;<em>and</em>&nbsp;no decimal place&nbsp; ( 25 ). I recommend using if statements to see if there is a problem, and then&nbsp;<em>update</em>&nbsp;the variable to be corrected. For example, we would use an if statement like this to 'update' the cashStr variable with a better version.</p>
+<pre>if( /* a dollar sign is needed in cashStr */){
+   cashStr = "$" + cashStr;
+}
+</pre>
+<p>This doesn't do anything about the decimal point, but you can add more if statements after to further fix the cashStr String before returning it in the end.</p>
+<p>&nbsp;</p>
+<p>Test your function a lot. Making sure to test all four situations above, as well as a few with multiple problems. If it functions for all of them, paste your cashFormat() function below.</p>
+</body>
+</html>

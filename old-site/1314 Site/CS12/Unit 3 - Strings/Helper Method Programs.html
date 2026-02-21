@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Helper Method Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Helper Method Programs</p>
+<p class="auto-style2">Each of the following programs works better with a helper 
+method.&nbsp; It is recommended that you write the helper method first and test 
+it out using BlueJ, and then write the main method that will use that method.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">1)&nbsp; <strong>UpperLower</strong>:&nbsp; This program 
+will take in a five letter String from the user, and then print out each letter 
+several times per row with alternating caps and lowercase.</p>
+<p><span class="auto-style2">Example:</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a 5 letter String:</span><br class="auto-style2" />
+<span class="auto-style2">apple</span></p>
+<p><span class="auto-style2">AaAaAaAaA</span><br class="auto-style2" />
+<span class="auto-style2">PpPpPpPpP</span><br class="auto-style2" />
+<span class="auto-style2">PpPpPpPpP</span><br class="auto-style2" />
+<span class="auto-style2">LlLlLlLlL</span><br class="auto-style2" />
+<span class="auto-style2">EeEeEeEeE </span></p>
+<p class="auto-style2">&nbsp;</p>
+<p><span class="auto-style2">To do this create a method with the following 
+header :</span><br class="auto-style2" />
+</p><pre>public static String getUpperLower(String letter)</pre>
+<p class="auto-style2">The goal of this method is to take the variable letter, 
+find its upper case and lower case versions, and then put them together at least 
+nine times in a String.&nbsp; Be sure to test your program and make sure that 
+putting a parameter of &quot;c&quot;&nbsp; will return &quot;CcCcCcCcC&quot;</p>
+<p class="auto-style2">Once the getUpperLower functions properly, write a main 
+method that does the following:</p>
+<p><span class="auto-style2">Prompt the user to enter a 5 letter String</span><br class="auto-style2" />
+<span class="auto-style1"><span class="auto-style3">Get the first letter of that 
+String and store it into a variable </span><strong><span class="auto-style3">
+firstLetter</span></strong></span><br class="auto-style2" />
+<span class="auto-style2">call getUpperLower, passing firstLetter in as a 
+parameter.&nbsp; Print out whatever is returned</span><br class="auto-style2" />
+<span class="auto-style2">repeat the two previous steps four more times with the 
+remaining letters.</span></p>
+<hr>
+<p class="auto-style2">2) <strong>Shifter</strong>:&nbsp; This program will take 
+in a five letter string from the user and then print out a shifted version (the 
+last letter is moved to the front)&nbsp; five times</p>
+<p><span class="auto-style2">Please enter a five letter word:</span><br class="auto-style2" />
+<span class="auto-style2">apple</span></p>
+<p><span class="auto-style2">eappl</span><br class="auto-style2" />
+<span class="auto-style2">leapp</span><br class="auto-style2" />
+<span class="auto-style2">pleap</span><br class="auto-style2" />
+<span class="auto-style2">pplea </span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">To do this, create a helper method with the following 
+header:</p>
+<p class="auto-style2">public static String shiftOneLetter(String str)</p>
+<p><span class="auto-style2">The purpose of this method is to return a new 
+string that is made up of str, but with the last letter located in the front.</span><br class="auto-style2" />
+<span class="auto-style2">Test out this method using BlueJ, passing in &quot;hello&quot; 
+should return &quot;ohell&quot;</span></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Once the shiftOneLetter method functions, write a main 
+method that prompts the user to enter a String, and then keeps printing out a 
+shifted version over and over.&nbsp;&nbsp; It is important that you save the 
+previous shifted version so that you may use it when you call the shiftOneLetter 
+method again.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+
+</body>
+
+</html>

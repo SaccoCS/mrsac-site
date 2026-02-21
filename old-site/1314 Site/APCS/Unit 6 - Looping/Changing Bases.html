@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Changing Bases</title>
+<style type="text/css">
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	text-decoration: underline;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style6 {
+	font-size: small;
+}
+.auto-style7 {
+	text-decoration: underline;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style8 {
+	border: 1px solid #c0c0c0;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style3">Changing Bases</p>
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+One way to convert to binary is to use mod and int division repeatedly:</p>
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+1)&nbsp; Mod your number by 2.&nbsp; The result is the next largest digit.</p>
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+2)&nbsp; Divide your number by 2 using int division.&nbsp; The result is your 
+new number.</p>
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+3)&nbsp; Repeat steps 1 and 2 until your number is 0.</p>
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+&nbsp;</p>
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+For Example:&nbsp; 11</p>
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+11 % 2 = 1</p>
+<table class="auto-style2" style="border-style: solid; border-width: 1px; font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; width: 509px; height: 266px;">
+	<tr>
+		<td style="width: 130px;">11%2 =<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+		<td style="width: 317px;">Binary number so far:&nbsp;<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">11/2 = 5</td>
+		<td style="width: 317px;">New number:&nbsp; 5</td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">Repeat</td>
+		<td style="width: 317px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">5%2 =<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+		<td style="width: 317px;">Binary number so far:<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span>1</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">5/2 = 2</td>
+		<td style="width: 317px;">New number: 2</td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">Repeat</td>
+		<td style="width: 317px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">2%2 =<span class="auto-style4" style="color: rgb(255, 0, 0);"><span class="Apple-converted-space">&nbsp;</span>0</span></td>
+		<td style="width: 317px;">Binary number so far:<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">0</span>11</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">2/2 = 1</td>
+		<td style="width: 317px;">New number: 1</td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">Repeat</td>
+		<td style="width: 317px;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">1%2 =<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span></td>
+		<td style="width: 317px;">Binary number so far:&nbsp;<span class="Apple-converted-space">&nbsp;</span><span class="auto-style4" style="color: rgb(255, 0, 0);">1</span>011</td>
+	</tr>
+	<tr>
+		<td style="width: 130px;">1/2 = 0</td>
+		<td style="width: 317px;">New number: 0</td>
+	</tr>
+</table>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+&nbsp;</p>
+<p class="auto-style5">Create a class named ChangingBaseMethods, which will have the following 
+public static methods:</p>
+<p class="auto-style5">public static String getBinary(int dec)</p>
+<p class="auto-style5">This method&#39;s job is to take in a Decimal number and use a while loop to go 
+through the process above to return a String that represent the binary version 
+of the number.</p>
+<p><span class="auto-style5">Strategy:</span><br class="auto-style5" />
+<span class="auto-style2"><span class="auto-style6">- Before you loop, create a String variable and assign to it an 
+</span> <strong><span class="auto-style6">empty 
+String</span></strong><span class="auto-style6"> ( a String with no characters in it ).</span></span><br class="auto-style5" />
+<span class="auto-style5">- as long as dec is greater than 0, use mod get the next binary digit and add it 
+to the</span><span class="auto-style7"> front</span><span class="auto-style5"> of the String. After that, 
+divide dec so that it&#39;s half the value it used to be.</span><br class="auto-style5" />
+<span class="auto-style5">- after the loop has finished, return the String</span></p>
+<p><span class="auto-style5">Test out your method:</span><br class="auto-style5" />
+<span class="auto-style5">dec 10 ---&gt; 1010</span><br class="auto-style5" />
+<span class="auto-style5">dec 49 ---&gt; 110001</span></p>
+<p class="auto-style5">&nbsp;</p>
+<p class="auto-style5">public static String getOctal(int dec)</p>
+<p class="auto-style2"><span class="auto-style6">Octal is the name for numbers that are of base 
+</span> <strong><span class="auto-style6">8</span></strong><span class="auto-style6">.&nbsp; The 
+strategy is almost identical to the binary conversion, except with an 8 instead 
+of a 2.</span></p>
+<p class="auto-style5">Test out your method:</p>
+<p><span class="auto-style5">dec 10 --&gt; oct 12</span><br class="auto-style5" />
+<span class="auto-style5">dec 49 --&gt; oct 61</span></p>
+<p class="auto-style5">How is Xmas the same as Halloween?&nbsp; dec 25 --&gt; oct 31!&nbsp;&nbsp; Good 
+one Sacco!</p>
+<p class="auto-style5">&nbsp;</p>
+<p class="auto-style5">public static void main()</p>
+<p><span class="auto-style5">This method should print out the Decimal, Binary, and Octal values of the 
+numbers 1 through 20.&nbsp; </span> <br class="auto-style5" />
+<span class="auto-style5">Hint:&nbsp; Start by writing a loop that just prints out the numbers from 1 to 
+20 vertically.&nbsp; After that works, modify your loop to convert the printed 
+number to binary and octal so that they can be printed in the same println.&nbsp; 
+You may use &quot;\t&quot; to insert tabs into your Strings</span></p>
+<pre>Decimal	Binary	Octal
+1	1	1
+2	10	2
+3	11	3
+4	100	4
+5	101	5
+6	110	6
+7	111	7
+8	1000	10
+9	1001	11
+10	1010	12
+11	1011	13
+12	1100	14
+13	1101	15
+14	1110	16
+15	1111	17
+16	10000	20
+17	10001	21
+18	10010	22
+19	10011	23
+20	10100	24
+</pre>
+<p>&nbsp;</p>
+<p>_____________________</p>
+<p>Converting from any base:</p>
+<p>Add the following method:</p>
+<p>public static String decToBase(int dec, int base)</p>
+<p>This method will be very simliar to the two previous methods, but this time 
+the base is passed in as a parameter to the method.</p>
+<p>&nbsp;</p>
+<p>Problem:&nbsp; When the base is above 10, the converting doesn&#39;t work because 
+we don&#39;t have a way to convert to 10 to &quot;A&quot;, 11 to &quot;B&quot;, etc.</p>
+<p>Solution:&nbsp; Add the following FREE METHOD!!!!:</p>
+<pre>public static String getDigit(int val)
+{
+   if( val<10)
+      return val+"";
+   else
+      return (char)(val+55)+"";
+}</pre>
+<p>You don&#39;t have to know how this method works, simply that it takes in an int 
+and returns the single character version of that int.&nbsp; getDigit(10) would 
+return an &quot;A&quot;.</p>
+<p>Modify your decToBase method to use the getDigit method before it adds the 
+values to the String.&nbsp; This should allow for numbers to be any base.</p>
+<p>&nbsp;</p>
+<p>Modify your main method to have a column for Hexadecimal, which will use the 
+decToBase to get the right numbers.</p>
+<pre>Decimal	Binary	Octal	Hexadecimal
+1	1	1	1
+2	10	2	2
+3	11	3	3
+4	100	4	4
+5	101	5	5
+6	110	6	6
+7	111	7	7
+8	1000	10	8
+9	1001	11	9
+10	1010	12	A
+11	1011	13	B
+12	1100	14	C
+13	1101	15	D
+14	1110	16	E
+15	1111	17	F
+16	10000	20	10
+17	10001	21	11
+18	10010	22	12
+19	10011	23	13
+20	10100	24	14
+21	10101	25	15
+22	10110	26	16
+23	10111	27	17
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>------------------------------------------------------</p>
+<p>Converting back:</p>
+<p>We have a method that will help us go from decimal to any base, the only 
+thing left to do is to write a method that will go in the other direction. </p>
+<table class="auto-style8" style="width: 100%">
+	<tr>
+		<td>
+		<p>Converting numbers to decimal is all about the place value:</p>
+		<p>For Example:&nbsp; A2 in hexadecimal has two digits, each worth a 
+		different place value.&nbsp; </p>
+		<p>the A is in the 16&#39;s place: Since A is worth 10, 10*16 =&gt;160<br />
+		the 2 is in the 1&#39;s place: 2*1 =&gt; 2</p>
+		<p>160+2 = 162</p>
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;Add the following method:</p>
+<p>public static int baseToDec(String num, int base)</p>
+<p>The first parameter is a number, but since it can be any base it must be 
+taken in as a String (&quot;1B4A9&quot; cannot be an int).&nbsp; This method will convert 
+it to its decimal value and return it as an int.</p>
+<p>STRATEGY:<br />
+In order to get the decimal version of the number, you must get the digits one 
+at a time, multiply them times their place value, and add them to the instance 
+field. I recommend starting an int for the place value and starting it at the 
+largest place value needed.&nbsp; It&#39;s based on the length of the number and base, 
+you should use Math.pow(and cast it to an int) .&nbsp; </p>
+<p>Then use a while loop that will take the front digit, multiply it by the place 
+value, add it to the instance field, and then divide the place value by the 
+base, making it smaller for the next digit. Once the place value is 0, your loop 
+is complete. Make sure that the instance field for the base also gets set.</p>
+<p>Free Method #2!!!!!!!!&nbsp; This method takes in a single character String 
+and returns the decimal form of it as an int.<br />
+</p>
+<pre>public static int getIntVal(String dig)
+{
+   int aVal = (int)dig.charAt(0);
+
+   if(aVal <65)
+      return aVal - 48;
+   else
+      return aVal - 55;
+}</pre>
+<p>Test out your method:<br />
+&quot;A5&quot; base 16 should return a 165<br />
+&quot;12&quot; base 10 should return a 12</p>
+
+</body>
+
+</html>

@@ -1,0 +1,386 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Tile Designs</title>
+  
+</head>
+
+<body>
+  <h1>
+  Tile Designs
+  </h1>
+  
+  <h3>10 PRINT chr$(205.5+RND(1)); : GOTO 10</h3>
+<p>Back on the Commodore 64, running the one line BASIC program above was nerd-famous for being a simply idea that can build something complex. When run, it produces a maze-like design that represents generating complexity from a simple pattern.</p>
+<p><img src="images/chmod.png" alt="image.png" width="415" height="295" /></p>
+<p>&nbsp;It is essentially an infinite loop that randomly printed either a forward slash, or a back slash. The ending effect looks something like a maze.</p>
+<p><strong><iframe src="demos/chr_205_RND_1/index.html" width="257" height="257"></iframe></strong></p>
+<p>Though it might not look like it, this is a grid problem.&nbsp;<strong>Click the canvas above</strong> and it will show the grid of boxes that is used to create the design (your sketch doesn't have to do this).</p>
+<p>&nbsp;</p>
+<p>Open the CHMOD workspace, which is in charge of creating the design above.</p>
+<p>To accomplish this, we are going to use a two dimensional loop to visit a grid of locations. At each location, use random() to help you choose between drawing a backslash or a front slash.</p>
+<p>We are going to decide to make your generated xy-pair represent the&nbsp;<strong>center</strong>&nbsp;of the drawn slash. If the locations are spaced 16 pixels apart, I would expect to add or subtract 8 to help calculate any edge values.</p>
+<p>&nbsp;<img src="images/two_slashes.png" /></p>
+<p>Back-slash:&nbsp; line( x - 8, y - 8, x + 8, y + 8)<br />Front-slash: line( x + 8, y - 8, x - 8, y + 8)</p>
+<p>Since we are generating the&nbsp;<strong>centers</strong>&nbsp;of each line, your nested loop should start x and y at 8, instead of the usual 0. Otherwise you will notice things are shifted a little bit.</p>
+<p>&nbsp;</p>
+<h5><strong>noLoop()</strong></h5>
+<p>Since the above strategy chooses randomly which line to draw, you will only want to draw()&nbsp;<strong>one frame</strong>. Otherwise you will generate a new 'maze' every single frame, which will cause visual chaos. The call to noLoop() in setup make sure that you won't be repeatedly re-randomizing the design.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Using Rotation for CHMOD</h2>
+<p>The strategy used for the CHMOD design before was not terrible, but we can&nbsp;take another approach that uses the rotational symmetry of our two new choices.</p>
+<p>The front-slash is simply a 90 degree rotation of the back-slash</p>
+<p>Open the CHMOD with Rotation workspace, and the first thing that you should do is copy your previous CHMOD solution there.</p>
+<p>&nbsp;</p>
+<p>Here we are going to produce the same design, but using a slightly different trick. We will be modifying it to use a <strong>translation/rotation</strong> style of drawing. This means that we should:</p>
+<p>1) <strong>Translate to the location that you are drawing.</strong> Modify your nested loop so that it starts by translating to the generated (x,y) location<br />2) <strong>Rotate to the angle you want</strong>. Your current code is randomly choosing from two options. Modify it so that the result of your random choice is either rotate(90) or rotate(0).<br />3) <strong>Draw your image, centered at (0,0)</strong>. <i>After your if statement</i> has chosen to rotate (or not!), draw a single line that is centered at (0,0). If you your spacing is 16, it would be:&nbsp;line(-8, -8, 8, 8)</p>
+<p><img src="images/one_slash.png" width="165" height="140" /><br />4) <strong>resetMatrix()</strong> before your loop moves on to the next location. Otherwise all of the translations will start to add up.</p>
+<p>&nbsp;</p>
+<p>After making all of these changes, running your program and you should get the same CHMOD design as before. The remainder of our designs will rely on the translation/rotation style of drawing to get their designs</p>
+<p>&nbsp;</p>
+
+  
+  <hr>
+  
+  <h2>Truchet Tiles</h2>
+<p>Truchet tiles are set of square designs that have some sort of rotational symmetry that allows them to&nbsp;fit together to make a more complex design.&nbsp; Perhaps the most famous Truchet Tiles are the four ways of filling half of a square with a triangle:</p>
+<p><img src="images/abcd.png" width="150" height="75" /></p>
+<p>These tiles can be combined in different orders to create more complex designs.</p>
+<p><img src="images/many_tiles.png" width="300" height="203" /></p>
+<p>For this assignment we are going to make some different Truchet tiles by creating sets of tileable designs, then loop&nbsp;though and randomly apply them to the screen.</p>
+<p><img src="images/triangles.png" width="256" height="128" /></p>
+<p>&nbsp;</p>
+<h4>Taking Advantage of translate()/rotate()</h4>
+<p>Looking at the provided tiles, you can see that they really aren't four different tiles. Instead of using many if statements to help us draw a tile four different ways, we draw <strong>one </strong>tile and rotate it to the position that we need.&nbsp;</p>
+<p>This means that we can cut some corners by using the rotate() function when drawing. For that to work, we have to switch our mindset:<br />- translate() to the drawing location<br />- rotate()<br />- draw centered around (0,0)</p>
+<p>&nbsp;</p>
+<p>Open the Truchet Starter workspace, which comes filled with code to help us design our tiles.</p>
+<p>Our first goal will be to complete the tile() function, which accepts a number as a parameter, and paints a different tile for each of the numbers&nbsp; 0 - 3. The initial setup of the draw() function is to call tileTest(), which is a helper function that calls the tile() function four times, each time with a different parameter.</p>
+<p>Running the sketch will show the four calls to tile()&nbsp;spread across the canvas. Since the tile() function is currently empty, they draw nothing on the canvas, but there is a little bit extra in the tileTest() function that will show a rectangle around the expected&nbsp;</p>
+<p><img src="images/squares.png" width="160" height="50" /></p>
+<p>The red squares are provided by the tileTest() function to provide an outline while designing, but it will not show up in our final design.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Constants</h3>
+<p>Notice that there are two constants provided at the top of the program:</p>
+<p>const TILE_SIZE = 24;<br />const NUM_TILES = 4;</p>
+<p>Using&nbsp;<strong>const</strong>&nbsp;instead of let makes a variable that can only ever hold one value. The value is established in the beginning, and you will not be allowed to change it using code.</p>
+<p>The purpose of these constants is to act as the 'settings' of the sketch. If you change their values and run the sketch again&nbsp;you will see that you can&nbsp;affect the size of the tiles&nbsp;or the number of expected tiles. As we design the tile() function we want to keep the TILE_SIZE variable in mind.</p>
+<p>&nbsp;</p>
+<h3>Centering the Design</h3>
+<p>To create a rotatable tile, we need to center it around the location (0,0). Since we are trying to keep the TILE_SIZE variable as our size, we need to range from -TILE_SIZE/2 to TILE_SIZE/2.</p>
+<p><img src="images/center1.png" width="300" height="180" /></p>
+<p>&nbsp;</p>
+<p>This is a little annoying to work with. We could declare some variables to help them make more sense:</p>
+<pre>let topY = -TILE_SIZE/2;
+let leftX = -TILE_SIZE/2;
+let botY = TILE_SIZE/2;
+let rightX = TILE_SIZE/2;</pre>
+<p>This will allow us to reimagine the drawing space using variables with related names.</p>
+<p><img src="images/center2.png" width="300" height="180" /></p>
+<p>&nbsp;</p>
+<h3>Drawing the Triangle</h3>
+<p>The triangle function takes six parameters to represent the three corner's coordinates. We can use our new variables to draw our first tile:</p>
+<p><strong>triangle(leftX, topY, rightX, botY, leftX, botY);</strong></p>
+<p>After adding this line to the tile() function, run the sketch to make sure that it shows up in all four locations.</p>
+<p>&nbsp;</p>
+<h3>Generating Different Tiles with Rotation</h3>
+<p>The last thing to do with the tile() function is to use rotate() to help generate four different tiles.</p>
+<p><img src="images/abcd2.png" width="150" height="75" /></p>
+<p>Our current tile() function draws tile A. Add rotate(90); as the first line of tile() and run the sketch again. Notice that all of the tiles are now tile B. You could use 180 and 270 to help you generate the last two tiles.</p>
+<p>But the tile() function is supposed to respond to the <strong>num</strong>&nbsp;parameter, which could be 0 - 3. Modify the tile function so that it chooses how much to rotate based on the value of num. This could be done using if statements, or math. If you've done it correctly, running the sketch should show all four designs on the canvas.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Finishing the Design</h3>
+<h5><img src="images/triangles.png" width="256" height="128" /></h5>
+<p>Now that your tile() function works, move to the draw() function and&nbsp;<strong>delete the call to tileTest()</strong>, causing the canvas to be blank when run.</p>
+<p>Your next task is to use the tile() function to fill the entire canvas. Use a nested loop to help generate a grid of locations, and for each location you should:<br />- translate() to that location<br />- Generate a random number (0 - 3), and call tile() with it as the parameter<br />- resetMatrix() before moving on to the next location.</p>
+<p>Make sure that you are respecting the TILE_SIZE variable. To be centered properly, your locations should start at TILE_SIZE/2 and be TILE_SIZE apart.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  
+  <hr>
+  <h2>Squiggly Truchet</h2>
+<p><img src="images/squiggly.png" width="320" height="80" /></p>
+<p>The pattern above is created using only two tiles:</p>
+<p><img src="images/squiggle_squares.png" width="140" height="70" /></p>
+<p>Again, this is really just one tile that is rotated 90 to generate a second tile.</p>
+<p>&nbsp;</p>
+<p>Open the Squiggly Truchet workspace, which starts where the last sketch did. There is a tile() function that is meant to draw different designs depending on the&nbsp;<strong>num</strong> parameter. This time there are only two possibilities: 0 and 1, so the NUM_TILES constant is now <strong>2</strong>&nbsp;to represent our current situation.</p>
+<p>&nbsp;</p>
+<h3>Drawing Arcs</h3>
+<p>To draw this design in the tile() function, you are going to need to make use of p5's&nbsp;<strong>arc()</strong>&nbsp;function.&nbsp;An arc is just a section of an ellipse, and the two drawing functions are similar. Assuming that we have already declared these variables:</p>
+<pre>let topY = -TILE_SIZE/2;
+let leftX = -TILE_SIZE/2;
+let botY = TILE_SIZE/2;
+let rightX = TILE_SIZE/2;</pre>
+<p>Add the following to the tile() function:</p>
+<pre>noFill();
+ellipse( leftX, topY, TILE_SIZE/2 , TILE_SIZE/2);</pre>
+<p>Running this will reveal a circle drawn around the upper-left corner of the two squares:</p>
+<p><img src="images/squiggle_step.png" width="130" height="80" /></p>
+<p>This is a little too much of the circle. We want to contain our design&nbsp;a little bit, otherwise the overlap will ruin our design.</p>
+<p>The arc() function is how we can draw only the portion of the circle that is inside the square. We just need to know the starting and stopping angles to use. Zero degrees is directly to the&nbsp;<strong>right</strong>&nbsp;of center, and angle increase as we go counterclockwise. This means that the arc we want to draw starts at<strong>&nbsp;</strong><strong>0</strong>&nbsp;and stops at&nbsp;<strong>90</strong>. Replace the ellipse with this:</p>
+<pre> arc( leftX, topY, TILE_SIZE/2 , TILE_SIZE/2, 0, 90);</pre>
+<p>Now you should see that the tile() function is contained within its designated square.</p>
+<p>&nbsp;</p>
+<p>Your job is to complete the design</p>
+<p>- Draw the other arc, which is centered on the other corner, and goes from angle 180 to 270.<br />- Use rotate() to help you generate the other tile<br />- Modify draw() to tile the entire canvas,&nbsp;<em>very</em>&nbsp;similar to the last sketch.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  <hr>
+  
+  <h2>Ribbon Layers</h2>
+<p><img src="images/ribbons.png" width="320" height="240" /></p>
+<p>This is a variation of the previous pattern, but this time there are several arcs making ribbons, causing a bit of an overlapping effect.</p>
+<p>&nbsp;</p>
+<p>Open the Ribbon Layers workspace, which we will again be first creating a tile() function, then looping and drawing it everywhere.</p>
+<p>This time the design has the following tiles:</p>
+<p><img src="images/ribbon_squares.png" width="250" height="70" /></p>
+<p>&nbsp;</p>
+<h4>Drawing the Overlapping Arcs</h4>
+<p>A key difference to this situation is that we are drawing several arcs, each with a different radius. So this time, instead of drawing a single&nbsp;arc that is simply TILE_SIZE/2, we are going to need to focus on creating several arcs of varying radii. We're trying to fit four arcs in our tile, so they should have radii:&nbsp;0.25*TILE_SIZE,&nbsp;0.50*TILE_SIZE, and 0.75*TILE_SIZE, and TILE_SIZE. You may use a loop to do it, or write each of the arcs by hand.</p>
+<h4>Keep in Mind:<br />- For this design to work, you must have a&nbsp;<strong>fill()</strong>&nbsp;chosen when drawing your arcs. Transparency will wreck it.<br />- Because the arcs are not transparent, you must draw the biggest one first. Otherwise it will cover all of the others.</h4>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  
+  <hr>
+  
+  
+  <h2>Hexagonal Truchet Tiles</h2>
+
+
+  
+<img src="images/full-design.png" alt="Full Design" width = "300px">
+
+  <p>
+    The above squiggle is generated using tiles, but this time it was created using hexagonal tiles.
+  </p>
+  
+  <img src="images/pattern-with-hex.png" alt="Full Design" width = "300px">
+
+  <p>There are four tiles that make it up.
+</p>
+
+<img src="images/four-hexagons.png" alt="Four Hexagons" width = "300px">
+
+<p>
+  Open the Hexagonal Workspace. Again, the <code>draw()</code> function has a <code>tileTest()</code> function to help you
+  design the tiles before you create the full image. The tile function is called four times with parameters
+  <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code>, and your job is to implement it so that it draws the four displayed tiles.
+</p>
+
+<p>There are two global variables that determine the size of the hexagons being drawn:</p>
+<ul>
+  <li><code>r</code> represents the radius of the hexagon, the distance from the center to one vertex</li>
+  <li><code>h</code> represents the height of the hexagon overall</li>
+</ul>
+
+  
+  <h3>
+    The <code>tile()</code> function
+  </h3>
+<p>Again, our task is to implement the tile() function to look at the parameter and draw a tile based on it.
+  Drawing all of the arcs and lines can be tricky. To help, at the top of the <code>tile()</code> function you have been given
+  three commands that should help:
+</p>
+
+<p><strong>Small Arc:</strong> <code>arc(r,0,r,r,120,240);</code></p>
+<img src="images/small-arc.png" alt="Small Arc"width = "116px">
+
+<p><strong>Big Arc:</strong> <code>arc(1.5*r,h/2,3*r,3*r,180,240);</code></p>
+<img src="images/big-arc.png" alt="Big Arc" width = "116px">
+
+<p><strong>Vertical Line:</strong> <code>line(0,-h/2,0,h/2);</code></p>
+<img src="images/vertical_line.png" alt="Vertical Line" width = "116px">
+
+<p>
+  These are the three shapes that make up the tiles that we see, but they are not always in the correct position.
+  This is where rotation will be useful. Each vertex of the hexagon is a 60 rotation from the next one.
+  You can perform a rotation before drawing one of the shapes to get it into the right place.
+</p>
+
+<p>
+  For example, the original small arc is centered around the rightmost vertex. If you are creating tile #2 and need
+  a small arc at the bottom-left vertex, you simply need to rotate it 120 degrees before drawing:
+</p>
+
+<pre><code>rotate(120);
+arc(r,0,r,r,120,240);</code></pre>
+
+<img src="images/rotated-small-arc.png" alt="Rotated small arc" width = "116px">
+
+<p>
+  With this strategy, you should only need the three provided shapes in order to create all four hexagons.
+  <strong>Note:</strong> Rotation can build up. If you’ve already rotated 120 degrees to draw the bottom-left arc,
+  the upper-left arc, which is 240 degrees from the original, will only require 120 more degrees of rotation.
+</p>
+
+<h3>Implementing the Four Tiles</h3>
+
+<p>
+  Running the program without any changes will show the <code>tile()</code> function being called four times.
+</p>
+
+<p>
+  Move to the <code>tile()</code> function, whose parameter <code>num</code> is in charge of which tile should be drawn.
+</p>
+
+<p>
+  Use an if statement to tell which tile the parameter represents, then use a combination of rotation and the provided
+  arcs/line commands to draw the desired tile.
+</p>
+
+<p>When complete, running the program should give you all four tiles.</p>
+  
+  <img src="images/four-hexagons.png" alt="Four Hexagons" width = "300px">
+
+  
+  <br/>
+  <br/>
+  <br/>
+
+<h2>Drawing all the Tiles</h2>
+
+<p>
+  Now that the <code>tile()</code> function works, move to the draw function and delete the call to <code>tileTest()</code>.
+</p>
+
+<p>
+  Your task now is to complete the design. Again we are going to use translation and rotation to our advantage:
+</p>
+<ul>
+  <li>Translate to the correct point</li>
+  <li>Rotate a random amount: <code>0,60,120,180,240,300</code></li>
+  <li>Draw a random tile: <code>0, 1, 2, 3</code></li>
+</ul>
+
+<h3>Generating A Honeycomb</h3>
+
+<img src="images/honeycomb.png" alt="Honeycomb" width = "300px">
+
+<p>
+  With hexagons, we are not generating a grid of values anymore. Instead, we need to generate a honeycomb pattern,
+  which is a little bit trickier.
+</p>
+
+<p>
+  To help with the placement of our tiles, you’ve been provided with a <code>hexagon()</code> method. It will draw an empty
+  hexagon of the correct size at <code>(0,0)</code>. Once we’ve used it to create the honeycomb pattern above, we can replace
+  it with calls to <code>tile()</code> and get our design.
+</p>
+
+<h4>Step 1: Drawing a Row of Overlapping Hexagons</h4>
+
+<img src="images/overlapping.png" alt="overlapping" width = "300px">
+
+
+<p>
+  Notice that a single row of our honeycomb is not in a straight line. Every other hexagon is drawn a half-step down the canvas.
+</p>
+
+<p>
+  Write a loop that will generate x values that go across the canvas, starting at 0 and increasing by <code>1.5*r</code> each step.
+  Inside the loop, translate to <code>(x,0)</code> and call the <code>hexagon()</code> command before calling <code>resetMatrix()</code>.
+  Since all hexagons are drawn at the same y, running the program should show a row of overlapping hexagons.
+</p>
+
+
+
+<h4>Step 2: Dipping Every Other Hexagon</h4>
+<img src="images/hex-row.png" alt="Hex Row" width = "300px">
+<p>
+  To get everything to line up, we want every other hexagon to be translated a little extra. This is where a counting variable
+  can be useful. Before the loop, declare a counting variable and assign it a 0. At the end of the loop, increase that count by 1.
+  Now, each time the loop runs it is one value larger, which we can take advantage of because it will be flipping between even and odd values.
+</p>
+
+<p>
+  Modify the loop so that it will first translate to <code>(x,25)</code>, but then use an if statement to check and see if the counting variable
+  is odd. If so, translate is an extra half-height: <code>translate(0,h/2)</code>.
+</p>
+
+<p>If done properly, running the program again should show the hexagons aligned properly.</p>
+
+<h4>Filling the Canvas</h4>
+
+<p>
+  Getting the full honeycomb we will need to incorporate another loop to represent the y coordinates of each hexagon.
+  In the <code>draw()</code> function, wrap your x-loop with a for loop that will generate y values that fill the canvas,
+  starting at 0 and increasing by <code>h</code> each step. Then modify the inside of your loops to call <code>translate(x,y);</code>
+  before drawing each hexagon.
+</p>
+
+<p>
+  We have to be careful about the counting variable getting off. It should always be 0 when the x loop begins its process, so make sure
+  that your line that assigns it a 0 is the first line of your y-loop.
+</p>
+
+<p>If done properly, you should now get the full honeycomb effect when you run your program.</p>
+
+<img src="images/honeycomb.png" alt="Honeycomb" width = "300px">
+
+<h4>Adding Tiles</h4>
+
+<p>
+  Now that the locations are being generated properly, we can place our tiles. Remove the call to <code>hexagon()</code> that is inside your
+  nested loop and replace it with a call to:
+</p>
+
+<pre><code>tile(1);</code></pre>
+
+<p>
+  This has no randomization yet. It will draw tile 1 at every single location. The result will be circles drawn all over the place
+</p>
+
+<img src="images/circles.png" alt="circles" width = "300px">
+
+<h4>Random Rotation</h4>
+
+<p>
+  Before drawing each tile we want to rotate it: <code>0, 60, 120, 180, 240,</code> or <code>300</code> degrees.
+</p>
+
+<ul>
+  <li>Generate a random integer 0–5 (use <code>floor()</code>)</li>
+  <li>Multiply the random number by 60</li>
+</ul>
+
+<p>
+  Rotate this amount right before calling <code>tile()</code>. Call <code>resetMatrix()</code> directly after so that things don’t get crazy.
+</p>
+
+<p>With this random rotation, you should now get something more like this:</p>
+
+<img src="images/random-circle-squiggle.png" alt="Random Circle Squiggle" width = "300px">
+
+<h4>Random Tile</h4>
+
+<p>
+  Modify your loop to generate a random integer 0 through 3, and call the <code>tile()</code> function using the result as a parameter.
+  The result should be our random squiggle:
+</p>
+
+<img src="images/full-design.png" alt="Full Design" width = "300px">
+
+  
+  
+</body>
+
+
+</html>
+

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Ranking Cards</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style3 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Ranking Cards</p>
+<p class="auto-style1">In many games it is important to know how the cards 
+compare to the other cards in the game.&nbsp; This is where you are going to use 
+the getRank method that you wrote earlier ( Two = 2, Three = 3, ... Jack 
+= 11, Queen = 12, King = 13, Ace = 14) .</p>
+<p class="auto-style1">Add a method to the Card class named <strong>isHigherRank</strong>, which takes in a Card as 
+a parameter and returns true if the current object (this) has a higher rank than 
+the parameter.</p>
+<p class="auto-style3">public boolean isHigherRank( Card other )</p>
+<p class="auto-style1">Remember, the goal is for the following code to compile 
+and run.&nbsp; One card is asked how it compares to another.</p>
+<p class="auto-style3">Card c1 = new Card(&quot;JD&quot;);&nbsp;&nbsp;&nbsp; //Jack of 
+Diamonds<br />
+Card c2 = new Card(&quot;TS&quot;);&nbsp;&nbsp;&nbsp; //Ten of Spades</p>
+<p class="auto-style1"><span class="auto-style4">if( c1.isHigherRank( c2 ) )<br />
+{<br />
+&nbsp;&nbsp; System.out.println( c1+&quot; is a higher rank than &quot;+c2);<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp; System.out.println( c1+&quot; is not a higher rank than &quot;+c2);<br />
+</span>}</p>
+<p class="auto-style1">Add methods named <strong>isLowerRank</strong> and 
+<strong>isEqualRank</strong> which will 
+look very similar to the isHigherRank method.</p>
+<p class="auto-style1">CAUTION:&nbsp; YOU ARE NOT WRITING THE RUNNER.&nbsp; YOU 
+WILL NOT DO ANY PRINTING.&nbsp; YOUR JOB IS TO RETURN TRUE OR FALSE.</p>
+<p class="auto-style1">&nbsp;</p><hr>
+<p class="auto-style1">Test out your code with the following runner:</p>
+<pre>public class RankedCardRunner
+{
+    public static void main()
+    {
+        String[] suits = {"C","D","H","S"};
+        String[] vals = {"A","2","3","4","5","6","7","8","9","T","J","Q","K"};
+        
+        for( int i =0; i < 15 ;i++)
+        {
+            String randVal1 = vals[(int)(Math.random()*vals.length)];
+            String randSuit1 = suits[(int)(Math.random()*suits.length)];
+            
+            String randVal2 = vals[(int)(Math.random()*vals.length)];
+            String randSuit2 = suits[(int)(Math.random()*suits.length)];
+            
+            Card c1 = new Card(randVal1+randSuit1);
+            Card c2 = new Card(randVal2+randSuit2);
+        
+            System.out.println(c1+ " is " +(c1.isHigherRank(c2)?"":"not ")+ "a higher rank than "+c2);
+            System.out.println(c1+ " is " +(c1.isLowerRank(c2)?"":"not ")+"a lower rank than "+c2);
+            System.out.println(c1+ " is " +(c1.isEqualRank(c2)?"":"not ")+"the same rank as "+c2+"\n");
+
+        }
+    }
+}</pre>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Animated Sprites</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+.auto-style2 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Animated Sprites</h2>
+<p style="font-family:Arial, Helvetica, sans-serif">
+<img border="1" src="images/img38.jpg" /></p>
+<p>The BouncingBall class is a relatively simple extension of the Sprite class, 
+but in an actual video game you&#39;re probably going to want to see some animation.&nbsp; 
+This means that we&#39;re going to have to use a series of Picture objects to paint 
+the Sprite.</p>
+<p class="auto-style2"><strong>The AnimatedSprite class:</strong></p>
+<p>Create a class named AnimatedSprite, which will extend the Sprite class.&nbsp; 
+We have no intention of overriding the inherited abstract method paintSelf, so 
+declare the AnimateSprite class as abstract.</p>
+<p><strong>Instance Fields:</strong></p>
+<p>-An array of Pictures, which will hold all of the Picture objects that the 
+AnimatedSprite uses to represent itself.&nbsp; I&#39;ll refer to this as the Picture 
+strip</p>
+<p>- An int to represent the index of that array that we&#39;re currently on.&nbsp; 
+Changing this int will be how we change the Picture that is displayed.</p>
+<p><strong>Constructor:</strong></p>
+<pre>public AnimatedSprite(double x, double y, int w, int h)</pre>
+<p>This will be simply a single call to the super&#39;s constructor.&nbsp; Note that 
+the Picture[] will not be initialized here.&nbsp; This is dangerous so we must 
+be careful.</p>
+<p><strong>Methods:</strong></p>
+<p>All of the methods in the AnimatedSprite class involve deciding what Picture 
+to paint.</p>
+<pre>public void setPictureStrip(Picture[] strip)</pre>
+<p>This is the method that will set the instance field.&nbsp; When we&#39;re 
+extending this class we must make sure that this method gets called.&nbsp; 
+Otherwise our program will crash with a NullPointerException. </p>
+<p>&nbsp;</p>
+<pre>public Picture currentImage()</pre>
+<p>This method will return the Picture in the array that is represented using 
+the index instance field.</p>
+<p>&nbsp;</p>
+<pre>public void changeImage()</pre>
+
+<p>This method will increment the index instance field.&nbsp; Make sure that if 
+the index goes out of bounds that it is set back to zero.</p>
+<p>&nbsp;</p>
+<pre>public void paintSelf(Canvas c)</pre>
+<p>This method will paint the current image at the inherited x,y,width, and 
+height.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre>public void update()</pre>
+<p>We&#39;ve made the AnimatedSprite class more complicated than the Sprite class, 
+so we need to override the update method.&nbsp; Call the original update method, 
+and also call the changeImage method.&nbsp; Otherwise the Picture will never 
+change.</p>
+<hr>
+
+<p class="auto-style1"><strong>Extending AnimatedSprite</strong></p>
+<p class="auto-style1"><img border="1" src="images/img35.jpg" /></p>
+<p>Create a class named Shell that extends the AnimatedSprite class.</p>
+<p><strong>Constructor</strong>:</p>
+<pre>public Shell(double x,double y)</pre>
+<p>This method should make a call to super&#39;s constructor.&nbsp; You can assume 
+that the width and height are both 32.&nbsp; There are two inherited fields that 
+you still need to set up:</p>
+<p>- Set the x velocity to 15.&nbsp; The shell will travel only horizontally.</p>
+<p>- Set up the Picture[].&nbsp; Getting an array of Pictures can be arduous.&nbsp; 
+Luckily sacco.jar has a helpful method that you can use.&nbsp; </p>
+<pre>Picture[] pics = SpriteLoader.greenShellPics();</pre>
+<p>This will load the array of Pictures that you need into the pics variable.&nbsp; 
+You simply need to call the inherited method to set the instance field.</p>
+<p>&nbsp;</p>
+<p><strong>processBoundary</strong>:</p>
+<p>Shell has inherited an abstract method that must be overridden.&nbsp; 
+Override the proccessBoundary method and make it similar to the one in 
+BouncingBall, except it doesn&#39; t have to be so strict.&nbsp; If the Shell goes 
+over the left or right, flip the xVelocity.&nbsp; You don&#39;t have to add the 
+horizontalBounce method if you don&#39;t want to.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Testing:</strong></p>
+<p>That&#39;s it.&nbsp; All the other necessary methods already exist.&nbsp; Test it 
+with the following method:</p>
+<pre>public static void shellRunner()
+{
+   Shell[] shells = new Shell[1];
+   shells[0] = new Shell(0,84);
+   shells[0].setBoundary(new BoundingBox(0,0,500,200));
+   SpriteViewer sv = new SpriteViewer(shells);
+   sv.setSize(500,200);
+   sv.launch();
+}</pre>
+
+<p>The Shell should bounce back and fourth in the window.&nbsp; Make sure that 
+the images are changing.</p>
+<p><img src="images/img33.jpg" /></p>
+
+</body>
+
+</html>

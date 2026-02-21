@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>TetrisPiece</title>
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>TetrisPiece</h2>
+<p>At the moment we’ve got a good set up for all of the stationary Blocks in the 
+Tetris game. It’s now time to focus on the moving portion.</p>
+<p>Previously you created an empty class named TetrisPiece. Now we’re going to 
+implement it. The idea behind each piece is that it’s made up of 4 Blocks 
+arranged in a specific way. The Blocks must be able to rotate and still maintain 
+their shape and general location.</p>
+<p>In this assignment we will first create a model for a TetrisPiece.&nbsp; 
+Secondly we will incorporate it with our TetrisModel.&nbsp; And finally, we will 
+modify the TetrisView so that it paints the TetrisPiece along side the other 
+Blocks.</p>
+<p>&nbsp;</p>
+<h4>Modeling the TetrisPiece</h4>
+<p>The TetrisPiece will be in charge of an ArrayList of four Blocks. The 
+TetrisPiece will set their initial positions and then have methods that will 
+affect all of the Blocks.</p>
+<p>The trickiest part of dealing with the TetrisPiece is figuring out how to 
+rotate the Blocks. The way that we are going to do it is to imagine that every 
+Block in the piece belongs to a smaller 2D grid. The TetrisPiece will keep track 
+of a single location that will be referred to as the anchor, and will represent 
+location (0,0) of the smaller grid. The Location of all the Blocks in the piece 
+is actually their location within the smaller grid, as opposed to their location 
+within the larger grid.</p>
+<p>For Example:
+Consider the situation below:</p>
+<p><img height="379" src="images/TetrisPieceGlobal.JPG" width="217" /></p>
+<p>Instead of imagining the piece as Blocks with large row and column values, 
+imagine it as part of a smaller grid.</p>
+<p><img height="121" src="images/anchor0.png" width="121" /></p>
+<p>The Blocks of the piece are unaware of where they are within the bigger grid. 
+They only know their location relative to the anchor point (which acts as 
+(0,0)).&nbsp; This makes it so that if we want to move all the piece&#39;s blocks at 
+the same time, you simly have to move the anchor location.</p>
+<p>&nbsp;</p>
+<h4>The TetrisPiece class:</h4>
+<p>TetrisPiece needs the following <strong>instance fields</strong>:<br />
+-
+a <strong>Color</strong> that this piece will represent itself with.<br />
+- a Location to represent the <strong>anchor</strong> location<br />
+-
+<strong>ArrayList&lt;Block&gt; </strong>to manage the four blocks that the piece has a Location to 
+represent the anchor location<br />
+-
+a <strong>TetrisGrid</strong> variable. In order to know if it can move in the grid, the 
+TetrisPiece will want to access the grid from time to time. This will be an 
+important link.<br />
+-
+An <strong>int</strong> to represent the size of the grid that holds the pieces. Depending on the 
+piece, it sits in a smaller grid of size 2, 3, or 4.</p>
+<p>The <strong>Constructor</strong> for the TetrisPiece should take in a TetrisGrid as a 
+parameter and assign it 
+to the instance field. For now, we are going to look at a very specific piece 
+just to get the basics down. It’s the Blue piece in the diagram above, and it’s 
+known as the <strong>L</strong>. For now set the color field to blue, the <strong>anchor to be 
+(2,3)</strong>, and the size to be 3. Don’t forget to construct an ArrayList&lt;Block&gt; and add four Blocks to it 
+(they don’t need Locations yet).</p>
+<p><strong>Note</strong>: The Blocks in the TetrisPiece are not actually added to the TetrisGrid 
+until the TetrisPiece is about to be replaced with a new piece.&nbsp;&nbsp; For now, 
+do not add any of the Blocks to the TetrisGrid, they are fine as an ArrayList of Blocks.</p>
+<p>&nbsp;</p>
+<h5>Setting the initial locations:</h5>
+<p>In order to get the starting locations assigned to the Block, we are going to 
+take them out of the constructor and put them into a separate method named 
+<span class="auto-style1"><strong>setInitialLocations()</strong></span>. First, make sure that the last thing the constructor 
+calls is the setInitalLocations method, and then add that very method to the 
+TetrisPiece. The method should set the Locations of the four Blocks in the 
+ArrayList to the exact locations of the Blocks in the diagram below.</p>
+<img height="121" src="images/anchor0.png" width="121" /><p>&nbsp;</p>
+<h5>Accessor Methods:</h5>
+
+<p>Add methods getBlocks(),getLocation(), and getSize(), which will return the ArrayList&lt;Block&gt;, 
+a Location, and an int respectively.</p>
+<p>&nbsp;</p><h5>Mutator Methods:</h5>
+<p>Add a setAnchor, setSize, and setColor method.&nbsp; The setColor should set 
+this instance field to the incoming Color, as well as set all of the Block&#39;s 
+colors.</p>
+<p>&nbsp;</p>
+<h5>toString:</h5>
+
+<p>Override the toString method to return a String that first contains the String 
+&quot;TetrisPiece:&quot; and is followed by the toString of each of the four Blocks that 
+it has.</p>
+<p>&nbsp;</p>
+<h5>Testing:</h5>
+<p>Run the following Tester method:</p>
+<pre>public static void pieceTester()
+{
+    TetrisPiece piece = new TetrisPiece(null);
+    System.out.println(piece);
+}
+</pre>
+<p>Something similar to the following should be printed:</p>
+<p>TetrisPiece:<br />
+Block at Loc(1, 0) with Color[R:0 G:0 B:255]<br />
+Block at Loc(1, 1) with Color[R:0 G:0 B:255]<br />
+Block at Loc(1, 2) with Color[R:0 G:0 B:255]<br />
+Block at Loc(2, 0) with Color[R:0 G:0 B:255]</p>
+<p>&nbsp;</p><hr/>
+<h3>Adding the TetrisPiece to the project. </h3>
+<p>Now that we&#39;ve set up the basic TetrisPiece object we can insert it into the 
+project by:</p>
+<p>- Incorporating it into the TetrisModel<br />
+- Modifying TetrisView so that it paints the piece.</p>
+<p>Some of this work is already done for us.&nbsp; Previously, the TetrisModel class was set up to have a reference to the empty 
+TetrisPiece class. That reference remained null because there was nothing done 
+in the constructor to set up the variable. Now that we’ve got the TetrisPiece 
+filled out it’s time to go to the <strong>TetrisModel</strong> and fill it in.&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Loading a Random Piece</h4>
+<p>At some point the TetrisModel should be able to load a new random piece into 
+the instance field.&nbsp; Add a method named <strong>newPiece</strong>, which 
+wil ltake in no parameters and simply load a new TetrisPiece into the instance 
+field.</p>
+<p>Once you&#39;ve done that, make sure that the constructor makes a call to the
+<strong>newPiece</strong> method so that it starts with a piece on the grid.</p>
+<p>&nbsp;</p>
+<h4>Painting:</h4>
+<p>We are going to treat the piece similar to how we’ve painted the lines and 
+the grid blocks. Your <strong>TetrisView</strong> class should already have an empty paintPiece 
+method from before. Now it’s time to fill it in.</p>
+<h5>The paintPiece method:</h5>
+<p>The purpose of the paintPiece method in the TetrisView class is to paint a piece <strong>if there is one</strong>. First 
+we must be a little cautious about how we handle the TetrisPiece. You can call 
+your TetrisModel’s getPiece method to access whatever’s stored in as the 
+TetrisPiece, but it’s possible that it’s null. After you’ve accessed the Model’s 
+TetrisPiece, check to see if it’s null and simply <strong>return;</strong> if it is. A null piece 
+means that there is no need for the paintPiece method to continue (and if it&#39;s 
+null it would crash our program to continue).</p>
+<p>After that, it’s time to paint each of the TetrisPiece’s Blocks. The tricky 
+part is that the Block’s location is relative to the anchor location. This means 
+that a Block’s row in the grid is the sum of the anchor’s row and the Block’s 
+row, and the same is true for the column. Access the TetrisPiece’s anchor and 
+ArrayList&lt;Block&gt; in order to get this done.</p>
+<h5>Testing out the TetrisPiece:</h5>
+<p>Now that we’ve got the basic structure to model and view a TetrisPiece, it’s 
+time to test it out. Run the Tetris class&#39; main method.&nbsp; Previously we set up the project to load other blocks on 
+the grid. Those should still be there in addition to the piece that we’ve created.</p>
+<p><img height="379" src="images/firstpiece.JPG" width="217" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><br />
+</p>
+
+</body>
+
+</html>

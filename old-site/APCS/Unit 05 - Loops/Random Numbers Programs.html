@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Random Numbers Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+font-family:Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style7 {
+	font-size: large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	text-decoration: underline;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	color: black;
+}
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Random Numbers Programs</p>
+<p>&nbsp;</p>
+<p><span class="auto-style1"><span class="auto-style7"><strong>GuessingGame<span></strong></span></p>
+<p><span class="auto-style1"><span class="auto-style3"> 
+Create a class named GuessingGame, with one method named main. The idea behind 
+the guessing game is that the user has to guess at the number (between 1 and 20 
+inclusively). If they get it wrong, the computer tells them to guess higher or 
+lower. When the user guesses the correct answer the program will congratulate 
+him and tell him how many guesses it took (You should create an int named count, 
+which is incremented once every loop).</span></span></p>
+</span>
+
+<p class="auto-style3">For Example:<br />
+I&#39;m thinking of a number from 1-20:<br />
+13<br />
+Wrong, guess higher<br />
+14<br />
+Wrong, guess higher<br />
+19<br />
+Wrong, guess lower<br />
+17<br />
+Correct!&nbsp; It took you 4 guesses.</p>
+<span class="auto-style7">
+<p>&nbsp;</p>
+<p><span class="auto-style2">Strategy:</span><br class="auto-style2" />
+<span class="auto-style2">Pick a random number from 1 to 20</span><br class="auto-style2" />
+<span class="auto-style2">Ask the user for a guess</span><br class="auto-style2" />
+<span class="auto-style2">As long as the user has the wrong answer, keep saying 
+higher or lower to guide them.</span><br class="auto-style2" />
+<span class="auto-style2">After they have the right answer, congratulate and 
+tell them how many guesses it took</span><br class="auto-style2" />
+</p>
+<hr>
+</span>
+
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:large">Cruds:</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">Write a program that will simulate 
+the non-gambling dice game known as Cruds.&nbsp; The game is played with two dice, and the 
+basic idea is&nbsp; that the <strong>first</strong> roll&#39;s total is known as the
+<strong>point</strong>.&nbsp; After the first roll, the goal is to roll the 
+point again before a 7 is rolled.&nbsp; You will need to generate two different 
+random numbers to simulate the two dice being rolled.&nbsp; DON&#39;T PICK A RANDOM 
+NUMBER FROM 1 TO 12.&nbsp; </p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">For example:&nbsp; <br />
+If my first roll is a 5, that means the point is five.<br />
+I then roll a 4, 8, 11, and 3, which mean nothing because they&#39;re not the 5 or 
+the 7.<br />
+Eventually if I roll a 5, then I win.&nbsp; If I roll a 7, then I lose.</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">Example Output:<br />
+First Roll Coming Out!<br />
+You rolled a 3 and a 6, the point is <strong>9</strong>.<br />
+Continue Rolling:<span class="auto-style1"><br />
+You rolled a 1 and a 2 to get a 3.<br />
+You rolled a 5 and a 3 to get a 8.<br />
+You rolled a 4 and a 6 to get a 10.<br />
+You rolled a 4 and a 3 to get a<strong> 7</strong>.<br />
+YOU LOSE!!!!&nbsp; NOW YOU CAN&#39;T PAY YOUR MORTGAGE<br />
+</span></p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">Tip:&nbsp; 
+Before the looping begins, you should already have determined the point and the 
+player&#39;s first roll.&nbsp; The loop will be in charge of every roll after the 
+first one.</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">
+<img height="456" src="images/cruds.png" width="333" /></p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">Problem:&nbsp; There is an issue that occurs if you just 
+program it this way.&nbsp; When the first roll is a 7, the game breaks down 
+because the <strong>point</strong> can&#39;t be a 7.&nbsp; Modify your program 
+with an if statement so 
+that if the first roll is a 7, YOU WIN is printed out and the rest of the game 
+is not run.&nbsp; </p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">&nbsp;</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">This game 
+will go very fast.&nbsp; If you would like to add a delay between rolls, you can 
+do one of two things:<br />
+1) Use the Scanner&#39;s nextLine method so that the user has to hit enter between 
+rolls.<br />
+2) If you&#39;ve imported sacco.*; you may use the command 
+SaccoTools.pauseFor(1000); to delay for one second.&nbsp; Changing the int will 
+change the delay.</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">&nbsp;</p>
+<hr/>
+<p><strong><span class="auto-style7">Magic8Ball</span></strong></p>
+<p><span class="auto-style3">Create a class named Magic8Ball, which will dispense random advice when asked. 
+There should be at least 8 Strings as instance fields, each representing a different 
+response that the 8 ball can give.</span><br class="auto-style2" />
+<span class="auto-style2">The Constructor should set each of the 8 instance 
+fields to a different phrase. You can make up your own (school appropriate) 
+phrases, or choose from the list below:</span></p>
+<p>
+<table style="width: 67%">
+	<tr>
+		<td class="auto-style5" style="width: 182px">Affirmative</td>
+		<td class="auto-style5" style="width: 209px">Neutral</td>
+		<td class="auto-style5">Negative</td>
+	</tr>
+	<tr>
+		<td style="width: 182px">
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		● </span><span class="auto-style2">It is certain</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		● </span><span class="auto-style2">It is decidedly so</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Without a doubt</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		● </span><span class="auto-style2">Yes – definitely</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> You may rely on it</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> As I see it, yes</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Most likely</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Outlook good</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Yes</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Signs point to yes</span><br class="auto-style2" />
+		</td>
+		<td style="width: 209px" valign="top"><span class="auto-style2">
+		<span class="auto-style6" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: yellow; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span> Reply hazy, try again</span></span><span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: yellow; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA"><br />
+		●</span><span class="auto-style2"> Ask again later</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: yellow; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Better not tell you now</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: yellow; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Cannot predict now</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: yellow; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Concentrate and ask again</span></td>
+		<td valign="top">
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: red; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Don&#39;t count on it</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: red; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> My reply is no</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: red; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> My sources say no</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: red; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Outlook not so good</span><br class="auto-style2" />
+		<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: red; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+		●</span><span class="auto-style2"> Very doubtful</span></td>
+	</tr>
+</table>
+<span class="auto-style2">The original Magic 8 Ball had 10 affirmative, 5 
+neutral, and 5 negative responses</span><br class="auto-style2" />
+<br class="auto-style2" />
+<span class="auto-style2">Add a method named getResponse, which will take no 
+parameters and return a randomly chosen phrase from the instance fields. Do this 
+by picking a random number, and if the value of that number is 0, return the 
+first instance field, 1 for the seconds, etc.<br />
+</span></p>
+<p class="auto-style2">Test your program out using BlueJ to construct a 
+Magic8Ball object and then call the getResponse method several times.&nbsp; Make 
+sure that you&#39;re getting a random response back each time.</p>
+<p>&nbsp;</p>
+<p class="auto-style8"><strong>Runner:</strong></p>
+<p class="auto-style2">Create a Runner that constructs a Magic8Ball object and 
+then asks the user if they would like to shake the Magic 8-Ball.&nbsp; If they 
+respond with &quot;yes&quot;, print out a random response and ask them again.&nbsp; If 
+they respond with a &quot;no&quot;, do not print any response and stop the loop.&nbsp; If 
+they respond with anything else, don&#39;t print out a response, but still loop so 
+that it prompts them again.</p>
+<p class="auto-style2">For Example:</p>
+<p><span class="auto-style2">Would you like to shake the Magic 8-Ball?</span><br class="auto-style2" />
+<span class="auto-style2">yes</span><br class="auto-style2" />
+<span class="auto-style2">Outlook not so good</span></p>
+<p><span class="auto-style2">Would you like to shake the Magic 8-Ball?</span><br class="auto-style2" />
+<span class="auto-style2">Sacco</span><br class="auto-style2" />
+<span class="auto-style2">Would you like to shake the Magic 8-Ball?</span><br class="auto-style2" />
+<span class="auto-style2">yes</span><br class="auto-style2" />
+<span class="auto-style2">Reply hazy, try again</span><br class="auto-style2" />
+<span class="auto-style2">Would you like to shake the Magic 8-Ball?</span><br class="auto-style2" />
+<span class="auto-style2">no</span><br class="auto-style2" />
+<span class="auto-style2">Ending Program...</span></p>
+<p>&nbsp;</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">&nbsp;</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">&nbsp;</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:small">&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>While Loops that Count</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+<h1 style="font-family:Arial, Helvetica, sans-serif">While Loops that Count</h1>
+<p class="auto-style2">Each of the programs below will use a while loop, but 
+also require at least one more variable that doesn&#39;t control the loop; it only 
+keeps track of some information that should be read back after the loop has 
+finished.&nbsp; <strong>Each time declare the int you want before the loop 
+starts and change it as the loop runs.</strong></p>
+<p class="auto-style1"><span class="auto-style3">1)&nbsp; OddCounter:&nbsp; 
+Write a program named OddCounter that will repeatedly ask the user to enter 
+numbers.&nbsp; This will only stop once the user has entered a -888.&nbsp;&nbsp; 
+This is known as a </span><strong><span class="auto-style3">flag</span></strong><span class="auto-style3"> 
+value because it signals to the program that it can stop looping.&nbsp; After 
+the loop, the program should print out the number of odd values that were 
+entered.</span></p>
+<p><span class="auto-style2">For example:</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+4<br class="auto-style2" />
+<span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+1<br class="auto-style2" />
+<span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+5<br class="auto-style2" />
+<span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+6<br class="auto-style2" />
+<span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+<span class="auto-style2">10</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+9<br class="auto-style2" />
+<span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+<span class="auto-style2">-888</span></p>
+<p class="auto-style2">You have entered 3 odd numbers</p>
+<p class="auto-style2">&nbsp;</p>
+<p><span class="auto-style2">2)&nbsp; </span>
+<span class="auto-style2" style="line-height: 115%; mso-fareast-font-family: &quot;Times New Roman&quot;; color: black; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+MaryCounter:
+Write a program that asks the user for a first name repeatedly until the user 
+enters the flag value &quot;XXX&quot;. Output how many people whose name is &quot;Mary&quot; that 
+were entered by the user</span><span class="auto-style2">.</span></p>
+<p class="auto-style2">Hint:&nbsp; To check to see if a variable str does NOT 
+have &quot;XXX&quot;, use the exclamation point in front of the .equals method. <strong>&nbsp;!str.equalsIgnoreCase(&quot;XXX&quot;)</strong></p>
+<p><span class="auto-style2">For example:</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a name:</span><br class="auto-style2" />
+<span class="auto-style2">Steve</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a name:</span><br class="auto-style2" />
+<span class="auto-style2">Mary</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a name:</span><br class="auto-style2" />
+<span class="auto-style2">Anne</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a name:</span><br class="auto-style2" />
+<span class="auto-style2">Sue</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a name:</span><br class="auto-style2" />
+<span class="auto-style2">Mary</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a name:</span><br class="auto-style2" />
+<span class="auto-style2">Helen</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a name:</span><br class="auto-style2" />
+<span class="auto-style2">XXX</span></p>
+<p class="auto-style2">Mary was entered 2 times</p>
+<p class="auto-style1"><span class="auto-style3">3)&nbsp; GradeStats:&nbsp; 
+Write a program named GradeStats that repeatedly prompts the user to enter the 
+percent that a student got on an exam.&nbsp; This program should use the 
+standard grade scale to determine the grade that each student got and keep track 
+of all the A&#39;s, B&#39;s, C&#39;s, D&#39;s, and F&#39;s that were earned.&nbsp; After a </span>
+<strong><span class="auto-style3">flag value</span></strong><span class="auto-style3"> 
+of -1 has been entered, print out how many of each grade was recieved.</span></p>
+<p><span class="auto-style2">For Example:</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a percent:</span><br class="auto-style2" />
+<span class="auto-style2">75</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a percent:</span><br class="auto-style2" />
+<span class="auto-style2">99</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a percent:</span><br class="auto-style2" />
+<span class="auto-style2">82</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a percent:</span><br class="auto-style2" />
+<span class="auto-style2">71</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a percent:</span><br class="auto-style2" />
+<span class="auto-style2">33</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a percent:</span><br class="auto-style2" />
+<span class="auto-style2">79</span><br class="auto-style2" />
+<span class="auto-style2">Please enter a percent:</span><br class="auto-style2" />
+<span class="auto-style2">-1</span></p>
+<p><span class="auto-style2">Grade Statistics:</span><br class="auto-style2" />
+<span class="auto-style2">A&#39;s: 1</span><br class="auto-style2" />
+<span class="auto-style2">B&#39;s: 1</span><br class="auto-style2" />
+<span class="auto-style2">C&#39;s: 3</span><br class="auto-style2" />
+<span class="auto-style2">D&#39;s: 0</span><br class="auto-style2" />
+<span class="auto-style2">F&#39;s: 1</span><br class="auto-style2" />
+</p>
+<p class="auto-style2">4)&nbsp; BioPopulation:&nbsp; In a biology experiment, 
+Mr. Sacco finds that a certain type of bacteria doubles its population every 12 
+hours.&nbsp; Write a program that will ask the user for the starting population, 
+and then calculate how many hours it will take for that population to reach 
+1,000,000 or more.&nbsp; Hint:&nbsp; You will need a variable to hold the 
+population, but also one to count how many times the loop has to run until the 
+population is past 1,000,000.&nbsp; </p>
+<p><span class="auto-style2">For Example:</span><br class="auto-style2" />
+<span class="auto-style2">Enter a starting population:</span><br class="auto-style2" />
+<span class="auto-style2">1000</span></p>
+<p class="auto-style2">It would take 120 hours to pass 1,000,000</p>
+<p class="auto-style2">5)&nbsp; NumSum:&nbsp; Write a program that will ask the 
+user to input a number, and then calculate the sum of all the numbers from 1 up 
+to and including that number.</p>
+<p><span class="auto-style2">Please enter a number:</span><br class="auto-style2" />
+<span class="auto-style2">10</span><br class="auto-style2" />
+<span class="auto-style2">The sum of the numbers from 1 through 10 is 55</span></p>
+<p class="auto-style2">Hint:&nbsp; You will need three ints.&nbsp; One to hold 
+the user&#39;s input, a counter that increases by 1 each time, and a sum variable 
+that the count gets added to each time the loop runs.</p>
+
+</body>
+
+</html>

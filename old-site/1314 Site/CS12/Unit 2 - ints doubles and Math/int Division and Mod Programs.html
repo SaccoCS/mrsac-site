@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>int Division and Mod Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">int Division and Mod Programs</p>
+<p class="auto-style1">Each of the following programs uses one of the two 
+special math operations:</p>
+<p><span class="auto-style1"><strong>int division:</strong></span><br class="auto-style1" />
+<span class="auto-style1">When two ints are divided, the result must be an int.&nbsp; 
+This means that any decimal value is completely dropped.&nbsp; This may be used 
+to tell you how many whole times a number goes into another.</span></p>
+<p class="auto-style1">ex.&nbsp; 13/3 is a 4, meaning that 3 goes into 13 four 
+times.&nbsp; The remainder is discarded.</p>
+<p class="auto-style1"><strong>mod:</strong></p>
+<p class="auto-style1">The &#39;%&#39; sign represents modulus, which will only tell you 
+the remainder of the division of two numbers.</p>
+<p class="auto-style1">ex. 13%3 is a 1, meaning that 3 goes evenly into 12, but 
+there is 1 left over.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3"><strong>Assignments:</strong></p>
+<p class="auto-style1">1)&nbsp; Write a program named <strong>LongDiv</strong> 
+that takes in two numbers from the user and outputs the integer quotient and the 
+remainder.</p>
+<p class="auto-style1">For Example:</p>
+<p class="auto-style1">Enter the first number:<br />
+20<br />
+Enter the second number:<br />
+6<br />
+<br />
+The quotient is 3 and the remainder is 2;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">2)&nbsp; Write a program named <strong>DecadeCount</strong>, 
+which prompts the user to enter their age and then tells him how many decades 
+he&#39;s been alive.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">For Example:</p>
+<p class="auto-style1">Please enter your age:<br />
+62</p>
+<p class="auto-style1">You have been alive for 6 decades</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">3)&nbsp; Write a program name <strong>MorePennies</strong> 
+which prompts the user to input how much money they have in pennies (no 
+decimals) and prints out how many more pennies are needed to reach the next 
+dollar.</p>
+<p class="auto-style1">Hint:&nbsp; You will need to use mod to find out how much 
+change the user has, and then use subtraction to figure out how much there is to 
+go.</p>
+<p class="auto-style1">For example:</p>
+<p class="auto-style1">Please enter the number of pennies that you have:<br />
+457</p>
+<p class="auto-style1">You need 43 more pennies to reach the next dollar</p>
+<p>&nbsp;</p>
+<p class="auto-style1">4)&nbsp; Write a program named <strong>Easter</strong>, which firsts asks the user to input 
+the year, and then uses the Gaussian Algorithm to calculate the month and the 
+day that Easter falls on.&nbsp; You may output &quot;Easter is on Month: 4 and Day: 15&quot;</p>
+<p><span class="auto-style1">This is a very complicated algorithm with many variables.&nbsp; If you do not 
+get the right answer, put the following println in and test your values against 
+the sample below.</span><br />
+</p>
+<pre>System.out.println("a="+a+"\nb="+b+"\nc="+c+"\nd="+d+"\ne="+e+"\ng="+g+"\nh="+h+"\nj="+j+"\nk="+k+"\nm="+m+"\nr="+r+"\nn="+n+"\np="+p);
+</pre>
+<p>&nbsp;</p>
+<p>
+<table border="1" cellpadding="0" cellspacing="0" class="MsoNormalTable" style="font-size: 10pt; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; border: medium none inherit; border-collapse: collapse;">
+	<tr>
+		<td style="width: 414.9pt; border: 1pt solid windowtext; padding: 0in 5.4pt; height: 664px;" valign="top" width="553">
+		<p class="auto-style4" style="font-size: medium;">Gauss’ algorithm for 
+		calculating Easter</p>
+		<p class="MsoNormal">Let y be the year<o:p></o:p></p>
+		<p class="MsoNormal">Divide y by 19 and call the remainder a.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Divide y by 100 to get a quotient b and a 
+		remaiinder c<o:p></o:p></p>
+		<p class="MsoNormal">Divide b by 4 to get a quotient d and a remainder e<o:p></o:p></p>
+		<p class="MsoNormal">Divide 8*b+13 by 25 to get a quotient g.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the remainder<o:p></o:p></p>
+		<p class="MsoNormal">Divide 19*a+b-d-g+15 by 30 to get a remainder h.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Divide c by 4 to get a quotient j and a remainder k<o:p></o:p></p>
+		<p class="MsoNormal">Divide a +11*h by 319 to get a quotient m.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the remainder<o:p></o:p></p>
+		<p class="MsoNormal">Divide 2*e+2*j-k-h+m+32 by 7 to get a remainder r.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Divide h – m + r + 90 by 25 to get a quotient n.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the remainder<o:p></o:p></p>
+		<p class="MsoNormal">Divide h – m +r +n +19 by 32 to get a remainder p.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>Ignore 
+		the quotient<o:p></o:p></p>
+		<p class="MsoNormal">Then Easter falls on day p of month n.<span>&nbsp;<span class="Apple-converted-space">&nbsp;</span></span>For 
+		Example, if y is 2001:<o:p></o:p></p>
+		<p class="MsoNormal">a = 6<br />
+		b = 20<br />
+		c = 1<br />
+		d = 5, e = 0<br />
+		g = 6<br />
+		h = 18<br />
+		j = 0, k = 1<br />
+		m = 0<br />
+		r = 6<br />
+		<span class="auto-style3" style="color: rgb(255, 0, 0);">n = 4</span><br class="auto-style3" style="color: rgb(255, 0, 0);" />
+		<span class="auto-style3" style="color: rgb(255, 0, 0);">p = 15</span><o:p></o:p></p>
+		<p class="MsoNormal">Therefore Easter Sunday fell on April 15, 2001.</p>
+		</td>
+	</tr>
+</table>
+</p>
+<p>
+<img src="images/imgB.jpg" /></p>
+<p>
+<img src="images/imgC.jpg" /></p>
+<p>
+&nbsp;</p>
+
+</body>
+
+</html>

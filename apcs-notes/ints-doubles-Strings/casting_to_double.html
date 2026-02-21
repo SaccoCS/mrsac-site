@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Casting to a double</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Casting to a double</h2>
+					<p>Casting is an operation that allows us to <strong>temporarily </strong> consider a certain piece of data to be a different type.  This means that we can take an int and have it considered to be a double during calculations.  This is most useful when you want to overcome <a href="int division.html">int division</a>
+					</p>
+
+					<div class = "code-block">
+						<p>int a = 5;<br/>
+						int b = 2</br>
+						double div = a/b;<span style="color:#a00"> // int division -> 2</span></span></p>
+					</div>
+					<p style = "clear:left">
+						In the example above, the programmer wanted to divide a and b to get a 2.5, but since the variables are both ints, the result of the division will be truncated and give a 2.0.  Sometimes truncation is fine, but often times you want to overcome the fact that the numbers are ints and do proper division.
+					</p>
+					<h4>Casting</h4>
+					<p>Since the problem above is that both of the variables are ints, one solution would be to <strong>cast</strong> either of the two variables so that it is <strong>temporarily </strong> considered a double, then the division would not be truncated.</p>
+					<div class = "code-block">
+						<p>int a = 5;<br/>
+						int b = 2</br>
+						double div = <span style="color:#a00">(double)</span>a/b;<span style="color:#a00"> // double division -> 2.5</span></span></p>
+					</div>
+					<p style = "clear:left">
+					<p>Casting affects the value immediately to its right.  In the example above, the value of a is considered a double, which prevents the division from truncating and calculates the expected 2.5 instead.</p>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

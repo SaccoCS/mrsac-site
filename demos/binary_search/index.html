@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <style>
+     p,h1,h2,h3,li{font-family: Helvetica}
+    </style>
+
+  </head>
+  
+    <main>
+    </main>
+   <h1>
+     Searching Through a Sorted Array
+
+  </h1>
+  
+  <p>
+    When evaluating the efficiency of a search, we think about how many values from the array that we need to access for our best and worst case scenarios<br/><br/></p>
+
+
+<h2>
+  
+Linear Search:
+  </h2>
+<p>
+  A linear search is the search that we've been using so far. It loops through the indices one at a time looking for the target value.<br/>
+- <strong>Best Case</strong>: Value is found immediately at index 0 ( 1 value accessed )<br/>
+
+  - <strong>Worst Case:</strong> Value is found at the very end of the array ( arr.length values accessed )
+  </p>
+
+<p>
+In the demo below you are asked to find a single value among 41 values, but this time you have the extra benefit of knowing that the values are already sorted.
+  </p>
+
+<p>
+This information does not change the efficiency of a Linear Search<br/>
+
+  - <strong>Best Case:</strong> 1 value accessed<br/>
+
+  - <strong>Worst Case:</strong> 41 values accessed
+  </p>
+  <br/>
+  <hr>
+  
+  
+  <h2>
+    The Binary Search Strategy
+  </h2>
+  <p>
+    But we can use this information to our advantage using a Binary Search Strategy
+    
+      
+  </p>
+
+
+<p>
+Look at the value in the MIDDLE of the array and compare it to your target value
+<ul>
+  
+  
+  <li>If the value is <strong>equal</strong> to the target: return the index it was found at.</li>
+  <li>If the value is <strong>smaller</strong> than the target, repeat the process on the lower half, checking the middle value of that set</li>
+  <li>If the value is <strong>larger</strong> than the target, repeat the process on the upper half, checking the middle value of that set</li>
+</ul>
+  <br/>
+  <br/>
+  </p>
+  
+<h1>
+  Binary Search Practice
+</h1>
+<p>
+
+
+The buttons below are mean to help you find the value using this strategy. If the revealed middle value is not the correct one, compare your target value to the revealed value to see if you should continue your search in the lower or upper portions of the array. If you make a wrong move or find your value, use the reset button to try again.
+  </p>
+  <iframe src ="https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/demos/binary_search/index.html" width = "940px" height ="320px" style="border:0;">
+    
+  </iframe>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<h2>
+  Flamenco Binary Search
+</h2>
+    <p>
+      The AlgoRythmics have a dance showing the order of a binary search. Mr. Sacco recommends 2x speed and low low volume.
+</p>
+
+
+<p>
+Look for the key signs of a Binary Search:
+<ul>
+<li>Revealing the middle value</li>
+<li>Using a comparison to discard half the values/humans</li>
+<li>Repeating on the remaining group</li>
+  
+</ul>
+</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iP897Z5Nerk?si=uzTk30hhOPPjUqvg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </body>
+</html>

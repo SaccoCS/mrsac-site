@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Bullet Class</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style4">The Bullet Class</span><br class="auto-style3" />
+<img height="11" src="images/bullet.png" width="11" class="auto-style3" /><br />
+<span class="auto-style3">&quot;space/bullet.png&quot;</span></p>
+<p class="auto-style3">Now that a Ship has been placed on the screen it is time to get some 
+weaponry.&nbsp; Our goal is to be able to press the spacebar and to have a 
+bullet shoot out and last for a specific amount of time before fading out.</p>
+<p class="auto-style3">Create a class named Bullet that extends AsteroidSprite.</p>
+<p><span class="auto-style3"><strong>Instance Fields</strong></span><br class="auto-style3" />
+<span class="auto-style3">A Bullet needs a Picture as its instance field, and a double to represent what 
+speed the bullet should be traveling.&nbsp; Start this at 12 and adjust later to 
+fit your needs.</span></p>
+<p><span class="auto-style3"><strong>Constructor</strong></span><br class="auto-style3" />
+<span class="auto-style3">When the Bullet is created you cannot do as much randomization as was done 
+previously.&nbsp; Make Bullet&#39;s constructor take in three parameters; two 
+doubles for x and y, and an int for the direction that it&#39;s heading.</span></p>
+<p class="auto-style1"><span class="auto-style2">Set the x,y,width, and height 
+(10 is a decent width/height) using the appropriate inherited methods.&nbsp; A 
+problem occurs when it&#39;s time to think about the two vectors, because we only 
+know the angle that we want the bullet to travel.&nbsp; Trigonometry to the 
+rescue!&nbsp; Add the following lines to the constructor, modifying the names
+</span><strong><span class="auto-style2">tmpAngle</span></strong><span class="auto-style2"> and
+</span><strong><span class="auto-style2">bSpeed</span></strong><span class="auto-style2"> 
+to match your parameter and instance field.</span></p>
+<pre>         double xV = Math.cos(Math.toRadians(tmpAngle));
+        double yV = -Math.sin(Math.toRadians(tmpAngle));
+        setXVelocity(bSpeed*xV);
+        setYVelocity(bSpeed*yV);</pre>
+<p class="auto-style3">This code will set the xVelocity and yVelocity to be the 
+correct speed and direction.</p>
+<p class="auto-style3">The paintSprite method should be overridden to draw the 
+Picture, similar to how it&#39;s been done previously.</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style6"><strong>Setting up the AsteroidsBoard</strong></p>
+<p class="auto-style3">The Bullets are going to be set up in a way very similar 
+to how the Asteroids are set up in the AsteroidsBoard.&nbsp; In the instance 
+fields, add an ArrayList&lt;Bullet&gt;, which is then initialized to a new 
+ArrayList&lt;Bullet&gt; in the constructor.</p>
+<p class="auto-style3">In the <strong>paintWindow</strong> method, loop through and 
+tell every Bullet to paintSelf</p>
+<p class="auto-style3">In the <strong>onTimerTick</strong> method, loop through and 
+tell every Bullet to update.</p>
+<p class="auto-style3">So far we&#39;ve got the paint and onTimerTick method looping 
+through lists of empty bullets.&nbsp; Bullets should be added when the spacebar 
+is pressed.&nbsp; Go to the <strong>onKeyPress</strong> method, and if the 
+keyCode is <strong>32 </strong>construct a new Bullet and add it to the list.&nbsp; 
+The three parameters should come directly from the ship (myShip.getX(), etc.).&nbsp; 
+You may access the ship&#39;s direction using the getRotation method (they are the 
+same for the ship).</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">Compile and run the program.&nbsp; Hit the spacebar a few 
+times and hopefully some Bullets will go flying around.</p>
+<p class="auto-style3"><img height="358" src="images/img1B.jpg" width="476" /></p>
+<p class="auto-style6"><strong>Giving the Bullets a lifespan</strong></p>
+<p class="auto-style3">You may have noticed a little problem.&nbsp; Your Bullets 
+are immortal and the screen is soon filled with them.&nbsp; It&#39;s time to add a 
+way for the Bullets to die of old age, which will clean this up a bit.</p>
+<p class="auto-style3">Add two i<strong>nstance fields</strong> to Bullet: an 
+int for counting and an int to represent the maximum count before the Bullet 
+should disappear (30 is a good start).</p>
+<p class="auto-style3">Override the <strong>update</strong> method to increment 
+the counter and call super.update().</p>
+<p class="auto-style3">Add a method named <strong>isTooOld</strong>, 
+which returns true if the count has passed the maximum.</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style7"><strong>In the AsteroidsBoard class:</strong></p>
+<p class="auto-style3">Create a method named removeOldBullets, which will loop 
+through all the Bullets and remove them from the list if they&#39;re too old.&nbsp; 
+Once this method is complete, <strong>make sure to call it from the onTimerTick method 
+or it will never happen.</strong></p>
+<p class="auto-style3">Run the program again.&nbsp; Hopefully this time the 
+Bullets will only last for a while.</p>
+<p class="auto-style3">&nbsp;</p>
+<p class="auto-style3">&nbsp;</p>
+<!--
+<p class="auto-style3"><strong>Optional Challenge:&nbsp; Special Attack</strong></p>
+<p class="auto-style3">The most useful special attack in this game is to add 
+many bullets at once, all firing in a circle that spreads out from the center.&nbsp; 
+Use the fact that the constructor of Bullet takes in a direction to your 
+advantage. </p>
+<p class="auto-style3"><img height="372" src="images/imgE.jpg" width="500" /></p>
+
+-->
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Creating a Grid</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	border: 1px solid #000000;
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+.auto-style6 {
+	border: 1px solid #000000;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	margin-left: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">Creating a Grid</p>
+<p class="auto-style2">An important part of GridWorld is when the Actors 
+interact with the other Actors around them.&nbsp; In order to make this easier, 
+the Grid interface was created.&nbsp; At the core, a Grid is essentially a 2D 
+array with methods to help add and remove Actors at specific Locations.&nbsp; 
+There are also a few methods that will provide some ArrayLists that will be 
+useful.</p>
+<p class="auto-style2">While BoundedGrid and UnboundedGrid work perfectly well, 
+we are going to create our own Grid so that we can look a little deeper into it.&nbsp; 
+Copy the following incomplete class to your project folder.</p>
+<table class="auto-style5" style="width: 100%">
+	<tr>
+		<td>import info.gridworld.grid.*;<br />
+		import info.gridworld.actor.*;<br />
+		import java.util.ArrayList;<br />
+		<br />
+		public class SaccoGrid implements Grid&lt;Actor&gt;<br />
+		{<br />
+&nbsp;&nbsp;&nbsp; private Actor[][] myArr;<br />
+		<br />
+&nbsp;&nbsp;&nbsp; //Constructor: sets up myArr to be a 20X20 2D array<br />
+&nbsp;&nbsp;&nbsp; public SaccoGrid()<br />
+&nbsp;&nbsp;&nbsp; {<br />
+		<br />
+&nbsp;&nbsp;&nbsp; }<br />
+		<br />
+&nbsp;&nbsp;&nbsp; //Constructor: sets up myArr to have r rows and c columns<br />
+&nbsp;&nbsp;&nbsp; public SaccoGrid(int r, int c)<br />
+&nbsp;&nbsp;&nbsp; {<br />
+		<br />
+&nbsp;&nbsp;&nbsp; }<br />
+		<br />
+&nbsp;&nbsp;&nbsp; //Many more methods go here<br />
+		}</td>
+	</tr>
+</table>
+<hr>
+<p class="auto-style2">Since we are implementing the Grid interface, this will 
+not compile until we add several more methods.&nbsp; Check out the
+<a href="http://www.horstmann.com/gridworld/javadoc/">Grid interface using the 
+API</a> to see what is supposed to be implemented.</p>
+<p class="auto-style2"><strong>Keep in Mind:</strong></p>
+<p class="auto-style2">We are going to consider a location unoccupied if it has 
+a null value.&nbsp; You must be extra careful when dealing with nulls.</p>
+<p class="auto-style2">The instance field is a 2D array, but some methods return 
+ArrayLists.&nbsp; Though these are similar, the way that you use them are very 
+different.&nbsp; Don&#39;t forget that arrays use the square brackets while 
+ArrayLists only use methods.</p>
+<p class="auto-style8">&nbsp;</p>
+<p class="auto-style3"><strong>Instance Fields and Constructors:</strong></p>
+<p class="auto-style2">Notice that the instance field is a 2D array of Actors.&nbsp; 
+Polymorphism allows any class that extends Actor (Bug, Rock, Flower) to be 
+stored in this array.</p>
+<p class="auto-style2">Each of the Constructors should create an new 2D Array 
+and store it in the instance field.</p>
+<p class="auto-style2">&nbsp;</p>
+<hr>
+<p class="auto-style3"><strong>Basic Accessor Methods:</strong></p>
+<p class="auto-style2">Now that there is an Array all ready to go, there are a 
+few basic method that this object needs.</p>
+<p class="auto-style1">&nbsp;<strong>&nbsp;&nbsp;public int getNumRows()<br />
+&nbsp;&nbsp; public int getNumCols()</strong></p>
+<p class="auto-style2">Each of these should return the number of rows or columns 
+that this Grid has.&nbsp; </p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1"><strong>&nbsp;&nbsp; public boolean isValid(Location loc)</strong></p>
+<p class="auto-style2">This method is only checking to see if the given Location 
+is within the boundaries of the 2D array.&nbsp; It returns false if the row or 
+the column are too large or too small.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><strong>&nbsp;&nbsp; public Actor get(Location loc)<br />
+&nbsp;&nbsp;
+public Actor remove(Location loc)</strong></p>
+<p class="auto-style2">These methods both return the Actor that is at the given 
+Location.&nbsp; The only difference between the two is that the remove method 
+will set the location in the 2D array to null.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><strong>&nbsp;&nbsp; public Actor put(Location loc, Actor act)</strong></p>
+<p class="auto-style2">Assigns the parameter Actor to the specific Location in 
+the 2D array.&nbsp; The Actor already at that location is returned (it could be 
+null)</p>
+<p class="auto-style2">&nbsp;</p>
+<hr>
+<p class="auto-style3"><strong>Advanced Helper Methods:</strong></p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><strong>&nbsp;&nbsp; public ArrayList&lt;Location&gt; getOccupiedLocations()</strong></p>
+<p class="auto-style2">This method will return an ArrayList of all the Locations 
+in the entire Grid that are occupied (non-null)</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><strong>&nbsp;&nbsp; public ArrayList&lt;Location&gt; 
+getValidAdjacentLocations(Location loc)</strong></p>
+<p class="auto-style2">This method takes in a Location as a parameter and 
+returns a list of all of the adjacent (next to) Locations that are valid.&nbsp; 
+You will need to use a nested loop along with the isValid method you&#39;ve already 
+written.&nbsp; Don&#39;t forget to exclude the center Location &quot;loc&quot; as it is does 
+not count as adjacent.&nbsp; If you would like to tell if a Location has the 
+same row and col, you may use Location&#39;s equals method to help you.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><strong>&nbsp;&nbsp; public ArrayList&lt;Location&gt; 
+getOccupiedAdjacentLocations(Location loc)<br />
+&nbsp;&nbsp; public ArrayList&lt;Location&gt; 
+getEmptyAdjacentLocations(Location loc)</strong></p>
+<p class="auto-style2">These methods each return an ArrayList of Locations.&nbsp; 
+One contains the adjacent Locations that are occupied and the other contains the 
+adjacent Locations that are empty.&nbsp; Writing another nested for loop is 
+unneccessary.&nbsp; Call the getValidAdjacentLocations method first and then 
+work from there.&nbsp; Warning:&nbsp; When it&#39;s time to add a Location to the 
+list you should construct a new Location with the row and column, don&#39;t call the 
+Actor&#39;s getLocation method (in the runner, one of the Actors will have a null 
+location which can cause problems)</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style1"><strong>&nbsp;&nbsp; public ArrayList&lt;Actor&gt; getNeighbors(Location loc)</strong></p>
+<p class="auto-style2">This is the only method that returns an ArrayList&lt;Actor&gt;.&nbsp; 
+Again, a nested for loop is not needed.&nbsp; Call the getOccupiedAdjacentLocations 
+method first and use the results to produce the ArrayList you need.</p>
+<hr>
+<p class="auto-style3"><strong>Testing</strong></p>
+<p class="auto-style2">Use the <a href="SaccoGridTester.html">SaccoGridTester</a> to see if your program functions.&nbsp; 
+It should produce the output below:</p>
+<table class="auto-style6" style="width: 100%">
+	<tr>
+		<td class="auto-style2"><span class="auto-style7">The total occupied 
+		Locations are: [(4, 4), (5, 5), (6, 5), (6, 6)]</span><br />
+		<br />
+		The valid adjacent Locations to (5, 4) are: [(4, 3), (4, 4), (4, 5), (5, 
+		3), (5, 5), (6, 3), (6, 4), (6, 5)]<br />
+		<br />
+		The empty adjacent Locations (5, 4) are: [(4, 3), (4, 5), (5, 3), (6, 
+		3), (6, 4)]<br />
+		<br />
+		The occupied Locations next to (5, 4) are: [(4, 4), (5, 5), (6, 5)]<br />
+		<br />
+		The Actors at the Locations next to (5, 4) are: 
+		[info.gridworld.actor.Bug[location=(4, 
+		4),direction=0,color=java.awt.Color[r=255,g=0,b=0]], 
+		info.gridworld.actor.Bug[location=(5, 
+		5),direction=0,color=java.awt.Color[r=255,g=0,b=0]], 
+		info.gridworld.actor.Rock[location=null,direction=0,color=java.awt.Color[r=0,g=0,b=0]]]</td>
+	</tr>
+</table>
+
+</body>
+
+</html>

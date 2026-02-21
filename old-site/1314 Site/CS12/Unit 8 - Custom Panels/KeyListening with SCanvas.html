@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>KeyListening with SCanvas</title>
+
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}</style>
+</head>
+
+<body>
+
+<p>KeyListening with SCanvas</p>
+<p>Similar to how the SCanvas has some MouseListening methods built into it, it 
+also has some KeyListeners built in as well.&nbsp; Previously we&#39;ve used 
+KeyListeners to work with STextFields, but with an SCanvas all we have to do is 
+override the appropriate method.</p>
+<p>Reminder:&nbsp; There are two methods that are used to listen to the keys 
+being pressed:</p>
+<pre>@Override
+public void onKeyPress(int keyCode)
+{
+
+}
+
+@Override
+public void onKeyRelease(int keyCode)
+{
+
+}
+</pre>
+
+
+<p>The keyCode that is passed in represents the key that was pressed</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/keycodes.gif" /></p>
+<p>&nbsp;</p>
+<p>1)&nbsp; KeySketch:&nbsp; Find the canvas that you previously created for 
+Sketching.&nbsp; This time we want to be able to use the keyboard to change the 
+color.&nbsp; You may either assign a different color to each F-key (at the top 
+of the keyboard), or have some other keys control the color (R is red, G is 
+green, etc)</p>
+<p>2) MovableFigure:&nbsp; This program will be in charge of drawing a grid with 
+a character at some location.&nbsp; The grid should be drawn using for loops to 
+help make the process easier.&nbsp; In the instance fields, there should be ints to 
+represent the x and y that the character is located.&nbsp; When they arrow keys 
+are pressed, the character&#39;s x and y should either increase or decrease to 
+cause it to move one 
+location over.&nbsp; In the example, the character is 50x50 and the gaps in the 
+grid are all 64 pixels wide.</p>
+<p>
+<img width="50" src="../Unit%207%20-%20GUIs%20and%20Objects/images/kareln.png" /></p>
+<p>
+Also make sure to only move the character if the next location is in bounds so 
+as to prevent the character from running off of the screen.</p>
+<p>
+Use the demo below as a guideline.&nbsp; The &quot;portal&quot; feature is completely 
+optional for those that wish to have an extra challenge.</p><applet code="KarelPortalApplet.class" archive="KarelPortal.jar" width="750" height="750">
+</applet>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

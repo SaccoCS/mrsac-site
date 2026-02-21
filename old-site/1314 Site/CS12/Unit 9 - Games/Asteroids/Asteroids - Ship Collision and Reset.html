@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+</style>
+
+</head>
+
+<body>
+ 
+  <applet code= "Phase7Applet.class" archive="Asteroids.jar" width="500" height="500">
+  </applet>
+  
+<p style="font-size:small"> 
+  Collision with the Ship:</p>
+<p> 
+  Similar to the Asteroid and Bullet class, add a getRectangle method to the 
+  Spaceship class.&nbsp; This will allow us to know when the ship collides with 
+  an asteroid.</p>
+<p> 
+  In the 
+  onTimerTick method of the Canvas, add a section that checks to see 
+  if the ship collides with any of the Asteroids in the list.&nbsp; It is 
+  similar to the loop that checks the Asteroids against the Bullets, but you 
+  only need <strong>one</strong> loop instead of two.&nbsp; You will first need 
+  to get myShip.getHitBox(), and then loop through all of the <strong>
+  Asteroids</strong> to see if they overlap.&nbsp; If they do, don't remove 
+  anything.&nbsp; Simply stop the Timer ( myTimer.stop()).&nbsp; If you run this 
+  program, it should completely stop the moment that the ship hits an asteroid.</p>
+<p> 
+  Add a void method named <strong>reset</strong> which does each of the 
+  following:<br>- Constructs a new ArrayList into the asteroidList instance 
+  field.&nbsp; This will clear any Aseroids from the screen.<br>- Adds 4 
+  Asteroids to the asteroidList<br>- Starts the timer again (myTimer.start())</p>
+<p> 
+  Modify the 
+  onKeyPress method so that when the r button is pressed, the reset method 
+  is called.&nbsp; Also modify the Constructor so that it starts the game with 
+  only 4 Asteroids.</p>
+<p> 
+  &nbsp;</p>
+<p> 
+  &nbsp;</p>
+<p> 
+  Adding a level system:</p>
+<p> 
+  The last bit of making this a little more game-like is to add a level system.&nbsp; 
+  The goal is to have each level start out with increasingly more Asteroids 
+  until it overwhelms the ship. You'll need a few new bits of code to help you 
+  out.</p>
+<p> 
+  - Add an int instance field named level.&nbsp; Make sure that it starts at 1.&nbsp; 
+  Also go into your reset method and have it set the level back to 1.</p>
+<p> 
+  - The level is over when there are no more Asteroids left.&nbsp; This means 
+  that asteroidList.size() == 0.&nbsp; In the panel's onTimerTick method, 
+  check to see if the size is zero.&nbsp; If it is,&nbsp; make the level 
+  variable go up and then write a loop that will add more asteroids (similar, 
+  but not the same, as the loop in the constructor).&nbsp; The number of 
+  asteroids to add should be 2*level+3.&nbsp; This will cause two more asteroids 
+  for each level increased.</p>
+<p> 
+  &nbsp;</p>
+<p> 
+  Notifications:</p>
+<p> 
+  We want the game to notify us of the level we're currently on, and to inform 
+  us when the game is over.&nbsp; The key to this is the graphics method <strong>
+  drawString</strong>,&nbsp; which takes in a String, then an x and y.&nbsp; For 
+  example:&nbsp; brush.drawString(&quot;Mr.Sacco&quot;, 350,250) would cause a String to be 
+  drawn at 350,250 that says &quot;Mr. Sacco&quot;.&nbsp; You will be using this twice 
+  (don't forget to change the color right before you draw the strings).</p>
+<p> 
+  - The level at the top of the screen should have the instance field 
+  incorporated into the string.</p>
+<p> 
+  - The Game Over message should only appear when the Timer is stopped, luckily 
+  the timer has a method that will tell you if it's stopped:<br>&nbsp;&nbsp; 
+  if(!myTimer.isRunning())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</p>
+</body>
+</html>

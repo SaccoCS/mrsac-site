@@ -1,0 +1,211 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name=Title content="Creating Movement:">
+<meta name=Keywords content="">
+<meta http-equiv=Content-Type content="text/html; charset=macintosh">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="Creating%20Movement_files/filelist.xml">
+<link rel=Edit-Time-Data href="Creating%20Movement_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Creating Movement:</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Richard Baker</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Richard Baker</o:LastAuthor>
+  <o:Revision>1</o:Revision>
+  <o:Created>2011-05-11T18:58:00Z</o:Created>
+  <o:LastSaved>2011-05-11T19:58:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>221</o:Words>
+  <o:Characters>1263</o:Characters>
+  <o:Lines>10</o:Lines>
+  <o:Paragraphs>2</o:Paragraphs>
+  <o:CharactersWithSpaces>1551</o:CharactersWithSpaces>
+  <o:Version>10.1316</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:AdjustLineHeightInTable/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Arial;
+	panose-1:0 2 11 6 4 2 2 2 2 2;
+	mso-font-charset:0;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:50331648 0 0 0 1 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Times;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+.auto-style1 {
+	font-family: Arial;
+}
+-->
+</style>
+</head>
+
+<body bgcolor=white lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoNormal><span style='font-size:26.0pt;font-family:Arial'>Creating
+Movement:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Movement in Java is created
+by having an object ( in this case a circle ) move by a little bit each time
+the Timer &#39;ticks&#39;( calls the actionPerformed method ).<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>If I draw a ball using
+brush.fillOval( 25, 50, 20, 20) the ball will always be in the same location with
+the same size.<span style="mso-spacerun: yes">&nbsp; </span>This is not how we
+want to do it.<span style="mso-spacerun: yes">&nbsp; </span>Create and set up
+instance fields to represent the x and y of the ball.<span style="mso-spacerun:
+yes">&nbsp; </span>Now the command brush.fillOval( x, y, 20, 20) will draw the
+ball at whatever the x and y instance fields currently are.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><b>Making the ball move:<o:p></o:p></b></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Whenever the Timer ticks the
+x coordinate and the y coordinate of the ball should change by a small amount (
+usually less than 10 ).<span style="mso-spacerun: yes">&nbsp; </span>The change
+in x and y are values that should be instance fields as well ( I like to call
+them xVect and yVect ).<span style="mso-spacerun: yes">&nbsp; </span>These
+represent the speed in each direction.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:236pt;
+ height:210pt'>
+ <v:imagedata src="Creating%20Movement_files/image001.png" o:title="Vector Pic.PNG"/>
+</v:shape><![endif]--><![if !vml]><img width=236 height=210
+src="Creating%20Movement_files/image002.gif" v:shapes="_x0000_i1025"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>If the yVector is 0 and the
+x vector is some non-zero number, this means that the ball will move
+horizontally.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>The first step of our
+project will be creating a program that starts, with a ball on one side of the
+panel, then drifts to the right.<span style="mso-spacerun: yes">&nbsp; </span><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Again, set up a panel with
+instance fields for x, y, xVect, yVect and a CanvasTimer.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>The Constructor should set
+up the Timer to tick every 50 ms.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>The paintCanvas method
+should paint the ball according to the instance fields.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>The onTimerTick method should
+change the x coordinate by adding the xVector to it, and the same for the y.<o:p></o:p></span></p>
+	<p class=MsoNormal>
+	<o:p></o:p>
+	</p>
+	<p class=auto-style1>
+	<o:p>This demo has an if statement that will look at the x coordinate and 
+	set it back to 50 if it gets too large.&nbsp; Otherwise the ball would drift 
+	off into nothingness and never return</o:p></p>
+
+<p class=MsoNormal><span style='font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+    <p class=MsoNormal>
+	<o:p></o:p></p>
+  <p class=MsoNormal><span style='font-family:Arial'>
+    <applet code = "MovementApplet.class" archive="TimeAndALs.jar" width="700" height="500">
+    </applet>
+    <o:p></o:p></span></p>
+  <p class=MsoNormal><span style='font-family:Arial'><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

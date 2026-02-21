@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The Ship</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2,p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style6 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">The Ship<br />
+<img height="40" src="images/spaceship.png" width="40" class="auto-style2" />
+<img height="29" src="images/blueship.png" width="32" /><img height="64" src="images/shipnoboost.png" width="64" /><img height="64" src="images/shipwithboost.png" width="64" /></p>
+<p class="auto-style2">Now that the Asteroids are in the background, it&#39;s time to represent the user 
+with a spaceship.&nbsp; Create a class named Ship that extends AsteroidSprite.&nbsp; 
+By extending AsteroidSprite, the Ship already has x, y, width, height, 
+xVelocity, yVelocity, and rotation.&nbsp; The Ship class only needs to override 
+the paintSprite method and add a few more things to help control it.</p>
+<p class="auto-style2"><img border="1" src="images/img11.jpg" /></p>
+<p class="auto-style5"><strong>Instance fields:</strong></p>
+<p class="auto-style2">The two instance fields that the Ship needs are a Picture object to hold the 
+image, and a double to represent the maximum speed of the ship (start it around 
+12 and adjust to your liking from there).</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>Constructor:</strong></p>
+<p class="auto-style2">Have the Ship&#39;s constructor take in an x and a y, and then set the 
+width/height to 40 and initialize the Picture field.&nbsp; You may want to set 
+the rotation to 90, since that will point the Ship straight up.</p>
+<p class="auto-style2">You have a choice of the following images in sacco.jar.&nbsp; 
+You may load them using the Picture.loadFromJar method</p>
+
+<p>
+<img height="40" src="images/spaceship.png" width="40" />&quot;space/spaceship.png&quot;<br />
+<img height="29" src="images/blueship.png" width="32" />&quot;space/blueship.png&quot;<br/>
+<img height="64" src="images/shipnoboost.png" width="64" />&quot;space/shipnoboost.png&quot;<br/>
+<img height="64" src="images/shipwithboost.png" width="64" />&quot;space/shipwithboost.png&quot;</p>
+
+
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>The paintSprite method:</strong></p>
+<p class="auto-style2">This should look almost exactly like Asteroid&#39;s paintSprite method.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style6"><strong>Control Methods:</strong></p>
+<p class="auto-style2">The initial Ship doesn&#39; thave a speed, but as the program progresses you&#39;ll 
+want to change a few of the variables:</p>
+<p class="auto-style1"><span class="auto-style3">Add two void methods </span> <strong>
+<span class="auto-style3">turnLeft</span></strong><span class="auto-style3"> and 
+</span> <strong><span class="auto-style3">turnRight.</span></strong><span class="auto-style3">&nbsp; 
+When they&#39;re called they should change the rotation by a small amount (15 is a 
+good starting value).&nbsp; Adding to the rotation will turn left, while 
+subtracting will turn right.</span></p>
+<p class="auto-style2"><strong>public void boost()</strong></p>
+<p class="auto-style2">The boost method will be in charge of modifying the xVelocity and yVelocity.&nbsp; 
+The amount that you want to add to the xVeloctiy and yVelocity are directly 
+related to the rotation of the ship.&nbsp; Since having to learn a practical use 
+for trigonometry conflicts with many personal belief systems, use the following 
+two local variables:</p>
+<pre>double diffXV = Math.cos(Math.toRadians(getRotation()));
+double diffYV = -Math.sin(Math.toRadians(getRotation()));</pre>
+
+<p class="auto-style2">Each of these variables is how much should be added to 
+the xVelocity and yVelocity each time the boost method is called.&nbsp; If the 
+acceleration turns out to be too slow in the end, you may multiply these 
+variables by some double to make them larger or smaller.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style6"><strong>Adding to the AsteroidBoard:</strong></p>
+<p class="auto-style2">We don&#39;t want the Ship to be just another Sprite in the 
+Asteroid list, so we&#39;re going to make a few changes:</p>
+<p class="auto-style2">- In the Instance Fields, add a single Ship variable.<br />
+- In the Constructor, construct a new Ship at 350,250 and assign it to the 
+instance field.<br />
+- In the paintWindow method, call the Ship&#39;s <strong>paintSelf</strong> method 
+(NOT THE PAINTSPRITE METHOD!!!).<br />
+- In the onTimerTick method, call the Ship&#39;s update method.</p>
+<p class="auto-style2">At this point, compile to make sure the compiler is 
+happy.&nbsp; If you run the program, the ship will not move anywhere yet.&nbsp; 
+The methods are there, the DrawingBoard just has to call them at the appropriate 
+time.</p>
+<p class="auto-style5"><strong>Controlling the Ship:</strong></p>
+<p class="auto-style2">If you haven&#39;t already,
+<a href="Asteroids%20-%20Reading%20the%20Keys.html">make sure that you&#39;ve set up 
+three booleans that reflect the state of the up, left, and right arrow keys</a>.&nbsp; 
+Once you know that they are set up properly you simply have to add three if 
+statements to the onTimerTick method of the AsteroidBoard.</p>
+<p class="auto-style2">If the left key is being pressed, call the ship&#39;s 
+turnLeft method.<br />
+If the right key is being pressed, call the ship&#39;s turnRight method.<br />
+If the up key is being pressed, call the ship&#39;s boost method.</p>
+<p class="auto-style2">Now run the ship and test out the controls.&nbsp; You 
+should be able to get a pretty good ship flying around, but you might notice 
+that there is no maximum speed for the Ship.&nbsp; This causes problems at 
+really high speeds.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Go back to the Ship class.&nbsp; First, add an instance 
+field that&#39;s a double to represent the max speed and set it to around 15 in the 
+constructor (you may go back and change it later if it&#39;s too fast/slow for you). Make the last line of 
+the boost method call this.limitVectors(), then add the limitVectors method 
+below.&nbsp; For those who have taken some vector math, it finds the length of 
+the speed vector and then uses normalization to maintain the vector proportions 
+while maintaining a specific speed.</p>
+<pre>    public void limitVectors()
+    {
+        //get the velocities
+        double xV =getXVelocity();
+        double yV =getYVelocity() ;
+        
+        //Calculate the speed using the distance formula
+        double speed = Math.sqrt(xV*xV+yV*yV);
+
+        //If the velocities made the speed too large
+        if( speed > maxSpeed)
+        {
+            //normalize the vectors to be at the maxSpeed
+            setXVelocity(maxSpeed*xV/speed);
+            setYVelocity(maxSpeed*yV/speed);
+        }
+    }</pre>
+
+<p><img src="images/imgF.jpg" /></p>
+
+</body>
+
+</html>

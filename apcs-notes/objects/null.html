@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Null</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>	
+</head>
+<body>
+	<div class="page">
+		<div id = "base-info">
+			<div id = "header"></div>
+			<div id = "navbar"></div>
+			<div class = "notes-content" >
+				<div id="note-links"></div>
+				<script>
+					$( "#header" ).load( "../../header.html #head" );
+					$( "#navbar" ).load( "../../notenav.html #notenav" );
+					$( "#note-links" ).load( "notebar.html #note-bar" );
+				</script>		
+		
+		
+				<!--All content divs start here-->
+				<div class = "note-div">
+					<h2>Object Variables and Null Values</h2>
+					<h3>Object Variables are Parking Spaces</h3>
+					<p>Consider an object variable like a parking spot.  When a parking space is created it is designed to hold a specific type (a car), but it can hold any object of type car.  The car could have data: [red paint, 14.8 gallons in tank, Ford], but the only thing important to the space is that it's a Car.</p>
+					<p><strong>Variable names</strong> are like the numbers on the parking space. If I ask you to honk the horn of the Car in space 127, it wouldn't matter what type of car was in the space.  You would simply go to that location and honk the horn (space127.honk()).  Depending what car is parked there it might sound different.</p>
+
+				</div>
+				
+				<div class = "note-div">
+				<h3>Null is an Empty Space</h3>
+				<p>Just like with a parking space, object variables can be <strong>empty</strong>.  In Java that's means the object has a <strong>null</strong> value. Consider the two lines of code below.</p>
+				
+				<div class="code-block"><p>Car c1 = new Car("Ford","Mustang");<br/>
+				Car c2 = null;</p></div>
+				<p style="clear:left;">This code creates two variables, but only one Car object.  This is like having a two-car garage and only one car in it.</p>
+				</div>
+				
+				<div class = "note-div">
+				<h3>Null is Legal to Have, but Dangerous to Use</h3>
+				<p>Assigning a null value to a variable is 100% legal to do, and can be useful to advanced programmers.  The problem comes when trying to use a value that is null.</p>
+				<p>With the example above, if I told you to honk the horn in space <strong>c1</strong>, you would run out and I'd hear the horn of a Ford Mustang.  If I then asked you to honk the horn of the Car in space <strong>c2</strong> we'd have a problem.  It's not that the request is unusual, it's that there is no car there to perform the action on.</p>
+				<p>This happens in programming too.</p>
+				
+				<div class="code-block"><p>Car c1 = new Car("Ford","Mustang");<br/>
+				Car c2 = null;<br/><br/>
+				c1.honk();<br/>
+				c2.honk(); <span style = "color:#a00">&nbsp;&nbsp;&nbsp;//CRASH!!! NullPointerException</span></p></div>
+				<p style="clear:left;">The code above will crash when it's run, but not until the very last line.  The error thrown is a NullPointerException</p>
+				</div>
+				<div class = "note-div">
+				<h3>Why Doesn't the Compiler Catch Null Problems?</h3>
+				<p>You have to trust Sacco when he says that null values can be useful in more advanced programming.  The compiler looks at each line an judges if it's something that can be done.  It does not look too deep into the code.</p>
+				<p>The code c2.honk() is seen by the compiler as asking a car to honk, which is perfectly valid.  The compiler doesn't check to see that the variable was left without an object in it.</p>
+				</div>
+				
+				
+				
+				
+				
+				
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+		
+		</div>	
+	</div>	
+</body>
+</html>

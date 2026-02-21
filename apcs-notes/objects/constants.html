@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Constants</title>
+	<link rel="stylesheet" href="../../css/saccostyle.css" type="text/css">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+	<div class="page">
+		<div id="base-info">
+			<div id="header"></div>
+			<div id="navbar"></div>
+			<div class="notes-content">
+				<div id="note-links"></div>
+				<script>
+					$("#header").load("../../header.html #head");
+					$("#navbar").load("../../notenav.html #notenav");
+					$("#note-links").load("notebar.html #note-bar");
+				</script>
+
+
+				<!--All content divs start here-->
+				<div class="note-div">
+					<h2>Constants</h2>
+ 
+					
+					<p>Occasionally you come across specific values that are useful for calculations in your code.  A day will always have 24 hours, pi will 
+						always be 3.14159, and Euler's number will always be 2.71.
+						Style-wise it is not very classy to have 'magic' numbers like this because it can make your code look confusing.  Instead
+						, you should use a constant to store the variable to a descriptive name so that it is clear what the value is when used.<br/>
+					</p>
+					
+					<h3>
+						Constants are final and static
+					</h3>
+
+					<p>
+						When defining a constant it should be both static and final.  The <strong>final</strong> keyword in front of a variable means that its value may never be changed once initialized.
+					</p>
+					<div class = "code-block">
+						<p>
+							public static final double PI = 3.14159265;
+						</p>
+					</div>
+						<p style = "clear:left">
+							Since we have added <strong>final</strong> as a modifier, the compiler will have a problem with any attempt to assign a new value to the PI variable.
+						</p>
+					
+					<h3>
+						Naming Conventions
+					</h3>
+					<p>
+						The style of naming constants is different than your regular instance fields or local variables.  The variable should be <strong>ALL CAPS</strong> with underscores between any words.
+					</p>
+					<div class = "code-block">
+						<p>
+							public static final String MR_SACCOS_PASSWORD = "Ih82Grade!";
+						</p>
+					</div>
+					<p style = "clear:left">
+						This means that you should intantly be able to tell if a variable is a constant by looking at the format of its name.
+					</p>
+					<h3>
+						public or private?
+					</h3>
+					<p>
+						Determining whether a constant should be public or private will depend on the situation it's in.  If you're using a constant to be purely useful for calculations <strong>entirely within</strong> the class that it's defined, use private.
+					</p>
+					<p>
+						If you're using it to represent a special value that you want to access from <strong>another class</strong>, use public.
+					</p>
+					
+					<p>
+						For this course we will not be graded on your choice of public or private.  In general use public constants unless otherwise told.
+					</p>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+				<!--All content divs stop here-->
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

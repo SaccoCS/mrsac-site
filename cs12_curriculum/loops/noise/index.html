@@ -1,0 +1,684 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Noise Spaces</title>
+  
+</head>
+
+<body>
+  <h1>
+     Noise Spaces
+  </h1>
+<!--   <h2>
+    The noise() Function
+  </h2> -->
+  
+  <p>
+    The random() function performs its function, and will fit your needs nicely, but there are different types of random that can be more useful in some situations. In the window below, random numbers are repeatedly generated and drawn as a vertical line. Notice the difference in behavior of each.
+
+  </p>
+  <p>
+    <strong>Evenly Distributed Random:</strong> This gives an equal chance of each value. You can see that as values are added, they evenly spread across the window.
+
+  </p>
+  <p><strong>Gaussian Random:</strong> This random function gives a Normal Distribution of random numbers, grouped around a specific centerpoint.
+  </p>
+  <p><strong>Perlin Noise/Simplex Noise:</strong> This function generates random numbers, but in a way where sequential numbers are close to each other.
+
+  </p>
+  
+<p><br /><iframe src="demos/random_gauss_noise/index.html" width="405" height="155" data-mce-fragment="1"></iframe></p>
+  
+  
+  <p>
+    The results of the noise() function are what we will be exploring today. Its results are random, but not so chaotic as fully random.  </p>
+  
+  <br>
+  <h3>
+    Drawing with Noise
+  </h3>
+  <p>
+Open the Noise Demo workspace, where will you be met with the following loop:
+
+  </p>
+  
+  <pre>  for(let x = 0; x &lt; width; x++){
+      let y = random();
+      circle(x,y,5);
+  }
+</pre>
+  
+  <p>
+    
+    The looping variable x is representing every x location in the canvas, and at each point it is drawing a circle with a random y value.
+Run the program and you'll see a relatively boring line gets drawn:
+
+  </p>
+  
+  <img src = "images/noise_demo1.png" width = "400px">
+  
+  
+  <p>
+    This is because the random() function generates a value from 0 to 1, meaning each circle is drawn relatively close to the top of the canvas.
+
+  </p>
+  
+  <br>
+  <h4>
+    "Stretching" the Random Value
+
+  </h4>
+  <p>
+    What we really want is a random value with a larger range. While the random() function is built to take parameters for this purpose, we are going to use a more mathy approach and multiply the random() value by the height of the canvas:
+
+  </p>
+  <pre>let y = random()<span style = "color:red">*height</span>;
+</pre>
+  <p>With this modification, run the program again and inspect the result:
+
+    
+  </p>
+  
+  <img src = "images/noise_demo2.png" width = "400px">
+  
+  <p>
+    The circle drawn at each location has chaotic randomness. Each random number has nothing to do with the one before it.
+
+  </p>
+  
+  <br>
+<h3>Using the noise() Function</h3>
+
+<p>
+The <code>noise()</code> function is also random, but it's random-ish. It accepts a parameter,
+and is designed in a way that calling it twice with two parameters that are close to each other
+will result in random values that are close.
+</p>
+
+<p>
+For example, consider these three calls to <code>noise()</code>:</p>
+
+<pre><code>let n1 = noise( 5 );
+let n2 = noise( 10 );
+let n3 = noise( 5.01 );
+</code></pre>
+
+<p>
+<code>n1</code> and <code>n2</code> are generated using two numbers that are far away from each other:
+5 and 10. The result will be two random values that don't seem related.
+</p>
+
+<p>
+<code>n1</code> and <code>n3</code>, however, were generated with numbers that are very close:
+5 and 5.01. You can expect that the resulting generated values will be close as well.
+</p>
+<br>
+<h3>Using <code>noise()</code> Instead of <code>random()</code></h3>
+
+<p>
+The way that we are going to use this in our code will be to call the <code>noise()</code>
+function instead of <code>random()</code>. To get parameters that are close to each other,
+we are going to be using our x-location.
+</p>
+
+<p>
+Modify the line that initializes <code>y</code> to be a random number, so that it uses
+<code>noise()</code> instead:
+</p>
+
+<pre><code>let y = noise( x * 0.01 ) * height;
+</code></pre>
+
+<p>
+Multiplying by <code>0.01</code> may look odd here. The reason is that we want the parameters
+to be very close to each other. Each x value is 1 apart, which is too far for the
+<code>noise()</code> function to consider them "close". Multiplying by <code>0.01</code>
+will generate values that are sufficiently close.
+</p>
+
+<p>
+The <code>noise()</code> function, like <code>random()</code>, generates a value from
+0 to 1, so we still need to use multiplication to "stretch" its range to be between
+0 and the height of the canvas.
+</p>
+
+<p>
+The result should be a program that gives you something like this:
+</p>
+  
+  <img src = "images/noise_demo3.png" width = "400px">
+
+<p>
+Notice the semi-randomness that appears. Each circle's y location is random, but still
+close to the number that comes before it. The result is a value that more naturally
+grows and shrinks.
+</p>
+  
+  
+  <br>
+  <hr>
+  
+  <h2>
+    Noise Over Time
+  </h2>
+  
+  <img src = "images/floating.gif">
+  <p>
+    One way to use noise is to use it to make movement that has a drifting feel. By using a time-based parameter to generate your noise value, you get something that has a gradualy up and down motion to it. In the example above, notice that the circle on the left seems to be floating.
+  </p>
+  <p>
+    Open the Candle Workspace. There is a lot of provided code, and if you run the program you'll see that it is there to draw a candle on the canvas.
+  </p>
+  <img src = "images/candle.png">
+  <p>
+    The only thing that you will need ot worry about is the provided flameSize variable:
+  </p>
+  
+  <pre>let flameSize = 70;</pre>
+  
+  <p>
+    This determines the size of the flame on the candle. What we are going to do is to use noise to make this value shift slightly over time.
+  </p>
+  
+  <p>
+    Before the flameSize variable is declared, add the following line:
+  </p>
+  <pre>let n = noise(<span style = "color:magenta">frameCount</span>*0.015);</pre>
+  <p>
+    Notice that this time we are using the frameCount variable to generate our noise. This means that we will get a different noise value each frame, and if we use it in our drawing we will see it change over time.
+  </p>
+  
+  <p>
+    Our goal is to make the flameSize shift between 60 and 90. Since that has a range of 30, we will have to do a little more math to it.
+  </p>
+  <p>
+    Modify the flameSize to be 30*n + 60. This will give it a range of 30, but never go below 60. Run the program again and hopefully you'll see a light flickering of the candle.
+  </p>
+  
+  
+  <img src = "images/flicker.gif">
+  
+  <h4>
+    Making it Weird
+  </h4>
+  <p>
+    There is another variable that is in charge of how the sketch looks, bgOpacity. The background is opaque when it has a large value, but a smaller value makes it more transparent. For the full effect we want it to range from 250 to 150, being its smallest when the noise value is large. Add the following alongside the flameSize:
+  </p>
+  <pre>let bgOpacity = 250 - 100*n; </pre>
+ <p>
+   With this update you should just be able to make out the creepy stuff hidden in the dark.
+  </p>
+  
+  <br><hr/>
+  
+  <h2>
+    Floating Bubble
+  </h2>
+  
+  <p>
+    Open the Floating Bubble workspace. There you have been provided functions that will draw a watery background, as well as a drawBubble() function to draw a bubble on the canvas. This function accepts parameters representing the location of the bubble, and an example of how to call it is provided:
+  </p>
+  <pre>drawBubble(100,250);  <spam style = "color:gray">//draws a bubble at (100,250)</spam></pre>
+  
+   <img src = "images/bubble_static.png" width = "150px">
+  
+  <br>
+  <h3>
+    Make it Float
+  </h3>
+  
+  <div class = "head_list">
+    
+  <p>
+    Our goal is to create motion with out bubble that causes it to float to the top of the canvas. 
+  </p>
+  <ul>
+    <li>Declare two global variables, x and y, at the top of the program</li>
+    <li>During the setup function assign them to be 100 and 400</li>
+    <li>Modify the draw function's call to drawBubble to use these variables: <code>drawBubble(x,y)</code></li>
+  </ul>
+  </div>
+  
+  <p>
+    Though there should be no movement yet, running the program should cause the bubble to appear at the bottom of the canvas.
+  </p>
+  
+   <img src = "images/bubble_static_bottom.png" width = "150px">
+  
+  <p>
+    Our goal will be to add a 'floating' motion to animate the bubble 
+  </p>
+  <h5>
+     Step 1: Floating Straight Up
+  </h5>
+  <p>
+    We want the bubble to float up the screen, but we also want it to reset to the bottom of the screen when it drifts off. Modify the draw() function to first decrease y by 1.5, then use an if statement to check if it has gone below -20. If it has, reset y to be 420.
+  </p>
+  <p>
+    If done properly, running the program should cause a bubble that repeatedly drifts up the screen.
+  </p>
+ 
+  <img src = "images/straight_bubble.gif" >
+  <h5>
+     Step 2: Adding a Noisy Drift
+  </h5>
+  <p>
+    To get the bubble to drift to the left and right we are going to use noise that will change over time. Get a noise value using: <code>noise(frameCount * 0.005)</code> and multiply it by the width of the canvas. The resulting value should be assigned to your x variable.
+  </p>
+  <p>
+    If done properly, your bubble should now sway left and right as it drifts up the window.
+  </p>
+  <img src = "images/noisy_bubble.gif"/>
+  
+  
+  <br><br><hr/>
+  
+  <h2>Album Cover</h2>
+
+<p>
+  In the 1970's, the band Joy Division released its <em>Unknown Pleasures</em> album, which had a very distinct cover:
+</p>
+
+<img src="images/joy.jpg" />
+
+<p>Looking closely, we can see a series of noisy lines being generated.</p>
+
+<p><strong>Open the Album Cover workspace</strong></p>
+
+<p>
+  There you have been provided a lot of code to help. The key focus is the <code>drawSquiggle()</code> function, which is
+  intended to draw one of our squiggly lines. We will first implement that, and later modify the <code>draw()</code> function
+  to call it many times.
+</p>
+
+<p>
+  Go to the drawSquiggle function, which has some code that we haven't seen before. It calls <code>beginShape()</code>, has a gap, and then calls
+  <code>endShape()</code>.
+</p>
+
+<p>
+  This is a way for p5 to define a shape (or line) that is not a rectangle, ellipse or arc. Between the calls to
+  <code>beginShape()</code> and <code>endShape()</code>, our job is to call the <code>vertex()</code> function with each point
+  that we want on our shape. Previously we have simply drawn a bunch of circles close together to form a line, but creating this way creates a shape that can have a fill(), which will allow us to get the overlapping that we see in the album.
+</p>
+
+<p>
+  Let's start by drawing a straight line. After the <code>beginShape()</code> function is called, write a for loop that will
+  generate all the x values from 50 to 350. Each time call <code>vertex( x, 0 )</code>, and make sure that your loop ends
+  before the call to <code>endShape()</code>.
+</p>
+
+<p>The result should be a straight line when you run your program.</p>
+
+<img width = "300px" src="images/line.png" />
+  
+
+<p>
+  <strong>Note:</strong> Even though the y-coordinates of the points are all 0, the translate function at the top of the
+  function causes them to be drawn down the screen more.
+</p>
+
+<h3>Adding a Squiggle</h3>
+
+<p>
+  To get a squiggle, we are going to get a y value that is based on noise. Inside your loop, add get a noise value with the
+  following:
+</p>
+
+<pre><code>let n = noise(x*0.02);</code></pre>
+
+<p>
+  Again the noise value is based on the x location. Previously we've used simple multiplication to 'stretch' our values, but
+  that won't give us such sharp peaks. Instead, use the following:
+</p>
+
+<pre><code>let y = -Math.pow(2,7*n);</code></pre>
+
+<p>
+  By using the noise as an exponent, larger values are made much larger than small ones. This should give us the peaks that
+  we want. Update your call to <code>vertex</code> to include the generated y value: <code>vertex(x,y)</code>
+</p>
+
+<p>Run your program a few times. You should get some peaky squiggles:</p>
+
+<img src="images/peaky_line.png" width = "300px"/>
+
+  <br>
+<h3>Tapering the Ends</h3>
+
+<p>
+  Our squiggly line has too much squiggle. Notice on the album that the lines are flat for a while, taper up to squiggly,
+  then go back to flat by the end.
+</p>
+
+<p>
+  To help with this, Mr. Sacco has provided the <code>bump()</code> function. It accepts an x value and uses fancy math to
+  output a value from 0 to 1 that has a shape like this:
+</p>
+
+<img src="images/bump.png" width = "300px"/>
+
+<p>
+  Using this is simple. You simply need to get the value of the <code>bump()</code> function at x and multiply it by your y.
+  Values toward the left and right will be multiplied by 0 and practically eliminated. You can accomplish this directly in
+  your call to <code>vertex</code>:
+</p>
+
+<pre><code>vertex( x, bump(x)*y );</code></pre>
+
+<p>
+  With this modification made, run your program a few times and look at the squiggles. They should have a similar 'peaky
+  noise' look, but the left and right sides should now be flat.
+</p>
+  <img src="images/tapered.png" width = "300px" />
+
+<h3>Drawing All Squiggles</h3>
+
+<p>
+  Now that the <code>drawSquiggle</code> function works properly, it's time to draw many of them. Go to the <code>draw()</code>
+  function, where there is currently a single line calling <code>drawSquiggle(50)</code>. Modify that line to include a for
+  loop that generates every y value from 60 to 440, increasing by 6 each step. Inside the loop call
+  <code>drawSquiggle( y )</code>.
+</p>
+
+<p>This should cause many squiggles to be drawn, but running it should produce a very specific problem.</p>
+
+<img src="images/same_lines.png" width = "300px"/>
+
+<p>
+  Since the <code>noise()</code> function only relies on the x value, all lines are getting the same noise values. We can fix
+  this by giving each line a random offset.
+</p>
+
+<p>Before the loop, get a random number to act as the offset:</p>
+
+<pre><code>let offset = random(100);</code></pre>
+
+<p>Inside the loop, modify your call to noise to include that offset:</p>
+
+<pre><code>let n = noise(x*0.02 + off);</code></pre>
+
+<p>With this change, each line's generated noise values will all be a different range of the noise space.</p>
+
+<p>Run your program one more time to see your generated album cover.</p>
+
+  <img src="images/complete_album.png" width = "300px" />
+
+
+  <br/>
+  <hr>
+<h2>Two Dimensional Noise</h2>
+
+<p>
+  The <code>noise()</code> function is intended to be interpreted as a 'noise space', where ever location has a noise value,
+  but we haven't been using its full function. In reality, we can give it a second parameter when generating
+  <code>noise()</code>. We can think of this as the y coordinate in our noise space.
+</p>
+
+<pre><code>let n = noise(x*0.01, y*0.01);  //Every xy gets a noise value</code></pre>
+
+<p>
+  Like before, this call will give you a random-ish value that is similar to the values that are 'close' to it. This time,
+  since the location has a y value, close can mean a small variation in the x OR the y. This produces a two-dimensional grid
+  of noisy values.
+</p>
+
+<img src="images/color_2d_noise.png" width = "400px" />
+
+<p>
+  In this image, large values are RED and small values are BLUE. Notice how there isn't a fully red value next to a fully
+  blue value, no matter what direction you head. Below is another example of a field, except the noise value is mapped to
+  the brightness of a gray square.
+</p>
+
+<p><strong>Open the Terrain Map Workspace</strong></p>
+
+<h3>Part 1: Visualizing the Noise Space</h3>
+
+<p>
+  First we want to visualize the noise space. In the draw function, use a nested loop to generate a grid of xy values. They
+  should both go from 0 to 350, increasing by 10 each step.
+</p>
+
+<p>At each xy location get a 2D noise value:</p>
+
+<pre><code>let n = noise(x*0.01, y*0.01);</code></pre>
+
+<p>
+  We want to draw a noise-based 10x10 square at that location. To get the right color, multiply your noise value by 256 and
+  use that as your <code>fill()</code>.
+</p>
+
+<p>
+  Run your program and you should see a grayscale image where the noise gives it a 'cloudy' effect.
+</p>
+
+<img src="images/gray_noise.png" />
+<h3>Part 2: Terrain Map</h3>
+
+<p>
+  The 'natural randomness' of noise functions are used a lot when creating procedurally generated maps. If we interpret the
+  noise value a little differently, we can create a random map generator.
+</p>
+
+<img src="images/terrain.png" />
+
+<p>To generate a map like the one above, the noise value will help you choose between one of five colors for the fill of each square.</p>
+
+<ul>
+  <li>A noise value from 0 to .4 is the water block, and should be blue</li>
+  <li>A noise value from .4 to .5 is the beach block, and should be tan</li>
+  <li>A noise value from .5 to .6 is a forest block and should be light green</li>
+  <li>A noise value from .6 to .7 is a mountain forest block and should be dark green</li>
+  <li>A noise value above .7 is the mountaintop and should be white</li>
+</ul>
+  <p>
+    Note that these values are for the raw noise value. Values that have been multiplied by 256 for the previous step will all be too large.
+  </p>
+
+<p>Use a series of if statements to help you choose the appropriate fill for each box,</p>
+
+<p>Feel free to use my rgb values, or make up your own:</p>
+
+<ul>
+  <li>Water: 30,30,199</li>
+  <li>Beach: 210,185,139</li>
+  <li>Forest: 0,125,100</li>
+  <li>Mountain Forest: 0,99,99</li>
+  <li>Mountain Top: 222,222,222</li>
+</ul>
+
+
+  <br/>
+  <hr>
+<h2>Vector Fields</h2>
+
+<!-- <p><img src="images/field.png" border= "1px solid #A0A0A0"/></p> -->
+  <iframe src = "demos/flow/index.html" width = "300px" height = "240px">
+    
+  </iframe>
+
+<p>
+  A vector field is a space where every location has a direction associated with it. If we generate the vectors using our noise() function, we get areas of the field that have similar directions and 'flow' together.
+<!--   
+  That direction is usually represented
+  at that location with a vector pointing in the corresponding direction. If we generate them out of a <code>noise()</code>
+  field, it is another way of seeing the shape of the data. -->
+</p>
+<br/>
+<h3>Drawing the Lines using translation and rotation</h3>
+  
+  
+  <p>
+    Each vector in our field will be represented with a circle representing the location, and a line representing the direction it is pointing. To help, you have been provided the drawVector() function, which translates to a location before rotating a given angle and drawing a line.
+  </p>
+  
+  <pre><code>function drawVector(x,y,angle){
+   translate(x,y);
+   rotate(angle);      
+   line(0,0,8,0);
+   circle(0,0,2);
+   resetMatrix();
+}</code></pre>
+  
+  <p>
+    The draw() function has a simple example of how to draw a vector at (20,15) pointing in the 60 degree direction:
+  </p>
+  <pre>drawVector(20,15,60);</pre>
+<img src = "images/solo.png">
+  
+  
+  <p>
+    Our goal is to call the drawVector() function using a grid of locations, using angles that are derived from noise.
+  </p>
+  
+  <p>
+    Add nested for loops to the draw() function that will generate a grid of values, each 12 pixels apart. At each location, get a location-based noise value:
+  </p>
+  <pre>let n = noise(x*0.01, y*0.01);</pre>
+  
+  <p>
+    Multiply that noise value by 360 to 'stretch' it into an angle, then call the drawVector() function with the generated xy location and angle. IF done properly, you should get a vector field like the image above.
+  </p>
+  
+  <br>
+<!-- <p>
+  Using a nested loop and the code above, we can generate every x,y and the associated line, but to get it to point will
+  require switching to a <code>translate()</code> and <code>rotate()</code> style of drawing. This means that instead of
+  drawing things at (x,y), we will be translating to (x,y) and drawing at (0,0).
+</p>
+
+<p>Create a new sketch and insert a nested loop into it that will generate pairs of (x,y) values that are 20 pixels apart.</p>
+
+<p>At each location:</p>
+
+<pre><code>translate(x,y);
+rotate(0);
+line(0,0,16,0);
+resetMatrix();   //important during the loop.</code></pre>
+
+<p>
+  The purpose of this code will be to draw a line pointing to the right of each location. We use <code>translate()</code> to
+  change where (0,0) is, we do no rotation, and then we draw a line that goes 16 pixels to the right. Lastly it resets the
+  matrix, undoing the translation and rotation before the loop finishes. This is important, sine we are translating the
+  entire x,y each time and we don't want it to grow out of control as the loop runs.
+</p>
+
+<p>With this code in your loop, run your sketch and make sure that you see all horizontal, unrotated lines at every location.</p>
+
+<img src="images/" />
+
+<h3>Using the Noise Angle</h3>
+
+<p>
+  In order to generate the vector field using <code>noise()</code>, we are going to perform a similar process as before. We
+  get a <code>noise()</code> value related to our location, then perform a little math to get it into the appropriate range.
+</p>
+
+<pre><code>let n = noise(x*0.01,y*0.01);   //Get a location-based noise() value
+let angle = n * 360;                  //'stretch' its range to fit 0 - 360</code></pre>
+
+<p>
+  Modify your loops to use this at each location and then modify the <code>rotate(0)</code> call to be
+  <code>rotate(angle);</code>
+</p>
+
+<p>Run your code one more time after this change and you should be generating a proper noise field.</p> -->
+
+<h3>Adding a Traveler</h3>
+
+<p>
+  If you click on the canvas above, you'll see that it is interactive and you can place a small circle on the field. That
+  circle is a traveler, and will start to wander around, but using the flow of the vector field to guide it.
+</p>
+
+<p>The basic setup is much like our Pong ball that moved around the screen:</p>
+
+<ul>
+  <li>Declare two global variables to represent the x and y of the traveler's location. Make sure that they are not named the same as your looping variables.</li>
+  <li>In setup, assign them to represent the middle of the window</li>
+  <li>In draw, after drawing all of the lines draw a single circle, using the new global variables as the location.</li>
+</ul>
+
+<p>With this completed, you should be able to run your sketch and see the traveler in the center of the window, not moving.</p>
+
+  <br>
+<h3>Adding Movement</h3>
+
+<p>
+  We make movement by changing the x and y values a small amount with each draw cycle. In the past we've used speed
+  variables, but now we want each movement to be tied to the noise value at the traveler's location.
+</p>
+
+<p>Like before, we want to first get a noise value, and then map it to an angle. Use the <code>noise()</code> function as you have been, except this time using the traveler's x and y variables. After getting an angle it's time for a little trig:</p>
+
+<pre><code>let dx = cos(angle);
+let dy = sin(angle);</code></pre>
+
+<p>
+  These two lines will calculate the x and y components of you movement. All that's left to do is to move the traveler by
+  increasing its x and y variables by the calculated dx and dy.
+</p>
+
+<pre><code>x += dx;
+y += dy;</code></pre>
+
+  
+  <p>
+    If done properly, running the program should show your traveler flowing in the direction of the vectors.
+  </p>
+  <br/>
+  <hr>
+<h2>Noisy Squares</h2>
+<p><iframe src="demos/rotating_squares/index.html" width="244px" height="164px" data-mce-fragment="1"></iframe></p>
+<p>
+  For this sketch, each of the squares is using a two-dimensional <code>noise()</code> value to help it generate its:
+</p>
+
+<ul>
+  <li>size</li>
+  <li>color</li>
+  <li>rotation angle</li>
+</ul>
+
+<p>
+  The motion that you're seeing comes from including the ever-changing <code>frameCount</code> as the third parameter of our
+  <code>noise()</code> function
+</p>
+
+<pre><code>let n = noise(x*0.01, y*0.01, frameCount*0.005);</code></pre>
+
+<p>
+  This means that we can get two-dimensional noise, but it will be slightly different each frame. Once you have the noise
+  value, you can multiply it to get values in the the ranges you want for the size, color, and rotation.
+</p>
+
+<p>
+  The best way to draw a rotated square is to rely on the use of <code>translate()</code>, <code>rotate()</code>, and
+  <code>resetMatrix()</code>. Translate to the location that you want to draw the square,
+  rotate the angle that you want it to be, and draw it at (0,0) with <code>rectMode(CENTER)</code> on. An example of drawing a rotated square at (25,25), rotated 45 degrees has been provided to help:
+</p>
+  
+  <pre>translate(<span style = "color:gray">25</span>,<span style = "color:gray">25</span>);
+rotate(<span style = "color:gray">45</span>);
+square(0,0,<span style = "color:gray">20</span>);
+resetMatrix();</pre><code></code>
+
+  <p>
+    It is important to include the resetMatrix() line inside your loop. Otherwise the repeated translation will build up and get out of control.
+  </p>
+<p>
+  When you've finished, run your sketch to make sure that the you can see the size, color, and rotation of you squares
+  changing in a 'noisy' way.
+</p>
+
+  
+  
+  
+</body>
+
+
+</html>
+

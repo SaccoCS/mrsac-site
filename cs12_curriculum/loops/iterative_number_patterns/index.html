@@ -1,0 +1,372 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+
+  <title>Iterative Number Patterns</title>
+</head>
+
+<body>
+  <h1>
+    Iterative Number Patterns
+  </h1>
+
+
+  <p>Computers are powerful because they're very good at repeating code. A good programmer can take advantage of this by designing algorithms that have repeated processes to complete their code for them.</p>
+  <div class = "head_list">
+    
+  <p>The draw function is one type of code that is designed to be repeated infinitely.&nbsp;To take advantage of this, we are going to design these programs a little differently.passes</p>
+  <ul>
+    <li>The call to background() will occur in the setup() function only, meaning each draw() will be drawing <strong>on top of</strong> the previous one</li>
+    <li>Each time draw occurs it will draw a little more of the design that we're going for.</li>
+  </ul>
+    <p>
+      Each of the demos for these assignments will show how the design gradually grows. If you missed it and want to see it again, clicking them will cause them to start over. This feature is just so you can see the intended program in action; you do not have to add it to your own.
+    </p>
+    
+  </div>
+  <p>&nbsp;</p>
+  <h4>Filling the Screen with Lines</h4>
+<!--   <p><img title="" src="images/lines.png" /></p> -->
+    <p><strong><iframe src="demos/line_fill/index.html" width="400" height="200" data-mce-fragment="1"></iframe></strong></p>
+  <p>
+    Open the Line Fill workspace, where a single, randomly colored line has been drawn.
+  </p>
+  <pre>stroke(random(256),random(256),random(256));
+line(0, 50, 0, 150);
+    </pre>
+  
+  <p>
+    If our goal is to completely fill the screen with randomly colored lines, as in the image above, we are going to need a lot of copy/paste:
+  </p>
+  
+
+  <pre>//Don't Do This:
+stroke(random(256),random(256),random(256));
+line(0, 50, 0, 150);
+stroke(random(256),random(256),random(256));
+line(1, 50, 1, 150);
+stroke(random(256),random(256),random(256));
+line(2, 50, 2, 150);
+stroke(random(256),random(256),random(256));
+line(3, 50, 3, 150);
+stroke(random(256),random(256),random(256));
+line(4, 50, 4, 150);
+stroke(random(256),random(256),random(256));
+line(5, 50, 5, 150);
+stroke(random(256),random(256),random(256));
+line(6, 50, 6, 150);
+stroke(random(256),random(256),random(256));
+line(7, 50, 7, 150);
+stroke(random(256),random(256),random(256));
+line(8, 50, 8, 150);
+stroke(random(256),random(256),random(256));
+line(9, 50, 9, 150);
+... I give up</pre>
+  
+  <p>All that code will draw about ten vertical lines. If the bar is supposed to be 300 wide, my copy-paste button will break.</p>
+  <p>&nbsp;</p>
+  <h3>Think of the Pattern:</h3>
+  <p>Thinking with iteration is often about thinking of the patterns that appear in the code. Really there's only two lines of code that are repeating.</p>
+  <pre>stroke(random(256),random(256),random(256));
+line(<strong>0</strong>, 50, <strong>0</strong>, 150);
+
+stroke(random(256),random(256),random(256));
+line(<strong>1</strong>, 50, <strong>1</strong>, 150);
+
+stroke(random(256),random(50),random(256));
+line(<strong>2</strong>, 50, <strong>2</strong>, 150);</pre>
+  <p>There are lots of numbers that are in each line, but if you focus on the ones that are&nbsp;<em>different</em> each time, you can see a pattern arising. The x coordinate of each line is 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, etc...</p>
+  
+  
+  <p>This is a number pattern that we can model with a variable. Here we can see that we have a number that increases by one each time.</p>
+  
+  <div class = "head_list">
+  <p>
+    <strong>Number Pattern:</strong>
+  </p>
+  <ul>
+    <li>Starting Value: <strong>Zero</strong></li>
+    <li>Change Each Step: <strong>Add one</strong>
+  </ul>
+    
+  </div>
+  <p>&nbsp;</p>
+  
+  
+  <h3>
+    Create a Variable to Represent the Pattern
+  </h3>
+  <p>
+    Now that we know the starting value and incremental step to our pattern we can use the draw() function and a variable to help us represent this pattern.
+  </p>
+  
+  <div class = "head_list">
+  <p>
+    Make the following changes to the program:
+  </p>
+  <ul>
+    <li>Declare a global variable named <code>x</code></li>
+    <li>In setup(), initialize <code>x</code> to 0</li>
+    <li>In the draw() function, increase <code>x</code> by one</li>
+  </ul>
+  </div>
+  
+  <p>
+    This x variable now matches the pattern that we determined. Its first value is zero and each call to draw() will increase it by one. This should generate the pattern: 0,1,2,3,4,5,6... etc., but at the moment we cannot see any effect.
+  </p>
+  
+  <p>
+    Modify the draw function so that the randomly colored line is drawn using our ever-changing x variable as an x location.
+  </p>
+  <pre>
+stroke(random(256), random(256), random(256));
+line(<strong style = "color:green">x</strong>, 50, <strong style = "color:green">x</strong>, 150);</pre>
+  <p>
+    
+
+With this change run the program. You should now see a line drawn at x=0, then x=1, x=2, and so on.
+  
+  
+    </p>
+  
+  <p>
+    Summary: We identified a number pattern that we wanted to represent by thinking about the <strong>starting value</strong> and <strong>change each step</strong> (the incremental change). We then drew one line each time using that variable.
+  </p>
+  
+ 
+  
+  
+  <p>&nbsp;</p>
+  <h3>Your Task: Counting Backwards</h3>
+  <p><strong><iframe src="demos/increasing_bar/index.html" width="400" height="200" data-mce-fragment="1"></iframe></strong></p>
+  <p>Right now the code above starts a vertical bar at 0, and increases by one each time. The effect is that the bar 'grows' from left to right.</p>
+ 
+  <div class = "head_list"> <p>Your task is to modify the code to go backwards, starting at the right and working your way leftward. This will require&nbsp;<strong>two</strong> changes to the code above:</p>
+  <ul>
+    <li>A different <strong>starting value</strong></li>
+    <li>A different <strong>incremental change</strong></li>
+  </ul>
+    <p>
+      Once you think about the new starting value and incremental change, update the program to reflect this new pattern. Once complete, run the program to ensure that you're getting a reverse pattern matching the above demo.
+    </p>
+  </div>
+  <br/>
+
+  
+  
+  <hr>
+  
+  <h2>
+    Square Spacing
+  </h2>
+   <p><strong><iframe src="demos/square_space/index.html" width="340" height="40" data-mce-fragment="1"></iframe></strong></p>
+  <p>
+    Open the Spaced Squares workspace. Once again we're met with repeated drawing commands that are attempting to draw squares across the canvas.
+  </p>
+  
+  <pre>square(<strong>20</strong>,20,20);
+square(<strong>50</strong>,20,20);
+square(<strong>80</strong>,20,20);
+square(<strong>110</strong>,20,20);
+  </pre>
+  <div class = "head_list">
+  <p>
+    Again we do not want to use copy-paste to finish the sketch. Our goal is to create a number pattern that will help us. First analyze the number pattern that you see:
+  </p>
+  <ul>
+    <li>What is the starting value?</li>
+    <li>How much does it change each step?</li>
+  </ul>
+  
+  <p>
+    Once you've identified the key features of the number pattern, create a variable that mimics the pattern as you did before:
+  </p>
+  <ul>
+    <li>Declare a global variable</li>
+    <li>Initialize it to its starting value in setup()</li>
+    <li>In draw() modify the variable by one step</li>
+  </ul>
+  
+  </div>
+  <p>
+    Once you have set up this variable, modify the draw function to have a single call to square(), which uses your pattern variable as its x value.  If done properly, you should fill the canvas with a line of evenly spaced squares.
+  </p>
+
+  
+  
+  <br/>
+  
+   <hr>
+  <h2>
+    Patterns with a Specific Range
+  </h2>
+  <p>
+    Open the PacMan workspace. This time there is already a variable representing a number pattern.
+  </p>
+  <iframe src="demos/pac_full/index.html" width="200" height="200" data-mce-fragment="1"></iframe>
+<pre>let angle;
+
+function setup() {
+    createCanvas(200, 200);
+    angleMode(DEGREES);
+    strokeWeight(2);
+    stroke(255,255,0);
+    background(0);
+    
+    angle = 0;
+}
+
+function draw() {
+    
+    //draw one line
+    translate(100,100);
+    rotate(angle);
+    line(0,0,80,0);
+    
+    angle++;
+    
+}</pre>
+  
+  <p>
+    The pattern here represents an <strong>angle</strong>. It starts at 0 and increases by one each time. Draw uses this angle variable to draw a line from the center of the canvas. As angle increases, more lines are drawn and a yellow circle is created.
+  </p>
+  
+  <p>
+    Our goal is to modify this to create an image of PacMan, which can be created using the same process, but the angle must be in a very specific range. It should start at 20, and increase by 1 until it reaches 340.
+  </p>
+  <h3>
+    Permissive if Statements
+  </h3>
+  <iframe src="demos/pacman/index.html" width="200" height="200" data-mce-fragment="1"></iframe>
+
+  <p>
+    Changing the starting value of our angle is easy enough, we just have to change the starting value in setup. In order to <strong>stop</strong> the pattern we are going to have to use a 'permissive' if statement.
+  </p>
+  <p>
+    Modify the code like below:
+  </p>
+  
+  
+<pre>let angle;
+
+function setup() {
+    createCanvas(200, 200);
+    angleMode(DEGREES);
+    strokeWeight(2);
+    stroke(255,255,0);
+    background(0);
+    
+    angle = <strong style = "color:green">20</strong>;
+}
+
+function draw() {
+
+  <strong style = "color:green">if( angle &lt; 340 ){</strong>    
+  
+      //draw one line
+      translate(100,100);
+      rotate(angle);
+      line(0,0,80,0);
+
+      angle++;
+      
+  <strong style = "color:green">}</strong>
+    
+}</pre>
+  
+  
+  
+  <p>
+    This new if statement wraps around our entire process, only allowing it to happen if the condition is true. This means that it will draw lines for small values of angle, which are less than 340, but at some point the angle will be equal to 340. At this point the if statement will be false and the whole process will stop.
+  </p>
+  <p>
+    Run the program and take note that the angle will start at 20 and stop at 360, preventing it from completing the circle.
+  </p>
+  
+  
+  <h3>CAUTION: Using UNTIL logic instead of WHILE logic</h3>
+  <p>
+    Mr. Sacco are calling these 'permissive' if statements because while they are true the process continues. Only when the if statement becomes false does the process stop.
+  </p>
+  <p>
+    This is often counterintuitive because we naturally thinking about when the process should stop. Many early programmers would incorrectly think that 'stopping when angle is 340' would require an if statement like:  if( angle == 340 ). But the starting angle of 20 would make this immediately false, causing nothing to happen at all. We need to design our if statements so that they are true for a while, but eventually end up as false. 
+  </p>
+  
+  <br/>
+  <br/>
+   <hr>
+  
+  
+  
+  
+  <h2>Circle Ring</h2>
+  <p><strong><iframe style="background-image: url('/template/img/iframe.gif');" src="demos/circle_ring/index.html" width="300" height="250" scrolling="no"></iframe></strong></p>
+  <p>&nbsp;</p>
+  <p>Recreate the sketch above. The ring is created by drawing many circles, each with a radius larger than the last. Create a number pattern that will represent the radius and goes from 50 to 100. Make sure to use a permissive if statement so that it stops growing when it gets large enough.
+  </p>
+    
+    
+  
+  <br/>
+  <br/>
+
+  <hr>
+  
+  
+  
+  <h2>Line Grid</h2>
+  <p><strong><iframe src="demos/progressive_grid/index.html" width="400" height="400" data-mce-fragment="1"></iframe></strong></p>
+  <p>&nbsp;</p>
+  <p>This sketch only needs one iterating variable, but you can use two if you like.&nbsp; Each time the draw function iterates, a vertical and horizontal line are drawn.&nbsp; Make sure that you have limited your variables using an if statement.</p>
+
+
+  <br/>
+  <br/>
+  <hr>
+  
+  
+  
+  <h2>
+    Ten Rings
+  </h2>
+  <iframe src="demos/ten_rings/index.html" width="200" height="200" data-mce-fragment="1"></iframe>
+
+  <p>
+    Open the Ten Rings workspace. The goal of this sketch is to draw ten randomly colored rings on the canvas. This time your goal is a little bit different. The provided code will already draw a randomized ring for you. The issue is that it will continue forever. The purpose of your number pattern will not change the location or size of the circle, it will simply be to limit the number of times drawing the circle happens.
+  </p>
+  
+  <p>
+    To accomplish this your variable will need to be a <strong>counting variable</strong>., starting at 1 and increasing through 10. Use a permissive if statement so that the random rings stop drawing after the counting variable passes 10.
+  </p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+
+
+</body>
+
+
+</html>

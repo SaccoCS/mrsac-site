@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<style>
+
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Creating Custom SPanels</title>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Creating Custom SCanvas</h2>
+<pre>import sacco.*;
+import sacco.gui.*;</pre>
+<p class="auto-style1">
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/PaintBrush.html">
+<strong>PaintBrush API</strong></a></p>
+<p>If you run the following main method, you won&#39;t be very impressed:</p>
+<pre>public static void main()
+{
+   SFrame frame = new SFrame();       
+   SCanvas pan = new SCanvas();
+   frame.add(pan);
+   frame.setSize(500,500);
+   frame.setVisible(true);
+}</pre>
+<p>&nbsp;</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img5.gif" /></p>
+<p>Just like the main method says, there&#39;s a frame with a blank panel on it... 
+BOOORRIIINNG.</p>
+<p>Using a technique called inheritance, we can make our own customized panels 
+that look however we want.</p>
+<p>&nbsp;</p>
+<p>1)&nbsp; Create a new class with the following header:</p>
+<pre>public class DemoCanvas extends SCanvas</pre><p>Notice the <strong>extends</strong> 
+keyword.&nbsp; This means that we want a DemoCanvas object to act just like an 
+SCanvas.&nbsp; If we want it to act any differently, we define it here.&nbsp; We 
+actually want to change the way that this SCanvas draws, or paints, itself.&nbsp; 
+This means we must Override the method that does it.</p>
+<p>2)&nbsp; Add a method with the following header:</p>
+<pre>@Override
+public void paintCanvas(PaintBrush brush)</pre>
+<p>Since we&#39;re replacing the method that the SCanvas already has, you have to be 
+extremely careful about your spelling.&nbsp; Any different and it won&#39;t work.&nbsp; 
+The idea here is that every time the canvas paints itself, this method is called 
+and a PaintBrush object is passed in.&nbsp; Our job is to use the PaintBrush to 
+draw what we want it to look like.&nbsp; PaintBrush has many different methods 
+that have to deal with painting.&nbsp; Copy the following code into the 
+paintCanvas method to see some examples of what it happening:</p>
+<p>
+<a href="https://dl.dropboxusercontent.com/u/7648734/saccojar/doc/sacco/PaintBrush.html">
+<strong>PaintBrush API</strong></a></p>
+<pre>brush.setColor( Color.RED );
+brush.fillRectangle( 50,150, 70, 35);    //x,y,width,height
+ 
+//Creates a Blue Rectangle outline
+brush.setColor( Color.BLUE );
+brush.drawRectangle( 150,10, 10, 35);     //x,y,width,height
+ 
+//Creates a Green Circle
+brush.setColor( Color.GREEN );
+brush.fillOval( 200, 300,100,100);  //x,y,width,height
+ 
+//Draws some Black Lines
+brush.setColor(Color.BLACK);
+brush.drawLine(275,20,400,100);     //x1,y1,x2,y2 connects (x1,y1) to (x2,y2)
+   
+//Prints out a Purple "Hello World!!!
+brush.setColor(Color.MAGENTA);
+
+brush.drawString("Hello World!!!",250,200); </pre>
+<p>&nbsp;</p>
+<p>3)&nbsp; Adding the custom canvas to the frame:&nbsp; So far we have a canvas
+which does not do anything on its own.&nbsp; Just like with SCanvas, they must 
+go on a frame.&nbsp; Use the following runner method:</p>
+<pre>public static void main()
+{
+    SFrame frame = new SFrame();       
+    DemoCanvas pan = new DemoCanvas();
+    frame.add(pan);
+    frame.setSize(500,500);
+    frame.setVisible(true);
+}
+</pre>
+<p>Notice that the canvas being added is a <strong>DemoCanvas</strong>, which is 
+the special canvas that we just created.&nbsp; Run it and see what happened:</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img55.jpg" /></p>
+<p>Each of those PaintBrush commands changed how the canvas looks.&nbsp; We can 
+now draw simple pictures on our frames.</p>
+<p>Assignment:&nbsp; Create programs that do the following.&nbsp; To do each, 
+you must first create a class that extends SCanvas and override the paintCanvas 
+method.&nbsp; Add a runner method that will construct an SFrame and add the 
+Customized Canvas in the same way that you would add a normal SCanvas.</p>
+<p>1)&nbsp; <strong><span class="auto-style1">FaceCanvas</span></strong>:&nbsp; Use shapes to draw a face on your canvas.&nbsp; It 
+does not have to be the creepy one below, but it can be if you&#39;re unimaginative</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img12.gif" /></p>
+<p>2)&nbsp; <strong><span class="auto-style1">House</span></strong>:&nbsp; Draw a house on this canvas.&nbsp; You will have to 
+use the drawLine command for the roof.&nbsp; Again, you can add your own flair 
+or simply copy the one I&#39;ve given you.</p>
+<p>Be Careful:  When using the drawTriangle and fillTriangle methods, the parameters require that you provide three Point objects.  You construct a Point just like any other object (<span style="font-family:Courier">Point p = new Point(210,123);</span>)</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img14.gif" /></p>
+<p>&nbsp;</p>
+<p>3) <strong><span class="auto-style1">GrowCircle</span></strong>:&nbsp; This panel uses a for loop to draw many circles. The 
+size of the circle increases an the location stays on the diagonal meaning x = 
+y. <br />
+<br />
+Hint: use a for loop&#39;s looping variable as the x, y, width, and height of the 
+oval</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img17.gif" /></p>
+<p>&nbsp;</p>
+<p>4)&nbsp; <strong><span class="auto-style1">RandSquareCanvas</span></strong>:&nbsp; This canvas uses a loop to create 2000 random 
+squares (50x50).&nbsp; These Squares all have a random color and random x and y 
+values.&nbsp;</p>
+<p><img src="../Unit%207%20-%20GUIs%20and%20Objects/images/img1A1.jpg" /></p>
+<p>&nbsp;</p>
+</body>
+
+</html>

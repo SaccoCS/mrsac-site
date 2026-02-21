@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Square</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Square</p>
+<p><span class="auto-style1">Create a class named <strong>Square</strong>, which 
+will be in charge of holding all of the locations and dimensions of a square. 
+Create instance fields to represent the x and y, as well as the side length and 
+the color (use a String for the color)<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">Create a constructor that takes in no parameters and 
+sets the values of x and y to 0 as well as the side length to 100 and the color 
+to green.<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">Create a SECOND constructor that takes in three 
+values, an x, a y, and a side length. This constructor should also set the 
+default color to blue.<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">Add the following methods to the Square class:</span><br class="auto-style1" />
+<span class="auto-style1">- methods setX, setY, and setSideLength which will 
+take in an int from the user and assign it the appropriate instance field.</span><br class="auto-style1" />
+<span class="auto-style1">- method setColor, which takes in a String from the 
+user and assigns it to the color instance field</span><br class="auto-style1" />
+<span class="auto-style1">- method getArea, which takes no parameters and 
+returns the area of the square.</span><br class="auto-style1" />
+<span class="auto-style1">- method getPerimeter, which takes in no parameters 
+and returns the perimeter of the square</span><br class="auto-style1" />
+<span class="auto-style1">- method doubleSide, which takes in no parameter and 
+doubles the side length<br />
+</span><br class="auto-style1" />
+<span class="auto-style1">- a toString method which returns a String in the 
+form “This _color_square is located at (__,__) and a side length of ____. Its 
+perimeter is ______ and its area is _______</span><br class="auto-style1" />
+<span class="auto-style1">Note: Don’t recalculate the perimeter and the area in 
+this method. You can actually call the other methods of Square from within the 
+class. You use the special word this instead of a variable</span><br class="auto-style1" />
+<span class="auto-style1">Example:</span><br class="auto-style1" />
+<span class="auto-style1">int per = this.getPerimeter();</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Generally you don’t want to repeat code that performs 
+a task that a method already performs.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br />
+<br class="auto-style1" />
+<span class="auto-style1">Write a runner class that does the following:</span><br class="auto-style1" />
+<span class="auto-style1">- Construct a Square with using the <strong>default</strong> 
+constructor (... </span>
+<span class="auto-style3">= new Square()</span><span class="auto-style1">).</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString</span><br class="auto-style1" />
+<span class="auto-style1">- double the side length</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString</span><br class="auto-style1" />
+<span class="auto-style1">- Construct a SECOND Square with a different variable, 
+this time use the constructor using the values of 25,40, and 80 (... </span>
+<span class="auto-style3">= new Square(25, 40, 80)</span><span class="auto-style1"> 
+)</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString</span><br class="auto-style1" />
+<span class="auto-style1">- set the color to Red</span><br class="auto-style1" />
+<span class="auto-style1">- print out the toString</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">
+<br class="auto-style1" />
+The output should look something like this:<br />
+<br />
+This green square is located at (0,0) and has a side length of 100. Its 
+perimeter is 400 and its area is 10000<br />
+This green square is located at (0,0) and has a side length of 200. Its 
+perimeter is 800 and its area is 40000<br />
+This blue square is located at (25,40) and has a side length of 80. Its 
+perimeter is 320 and its area is 6400<br />
+This red square is located at (25,40) and has a side length of 80. Its perimeter 
+is 320 and its area is 6400 </span>
+</p>
+<p>
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+</p>
+
+</body>
+
+</html>

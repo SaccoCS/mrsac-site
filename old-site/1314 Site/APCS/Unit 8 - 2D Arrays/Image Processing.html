@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Image Processing</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style5 {
+	border-style: solid;
+	border-width: 1px;
+}
+.auto-style7 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style8 {
+	color: #C0C0C0;
+}
+.auto-style9 {
+	font-family: "Courier New", Courier, monospace;
+	color: #C0C0C0;
+}
+.auto-style10 {
+	border: 1px solid #000000;
+}
+.auto-style11 {
+	font-size: medium;
+}
+.auto-style13 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: medium;
+}
+.auto-style14 {
+	border-color: #000000;
+	border-width: 0;
+}
+.auto-style15 {
+	border-width: 1px;
+}
+.auto-style17 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style18 {
+	text-align: center;
+	font-size: xx-large;
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style3">Image Processing</p>
+<p class="auto-style2">How images are stored in a computer:</p>
+<p><span class="auto-style1">One way that images are represented in data is as 
+an array of Pixels. A Pixel is a tiny single location that is one color. Since a 
+pixel is tiny, combining thousands of them in a 2-Dimensional array causes a 
+picture to display.&nbsp; The color that each pixel displays is determined by 
+three ints that represent the levels of Red, Green, and Blue.</span><br class="auto-style1" />
+</p>
+<p><img alt="" src="images/img2.jpg" /></p>
+<p class="auto-style1"><br />
+You are going to be manipulating pictures, but in order to do that, you need to 
+be familiar with two classes:</p>
+<table class="auto-style5" style="width: 100%">
+	<tr>
+		<td style="width: 239px"><img src="images/img2.gif" /></td>
+		<td>
+		<p class="auto-style1"><span class="auto-style2"><a href="Pixel.class">The Pixel Class:</a></span><br />
+		Pixel is a class that Mr. Sacco wrote to hold the Red, Green, and Blue 
+		values of a single Pixel from an image.&nbsp; A full image is made up of 
+		a 2-Dimensional array of Pixels.</p>
+		<p class="auto-style1"><span class="auto-style4">Constructors:</span><br />
+		Many of the Pixels that you will be using will be extracted from an 
+		image file using the ImageViewer class below, but often times you want 
+		to create a new Pixel with your own Red, Green, and Blue values. The 
+		constructor for Pixel that you should use takes in a value for Red, 
+		Green, and Blue as ints. These ints must be from 0-255.<br />
+		<br />
+		<span class="auto-style7">Pixel myPixel = new Pixel(0,0,0);</span> //Constructs a black Pixel </p>
+		<p><span class="auto-style4">Methods:</span><span class="auto-style1"><br />
+		Once you have a Pixel, you may need to call some methods to help 
+		manipulate it.<br />
+		<br />
+		The <strong>getRed()</strong>, <strong>getGreen()</strong>, and <strong>
+		getBlue()</strong> methods will return an int (0-255) that represents 
+		that color’s level.<br />
+		<br />
+		The <strong>setRed(int r)</strong>, <strong>setGreen(int g)</strong>, 
+		and <strong>setBlue(int b)</strong> methods will set the level of that 
+		color to the given parameter. Make sure that the number is less than 
+		256.<br />
+		<br />
+		The <strong>setRGB(int r, int g, int b)</strong> method is simply a 
+		combination of the other three set methods.<br />
+		Sometimes you want to see the RGB values for a given Pixel. There are 
+		two ways of doing this:<br />
+		<br />
+		The<strong> toString</strong> of this class will return a String that 
+		prints out the three values of the Pixel. If you want to see the values 
+		of Pixel p, you simply need to say System.out.println(p); and it will 
+		print out the values.<br />
+		<br />
+		The <strong>viewThisColor()</strong> method will cause a window to pop 
+		up that contains the same information as the toString, but it will also 
+		display the color that it represents. Be careful when calling this, if 
+		you accidently call it thousands of times you’re going to have problems.</span><br />
+		</p>
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<table class="auto-style17" style="width: 100%">
+	<tr>
+		<td style="font-family:Arial, Helvetica, sans-serif;font-size:small">
+		<span class="auto-style11"><strong>Pixel[][] and the Picture class</strong></span><br />
+		<br />
+		The Picture class has some built-in ability to generate Pixel arrays 
+		from a loaded Picture object and to create a new Picture from a 
+		Pixel[][]<br />
+		<br />
+		1)&nbsp; Get a Picture object using either loadFromJar or loadFromFile.&nbsp; 
+		Most people will use the Picture of Mr. Sacco stored in the jar:<br />
+		<br />
+		<pre>Picture pic = Picture.loadFromJar(&quot;Sacco.png&quot;);</pre>
+		If you would like your own image, save it to your project folder and use
+		<strong>loadFromFile</strong> instead of loadFromJar<br />
+		<br />
+		2)&nbsp; Call the getPixelArray method to get a Pixel[][] assosciated 
+		with that image:<br />
+		<pre>Pixel[][] pixels = pic.getPixelArray();</pre>
+		Now pixels contains the Pixels that match up with the &quot;Sacco.png&quot; image.<br />
+		<br />
+		<br />
+		<strong>How to go from a Pixel[][] to a Picture for viewing purposes</strong><br />
+		<br />
+		1)&nbsp; Construct a Picture object using the Pixel[][] as the parameter<br />
+		<pre>Picture newPic = new Picture(pixels);</pre>
+		<br />
+		2) Use the display method to show the Picture in a window<br /><pre>newPic.display();</pre>
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+
+	<hr>
+
+<p class="auto-style2">Assignment:</p>
+<p class="auto-style1">Create a class named ImageProcessors which will contain 
+a series of static void methods designed to take an image and perform some action on 
+it.&nbsp; You should use the methods of the Picture class to get an array of 
+Pixels, then traverse through that array and fill a new array with modified 
+Pixels.&nbsp; Once you have a new array, use it to construct a Picture and 
+display it.</p>
+<p class="auto-style1">For Example:&nbsp; The blackAndWhite method below takes 
+the average of the Red, Green, and Blue values</p>
+<table class="auto-style10" style="width: 100%">
+	<tr>
+		<td class="auto-style11"><span class="auto-style7">public static void 
+		blackAndWhite()</span><br class="auto-style7" />
+		{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />
+		<br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="auto-style8">//use the loadFromJar method to get a Picture 
+		for Sacco.png</span></span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp; Picture myPic = 
+		Picture.loadFromJar(&quot;Sacco.png&quot;);<br />
+		<br />
+		<span class="auto-style8">&nbsp;&nbsp;&nbsp;&nbsp; //use the getPixelArray 
+		method to get a Pixel[][] for Sacco.png</span><br class="auto-style7" />
+		&nbsp;&nbsp;&nbsp;&nbsp; Pixel[][] original = myPic.getPixelArray();</span><br class="auto-style7" />
+		<br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="auto-style8">//create a new array to hold the result</span></span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp; Pixel[][] newPixels = 
+		new Pixel[original.length][original[0].length];</span><br class="auto-style7" />
+		<br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="auto-style8">//loop through every possible pixel</span></span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp; for(int row =0; row&lt; 
+		original.length;row++)</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp; { </span>
+		<br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		for( int col =0; col &lt; original[0].length; col++)</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		{</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="auto-style8">//grab the current pixel</span></span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Pixel origPixel = original[row][col];</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp; </span>
+		<br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="auto-style8">//extract the red, green, and blue values</span></span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		int red = origPixel.getRed();</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		int green = origPixel.getGreen();</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		int blue = origPixel.getBlue();</span><br class="auto-style7" />
+		<br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="auto-style8">//calculate the average</span></span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		int average = (red+green+blue)/3;</span><br class="auto-style7" />
+		<br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="auto-style8">//construct a new Pixel with the average as 
+		its red, green, and blue</span></span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		newPixels[row][col] = new Pixel(average,average,average);</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp; }</span><br class="auto-style7" />
+		<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="auto-style9">
+		&nbsp;//now that newPixels has been populated, construct using 
+		the array and display it</span><br class="auto-style7" />
+		<span class="auto-style7">&nbsp;&nbsp;&nbsp; 
+		Picture newPic = new Picture(newPixels);<br />
+&nbsp;&nbsp;&nbsp; newPic.display();<br />
+		</span><br class="auto-style7" />
+		}</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p class="auto-style4"><strong>Methods:</strong></p>
+<table class="auto-style14" style="width: 100%">
+	<tr>
+		<td class="auto-style15">
+		<img class="auto-style5" height="227" src="images/imgE.jpg" width="180" /></td>
+		<td class="auto-style15">
+		<p class="auto-style7">public static void negative()</p>
+		<p class="auto-style1">This method will display the negative of an 
+		image.&nbsp; To obtain the negative of an image, subtract each Pixel&#39;s 
+		Red, Green, and Blue value from 255 and that will become the new value.</p>
+		<p class="auto-style1">For Example:&nbsp; [R:120,G:45,B:200] would 
+		become [R:135,G:210,B:55] </p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<img class="auto-style5" height="229" src="images/imgF.jpg" width="180" /></td>
+		<td>
+		<p class="auto-style13">public static void mirrorImage()</p>
+		<p class="auto-style1">This method will display the vertical reflection 
+		of the image.&nbsp; To obtain the mirror image of an image, the Pixel in 
+		the first column must be placed in the same row in the last column, the 
+		Pixel in the second column is placed in the second to last column, and 
+		so on…</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<img class="auto-style5" height="224" src="images/img10.gif" width="180" /></td>
+		<td>
+		<p class="auto-style13">public static void threshold(int thresh)</p>
+		<p class="auto-style1">The threshold method will take in an int as a 
+		parameter. For each Pixel, calculate the average of the Red, Green, and 
+		Blue values. If the average is less than the parameter, put a black 
+		pixel (0,0,0) at that location. Otherwise, put a white Pixel there 
+		(255,255,255)</p>
+		<p class="auto-style1">The example has a threshold of 95</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<img class="auto-style5" height="227" src="images/img12.jpg" width="180" /></td>
+		<td>
+		<p class="auto-style13">public static void sepiaTone()</p>
+		<p class="auto-style1">In order to get a sepia tone, each Pixel’s Red, 
+		Green, and Blue values will depend on portions of the original’s Red, 
+		Green, and Blue values. Use the formulas below:<br />
+		newRed = .393R+.769G+.189B<br />
+		newGreen = .349R+.686G+.168B<br />
+		newBlue .272R+.534G+.131B</p>
+		<p class="auto-style1">Warning: These formulas can give an int that is 
+		larger than 255.&nbsp; In that case, set the value to 255 instead.</p>
+		</td>
+	</tr>	<tr>
+		<td>
+		<img class="auto-style5" height="231" src="images/img14.jpg" width="180" /></td>
+		<td>
+		<p class="auto-style13">public static void blur()</p>
+		<p class="auto-style1">In order to blur an image each Pixel’s value, its 
+		Red Green and Blue values each need to be set to the average of it and 
+		the surrounding Pixels.<span style="mso-spacerun: yes">&nbsp; </span>
+		Most of the Pixels have 8 surrounding, but don’t forget about the ones 
+		on the edges.<o:p></o:p></p>
+		</td>
+	</tr>
+
+<tr>
+		<td class="auto-style18">
+		<strong>????????</strong></td>
+		<td>
+
+		<p class="auto-style13">&nbsp;</p>
+		<p class="auto-style13">public static void secret()</p>
+		<p class="auto-style1">Mr. Sacco has hidden a secret image within his 
+		portrait.&nbsp; Any Pixel that belongs to the secret image has an ODD 
+		red value, while the unimportant Pixels have an EVEN red value.</p>
+		<p class="auto-style1">&nbsp;</p>
+		</td>
+	</tr>
+
+
+</table>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+
+</body>
+
+</html>

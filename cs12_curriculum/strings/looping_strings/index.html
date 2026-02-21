@@ -1,0 +1,241 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+  Looping Through Strings</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+    Looping Through Strings
+  </h1>
+  
+  
+  
+  <h2>Back to Reverser</h2>
+<p>Previously you wrote the reverser() function, which took a four-character String and returned the reversed version of it. Most likely you wrote something similar to the following:</p>
+<pre>function reverser(input){<br />    let a = input.charAt(0);<br />  &nbsp; let b = input.charAt(1);<br />  &nbsp; let c = input.charAt(2);&nbsp;<br />  &nbsp; let d = input.charAt(3);<br />  &nbsp; return d + c + b + a;<br />}</pre>
+<p>The charAt() function is called with each index. The four results are concatenated together backwards when returned.</p>
+<p>Open Then New Reverser workspace in CodeHS.</p>
+<p>There you will find a version of reverser that uses an&nbsp;<strong>accumulator</strong> variable, meaning a value that starts small and gets pieces added to it one at a time.</p>
+<pre>function reverser(input){<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; //Create an accumulator<br />&nbsp; &nbsp; let acc = "";<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; let d = input.charAt(3);<br />&nbsp; &nbsp; acc += d;<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; let c = input.charAt(2);<br />&nbsp; &nbsp; acc += c;<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; let b = input.charAt(1);<br />&nbsp; &nbsp; acc += b;<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; let a = input.charAt(0);<br />&nbsp; &nbsp; acc += a;<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; return acc;<br />}</pre>
+<p>The acc variable starts as an empty String, and adds the characters one by one, starting with the&nbsp;<strong>last</strong> index and working towards index 0.</p>
+<p>Run the program to confirm that it works for a string with length 4.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Adding an Index Loop</h3>
+<p>When you write the accumulator version, you can see a little bit of a pattern building. The solution involves repeating the same two lines: call charAt() and add the result to the end of the accumulator String.&nbsp;</p>
+<p>The indices make a number pattern from 3 down to 0. This can easily be replicated with a loop</p>
+<pre>function reverser(input){<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; //Create an accumulator<br />&nbsp; &nbsp; let acc = "";<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; //let i represent 3,2,1,0<br />&nbsp; &nbsp; <strong>for(let i = 3; i &gt;= 0; i--){</strong><br /><br />&nbsp; &nbsp; &nbsp; &nbsp;//get the character at i<br />&nbsp; &nbsp; &nbsp; &nbsp;let c = input.charAt(i);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp;//add it to our string<br />&nbsp; &nbsp; &nbsp; &nbsp;acc += c;<br />    }<br /><br />    return acc;<br />}</pre>
+<p>Copy the above solution into your workspace and run it to confirm that it works.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Expanding the Loop</h3>
+<p>With a loop involved, we have the ability to make our function much more powerful. Right now it is still limited to only four character strings, but that is easily remedied.</p>
+<p>The loop only starts&nbsp;<strong>i</strong> at index 3 because we know it to be the last index of a string of length 4. Remember that the last index of any string is one less than its length, which the&nbsp;<strong>.length</strong> attribute can give us.</p>
+<p>Modify the for loop's header to start at input.length-1</p>
+<pre><span style="font-size: 14pt;">for(let i = <strong><span style="color: #169179;">input.length-1</span></strong>; i &gt;= 0; i--){</span></pre>
+<p>With that change our reverser() function now works for a string of any length. Confirms that it works by trying it with a string of tremendous length.</p>
+  
+  
+  <br><br><hr>
+  
+  
+  <h2>The New Delete The A</h2>
+<p>Open the Delete The A workspace</p>
+<p>The original Delete The A assignment had you "removing" a single&nbsp;<strong>a</strong> from a string</p>
+<p>"scripps r<strong>a</strong>nch falcons" became "scripps rnch falcons"</p>
+<p>This worked well enough, but our new goal is to&nbsp;</p>
+<p>"scripps r<strong>a</strong>nch f<strong>a</strong>lcons" became "scripps rnch flcons"</p>
+<p>&nbsp;</p>
+<p>Like the previous deleteTheA(), removing the a is more about choosing everything <strong>but </strong>the a to add to a String. The function you've been provided has another loop where the variable represents each index of the input string, along with a charAt() function to fetch the character at each location.</p>
+<pre><span style="font-size: 14pt;">for( let i = 0; i &lt; input.length; i++){</span><br /><span style="font-size: 14pt;">&nbsp; &nbsp; let c = input.charAt(i);</span></pre>
+<p>This time the loop goes forwards through the string, starting at index 0 and going up to length-1. Looping this way is the most common way to perform most of the assignments in this assignment.</p>
+<p>&nbsp;</p>
+<h4>Your Task:</h4>
+<p>The provided code will let us access each character from the string one at a time. What we need to do is&nbsp;accumulate all of the <strong>non-a</strong> characters into a separate string. Using the previous workspace as inspiration:</p>
+<ul>
+    <li>Declare an accumulator string&nbsp;<strong>before</strong> <strong>the loop</strong> and assign it an empty string ""</li>
+    <li><strong>During the loop </strong>add each character to the accumulator, but only if it isn't an a&nbsp; ( c != "a" )</li>
+    <li>After the loop, return the accumulator</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  
+  
+  <br><br><hr>
+  <h2>Counting Variables</h2>
+<p>We can modify the loop above to perform a little more analysis of the string variable by adding a&nbsp;<strong>counting variable</strong>.</p>
+<p>Open the Example: C counter workspace in CodeHS where you will be met with the cCounter example</p>
+<pre>function cCounter(inputStr){<br /><br />&nbsp; &nbsp;<strong> let count = 0;</strong><br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; //let i represent index 0,1,2,3...<br />&nbsp; &nbsp; for( let i = 0; i &lt; input.length; i++){<br />&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; &nbsp; &nbsp; //Get the character at i<br />&nbsp; &nbsp; &nbsp; &nbsp; let c = input.charAt(i);<br />&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; &nbsp; &nbsp; if( c == "c"){<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong> count++;</strong><br />  &nbsp; &nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />  &nbsp; }&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp;<strong> return count;</strong><br />}</pre>
+<p>&nbsp;</p>
+<p>Like the string accumulators, a counting variable is initialized to be small and increases during the loop. This time we are counting, so the value is a number. The count variable starts at 0 and increases every time during our loop that we find an index with a "c" character.</p>
+<p>Test the program out will a word like "Sacco" and it should return a 2.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Your task:&nbsp; Word Count</h3>
+<h5>Open the Word Count workspace</h5>
+<p>The purpose of this function is to determine how many words are in the parameter string. The key to it is realizing that the number of words is very closely related to the number of spaces that exist in the string. If you can count the spaces, you can determine how many words there are.</p>
+<p>"Hello Mister Sacco" has 2 spaces separating 3 words<br />"Scripps Ranch High School" has 3 spaces separating 4 words<br />"computer" has 0 spaces separating 1 word</p>
+<p>&nbsp;</p>
+<p>Test your function multiple times to make sure that it works.</p>
+  
+  <br><br><hr>
+  
+  <h2>Capital Counter</h2>
+<p>We usually associate greater-than or less-than symbols with numbers:</p>
+<p>8 &lt; 4&nbsp; is false<br />9 &gt; 3&nbsp; is true</p>
+<p>In JavaScript, you can use them to compare strings as well:</p>
+<p>"A" &lt; "B"&nbsp; &nbsp;is true<br />"E"&nbsp; &gt; "R"&nbsp; is false<br />"G" &lt; "F"&nbsp; &nbsp;is false</p>
+<p>&nbsp;</p>
+<h3>Not Quite Alphabetical, Lexicographical</h3>
+<p>Though it may seem that strings are compared alphabetically. They actually use the order of characters in the ASCII table as a guide.</p>
+<p><img src="images/ascii.png" width="252" height="405" /></p>
+<p>&nbsp;</p>
+<p>Whenever you see "A" &lt; "B", you could substitute the ASCII values of "A" and "B" and get 65 &lt; 66, which is true. This causes some strange situations. For example, notice that every single lowercase letter has a higher character value than the uppercase. This can cause confusion if you're comparing strings with different capitalization.</p>
+<p>"Z" &lt; "a"&nbsp; &nbsp;is true</p>
+<p>&nbsp;</p>
+<h3>Using String Ranges</h3>
+<p>If we have a character and want to see if it's a lowercase letter, we could ask if it was in the range from "a" to "z"</p>
+<p>letter &gt;= "a" &amp;&amp; letter &lt;= "z"&nbsp; &nbsp; &nbsp; //Only true when&nbsp;<strong>letter</strong>&nbsp;is a lowercase lestter.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Your Task: Count the Capitals</h3>
+<p>Find the capCount() function in your workspace, whose purpose is to inspect the parameter string and return the number of capital letters it contains:</p>
+<p>"Sacco"&nbsp; -&gt; 1<br />"mR. sAcCo" -&gt; 3<br />"Scripps Ranch High School" -&gt;4</p>
+<p>&nbsp;</p>
+<p>Test your code multiple times to make sure that it works properly.</p>
+  
+  
+  <br><br><hr>
+  
+ <h2>Vowel Counter</h2>
+<p>Find the Vowel Counter workspace</p>
+<p>This one is a little different because it has two functions that are meant to work together. First find the isAVowel function</p>
+<pre>//letter is a single character. Return true if it is a vowel, false if not.
+function isAVowel(letter){
+
+}</pre>
+<p>The purpose of this function is to look at the parameter, letter, and return true if it is a vowel and false if not. This is not meant to be a loop, assume that the letter parameter is a single character.</p>
+<p>&nbsp;</p>
+<p>There are two different ways that you can do this:<br />&nbsp; -&nbsp;Use individual if statements to check for each vowel<br />&nbsp; - Assign the string "aeiou" to a variable and then use indexOf() to search for the parameter. If it's a vowel, a number 0 - 4 will be returned, and if not it will return a -1.</p>
+<p>&nbsp;</p>
+<h4>Don't be Case Sensitive</h4>
+<p>This should work for both uppercase&nbsp;and lowercase letters.<br />- Add more letters to your original strategy<br />- If your code only detects lowercase vowels, convert the parameter to lowercase as the first thing you do.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>How to Test isAVowel()</h3>
+<p>When run, you'll see that there are checkboxes allowing you to choose which function is being run. You can change it this way each time, or modify the testIsAVowel to change what its initialized to when the program starts</p>
+<p>Test your function many times with vowels and non-vowels, capitals and lowercase letters.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Using a Boolean Function</h3>
+<p>Remember, when you have a method that returns a boolean (true or false), you can use it to run an if statement</p>
+<pre>let v = "a";
+if( isAVowel( v ) )         //checks to see if v is a vowel
+&nbsp;    alert("VOWEL");
+else
+&nbsp;    alert( "NO VOWEL");
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Vowel Counter</h3>
+<p>Find the vowelCounter() function. Its purpose will be to return a count of how many vowels are in the parameter string.</p>
+<p>"Sacco" -&gt; 2<br />"Scripps Ranch High School" -&gt; 5<br />"computer" -&gt; 3</p>
+<p>You should be able to modify your counting loop to use your new isAVowel() function to determine which letters are vowels.</p>
+<p>&nbsp;</p>
+<p>Test your code multiple times to make sure that it functions properly.</p> 
+  
+  
+  <br><br><hr>
+  
+  <h2>Cat Counter</h2>
+<p>Open the Cat Counter workspace</p>
+<p>The catCounter() function's purpose is to count the number of times the word "cat" appears in the parameter.</p>
+<p>"cats are okay"&nbsp; -&gt; 1<br />"catacacatacatc" -&gt; 3<br />"taccat" -&gt;&nbsp; 1</p>
+<p>&nbsp;</p>
+<p>This will be a little more different because the word that we're searching for is three characters long. Instead of using the charAt() function three times, you should instead take a&nbsp;<strong>substring() located at i</strong></p>
+<pre>let sub = input.substring(i, i+3);  //substring getting three characters at a time</pre>
+<p>If I is doing our usual loop, it will get three characters at a time. That way you can count the number of times that the substring is "cat".</p>
+<p>&nbsp;</p>
+<p>Test your code multiple times to make sure that it functions properly, then paste your catCounter() function below.</p>
+  
+  
+  <br><br><hr>
+  
+  <h2>Drawing Each Letter Separately</h2>
+<p>Open the Drawing One by One workspace</p>
+<p>When you run the sketch, you'll see that there is an input field as well as the canvas. The goal of this assignment will be to paint the text in the input field to the canvas, so the draw function starts with a line of code retrieving that input.</p>
+<pre>function draw() {
+  background(0);
+&nbsp; fill(255);
+
+  let <strong>txt = inpt.value();  //Gets the value from the input box.</strong>
+  
+  text(txt,250,100);  //REPLACE THIS WITH A LOOP
+  
+}</pre>
+<p>inpt.value() will retrieve whatever value is in the text box and assign it to the txt variable. The text() function is used to draw the entire string in the center of the canvas, but this is not what we want to do.</p>
+<p>Instead, we want to write a loop that will use text() to draw one character at a time. That way we will be able to draw them with randomized sizes and colors. Use an index based for-loop like the other ones in this workspace to help you access each character, then call the text() function with each character.</p>
+<p>&nbsp;</p>
+<h4>Spacing Out the Characters.</h4>
+<p>Write a loop that will get every character from the txt variable and call the text() function to draw it on the screen. The real challenge is deciding on what the x values of each letter should be in order to space them out properly. This is a problem that requires math to determine how much spacing should be between each letter. We could do that, or we could make&nbsp;<strong>map()</strong>&nbsp;do the work.</p>
+<p>Each letter is at an&nbsp;<strong>index</strong>&nbsp;that we usually represent with the letter i in our loop: 0,1,2,3,4, etc. with the last index being the&nbsp;<strong>length-1</strong><br />For this canvas, we want our x values to range from 50 to 450.</p>
+<pre>let x = map( i , 0, txt.length-1, 50, 450);</pre>
+<p>When done this way, it will calculate the x location that matches each index without you having to do much math.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Random&nbsp;Colors</h3>
+<p>As you loop through each letter, you should select a random color for the fill to be.</p>
+<p><img src="images/rainbow_letters.png" width="380" height="175" /></p>
+<p>Since the draw() function repeats for every frame that we see, you will get a rapidly flickering version. Feel free to adjust the speed with a line like frameRate(10);</p>
+<p>&nbsp;</p>
+<p>Change the message in the input to make sure that it works for messages of different sizes.</p>
+  <br><br><hr>
+  
+  
+  <h2>Highlight the Vowels</h2>
+<p><img src="images/vowels.png" width="380" height="175" /></p>
+<p>Open the Highlighted Vowels workspace</p>
+<p>You will again be asked to draw the message to the canvas one letter at a time, but this time each letter should be surrounded by a shape of some sort (circle/square) and the vowels should be a different color than the others.</p>
+<p>You should absolutely go copy your previous isAVowell() function, as it will be useful here.</p>
+<p>Test your code out with different strings to make sure that it works..</p>
+  
+  
+  <br><br><hr>
+  
+  <h2>Password Strength</h2>
+<p>It is important that you have a variety in the passwords that you choose. There are four rules that you generally should follow when choosing a password:<br />&nbsp;-&nbsp;At least one capital letter<br />&nbsp;-&nbsp;At least one lowercase letter<br />&nbsp;-&nbsp;At least one number<br />&nbsp;-&nbsp;At least eight characters long</p>
+<p>&nbsp;</p>
+<h5>Open the PasswordStrength workspace</h5>
+<p>There you will find a setup function that creates an input field and a paragraph html element. The input field is told to call the&nbsp;everyTimeAKeyIsPressed() function, which is where your code will go.</p>
+<p>Your job is to analyze the password that is being input and determine if it is Weak, Medium, or Strong. This should be based on how many of the four 'password rules' are being followed.</p>
+<p>&nbsp;- One or zero rules being followed is Weak&nbsp;<br />&nbsp;- Two or three rules being followed is Medium<br />&nbsp;-&nbsp;All four rules being followed is Strong</p>
+<p>&nbsp;</p>
+<p>Again we are interacting with the HTML elements directly in the code by calling their functions. We use the value() function to get our input string</p>
+<p>let pass = inpt.value();</p>
+<p>And our results are shown by interacting with the output paragraph element</p>
+<p>out.html("Weak");<br />out.style("color","red");&nbsp;</p>
+<p>&nbsp;</p>
+<p>When you know how strong the password is, you should:<br />- Set the paragraph element's text to be "Weak", "Medium", or "Large". For the paragraph elements, you modify text using the&nbsp;<strong>html()</strong>&nbsp;function<br />&nbsp; &nbsp; &nbsp; out.html( "WEAK" );<br />- Set the color of the paragraph element to match the strength. Weak is red, Medium is yellow, and Strong is green. This can be done using the&nbsp;<strong>style()</strong>&nbsp;function:<br />&nbsp; &nbsp; &nbsp;out.style("color","red");</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Strategy</h3>
+<p>The length of the string is simple to determine, but the other three rules require looping. Create three counting variables to count the number of characters that are uppercase,lowercase, or numerical. Then loop through the string to perform the actual counting.&nbsp;&nbsp;</p>
+<p>All three rules may be detected using a 'range of strings', for example:&nbsp;<strong> letter&gt;= "a" &amp;&amp; letter &lt;= "z</strong>" would only be true for lowercase letters.</p>
+<p>&nbsp;</p>
+<p>After you have accurate counts of the number of upper, lower, or numerical characters you should create another variable representing the number of rules that are being followed. Use four if statements to focus on each rule and increment the count for each one that's being followed. In the end, rule count should be a number from 0 - 4 that may be used to determine if the password is weak, medium, or strong.</p>
+<p>&nbsp;</p>
+<p>Since the function is called with every keypress, you should see it update live. Test is multiple times to make sure that it is acting as intended.</p>
+</body>
+</html>

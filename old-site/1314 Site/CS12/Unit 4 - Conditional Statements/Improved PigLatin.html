@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Improved PigLatin</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: med;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style3">Improved PigLatin</p>
+<p class="auto-style1">&nbsp;Previously, we’ve created a program that will create 
+rough Pig Latin translator by taking the first letter and moving it to the end 
+of the word. This works fine for words such as “computer” and “java”, but the 
+rules of Pig Latin actually say that the whole first consonant should be shifted 
+to the back. When the second letter isn’t a vowel, the system breaks down.<br />
+<br />
+“program” becomes rogram-pay, when it should be ogram-pray<br />
+“string” becomes tring-say, when it should be ing-stray<br />
+<br />
+This breach of the rules of Pig Latin is unacceptable. Find the last version of 
+Pig Latin that you completed and Copy-Paste it into another class, changing the 
+name to ImprovedPigLatin.</p>
+<p class="auto-style1">Most of the code that is already there does not need to 
+be changed. The main change will eventually need to be in the getPigLatin 
+method, which was in charge of changing around a word to create its Pig Latin 
+version. We are going to have to change the way this method works. Instead of 
+just taking the first letter and moving it to the back, the method will have to 
+take everything before the first vowel and move it. </p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style4">Helper method:</p>
+<p class="auto-style1">In order to fix the pig latin program, we&#39;re going to 
+need to create a helper method that will aid us in finding the first vowel<br />
+<br />
+<span class="auto-style2">public static int indexOfFirstVowel(String str)</span><br />
+<br />
+This is a helper method whose purpose is to return the index of the first vowel 
+that it finds in str. One thing that’s different about this method when compared 
+to the getPigLatin method is that instead of having a String as a return type, 
+it has an int. This is because the method’s job is to return an index, which is 
+represented as an int, not a String.<br />
+<br />
+<strong>How are we going to find the index of the first vowel?</strong></p>
+<p class="auto-style1">This part is tricky. We’ll ignore ‘y’ and just assume 
+that the vowels are a, e, i, o, and u. We can use indexOf to find each index, 
+but finding the lowest can be rough because of the possibility of a -1 (which is 
+lower than every possible index).</p>
+<p class="auto-style1"><strong>Strategy:</strong><br />
+Create an int named currentLowest and put a value in it larger than every index 
+(the length of str should do nicely). After that’s completed, one at a time find 
+the index of each vowel and check to see if it’s lower than the currentLowest. 
+If it is, assign the index to be the new currentLowest. <br />
+<br />
+For example:<br />
+If the word is “happy”, the value of currentLowest would start at 5, but since 
+the index of ‘a’ is 2, which is lower than the 5, the currentLowest should be 
+changed to 2.<br />
+<br />
+This must be repeated once for each remaining vowel. After you’ve done that, the 
+lowest index should be returned.<br />
+<br />
+PROBLEM:<br />
+indexOf has that special property where it will return a -1 if the letter is 
+missing. This will mess everything up because most words will be missing one of 
+the vowels and thus, return a -1. Modify each if statement so that it will not 
+replace currentLowest when indexOf returns a -1.<br />
+<br />
+<br />
+Before you move on, use BlueJ to test the method with the following values:<br />
+“mouse” - 1<br />
+“usb”- 0<br />
+“screen” - 3<br />
+“printer” - 2</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style4">Fixing getPigLatin:</p>
+<p class="auto-style1">Now that you have a method that will teel you where the 
+first vowel is, it&#39;s time to modify the getPigLatin to follow the rules of pig 
+latin more closely.&nbsp; Right now it automatically chops up the word at index 
+1.&nbsp; Change it so that the first thing you do is call the indexOfFirstVowel 
+method first.&nbsp; Store the result into an int, and then use that int instead 
+of the number 1 when performing the pig latin conversion.</p>
+<p class="auto-style1">Test out your getPigLatin method similar to how you did 
+with the indexOfFirstVowel method:</p>
+<p class="auto-style1">&quot;mouse&quot; --&gt; &quot;ousemay&quot;<br />
+&quot;screen&quot; --&gt; &quot;eenscray&quot;<br />
+&quot;printer&quot; --&gt; &quot;interpray&quot;</p>
+<p class="auto-style1">&nbsp;</p>
+<hr>
+<p class="auto-style1">When it&#39;s time to test and see if your program works, put 
+the following method into your program and run it.&nbsp; It will use your 
+getPigLatin method to convert the sentence &quot;this is how good pig latin phrases 
+should look&quot;.&nbsp; Make sure that the 
+output is exactly: <strong>isthay isay owhay oodgay igpay atinlay asesphray 
+ouldshay ooklay</strong></p>
+<p class="auto-style1">&nbsp;</p>
+<pre>    public static void testPhrase()
+    {
+        String[] words = {"this","is","how","good","pig","latin","phrases","should","look"};
+
+        String finalString = "";
+
+        for(String str : words)
+            finalString += getPigLatin(str)+" ";
+
+        System.out.println(finalString);
+    }</pre>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">&nbsp;</p>
+
+</body>
+
+</html>

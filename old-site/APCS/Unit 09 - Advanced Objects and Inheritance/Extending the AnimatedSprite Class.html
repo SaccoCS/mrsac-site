@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Extending the AnimatedSprite Class</title>
+
+<style>
+
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+.auto-style2 {
+	font-size: large;
+}
+.auto-style3 {
+	font-size: medium;
+}
+
+.auto-style4 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style6 {
+	font-size: small;
+}
+.auto-style7 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Extending the AnimatedSprite Class</h2>
+<p style="font-family:Arial, Helvetica, sans-serif">
+<img border="1" src="images/img41.jpg" /></p>
+<p>So far we&#39;ve extended the Sprite class to create the AnimatedSprite class.&nbsp; 
+It has a lot of instance fields and methods that help you create items on a 
+screen with an x, y, width, height, velocity.&nbsp; The main augmentation of the 
+AnimatedSprite class was that you can load an array of Pictures that the sprite 
+can loop through to look like it&#39;s animated.</p>
+<p>But sometimes a Sprite&#39;s animation is dependent on what the Sprite is 
+currently doing.&nbsp; Each different state has a different Picture strip 
+assosciated with it.</p>
+<p>&nbsp;</p>
+<p>Create a class named <strong>StateBasedAnimatedSprite</strong>, which is a subclass of the 
+AnimatedSprite class.</p>
+<p>The idea behind the StateBasedAnimatedSprite class is that it will have many 
+different Picture arrays.&nbsp; It will have a method that will use 
+AnimatedSprite&#39;s <strong>setPictureStrip</strong> method to load a different 
+Picture array every time the &#39;state&#39; of the Sprite changes.</p>
+<p><strong>Instance Fields:&nbsp;</strong> Similar to how a Wanderer works, the 
+StateBasedAnimatedSprite class should have an <strong>int</strong> as an 
+instance field to represent the state of the Sprite.&nbsp; At this level we 
+don&#39;t know what each int means.&nbsp; It will be up to the subclasses to decide.</p>
+<p>Secondly, the StateBasedAnimatedSprite class should have a 2-Dimensional 
+Picture array to hold all of the Picture strips that are needed for the Sprite.&nbsp; 
+Remember that 2-D arrays are just arrays of arrays.&nbsp; At index 0, will be 
+the array of Pictures that coincides with state 0, whatever that state may be.</p>
+<p>&nbsp;</p>
+<p><strong>Constructor</strong>:&nbsp; Create the usual 4 parameter constructor that takes in the 
+x, y, width, and height.&nbsp; Start the state variable at 0.&nbsp; Again, the 
+2-D array of Pictures will remain <strong>null</strong>, so we&#39;ll have to make 
+sure that we remember that when we extend this class.</p>
+<p>&nbsp;</p>
+<p><strong>Methods</strong>:</p>
+<p class="auto-style1">public void setStrips(Picture[][] strips)</p>
+<p>This method takes in the 2-D array that has all of the images for the Sprite 
+and should simply assign it to the instance field.</p>
+<p class="auto-style1">public int getState()</p>
+<p>Simply returns the state</p>
+<p class="auto-style1">public void setState(int state)</p>
+<p>This method has two parts to it.&nbsp; First it sets the state instance field 
+to be the parameter, and secondly it calls the inherited <strong>setPictureStrip</strong> 
+and passes in one of the rows of the 2D array.&nbsp; The index of that array is 
+simply the state that was passed in.&nbsp; For example, if the state is changed 
+to 3, then row 3 will be passed into the setPictureStrip method.&nbsp; This will 
+cause a different set of Pictures to be cycled through.</p>
+<p>&nbsp;</p>
+<p>At this level, the abstract processBoundary method is still not overridden, 
+so declare the StateBasedAnimatedSprite to be abstract.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style2"><strong>Ghost</strong></p>
+<p><img border="1" src="images/img43.jpg" /></p>
+<p>Create a class named <strong>Ghost</strong>, which extends the <strong>StateBasedAnimatedSprite</strong> 
+class.</p>
+<p>The constructor for Ghost should take in a BoundingBox as a parameter.&nbsp; 
+First use the super constructor to set the 
+x, y, width, and height of the the Ghost to be 250,250,40, and 40 respectively, 
+and then make sure that the BoundingBox is set as the instance field. &nbsp; 
+We must also worry about the null Picture strips that need to be set.</p>
+<pre>Picture[][] strips = SpriteLoader.getBlinkyPics();</pre>
+<p>This code will allow you to access the following array.&nbsp; All you need to do 
+is call the <strong>setStrips</strong> method so that it makes its way to the instance 
+field.&nbsp; Notice that index 0 is left, 1 is right, etc...</p>
+<p><img height="469" src="images/pacarray.png" width="343" /></p>
+
+<p>Notice that each row of the array has a different direction assosciated with 
+it.&nbsp; Again, similar to Wanderer, let&#39;s make some nice variables to 
+represent each row:</p>
+<pre>public static final int UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3;</pre>
+<p>These variables aren&#39;t fully necessary, but using them will make the code 
+much easier to read.</p>
+<p>Most of the other methods needed to get a running Ghost have been inherited.&nbsp; 
+The only issue is that we haven&#39;t dealt with the abstract processBoundary 
+method.&nbsp; It is impossible to compile Ghost without having this method, so 
+override it and put no code in the body of the method.&nbsp; This is temporary 
+and just for testing.</p>
+<p>Use the following runner to test your program.&nbsp; It creates 64 Ghosts 
+arranged in a grid where each row is set to the same state.</p>
+<p>&nbsp;</p>
+<pre>public static void ghostRunner()
+{
+   Ghost[] ghosts = new Ghost[64];
+   BoundingBox boundary = new BoundingBox(0,0,500,500);
+   for( int i =0; i &lt; ghosts.length; i++)
+   {
+      ghosts[i] = new Ghost(boundary);
+      int c = i%8;
+      int r = i/8;
+      ghosts[i].setX(20+60*c);
+      ghosts[i].setY(20+60*r);
+      ghosts[i].setState(r%4);
+   }
+
+   SpriteViewer view = new SpriteViewer(ghosts);
+   view.setVisible(true);
+   view.start();
+}</pre>
+
+<p>Run this method; it should look like the following and each Ghost should be 
+animated (but not moving):</p>
+<p><img src="images/img21.jpg" /></p>
+<p>&nbsp;</p><hr>
+<p class="auto-style3"><strong>Randomizing the Ghost:</strong></p>
+<p>Blinky is the red Ghost, but there are others.&nbsp; Modify the constructor 
+so that it randomizes between the following four sets of images that 
+SpriteLoader can get you:</p>
+<pre>
+SpriteLoader.getBlinkyPics()</pre>
+<pre>
+SpriteLoader.getInkyPics()</pre>
+<pre>
+SpriteLoader.getPinkyPics()</pre>
+<pre>
+SpriteLoader.getClydePics()</pre>
+<p>&nbsp;</p>
+<p>Run the program one more time to make sure that the randomizing works:</p>
+<p>
+<img src="images/img25.jpg" /></p>
+<p>&nbsp;</p><hr>
+<p class="auto-style2"><strong>Randomizing the State:</strong></p>
+<p>Add a method named <strong>randomizeState()</strong>, which will change the 
+state to a random number.&nbsp; It is important that you don&#39;t just set the 
+instance field directly.&nbsp; You should call the setState method, that way the 
+Picture strip will be changed at the right time.</p>
+<p>&nbsp;</p>
+<p>The basic AI of the Ghosts is to randomize their state at a random interval.&nbsp; 
+Add an int as an instance field that will represent the &#39;countdown&#39; until the 
+next state change.&nbsp; Add a method named randomizeCounter, which will set it 
+to a random number from 30 to 40.&nbsp; Now modify the constructor so that it 
+calls that method (we need it to be randomized on creation).</p>
+<p>&nbsp;</p>
+<p>Override the update method so that it updates like normal, but also 
+decrements the countdown.&nbsp; If the countdown makes it to zero, call the 
+randomizeState and the randomizeCounter method.&nbsp; This will change the 
+Ghost&#39;s Picture strip and also start the countdown at a new value.</p>
+<p>&nbsp;</p>
+<p>Run the runner again.&nbsp; This time the Ghosts still won&#39;t move, but they 
+should be randomly changing the direction that they&#39;re looking at random 
+intervals.</p>
+<p>&nbsp;</p><hr>
+<p class="auto-style2"><strong>Moving Ghosts:</strong></p>
+<p>Now that the state is being randomized properly, it&#39;s time to make the Ghosts 
+move.&nbsp; Start by creating an instance field to represent the speed that you 
+want the Ghost to travel.&nbsp; 5 is a pretty good value.</p>
+<p>Now override the setState method.&nbsp; First call super.setState so that the 
+image will change, but after that you need to set the velocities according to what the state is.&nbsp; First set both the 
+velocites to 0, and then use a series of if statements to look at the state and 
+set either the x or y velocity to speed or -speed.</p>
+<p>Run the runner one more time.&nbsp; This time the Ghosts should start roaming 
+all over your screen.&nbsp; Make sure that they&#39;re looking in the direction that 
+they&#39;re moving.&nbsp; Otherwise something&#39;s wrong.</p>
+<p><img src="images/img32.jpg" /></p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style2"><strong>ProcessBoundaries</strong></p>
+<p>Ghosts don&#39;t bounce the way that the other Sprites have so far.&nbsp; Once 
+they make it completely over one side of the boundary, they teleport to the 
+opposite side.&nbsp; The process is similar to previous boundary methods, but 
+since time is limited you can have it for free:&nbsp;</p>
+<pre>BoundingBox b = getBoundary();
+
+if( this.getX() &gt; b.getX()+b.getWidth())
+   this.setX(b.getX()-this.getWidth());
+
+if( this.getY() &gt; b.getY()+b.getHeight())
+   this.setY(b.getY()-this.getHeight());
+
+if(this.getX() &lt; b.getX()-this.getWidth())
+   this. setX(b.getX()+b.getWidth());
+
+if(this.getY() &lt; b.getY()-this.getHeight())
+   this.setY(b.getY()+b.getHeight());</pre>
+<p>&nbsp;</p>
+<p>Run the runner one more time.&nbsp; Keep an eye on the ones that go off one 
+side.&nbsp; Make sure that they reappear on the other.&nbsp; You may click on 
+the screen to gather all the Ghosts at one spot.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><hr>
+
+<p class="auto-style2"><strong>PacMan</strong></p>
+<p>Create a class named PacMan that extends StateBasedAnimatedSprite.</p>
+<p>Instance fields:&nbsp; Similar to the Ghost class, there should be ints for 
+each state, but the values are different (because the array is in a different 
+order):</p>
+<pre>public static final int LEFT=0,RIGHT=1,UP=2,DOWN=3;</pre>
+<p><strong>Constructor</strong>: PacMan&#39;s constructor should take in a 
+BoundingBox.&nbsp; </p>
+<p>- It should first use super&#39;s constructor to set the x,y,width and height to 
+230,230,40,40 respectively.&nbsp; </p>
+<p>- It should set the boundary to the parameter</p>
+<p>- it should call the setStrips method using SpriteLoader.getPacManPics()</p>
+<p>- it should set the state to 0.&nbsp; (Otherwise it won&#39;t load the starting 
+Picture[ ])</p>
+<p>&nbsp;</p>
+<p>Methods:</p>
+<p>The <strong>setState</strong> and <strong>processBoundary</strong> methods 
+should be nearly identical to Ghosts.&nbsp; PacMan will be controlled by the 
+keyboard, so no randomizing is necessary.</p>
+<p>&nbsp;</p>
+<p>Run the program with the following runner, which uses the arrow keys to 
+contol PacMan.</p>
+<pre>import sacco.*;
+
+public class PacViewer extends SaccoWindow
+{
+    private PacMan pac;
+    private Sprite[] sprites;
+    public PacViewer()
+    {
+        BoundingBox bounds = new BoundingBox(0,0,500,500);
+        pac = new PacMan(bounds);
+        sprites = new Sprite[31];
+
+        for( int i =0; i&lt;sprites.length-1; i++)
+            sprites[i] = new Ghost(bounds);
+
+        sprites[sprites.length-1]=pac;
+
+    }
+
+    public void paintWindow(Canvas c)
+    {
+        c.setColor(0,0,0);
+        c.fillRectangle(0,0,getWidth(),getHeight());
+        
+        for(Sprite s: sprites)
+            s.paintSelf(c);
+    }
+
+    public void onTimerTick()
+    {
+        for(Sprite s: sprites)
+            s.update();
+    }
+
+    public void onMousePress(MouseEvent m)
+    {
+        for(Sprite s: sprites)
+        {
+            s.setX(m.getX()-s.getWidth()/2);
+            s.setY(m.getY()-s.getHeight()/2);
+        }
+    }
+
+    public void launch()
+    {
+        this.setVisible(true);
+        this.start();
+    }
+
+    public void onKeyPress(int keyCode)
+    {
+        if( keyCode == 37)
+            pac.setState(PacMan.LEFT);
+        if( keyCode == 38)
+            pac.setState(PacMan.UP);
+        if( keyCode == 39)
+            pac.setState(PacMan.RIGHT);
+        if( keyCode == 40)
+            pac.setState(PacMan.DOWN);
+
+    }
+
+    public static void pacRunner()
+    {
+        PacViewer pv = new PacViewer();
+        pv.launch();
+    }
+}</pre>
+<table class="auto-style4" style="width: 100%">
+	<tr>
+		<td><strong><span class="auto-style8">IF YOU GET A NULLPOINTEREXCEPTION!</span><span class="auto-style7"><br />
+		</span></strong><br class="auto-style7" />
+		<span class="auto-style7">The way that this class is designed is 
+		dangerous because many of the superclasses leave their instance fields 
+		as null.&nbsp; This leaves it up to the subclasses to make sure that 
+		somehow those values are initialized.&nbsp; The most important thing to 
+		know is that when you construct any StateBasedAnimatedSprite you must 
+		call the setState method once in order to load the initial Pircture 
+		strip so that the object has something to loop through.</span><br class="auto-style7" />
+		<br class="auto-style7" />
+		<span class="auto-style7">1)&nbsp; Go to the Ghost class&#39; constructor.&nbsp; 
+		Make sure that you&#39;ve called the randomizeState method at some point 
+		(after loading the Pictures).</span><br class="auto-style7" />
+		<span class="auto-style7">2)&nbsp; Go to PacMan&#39;s constructor.&nbsp; 
+		There should be a call to setState(0) somwhere in there (after loading 
+		the Pictures).</span><br class="auto-style7" />
+		<br class="auto-style7" />
+		<span class="auto-style5"><span class="auto-style6">Another common issue 
+		is that people are creating a duplicate BoundingBox instance field.&nbsp; 
+		This means that the one inherited from Sprite is null, which will cause 
+		the processBoundaries to crash when it discovers that the boundary is 
+		null.&nbsp; Make sure that both Ghost and PacMan do NOT have a 
+		BoundingBox as an instance field.&nbsp; If they do, delete that field 
+		and use the </span><strong><span class="auto-style6">setBoundary</span></strong><span class="auto-style6"> 
+		method to deal with the constructor&#39;s parameter</span></span></td>
+	</tr>
+</table>
+<p><img src="images/img4E.jpg" /></p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

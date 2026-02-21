@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Using Variables</title>
+<style>
+
+p,h1,h2,h3,h4,li,ol{
+	
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+p {
+	font-size: small;
+}
+</style>
+
+</head>
+
+<body>
+<h1>Using Variables</h1>
+<p>During the HelloWorld assignment you had the following line:</p>
+<pre>System.out.println("Hello World!!!");</pre>
+
+<p>This line calls a method named println.  The definition of println states that it will print out the String that is between the parentheses.  Quotations surround a <strong>“String Literal”</strong>, which is the most straightforward way to represent a String.  Anything that is between the quotes is considered text only, with the exception of quotes and slashes.</p>
+
+<h3>Creating and Using a Variable</h3>
+<p>Variables are used to store data, such as a String, for later use in a program.  The following snippet of code prints out Hello World!!! just as your first program did:</p>
+<pre>String phrase = “Hello World!!!”;
+System.out.println(phrase);</pre>
+
+<p>The difference is that this code first stores "Hello World!!!" to a variable named <strong>phrase</strong> and then it prints out</p>
+<p>We need to take a close look at these lines carefully.</p>
+
+
+<br/>
+
+<h4 style="font-family:courier">String phrase = “Hello World!!!”;</h4>
+<p>There are two specific things happening here:</p>
+<ol>
+<li><strong><span style="font-family:courier;">String phrase</strong></span><p>This portion is a declaration statement.  It DECLARES that the word <strong>phrase</strong> will be a variable that holds a String for the rest of the program.</p>
+</li>
+
+<li><strong><span style="font-family:courier">= “Hello World!!!”;</span></strong><p>This uses the equals sign to ASSIGN the String “Hello World!!!” to the variable that was created.
+  The equals sign is actually called the <strong>assignment operator</strong>, because its purpose is to assign values to variables.</p>
+</li>
+</ol>
+<br/>
+<br/>
+
+
+<h4 style="font-family:courier">System.out.println(phrase);</h4>
+<p>Previously we passed String Literals into the println method.  We can also put a <strong>variable</strong> that holds a String.  Since <strong>phrase</strong> is now a variable that holds the String “Hello World!!!”, passing it into the println method will cause “Hello World!!! will be printed.</p>
+
+<p>It is important to note that there are no quotation marks in this println command.  If you were to write <strong>System.out.println("phrase");</strong>, Java would consider it a String that says "phrase" and that's what it would print out to the terminal window.</p>
+<hr/>
+<h3>Reusing Variables</h3>
+<p>Variables are created so that they can be replaced if they need to be.  Consider the following code:</p>
+
+<pre>public class StringChanger
+{
+   public static void main()
+   {
+      String phrase = "Hello World!!!";
+      System.out.println(phrase);
+
+      phrase = "Sacco Rules!!!";
+      System.out.println(phrase);
+   }
+}
+</pre>
+<p>If you ran the main method, the output would be:<br/>
+Hello World!!!<br/>
+Sacco Rules!!!</p>
+<p>Even though the two printlns are identical, the contents of the phrase variable are changed to "Sacco Rules!!!" right before the second println</p>
+
+<hr/>
+<h3>Concatenating Strings</h3>
+<p>You can use the ‘+’ sign to merge two different Strings into one String.  This is called <strong>concatenation</strong>.</p>
+
+<p>For example:<br/>
+<span style="font-family:courier">“Hello ” + “World!!!”</span>  makes the new String <span style="font-family:courier">“Hello World!!!”</span></p>
+<br/>
+<p>You may also use variables in concatenation:<br/>
+<span style="font-family:courier">String name = “Sacco”;<br/>
+“My name is ”+name</span> &nbsp; makes the new String <span style="font-family:courier;"> &nbsp;“My name is Sacco”</span></p>
+<hr/>
+<h3>Choosing a Variable Name</h3>
+<p>When using variables you get to decide what variable name to use.  Often times students think that <strong>phrase</strong> is the only possible variable name, but you can choose (almost) any word that you want to be the variable name.  You should aim to make them as descriptive as possible.  I chose phrase when we were putting the generic "Hello World" into it, but <strong>name</strong> was a much better choice for storing "Sacco"</p>
+<p>Get in this habit now.  Don't be lazy with your variable names.  You'll regret it once our programs start getting complicated.</p>
+<hr/>
+<h3>Example Program</h3>
+<p>The following is a sample of a simple program that requires the use of a variable.</p>
+<p>Write a program named Greeter.  The main method of Greeter should create a String variable named name and assign your name to it.  Then use it to print out a string in the form “Hello <Your Name>! How are you?”
+</p>
+
+<p>Solution:</p>
+<pre>public class Greeter
+{
+   public static void main()
+   {
+      String name = “Sacco”;
+      System.out.println(<span style = "color:green">“Hello, ”</span>+ name +<span style = "color:green">“!  How are you?”</span>); 
+   }
+}</pre>
+<p>Note that the println can get confusing with all of the quotation marks.  Pay attention to the color of the text.  The text that is green will appear how you type it, but the variable's color is black, meaning that it will print the contents of the variable.</p>
+
+<hr/>
+<h3>Important Side Note: Quotation Pains</h3>
+<p>The Greeter class above is proper code, but if you copy and paste it from your browser into a BlueJ window it will not compile.  It will give you the error: <strong>illegal character \8220</strong></p>
+<p>This is a very frustrating error to come across because it has nothing to do with how correct your code is.  The actual problem is that the quotation marks are too fancy.  It turns out that there are multiple characters that represent quotation marks, but only one of them is recognized properly by Java.  This error occurs occationally when code is being copied from a web browser.  It can ruin your day.</p>
+<p>The solution is to simply delete the quotation marks that are there and type new ones in their places.</p>
+
+</body>
+</head>

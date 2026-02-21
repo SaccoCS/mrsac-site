@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Asteroids - Adding Images</title>
+
+<style>
+
+	p{
+	font-family:Arial;
+	font-size:small;
+	}
+	
+	h3{
+	font-family:Arial;
+	}
+</style>
+
+</head>
+
+<body>
+<h2 style="font-family:Arial">Asteroids - Adding Images</h2>
+
+<applet code="Phase3Applet.class" archive="Asteroids.jar" width="500" height="500"></applet>
+
+<p>Now that we've got the basic movement of an Asteroid ready to go,  all we have to do is change how each object is represented visually by drawing them using images instead of colorful squares.</p>
+
+<p>The images are already in sacco.jar.  Remember, when getting Picture objects out of the jar you use the Picture.loadFromJar( "space/filename.png"); command.  Notice the 'space/', which is different than before.  Each of the Asteroids related images are in the space folder, so you will have to add this before any of the image names in order to retrieve them.</p>
+
+<h3 style="font-size:mediuim">Modifying the Canvas to have an image:</h3>
+<p>The Canvas object you've created represents the environment that all the Asteroids are on.  To enhance the environment, it should draw a background picture.  You may choose your own appropriate background, but sacco.jar has an image "space/bluespace.png" that will do.</p>
+
+
+<p>1) In the canvas class, add a Picture as an instance field that will represent the background.</p>
+<p>2) In the constructor, use Picture.loadFromJar to load the Picture INTO THE INSTANCE FIELD VARIABLE.  If you have your own image saved to the folder, use Picture.loadFromFile instead.</p>
+<p>3) In the paintCanvas method, before you loop and paint all of the Asteroids, use brush's drawPicture method to draw the background.</p>
+<p>4) Run the program.  Hopefully, you will see a picture in the background instead of a white background.  Make sure that the colored squares are still in the foreground.</p>
+<h3 style="font-size:mediuim">Modifying the Asteroids to have an image:</h3>
+<p>Now it's time to change the Asteroid class to paint an image instead of a colorful square.  Similar to the canvas class, you should make changes to the instance fields, the constructor, and the paintSelf method.  First every asteroid use the "space/asteroid1.png" to draw themselves.</p>
+
+<p>Once you get it working where all Asteroids use the same image.  Modify the constructor to use a random number to determine which image should be loaded into the instance fields.  YOU DO NOT NEED TO ADD INSTANCE FIELDS.  Each asteroid only has 
+<strong>one</strong> Picture variable, the constructor simply chooses which Picture to put into that one variable.</p>
+<p>The five image names are "space/asteroid1.png", "space/asteroid2.png", "space/asteroid3.png", "space/asteroid4.png", "space/asteroid5.png".  While a five-part if statment is perfectly acceptable, the cool kids will be able to do this without one.</p>
+<p></p>
+<p></p>
+
+</body>
+
+</html>

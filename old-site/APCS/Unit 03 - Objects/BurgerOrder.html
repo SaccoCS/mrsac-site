@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>BurgerOrder</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+</style>
+</head>
+
+<body>
+
+<p><span class="auto-style2">BurgerOrder</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Write a class named BurgerOrder, which is in charge of 
+keeping track of a simple food order at a fast food restaurant.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">BurgerOrder should have instance fields to represent 
+the <strong>number</strong> (not the cost) of hamburgers, french fries, and 
+sodas that have been ordered.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Add three <strong>constants</strong> that represent 
+the value of each of the three items. Burgers should cost $2.00, fries are 
+$1.50, and a soda is $1.25. Don&#39;t forget to use all caps when naming these 
+constants.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Add a constructor that takes in zero parameters and sets the non-final instance 
+fields to 0.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Add three mutator methods: addBurgers, addFries, and 
+addSodas, which take in an int as a parameter and add it to the appropriate 
+instance field</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Add a toString that returns a String containing how 
+many burgers, fries, and sodas are on the order.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Add a method named getTotal that uses all the instance 
+fields to get a total of what the meal costs. DO NOT CREATE AN INSTANCE FIELD 
+FOR THE TOTAL. IT SEEMS LIKE A GOOD IDEA, BUT IT IS NOT GOOD PROGRAMMING.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Test out your class by using BlueJ to construct a new 
+Burger and use the methods to add a 2 Burgers, an order of fries, and 2 sodas to 
+the order. When you call the getTotal method, your meal should cost $8.00 even.&nbsp; 
+Don&#39;t worry if the returned value is a messy double that has more than one digit 
+after the decimal place.</span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Now add constant named SALES_TAX and set it to 0.0775 
+(7.75%). After you&#39;ve done that, add a method named totalAfterTax() which will 
+use the SALES_TAX variable to calculate the tax owed and then adding it to the 
+total. </span><br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">If you put in the same order as before, then call the 
+totalAfterTax method you should get 8.62 returned.&nbsp; </span><br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<br class="auto-style1" />
+<span class="auto-style1">Use the following Client to test your program:</span><br class="auto-style1" />
+</p>
+<pre>public class BurgerRunner
+{
+   public static void main()
+   {
+      BurgerOrder myOrder = new BurgerOrder();
+
+      System.out.println("Ordering 4 Burgers");
+      myOrder.addBurgers(4);
+      System.out.println(myOrder);
+
+      System.out.println("\nOrdering 2 fries");
+      myOrder.addFries(2);
+      System.out.println(myOrder);
+
+      System.out.println("\nOrdering 3 sodas");
+      myOrder.addSodas(3);
+      System.out.println(myOrder);
+
+      System.out.println("Before tax, there is a total of "+myOrder.getTotal() );
+      System.out.println("After tax, there is a total of "+myOrder.totalAfterTax() );
+
+
+   }
+}
+</pre>
+</body>
+
+</html>

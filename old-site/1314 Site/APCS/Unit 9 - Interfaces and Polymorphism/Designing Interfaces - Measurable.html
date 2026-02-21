@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Designing Interfaces - Measurable</title>
+<style>
+p{
+	
+	font-family:Arial, Helvetica, sans-serif;font-size:small;
+}
+.auto-style1 {
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">Designing Interfaces:&nbsp; The Measurable Interface</h2>
+<p>The main purpose of interfaces is for Polymorphism, which is useful because 
+it allows you to reuse code to work with similar objects.</p>
+<p>Consider the DataSet class below:&nbsp;</p>
+<pre>public class DataSet
+{
+    private double sum;
+    private double max;
+    private int count;
+
+    public void add(double num)
+    {
+        sum += num;
+
+        if( count == 0 || num > max)
+            max = num;
+            
+        count++;
+    }
+
+    public int getCount()
+    {
+        return count;
+    }
+
+    public double getMaximum()
+    {
+        return max;
+    }
+
+    public String toString()
+    {
+        return "The average of the "+count+" items is "+sum/count+", with the largest value being "+max;
+    }
+    
+}
+</pre>
+
+<p>This object, once constructed, will have its add method called repeatedly 
+with a new double passed in as the parameter.&nbsp; If you look at the add 
+method you should see that it does three different things.&nbsp; First adds the 
+double to its summing variable, then it checks if the new value is the maximum 
+value, and then a counter is incremented.&nbsp; </p>
+<p>Once you understand, run it using the following static method:</p>
+<pre>public static void runner()
+{
+   double[] dubs= {24.18236976253404,5.318798095707647,6.057224716497403,3.2088550719106683,8.321992716177688,14.546883109584371,10.787327333696256,4.4931530483393685,2.2494433844237856,4.026296722006039,1.9840089875071631,10.061039409918523,7.63092945128476,7.138566982641584,17.745026359508653,1.0641422353025565,14.87162155392738,16.27645701530634,2.2693370747936785,15.371608415090806};
+    
+   DataSet data = new DataSet();
+        
+   for( int i = 0; i &lt; dubs.length; i++)
+   {
+      data.add(dubs[i]);
+   }
+        
+   System.out.println(data);
+ 
+}
+</pre>
+
+<hr>
+
+<p class="auto-style1"><strong>Applying it to Objects</strong></p>
+<p>This is a useful class, but right now it only works for doubles.&nbsp; Let&#39;s 
+modify it to work with an Object.&nbsp; Consider the BankAccount class that 
+follows:</p>
+<pre>public class BankAccount
+{
+    private double balance;
+    private String accountName;
+    private double interestRate;
+    
+    public BankAccount(String name, double initialDeposit)
+    {
+        accountName=name;
+        balance = initialDeposit;
+        interestRate = .01;
+        
+    }
+    
+    public void gainInterest()
+    {
+        balance = (1+interestRate)*balance;
+    }
+
+    public void deposit(double money)
+    {
+       balance += money;
+    }
+    
+    public String getName()
+    {
+        return accountName;
+    }
+
+    public double getBalance()
+    {
+        return balance;
+    }
+
+    public String toString()
+    {
+        return accountName+&quot;:&quot;+balance;
+    }
+}</pre>
+<p>This class manages a single BankAccount&#39;s information.&nbsp; You can set an 
+initial balance and call the <strong>gainInterest </strong>method to increase 
+the amount of money in the account, as well as deposit money.&nbsp; At its core, 
+this is really just a double, and we may want to take a set of BankAccounts and 
+determine the number, average, and maximum balance of each BankAccount.</p>
+<p>&nbsp;</p>
+<p>Create a class named BankDataSet, which works identical to the DataSet class 
+above, but it will work with BankAccount objects instead of doubles.&nbsp; The 
+&quot;max&quot; should be a BankAccount, the add method should take in a BankAccount as a 
+parameter, and the getMaximum should return a BankAccount&nbsp; Instead of adding a 
+double directly to your sum, you should call the <strong>getBalance</strong> method, because 
+that is the core double that the BankAccount is representing.</p>
+<p>Run your code with the following method, which constructs a few BankAccounts 
+and gains some interest on each of them before adding them to a BankDataSet 
+object.&nbsp; The average should end up being around 770 and the Maximum account 
+should be Diana.</p>
+<pre>public static void runner()
+{
+    BankAccount[] accounts = {new BankAccount("Allen", 1000), new BankAccount("Beth", 250), new BankAccount("Charlie", 500), new BankAccount("Diana",1235), new BankAccount("Evan",722)};
+    int[] years = {3,6,4,5,2}; //Each account gains a different amount of interest
+        
+
+    for( int i = 0; i&lt;accounts.length; i++)
+    {
+        //uses the number of years to gain interest on each account.
+        for( int j = 0; j&lt;years[i]; j++)
+           accounts[i].gainInterest();
+    }
+
+        
+    BankDataSet data = new BankDataSet();
+    //adds each of the accounts to the BankDataSet object
+    for( int i =0; i &lt; accounts.length; i++)
+    {
+       data.add(accounts[i]);
+    }
+                
+    System.out.println(data);
+
+}</pre>
+<hr>
+<p class="auto-style1"><strong>Using Polymorphism to Make a Better DataSet</strong></p>
+<p>&nbsp;While it&#39;s nice to have a class that will help tell us information about 
+BankAccounts, the process should not have to necessarily be BankAccount 
+specific.&nbsp; The BankDataSet class does not care about how the BankAccount 
+was set up or what the name was on the account.&nbsp; It only cares about the 
+balance.&nbsp; There are many objects that deep down are essentially keeping 
+track of a double, but we don&#39;t really want to design a new DataSet object for 
+each of them.&nbsp; We want to work smarter, not harder.</p>
+<p>Create a new Interface named Measurable, which is meant to be implemented by 
+Objects that have a core double and it would make sense for them to use it with 
+a DataSet object.&nbsp; The only method that the Measurable interface should 
+have is a<strong> getMeasure</strong> method, which is going to be how we get 
+the double out of the object (getBalance is too BankAccount specific of a name).</p>
+<p>Once the Measurable interface is compiled, get to work on a MeasurableDataSet 
+class, which will work with any object of type Measurable.&nbsp; Again, it 
+should look very similar to the BankDataSet class that you just made, except the 
+type of object is &quot;Measurable&quot; and the only method you need to call is the 
+getMeasure method.&nbsp; This should compile even though no object even 
+implements the Measurable interface yet.</p>
+<p>Once you feel comfortable with the MeasurableDataSet class, the BankAccount 
+class needs a little modification to work with it.&nbsp; First it needs to 
+implement the Measurable interface, and second it needs to have the getMeasure 
+method.&nbsp; The get measure method should really just call the getBalance 
+method, since that&#39;s the double we care about.&nbsp;&nbsp;</p>
+<p>Now go back to the runner.&nbsp; The only modification it should have is that 
+the BankDataSet should be changed to a MeasurableDataSet.&nbsp; Running the 
+program should print out exactly the same result as before.</p>
+<p>&nbsp;</p>
+<hr>
+<p class="auto-style1"><strong>Reusing MeasurableDataSet (the whole point of 
+Polymorphism)</strong></p>
+<p>The whole purpose of the Measurable interface is that it allows the 
+MeasurableDataSet to work with multiple different objects.&nbsp; Copy the Coin 
+class below into your project:</p>
+<pre>public class Coin
+{
+
+    private double coinValue;
+    private String coinName;
+
+    public Coin(String name, double value )
+    {
+        coinValue = value;
+        coinName = name;
+    }
+
+    public double getValue()
+    {
+        return coinValue;
+    }
+
+    public String getName()
+    {
+        return coinName;
+    }
+    public String toString()
+    {
+        return coinName+":"+coinValue;
+    }
+}</pre>
+<p>This class is perfect for our new MeasurableDataSet object.&nbsp; First you 
+should implement the Measurable interface for Coin, similar to how you did for 
+BankAccount, and then you should try the following runner.&nbsp; This time you 
+do not have to make a different DataSet object.&nbsp; The MeasurableDataSet 
+object should be just fine.&nbsp; Try out the following runner:</p>
+<p>&nbsp;</p>
+<pre>public static void coinRunner()
+{
+   Coin[] coins = {new Coin("dime",.1),new Coin("quarter",.25),new Coin("penny",.01),new Coin("quarter",.25),new Coin("nickel",.05)};
+        
+   MeasurableDataSet mds = new MeasurableDataSet();
+        
+   for( int i=0; i&lt;coins.length; i++)
+   {
+      mds.add(coins[i]);
+   }
+   System.out.println(mds);
+}</pre>
+<hr>
+<p>Why use the Measurable interface?</p>
+<p>Before the Measurable interface, a custom DataSet object would have to be 
+created for every different object that we create</p>
+<p>
+<img border="1" height="266" src="images/Before%20Measurable.PNG" width="367" /></p>
+<p>Once we have the Measurable interface, there is no longer a need to create so 
+many DataSet objects.&nbsp; We only need to design one that uses &#39;Measurable&#39; 
+objects.&nbsp; </p>
+<p>
+<img border="1"  src="images/After%20Measurable.PNG"  /></p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

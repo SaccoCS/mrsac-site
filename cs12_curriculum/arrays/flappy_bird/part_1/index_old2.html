@@ -1,0 +1,247 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../../style.css">
+<title>Flappy Bird: Part 1</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+   Flappy Bird: Part 1
+  </h1>
+  
+  
+<p>&nbsp;</p>
+<p>We are going to break the game up into four parts so that we can focus on manageable portions at a time.</p>
+<p>1) Design a Bird that will fall with gravity<br />2) Design the Pipe obstacles that drift toward the bird infinitely<br />3) Use boxOverlap to detect collisions&nbsp;<br />4) Add game detail: Images and Score</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Phase 1: Dropping a Brick</h3>
+<p>Phase 1 of our game will focus on the Bird's motion on the screen.&nbsp;</p>
+<p><iframe src="demos/red_square/index.html" width="220" height="320" loading="lazy"></iframe></p>
+<p>Click the demo above and notice that the Bird:</p>
+<p>- Doesn't move in the xDirection at all</p>
+<p>- Falls faster the&nbsp;longer that it's in the air</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Basic Structure</h3>
+  
+  
+  <p>Open the Flappy Bird workspace in CodeHS. You will be met with the following code:</p>
+  
+  <pre>function setup(){
+  createCanvas(250,400);
+  rectMode(CENTER);
+  imageMode(CENTER);
+}
+
+function draw() {
+  background(255);
+
+  drawBird();
+}</pre>
+  
+<p>First we need to choose the appropriate variables.&nbsp; Looking at the demo above there are many things that don't change, like the bird's x, width, and height. It's the vertical movement that's the issue.</p>
+  
+  <div class = "head_list">
+    
+  <p>
+    Like we did with our Pong game, we will be using the speed to repeatedly update the location to cause motion. Add two <strong>global variables</strong> to your sketch:
+  </p>
+  <ul>
+    <li>One representing the bird's <strong>y-location</strong></li>
+    <li>One representing the bird's <strong>ySpeed</strong></li>
+  </ul>
+  </div>
+  
+<p>In the&nbsp;<strong>setup function</strong>, initialize y to be the middle of the canvas and the ySpeed to be 0.</p>
+<p>&nbsp;</p>
+<h4>Functional Decomposition</h4>
+<p>If we try to do everything within the draw method, we are going to lose track of where we are and it will be impossible to locate our bugs. In order to help our design, we will be breaking the game down into its individual challenges and creating a function for each part.</p>
+<p>The first challenge is drawing the bird.&nbsp; Start with the following code:</p>
+
+<p>The drawBird function doesn't exist, so add it:</p>
+<pre>function drawBird(){
+
+}</pre>
+<p>
+  Use this space to draw a red rectangle using the previously created global y variable. Give it an x location of 60, and a width and height of 34 and 24 respectively.
+  
+<p>Once you've finished, run your sketch.&nbsp; If you've done it properly the rectangle will appear in the middle of the screen.&nbsp;<strong>It will not move yet&nbsp;</strong></p>
+<p><img title="" src="images/still_red.png" /></p>
+  
+  
+  
+  
+  
+  
+  <br><br><hr>
+  
+  <h2>Gravity</h2>
+<h3><iframe src="demos/red_square/index.html" width="220" height="320" loading="lazy" data-mce-fragment="1"></iframe></h3>
+<p>We've added a ySpeed variable, but at the moment</p>
+<p>Change your draw function to be the following:</p>
+<pre>function draw() {
+  background(255);
+  drawBird();
+
+  <span style = "color:green">moveBird();</span>
+}</pre>
+  <p>
+    This calls a moveBird() function that doesn't exist yet. Add it to your sketch now.
+  </p>
+<p>Like we've done before, write the moveBird function increasing the bird's&nbsp;<strong>y</strong>&nbsp;by its ySpeed. <code>y += ySpeed;</code></p>
+<p>&nbsp;</p>
+<h4><strong>Linear vs Parabolic motion</strong></h4>
+<p>Right now the ySpeed is 0, so running the sketch won't do anything for you. Test to make sure it's working by going to the setup function and changing the ySpeed to be something positive, like 5.&nbsp; Then running the sketch should provide some motion, but there's a problem. Increasing y by a&nbsp;<strong>constant</strong> ySpeed will cause a linear, drifting. We want to simulate gravity, which is an&nbsp;<strong>acceleration</strong> of the ySpeed that makes it look like it's falling.</p>
+<p>To create gravity, we need to add another variable named <strong>gravAccel</strong>. In the setup function, initialize gravAccel to something small, like 0.3 or 0.5.</p>
+<p>Once the gravAccel variable has been established, modify the&nbsp;<strong>moveBird</strong> function so that it first increases the bird's y by ySpeed, but then&nbsp;<strong>increases ySpeed by gravAccel</strong> ( <code>ySpeed += gravAccel; )</code>. This will cause the speed to increase with time, causing parabolic motion.</p>
+<p>Once you've done that, test out your sketch. Watch carefully as the bird falls off the screen, you should see a more natural fall.</p>
+<p>&nbsp;</p>
+<h3>Flapping</h3>
+<p>We're at a place where the Bird's movement is contolled by the ySpeed variable, and gravity is constantly increasing the speed. A 'flap' is a sudden change in the ySpeed. Add the mousePressed function to your sketch, which only needs to set the ySpeed to a value around -10. This will cause the bird to go upward for a while, but eventually the gravity will drag it back down.</p>
+<p>&nbsp;</p>
+<h3>Ground Limiting</h3>
+  
+  <div class = "head_list">
+    
+<p>Your Bird is constantly trying to fall out of the window, which can be annoying.&nbsp; Add an if statement to the moveBird function that will check the Bird's y value after it falls. If the bird is off the screen:
+  
+  <ul>
+    <li>Set the bird's y value so it rests exactly on the bottom</li>
+    <li>Set ySpeed to 0</li>
+  </ul>
+  </div>
+<p>At this point you should have a sketch that functions as the one at the top of the page does. Clicking the canvas should cause a bird to flap, and it should stop as it hits to ground.</p>
+<p>Make sure that you've named your sketch Flappy Bird&nbsp;and Saved. Copy and paste the current version of you sketch below.</p>
+  
+  
+  
+  
+  
+  
+  
+  <br><br><hr>
+  
+  
+  
+  
+  <h2>The Pipes</h2>
+<h3><iframe src="demos/immobile%20pipes/index.html" width="220" height="320" loading="lazy" data-mce-fragment="1"></iframe></h3>
+<p>The other entity that we have to worry about in our game is the pipes that drift across the screen and provides an obstacle for the bird to dodge. They are a little more complex than the bird, but the basic idea is the same. We'll start by getting a drawing function working, and then build from there.</p>
+<p>&nbsp;</p>
+<h4>A Pipe's X and Y</h4>
+<p>If you look at the demo above, you can see that each set of pipes has an upper and lower rectangle drawn for it.&nbsp; Instead of keeping track of x and y values for both pipes, we'll keep track of a single x and y.&nbsp; This will represent the location exactly between the two pipes, temporarily drawn above as a blue line. This way we can calculate both pipes and store less information.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Drawing the Pipes</h4>
+<p>Change your draw function to include a call to&nbsp;<strong>pipePair()&nbsp;</strong>with 200 and 250 as parameters.</p>
+<pre>function draw() {
+  background(255);
+  drawBird();
+  <span style = "color:green">pipePair(140,170);</span>  //dummy pipe
+
+  moveBird();
+}</pre>
+<p><strong>Also add the pipePair&nbsp;</strong><strong>function</strong>&nbsp;to you sketch:</p>
+<pre><span style = "color:green">function pipePair(pX,pY){
+
+}</span></pre>
+<p>&nbsp;</p>
+<p>Notice that this function takes in parameters pX and pY. Your task is to use pX and pY to draw&nbsp;<strong>bo</strong><strong>th</strong>&nbsp;the top and the bottom pipes centered on pY (you don't have to draw the blue line if you don't want to).&nbsp; Remember that for drawing we need the x,y,width, and height of each rectangle.&nbsp;In order to make our lives easier later, we're going to make the pipes be exactly the size of the images that we're going to eventually overlay.&nbsp;</p>
+  
+<p>This means we know the following:<br />&nbsp;- All Pipes have a&nbsp;<strong>width</strong>&nbsp;of 52.<br />&nbsp;- All Pipes have an x that is the same as&nbsp;<strong>pX</strong><br />&nbsp;- The Top Pipe has a&nbsp;<strong>height</strong>&nbsp;of 288<br />&nbsp;- The Bottom Pipe has a&nbsp;<strong>height</strong>&nbsp;of 242&nbsp;</p>
+  <div class = "head_list">
+    
+<p>The y of the pipes is trickier.&nbsp; We need to start at&nbsp;<strong>pY</strong>, accomodate for the 100-ish, and use half the height of the pipes to find the center of the pipe for drawing.
+    After all that we can determine that:
+  </p>
+  <ul>
+    <li>The top pipe's y is pY - 194</li>
+    <li>The bottom pipe's y is pY + 170</li>
+  </ul>
+  
+  </div>
+
+<p>Use the information above to determine the x,y,width, and height of both rectangles and use the rect() function to draw them. It is important that you are in rectMode(CENTER), or problems will occur.</p>
+<p>&nbsp;</p>
+<p><strong>Double Check</strong>: The drawPipe function accepts the pX and pY parameters because it will eventually be used to draw another set of pipes. If you accidentally use the values 140 or 170, this will work now, but break later. Make certain that your drawPipe() function only uses pX and pY now to prevent frustration.&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Test,Test,Test</h5>
+<p>To make sure that the pipePair() function works properly, modify the (140,170) in the draw function to be different, like (200,120), and make sure that the pipes draw in a new location.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Preparing for More Pipes</h3>
+<p>Right now we're focusing on a single pipe, but eventually we're going to have multiple pipes represented. To prepare for that situation, we're going to remove the pipePair() call from the draw() function and into a brand new&nbsp;<strong>drawPipes();</strong>&nbsp;function to be called from the main draw loop.</p>
+<pre>function draw() {
+  background(255);
+  drawBird();
+  <span style = "color:green">drawPipes();</span>
+
+  moveBird();
+}
+
+<span style = "color:green">
+function drawPipes(){
+   pipePair(140,170);
+}</span></pre>
+<p>This should change nothing about how the program looks, but will be beneficial later.</p>
+  
+  
+    
+  
+  
+  
+  <br><br><hr>
+  
+  
+  <h2>Movable Pipe</h2>
+<h4><iframe src="demos/pipes_no_collision/index.html" width="500" height="340" loading="lazy" data-mce-fragment="1"></iframe></h4>
+<p>Right now, the draw function is drawing a static pipe that will never move. We need to add in the horizontal movement to the pipes, which means that the x location should be variable.</p>
+<p><strong>Create a Global variable</strong>&nbsp;in your sketch named pipeX. This is going to represent the x value of the pipe on the screen.<br /><strong>In the&nbsp;setup function</strong>, assign an initial value of 250 to it. This is far to the right of the window, but should still show a little bit.<br /><strong>Modify the drawPipes() function</strong>&nbsp;to use pipeX when drawing: <code>pipePair(pipeX,150);</code>. For now we are going to leave all the pipes with a y of 150. We'll return to it later.</p>
+<!-- <p>Running your sketch right now should show one set of&nbsp;pipes at the right side of the screen. Try going to setup and temporarily changing the initial value of pipeX to something else to make certain that it is linked properly, but set it back to 350 when you've finished testing.</p> -->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Moving the Pipes</h4>
+<p>Update your draw function to be the following:</p>
+<pre>function draw() {
+  background(255);
+  drawBird();
+  drawPipes();
+
+  moveBird();
+  <span style = "color:green">movePipes();</span>
+}</pre>
+<p>You should also add the new&nbsp;<strong>movePipes()</strong>&nbsp;function to the end of your sketch</p>
+
+  <span style = "color:green"><pre>function movePipes(){
+
+}</pre></span>
+<p>&nbsp;</p>
+<h4>Pipe Speed&nbsp;</h4>
+<p>To get the pipes moving, we will first establish a speed for them to go.&nbsp;<strong>Add a global variable named pipeSpeed</strong>&nbsp;and assign a value of -2 to it in setup(). If you want to tweak the challenge of your game, you can make this value larger or smaller.</p>
+<p>Once <strong>pipeSpeed </strong>has been declared and initialized, we can write the movePipes() function so that it causes the pipe to drift. Like before the x value of the pipe should increase by the speed of the pipe.</p>
+<p>When you've done that, running your sketch should cause the pipe to start moving. It should move at a steady speed to the left and eventually leave the screen.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Setup: Widen the Canvas</h4>
+<p>250 x 400 is the size of the game, but while we're working on it we will want to see what is going on offscreen. Go to the setup function and&nbsp;<strong>temporarily widen</strong>&nbsp;the canvas from 250 to 500. This 'developer mode' will allow us to get a better view of what's happening in our game.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Resetting the Pipes</h4>
+<p>As a pipe drifts off the left side of the canvas, we're going to want to recycle it by resetting its x value to be larger. This will cause an infinite amount of pipes to come and challenge the bird.&nbsp;</p>
+<p>In the movePipes() function, after the pipe's x is increase by the speed you should check to see if it's gone so far to the left that it's gone off the screen. Since the pipe's x is its&nbsp;<strong>center</strong>, this would mean that it had gone less than a negative value, like -50. If it is, reset the pipeX variable by&nbsp;<strong>increasing</strong> it by 500 (do not simply set it to 500).</p>
+<p>Why 500? Eventually we are going to have two pipes, each meant to be 250 apart. 500 is chosen so that it will occupy every other location.</p>
+  
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>If all is done properly, you should have a sketch that operates like the one at the top of the page. A bird that flaps when clicked, and the beginnings of an infinite pipe system. There is still plenty left to do, but this is a solid foundation.</p>
+<p>&nbsp;</p>
+  
+  
+  </body>
+</html>

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>The BoundingBox class</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	border: 1px solid #c0c0c0;
+}
+.auto-style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	color: #FF0000;
+}
+.auto-style6 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">The BoundingBox class</h2>
+<p class="auto-style1">Now that we have all of the important objects on our 
+Asteroids Canvas it&#39;s time to think about collision.&nbsp; The most important 
+thing that we&#39;re going to need is the ability to tell when two rectangles 
+overlap.&nbsp; In this assignment you are going to create an object that will 
+represent a rectangle and be able to tell if it overlaps with another rectangle.&nbsp; 
+This object will be different than the SpaceShip or Asteroids class because it is not meant to be a visual object.&nbsp; 
+This means that the canvas will NOT have an ArrayList&lt;BoundingBox&gt;.&nbsp; It 
+will be used differently.</p>
+<p class="auto-style1">&nbsp;</p>
+<hr>
+<p class="auto-style1">Create a class named BoundingBox, which will be 
+responsible for representing a rectangle that surrounds an object.</p>
+<p class="auto-style1">Add doubles for the x,y,width, and height of the box.</p>
+<p class="auto-style1">The constructor should take in four ints and apply them 
+to the appropriate instance fields</p>
+<p class="auto-style1">Add the basic accessor methods: getX(), getY(), 
+getWidth(), and getHeight()</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style3"><strong>The overlaps method:</strong></p>
+<p class="auto-style1">The most important thing that a BoundingBox is going to 
+be used for is to tell if it overlaps another BoundingBox object.&nbsp; Add the 
+following method header.</p>
+<p class="auto-style6">public boolean overlaps(BoundingBox other)</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">This is a terrifying method.&nbsp; It is in the 
+BoundingBox class, but the parameter of the method is also a BoundingBox.&nbsp; 
+You must think of it as two separate BoundingBoxes.</p>
+<p class="auto-style1">1)&nbsp; The BoundingBox that we are writing.&nbsp; You 
+can access it&#39;s information using the word &#39;this&#39;.&nbsp; For example, 
+this.getWidth() and this.getX() should return the width and the height of &quot;this&quot; 
+BoundingBox</p>
+<p class="auto-style1">2) The parameter BoundingBox.&nbsp; This is a completely 
+separate BoundingBox object.&nbsp; It has its own x,y,width, and height.&nbsp; 
+It has a variable named&nbsp; <strong>other</strong>, so you can use that to 
+acces the information.&nbsp; i.e. other.getY() and other.getHeight().</p>
+<p class="auto-style1">&nbsp;</p><hr/>
+<p class="auto-style1">The idea is to use the x,y,width and height of both 
+&#39;this&#39; box and the &#39;other&#39; box to see if they overlap adn return true if they do.&nbsp; 
+This can be tricky to do, unless you look at it a specific way.</p>
+<p><span class="auto-style1">Instead of thinking &quot;What is true when two boxes 
+overlap?&quot;, you should think &quot;What is true when they are NOT overlapping?&quot;.&nbsp; 
+If two boxes are NOT overlapping, at least one of four things must be true:</span><br class="auto-style1" />
+<span class="auto-style1">1)&nbsp; The other box is completely to the right of 
+this box (other&#39;s left edge is greater than this&#39; right edge)</span><br class="auto-style1" />
+<span class="auto-style1">2)&nbsp; The other box is completely to the left of 
+this box (other&#39;s right edge is less than this&#39; left edge)</span><br class="auto-style1" />
+<span class="auto-style1">3)&nbsp; The other box is completely above this box 
+(other&#39;s bottom edge is less than this&#39; top edge)</span><br class="auto-style1" />
+<span class="auto-style1">4)&nbsp; The other box is completely below this box 
+(other&#39;s top edge is greater than this&#39; bottom edge)</span></p>
+<p class="auto-style5">BE CAREFUL:&nbsp; It is <strong>never</strong> just 
+comparing an x and another x.&nbsp; In order to be completely to the right, an
+<strong>x</strong> must be greater than an <strong>x+width</strong></p>
+<p class="auto-style1">Your method should look for any of these cases and return 
+false.&nbsp; If none of those return, then the boxes must be overlapping.</p>
+<p class="auto-style1">&nbsp;</p>
+<p class="auto-style1">Copy and paste the following runner, which has two 
+BoundingBox objects.&nbsp; The center box turns red when your overlaps method 
+returns true.&nbsp; Move the mouse 
+until the two boxes overlap.&nbsp; When they do, the center box should turn 
+red.&nbsp; Move the mouse all around to make sure that it only turns red when 
+the boxes are overlapping.</p>
+<p class="auto-style1">
+<img style ="width:25%;" src="../../../APCS/Unit%205%20-%20Conditional%20Statements/images/img3.jpg" />&nbsp;&nbsp;
+<img style ="width:25%;" src="../../../APCS/Unit%205%20-%20Conditional%20Statements/images/img6.jpg" /></p>
+<table class="auto-style2" style="width: 100%">
+	<tr>
+		<td><pre>import sacco.*;
+
+public class BoundingBoxTester extends SaccoWindow
+{
+    private int x,y;
+    private BoundingBox stationary, drag;
+    
+    public BoundingBoxTester()
+    {
+        x = Integer.MAX_VALUE;
+        y = Integer.MAX_VALUE;  
+        stationary = new BoundingBox(170,200,160,100);    
+    }
+
+    public void paintWindow(Canvas brush)
+    {
+
+        if(drag != null && drag.overlaps(stationary))
+        {
+            brush.setColor("RED");
+            brush.fillRectangle(170,200,160,100);    
+        }
+        
+        brush.setThickness(4);
+        brush.setColor("black");
+        brush.drawRectangle(170,200,160,100);    
+
+        
+        brush.drawRectangle(x-50,y-80,100,160);
+    }
+
+    public void onMouseMove(MouseEvent m)
+    {
+        x=m.getX();
+        y=m.getY();
+        drag = new BoundingBox(x-50,y-80,100,160);
+    }
+
+    public static void main()
+    {
+        BoundingBoxTester b = new BoundingBoxTester();
+        b.showWindow();
+    }
+}</pre></td>
+	</tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>ActorWorld and Grid</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style3 {
+	font-size: small;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style6 {
+	text-decoration: underline;
+}
+.auto-style7 {
+	font-size: medium;
+}
+.auto-style8 {
+	font-family: "Courier New", Courier, monospace;
+	font-size: medium;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style4">GridWorld:&nbsp; ActorWorld, Grid, and Location</p>
+<p class="auto-style2">For GridWorld to run, you must be familiar with constructing Grids and 
+ActorWorlds.</p>
+<p class="auto-style5"><strong>ActorWorld:</strong></p>
+<p class="auto-style1"><span class="auto-style3">The ActorWorld class is in charge of all the visual portions of GridWorld.&nbsp; 
+When an ActorWorld is told to </span> <strong><span class="auto-style3">show</span></strong><span class="auto-style3">, it creates all of the 
+buttons and displays any Actors,Bugs, Flowers, Rocks, or Critters that have been 
+added to it.</span></p>
+<p><span class="auto-style2">Create the&nbsp; following class in your GridWorld project folder</span>.<br />
+<table style="width: 46%">
+	<tr>
+		<td><pre>import info.gridworld.actor.ActorWorld;
+import info.gridworld.actor.Bug;
+import info.gridworld.actor.Rock;
+import info.gridworld.grid.*;
+ 
+public class MyFirstGridWorlds
+{
+    public static void defaultActorWorld()
+    {
+        ActorWorld world = new ActorWorld();
+        world.add(new Bug());
+        world.add(new Rock());
+        world.show();
+    }
+}</pre></td>
+	</tr>
+</table>
+</p>
+
+<p class="auto-style2">There are three important things going on here:</p>
+<p class="auto-style3"><span class="auto-style1">1)&nbsp; An ActorWorld is constructed and stored as world</span><br class="auto-style1" />
+<span class="auto-style1">2)&nbsp; A Bug and a Rock are added to the ActorWorld.&nbsp; You&#39;ll notice when 
+running that they show up at random locations.</span><br class="auto-style1" />
+<span class="auto-style1">3)&nbsp; The ActorWorld is told to show itself.&nbsp; If this method is not 
+called, you will never see your project.</span></p>
+<p class="auto-style2">Compile and run the defaultActorWorld, A Bug and a Rock should appear in 
+random locations.</p>
+<p class="auto-style2">Press the step button.&nbsp; Everything in the Window will be told to act one 
+time.&nbsp; We will get into their individual behaviors later, but for now take 
+a look at how a Bug acts and how a Rock Acts.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">The default ActorWorld will create a standard ActorWorld, 
+but sometimes you want a situation that&#39;s a little bit different.&nbsp; The 
+second constructor for ActorWorld takes in a Grid.&nbsp; Since Grid is an 
+interface, there is no such thing as a Grid object, but there are two classes 
+that implement the Grid interface.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>BoundedGrid</strong></p>
+<p class="auto-style2">Add the following method.&nbsp; Using the BoundedGrid API, determine how to 
+finish the commented poriton of the code</p>
+<pre>public static void boundedGridWorld()
+{
+    //Construct a new BoundedGrid object named myGrid, with 5 rows and 8 columns
+    ActorWorld world = new ActorWorld(myGrid);
+    world.add(new Bug());
+    world.add(new Rock());
+    world.show();
+}</pre>
+<p>&nbsp;</p>
+<p class="auto-style5"><strong>UnboundedGrid</strong></p>
+<p class="auto-style2">Similar to a BoundedGrid, an UnboundedGrid may be used as 
+well.&nbsp; Add and complete the following method</p>
+<pre>public static void unboundedGridWorld()
+{
+    //Construct a new UnboundedGrid object named myGrid
+    ActorWorld world = new ActorWorld(myGrid);
+    world.add(new Bug());
+    world.add(new Rock());
+    world.show();
+}</pre>
+<p class="auto-style2">Run all three methods and look at the differences between 
+the World that pops up in all three situations.&nbsp; The Grid that is used to 
+construct the ActorWorld is what determines the size of the World.</p>
+<hr>
+
+<p class="auto-style5"><strong>The Location class</strong></p>
+<p class="auto-style2">Previously, we&#39;ve used classes such as Point in order to 
+encapsulate together an x and a y. Instead of an x-y system, GridWorld uses rows 
+and columns.&nbsp; If you view the Location class API you will see that there is 
+not&nbsp; a lot to the class.&nbsp; The methods you will call most often are the 
+getRow() and getCol() method.</p>
+<p class="auto-style2">Creating ActorWorlds using Locations</p>
+<p class="auto-style2">When you create an ActorWorld, using the add method will 
+add a Bug at a random location in the Grid.&nbsp; If you want to have more 
+control over it, you may use a Location object to specify where it goes.</p>
+<pre>public static void locationWorld()
+{
+    ActorWorld world = new ActorWorld();
+        
+    Location startLoc = new Location(1,2);
+    Bug myBug = new Bug();
+        
+    world.add(startLoc, myBug);
+    world.add(new Rock());
+
+    world.show();
+
+}
+</pre>
+<p class="auto-style2">Run the method a couple times.&nbsp; Notice the 
+difference between the Bug, which was added using a Location, and the Rock, 
+which wasn&#39;t.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5">Locations and the Direction int</p>
+<p class="auto-style2">In the GridWorld universe, an int is used to determine 
+what direction is being talked about.&nbsp; Like degrees, the number is between 
+0 and 360.&nbsp; While you should have a rough idea of what number represents 
+each direction.&nbsp; There are static constants inside the Loction class that 
+make progamming simpler.</p>
+<p class="auto-style2">Add <span class="auto-style6">and finish</span> the 
+following method:</p>
+<pre>public static void directionConstants()
+{
+   System.out.println( "Location’s NORTH variable contains the int: " + Location.NORTH);
+   //Repeat the previous code for NORTHWEST,WEST,SOUTHWEST,SOUTH,SOUTHEAST,EAST, and NORTHEAST
+}</pre>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">NORTH, SOUTH, EAST and WEST are useful for indicating 
+direction, but there are some other variables that represent a change in 
+direction named HALF_LEFT, HALF_RIGHT, and FULL_CIRCLE.</p>
+<p class="auto-style2">Add <span class="auto-style6">and finish</span> the 
+following method:</p>
+<pre>public static void turningConstants()
+{
+   System.out.println( "Location’s LEFT variable contains the int: " + Location.LEFT);
+   //Repeat the previous code for HALF_LEFT, AHEAD, HALF_RIGHT, RIGHT, HALF_CIRCLE, and FULL_CIRCLE
+}</pre>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style2">Notice that the direction constants, such as NORTH, WEST, 
+and SOUTHWEST represent the specific direction that they&#39;re facing ( NORTH is 0, 
+meaning if the direction that you&#39;re facing has a value of 0), but the turning 
+constants are different.&nbsp; Location.NORTH + Location.LEFT would tell us what 
+direction we would be facing if we started at NORTH ( 0 ) and made one left turn 
+( -90 ).&nbsp; The result would be -90, meaning WEST (-90 is the same as 360 - 
+90, which is 270).</p>
+<p class="auto-style2">Location.SOUTHWEST + Location.HALF_RIGHT</p>
+<p class="auto-style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="auto-style7">&nbsp;225&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+45</span></p>
+<p class="auto-style5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+270&nbsp;</p>
+<p class="auto-style2">If I start out facing southwest and make half of a right 
+turn my new direction is 270, which is the same as Location.WEST.</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style5"><strong>Location&#39;s other methods</strong></p>
+<p class="auto-style8">void getAdjacentLocation(int direction)</p>
+<p class="auto-style2">Add the following method to your code:</p>
+<pre>public static void nearby()
+{
+    Location loc = new Location(1,2);
+
+    Location newLoc = loc.getAdjacentLocation(Location.EAST);
+
+    System.out.println(newLoc);
+
+}</pre>
+<p class="auto-style2">This code tells us what the location to the east of the 
+Location row 1, col 2.&nbsp; If you read through the code you&#39;ll see that a 
+Location is created with row 1 and column 2.&nbsp; Once that Location is created 
+it&#39;s asked what the direction is to the east of it.&nbsp; The result is stored 
+into newLoc, which is then printed out. </p>
+<p class="auto-style2">Common mistake:</p>
+<p class="auto-style2">getAdjacentLocation(loc,Location.EAST) is WRONG.&nbsp; 
+The method is not static, you must call it using an already constructed Location 
+object.&nbsp; loc.getAdjacentLocation(Location.EAST).</p>
+<p class="auto-style2">&nbsp;</p>
+<p class="auto-style8">int getDirectionToward(Location tmpLoc)</p>
+<p class="auto-style2">Add the following method to your code:</p>
+<pre>public static void findingDirection()
+{
+
+    Location loc = new Location(1,2);
+    Location loc2 = new Location(2,2);
+
+    int dir = loc.getDirectionToward(loc2);
+    System.out.println(dir);
+
+}</pre>
+<p class="auto-style2">This method allows a Location to tell you what direction 
+it would have to go in order to head toward the other location.&nbsp; In the 
+sample, the Location (1,2) is asked to tell us what the direction is toward the 
+Location one row below it (2,2).&nbsp; The result should be 180, which means 
+directly SOUTH.</p>
+<p>&nbsp; </p>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>ImageLoader</title>
+<style>
+h3,h2,li,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p,li{
+font-size:small;
+
+}</style>
+
+</head>
+
+<body>
+<h2>ImageLoader</h2>
+<p>At this point you have the majority of your Asteroids game complete, but you may have noticed lag when certain things happen:</p>
+<ul>
+<li>When a new level loads many Asteroids</li>
+<li>When a powerup creates many new bullets</li>
+<li>Every time that an explosion occurs</li>
+</ul>
+<p>This is due to the way that we've been handling the images.  Every time that you load a picture from the jar or the hard drive it is a very cumbersome process.  This causes a problem because each object is responsible for loading its own images.  To solve this, we're going to create a class that's only purpose is to load all the images that we need.</p>
+<p>Create a class named ImageLoader.  This class will be different than other objects that we've created.  It will simply be a collection of <strong>public Picture</strong> variables, each with one of the images that are needed for this project.  Look through each of the classes that you've created: Ship, Asteroid, Bullet, and Explosion.  Each of those classes loads at least one Picture.  Add to your ImageLoader class a variable for each of the images that you care about and make sure that they've been loaded properly from the jar or folder (You may also have a Picture[] for the explosion images).  Essentially, constructing an ImageLoader should have the effect of loading every resource at once.  Since they're public and static, every other class should easily be able to access them.</p>
+
+<p>Go to the Canvas class.  Add a new instance field:</p>
+<pre>public static final ImageLoader loader = new ImageLoader();</pre>
+<p>This class is hefty to construct, but once it has been loaded accessing the images is a lightweight process.  This is why you have loading screens before your video game levels.  The resources are being retrieved ahead of time so it doesn't lag during the game/level.</p>
+<p>Now, everywhere in your program you have access to your ImageLoader using the variable <strong>AsteroidsCanvas.loader</strong>.  Since all the loaded pictures are public, you may access them using their variable name directly.  For example, if ImageLoader had a variable named shipImage, the Spaceship class could access it by saying <strong>AsteroidsCanvas.loader.shipImage</strong></p>
+<p>Go to each class and look for the moment that you load the image (Picture.loadFromJar) and replace that line with the appropriate ImageLoader variable.  Again, assuming that the ImageLoader class has a public Picture named shipImage.  In the SpaceShip class:</p>
+<pre>shipPic = Picture.loadFromJar("shipnoboost.png");</pre>
+<p>should be replaced with:</p>
+<pre>shipPic = AsteroidsCanvas.loader.shipImage;</pre>
+<p>Do this for every Picture in your project.  The only time the code should load a Picture should be in the ImageLoader class.  All other classes will get their images through this class.</p>
+<p>Run your game one more time.  Hopefully the lag that you experienced before has subsided.</p>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Extending Actor Programs</title>
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-large;
+}
+.auto-style3 {
+	font-size: large;
+}
+.auto-style4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">Extending Actor Programs</p>
+<pre>import info.gridworld.actor.*;
+import info.gridworld.grid.*;
+import java.util.ArrayList;
+import java.awt.Color;</pre>
+<p class="auto-style1">Complete the following extensions of Actor. To use the icons in GridWorld, 
+download the image to your project folder ( right next to the Actor ). The image 
+must be named the same as the Actor. If you do not like the blue tint that Actor 
+defaults to, in your constructor call this.setColor(null)</p>
+<p class="auto-style1">To test your programs, add a static method to each class similar to the one 
+below:</p>
+<pre>public static void main()
+{
+    ActorWorld world= new ActorWorld();
+    world.add(new RotatorActor());
+    world.show();
+}</pre>
+<hr>
+<p class="auto-style1"><span class="auto-style3">RotatorActor</span>:</p>
+<p class="auto-style1">
+<img height="64" src="images/RotatorActor.gif" width="64" /></p>
+<p class="auto-style1">Create an Actor named RotatorActor ( class RotatorActor 
+extends Actor ). Override the act() method so that a RotatorActor’s direction 
+changes by 10 degrees each time it is called.</p>
+<hr>
+<p class="auto-style4">DiscoActor</p>
+<p class="auto-style1">
+<img height="64" src="images/DiscoActor.gif" width="64" /></p>
+<p class="auto-style1">Create an Actor named DiscoActor. Override the act method so that the 
+DiscoActor changes Color each step.<br />
+<br />
+TIP: Use an instance variable that is an array of Color objects.<br />
+<br />
+private Color[] colorList = {Color.RED, Color.BLACK, Color.GREEN, Color.CYAN, 
+Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE, Color.PINK};<br />
+<br />
+Once this is established, you may change the Color of the Actor using setColor( 
+colorList[2] ). Usually you set the color using setColor( Color.RED );<br />
+</p>
+<hr>
+<p class="auto-style4">GardenerActor</p>
+<p class="auto-style1">
+<img height="64" src="images/GardenerActor.gif" width="64" /></p>
+<p class="auto-style1">Create an Actor named GardenerActor.&nbsp; Each step a GardenerActor will 
+look at all the empty locations around it.&nbsp; It will randomly choose one of 
+those empty locations, create a flower and put it at that location (don&#39;t use 
+Grid&#39;s put method, use Actor&#39;s putSelfInGrid method).&nbsp; If there are no 
+empty locations, the gardener will tell all the actors around it to remove 
+themselves from the grid.</p>
+<hr>
+<p class="auto-style4">RockChaserActor</p>
+<p class="auto-style1">
+<img height="64" src="images/RockChaserActor.gif" width="64" /></p>
+<p class="auto-style1">Create an Actor named RockChaserActor.&nbsp; Each step a RockChaserActor will 
+look to see if there is a Rock anywhere on the Grid.&nbsp; If there is, the 
+RockChaserActor will take one step toward the Rock.&nbsp; To accomplish this you 
+will need to find the Location of the Rock, and then use use Location&#39;s
+<strong>getDirectionToward</strong> method as well as its
+<strong>getAdjacentLocation</strong> method.</p>
+<p class="auto-style1">If there is no Rock in the Grid, the RockChaserActor 
+should put a new Rock at a random location.&nbsp; Make sure that the random 
+location is not the same as the RockChaserActor.</p>
+<p class="auto-style1">Tip:&nbsp; How to test if an Actor is a Rock</p>
+<p class="auto-style1">Actor tmp = ...<br />
+if( tmp instanceof Rock)<br />
+{<br />
+...</p>
+
+<p class="auto-style1">Strategy: This is a multi-step problem.&nbsp; I recommend 
+starting a local Location variable that starts at null.&nbsp; If you find a Rock 
+while looping through the occupied locations, store it&#39;s Location in that 
+variable.&nbsp; At the end of the loop you&#39;ll either have a null value, meaning 
+you never found a Rock, or a non-null value, meaning you found a Rock and have 
+it&#39;s Locaiton.</p>
+
+</body>
+
+</html>

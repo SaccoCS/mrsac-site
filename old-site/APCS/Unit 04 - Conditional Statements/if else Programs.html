@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>if else Programs</title>
+<style>
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+}
+.auto-style1 {
+	font-size: large;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif">if Programs</h2>
+<p>&nbsp;</p>
+<p>Each of the following programs requires the use of if statements.&nbsp; Think 
+carefully of whther or not you need to have an <strong>else</strong> attached to 
+the if.</p>
+<p>&nbsp;</p>
+<p class="auto-style1"><strong>Color</strong></p>
+<p>Copy the Color class from the previous unit into the current project.</p>
+<p>One important rule of colors is that the RGB values cannot be outside of the 
+range 0-255.&nbsp; Going outside of this range can cause programs to crash.</p>
+<p>Color&#39;s constructor currently takes in three parameters and blindly assigns 
+them to the instance fields.&nbsp; Modify it using if statements that will 
+protect the Color from going out of range when given bad parameters.&nbsp; For 
+each of the three instance fields, if the value is too large or too small, 
+assign it to 255 or 0.</p>
+<p>Create a runner that uses a Scanner to ask the user for 3 values and 
+construct a Color object with the values.&nbsp; After that, print out the 
+object.</p>
+<p>Run the program several times and make sure that any value that is out of 
+range is automatically set to 0 or 255.&nbsp; For example: if you give the 
+values 270, 50, and -9, the color printed out should have the adjusted values 
+255, 50, and 0</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<p><span class="auto-style1"><strong>BankAccount</strong></span>:</p>
+<p>Copy the BankAccount class from the previous unit into the current project.</p>
+<p>Sometimes Banks expect you to keep a certain amount of money in your account, 
+and if you drop below it you are penalized.</p>
+<p>Add a double constant named MINIMUM_BALANCE and assign a value of 1000 to it.</p>
+<p>Modify the withdraw method so that it first performs the subtraction, and 
+then calls the penalty method if the balance has dropped below the 
+MIMIMUM_BALANCE.&nbsp; Yes, use the instance field.</p>
+<p>&nbsp;</p>
+<p>Create a runner that constructs a BankAccount object with your name and a 
+1500 balance.&nbsp; First print out the BankAccount and then withdraw 600 and 
+print out the BankAccount again.</p>
+<p>If it works properly, there should be 880 left. </p>
+<p>&nbsp;</p>
+<hr/>
+<p class="auto-style1"><strong>Car</strong></p>
+<p>Copy the Car class from the previous unit into the current project.</p>
+<p>At the moment, the drive method can blindly &quot;drive&quot; a distance that will 
+cause the gas tank to be negative.&nbsp; Modify it so that if the parameter is 
+too large, the car will only go as many miles as the gas tank will allow.&nbsp;
+</p>
+<p>&nbsp;</p>
+<p>Create a Runner that will construct a Car of your choice with 25 mpg.&nbsp; 
+Then add 5 gallons to the tank, drive 100 miles, and print out the Car.&nbsp; 
+After that, drive 100 more miles.</p>
+<p>If done properly it should first print out a car with 100 miles and 1 gallon 
+remaining, and then 125 mile and 0 gallons remaining.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+</body>
+
+</html>

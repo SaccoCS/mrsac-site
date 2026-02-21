@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>TetrisView</title>
+
+<style>
+h2,h3,h4,h5,p{
+	
+	font-family:Arial, Helvetica, sans-serif;
+	
+}
+
+p{
+font-size:small;
+
+}
+</style>
+</head>
+
+<body>
+<h2>TetrisView </h2>
+<p>
+<img  src="images/TetrisView.png" width="465" /></p>
+<p>
+&nbsp;</p>
+
+<p>Create a class named <strong>TetrisView </strong>. The purpose of the 
+TetrisView&nbsp; will be to access all of the elements in the TetrisModel and decide 
+how to represent them visually.</p>
+<p>For <strong>instance fields</strong>, a TetrisView&nbsp; should have a 
+TetrisModel and an int to represent the block size.</p>
+<p>The <strong>Constructor</strong> for TetrisView&nbsp; should take in a <strong>
+TetrisModel</strong> as a parameter and assign it to the instance fields, as 
+well as set the block size field to a number around 25 or 30.</p>
+<p>Add methods <strong>getWidth</strong>, <strong>getHeight</strong>, and
+<strong>getBlockSize</strong>. The purpose of these methods is to return how 
+many pixels wide/tall the Tetris window should be. DO NOT CREATE INSTANCE FIELDS 
+FOR THEM. You should use math to figure out the dimensions of the grid.&nbsp; 
+HINT: The width can be determined using the block size and the number of columns 
+that the grid has (TetrisModel should have a getGrid method). Also, add 1 to the 
+width and height to accommodate for the border.<br />
+</p>
+<h5>Dividing the painting method:</h5>
+<p>The TetrisView&nbsp; object&#39;s main job is to reference the Model&#39;s data and 
+decide what to paint.&nbsp; There are three main parts to paint, the grid lines, 
+the blocks in the grid, and the tetris piece.&nbsp; Instead of crammin all of 
+that code into one method named paintTetris, we&#39;re going to add methods that 
+perform each individual task.&nbsp; The paintTetris method&#39;s purpose will be to 
+delegate the painting out to each of the methods.</p>
+<p>Copy the following incomplete methods to your TetrisView&nbsp; class:&nbsp;</p>
+<pre>public void paintTetris(PaintBrush brush)
+{
+   this.paintGridLines(brush);
+   this.paintGridBlocks(brush);
+   this.paintPiece(brush);
+}
+
+private void paintGridLines(PaintBrush brush)
+{
+   //paint only the grid lines
+}
+
+private void paintGridBlocks(PaintBrush brush)
+{
+   //paint only the Blocks that are in the TetrisGrid
+}
+
+private void paintPiece(PaintBrush brush)
+{
+   //paint only the Blocks that the Tetris Piece has
+}</pre>
+<p>&nbsp;</p>
+<p>Notice that the only public paint method is the paintTetris method.&nbsp; The 
+other methods are there to help out the paintTetris method.&nbsp; There are 
+private because they are not meant to be accessed on their own, only via the 
+paintTetris method.</p>
+<p>&nbsp;</p>
+<hr/>
+<h3>Bringing it all together with a SaccoObject</h3>
+<p>An important part of the MVC model is the user.&nbsp; Someone has to see what 
+the TetrisView&nbsp; has to show and respond with key pressed.&nbsp; This means it&#39;s 
+time to enlist the help of a SaccoObject.&nbsp; The SaccoObject already has the ability to draw to the screen 
+and listen for key presses. We 
+just need to modify it to fit our situation.</p>
+<pre>import sacco.*;
+import sacco.gui.*;
+
+public class Tetris extends SaccoObject
+{
+    private TetrisModel model;
+    private TetrisView  view;
+    
+    public Tetris()
+    {
+        model = new TetrisModel();
+        view = new TetrisView (model);
+    }
+    
+    public void paintWindow(PaintBrush brush)
+    {
+        view.paintTetris(brush);
+    }
+    
+    public void launch()
+    {
+        this.setSize(view.getWidth(),view.getHeight());
+        this.setVisible(true);
+        this.start();
+    } 
+   
+    public static void main()
+    {
+        Tetris t = new Tetris();
+        t.launch();
+    }
+}
+</pre>
+<h5>What's happening here?</h5>
+<p>For now the Tetris class has as its instance fields a TetrisModel and a 
+TetrisView&nbsp; . A later version will have a TetrisController, but for now we’ll 
+just work with the two that we’ve created.</p>
+
+<p>The <strong>Constructor</strong> makes sure that the Model and Viewer are all set up properly.&nbsp; 
+This is where the view gets linked to the model.</p>
+
+<p>The <strong>paintWindow</strong> method: This is the method that a SaccoObject uses to determine 
+what is painted. Since the TetrisView&nbsp; is in charge of the visual, the 
+paintTetris method is called.</p>
+
+<p>
+The <strong>launch</strong> method: This method takes care of the little method calls that are 
+needed to launch the Sacco Object. The width and height of the window are set to 
+the width and height of the TetrisView .</p>
+
+<p>The <strong>main</strong> method: This is the method that gets the whole thing going. It simply 
+constructs and launches the Tetris object.</p>
+<hr/>
+<h3>Testing the View</h3>
+<p>At the moment, we&#39;ve yet to see any visual part of the game.&nbsp; Finally we 
+are at a point where we can test it out.&nbsp; Run the main method.&nbsp; Since 
+we haven&#39;t done anything int the paint method, nothing should show up.&nbsp; You 
+should get a blank window, with a similar shape as the following:</p>
+<p>&nbsp;</p>
+<p>
+<img src="images/img1C2.jpg" /></p>
+<p>&nbsp;</p>
+<hr/>
+<h3>The Grid Lines</h3>
+<p>We are first going to work on painting the lines that divide the grid into 
+individual locations. All of this should happen in the paintGridLines method.&nbsp; Set the brush color to black and then use a loop to draw 
+the lines that define the grid. <strong>You do not have to paint any of the 
+blocks yet, just the lines</strong>.&nbsp; You will probably want to use the 
+getWidth and getHeight methods in order to get the coordinates just right.</p>
+<p>&nbsp;</p>
+<p>
+<img src="images/img25.jpg" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr/>
+<h3>The Grid Blocks</h3>
+<p>Now that we know the grid lines are drawn properly, it&#39;s time to draw the 
+Blocks that are located in the Grid by adding code to the <strong>
+paintGridBlocks</strong> method.</p>
+<p>This method is much more complicated than the paintGridLines method.&nbsp; 
+The purpose is to find every Block in the grid and paint in at it&#39;s Location.&nbsp; 
+A helpful method to use would be TetrisGrid&#39;s <strong>getBlocks</strong> method.&nbsp; 
+It should then be simple to loop through each of the Blocks and access their 
+Location and Color.</p>
+<p>Once you have a Location and Color, don&#39;t forget to convert the rows/columns 
+to x/y to make painting easier.&nbsp; Fill a rectangle with your block size as 
+the width and height.&nbsp; It looks classier if you then change the color to 
+black and <strong>draw</strong> the same rectangle.</p>
+<p>To test whether this works or not, we will <strong>temporarily</strong> 
+modify TetrisGrid&#39;s constructor to have the line:</p>
+<pre>this.quickLoadBlocks(new int[][]{{6,2},{6,6},{8,4},{9,1},{9,7},{10,2},{10,6},{11,3},{11,4},{11,5}});</pre>
+<p>&nbsp;</p>
+<p>If all goes well, the following will be displayed when you run it:</p>
+<p>
+<img src="images/img34.jpg" /></p>
+<p>&nbsp;</p>
+<hr/>
+<h3>The Upper-Buffer:</h3>
+<p>At the moment, the TetViewer draws every single location of the grid.&nbsp; 
+In reality, we are going to need a few rows that are above the screen and are 
+not painted.&nbsp; Luckily, this has nothing to do with the model, we only have 
+to change elements of the TetrisView&nbsp; class.</p>
+<p>Having a 3 row buffer above the visual area should be plenty.&nbsp; This 
+means that rows 0, 1, and 2 will not be drawn, and every Block should then be 
+painted 3 rows above where the usually are painted.</p>
+<p>In order to accomodate this, modifications must be made to the following:</p>
+<p>&nbsp;- &nbsp;The <strong>getHeight</strong> method:&nbsp; Currently you use the number of rows to 
+determine the height of the screen.&nbsp; Modify it so that you subtract 3 from 
+the row before using it to calculate the height.</p>
+<p>-&nbsp; The <strong>paintBlocks</strong> method:&nbsp; Every Block is currently being painted 
+exactly at its location.&nbsp; Just like before, get the row and subtract 3 
+before you calculate the location.</p>
+<p>&nbsp;</p>
+<p>Run the program again to verify that the window shows 3 fewer rows, and all 
+the Blocks are painted 3 rows higher than before.</p>
+<p><img height="379" src="images/rowbuff.JPG" width="217" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>
