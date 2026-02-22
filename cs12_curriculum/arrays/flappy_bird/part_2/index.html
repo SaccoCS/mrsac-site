@@ -1,7 +1,7 @@
 <html>
   
 <head>
-   <link rel="stylesheet" type="text/css" href="../../style.css">
+   <link rel="stylesheet" type="text/css" href="../../../style.css">
 <title>Flappy Bird: Part 2</title>
   
 </head>
@@ -11,7 +11,224 @@
   <h1>
    Flappy Bird: Part 2
   </h1>
+
+  <h2>Bird vs Pipes</h2>
+<p>Right now we have the basic environment to build a game on.&nbsp; We've modeled the movement of the bird and the pipes, so we can now work on how they interact with each other and adding some game mechanisms.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>The Ability to Pause</h3>
+<p>Right now the draw function is set up very deliberately by Mr. Sacco so that the drawing functions are separated from the functions that move the items.&nbsp; This will allow us to add a pausing ability to the game using global variables.</p>
+<p>&nbsp;</p>
+<p><strong>Add Variables!</strong></p>
+<p>If we want to keep track of the 'pause' state of the game, we're going to need to add more variables.&nbsp; This time we're going to use a boolean value because of how easily it fits with the if statements we'll need.&nbsp; Add a variable named&nbsp;<strong>isRunning</strong>&nbsp;and initialize it to be&nbsp;<strong>true</strong>. The idea is that when this variable is true, the game will run like normal, but&nbsp;<strong>false</strong>&nbsp;would mean that the bird and the pipes do not move.</p>
+<p>&nbsp;</p>
+<p><strong>Interpret the Variables</strong></p>
+<p>Now you should change your draw function to be the following:</p>
+<pre>function draw() {
+  background(255);
+  drawBird();
+  drawPipes();
+
+  if( isRunning ){
+    moveBird();
+    movePipes();
+  }
+}</pre>
+<p>The added if statement will only move the pipes and bird when the isRunning is true.&nbsp; Try your sketch twice: once with&nbsp;<strong>true</strong>&nbsp;assigned to isRunning and once with&nbsp;<strong>false</strong>&nbsp;assigned to it. When false, all movement should be stopped.</p>
+<p>Once you can confirm that isRunning has proper control over the movement, continue on to the next page.</p>
   
   
+<br>
+<br>
+<hr>
+
+<h2>Cause the Pause</h2>
+<p>Now that we&nbsp;<em>can</em>&nbsp;pause it's time to determine&nbsp;<em>when</em>&nbsp;to pause, which means we need to see if the pipes overlap with the bird.&nbsp; This is rather complex, so we'll add more functions to organize our process.</p>
+<p>Modify your draw function to have a call to checkCollision(), like below:</p>
+<pre>function draw() {
+  background(255);
+  drawBird();
+  drawPipes();
+
+
+  if( isRunning ){
+    moveBird();
+    movePipes();
+    checkCollision();
+  }
+}</pre>
+<p>Now add the checkCollision() function to your sketch</p>
+<pre>fuction checkCollision(){
+  //set isRunning to true if the bird overlaps any portion of a pipe
+
+}</pre>
+<p>The purpose of this function is to see if the bird overlaps with either of the pipes, and to pause the program if it does.&nbsp;<strong>THIS IS A LOT OF WORK</strong>. Each pipe has two different rectangles that the bird needs to be checked against, and there are multiple sets of pipes.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>boxOverlap() to the Rescue:</h4>
+<p>Luckily we've done this before.&nbsp; Go back to the&nbsp;<strong>Pong</strong>&nbsp;assignment and do two things:</p>
+<p>1) Get a copy the useful boxOverlap() function that we use&nbsp;to detect collisions. Paste it to the end of the Flappy Bird sketch, and <strong>do not change it</strong>&nbsp;<strong>at all</strong>.&nbsp;</p>
+<p>2) Remind yourself how boxOverlap() is&nbsp;<strong>used</strong>&nbsp;by looking at Pong's <strong>bouncePaddle()&nbsp;</strong>function. Take note of how boxOverlap() is <strong>used </strong>to control an if statement there, and look at how the 8 parameters passed in are related to both the ball and the paddle. We are going to use a similar strategy to see if the bird overlaps with the pipes.</p>
+<p>&nbsp;</p>
+<p>Now it's time to implement the checkCollision() function, which is supposed to compare the bird with each of the pipes. We are going to have to make sure that we are careful, as this time it will be trickier. Let's first think about how we would do it for one set of pipes, and then later try to incorporate a loop</p>
+<h4>Step 1: Detect collision with the first pipe pair, located at (pipeXs[0], pipeYs[0])</h4>
+<p>The first thing that we should do is try to see if we can get the checkCollision() method to detect when the bird is overlapping with either the top or the bottom portion of the <strong>first</strong> set of pipes. This means that we're going to specifically use pipeXs[0] and pipeYs[0] as the pipe's location.&nbsp;</p>
+<p>Similar to how we handled collision with Pong, you should use an if statement that is driven by the&nbsp;<strong>boxOverlap()</strong>&nbsp;function to tell if there is a collision. When deciding on the x,y, width, and height of the two rectangles, use the values from&nbsp;<strong>drawBird()&nbsp;</strong>and <strong>pipePair()</strong>&nbsp;function as inspiration, keep in mind that the pipeXs[0] and pipeYs[0] should be used in the calculations instead of the pX and pY parameter.</p>
+<p>If the one of the two if statements do detect an overlap, they should set the isRunning variable to false, stopping the game.</p>
+<p>&nbsp;</p>
+<h5>Test, Test, Test</h5>
+<p>Test your program by running it and trying to hit the first set of pipes and seeing if it will stop the game. Make sure that the game stops when you hit either the top or bottom pipe, but continues if you pass through the gap. It is okay if you pass through the second set of pipes, as they are not pipeXs[0], pipeYs[0]</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Convert to Process&nbsp;the Entire Array</h4>
+<p>The general rule of arrays is that if we can get it working with one&nbsp;location (pipeXs[0], pipeYs[0]), then we can get it working for all the pipes in the array. We just need to think with our loop:</p>
+<p>Modify the checkCollision() function to use our array index loop&nbsp; that we've been using:</p>
+<pre><span>for( let index = 0; index &lt; pipeXs.length; index++){
+</span>
+&nbsp; &nbsp;//use pipeXs[index] to represent pipeXs[0], pipeXs[1], etc.. &nbsp;
+
+}</pre>
+<p>Inside this loop is where you should place your two if statements, but use pipeXs[index], pipeYs[index] instead of 0s. The loop will cause it to repeat the same if statements, switching to a different value from the array each time.</p>
+<p>&nbsp;</p>
+<h5>Test, Test, Test</h5>
+<p>Adding the loop should give us the ability to lose if we hit&nbsp;<strong>any</strong>&nbsp;pipe, not just the first set. Run your program and make sure that you can lose by crashing into either of the&nbsp;<strong>second&nbsp;</strong>set of pipes.</p>
+
+
+
+
+
+
+
+  
+  
+<br>
+<br>
+<hr>
+
+
+
+<h2>Restarting the Game</h2>
+<p>Once the game has stopped, we should be able to restart in some way. One simple thing to do is to attach it to a key press.</p>
+<p>Add the keyPressed function to your sketch and use the&nbsp;<strong>key</strong>&nbsp;variable to detect an&nbsp;<strong>'r'</strong>&nbsp;press and reset the game.&nbsp; This means setting all the global variables back to their starting values. You can probably copy most of the&nbsp;<strong>setup</strong>&nbsp;function to accomplish this.</p>
+<pre>function keyPressed(){
+   if( key == "r"){
+
+   }
+}</pre>
+<p>Test your sketch by playing a little bit and hitting&nbsp;<strong>r</strong>. If anything doesn't 'reset', you probably missed a variable.</p>
+<p>&nbsp;</p>
+<p><strong>Only Restart When Paused</strong></p>
+<p>Right now there's a possibility of accidentally restarting at any time, even if you're on a hot streak.&nbsp; In reality, we only want to restart when the game is currently paused.&nbsp; Modify the keyPressed function so that it also requires isRunning to be false ( isRunning == false or !isRunning ) before resetting.&nbsp; This will prevent an accidental restart.</p>
+
+
+
+
+
+
+  
+<br>
+<br>
+<hr>
+
+
+
+
+
+
+
+<h2>First: Returning to Invincibility</h2>
+<p>By adding the collision detection we've made our job harder for ourselves. Once you know that it works, it's best that we disable it until we need it. Go to the draw function and&nbsp;<strong>comment out the call to checkCollision()</strong></p>
+<pre>//checkCollision();</pre>
+<p>This will make you invincible again, which will make coding the rest of the assignment easier. When you are ready to release the game to the public, you will bring back this collision check.</p>
+<p>&nbsp;</p>
+<h3>Keeping Score</h3>
+<p>Keeping score is relatively simple, but there is a little bit of a challenge when trying to determine when it increase it. First we need to set up our model to keep track of the score</p>
+<p>Add a global variable to represent the score and initialize it to 0 in the setup function.</p>
+<p>In order to keep with the theme, we'll add a drawScore() function to the sketch.</p>
+<p>&nbsp;</p>
+<p>First update draw:</p>
+<pre>function draw() {
+  background(255);
+
+  drawBird();
+  drawPipes();
+  drawScore();
+
+
+  if( isRunning ){
+    moveBird();
+    movePipes();
+    checkCollision();
+  }
+}</pre>
+<p>Then add the drawScore() function to your sketch.</p>
+<pre>function drawScore(){
+
+}
+</pre>
+<p>&nbsp;</p>
+<p>This function should use the&nbsp;<strong>text</strong>&nbsp;function to draw the score somewhere on the screen. Don't waste time making it too fancy; this is just a proof of concept and will be replaced later.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Test the sketch out multiple times, each with a different value in your score variable to make sure that you're drawing the contents of the variable.</p>
+
+
+
+
+
+  
+<br>
+<br>
+<hr>
+
+
+
+
+
+
+<h2>When Do You Increase the Score?</h2>
+<p>First update your draw function</p>
+<pre>function draw() {
+&nbsp; background(255);
+&nbsp; drawBird();
+&nbsp; drawPipes();
+
+
+&nbsp; if( isRunning ){
+&nbsp; &nbsp; moveBird();
+&nbsp; &nbsp; movePipes();
+&nbsp; &nbsp; checkCollision();
+&nbsp;   scoreCheck();
+&nbsp; }
+}
+</pre>
+<p>And also add the new scoreCheck function:</p>
+<pre>function scoreCheck(){
+
+}
+</pre>
+<p>&nbsp;</p>
+<p>The scoreCheck() function's purpose is to determine when to increase the score variable. Like before, let's first think about just the first pipe's location (pipeXs[0]) and later modify it to have a loop.</p>
+<p>The Wrong Way:</p>
+<p>We need to write code that will detect the moment that the pipe moves to the left of 80, where the bird is located.</p>
+<pre>if( pipeXs[0] &lt;= 80 ){
+   score++;
+}
+</pre>
+<p>&nbsp;</p>
+<p>If you try the above if statement in the scoreCheck() function, you'll see the problem. The pipe is to the left of the bird for many, many frames before the pipe reaches -50 and teleports. This results in&nbsp;the score to increase way too much. The key is to detect the single moment where the pipe has&nbsp;<em>just</em>&nbsp;passed 80 for the first time. Modify the if statement so that it checks when the pipe's x value is<strong> in the range from 77 to 80</strong>. This is something that should be true for each pipe only <strong>once </strong>each time it passes the bird, which should limit each pipe to one point.</p>
+<p>Test your sketch to make sure that the score only increases from 0 to 1 as the first pipe passes the bird.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Repeating the Process for All Pipes</h4>
+<p>Once you feel confident that the first pipe is being scored properly, it's time to again use our array loop to make sure that it happens for all the pipes.</p>
+<pre><span>for( let index = 0; index &lt; pipeXs.length; index++){
+</span>
+&nbsp; &nbsp;//use pipeXs[index] to represent pipeXs[0], pipeXs[1], etc.. &nbsp;
+
+}</pre>
+<p>Modify the scoreCheck() function so that it uses the loop above to increase the score any time that pipeXs[index] is between 77 and 80.</p>
+<p>&nbsp;</p>
+
   </body>
 </html>
