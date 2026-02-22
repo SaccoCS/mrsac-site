@@ -1,30 +1,37 @@
 <html>
-  
+
 <head>
-   <link rel="stylesheet" type="text/css" href="../../../style.css">
-<title>Flappy Bird: Part 2</title>
-  
+  <link rel="stylesheet" type="text/css" href="../../../style.css">
+  <title>Flappy Bird: Part 2</title>
+
 </head>
 
 <body>
-  
+
   <h1>
-   Flappy Bird: Part 2
+    Flappy Bird: Part 2
   </h1>
 
   <h2>Bird vs Pipes</h2>
-<p>Right now we have the basic environment to build a game on.&nbsp; We've modeled the movement of the bird and the pipes, so we can now work on how they interact with each other and adding some game mechanisms.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h3>The Ability to Pause</h3>
-<p>Right now the draw function is set up very deliberately by Mr. Sacco so that the drawing functions are separated from the functions that move the items.&nbsp; This will allow us to add a pausing ability to the game using global variables.</p>
-<p>&nbsp;</p>
-<p><strong>Add Variables!</strong></p>
-<p>If we want to keep track of the 'pause' state of the game, we're going to need to add more variables.&nbsp; This time we're going to use a boolean value because of how easily it fits with the if statements we'll need.&nbsp; Add a variable named&nbsp;<strong>isRunning</strong>&nbsp;and initialize it to be&nbsp;<strong>true</strong>. The idea is that when this variable is true, the game will run like normal, but&nbsp;<strong>false</strong>&nbsp;would mean that the bird and the pipes do not move.</p>
-<p>&nbsp;</p>
-<p><strong>Interpret the Variables</strong></p>
-<p>Now you should change your draw function to be the following:</p>
-<pre>function draw() {
+  <p>Right now we have the basic environment to build a game on.&nbsp; We've modeled the movement of the bird and the
+    pipes, so we can now work on how they interact with each other and adding some game mechanisms.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h3>The Ability to Pause</h3>
+  <p>Right now the draw function is set up very deliberately by Mr. Sacco so that the drawing functions are separated
+    from the functions that move the items.&nbsp; This will allow us to add a pausing ability to the game using global
+    variables.</p>
+  <p>&nbsp;</p>
+  <p><strong>Add Variables!</strong></p>
+  <p>If we want to keep track of the 'pause' state of the game, we're going to need to add more variables.&nbsp; This
+    time we're going to use a boolean value because of how easily it fits with the if statements we'll need.&nbsp; Add a
+    variable named&nbsp;<strong>isRunning</strong>&nbsp;and initialize it to be&nbsp;<strong>true</strong>. The idea is
+    that when this variable is true, the game will run like normal, but&nbsp;<strong>false</strong>&nbsp;would mean that
+    the bird and the pipes do not move.</p>
+  <p>&nbsp;</p>
+  <p><strong>Interpret the Variables</strong></p>
+  <p>Now you should change your draw function to be the following:</p>
+  <pre>function draw() {
   background(255);
   drawBird();
   drawPipes();
@@ -34,18 +41,22 @@
     movePipes();
   }
 }</pre>
-<p>The added if statement will only move the pipes and bird when the isRunning is true.&nbsp; Try your sketch twice: once with&nbsp;<strong>true</strong>&nbsp;assigned to isRunning and once with&nbsp;<strong>false</strong>&nbsp;assigned to it. When false, all movement should be stopped.</p>
-<p>Once you can confirm that isRunning has proper control over the movement, continue on to the next page.</p>
-  
-  
-<br>
-<br>
-<hr>
+  <p>The added if statement will only move the pipes and bird when the isRunning is true.&nbsp; Try your sketch twice:
+    once with&nbsp;<strong>true</strong>&nbsp;assigned to isRunning and once
+    with&nbsp;<strong>false</strong>&nbsp;assigned to it. When false, all movement should be stopped.</p>
+  <p>Once you can confirm that isRunning has proper control over the movement, continue on to the next page.</p>
 
-<h2>Cause the Pause</h2>
-<p>Now that we&nbsp;<em>can</em>&nbsp;pause it's time to determine&nbsp;<em>when</em>&nbsp;to pause, which means we need to see if the pipes overlap with the bird.&nbsp; This is rather complex, so we'll add more functions to organize our process.</p>
-<p>Modify your draw function to have a call to checkCollision(), like below:</p>
-<pre>function draw() {
+
+  <br>
+  <br>
+  <hr>
+
+  <h2>Cause the Pause</h2>
+  <p>Now that we&nbsp;<em>can</em>&nbsp;pause it's time to determine&nbsp;<em>when</em>&nbsp;to pause, which means we
+    need to see if the pipes overlap with the bird.&nbsp; This is rather complex, so we'll add more functions to
+    organize our process.</p>
+  <p>Modify your draw function to have a call to checkCollision(), like below:</p>
+  <pre>function draw() {
   background(255);
   drawBird();
   drawPipes();
@@ -57,41 +68,66 @@
     checkCollision();
   }
 }</pre>
-<p>Now add the checkCollision() function to your sketch</p>
-<pre>fuction checkCollision(){
+  <p>Now add the checkCollision() function to your sketch</p>
+  <pre>fuction checkCollision(){
   //set isRunning to true if the bird overlaps any portion of a pipe
 
 }</pre>
-<p>The purpose of this function is to see if the bird overlaps with either of the pipes, and to pause the program if it does.&nbsp;<strong>THIS IS A LOT OF WORK</strong>. Each pipe has two different rectangles that the bird needs to be checked against, and there are multiple sets of pipes.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h4>boxOverlap() to the Rescue:</h4>
-<p>Luckily we've done this before.&nbsp; Go back to the&nbsp;<strong>Pong</strong>&nbsp;assignment and do two things:</p>
-<p>1) Get a copy the useful boxOverlap() function that we use&nbsp;to detect collisions. Paste it to the end of the Flappy Bird sketch, and <strong>do not change it</strong>&nbsp;<strong>at all</strong>.&nbsp;</p>
-<p>2) Remind yourself how boxOverlap() is&nbsp;<strong>used</strong>&nbsp;by looking at Pong's <strong>bouncePaddle()&nbsp;</strong>function. Take note of how boxOverlap() is <strong>used </strong>to control an if statement there, and look at how the 8 parameters passed in are related to both the ball and the paddle. We are going to use a similar strategy to see if the bird overlaps with the pipes.</p>
-<p>&nbsp;</p>
-<p>Now it's time to implement the checkCollision() function, which is supposed to compare the bird with each of the pipes. We are going to have to make sure that we are careful, as this time it will be trickier. Let's first think about how we would do it for one set of pipes, and then later try to incorporate a loop</p>
-<h4>Step 1: Detect collision with the first pipe pair, located at (pipeXs[0], pipeYs[0])</h4>
-<p>The first thing that we should do is try to see if we can get the checkCollision() method to detect when the bird is overlapping with either the top or the bottom portion of the <strong>first</strong> set of pipes. This means that we're going to specifically use pipeXs[0] and pipeYs[0] as the pipe's location.&nbsp;</p>
-<p>Similar to how we handled collision with Pong, you should use an if statement that is driven by the&nbsp;<strong>boxOverlap()</strong>&nbsp;function to tell if there is a collision. When deciding on the x,y, width, and height of the two rectangles, use the values from&nbsp;<strong>drawBird()&nbsp;</strong>and <strong>pipePair()</strong>&nbsp;function as inspiration, keep in mind that the pipeXs[0] and pipeYs[0] should be used in the calculations instead of the pX and pY parameter.</p>
-<p>If the one of the two if statements do detect an overlap, they should set the isRunning variable to false, stopping the game.</p>
-<p>&nbsp;</p>
-<h5>Test, Test, Test</h5>
-<p>Test your program by running it and trying to hit the first set of pipes and seeing if it will stop the game. Make sure that the game stops when you hit either the top or bottom pipe, but continues if you pass through the gap. It is okay if you pass through the second set of pipes, as they are not pipeXs[0], pipeYs[0]</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h4>Convert to Process&nbsp;the Entire Array</h4>
-<p>The general rule of arrays is that if we can get it working with one&nbsp;location (pipeXs[0], pipeYs[0]), then we can get it working for all the pipes in the array. We just need to think with our loop:</p>
-<p>Modify the checkCollision() function to use our array index loop&nbsp; that we've been using:</p>
-<pre><span>for( let index = 0; index &lt; pipeXs.length; index++){
+  <p>The purpose of this function is to see if the bird overlaps with either of the pipes, and to pause the program if
+    it does.&nbsp;<strong>THIS IS A LOT OF WORK</strong>. Each pipe has two different rectangles that the bird needs to
+    be checked against, and there are multiple sets of pipes.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h4>boxOverlap() to the Rescue:</h4>
+  <p>Luckily we've done this before.&nbsp; Go back to the&nbsp;<strong>Pong</strong>&nbsp;assignment and do two things:
+  </p>
+  <p>1) Get a copy the useful boxOverlap() function that we use&nbsp;to detect collisions. Paste it to the end of the
+    Flappy Bird sketch, and <strong>do not change it</strong>&nbsp;<strong>at all</strong>.&nbsp;</p>
+  <p>2) Remind yourself how boxOverlap() is&nbsp;<strong>used</strong>&nbsp;by looking at Pong's
+    <strong>bouncePaddle()&nbsp;</strong>function. Take note of how boxOverlap() is <strong>used </strong>to control an
+    if statement there, and look at how the 8 parameters passed in are related to both the ball and the paddle. We are
+    going to use a similar strategy to see if the bird overlaps with the pipes.
+  </p>
+  <p>&nbsp;</p>
+  <p>Now it's time to implement the checkCollision() function, which is supposed to compare the bird with each of the
+    pipes. We are going to have to make sure that we are careful, as this time it will be trickier. Let's first think
+    about how we would do it for one set of pipes, and then later try to incorporate a loop</p>
+  <h4>Step 1: Detect collision with the first pipe pair, located at (pipeXs[0], pipeYs[0])</h4>
+  <p>The first thing that we should do is try to see if we can get the checkCollision() method to detect when the bird
+    is overlapping with either the top or the bottom portion of the <strong>first</strong> set of pipes. This means that
+    we're going to specifically use pipeXs[0] and pipeYs[0] as the pipe's location.&nbsp;</p>
+  <p>Similar to how we handled collision with Pong, you should use an if statement that is driven by
+    the&nbsp;<strong>boxOverlap()</strong>&nbsp;function to tell if there is a collision. When deciding on the x,y,
+    width, and height of the two rectangles, use the values from&nbsp;<strong>drawBird()&nbsp;</strong>and
+    <strong>pipePair()</strong>&nbsp;function as inspiration, keep in mind that the pipeXs[0] and pipeYs[0] should be
+    used in the calculations instead of the pX and pY parameter.
+  </p>
+  <p>If the one of the two if statements do detect an overlap, they should set the isRunning variable to false, stopping
+    the game.</p>
+  <p>&nbsp;</p>
+  <h5>Test, Test, Test</h5>
+  <p>Test your program by running it and trying to hit the first set of pipes and seeing if it will stop the game. Make
+    sure that the game stops when you hit either the top or bottom pipe, but continues if you pass through the gap. It
+    is okay if you pass through the second set of pipes, as they are not pipeXs[0], pipeYs[0]</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h4>Convert to Process&nbsp;the Entire Array</h4>
+  <p>The general rule of arrays is that if we can get it working with one&nbsp;location (pipeXs[0], pipeYs[0]), then we
+    can get it working for all the pipes in the array. We just need to think with our loop:</p>
+  <p>Modify the checkCollision() function to use our array index loop&nbsp; that we've been using:</p>
+  <pre><span>for( let index = 0; index &lt; pipeXs.length; index++){
 </span>
 &nbsp; &nbsp;//use pipeXs[index] to represent pipeXs[0], pipeXs[1], etc.. &nbsp;
 
 }</pre>
-<p>Inside this loop is where you should place your two if statements, but use pipeXs[index], pipeYs[index] instead of 0s. The loop will cause it to repeat the same if statements, switching to a different value from the array each time.</p>
-<p>&nbsp;</p>
-<h5>Test, Test, Test</h5>
-<p>Adding the loop should give us the ability to lose if we hit&nbsp;<strong>any</strong>&nbsp;pipe, not just the first set. Run your program and make sure that you can lose by crashing into either of the&nbsp;<strong>second&nbsp;</strong>set of pipes.</p>
+  <p>Inside this loop is where you should place your two if statements, but use pipeXs[index], pipeYs[index] instead of
+    0s. The loop will cause it to repeat the same if statements, switching to a different value from the array each
+    time.</p>
+  <p>&nbsp;</p>
+  <h5>Test, Test, Test</h5>
+  <p>Adding the loop should give us the ability to lose if we hit&nbsp;<strong>any</strong>&nbsp;pipe, not just the
+    first set. Run your program and make sure that you can lose by crashing into either of
+    the&nbsp;<strong>second&nbsp;</strong>set of pipes.</p>
 
 
 
@@ -99,36 +135,34 @@
 
 
 
-  
-  
-<br>
-<br>
-<hr>
+
+
+  <br>
+  <br>
+  <hr>
 
 
 
-<h2>Restarting the Game</h2>
-<p>Once the game has stopped, we should be able to restart in some way. One simple thing to do is to attach it to a key press.</p>
-<p>Add the keyPressed function to your sketch and use the&nbsp;<strong>key</strong>&nbsp;variable to detect an&nbsp;<strong>'r'</strong>&nbsp;press and reset the game.&nbsp; This means setting all the global variables back to their starting values. You can probably copy most of the&nbsp;<strong>setup</strong>&nbsp;function to accomplish this.</p>
-<pre>function keyPressed(){
+  <h2>Restarting the Game</h2>
+  <p>Once the game has stopped, we should be able to restart in some way. One simple thing to do is to attach it to a
+    key press.</p>
+  <p>Add the keyPressed function to your sketch and use the&nbsp;<strong>key</strong>&nbsp;variable to detect
+    an&nbsp;<strong>'r'</strong>&nbsp;press and reset the game.&nbsp; This means setting all the global variables back
+    to their starting values. You can probably copy most of the&nbsp;<strong>setup</strong>&nbsp;function to accomplish
+    this.</p>
+  <pre>function keyPressed(){
    if( key == "r"){
 
    }
 }</pre>
-<p>Test your sketch by playing a little bit and hitting&nbsp;<strong>r</strong>. If anything doesn't 'reset', you probably missed a variable.</p>
-<p>&nbsp;</p>
-<p><strong>Only Restart When Paused</strong></p>
-<p>Right now there's a possibility of accidentally restarting at any time, even if you're on a hot streak.&nbsp; In reality, we only want to restart when the game is currently paused.&nbsp; Modify the keyPressed function so that it also requires isRunning to be false ( isRunning == false or !isRunning ) before resetting.&nbsp; This will prevent an accidental restart.</p>
-
-
-
-
-
-
-  
-<br>
-<br>
-<hr>
+  <p>Test your sketch by playing a little bit and hitting&nbsp;<strong>r</strong>. If anything doesn't 'reset', you
+    probably missed a variable.</p>
+  <p>&nbsp;</p>
+  <p><strong>Only Restart When Paused</strong></p>
+  <p>Right now there's a possibility of accidentally restarting at any time, even if you're on a hot streak.&nbsp; In
+    reality, we only want to restart when the game is currently paused.&nbsp; Modify the keyPressed function so that it
+    also requires isRunning to be false ( isRunning == false or !isRunning ) before resetting.&nbsp; This will prevent
+    an accidental restart.</p>
 
 
 
@@ -136,18 +170,32 @@
 
 
 
-<h2>First: Returning to Invincibility</h2>
-<p>By adding the collision detection we've made our job harder for ourselves. Once you know that it works, it's best that we disable it until we need it. Go to the draw function and&nbsp;<strong>comment out the call to checkCollision()</strong></p>
-<pre>//checkCollision();</pre>
-<p>This will make you invincible again, which will make coding the rest of the assignment easier. When you are ready to release the game to the public, you will bring back this collision check.</p>
-<p>&nbsp;</p>
-<h3>Keeping Score</h3>
-<p>Keeping score is relatively simple, but there is a little bit of a challenge when trying to determine when it increase it. First we need to set up our model to keep track of the score</p>
-<p>Add a global variable to represent the score and initialize it to 0 in the setup function.</p>
-<p>In order to keep with the theme, we'll add a drawScore() function to the sketch.</p>
-<p>&nbsp;</p>
-<p>First update draw:</p>
-<pre>function draw() {
+  <br>
+  <br>
+  <hr>
+
+
+
+
+
+
+
+  <h2>First: Returning to Invincibility</h2>
+  <p>By adding the collision detection we've made our job harder for ourselves. Once you know that it works, it's best
+    that we disable it until we need it. Go to the draw function and&nbsp;<strong>comment out the call to
+      checkCollision()</strong></p>
+  <pre>//checkCollision();</pre>
+  <p>This will make you invincible again, which will make coding the rest of the assignment easier. When you are ready
+    to release the game to the public, you will bring back this collision check.</p>
+  <p>&nbsp;</p>
+  <h3>Keeping Score</h3>
+  <p>Keeping score is relatively simple, but there is a little bit of a challenge when trying to determine when it
+    increase it. First we need to set up our model to keep track of the score</p>
+  <p>Add a global variable to represent the score and initialize it to 0 in the setup function.</p>
+  <p>In order to keep with the theme, we'll add a drawScore() function to the sketch.</p>
+  <p>&nbsp;</p>
+  <p>First update draw:</p>
+  <pre>function draw() {
   background(255);
 
   drawBird();
@@ -161,34 +209,36 @@
     checkCollision();
   }
 }</pre>
-<p>Then add the drawScore() function to your sketch.</p>
-<pre>function drawScore(){
+  <p>Then add the drawScore() function to your sketch.</p>
+  <pre>function drawScore(){
 
 }
 </pre>
-<p>&nbsp;</p>
-<p>This function should use the&nbsp;<strong>text</strong>&nbsp;function to draw the score somewhere on the screen. Don't waste time making it too fancy; this is just a proof of concept and will be replaced later.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>Test the sketch out multiple times, each with a different value in your score variable to make sure that you're drawing the contents of the variable.</p>
-
-
-
-
-
-  
-<br>
-<br>
-<hr>
+  <p>&nbsp;</p>
+  <p>This function should use the&nbsp;<strong>text</strong>&nbsp;function to draw the score somewhere on the screen.
+    Don't waste time making it too fancy; this is just a proof of concept and will be replaced later.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>Test the sketch out multiple times, each with a different value in your score variable to make sure that you're
+    drawing the contents of the variable.</p>
 
 
 
 
 
 
-<h2>When Do You Increase the Score?</h2>
-<p>First update your draw function</p>
-<pre>function draw() {
+  <br>
+  <br>
+  <hr>
+
+
+
+
+
+
+  <h2>When Do You Increase the Score?</h2>
+  <p>First update your draw function</p>
+  <pre>function draw() {
 &nbsp; background(255);
 &nbsp; drawBird();
 &nbsp; drawPipes();
@@ -202,33 +252,295 @@
 &nbsp; }
 }
 </pre>
-<p>And also add the new scoreCheck function:</p>
-<pre>function scoreCheck(){
+  <p>And also add the new scoreCheck function:</p>
+  <pre>function scoreCheck(){
 
 }
 </pre>
-<p>&nbsp;</p>
-<p>The scoreCheck() function's purpose is to determine when to increase the score variable. Like before, let's first think about just the first pipe's location (pipeXs[0]) and later modify it to have a loop.</p>
-<p>The Wrong Way:</p>
-<p>We need to write code that will detect the moment that the pipe moves to the left of 80, where the bird is located.</p>
-<pre>if( pipeXs[0] &lt;= 80 ){
+  <p>&nbsp;</p>
+  <p>The scoreCheck() function's purpose is to determine when to increase the score variable. Like before, let's first
+    think about just the first pipe's location (pipeXs[0]) and later modify it to have a loop.</p>
+  <p>The Wrong Way:</p>
+  <p>We need to write code that will detect the moment that the pipe moves to the left of 80, where the bird is located.
+  </p>
+  <pre>if( pipeXs[0] &lt;= 80 ){
    score++;
 }
 </pre>
-<p>&nbsp;</p>
-<p>If you try the above if statement in the scoreCheck() function, you'll see the problem. The pipe is to the left of the bird for many, many frames before the pipe reaches -50 and teleports. This results in&nbsp;the score to increase way too much. The key is to detect the single moment where the pipe has&nbsp;<em>just</em>&nbsp;passed 80 for the first time. Modify the if statement so that it checks when the pipe's x value is<strong> in the range from 77 to 80</strong>. This is something that should be true for each pipe only <strong>once </strong>each time it passes the bird, which should limit each pipe to one point.</p>
-<p>Test your sketch to make sure that the score only increases from 0 to 1 as the first pipe passes the bird.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h4>Repeating the Process for All Pipes</h4>
-<p>Once you feel confident that the first pipe is being scored properly, it's time to again use our array loop to make sure that it happens for all the pipes.</p>
-<pre><span>for( let index = 0; index &lt; pipeXs.length; index++){
+  <p>&nbsp;</p>
+  <p>If you try the above if statement in the scoreCheck() function, you'll see the problem. The pipe is to the left of
+    the bird for many, many frames before the pipe reaches -50 and teleports. This results in&nbsp;the score to increase
+    way too much. The key is to detect the single moment where the pipe has&nbsp;<em>just</em>&nbsp;passed 80 for the
+    first time. Modify the if statement so that it checks when the pipe's x value is<strong> in the range from 77 to
+      80</strong>. This is something that should be true for each pipe only <strong>once </strong>each time it passes
+    the bird, which should limit each pipe to one point.</p>
+  <p>Test your sketch to make sure that the score only increases from 0 to 1 as the first pipe passes the bird.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <h4>Repeating the Process for All Pipes</h4>
+  <p>Once you feel confident that the first pipe is being scored properly, it's time to again use our array loop to make
+    sure that it happens for all the pipes.</p>
+  <pre><span>for( let index = 0; index &lt; pipeXs.length; index++){
 </span>
 &nbsp; &nbsp;//use pipeXs[index] to represent pipeXs[0], pipeXs[1], etc.. &nbsp;
 
 }</pre>
-<p>Modify the scoreCheck() function so that it uses the loop above to increase the score any time that pipeXs[index] is between 77 and 80.</p>
+  <p>Modify the scoreCheck() function so that it uses the loop above to increase the score any time that pipeXs[index]
+    is between 77 and 80.</p>
+  <p>&nbsp;</p>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  <br>
+  <br>
+  <hr>
+
+
+
+<h1>Adding Images</h1>
+
+
+<p><img src="images/full_flappy_images.png" alt="Capture (84).PNG" /></p>
+<p>At the moment our game functions, but is pretty bland.&nbsp; It's time to overlay some images on top to give it some class.</p>
+<p>Drawing an image in p5 is not much harder than drawing a rectangle. We already have rectangles drawn of the correct size, we should be able to convert them to images of the same size with minimal effort.</p>
+<p>&nbsp;</p>
+<h4>Image Resources</h4>
+<p>CodeHS makes it challenging to deal with images, so this next step will be done in p5's web editor/</p>
+<p>1) <strong>Copy the following function to your Flappy Bird workspace</strong>. Make sure that you're not pasting it within the curly braces of another function.</p>
+<p>&nbsp;</p>
+<pre>function loadImages(){<br />&nbsp; &nbsp; let load = function(name){<br />&nbsp; &nbsp; &nbsp; &nbsp; let img = createImg("https://s3-us-west-2.amazonaws.com/mrsac.co/javascript/flappy_bird/images/"+name+".png",name);<br />&nbsp; &nbsp; &nbsp; &nbsp; img.hide();<br />&nbsp; &nbsp; &nbsp; &nbsp; return img;<br />&nbsp; &nbsp; }<br />&nbsp; &nbsp;&nbsp;<br />&nbsp; &nbsp; bird_down = load("bird-down");<br />&nbsp; &nbsp; bird_mid = load("bird-mid");<br />&nbsp; &nbsp; bird_up = load("bird-mid");<br />&nbsp; &nbsp; bot_pipe = load("bot-pipe");<br />&nbsp; &nbsp; top_pipe = load("top-pipe");<br />&nbsp; &nbsp; flappy_bg = load("flappy-bg");<br />&nbsp; &nbsp; flappy_ground = load("flappy-ground");<br />&nbsp; &nbsp; digitImages = [<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-0"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-1"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-2"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-3"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-4"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-5"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-6"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-7"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-8"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-9")<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ];<br />&nbsp; &nbsp; game_over = load("gameover");<br />&nbsp; &nbsp; get_ready = load("getready");<br />}</pre>
+<p>This function loads all the necessary images from a website and assigns them to global variables.</p>
+<p>bird_down, bird_mid, and bird_up represent the bird with its wings up, down, and in the middle<br />top_pipe and bot_pipe represent the two pipes that make a pair<br />flappy_bg and flappy_ground are the background image and the ground that you land on<br />digitImages is an array contains an image for each number that we would want to display</p>
+<p>&nbsp;</p>
+<p>2) The loadImages() function that you've just added is not being called yet. To make sure that it gets run, you need to call it somewhere in your <strong>setup()</strong> function</p>
+<p>function setup(){<br />&nbsp; createCanvas(350,550);<br />&nbsp; rectMode(CENTER);<br />&nbsp; imageMode(CENTER);<br />&nbsp;<span style="font-size: 14pt;"> <span style="color: #169179;"><strong>loadImages();</strong></span></span><br /><br />&nbsp; &nbsp;//more code that you've added previously<br />}<br /><br /></p>
+<h3><br /><br />Drawing a Bird</h3>
+<p>The image() function of p5 is the way that you can draw the images on the canvas. It takes in five parameters:</p>
+<p>image( img, x, y, width, heigth);</p>
+<p>The x, y, width, and height are the same as the rect() function you've been using. They define the location and size of the image that you're drawing.</p>
+<p>&nbsp;</p>
+<p>Move to the drawBird() function, where you&nbsp;</p>
+<pre>rect( 80, y, 51, 35 );</pre>
+<p>and change it to be a call to image instead, using the bird_down as the first parameter.</p>
+<pre>image( bird_down, 80, y, 51, 35 );</pre>
+<p>&nbsp;</p>
+<p>With that change made, run your program one more time. This time instead of a red rectangle that you had, you should see a bird image.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Drawing the Pipes</h3>
+<p>You have loaded images to represent the pipes: top_pipe and bot_pipe.</p>
+<p>Move to the pipePair() function. There you are drawing two pipes as rectangles. Like you did with the bird, modify the calls to rect() to be calls to image(), using the top_pipe for the one higher on the screen and bot_pipe for the lower one.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Test Test Test</h4>
+<p>At this point you should be able to play your game and see no more rectangles, instead you should see images for the bird and pipes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  <br>
+  <br>
+  <hr>
+
+
+
+
+  <h2>Background and Ground</h2>
+<p>The two images <strong>flappy_ground</strong> and <strong>flappy_bg</strong>. Are meant to fill the space around the bird and pipes.</p>
+
+<p>Notice that there is a specific layering that is happening.&nbsp; The Background should be drawn first, then the bird and pipes, and finally the ground is drawn on top.&nbsp; Make your draw function look like the following, with the&nbsp;<strong>drawBG()</strong>&nbsp;and&nbsp;<strong>drawGround()</strong>&nbsp;functions added at the appropriate places.&nbsp;</p>
+<pre>function draw() {
+<strong>&nbsp;  &nbsp;drawBG();</strong>
+    drawBird();
+    drawPipes()
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;drawGround();</strong>
+
+
+  if( isRunning ){
+    moveBird();
+    movePipes();
+    checkCollision();
+    scoreCheck();
+  }
+}</pre>
+<p>Add both the&nbsp;<strong>drawBG()</strong>&nbsp;and&nbsp;<strong>drawGround()</strong>&nbsp;functions to your sketch.</p>
+<pre>function drawBG(){ <br />   image(<strong>flappy_bg</strong>,350,200,432,768); <br />}
+</pre>
+<pre>function drawGround(){ <br />   image(<strong>flappy_ground</strong>,350,481,468,138); <br />}
+
+</pre>
+<p>&nbsp;</p>
+<h5>New Ground Limit</h5>
+<p>Now that there is a ground image being drawn, the bottom of the canvas is no longer the y limit for the bird. Go to the moveBird() function and modify it so that a number close to 412 is the maximum value that a bird can reach. This should align the bird with the ground image that's being drawn.</p>
+<p>&nbsp;</p>
+<h4>Off-Center Placement</h4>
+<p>Run your sketch with these changes The background image and ground images should appear, but&nbsp;<strong>way</strong>&nbsp;to the right of the screen. The lines of code above set the x value to 350, the width&nbsp;of the game screen. This is on purpose. Like the pipes the ground and background will move toward the bird to have the illusion of movement. Far to the right is the <strong>starting location</strong>. Right now you should be happy if you see a portion of the images.</p>
+<p>&nbsp;</p>
+<h4>Movable Scenery</h4>
+<p>We need to get the feeling of infinity with our ground and background. Like the pipes, we're going to set them on an infinite resetting cycle.</p>
+<p>- Add global variables groundX and bgX to your sketch</p>
+<p>- In setup(), initialize those values to be 350, representing where they're currently being drawn.</p>
+<p>- In the drawBG and drawGround() functions, modify the calls to the image function to use the corresponding variable instead of the 350 as the x value.</p>
+<p>This should now make the two images dependent on the values of groundX and bgX. You can test this by temporarily changing their starting values in setup() and observe the results. In the end you should return them to 350, even though they are still partially off-screen.</p>
+<p>&nbsp;</p>
+<h5>Moving the Scenery</h5>
+<p>We're all set up with movable scenery, we just need to program it in. Modify draw again to have a call to moveScenery()</p>
+<pre>function draw() {
+&nbsp;  &nbsp;drawBG();
+    drawBird();
+    drawPipes()
+&nbsp;&nbsp;&nbsp;&nbsp;drawGround();
+
+
+  if( isRunning ){
+    moveBird();
+    movePipes();
+    checkCollision();
+    scoreCheck();
+&nbsp;   <strong>moveScenery();</strong>
+  }
+}</pre>
+<p>And then add it to your sketch</p>
+<pre>function moveScenery(){
+
+}
+</pre>
+<p>&nbsp;</p>
+<p>This function will be responsible for moving and resetting both the groundX and the bgX. This will be similar to the non-looping version of the movePipes(), but there will be a few differences:</p>
+<p>- The ground should be increased by the pipeSpeed variable so that it matches the pipes, but the background should be moving slower to get a parallax effect. Increase the bgX by&nbsp;it by a fraction of pipeSpeed, like&nbsp; 0.5*pipeSpeed to get this differentiated movement.</p>
+<p>- Each of these x values should reset when they go below zero. Since each image is meant to be tileable, we should 'reset' them by increasing each x value exactly by its image's width: 432 for bgX and 468 for groundX.</p>
+<p>&nbsp;</p>
+<h5>Test, Test, Test</h5>
+<p>Right now you should be able to run your program and see one tile of the background and ground moving resetting in a way similar to the pipes. It is still incomplete, so seeing large gaps is expected.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Tiling the Images</h4>
+<p>The two images are set up so that they will look continuous when they are drawn next to each other. We can use this to our advantage and fill the gaps created by moving the images.</p>
+<p>Go to the drawBG() function, which currently draws one image. Modify it to draw the same image&nbsp;<strong>two more times</strong>&nbsp;to the left and right of the current one. This means that the background will be drawn at&nbsp;<strong>bgX</strong>, but also&nbsp;<strong>bgX-432</strong>&nbsp;and&nbsp;<strong>bgX+432.</strong>&nbsp;By spacing them out by their own width, the should tile together seamlessly, creating an image that is three times as big as the original.</p>
+<p>&nbsp;</p>
+<h5>Test, Test, Test</h5>
+<p>Now if you run your sketch, the background should have no more gaps. Anything to the left and right of the center background tile is filled in with the extra drawing. At this point it should look infinite.</p>
+<p>Double check for a glitch when the background resets. If you notice one, make sure that your moveScenery() function&nbsp;resets by&nbsp;increasing bgX by exactly 432, the width of the image.</p>
+<p>Once the background is infinite, it's the ground's image's turn treatment. Modify the drawGround() function to draw two more image to the left and right of the center one (the ground image's&nbsp;width is <strong>468</strong>).&nbsp; This should cause the ground to&nbsp;<em>also&nbsp;</em>look infinite.</p>
+
+
+
+  
+
+
+
+
+
+
+
+  <br>
+  <br>
+  <hr>
+
+
+
+<h2>Drawing a Flapping Bird</h2>
+<p>In order to give our bird a little more life, we're going to&nbsp;use three different images to make a flapping animation. To have an animation&nbsp;we'll use an array with one image for each frame of animation.</p>
+<p>In your setup() function,&nbsp;<strong>after you've called loadImages(),</strong> add the following&nbsp;</p>
+<pre>birdImages = [ bird_up, bird_mid, bird_down ];</pre>
+<p>This creates an array of the three bird images in a specific order: up - mid - down - mid. If we cycle through this array over and over it will provide and infinite flap.</p>
+<p>- Go to your drawBird function, and replace the&nbsp;<strong>rect</strong>&nbsp;command with an&nbsp;<strong>image</strong>&nbsp;command, like we did with the pipes. But since birdImages is an array, if we want to draw one of the images, we need to choose one of them. We'll start by drawing birdImages[0]. When the sketch is run, the bird should appear with its wings stuck in the up position.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Cycling Images</h3>
+<p>birdImages[0] is always the same image, which causes a very stoic bird. In order to get a flapping pattern, we'll need to set up a way to cycle through the images of the array. Add a global variable named wingIndex and set it to 0 in the setup function. Then modify the drawBird to call birdImages[wingIndex], Running this now should cause the same image to appear, but now we have control over which one.</p>
+<p>&nbsp;</p>
+<p>Now that the&nbsp;<strong>wingIndex</strong>&nbsp;variable is in charge of the wing position we need a way to have the wings variable cycle through the values of 0, 1, 2, and 3.&nbsp; At the end of the drawBird function you need to first&nbsp;<strong>increment wingIndex</strong>&nbsp;so that it moves on to the next value.&nbsp; This will increase wings from 0 to 1 to 2 to 3, but eventually this will hit a 4, which we don't want.&nbsp; After you increment the wingIndex&nbsp;variable check to see if it's gone past 3.&nbsp; If so, assign 0 to wingIndex so that it starts the cycle again at the beginning. This should cause the infinite cycle that we're going for. Test your program to make sure that the bird is flapping its heart out and never disappears.</p>
+<p>&nbsp;</p>
+<h5>Slowing the Flapping</h5>
+<p>Increasing wingIndex every frame is way too fast for this bird to flap. In reality, we want to wait a few frames in between. We can use the fact that we have a&nbsp;<strong>frameCount</strong>&nbsp;available to us, which is increasing by one each frame. Using our mod trick, we can detect when that number is divisible by 5, and only increment the index then.</p>
+<p>if( frameCount % 5 == 0 )&nbsp; &nbsp; //Every fifth frame this is true<br />&nbsp; &nbsp;wingIndex++;</p>
+<p>Now the bird image changes on frames number 5, 10, 15, 20, etc. A much slower pace.</p>
+
+
+
+
+
+
+  <br>
+  <br>
+  <hr>
+
+
+<p>&nbsp;</p>
+<h2>Fancy Score</h2>
+<p>At this point we are representing most of the elements of the game using images, the last thing that we'll need to do is work on representing the score using images instead of text. If you look at all of the resources that we have, there are ten images:<br />"num-0.png","num-1.png","num-2.png","num-3.png","num-4.png"," etc... We will be using one of these to represent each digit in the score. This would be very simple if scores stayed in the single digits, but most likely we're going to have to represent more than one.</p>
+<p>Step 1) Write a function that will draw any single digit number:&nbsp;<strong>drawDigit()</strong><br />Step 2) Write a function that will break a two-digit score into individual digits, then call&nbsp;<strong>drawDigit()</strong>&nbsp;twice to make the score appear.</p>
+<p>&nbsp;</p>
+<h4>The digitImages Array</h4>
+<p>The load function created for you an array called digitImages"</p>
+<pre>digitImages = [<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-0"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-1"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-2"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-3"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-4"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-5"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-6"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-7"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-8"),<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; load("num-9")<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ];</pre>
+<p>This loaded all of the digit images into the same array</p>
+<p>&nbsp;</p>
+<h4>Conveniently Located</h4>
+<p>If you look at the specific order of the images, we've coordinated the image with the index that it's located in the array.&nbsp;</p>
+<p>digitImages[0] is the zero image<br />digitImages[1] is the one image<br />digitImages[2] is the two image</p>
+<p>This will make things very convenient.</p>
+<p>&nbsp;</p>
+<h4>The drawDigit function:</h4>
+<p>Now that we have a convenient structure for storing the images, add the drawDigit function to your sketch:</p>
+<pre>function drawDigit(val, x, y){
+&nbsp;    image( digitImages[val] ,x, y, 21,30);
+}
+</pre>
+<p>The drawDigit() function takes in a value and a location, with the expectation that the appropriate image will be drawn at the given location on the canvas. Take a look at how the&nbsp;<strong>val</strong>&nbsp;parameter is used as the index to retrieve the image.</p>
+<p>&nbsp;</p>
+<h4>Drawing the Single-Digit Score</h4>
+<p>Go to your drawScore() function, which currently draws the score using&nbsp;<strong>text()&nbsp;</strong>at some location on the screen. Instead of calling&nbsp;<strong>text()</strong>, call&nbsp;<strong>drawDigit(),&nbsp;</strong>but with the same parameters. When run, hopefully the image of a 0 appears on the screen, and increases at the same moment the score does.</p>
+<p>This setup should only work for scores 0 - 9 before disappearing. The trick that we're using to store the images only works up until this point. After that, there is no index 10,11, etc.</p>
+<p>Run it for a while to make certain that it functions for the score 0 through 9.</p>
+<p>&nbsp;</p>
+<h4>Drawing a Two-Digit Score</h4>
+<p>Using drawDigit() with the score directly is problematic because it only draws one digit. If we want to draw a two-digit score, it will involve breaking the score into two, single digit numbers. After we have those two numbers, we can call the drawDigit() function twice. Once for each digit in the score.</p>
+<p>This requires some mod-based math. When you use integer division and mod with a 10 it is perfect for separating a number up into two digits.</p>
+<pre>let onesPlace = floor(score % 10);
+let tensPlace = floor(score / 10);</pre>
+<p>If the score is 37, tensPlace gets 3 and onesPlace gets 7<br />If the score is 21, tensPlace gets 2 and onesPlace gets 1<br />If the score is 9,&nbsp; tensPlace gets 0 and onesPlace gets 9<br />If the score is 13, tensPlace gets 1 and onesPlace gets 3</p>
+<p>&nbsp;</p>
+<p>Go to the drawScore() function, which currently calls drawDigit() a single time and modify it to:<br />- Use the math above to break the score into a onesPlace and a tensPlace value.<br />- Call drawDigit() twice: once with each of the 'place' variables. Modify the locations so that the tens place digit is just left of the ones place ( each image is 21 pixels wide)</p>
+<p>If successful you should have a starting score of 00 and be able to keep track up until 99. For this assignment we're going to pretend that nobody is that skilled, but if you would like to add a hundreds-place you would have to do a little more work.</p>
 <p>&nbsp;</p>
 
-  </body>
+
+
+</body>
+
 </html>
