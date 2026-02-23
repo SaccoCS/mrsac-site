@@ -233,7 +233,7 @@ function drawPipes(){
 <p>&nbsp;</p>
 <h4>Resetting the Pipes</h4>
 <p>As a pipe drifts off the left side of the canvas, we're going to want to recycle it by resetting its x value to be larger. This will cause an infinite amount of pipes to come and challenge the bird.&nbsp;</p>
-<p>In the movePipes() function, after the pipe's x is increase by the speed you should check to see if it's gone so far to the left that it's gone off the screen. Since the pipe's x is its&nbsp;<strong>center</strong>, this would mean that it had gone less than a negative value, like -50. If it is, reset the pipeX variable by&nbsp;<strong>increasing</strong> it by 500 (do not simply set it to 500).</p>
+<p>In the movePipes() function, after the pipe's x is increase by the speed you should check to see if it's gone so far to the left that it's gone off the screen. Since the pipe's x is its&nbsp;<strong>center</strong>, this would mean that it had gone less than a negative value, like -30. If it is, reset the pipeX variable by&nbsp;<strong>increasing</strong> it by 500 (do not simply set it to 500).</p>
 <p>Why 500? Eventually we are going to have two pipes, each meant to be 250 apart. 500 is chosen so that it will occupy every other location.</p>
   
 <p>&nbsp;</p>
