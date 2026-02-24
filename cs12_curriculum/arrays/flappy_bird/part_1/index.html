@@ -356,6 +356,37 @@ function drawPipes(){
 
 <p>When you've finished, you movePipes() function should no longer refer to pipeXs[0] or pipeXs[1], but still run like it did before.</p>
   
+
+
+
+
+
+
+
+
+<br><br><hr>
+<h2>Pipe Y's</h2>
+<p><iframe src="demos/pipes_no_collision/two_pipes/index.html" width="600px" height="277" loading="lazy" data-mce-fragment="1" scrolling = "no"></iframe></p>
+<p>We've put a lot of time into dealing with variables to represent the pipes' x values, but we've been leaving the y values at a constant 250. This makes the pipe's gap always in the same place. To add more challenge to the game, we'll set up the pipes to generate at different y values.</p>
+<p>&nbsp;</p>
+<h4>A Parallel Array</h4>
+<p>We've been representing the pipe's&nbsp;x values using an array. We can use the same strategy to represent the y values. Add a new global variable named&nbsp;<strong>pipeYs</strong>. In the setup() function, assign an array where each value is 250.</p>
+<pre>pipeXs = [250, 500];
+pipeYs = [150, 150];
+</pre>
+<p>These two arrays are called&nbsp;<strong>parallel</strong>&nbsp;arrays because they are meant to be read together. Each pipe's location will be made up of one value from pipeXs and one value from the corresponding index in the pipeYs array. Right now this means that all pipes still have a y value of 250, but that can be changed later.</p>
+<p>&nbsp;</p>
+<h4>Incorporating the pipeYs Array</h4>
+<p>The&nbsp;<strong>drawPipes()&nbsp;</strong>function currently uses a loop that calls pipePair(pipeXs[index], 150). Since each set of pipes shares an index in both arrays, we can use the index variable to access the same location in each array. THIS WILL NOT REQUIRE A NEW LOOP.</p>
+<pre>pipePair( pipeXs[index], pipeYs[index] );
+</pre>
+<p>Make this change to your code and run it again to test it. Since all the values in pipeYs are 150 your pipes should look the same as before. To test and make sure that you are properly using the array, modify the setup() function to start pipeYs with different values, like [120,320], and run it again to see if the pipes look different.</p>
+<p>&nbsp;</p>
+<h4>Randomizing on Reset</h4>
+<p>Every new pipe that we create should have a different y value. Right now this happens in the <strong>movePipes() </strong>function when a pipe passes -30 and a location in pipeXs is increased. Modify each if statement to&nbsp;<em>also&nbsp;</em>randomize pipeYs[index] to be a random value between 100 and 250. You may need to add curly-braces to your if statements, now that they have multiple things to do.</p>
+<p>To test this, run your sketch and let a few pipes pass. After the first couple they should start randomizing.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
   
   </body>
 </html>
