@@ -1,0 +1,223 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>Looping Through Arrays</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+Looping Through Arrays
+  </h1>
+  
+  
+
+<p>&nbsp;</p>
+<p><img src="images/array_loops.png" width="382"  /></p>
+<p>Open the Looping through Arrays workspace in CodeHS.&nbsp; If you run the program, you'll see that it's set up as a series of buttons, each associated with an array of values. There are arrays of numbers, boolean values, and characters, all interpreted in different ways. When a button is pressed a corresponding function in the sketch is called, passing its array in as a parameter, giving each function a chance to make changes.</p>
+<p>&nbsp;</p>
+<h4>For Example: randomize()</h4>
+<p>Click the button below to see what randomize should do. If you hit "R", it will reset to its initial state (resetting is not a requirement for you)</p>
+<p><iframe src="demos/loop_functions/index.html?row=0" width="552" height="82" loading="lazy" data-mce-fragment="1"></iframe></p>
+<p>The randomize() button matches up with the randomize function that is already in the sketch:</p>
+<pre>function randomize(arr){
+&nbsp;
+}
+</pre>
+<p>The parameter given to this function, arr, is the array of values that appears next to it. Your job will be to make changes to the array, which should appear on the canvas. The randomize() function is about putting random values into the array, so modify it to be like the following:</p>
+<pre>function randomize(arr){
+   <strong>arr[0] = floor(random(10));    //assign a random integer to the first location of arr</strong>
+}</pre>
+<p>This one line&nbsp;of code uses square bracket notation to modify index&nbsp;<strong>0</strong>&nbsp;of the parameter arr, assigning it to be a random number. Run the sketch and hit the&nbsp;<strong>randomize()</strong>&nbsp;button. Hopefully you will see the first value randomizing each time that you hit it.&nbsp;</p>
+<p>&nbsp;</p>
+<h2>The Array Index for-Loop</h2>
+<p>The above code effectively modified a single value of the array, but when dealing with arrays&nbsp;you often need to think about processing an entire array of values and avoid the too-much-copy-paste solution. For the randomize() function to randomize each location in the array, the too-much-copy-paste solution would be like so:</p>
+<pre>arr[0] = floor( random(10));
+arr[1] = floor(random(10));
+arr[2] = floor(random(10));
+arr[3] = floor(random(10));      //No, this is not a full-credit solution.
+arr[4] = floor(random(10));
+arr[5] = floor(random(10));
+arr[6] = floor(random(10));
+</pre>
+<p>This solution does visit every&nbsp;location, but it is inelegant. Arrays are perfect for looping through because we can represent the index as a looping variable:<br />- it starts at zero<br />- It increases by one each time<br />- It is only used on&nbsp;<strong>valid indices</strong></p>
+<pre style="font-size:x-large"><span>for( let index = 0; index &lt; arr.length; index += 1)</span>
+</pre>
+<p>&nbsp;</p>
+<p><strong>Why index &lt; arr.length?</strong></p>
+<p>When thinking about the too-much-copy-paste solution, it would also work to say&nbsp;<strong>index &lt; 7</strong>&nbsp;as the condition, but that is a solution that is specifically catered to the sample data that we're working with, where the size of the array is 7. If we gave it an array of a different size we would start to have problems. Instead of using a literal value, we can access the array's length variable using&nbsp;<strong>arr.length</strong>. This change makes the loop something that you can use to represent every index in any array, and not just one with exactly 7 values.</p>
+<p>&nbsp;</p>
+<p>This means that the <strong>elegant</strong>&nbsp;form of demo()'s solution would look like this:</p>
+<pre style="font-size:x-large">for( let index = 0; index &lt; arr.length; index += 1){
+   arr[index] = floor(random(10));
+}
+</pre>
+<p>By using our index loop and then assigning values to arr[&nbsp;<strong>index&nbsp;</strong>], we are able to write code that affect every index of the array.</p>
+<p>&nbsp;</p>
+<h5>Test, Test, Test</h5>
+<p>Make this change in the demo function of your sketch and try it out. All 8 values should randomize on every press.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Must Use: The Array Index Loop</h4>
+<p><span>for( let index = 0; index &lt; arr.length; index += 1)</span></p>
+<p>This loop is effective for writing generic code that affects every location in an array. To earn full credit, each function that you write today should use this loop to help make certain that every location in the array is reached. Any solutions that use a copy-paste heavy strategy will not earn full credit.</p>
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+<h2>incrementAll()</h2>
+<p><iframe src="demos/loop_functions/index.html?row=1" width="552px" height="82px" loading="lazy" data-mce-fragment="1"></iframe></p>
+
+<p>The incrementAll() function's purpose is to increase each value in the array by one. This time you will still be using a for loop to changing the value at each location, but this time the new value in the array is related to the old one. Keep in mind that&nbsp;as you're looping through the array you may use the location <strong>arr[index]</strong> as you would most variables. So you can choose your favorite way of incrementing:</p>
+<pre>arr[index] = arr[index] + 1;</pre>
+<p>or</p>
+<pre>arr[index] += 1;</pre>
+<p>or</p>
+<pre>arr[index]++;</pre>
+<p>&nbsp;</p>
+<p>Test your incrementAll() function by hitting the button a few times and making sure that every location increases by one each time it's pressed</p>
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+<h2>darken()</h2>
+<p><iframe src="demos/loop_functions/index.html?row=2" width="552px" height="82px" loading="lazy" data-mce-fragment="1"></iframe></p>
+
+<p>The values of the darken() function are all numbers between 0 and 255. These values are used as the brightness value of the square at each location. The darken() function's purpose is to make each location darker by decreasing its value by 10%. This means that we'll have to go to each location and replace it with 90% of its current value.</p>
+<p>Using the Array Index for Loop, replace each value in the array with 90% of its current value, which can be calculated by multiplying the current value by 0.9</p>
+<p>&nbsp;</p>
+<p>When you run the sketch and hit the darken() button, each value should get closer to zero, but never pass it. Numbers that are closer to zero will not decrease by as much as those that are larger.&nbsp;</p>
+<p>&nbsp;</p>
+
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+<h2>cycle()</h2>
+
+<p><iframe src="demos/loop_functions/index.html?row=3" width="552px" height="82px" loading="lazy" data-mce-fragment="1"></iframe></p>
+
+<p>The array associated with the cycle() function is being interpreted as the&nbsp;<strong>hue</strong>&nbsp;value of the corresponding circle, but it is still just a number. A hue value is related to an angle, meaning that its range of values is between 0 and 360.</p>
+<p>The cycle function's job will be to <strong>increase the value at each location by 3</strong>, but to wrap the value back around to zero when it passes 360. If done properly, pressing the button repeatedly will cause each location to be perpetually cycling through every color.&nbsp;</p>
+<p>&nbsp;</p>
+<p>When you're confident that your cycle() function works properly, paste it below.</p>
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+<h2>flipAll()</h2>
+<p><iframe src="demos/loop_functions/index.html?row=4" width="552px" height="82px" loading="lazy" data-mce-fragment="1"></iframe></p>
+
+<p>The array associated with the flipAll() function is&nbsp;<strong>boolean</strong>&nbsp;values: true or false. The purpose of the flipAll() function is to use the&nbsp;Array Index for-Loop&nbsp;to replace each location in the array with its opposite value true-&gt; false and false -&gt; true.</p>
+<p>This problem looks simple, but can be tricky. A common problem occurs when students attempt to use two separate if statements to perform the flip. They accidentally write code that may trigger both if statements. In the end, all values are true or all values are false. The solution is to use a proper <strong>else statement </strong>to make sure that each location is set either to true or to false, but never both.</p>
+<p>&nbsp;</p>
+<p>When you're confident that your flipAll() function works properly, paste it below.</p>
+
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+<h2>fill360()</h2>
+
+<p><iframe src="demos/loop_functions/index.html?row=5" width="552px" height="82px" loading="lazy" data-mce-fragment="1"></iframe></p>
+<p>The fill360() function has an array that starts out with an incomplete&nbsp;angle based pattern. Your task will be to write code that will complete the pattern, assigning values to the rest of the indices until the last value of 360 is placed at index 10.&nbsp;</p>
+<p>This time you are writing code that intends to extend the size of the array. You&nbsp;should modify the Array Index for-Loop so that it doesn't rely on&nbsp;<strong>arr.length</strong>. Instead&nbsp;the loop should keep going until index has reached ten, or while <strong>index &lt;= 10</strong>. Making this change will force the index to be 0 through 12, and the array will expand to fit any index that you assign to.</p>
+<p>This time we are adding&nbsp;<strong>new values</strong>&nbsp;to the array, meaning we cannot use arr[index] += ____;&nbsp; &nbsp;The += operator will return NaN if the original value doesn't exist.</p>
+<p>Instead it is recommended that you use an extra counting variable to represent the values that you are assigning to the array. Declare it as a 0 before the loop begins, and increase it by 30 each iteration. That way you will have a variable that represents the 'current' value, and will just have to assign it to the current location of the array.</p>
+<p>&nbsp;</p>
+<p>Test your function by running the sketch and hitting the fill360() button. If done properly the pattern should extend all the way to 360.</p>
+<p>&nbsp;</p>
+<p>When you're confident that your fill360() function works, paste it below.</p>
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+<h2>shift()</h2>
+
+<p><iframe src="demos/loop_functions/index.html?row=6" width="552px" height="82px" loading="lazy" data-mce-fragment="1"></iframe></p>
+<p>The shift() function's array is made up of letters, but it doesn't matter because the shift() function's purpose is to move all the values to the 'left', meaning the value at each index gets assigned the value from one index higher.</p>
+<p>To do this manually would look like this:</p>
+<pre>arr[0] = arr[1];
+arr[1] = arr[2];
+arr[2] = arr[3];
+etc...
+</pre>
+<p>But it's your job to use the Array Index Loop to generalize it.</p>
+
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+<h2>fib()</h2>
+
+<p><iframe src="demos/loop_functions/index.html?row=7" width="552px" height="82px" loading="lazy" data-mce-fragment="1"></iframe></p>
+<p>The fibonacci sequence is a mathematical series of numbers where each value is calculated as the sum of the two numbers that came before it. It starts with two 1's and the rest can be generated from there.</p>
+<p>Since the array already starts with the first two values, your strategy should modify the Array Index for-Loop to start at index&nbsp;2 and go while index is less than 13. When writing process inside the loop, the two 'previous' numbers are located in the array at<strong> index-1</strong> and <strong>index-2</strong>.</p>
+<p>To do this manually would start like so:</p>
+<pre>arr[2] = arr[1] + arr[0];
+arr[3] = arr[2] + arr[1];
+arr[4] = arr[3] + arr[2];
+...</pre>
+<p>But your job is to use the Array Index Loop to generalize it.</p>
+<p>If done properly, pressing the button once should fill the pattern out to twelve values. If it does, paste your fib() function below.</p>
+
+
+
+
+
+  </body>
+</html>
