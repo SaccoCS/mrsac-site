@@ -1,48 +1,19 @@
-/**
- * p5.js Timer Tracker (Local-first + Cloud Sync)
- * ----------------------------------------------
- * Scales to fill the window while preserving the original 380x640 proportions.
- *
- * Sync model (race-safe + focus-safe):
- * - LocalStorage is primary for instant/offline use.
- * - Cloud is a replicated store via API Gateway + Lambda.
- * - We prevent race conditions by allowing only ONE push in-flight at a time.
- * - We NEVER overwrite local state with an old snapshot after a push finishes.
- *
- * IMPORTANT CHANGE:
- * - `updatedAt` is treated as SERVER-owned only (from Lambda responses).
- * - Local edits set `dirty=true` (and `localChangedAt`) instead of bumping `updatedAt`.
- * - `cloudPull()` will NOT overwrite local edits while `dirty=true`.
- *
- * Local state stored under STORAGE_KEY:
- * {
- *   focus: "jace" | "maya",
- *   kids: { Jace: intSeconds, Maya: intSeconds },
- *
- *   updatedAt: number,        // SERVER timestamp (ms). Do not set locally.
- *   dirty: boolean,           // true if local has changes not confirmed by server
- *   localChangedAt: number    // local clock, for detecting mid-flight changes
- * }
+/** 
+ * p5.js Timer Tracker (Selective Cloud Sync)
+ * ------------------------------------------
+ * - No focus on page load.
+ * - Pull from server on load.
+ * - Push when STOP is pressed.
+ * - Push when +/- buttons modify time.
+ * - If returning after 10+ minutes, pull from server.
  */
-
-// =================================================
-// =============== CLOUD CONFIG ====================
-// =================================================
 
 const CLOUD_BASE = "https://yiij54gyq7.execute-api.us-west-2.amazonaws.com/prod";
 const APP_ID = "timer";
 const TRACKER_ID = "default";
 const TRACKER_SECRET = "Kid_Secret";
 
-// =================================================
-// =============== LOCAL STORAGE ===================
-// =================================================
-
 const STORAGE_KEY = "timeTracker";
-
-// =================================================
-// ================== VIRTUAL UI ===================
-// =================================================
 
 const BASE_W = 380;
 const BASE_H = 640;
@@ -74,57 +45,45 @@ function endUI() {
   pop();
 }
 
-// =================================================
-// ================== GLOBALS ======================
-// =================================================
-
 let maya, jace;
 let buts = [];
 let kidY = 150;
 let focus = null;
 
-// Debounce timer for cloud writes
-let syncTimer = null;
+let pushInFlight = false;
+let pushPending = false;
 
-// Race-condition protection for cloudPush()
-let pushInFlight = false; // true while PUT is in progress
-let pushPending = false;  // true if another save happened during PUT
-
-// =================================================
-// ================== SETUP ========================
-// =================================================
+let hiddenAtMs = null;
+const RETURN_PULL_THRESHOLD_MS = 10 * 60 * 1000;
 
 function setup() {
   pixelDensity(1);
   createCanvas(windowWidth, windowHeight);
   updateUiTransform();
-
   textAlign(CENTER, CENTER);
 
-  // Ensure local state exists
   const state = loadState();
 
-  // Create timer objects (virtual layout coords)
   maya = new Kid("Maya", BASE_W * 0.7, kidY);
   jace = new Kid("Jace", BASE_W * 0.3, kidY);
 
-  // Restore focus (this marks dirty; that's fine for first run)
-  setFocus(state.focus);
+  // No auto-focus on load
+  focus = null;
 
-  // Build UI (virtual layout coords)
   buildButtons();
 
-  // Pull once on startup
-  cloudPull().catch(console.log);
+  cloudPull({ force: true }).catch(console.log);
 
-  // Pull again whenever you come back to the tab/page
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) cloudPull().catch(console.log);
-  });
-
-  // Also pull when the window regains focus (covers some browsers)
-  window.addEventListener("focus", () => {
-    cloudPull().catch(console.log);
+    if (document.hidden) {
+      hiddenAtMs = Date.now();
+    } else {
+      const awayMs = hiddenAtMs ? (Date.now() - hiddenAtMs) : 0;
+      hiddenAtMs = null;
+      if (awayMs >= RETURN_PULL_THRESHOLD_MS) {
+        cloudPull({ force: false }).catch(console.log);
+      }
+    }
   });
 }
 
@@ -133,18 +92,13 @@ function windowResized() {
   updateUiTransform();
 }
 
-// =================================================
-// ================== DRAW =========================
-// =================================================
-
 function draw() {
   background(255);
 
   beginUI();
 
   rectMode(CORNER);
-  
-    strokeWeight(3);
+  strokeWeight(3);
   fill(255);
   stroke(0);
   rect(20, 30, BASE_W - 40, 560, 10);
@@ -160,10 +114,6 @@ function draw() {
   endUI();
 }
 
-// =================================================
-// ================= INPUT =========================
-// =================================================
-
 function mousePressed() {
   const vm = toVirtual(mouseX, mouseY);
   const vx = vm.x;
@@ -178,10 +128,6 @@ function mousePressed() {
   for (let b of buts) b.mousePress(vx, vy);
 }
 
-// =================================================
-// ================= UI BUILD ======================
-// =================================================
-
 function buildButtons() {
   buts = [];
 
@@ -190,12 +136,12 @@ function buildButtons() {
   const bH = 50;
 
   buts.push(new StartStop("start", BASE_W / 2, y, bigWid, bH, () => {
-    focus.startStop();
+    if (focus) focus.startStop();
   }));
 
   y += 60;
   buts.push(new Button("reset", BASE_W / 2, y, bigWid, bH, () => {
-    focus.reset();
+    if (focus) focus.reset();
   }));
 
   y += 60;
@@ -206,13 +152,8 @@ function buildButtons() {
   buts.push(new TimeButton(10, BASE_W / 2, y, bigWid, 45));
 }
 
-// =================================================
-// ================= FORMAT ========================
-// =================================================
-
 function timeFormat(totalSeconds) {
   totalSeconds = max(0, floor(totalSeconds));
-
   const h = floor(totalSeconds / 3600);
   const m = floor((totalSeconds % 3600) / 60);
   const s = totalSeconds % 60;
@@ -221,28 +162,14 @@ function timeFormat(totalSeconds) {
   return h + ":" + nf(m, 2, 0) + ":" + nf(s, 2, 0);
 }
 
-// =================================================
-// ================= LOCAL STATE ===================
-// =================================================
-
-function nowMs() {
-  return Date.now();
-}
-
 function loadState() {
   let s = getItem(STORAGE_KEY);
 
   if (!s) {
     s = {
-      focus: "jace",
+      focus: null,
       kids: { Jace: 0, Maya: 0 },
-
-      // SERVER timestamp only (do not set locally)
       updatedAt: 0,
-
-      // Local edit tracking
-      dirty: false,
-      localChangedAt: 0,
     };
     storeItem(STORAGE_KEY, s);
   }
@@ -250,107 +177,59 @@ function loadState() {
   if (!s.kids) s.kids = {};
   if (s.kids.Jace == null) s.kids.Jace = 0;
   if (s.kids.Maya == null) s.kids.Maya = 0;
-  if (!s.focus) s.focus = "jace";
   if (s.updatedAt == null) s.updatedAt = 0;
-  if (s.dirty == null) s.dirty = false;
-  if (s.localChangedAt == null) s.localChangedAt = 0;
 
   return s;
 }
 
 function saveState(s) {
-  // Mark local changes as unsynced.
-  // DO NOT change s.updatedAt here — updatedAt is server-owned.
-  s.dirty = true;
-  s.localChangedAt = nowMs();
-
   storeItem(STORAGE_KEY, s);
-  scheduleCloudPush();
 }
 
 function setFocus(which) {
   const s = loadState();
   s.focus = which;
   saveState(s);
-
   focus = which === "jace" ? jace : maya;
 }
 
-// =================================================
-// ================= CLOUD SYNC ====================
-// =================================================
-
-function scheduleCloudPush(delay = 400) {
-  if (syncTimer) clearTimeout(syncTimer);
-  syncTimer = setTimeout(() => cloudPush().catch(console.log), delay);
-}
-
-/**
- * Apply server state into localStorage and update in-memory objects WITHOUT reload.
- * This clears dirty because server is the source of truth we just adopted.
- */
-function applyStateToApp(serverState) {
-  serverState.dirty = false;
-  serverState.localChangedAt = 0;
-
-  storeItem(STORAGE_KEY, serverState);
-
+function syncKidsFromLocal() {
   const s = loadState();
-
-  // Update in-memory timer values
   jace.timeSec = Number(s.kids.Jace ?? 0);
   maya.timeSec = Number(s.kids.Maya ?? 0);
-
-  // Optional policy: stop running timers when adopting server state
-  jace.running = false; jace.startMs = undefined;
-  maya.running = false; maya.startMs = undefined;
-
-  // Set focus without calling saveState()
-  focus = (s.focus === "jace") ? jace : maya;
 }
 
-// -------------------
-// Pull from cloud
-// -------------------
-
-async function cloudPull() {
-  // Avoid pull/push fights
+async function cloudPull({ force }) {
   if (pushInFlight) return;
-
-  const local = loadState();
-
-  // If we have local unsynced edits, do not overwrite them on pull.
-  if (local.dirty) return;
 
   const r = await fetch(`${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`, {
     method: "GET",
     headers: { "X-Tracker-Secret": TRACKER_SECRET },
   });
 
-  if (!r.ok) {
-    console.log("cloudPull failed:", r.status);
-    return;
-  }
+  if (!r.ok) return;
 
   const data = await r.json();
   if (!data.state) return;
 
   const serverUpdatedAt = Number(data.updatedAt ?? 0);
-  const localServerUpdatedAt = Number(local.updatedAt ?? 0);
+  const local = loadState();
+  const localUpdatedAt = Number(local.updatedAt ?? 0);
 
-  // Adopt server only if it differs from what we last synced
-  if (serverUpdatedAt !== localServerUpdatedAt) {
-    applyStateToApp(data.state);
-    console.log("Cloud state adopted.");
-  }
+  const shouldAdopt = force ? true : (serverUpdatedAt > localUpdatedAt);
+  if (!shouldAdopt) return;
+
+  const next = {
+    focus: local.focus,
+    kids: data.state.kids ?? { Jace: 0, Maya: 0 },
+    updatedAt: serverUpdatedAt,
+  };
+
+  storeItem(STORAGE_KEY, next);
+  syncKidsFromLocal();
 }
 
-// -------------------
-// Push to cloud (race-safe)
-// -------------------
-
 async function cloudPush() {
-  // Only allow one in-flight push at a time.
   if (pushInFlight) {
     pushPending = true;
     return;
@@ -358,11 +237,7 @@ async function cloudPush() {
 
   pushInFlight = true;
 
-  // Snapshot at request start
   const snapshot = loadState();
-
-  // This is the LAST KNOWN SERVER updatedAt (not local clock)
-  const baseServerUpdatedAt = Number(snapshot.updatedAt ?? 0);
 
   try {
     const r = await fetch(`${CLOUD_BASE}/state/${APP_ID}/${TRACKER_ID}`, {
@@ -372,74 +247,32 @@ async function cloudPush() {
         "X-Tracker-Secret": TRACKER_SECRET,
       },
       body: JSON.stringify({
-        state: snapshot,
-        updatedAt: baseServerUpdatedAt,
+        state: { kids: snapshot.kids },
+        updatedAt: Number(snapshot.updatedAt ?? 0),
       }),
     });
 
-    // Conflict: server has newer
-    if (r.status === 409) {
-      const data = await r.json();
-      const current = loadState();
-
-      // If we aren't dirty, it's safe to adopt server.
-      // If we ARE dirty, keep local changes and push again.
-      if (!current.dirty && data.state) {
-        applyStateToApp(data.state);
-        console.log("Conflict: adopted newer server state.");
-      } else {
-        console.log("Conflict: keeping local (dirty). Will re-push.");
-      }
-      return;
-    }
-
-    if (!r.ok) {
-      console.log("cloudPush failed:", r.status);
-      return;
-    }
+    if (!r.ok) return;
 
     const data = await r.json();
-
-    // Apply server updatedAt to CURRENT local state only if nothing changed mid-flight
-    const current = loadState();
-    if (current.localChangedAt === snapshot.localChangedAt) {
-      current.updatedAt = Number(data.updatedAt ?? current.updatedAt);
-      current.dirty = false;
-      current.localChangedAt = 0;
-      storeItem(STORAGE_KEY, current);
-    } else {
-      // Local changed while request was in-flight; do not overwrite.
-      // We'll push again right after this finishes.
-    }
-  } catch (e) {
-    console.log("cloudPush error:", e);
+    const s = loadState();
+    s.updatedAt = Number(data.updatedAt ?? s.updatedAt);
+    storeItem(STORAGE_KEY, s);
   } finally {
     pushInFlight = false;
 
-    // If another change occurred while pushing, push again immediately
     if (pushPending) {
       pushPending = false;
       cloudPush().catch(console.log);
-      return;
-    }
-
-    // If still dirty, schedule another push
-    if (loadState().dirty) {
-      scheduleCloudPush(0);
     }
   }
 }
-
-// =================================================
-// ================= CLASSES =======================
-// =================================================
 
 class Kid {
   constructor(name, x, y) {
     this.name = name;
     this.x = x;
     this.y = y;
-
     this.running = false;
     this.startMs = undefined;
 
@@ -458,7 +291,7 @@ class Kid {
     return this.timeSec + elapsed;
   }
 
-  persist() {
+  persistTimesOnly() {
     const s = loadState();
     s.kids[this.name] = floor(this.timeSec);
     saveState(s);
@@ -466,7 +299,8 @@ class Kid {
 
   addTime(delta) {
     this.timeSec = max(0, floor(this.timeSec + delta));
-    this.persist();
+    this.persistTimesOnly();
+    cloudPush().catch(console.log);
   }
 
   startStop() {
@@ -474,7 +308,8 @@ class Kid {
       this.timeSec = floor(this.fullTimeSec());
       this.running = false;
       this.startMs = undefined;
-      this.persist();
+      this.persistTimesOnly();
+      cloudPush().catch(console.log);
     } else {
       this.startMs = Date.now();
       this.running = true;
@@ -485,7 +320,7 @@ class Kid {
     this.running = false;
     this.startMs = undefined;
     this.timeSec = 0;
-    this.persist();
+    this.persistTimesOnly();
   }
 }
 
@@ -525,7 +360,11 @@ class Button {
 
 class StartStop extends Button {
   paint() {
-    this.text = focus && focus.running ? "stop" : "start";
+    if (!focus) {
+      this.text = "select child";
+    } else {
+      this.text = focus.running ? "stop" : "start";
+    }
     super.paint();
   }
 }
@@ -555,6 +394,8 @@ class TimeButton {
   }
 
   mousePress(mx, my) {
+    if (!focus) return;
+
     const inY = my > this.y - this.h / 2 && my < this.y + this.h / 2;
     if (!inY) return;
 
