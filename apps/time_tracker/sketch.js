@@ -321,6 +321,7 @@ class Kid {
     this.startMs = undefined;
     this.timeSec = 0;
     this.persistTimesOnly();
+      cloudPush().catch(console.log);
   }
 }
 
