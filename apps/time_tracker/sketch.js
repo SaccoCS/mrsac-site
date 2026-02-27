@@ -68,7 +68,7 @@ function setup() {
   jace = new Kid("Jace", BASE_W * 0.3, kidY);
 
   // No auto-focus on load
-  focus = null;
+  focus = jace;
 
   buildButtons();
 
