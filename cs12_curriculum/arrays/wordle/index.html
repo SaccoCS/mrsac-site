@@ -11,7 +11,7 @@
     <h1>Full Wordle</h1>
 
 <p>In a previous assignment we used our String functions charAt() and indexOf() to help us write a function that was able to draw the words of a Wordle game with the correct color clues.</p>
-<p><img src="images/full_space.png" alt="image.png" /></p>
+<p><img src="images/full_space.png" width = "205px" alt="image.png" /></p>
 <p>Now that we have explored the use of arrays, we can implement a more game-like version that includes a series of attempts at the same word.</p>
 <p>Open the Wordle Game Workspace in CodeHS</p>
 
@@ -48,7 +48,7 @@ drawGuess() and getColor(), which are Sacco&rsquo;s version of the functions tha
 <!-- <p>
      This will be extremely similar to the recently copied drawGuess() function, so you should rely on in heavily. &nbsp;There are a few key differences:<br />Instead of getting characters from a parameter named guess, you will be getting them from the current variable that was just added.<br />No fancy colors will be used. The squares should be white with a black stroke, and the letters should have a black fill.</p> -->
 <p><br />After implementing this in the drawCurrentGuess() function, test you program by running it and making sure that ADIEU displays at the top of the canvas.</p>
-<p><img src="images/empty_adieu.png" alt="image.png" /></p>
+<p><img src="images/empty_adieu.png"  width = "205px" alt="image.png" /></p>
 <h3><br />Modifying The Current Guess</h3>
 <p>The current variable is intended to be the user&rsquo;s input for the game. This means that it should start empty and add letters as the user types their answer.</p>
 <p>First, modify the variable to no longer start with &ldquo;ADIEU&rdquo; as the guess. Instead assign an empty String.</p>
@@ -94,18 +94,35 @@ drawGuess() and getColor(), which are Sacco&rsquo;s version of the functions tha
 <p><span>Modify the draw() function to call drawGuess(), passing the first guess (index 0) as a parameter.</span></p>
 <pre><span>function draw(){</span><br /><span> &nbsp;&nbsp;background(245);</span><br /><span>&nbsp;&nbsp;</span><strong> drawGuess( guesses[0] ); //draw first guess</strong><br /><span> &nbsp;&nbsp;drawCurrentGuess();</span><br /><span>}</span></pre>
 <p><span>As long as the drawGuess function works properly, you should see the colorful word ADIEU as the top line of the canvas.</span></p>
-<p><span><img src="images/adieu1.png" alt="image.png" /></span></p>
+<p><span><img src="images/adieu1.png"  width = "205px" alt="image.png" /></span></p>
 <p><br /><br /></p>
-<h4><span>Using Translate to Space Things Out</span></h4>
-<p><span>At the moment the two guesses are being drawn directly on top of each other. If you run the program and start typing you&rsquo;ll see the current guess on top of the other. To fix this, we&rsquo;ll take advantage of the translate() function, which shifts the location of all draw commands that follow it. We want the current guess to be drawn 65 pixels lower, so insert translate( 0, 65 ) between the two function calls in draw():</span></p>
+
+
+<br><br>
+
+
+<h3><span>Using Translate to Space Things Out</span></h3>
+    <img src="images/adieu2.png"  width = "205px" alt="image.png" />
+<p><span>At the moment the two guesses are being drawn at the same location, which makes them appear directly on top of one another. Our goal is to first draw the guess, and then to draw the current guess below it.To do this we&rsquo;ll take advantage of the translate() function, which shifts the location of all draw commands that follow it. We want the current guess to be drawn 65 pixels lower, so insert translate( 0, 65 ) between the two function calls in draw():</span></p>
 <pre><span>function draw(){</span><br /><span> &nbsp;&nbsp;background(245);</span><br /><span> &nbsp;&nbsp;drawGuess( guesses[0] );</span><br /><strong> &nbsp;&nbsp;translate(0, 65);</strong><br /><span> &nbsp;&nbsp;drawCurrentGuess();</span><br /><span>}</span></pre>
-<p><span>Now run the program and start typing. The current guess should appear below the ADIEU guess.</span><br /><img src="images/adieu2.png" alt="image.png" /></p>
+<p><span>Now run the program and start typing. The current guess should appear below the ADIEU guess.</span><br />
+    </p>
 <p>&nbsp;</p>
 <h3><span>Drawing All Past Guesses</span></h3>
 <p><span>The draw() function currently will only draw a single guess from the guesses array before drawing the current one. The intention is that the guesses array will have anywhere from 0 to 6 guesses.</span></p>
-<p><span>Modify the existing code so that it uses a for loop to use drawGuess() to draw every guess of the guesses array, translating 65 pixels down after each one. The draw() function should still end with a single call to drawCurrentGuess() after all of the guesses have been drawn.</span></p>
-<p><span>Run your program to test your code. If done properly it should start by showing you both guesses from the array: ADIEU and SPACE. Type some letters to make sure that the current guess is drawn below both of them.</span></p>
-<p><span><img src="images/adieu3.png" alt="image.png" /></span></p>
+<div class = "head_list">
+<p>Modify the existing code in the draw function to replace the line: <code>drawGuess( guesses[0]);</code> with a loop that iterates through every index of the guesses array. At each index it should:
+</p>
+<ul>
+    <li><code>drawGuess( guesses[index] );</code></li>
+    <li>Translate down 65 pixels</li>
+</ul>
+    </div>
+    <p>Translating within the loop is important, as it will alternate between drawing a guess and moving down the canvas for the next one.</p>
+    <p>After your 'guesses' loop, the last thing you should do is drawCurrentGuess()</p>
+    <!-- so that it uses a for loop to use drawGuess() to draw every guess of the guesses array, translating 65 pixels down after each one. The draw() function should still end with a single call to drawCurrentGuess() after all of the guesses have been drawn.</span></p> -->
+<p><span>Run your program to test your code. If done properly your loop should draw ADIEU and SPACE (the current values in the guesses array) on the screen. Type some letters to make sure that the current guess is drawn below both of them.</span></p>
+<p><span><img src="images/adieu3.png" width = "205px" alt="image.png" /></span></p>
 
 
 
@@ -132,7 +149,7 @@ drawGuess() and getColor(), which are Sacco&rsquo;s version of the functions tha
 <pre><span>guesses.push( current );&nbsp; </span></pre>
 <p>This should expand guesses and add the value of current to it.&nbsp;</p>
 <p><span>Run your program to test. It should still show up with ADIEU and SPACE already guessed, but you should now be able to type a new guess hit Enter. The moment you do, your guess should join the other guesses, and the &lsquo;current&rsquo; one should be below that.</span></p>
-<p><img src="images/adieu4.png" alt="image.png" /></p>
+<p><img src="images/adieu4.png"  width = "205px" alt="image.png" /></p>
 
 
 
