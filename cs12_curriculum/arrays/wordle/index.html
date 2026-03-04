@@ -14,16 +14,40 @@
 <p><img src="images/full_space.png" alt="image.png" /></p>
 <p>Now that we have explored the use of arrays, we can implement a more game-like version that includes a series of attempts at the same word.</p>
 <p>Open the Wordle Game Workspace in CodeHS</p>
-<p>There you will find some familiar elements: a variable named secret, which holds the solution for the game, and two functions: drawGuess() and getColor(), which are Sacco&rsquo;s version of the functions that you previously wrote. We are going to expand upon this workspace to get to a more functional game.</p>
+
+<div class = "head_list">
+<p>There you will find some familiar elements: a variable named secret, which holds the solution for the game, and two functions: </p>
+
+<ul>
+
+    <li>getColor(): Determines the correct color for a single letter. </li>
+    <li>drawGuess(): Draws an entire word, relying on getColor() to decide how it looks</li>
+</ul>
+</div>
+<!-- <p>You will not be calling getColor() directly, but </p> -->
+<!-- 
+drawGuess() and getColor(), which are Sacco&rsquo;s version of the functions that you previously wrote. We are going to expand upon this workspace to get to a more functional game.</p> -->
+
+
+
+
 <p>&nbsp;</p>
 <h2><br />Adding the Current Guess</h2>
-<p>The previous workspace used a text input box for you to enter a guess to be tested, but that is no longer included. Instead we are going to make the game display a &lsquo;current guess&rsquo; with letters in boxes, similar to how the actual game functions. This means that we need a variable to hold the current guess, and a function that will draw it without the colorful boxes. At the top of the workspace, add a new variable:</p>
-<pre>let current = &ldquo;ADIEU&rdquo;;</pre>
+<p>The previous Wordle assignment used a text input box for you to enter a guess to be tested, but that is no longer included. Instead we are going to make the game display a &lsquo;current guess&rsquo; with letters in boxes, similar to how the actual game functions. </p><p>
+    This means that we need a variable to hold the current guess, and a function that will draw it without the colorful boxes. At the top of the workspace, add a new variable:</p>
+<pre>let current = &ldquo;ADIEU&rdquo;;  </pre>
 <p>This variable is to represent the word that the user is typing, but has not officially guessed yet. Eventually it will be populated as the user types, but for now we have given it a starting value of &ldquo;ADIEU&rdquo; to get us started.</p>
 <p>&nbsp;</p>
 <h3>Drawing the Current Guess</h3>
-<p>One of the only functions provided for you in this workspace was the empty drawCurrentGuess() function, which is also being called from draw(). Its purpose is to draw the letters of our new current variable, letter by letter in boxes. This will be extremely similar to the recently copied drawGuess() function, so you should rely on in heavily. &nbsp;There are a few key differences:<br />Instead of getting characters from a parameter named guess, you will be getting them from the current variable that was just added.<br />No fancy colors will be used. The squares should be white with a black stroke, and the letters should have a black fill.</p>
-<p><br />Test you program by running it and making sure that ADIEU displays at the top of the canvas.</p>
+<p>One of the only functions provided for you in this workspace was the empty drawCurrentGuess() function, which is also being called from draw(). Its purpose is to draw the letters of our new current variable, letter by letter in boxes, but with a white background.</p>
+<p>Implement the drawCurrentGuess() function, which should be almost a direct copy of the provided drawGuess() function. The only differences are:</p>
+<ul>
+    <li>Instead of relying on a parameter 'guess', we are looping through the global <code>current</code> variable. This means that <code>current.charAt(i)</code> should be the source of letters.</li>
+    <li>The background of all squares will be white, so no call to getColor() is needed. Instead just use <code>fill(255);</code> for drawing the square and <code>fill(0);</code> for drawing the letters</li>
+</ul>
+<!-- <p>
+     This will be extremely similar to the recently copied drawGuess() function, so you should rely on in heavily. &nbsp;There are a few key differences:<br />Instead of getting characters from a parameter named guess, you will be getting them from the current variable that was just added.<br />No fancy colors will be used. The squares should be white with a black stroke, and the letters should have a black fill.</p> -->
+<p><br />After implementing this in the drawCurrentGuess() function, test you program by running it and making sure that ADIEU displays at the top of the canvas.</p>
 <p><img src="images/empty_adieu.png" alt="image.png" /></p>
 <h3><br />Modifying The Current Guess</h3>
 <p>The current variable is intended to be the user&rsquo;s input for the game. This means that it should start empty and add letters as the user types their answer.</p>
@@ -62,7 +86,7 @@
 
 
 
-<h2><span>A History of Guesses</span></h2>
+<h2><span>Keeping A History of Guesses</span></h2>
 <p><span>Along with the current guess, our Wordle game needs to display every previous guess that&rsquo;s been made. Add the following to the top of the workspace with the other variables.</span></p>
 <pre><span>let guesses = ["ADIEU", &ldquo;SPACE&rdquo;];</span></pre>
 <p><span>This is an array of guesses that represents two guess that have already been made. Our next goal is to make sure that they have been drawn to the screen with colored squares to give clues about each letter&rsquo;s accuracy. If you recall, the drawGuess() function was made for that.</span></p>
