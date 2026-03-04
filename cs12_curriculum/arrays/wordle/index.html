@@ -1,0 +1,158 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>Full Wordle</title>
+  
+</head>
+
+<body>
+
+    <h1>Full Wordle</h1>
+
+<p>In a previous assignment we used our String functions charAt() and indexOf() to help us write a function that was able to draw the words of a Wordle game with the correct color clues.</p>
+<p><img src="images/full_space.png" alt="image.png" /></p>
+<p>Now that we have explored the use of arrays, we can implement a more game-like version that includes a series of attempts at the same word.</p>
+<p>Open the Wordle Game Workspace in CodeHS</p>
+<p>There you will find some familiar elements: a variable named secret, which holds the solution for the game, and two functions: drawGuess() and getColor(), which are Sacco&rsquo;s version of the functions that you previously wrote. We are going to expand upon this workspace to get to a more functional game.</p>
+<p>&nbsp;</p>
+<h2><br />Adding the Current Guess</h2>
+<p>The previous workspace used a text input box for you to enter a guess to be tested, but that is no longer included. Instead we are going to make the game display a &lsquo;current guess&rsquo; with letters in boxes, similar to how the actual game functions. This means that we need a variable to hold the current guess, and a function that will draw it without the colorful boxes. At the top of the workspace, add a new variable:</p>
+<pre>let current = &ldquo;ADIEU&rdquo;;</pre>
+<p>This variable is to represent the word that the user is typing, but has not officially guessed yet. Eventually it will be populated as the user types, but for now we have given it a starting value of &ldquo;ADIEU&rdquo; to get us started.</p>
+<p>&nbsp;</p>
+<h3>Drawing the Current Guess</h3>
+<p>One of the only functions provided for you in this workspace was the empty drawCurrentGuess() function, which is also being called from draw(). Its purpose is to draw the letters of our new current variable, letter by letter in boxes. This will be extremely similar to the recently copied drawGuess() function, so you should rely on in heavily. &nbsp;There are a few key differences:<br />Instead of getting characters from a parameter named guess, you will be getting them from the current variable that was just added.<br />No fancy colors will be used. The squares should be white with a black stroke, and the letters should have a black fill.</p>
+<p><br />Test you program by running it and making sure that ADIEU displays at the top of the canvas.</p>
+<p><img src="images/empty_adieu.png" alt="image.png" /></p>
+<h3><br />Modifying The Current Guess</h3>
+<p>The current variable is intended to be the user&rsquo;s input for the game. This means that it should start empty and add letters as the user types their answer.</p>
+<p>First, modify the variable to no longer start with &ldquo;ADIEU&rdquo; as the guess. Instead assign an empty String.</p>
+<pre>let current = &ldquo;&rdquo;;</pre>
+<p>Now find the keyPressed() function, which is currently empty:</p>
+<pre>function keyPressed(){<br />&nbsp; &nbsp; //key and keyCode represent the most recent key pressed<br /><br />}</pre>
+<p>Remember that this function is one that is called by p5 everytime a key is pressed on the keyboard. During the function we can use p5&rsquo;s key variable to decide what to do. It will hold a String that represents the key that was pressed.</p>
+<p>The first thing to do is to get key presses to increase the current guess. Add the following to the keyPressed() function</p>
+<pre>current += key.toUpperCase();</pre>
+<p>When a letter is pressed, its lowercase version is assigned to the key variable. This line will append the uppercase version of that letter to the current variable.</p>
+<p>Test this out by running your program and typing a few letters. You should be able to watch the word that you&rsquo;re typing show up as the current guess in the window.</p>
+<p>&nbsp;</p>
+<h4>Five Character Limit</h4>
+<p>Wordle is a game of Strings with five-characters, so we want to limit the guesses to five characters. Modify the keyPressed() function to only add letters to the current variable if it is under five characters long.&nbsp;</p>
+<p>&nbsp;</p>
+<h3><br />Handling Other Key Presses</h3>
+<p>Blindly adding the pressed key works okay, but we need to worry about keys that are not alphabetical. For example, when you hit the enter key, the key variable is assigned the value of &ldquo;Enter&rdquo;. If we add that to current, it will add to the guess and cause problems.</p>
+<p>We need to modify the keyPressed() function to be a little more careful with what it responds to. Add an if statement so that it only adds key to the current variable if key is between &ldquo;a&rdquo; and &ldquo;z&rdquo;. Run your program to make sure that keys like Control or Escape do not accidentally modify the current guess.</p>
+<p>&nbsp;</p>
+<h4>Backspace</h4>
+<p>We want the ability to edit our guesses, in case we mistype. When the backspace key is pressed, the key variable will have the value "Backspace". Modify the keyPressed() method so that hitting a backspace, the value of current loses a character at the end. This may be accomplished by replacing it with a substring of itself that includes all but the last index.</p>
+<p>&nbsp;</p>
+<h4>Enter&nbsp;</h4>
+<p>The Enter key will be used to finalize the current guess, but for now we will simply have it reset the current guess. Modify the keyPressed() function so that when the key variable has the value of "Enter" the value of current is set to the empty String:</p>
+<pre>current = "";</pre>
+<p>&nbsp;</p>
+<h3>Test</h3>
+<p>At this point you should be able to type out a guess and have it appear on the screen. Check to make sure that it is limited to five characters, Backspace will remove the last character, and Enter will reset it back to nothing.</p>
+<p>&nbsp;</p>
+
+
+<br><br><hr>
+
+
+
+
+
+<h2><span>A History of Guesses</span></h2>
+<p><span>Along with the current guess, our Wordle game needs to display every previous guess that&rsquo;s been made. Add the following to the top of the workspace with the other variables.</span></p>
+<pre><span>let guesses = ["ADIEU", &ldquo;SPACE&rdquo;];</span></pre>
+<p><span>This is an array of guesses that represents two guess that have already been made. Our next goal is to make sure that they have been drawn to the screen with colored squares to give clues about each letter&rsquo;s accuracy. If you recall, the drawGuess() function was made for that.</span></p>
+<p>&nbsp;</p>
+<p><span>Modify the draw() function to call drawGuess(), passing the first guess (index 0) as a parameter.</span></p>
+<pre><span>function draw(){</span><br /><span> &nbsp;&nbsp;background(245);</span><br /><span>&nbsp;&nbsp;</span><strong> drawGuess( guesses[0] ); //draw first guess</strong><br /><span> &nbsp;&nbsp;drawCurrentGuess();</span><br /><span>}</span></pre>
+<p><span>As long as the drawGuess function works properly, you should see the colorful word ADIEU as the top line of the canvas.</span></p>
+<p><span><img src="images/adieu1.png" alt="image.png" /></span></p>
+<p><br /><br /></p>
+<h4><span>Using Translate to Space Things Out</span></h4>
+<p><span>At the moment the two guesses are being drawn directly on top of each other. If you run the program and start typing you&rsquo;ll see the current guess on top of the other. To fix this, we&rsquo;ll take advantage of the translate() function, which shifts the location of all draw commands that follow it. We want the current guess to be drawn 65 pixels lower, so insert translate( 0, 65 ) between the two function calls in draw():</span></p>
+<pre><span>function draw(){</span><br /><span> &nbsp;&nbsp;background(245);</span><br /><span> &nbsp;&nbsp;drawGuess( guesses[0] );</span><br /><strong> &nbsp;&nbsp;translate(0, 65);</strong><br /><span> &nbsp;&nbsp;drawCurrentGuess();</span><br /><span>}</span></pre>
+<p><span>Now run the program and start typing. The current guess should appear below the ADIEU guess.</span><br /><img src="images/adieu2.png" alt="image.png" /></p>
+<p>&nbsp;</p>
+<h3><span>Drawing All Past Guesses</span></h3>
+<p><span>The draw() function currently will only draw a single guess from the guesses array before drawing the current one. The intention is that the guesses array will have anywhere from 0 to 6 guesses.</span></p>
+<p><span>Modify the existing code so that it uses a for loop to use drawGuess() to draw every guess of the guesses array, translating 65 pixels down after each one. The draw() function should still end with a single call to drawCurrentGuess() after all of the guesses have been drawn.</span></p>
+<p><span>Run your program to test your code. If done properly it should start by showing you both guesses from the array: ADIEU and SPACE. Type some letters to make sure that the current guess is drawn below both of them.</span></p>
+<p><span><img src="images/adieu3.png" alt="image.png" /></span></p>
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+<h2><span>Adding Guesses</span></h2>
+<p><span>At this point we can successful represent the current guess and a history of guesses, but they have no way of interacting.</span></p>
+<p><span>Our next goal is to modify the keyPressed() function so that it is sensitive to the Enter key. When Enter is pressed, we will need to:</span></p>
+<ul>
+    <li aria-level="1"><span>Expand the guesses array to add the &lsquo;current&rsquo; guess to the end</span></li>
+    <li aria-level="1"><span>Reset the current variable back to the empty String</span></li>
+</ul>
+<p>&nbsp;</p>
+<h3><span>The push() function</span></h3>
+<p><span>So far we have been using square bracket notation to access individual locations of an array, but they are built to be a little more flexible than that. Arrays come with a built-in function called <strong>push(),</strong> which takes in a parameter value. It will expand the array to have one more location and assign the parameter to be the last value of the array.</span></p>
+<p><span>In the keyPressed() function, find the section where you respond to a key value of "Enter". Before you reassign current to be the empty string, add the line:</span></p>
+<pre><span>guesses.push( current );&nbsp; </span></pre>
+<p>This should expand guesses and add the value of current to it.&nbsp;</p>
+<p><span>Run your program to test. It should still show up with ADIEU and SPACE already guessed, but you should now be able to type a new guess hit Enter. The moment you do, your guess should join the other guesses, and the &lsquo;current&rsquo; one should be below that.</span></p>
+<p><img src="images/adieu4.png" alt="image.png" /></p>
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+<h2><span>Finalizing the Game</span></h2>
+<p><span>Now that we have a way of entering guesses that are compared to the clues, we only have a few more features to make our game more like actual Wordle.</span></p>
+<p>&nbsp;</p>
+<h3><span>Start with No Guesses</span></h3>
+<p><span>The guesses array started with &ldquo;SPACE&rdquo; and &ldquo;CRAZY&rdquo; in order for us to have something to see while drawing the game, but in a real game of Wordle you start with no guesses. Modify the initial guesses array at the top of the workspace to start out as an empty array.</span></p>
+<pre><span>let guesses = [];</span></pre>
+<p><span>At this point you should have something resembling a Wordle game. It should start with no guesses on the screen, allow you to type a guess, and give the clues for that guess when enter is pressed.</span></p>
+<p>&nbsp;</p>
+<h3><span>Randomizing the Secret</span></h3>
+<p><span>As much as Mr. Sacco likes being the solution to our Wordle game, it is a little predictable. The last step to completing our game is for it to start by choosing a random word to be assigned to the secret variable instead of &ldquo;SACCO&rdquo;.&nbsp; To help with this, you have been provided with a gigantic array at the bottom of the program:</span></p>
+<pre><span>let words = ["ABACK",</span><br /><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ABASE",</span><br /><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ABATE",</span><br /><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ABBEY",</span><br /><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ABBOT",</span><br /><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ABHOR",&nbsp; ...etc</span></pre>
+<p><span>The provided words array has 2,309 different five-letter words for you to choose from. </span><span>Modify the </span><strong>setup()</strong><span> function to choose a random String from the words array to be assigned to secret. This will involve creating a random </span><strong>index</strong><span> less than 2309 (don&rsquo;t forget to </span><strong>floor() </strong><span>it so that you get an integer). The value from words at that index should then be assigned to the secret variable.</span></p>
+<p>&nbsp;</p>
+<h4><span>Make it Cheatable</span></h4>
+<p><span>To make sure that you can check the solution you can use console.log(secret); to log the solution to the puzzle. That way you can double check that everything is working properly.</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3><span>Winning and Losing</span></h3>
+<p><span>The last step for our game will be for it to detect when you win or lose the game and should be announced using the alert() function to announce:</span></p>
+<ul>
+    <li><span>You Win!</span></li>
+    <li><span>You Lose! The solution was SACCO</span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span>This should occur in the keyPressed() function when the Enter key is pressed (but before the current guess is reset to "".&nbsp;</span></p>
+<p><span>Winning occurs if the current guess matches the secret variable.</span></p>
+<p><span>Losing occurs after six incorrect guesses have been made. You may use the length of the guesses array to determine how many guesses have been made. Keep in mind that you can have six guesses and still win if the last one is the correct guess, so make sure that you only check for a loss if you already know that you haven't won.</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Test your program to make sure that you can win or lose at the correct times, including if you get the correct guess on the sixth try.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+    </body>
+    </html>
