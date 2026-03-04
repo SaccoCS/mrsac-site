@@ -43,7 +43,8 @@ drawGuess() and getColor(), which are Sacco&rsquo;s version of the functions tha
 <p>Implement the drawCurrentGuess() function, which should be almost a direct copy of the provided drawGuess() function. The only differences are:</p>
 <ul>
     <li>Instead of relying on a parameter 'guess', we are looping through the global <code>current</code> variable. This means that <code>current.charAt(i)</code> should be the source of letters.</li>
-    <li>The background of all squares will be white, so no call to getColor() is needed. Instead just use <code>fill(255);</code> for drawing the square and <code>fill(0);</code> for drawing the letters</li>
+    <li>No call to getColor() is needed. Instead modify it so that the squares are drawn with a white fill and black stroke. The letters should be drawn with a black fill and no stroke</li>
+    <!-- <li>The background of all squares will be white, so no call to getColor() is needed. Instead just use <code>fill(255);</code> for drawing the square and <code>fill(0);</code> for drawing the letters</li> -->
 </ul>
 <!-- <p>
      This will be extremely similar to the recently copied drawGuess() function, so you should rely on in heavily. &nbsp;There are a few key differences:<br />Instead of getting characters from a parameter named guess, you will be getting them from the current variable that was just added.<br />No fancy colors will be used. The squares should be white with a black stroke, and the letters should have a black fill.</p> -->
