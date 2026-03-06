@@ -1,0 +1,407 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>
+Snake</title>
+  
+</head>
+
+<body>
+  
+  <h1>
+    Snake
+  </h1>
+  
+<h4>Array's push() and splice() functions</h4>
+<p>We've been working a lot with arrays and using square bracket notation to interact with their individual locations, but arrays are objects that have other functions to help manipulate them. We'll look at two core functions today:</p>
+<p><strong>- push() </strong>: Meant to get values into the array easily, this function makes the array one index larger&nbsp;and fills the new location with its new value.</p>
+<p>- <strong>splice():</strong>&nbsp;Meant to remove values from an array, this function deletes the index from the array entirely. The location will then be filled by all of the higher index location shifting down to fill the gap. Overall the array's length is shortened.</p>
+<p>Both of these functions affect the <strong>size</strong> of the array as they add and remove values. This will be useful today&nbsp;as we design a Snake game, in which the snake moves by removing a square from its tail and adds one to its head.</p>
+<p><iframe src="demos/infinite_snake/index.html" width="157" height="58" loading="lazy" data-mce-fragment="1"></iframe></p>
+
+<p><img src="images/still_snake.png" alt="download (6).png" /></p>
+<h3>The Beginning: A Grid</h3>
+<p>The first thing we're going to need is a basic grid setup with the ability to move around our canvas.</p>
+<p>Open the Snake workspace in CodeHS, where you should be met with a small amount of starter code:</p>
+<pre>function setup() {
+  createCanvas(401, 401);
+}
+
+function draw() {
+  background(255);
+  drawGrid();
+}
+
+function drawGrid() {
+
+}</pre>
+<p>I've added a call to the drawGrid function during the draw method, and the outline of the function below. The purpose of this one is to draw the grid that the snake will live in. Write a loop that will fill the canvas with empty cells using either line or rect. Each cell in Mr. Sacco's grid is 10x10, but you may choose larger if you would like.</p>
+<p>When you run your code, you should see the empty grid sitting there.</p>
+  
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+<h2>Drawing a Cell</h2>
+<p>The snake game's graphics are very simple. The snake is a bunch of filled in cells and the food is a filled in cell.&nbsp; To make our lives easier, let's add a utility function to make drawing a cell easier:</p>
+<p><strong>Replace&nbsp;</strong>your draw function with this one:</p>
+<pre>function draw() {
+  background(255);  
+  drawGrid();
+  
+  fill(222,0,0);
+  drawCell(5,10); //temporary code
+}
+
+function drawCell(row,col){ 
+
+}</pre>
+<p>This new draw function is trying to draw the cell at row 5, column 10 by calling&nbsp;<strong>drawCell(5,10)</strong>, but the funciton doesn't do anything right now.&nbsp;&nbsp;</p>
+<p>Your task is to write the&nbsp;<strong>drawCell</strong> function so that it calls&nbsp;<strong>rect</strong> to make the correct cell be filled. The row and col parameters should be used to determine the x and y of the cell to be drawn.&nbsp; Make sure that the drawCell function uses the&nbsp;<strong>row</strong> and&nbsp;<strong>col</strong> parameters and not just assume row 5 col 10.</p>
+<p>When you test your sketch a single red cell should be filled in.</p>
+<p><img title="" src="images/grid_dot.png" alt="Capture_5c87ed246702d.PNG" data-cke-saved-src="/system/files/attachments/page_embeds/m/2019-03/Capture_5c87ed246702d.PNG" /></p>
+<p>It should be at row:5, column: 10.&nbsp; Try changing the temporary code to pass different locations and make sure that the correct cells are highlighted.</p>
+  
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+  
+<h2>The Snake Head</h2>
+<p>We'll break the snake down into two parts: the head and the body. The head of the snake represents its most up to date position. When we want to move the snake, we are changing the location of the snake's head.</p>
+<p>Now that we can easily draw each cell using the drawCell function, we no longer have to worry about x's and y's. We only need to care about&nbsp;<strong>rows&nbsp;</strong>and&nbsp;<strong>columns</strong>.&nbsp; Add two global variables to the snake class named&nbsp;<strong>headRow</strong>, and&nbsp;<strong>headCol</strong> and give them a starting value of 10 and 10. This will be the starting location for the snake.</p>
+<p>Drawing the Snake</p>
+<p>Again, change your draw function and add the new <strong>drawSnakeHead</strong>&nbsp;function that's being called.&nbsp;</p>
+<pre>function draw() {
+  background(255);  
+  drawGrid();   
+  drawSnakeHead();
+}
+
+function drawSnakeHead(){
+  
+}</pre>
+<p>The purpose of the drawSnakeHead function is to draw the cell that is represented by our headRow and headCol variables. You can pick whichever fill you would like, and then call the&nbsp;<strong>drawCell</strong> function.&nbsp;</p>
+<p>Running this should cause the cell at (10,10) to be filled. This is the beginning of our snake. We can now start to bring it to life.</p>
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+  <h2>Movement</h2>
+<p>Though the snake won't grow quite yet, we can still make it move around and tie it to the keyboard.</p>
+<p>&nbsp;</p>
+<h4>Modeling the Direction</h4>
+<p>A key feature of the snake game is that the snake is always moving in one direction. This is something that we need to keep track of, so add a global variable named&nbsp;<strong>snakeDir</strong> to your sketch.</p>
+<p>var snakeDir;</p>
+<p>The snakeDir variable is there to tell us which direction that we're heading. To keep is simple, let's decide to use Strings to help us determine which direction we're going. In the setup function, assign "RIGHT" to it. This should imply that our starting direction is right.&nbsp; This means nothing until we actually simulate the movement.</p>
+<p>&nbsp;</p>
+<h4>Moving the Snake</h4>
+<pre>function draw() {
+  background(255);
+  drawGrid();
+  drawSnakeHead();
+
+  moveSnake();
+}
+
+function moveSnake() {
+
+}</pre>
+<p>The moveSnake's function is to change where the snake is by changing the value of snakeRow or snakeCol by 1, causing it to move to the very next cell. Write a series of if statements that will look at the&nbsp;<strong>snakeDir</strong> variable for "UP", "DOWN", "LEFT", or "RIGHT" and make the change to one of the variables. Do not try to draw anything during this function. The snake is drawn depending on the&nbsp;<strong>data</strong>, change the data and change where it will be drawn.</p>
+<p>&nbsp;</p>
+<h4>Adjust the Speed</h4>
+<p>Run your sketch and hopefully the snake will go off the right side of your canvas at a very rapid pace. This is due to the frame rate being 60 ish. In the setup function, change the frameRate to be something that is more your pace, like 15 or 20. Whatever makes you happy.</p>
+<p>Now is a good time to run your sketch and see if starting the snakeDir variable at "DOWN', "LEFT", and "RIGHT" will cause it to move in the correct direction.</p>
+<p>&nbsp;</p>
+<h4>Changing Direction</h4>
+<p>We've spent some time creating a situation where the entire movement of the snake is based on the&nbsp;<strong>snakeDir</strong> variable's content. It's time to tie that to the keyboard. Add a&nbsp;<strong>keyPressed()</strong> function that will look for the keyCodes UP_ARROW, DOWN_ARROW, LEFT_ARROW, and RIGHT_ARROW and change snakeDir to be the matching Strings "UP","DOWN","LEFT", or "RIGHT".</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Test out your sketch to see if your new keyboard controls work.&nbsp; You should have complete control of where the snake head goes.&nbsp; Don't forget to click the canvas first so that it is listening to you. You may optionally change the draw function so that it only moves the snake after the program's been running for a few frames.</p>
+<pre>if (frameCount &gt; 15)
+   moveSnake();</pre>
+<p>This might give you some time to click the canvas before losing your snake.</p>
+<p>&nbsp;</p>
+<p>Though your Snake doesn't grow yet, paste your sketch below.</p>
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+  <h2>The Snake's Body</h2>
+<p>This is not a Snake game until you have the body trailing behind it. The body is essentially a 'history' of the last X snake head locations. Since we are going to have a lot of body segments, we'll use arrays to represent this.</p>
+<h4>Modeling the Body</h4>
+<p>Add two new&nbsp;<strong>global</strong> variables named&nbsp;<strong>bodyRows</strong> and <strong>bodyCols</strong>. The point of these is similar to the xs and ys arrays that we've used in the past. They are&nbsp;<strong>parallel</strong> arrays where each index in rows has a corresponding index in cols, and you have to take them at the same time to make them relevant.</p>
+<p>For the game the snake will start out with no body, but for the sake of coding we'll start with four body segments.&nbsp; Add the following to your setup function:</p>
+<pre>bodyRows = [2,2,2,3]; //Temporary starter body
+bodyCols = [1,2,3,3]; //Temporary starter body</pre>
+<p>These four rows and columns represent the tetris shape below:</p>
+<p><img title="" src="/system/files/attachments/page_embeds/m/2019-03/Capture_5c87fa76dc611.PNG" alt="" data-cke-saved-src="/system/files/attachments/page_embeds/m/2019-03/Capture_5c87fa76dc611.PNG" /></p>
+<p>&nbsp;</p>
+<h4>Drawing the Body</h4>
+<p>Update your draw function again and add the drawSnakeBody function.</p>
+<pre>function draw() {
+  background(255);
+  drawGrid();
+  drawSnakeBody();
+  drawSnakeHead();
+
+  moveSnake();
+}
+
+function drawSnakeBody(){
+
+}</pre>
+<p>The purpose of this function will be to draw every cell defined by the bodyRows and bodyCols variables. This is made easier because we have the&nbsp;<strong>drawCell</strong> function. Write a loop that will access each index of bodyRows and bodyCols and call&nbsp;<strong>drawCell</strong> with them as parameters.</p>
+<p>When you have finished, run your program and hopefully you will see the four predetermined body locations filled. Don't worry right now that they are not related to the snake's head, which will still run around like it's programmed to do.</p>
+<p>&nbsp;</p>
+<p>At this point you know that the drawSnakeBody function works. You can modify the setup function to remove the starting body segments.</p>
+<pre>bodyRows = []; 
+bodyCols = []; </pre>
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+<h2>Growing the Snake with push()</h2>
+<p>Now that we can independently draw the snake body, it's now time to relate it to where the snake head has been. If you think about it. Every time the snake 'moves', its current location becomes a part of its body.&nbsp; We can simulate this by going to the&nbsp;<strong>moveSnake()</strong> function. In the very beginning, before you've changed the values of headRow and headCol, <strong>push</strong> them to their respective arrays</p>
+<pre><span>//Add the head to the body arrays before it gets replaced
+bodyRows.push(headRow);
+bodyCols.push(headCol);</span>
+</pre>
+<h5>push()?</h5>
+<p>Up until now, we've mostly interacted with arrays using square-bracket notation, but they are objects with helpful functions.&nbsp;An array's&nbsp;<strong>push()&nbsp;</strong>function is an easy way to get values into the array. Whatever is passed in to the parameter will be automatically assigned to the next available location at the end of the array. No need to worry about the index.</p>
+<p>&nbsp;</p>
+<h4>Test out your Infinite Snake</h4>
+<p><img src="images/long_snake.png" alt="02bace1f-38c1-45d5-9b5f-2e2c67335306 (1).png" /></p>
+<p>Now that every head location is being pushed to the body automatically, running your program should cause the snake's body to grow and grow as it moves.&nbsp; It's not quite a snake yet, but every locations that you come across with become a part of the body.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Limiting Snake Length with splice()</h3>
+<p>We want our snake to have a limit to how large it gets.&nbsp; Add a <strong>global</strong> variable named <strong>snakeLen</strong> and assign it to a starting value of 10. This will be the initial size of the snake, but it will need the ability to grow.</p>
+<p>&nbsp;</p>
+<p>The new snakeLen variable is important during our&nbsp;<strong>moveSnake</strong> function, which is constantly pushing new values to the bodyRows and bodyCols arrays.&nbsp; We want to remove values from the bodyRows and bodyCols once they grow larger than the snakeLen. At the end of the moveSnake function, add an if statement that will compare the length of bodyRows with the snakeLen and splice out the value from the&nbsp;<strong>beginning&nbsp;</strong>of the array to keep it small enough. We remove from the&nbsp;<strong>beginning</strong> of the array (index 0) because that's where the&nbsp;<strong>oldest</strong> body parts are.</p>
+<pre>if( bodyRows.length &gt; snakeLen){
+   bodyRows.splice(<strong>0</strong>,1);
+&nbsp;  bodyCols.splice(<strong>0</strong>,1);
+} 
+</pre>
+<p>&nbsp;</p>
+<h5>splice()?</h5>
+<p>Just as the&nbsp;<strong>push()</strong>&nbsp;function is useful for expanding the array with new values, splice() is about&nbsp;<strong>removing</strong>&nbsp;values from the list. As parameters it accepts an index, and a number of values to be removed, so:</p>
+<pre>bodyRows.splice(0,1);</pre>
+<p>is removing&nbsp;<strong>1</strong>&nbsp;value at index&nbsp;<strong>0</strong>.</p>
+<p>&nbsp;</p>
+<p>Run your sketch now and you should see a more familiar snake that doesn't grow infinitely.</p>
+
+
+
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+
+<h2>Adding Food</h2>
+<h3><br /><img src="images/food.png" alt="ff491aff-1796-4cfd-9d94-f3143358fcf0 (1).png" /></h3>
+<p>Now that we have a global variable in charge of our snake's length, we need to increase the length when appropriate. The other element on the snake screen is the&nbsp;<strong>food</strong>, a single cell that the snake wants to eat and increase the score.</p>
+<p>Add two global variables to represent the row and the columns of the food to draw.</p>
+<p>In the setup function, assing a random row and column to the foodRow and foodCol variable.<br />&nbsp;- Make sure you know how many rows and columns your grid has. Don't use the width/height in your random calculation<br />&nbsp;- Don't forget to&nbsp;<strong>floor</strong> your random numbers. We need a integer to represent the row and column.</p>
+<p>Modify your draw function to call the drawFood function, and add the new function.</p>
+<pre>function draw() {
+  background(255);
+  drawGrid();
+  drawSnakeBody();
+  drawSnakeHead();
+  drawFood();
+
+  moveSnake(); 
+}
+
+function drawFood(){
+
+}</pre>
+<p>Implement drawFood so that is picks a color to fill and then calls drawCell with the new global variables.</p>
+<p>Run your sketch a few times. Each time the food should appear at a different location.</p>
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+<h2>Eating the Food</h2>
+<p>Update draw() one more time:</p>
+<pre>function draw() {
+  background(255);
+  drawGrid();
+  drawSnakeBody();
+  drawSnakeHead();
+  drawFood();
+
+  moveSnake(); 
+  if( headOverlapsFood() ){
+     growSnake();
+     newFoodLocation();
+  }
+}
+
+//Compares the headRow,headCol to the foodRow and foodCol
+//Goal: return true or return false
+function headOverlapsFood(){
+
+}
+
+//Makes the snake 'grow' by increasing the global snake length variable
+function growSnake(){
+
+}
+
+//randomizes the location of the food.
+function newFoodLocation(){
+
+}</pre>
+<p>There are two functions here that work together.&nbsp;&nbsp;&nbsp; Notice how the headOverlapsFood function being used to run an if statement in the draw function. Its &nbsp;purpose is to look at the data and tell us if the head is overlapping the food.&nbsp;It should return true if they overlap and false if they don't.&nbsp;At no point should this function change any data or try to draw anything, that's reaching beyond its purpose.</p>
+<p>The growSnake function is the <strong>response</strong> to head overlapping with the food. We want the snake to grow, which only means changing the global&nbsp;<strong>snake length</strong> to be larger.&nbsp; At no point should it modify the array or try to return anything. We've designed it so that the arrays will naturally grow larger when the variable is increased.</p>
+<p>Once the food is eaten, it needs to be placed somewhere else on the grid.&nbsp; The newFoodLocation's purpose is to randomise the row and column of the food, which you've already done in the constructor. Theoretically you can copy-paste your randomization statements from the setup into this function and it will work.</p>
+<p>&nbsp;</p>
+<p><strong>Testing all Three:</strong></p>
+<p>Hopefully we've completed these functions appropriately. Test your sketch by running it and guiding the snake to the food. When you overlap, it should respond by making the snake longer (If you start the snake very small, this growth will be obvious) and the food should appear somewhere else on the grid.</p>
+<p>It should return true if they overlap and false if they don't.</p>
+
+
+
+
+
+<br><br><hr>
+
+
+
+
+
+<h2>Losing</h2>
+<p>We lose the game when the snake overlaps with its own body.&nbsp; Update your sketch again:</p>
+<pre>function draw() {
+  background(255);
+  drawGrid();
+  drawSnakeBody();
+  drawSnakeHead();
+  drawFood();
+
+  moveSnake(); 
+  if( headOverlapsFood() ){
+     growSnake();
+     newFoodLocation();
+  }
+
+  if( bodyOverlaps(headRow,headCol) ){
+     console.log("OVERLAP!");
+     noLoop();                 //Stops draw function from iterating
+  }
+}
+
+//returns true if any part of the snake body has the same row and column as the parameters
+function bodyOverlaps(row,col){
+   
+
+
+
+    
+    return false;  
+}</pre>
+<p>&nbsp;</p>
+<p>In the draw function we have added a call to bodyOverlaps and passed in a row and column as parameters. The result is that noLoop is called, which will stop the draw function from looping.</p>
+<pre>if( bodyOverlaps(headRow,headCol) ){
+     console.log("OVERLAP!");
+     noLoop();                 //Stops draw function from iterating
+  }</pre>
+<p>bodyOverlaps is another function whose purpose is to produce a true or false value to run an if statement, but it's more challenging than simply checking the head vs the food.&nbsp; This time, instead of just headRow and headCol, we need to loop through every single location in bodyRows and bodyCols. If&nbsp;<em>any</em>&nbsp;index has a matching row and column, return true.</p>
+<p>&nbsp;</p>
+<p><strong>Note: Don't return false during the loop!!!!! Leave it until the end</strong></p>
+<p>The bodyOverlaps function that you've been given automatically returns false at the end. This means that we are assuming that it's going to be false.&nbsp; Your loop's purpose is only to look for reasons to return&nbsp;<strong>true</strong> and only return false <strong>after</strong> reaching the end of the loop.</p>
+<p>The logic is that you are going to be checking one index at a time. Unlike returning true, you cannot determine if false (no overlap at all) should be returned by looking at just one index. The only time that we should return false is if we've already checked every single index and we didn't find an opportunity to return true. Placing the return false at the end of the function gives the loop every chance it can to return true and preventing the function from finishing before finally deciding to run false.</p>
+<p>&nbsp;</p>
+<p>Test this by running your program and trying to run the snake over itself and cause the game to stop.</p>
+
+
+
+
+
+<br><br><hr>
+
+<h2>Out of Bounds</h2>
+<p>Another way to lose is by going out of bounds. Modify the if statement in the draw function to make us lose if we go out of bounds, determined by the new&nbsp;<strong>snakeInBounds</strong> function.</p>
+<pre>if( bodyOverlaps(headRow,headCol) || !snakeInBounds()){
+     
+     noLoop();                 //Stops draw function from iterating
+}</pre>
+<p>To get this working, add the snakeInBounds function to your project.&nbsp; Its purpose is to return true if the snake's head is within the grid. This means that you need to check the head's row and column and return true only if they are in bounds. This means that the row should be positive and less than the number of rows, and the column should be positive and less than the number of columns.&nbsp; This can be done in one big, four part AND statement. Don't forget that this function's purpose is to return true or false, not to do any drawing or changing of data.</p>
+<p>Test your program again and run the snake into all four walls. Each time you hit a wall it should cause the game to stop.</p>
+
+
+
+<br><br><hr>
+
+
+
+
+
+<h2>Resetting</h2>
+<p>Once the game is over, resetting it would be the next step. Modify the keypressed function to detect a press of "r" (or whatever key you want). When it's pressed we need to start the game over.&nbsp; This means reinitializing all the variables to their starting position.&nbsp; This is likely going to involve some copy-paste as you reset the snake's head, body, and food.</p>
+<p>Since we're stopping the clock using the&nbsp;<strong>noLoop()</strong> function, your reset should kick it back into gear by saying&nbsp;<strong>loop();</strong> (setting the frameRate to non-zero has a similar result).</p>
+<p>&nbsp;</p>
+<p>Test out your game to make sure that your snake grows when it overlaps with the food and stops when it overlaps with itself or goes out of bounds.&nbsp; If so, paste your code below.</p>
+
+  </body>
+</html>
