@@ -1,0 +1,197 @@
+<html>
+  
+<head>
+   <link rel="stylesheet" type="text/css" href="../../style.css">
+<title>Estimating Pi</title>
+  
+</head>
+
+<body>
+ <p><iframe src="demos/leibnitz/index.html" width="330" height="70" loading="lazy" data-mce-fragment="1"></iframe></p>
+<h3>Using Leibniz's Infinite Series</h3>
+<p>Gottfried Leibnitz discovered that the value of Pi could be calculated using and&nbsp;<strong>alternating infinite series.&nbsp;</strong></p>
+<p><img src="images/leib1.svg" alt="{\displaystyle \pi =4\sum _{n=0}^{\infty }{\cfrac {(-1)^{n}}{2n+1}}=4\left({\frac {1}{1}}-{\frac {1}{3}}+{\frac {1}{5}}-{\frac {1}{7}}+-\cdots \right)}" data-cke-saved-src="https://wikimedia.org/api/rest_v1/media/math/render/svg/8f1c73de15de73e8c261e9eee1131b036e2c6a7b" /></p>
+<p>or, a less scarily written version could be written as:</p>
+<p><img src="images/leib2.svg" alt="{\displaystyle 1-{\frac {1}{3}}+{\frac {1}{5}}-{\frac {1}{7}}+{\frac {1}{9}}-\cdots ={\frac {\pi }{4}},}" data-cke-saved-src="https://wikimedia.org/api/rest_v1/media/math/render/svg/b702b40ec6c3f81e02a697312d2939a1068b467d" /></p>
+<p>If we continue this pattern of adding and subtracting a fraction with an increasing denominator infinitely, it should reach pi/4.</p>
+<p>&nbsp;</p>
+<p><strong>Take Note of things we need to replicate in code:</strong><br />&nbsp;&nbsp;- The series alternates adding and subtracting values.<br />&nbsp; -&nbsp;The denominator of the fraction being added is a repeating number pattern. It starts at one and increases by two each time.</p>
+<p>We are going to simulate this series by performing one addition/subtraction each draw() cycle.</p>
+<p>&nbsp;</p>
+<p>Open the Lebnitz Pi workspace on CodeHS</p>
+<p>There you will find that a global variable pi has been created to represent our estimate,&nbsp;initialized to zero. The draw function is simply drawing that value to the screen using the text() function.</p>
+<p>Our goal will be to modify the pi variable once each frame, either adding or subtracting a fraction value&nbsp;from it once each frame. The longer the program runs, the closer it will get to actual PI.</p>
+<p>&nbsp;</p>
+<h4>Alternating Adding and Subtracting</h4>
+<p>Before we get into the fraction portion, we should first focus on the alternating add and subtract. The first frame we want to&nbsp;<strong>add</strong>&nbsp;to the zero, next one subtract, then back to add again, etc.&nbsp;</p>
+<p>One way we could tell when to add or subtract would be to look at the frameCount. We want to add when frameCount is 1, 3, 5, 7, etc. and subtract when frameCount is 2, 4, 6, 8. etc.&nbsp;&nbsp;Modify the draw function to&nbsp;<strong>add one</strong>&nbsp;to the pi variable when frameCount is&nbsp;<strong>odd</strong>&nbsp;and&nbsp;<strong>subtract one</strong>&nbsp;when it's even.</p>
+<p>With this modification, running the program should show a value rapidly changing between 0 and 1. If you see a&nbsp;<strong>-1</strong>, your subtracting and adding are flipped.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Simulating the Changing Fraction</h4>
+<p>To make this number generate pi, we need to add/subtract a fractional value each time. The most important part of the fraction to notice is the&nbsp;<strong>denominator</strong>&nbsp;follows a specific pattern. In the first frame it is&nbsp;<strong>1</strong>, and then it increases by two each time.</p>
+<p>- Add a global variable named&nbsp;<strong>den</strong>&nbsp;that is initialized to be 1 in the setup function. This will represent the denominator of our fraction.</p>
+<p>- Find where you are adding/subtracting a one from pi, and modify it to use <strong>1/den</strong> instead.</p>
+<p>- Lastly, we need den to be larger every frame.&nbsp;<strong>After you've modified pi</strong>, increase den by 2. This will prepare it for the next frame.</p>
+<p>With these steps completed, we are almost there. If you run your program, you should get a number that gradually tends toward 0.785....</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Multiply the sum by 4</h4>
+<p>The Leibnitz series doesn't calculate PI, it calculates PI/4 (0,785..). In order to get our value to generate&nbsp;PI, you should display a value that is four times as big as the sum (without actually changing the value of pi). You can do this by modifying the text() function call to display 4*pi.</p>
+<p>&nbsp;</p>
+<h4>Test</h4>
+<p>Run your program and observe the program calculating. It will always be getting a little closer to PI, but never actually reach it. Over time you will see that more and more digits are 'locked into place'.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<br><br><hr><br>
+
+
+
+<h3>Monte Carlo Pi</h3>
+<p>A Monte Carlo method is a computational strategy that uses randomness to <strong>show </strong>the probability of something that might not be easily calculated. We can use this type of strategy to derive an estimate for pi. Consider the situation where there is a square&nbsp;circumscribed around a circle.</p>
+<p><img src="images/circ_squar.png" alt="ecd3c28b-dc74-4cf6-9c00-8bd723c74901.png" width="200" height="211" /></p>
+<p>If you pick a random point inside the square, the chance that it will land inside the circle can be expressed as the proportion of their two areas. Notice that the square's side length is 2r, causing some cancellation occurs to simplify it down.</p>
+<p><img src="images/prob_inside.png" alt="image.png" /></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 1.6em;"><span style="font-size: 1.6em;">Probability says that we know what to expect the numbers to be:</span></span></p>
+<p>&nbsp;</p>
+<p><img src="images/prob_inside2.png" alt="image.png" /></p>
+<p>&nbsp;</p>
+<h4>Simulating an Answer</h4>
+<p>Monte Carlo methods are about simulation! We are going to write a sketch that will have a circle and a square. It will repeatedly choose a random point on the square</p>
+<p><img src="images/in_out.gif" alt="e1be8a46-7de3-4888-8fef-3f13b3544f83.gif" width="110" height="110" /></p>
+<p>With each point, the simulation will keep count of how many of the random points end up in the circle. If we believe hard enough in probability, we can expect the percent of inside-points &nbsp;to be pi/4. With a little rearranging, we can use that information to 'solve for pi'</p>
+<p>&nbsp;</p>
+<p><img src="images/prob_inside3.png" alt="image.png" /></p>
+<p>&nbsp;</p>
+<p>Open the Monte Carlo Pi Workspace</p>
+<p>There is a lot of code already provided for you. Hit play and notice the basic layout. There is a 200x200 square circumscribing a circle, and three zero values are being written.</p>
+<p>If you read the labels, those zeros all have a related global variable in the sketch: insideDots, totalsDots, piEstimate. The sketch is set up to display the value of these three variables, so that we can see their values increase as the simulation continues.</p>
+<p><img src="images/info.gif" alt="2707c558-bb4c-4b56-9531-a74cbaa8353a.gif" width="210" height="60" /></p>
+<p>&nbsp;</p>
+<h4>The simulateOneDot() Function</h4>
+<p>Find the&nbsp;simulateOneDot()&nbsp;function in the sketch. This is where you will be simulating adding a single random dot. You will not need a loop to get it to repeat. Since it is called every draw cycle, we will get many dots as time goes on.</p>
+<p><strong>Colored Dots: </strong>The first thing that you should do is choose a random location within the 200x200 square and draw a small circle at that location. When choosing the fill for the circle, use the dist() function to calculate how far the random point is from the circle's center at (100, 100). Compare that distance with the circle's radius of 100 to determine if it is&nbsp;inside the circle or not. Choose a different fill for the&nbsp;<em>inside</em>&nbsp;and&nbsp;<em>outside</em>&nbsp;points. Run your program to make sure that the dots fill the square and are colored properly.</p>
+<p><strong>Updating the Data</strong>: As you add your point, you also should be updating the three global variables. <strong>totalDots </strong>should always increase by one, but <strong>insideDots </strong>should only increase if the point was inside the circle. Lastly, you should update the <strong>piEstimate </strong>variable, which is determined using the previous equation: four times the ratio of the other two values.</p>
+<p>Test your program and make sure that it gets within 0.05 of pi.&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Speed Up the Simulation</h5>
+<p>Adding one dot every frame is a little slow. You can speed it up by going to the&nbsp;<strong>draw()</strong>&nbsp;function and wrapping the call to simulateOneDot inside of a loop that will call it 20 times. This will make your program add 20 points every frame. This should allow you to get closer to pi much faster.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<br><br><hr><br>
+<h3>&nbsp;The Archimedes Squeeze</h3>
+<p>Archimedes' method for deriving Pi involves considering two regular polygons: one&nbsp;<strong>inscribed</strong>&nbsp;within the circle and one&nbsp;<strong>circumscribed</strong>&nbsp;outside of it.</p>
+<p><img src="images/4thru9.jpg" alt="834e5ced-9632-474d-be27-b729e9eed9fd.jpg" width="449" height="252" /></p>
+<p>Archimedes stated that the perimeter of the inscribed polygon&nbsp;<strong>must be less&nbsp;</strong>than the circumference of the circle, while the circumscribed polygon's perimeter&nbsp;<strong>must be more.</strong>&nbsp;We can use this concept to show that pi must be between two values.</p>
+<p>To demonstrate this effect, we are going to write a program that will draw a circle and two polygons with the same number of sides: one circumscribed and one inscribed. Each polygon's perimeter will be calculated and used to estimate what PI is.&nbsp;</p>
+<p><img src="images/final5.png" alt="5b7fb789-352a-4b80-8cea-4dc302bb81a0.png" width="180" height="180" /></p>
+<p>The smaller estimate will be less than PI, and the bigger estimate will be more.&nbsp; The user will then be able to modify the number of sides the polygon has. As the number of sides gets bigger, the two estimates should get closer and closer to PI.&nbsp;</p>
+<p><img src="images/final11.png" alt="94d45872-167a-4cd0-8b4e-e57ffd4656ae.png" width="180" height="180" /><img src="images/final50.png" alt="eb759470-28a4-4d3b-b372-23443b4e5c72.png" width="180" height="180" /></p>
+<p>Pi must be between these two values. As the number of sides increases toward infinity,&nbsp;</p>
+<p>&nbsp;</p>
+<p>There are many steps to take to do this. We will break it into steps:</p>
+<p>1) Write a function to help draw two polygons<br />2) Write a function to help calculate their perimeters<br />3) Create estimates of pi based on those perimeters</p>
+<p>&nbsp;</p>
+<p>Open the Archimedes Squeeze Workspace</p>
+<p>The first thing we want to notice is that there is a global variable named <strong>numSides </strong>that is initialized to 5. We want to represent this as a variable so that we can change it later to see how our estimate changes as there are more sides to our polygon.</p>
+<p><img src="images/circle.png" alt="737166ff-bd18-468a-8a24-367318feb65f.png" width="250" height="250" /></p>
+<p>Notice that your sketch already has a keyPressed() function that is in charge of changing the numSides variable with the keyboard.</p>
+<pre>if( keyCode == UP_ARROW)
+    numSides++;
+
+if( keyCode == DOWN_ARROW &amp;&amp; numSides&gt;3)
+    numSides--;
+</pre>
+<p>Don't forget that you have to click the canvas before it will listen to your keypresses. Run the sketch and make sure that you can change the number of sides up and down with your arrow keys.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Part 1) Drawing the Polygons</h4>
+<h4><img src="images/circ_w_pent.png" alt="9ca746a7-e78c-4c53-9826-7b9f4a4656e4.png" width="250" height="250" /></h4>
+<p>Find the drawPolygon() function. It&nbsp;is responsible for drawing a regular polygon, centered at (0,0), with a radius defined by the parameter&nbsp;<em>radius<strong>.&nbsp;</strong></em>Right now the draw() function is calling the <strong>drawPolygon() </strong>function and giving it a radius that would make it perfectly inscribed within our circle. Our first goal is to get the above to show.</p>
+<p>The key to drawing this is realizing that all vertices of&nbsp;a regular polygon fall on a circle, spaced out at regular intervals. This means that we can use our old friends, the trigonometric circle equations to get the x and y of any vertex.</p>
+<pre>let x = radius * cos( <strong>angle </strong>);   //radius is a parameter, angle is the unknown.
+let y = radius * sin( <strong>angle </strong>); 
+</pre>
+<p>This time we are not going to worry about a centerX or centerY because the center is supposed to be (0,0). Since the radius is given to us, we only need to think of the angles of the points that we want to use.</p>
+<p>&nbsp;</p>
+<h5>Two Points Make a Line</h5>
+<p>In order to draw the sides of the polygon, we'll need<strong> two</strong> sets of (x,y) points to draw a line between. Since we're using the equations above, we'll need to think about two&nbsp;<strong>angles</strong>&nbsp;on the circles to connect. When talking about regular polygons, the&nbsp;<strong>central angle</strong>&nbsp;is how many degrees should separate each point.</p>
+<p>For example, a regular pentagon has a 72 degree central angle.</p>
+<p><img src="images/interior.gif" alt="61b6ea93-d427-4ccd-9f0c-0f89a421e6a7.gif" width="140" height="133" /></p>
+<p>The first side of if could be drawn between the points at angles 0 and 72:</p>
+<pre>let x = radius * cos( 0 );   //radius is a parameter, angle is unknown.
+let y = radius * sin( 0 ); 
+let x2 = radius * cos( 72 ); &nbsp; //radius is a parameter, angle is unknown.
+let y2 = radius * sin( 72 );&nbsp;
+line(x, y, x2, y2);
+</pre>
+<p>The next line would be between 72 and 144, 144 and 216, etc.</p>
+<p>&nbsp;</p>
+<h5>Loop It!</h5>
+<p>Write a for loop that will help you draw all sides of the polygon by generating the angle for each vertex.</p>
+<p>Not all polygons will be 72 degrees between points. It may be beneficial for you to calculate the central angle, which depends on the number of sides of the polygon.</p>
+<pre>let centralAngle = 360/numSides;</pre>
+<p>This will still calculate 72 for a pentagon&nbsp;shape, but for an octagon it would be 45.</p>
+<p>The most common strategy is to have a looping&nbsp;variable representing the angle. It&nbsp;starts at&nbsp;0, and increases&nbsp;by the centralAngle amount each time the loop iterates. Remember that consecutive vertices&nbsp;will be centralAngle apart, so the two points that you are drawing a line will be at&nbsp;<strong>angle</strong>&nbsp;and&nbsp;<strong>angle+centralAngle.</strong></p>
+<p>When you run, your polygon should have all of its points on the circle:</p>
+<p><img style="width: 171px; height: 171px;" src="images/circ_w_pent.png" alt="9ca746a7-e78c-4c53-9826-7b9f4a4656e4.png" width="171" height="171" /></p>
+<p>Use the arrow keys to increase or decrease the number of sides. Confirm that the correct polygon is always being drawn.</p>
+<p>&nbsp;</p>
+<h4>Drawing the Circumscribed Polygon</h4>
+<p>You may have noticed that there are two global radius variables: INSC_RADIUS, and CIRCUM_RADIUS. These represent the radii of the two polygons that we need for the inscribed and circumscribed polygons. The inscribed radius matches the circle but there is some provided&nbsp;calculations&nbsp;involved to get the circumscribed polygon's radius (<span style="font-size: .6em;">CIRCUM_RADIUS = RAD/cos(180/numSides</span>)</p>
+<p>&nbsp;</p>
+<p>If you look at the bottom of the draw function, you will see two calls to drawPolygon(), one of them commented out</p>
+<pre>//Draw the inscribed polygon 
+drawPolygon(INSC_RADIUS);
+  
+//Draw the circumscribed polygon
+//drawPolygon(CIRCUM_RADIUS);  </pre>
+<p>The second call uses the larger radius as the parameter. Uncomment it and you should now see a second polygon drawn around the circle.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Part 2) Calculating the Two Perimeters</h4>
+<p>Our end goal is to estimate PI by substituting the perimeter of our polygon for the circumference of our circle.&nbsp;Move to the&nbsp;<strong>perimeter()&nbsp;</strong>function in the sketch. This function&nbsp;is responsible for calculating and returning the perimeter of a polygon with a given radius. Currently the function doesn't have a return statement, and you may have already noticed that this causes it to say&nbsp;<strong>Inner Perimeter: undefined</strong>&nbsp;in the area under the circle.</p>
+<p>The perimeter of a regular polygon is a simple formula:</p>
+<p>Perimeter = Number of Sides X Side Length</p>
+<p>Since we already know the number of sides (numSides), we only need to calculate the length of one side, which is just the&nbsp;<strong>distance between two consecutive vertices</strong>, which you can measure using the dist() function.&nbsp; You already have practice generating consecutive vertices from the drawPolygon() function. Calculate the centralAngle, and then use the trig formulas to generate two points that are one centralAngle apart.&nbsp; You will not need a loop this time, because you can find the distance between these two points and multiply it by the number of sides to get the complete perimeter.</p>
+<p>Make sure that you return the result so that the sketch can insert that value into the output area.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h5>Testing</h5>
+<p>After completing the perimeter() function, run your program and look at the calculated perimeters. When you first run it, you should now see the undefined value have disappeared:</p>
+<p>Inner Perimeter: <strong>940.4564036679569</strong><br />Outer Perimeter: <strong>1162.4680448085774</strong></p>
+<p>These are the correct perimeters when there are&nbsp;<strong>5</strong>&nbsp;sides to the polygon.&nbsp; As you add or remove sides, the values should update.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Part 3) Estimating Pi Using a Circumference</h4>
+<p>The reason that we calculate the perimeter of the two polygons is that they are both estimates of the circle's&nbsp;<strong>circumference</strong>. But in the end,&nbsp;our goal is not to estimate the&nbsp;<strong>circumference</strong>, but to estimate the value of&nbsp;<strong>pi</strong>.&nbsp;</p>
+<p>The Circumference estimate is helpful because we know its relationship to pi using the formula:</p>
+<p><span style="font-size: 1.3em;">\(Circumference\ =\ 2\times\pi\times radius\)</span></p>
+<p>Like before, we're trying to derive pi so we will&nbsp;rewrite our equation to 'solve forpi':</p>
+<p><span style="font-size: 1.3em;">\(\pi=\frac{circumference}{2\times radius}\)</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Find the estimatePi() function</strong>, which also accepts a polygon radius as a parameter and expects us to return an estimate of PI. Following the process above, we need to:<br />&nbsp; - Estimate the circumference of the circle&nbsp;by calculating the polygon's perimeter.<br />&nbsp; - Divide it by (2*CIRCLE_RADIUS) to get an estimate of PI<br />&nbsp; - Return the result</p>
+<p>This should be relatively simple because we have already done the majority of the work. Notice that you're already provided with the first step in the estimatePi() function. By calling the perimeter() function with our radius, we should be provided with a value that we can substitute for the circumference in our calculation. You simply have to divide and return the result.</p>
+<p>&nbsp;</p>
+<h5>Displaying the Estimates</h5>
+<p>The estimatePi() function is not naturally called during our program. Look towards the top of the draw() function where the center message is being created to include the number of sides.</p>
+<pre>let message = "Number of Sides: " + numSides&nbsp;
+// &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + "\nLow Pi Estimate: " + nf( estimatePi(INSC_RADIUS) ,0,4)&nbsp;
+// &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + "\nHigh Pi Estimate: " + nf( estimatePi(CIRCUM_RADIUS) ,0,4);
+</pre>
+<p>The two commented out lines are compacted, but they:<br />- Call the estimatePi() function with each radius<br />- Format the result to have only four places after the decimal<br />- Adds on to the end of the message</p>
+<p>You should only have to comment these two lines out and run the sketch again to see your two pi estimates.</p>
+<p>&nbsp;</p>
+<p><img src="images/final5.png" alt="5b7fb789-352a-4b80-8cea-4dc302bb81a0.png" width="250" height="250" /><img src="images/final11.png" alt="94d45872-167a-4cd0-8b4e-e57ffd4656ae.png" width="250" height="250" /><img src="images/final50.png" alt="eb759470-28a4-4d3b-b372-23443b4e5c72.png" width="250" height="250" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+  </body>
+</html>
