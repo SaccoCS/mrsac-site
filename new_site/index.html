@@ -1,0 +1,271 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Home</title>
+  <style>
+    :root {
+      --bg: #d7d8dc;
+      --panel: #ffffff;
+      --ink: #1c2733;
+      --muted: #586574;
+      --brand-red: #9c090c;
+      --line: #c9ced6;
+      --ok: #157347;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .top {
+      background: var(--brand-red);
+      border: 1px solid #8b0d10;
+      border-radius: 0;
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 0;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: transparent;
+      min-width: 240px;
+    }
+
+    .falcon-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      background: transparent;
+      padding: 0;
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      align-items: center;
+      padding-right: 4px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #ffffff;
+      background: transparent;
+      padding: 14px 16px;
+      border-radius: 0;
+      font-size: 0.92rem;
+      border-left: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .nav a:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
+    }
+
+    .list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 4px 9px;
+      border: 1px solid #c9d5e4;
+      background: #f8fbff;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .tag.ok {
+      border-color: #b9e2c9;
+      color: var(--ok);
+      background: #effaf3;
+    }
+
+    .links {
+      display: grid;
+      gap: 8px;
+    }
+
+    .links a {
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: #fbfdff;
+    }
+
+    .portrait-wrap {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f5f7fa;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      min-height: 180px;
+    }
+
+    #portrait {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      padding: 8px;
+    }
+
+    #portrait canvas,
+    #portrait img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .footer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .top { flex-direction: column; align-items: stretch; }
+      .brand-wrap { min-width: 0; width: 100%; }
+      .nav { width: 100%; }
+      .nav a { flex: 1 1 auto; text-align: center; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand-wrap">
+        <img class="falcon-logo" src="../images/logo.png" alt="Falcon logo" />
+        <div class="brand">Mr. Sacco | Computer Science</div>
+      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#">Assignments</a>
+        <a href="#">Calendar</a>
+      </nav>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Today's Classes</h2>
+        <div class="list">
+          <div class="item">
+            <div>
+              <strong>Period 1: CS 1,2</strong><br />
+              <small>Room 404 | 8:30 AM</small>
+            </div>
+            <span class="tag">Prep</span>
+          </div>
+          <div class="item">
+            <div>
+              <strong>Period 2: APCS A</strong><br />
+              <small>Room 404 | 9:40 AM</small>
+            </div>
+            <span class="tag ok">Ready</span>
+          </div>
+          <div class="item">
+            <div>
+              <strong>Period 4: CS 1,2</strong><br />
+              <small>Room 404 | 12:10 PM</small>
+            </div>
+            <span class="tag">Review</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="portrait-wrap">
+          <div id="portrait">
+            <img src="../images/sacco_logo.png" alt="Mr. Sacco portrait" id="pic" />
+          </div>
+        </div>
+      </aside>
+
+      <section class="card">
+        <h2>Quick Links</h2>
+        <div class="links">
+          <a href="https://classroom.google.com">Google Classroom</a>
+          <a href="https://codehs.com">CodeHS</a>
+          <a href="https://myap.collegeboard.org">AP Classroom</a>
+          <a href="https://docs.oracle.com/javase/8/docs/api/">Java API Docs</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Contact</h2>
+        <p><strong>Email:</strong> isacco@sandi.net</p>
+        <p><strong>School:</strong> Scripps Ranch High School</p>
+        <p><strong>Location:</strong> Room 404</p>
+      </section>
+    </main>
+
+    <div class="footer">Teacher page prototype | new_site/index.html</div>
+  </div>
+
+  <script src="./portrait_sketch.js"></script>
+</body>
+</html>
