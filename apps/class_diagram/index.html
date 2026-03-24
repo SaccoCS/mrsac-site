@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Interface Generator</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --panel-soft: #f1f5f9;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #0f172a;
+      --accent-soft: linear-gradient(135deg, #0f172a, #1e293b);
+      --shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.06);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .layout {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .hero h1 {
+      margin: 12px 0 10px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+
+    .card {
+      background: var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 24px 28px 0;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .card-body {
+      padding: 24px 28px 28px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .field input[type="text"],
+    .field input[type="number"],
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fff;
+      padding: 14px 16px;
+      font: inherit;
+      color: var(--text);
+      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input[type="text"]:focus,
+    .field input[type="number"]:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: #94a3b8;
+      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.2);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .field textarea.methods {
+      min-height: 190px;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: var(--panel-soft);
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .toggle input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: var(--shadow-soft);
+    }
+
+    button.secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    button.ghost {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .preview-shell {
+      position: sticky;
+      top: 24px;
+    }
+
+    .preview-top {
+      padding: 28px;
+      background: var(--accent-soft);
+    }
+
+    .interface-card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.2);
+    }
+
+    .interface-content {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 1.08rem;
+      line-height: 1.9;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .class-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .divider {
+      height: 1px;
+      background: #cbd5e1;
+      width: 100%;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section-label {
+      margin-bottom: 8px;
+      color: #64748b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .line + .line {
+      margin-top: 2px;
+    }
+
+    .plain-text-wrap {
+      border-top: 1px solid var(--border);
+      background: var(--panel-soft);
+      padding: 24px 28px 28px;
+    }
+
+    .plain-text-wrap h3 {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+    }
+
+    pre {
+      margin: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .status {
+      min-height: 24px;
+      margin-top: 14px;
+      font-size: 0.92rem;
+      color: #334155;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-shell {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 16px;
+      }
+
+      .card-header,
+      .card-body,
+      .preview-top,
+      .plain-text-wrap {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .interface-card {
+        padding: 20px;
+      }
+
+      .class-title {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="layout">
+      <div class="stack">
+        <section class="hero">
+          <div class="badge">&#10022; Class Interface Generator</div>
+          <h1>Turn class headers into a clean student reference</h1>
+          <p>
+            Type a class name, constructors, and methods. This page formats them into a polished
+            class interface you can project, copy into worksheets, or export as a text file.
+          </p>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2 class="card-title">Input</h2>
+          </div>
+          <div class="card-body">
+            <div class="field">
+              <label for="className">Class name</label>
+              <input id="className" type="text" value="Name" placeholder="Example: Name" />
+            </div>
+
+            <div class="field">
+              <label for="constructors">Constructors (one per line)</label>
+              <textarea id="constructors" placeholder="public Name(String first, String last)">public Name(String first, String last)</textarea>
+            </div>
+
+            <div class="field">
+              <label for="methods">Methods (one per line)</label>
+              <textarea id="methods" class="methods" placeholder="public String getFirst()&#10;public String getLast()">public String getFirst()
+public String getLast()</textarea>
+            </div>
+            <div class="field">
+              <label for="widthMode">Diagram width</label>
+              <select id="widthMode">
+                <option value="fit">Fit method headers</option>
+                <option value="fixed" selected>Defined width</option>
+              </select>
+            </div>
+
+            <div class="field" id="fixedWidthField">
+              <label for="fixedWidth">Defined width (px)</label>
+              <input id="fixedWidth" type="number" min="320" max="1200" step="10" value="680" list="widthOptions" />
+              <datalist id="widthOptions">
+                <option value="560"></option>
+                <option value="680"></option>
+                <option value="760"></option>
+                <option value="880"></option>
+                <option value="980"></option>
+              </datalist>
+            </div>
+
+            <label class="toggle">
+              <input id="showSections" type="checkbox" checked />
+              <span>Show section labels for constructors and methods</span>
+            </label>
+
+            <div class="button-row">
+              <button class="primary" id="copyBtn">Copy text</button>
+              <button class="secondary" id="downloadBtn">Download .txt</button>
+              <button class="secondary" id="downloadPngBtn">Download .png</button>
+              <button class="ghost" id="downloadHtmlBtn">Download .html</button>
+              <button class="ghost" id="copyDivBtn">Copy HTML &lt;div&gt;</button>
+              <button class="ghost" id="resetBtn">Reset example</button>
+            </div>
+
+            <div class="status" id="status"></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="card preview-shell">
+        <div class="card-header">
+          <h2 class="card-title">Preview</h2>
+        </div>
+
+        <div class="preview-top">
+          <div class="interface-card" id="interfaceCard">
+            <div class="interface-content">
+              <div class="class-title" id="previewClassName">Name</div>
+              <div class="divider"></div>
+
+              <div id="constructorsSection" class="section">
+                <div class="section-label">Constructors</div>
+                <div id="constructorsPreview"></div>
+              </div>
+
+              <div id="methodsSection" class="section">
+                <div class="section-label">Methods</div>
+                <div id="methodsPreview"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="plain-text-wrap">
+          <h3>Plain text version</h3>
+          <pre id="plainTextOutput"></pre>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const classNameInput = document.getElementById("className");
+    const constructorsInput = document.getElementById("constructors");
+    const methodsInput = document.getElementById("methods");
+    const showSectionsInput = document.getElementById("showSections");
+    const widthModeInput = document.getElementById("widthMode");
+    const fixedWidthInput = document.getElementById("fixedWidth");
+    const fixedWidthField = document.getElementById("fixedWidthField");
+
+    const previewClassName = document.getElementById("previewClassName");
+    const constructorsPreview = document.getElementById("constructorsPreview");
+    const methodsPreview = document.getElementById("methodsPreview");
+    const constructorsSection = document.getElementById("constructorsSection");
+    const methodsSection = document.getElementById("methodsSection");
+    const plainTextOutput = document.getElementById("plainTextOutput");
+    const interfaceCard = document.getElementById("interfaceCard");
+    const status = document.getElementById("status");
+
+    const copyBtn = document.getElementById("copyBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const downloadPngBtn = document.getElementById("downloadPngBtn");
+    const downloadHtmlBtn = document.getElementById("downloadHtmlBtn");
+    const copyDivBtn = document.getElementById("copyDivBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function splitLines(text) {
+      return text
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
+    }
+
+    function makeDivider(title) {
+      return title + "\n" + "-".repeat(Math.max(12, title.length));
+    }
+
+    function getPlainText() {
+      const className = classNameInput.value.trim() || "ClassName";
+      const constructors = splitLines(constructorsInput.value);
+      const methods = splitLines(methodsInput.value);
+      const showSections = showSectionsInput.checked;
+      const targetWidthPx = getTargetWidthPx();
+
+      const parts = [makeDivider(className)];
+
+      if (showSections) {
+        if (constructors.length) {
+          parts.push("", "Constructors:");
+          parts.push(...constructors);
+        }
+        if (methods.length) {
+          parts.push("", "Methods:");
+          parts.push(...methods);
+        }
+      } else {
+        if (constructors.length) parts.push(...constructors);
+        if (methods.length) parts.push(...methods);
+      }
+
+      return parts.join("\n");
+    }
+
+    function renderLines(container, lines) {
+      container.innerHTML = "";
+      lines.forEach((line) => {
+        const div = document.createElement("div");
+        div.className = "line";
+        div.textContent = line;
+        container.appendChild(div);
+      });
+    }
+
+    function clampWidthPx(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 680;
+      return Math.max(320, Math.min(1200, Math.round(n)));
+    }
+
+    function getTargetWidthPx() {
+      const mode = widthModeInput?.value === "fit" ? "fit" : "fixed";
+      if (mode === "fixed") {
+        return clampWidthPx(fixedWidthInput?.value || 680);
+      }
+
+      const className = classNameInput.value.trim() || "ClassName";
+      const constructors = splitLines(constructorsInput.value);
+      const methods = splitLines(methodsInput.value);
+      const measurementLines = methods.length > 0
+        ? methods
+        : (constructors.length > 0 ? constructors : [className]);
+
+      let maxTextWidth = 0;
+      const probeHost = document.createElement("div");
+      probeHost.style.position = "absolute";
+      probeHost.style.left = "-99999px";
+      probeHost.style.top = "0";
+      probeHost.style.visibility = "hidden";
+      probeHost.style.pointerEvents = "none";
+      probeHost.style.whiteSpace = "nowrap";
+
+      const probeLine = document.createElement("span");
+      const contentEl = document.querySelector(".interface-content");
+      const contentStyle = contentEl
+        ? window.getComputedStyle(contentEl)
+        : null;
+      probeLine.style.fontFamily = contentStyle?.fontFamily || '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace';
+      probeLine.style.fontSize = contentStyle?.fontSize || "17px";
+      probeLine.style.fontWeight = contentStyle?.fontWeight || "400";
+      probeLine.style.letterSpacing = contentStyle?.letterSpacing || "normal";
+
+      probeHost.appendChild(probeLine);
+      document.body.appendChild(probeHost);
+      for (const line of measurementLines.length > 0 ? measurementLines : ["ClassName"]) {
+        probeLine.textContent = line;
+        const w = Math.ceil(probeLine.getBoundingClientRect().width);
+        if (w > maxTextWidth) maxTextWidth = w;
+      }
+      probeHost.remove();
+
+      const cardPaddingX = interfaceCard
+        ? Math.ceil((parseFloat(window.getComputedStyle(interfaceCard).paddingLeft || "28") || 28) * 2)
+        : 56;
+      const fitBuffer = 8;
+      const fitted = Math.ceil(maxTextWidth + cardPaddingX + fitBuffer);
+      return Math.max(320, Math.min(1100, fitted));
+    }
+    function updatePreview() {
+      const className = classNameInput.value.trim() || "ClassName";
+      const constructors = splitLines(constructorsInput.value);
+      const methods = splitLines(methodsInput.value);
+      const showSections = showSectionsInput.checked;
+      const targetWidthPx = getTargetWidthPx();
+
+      previewClassName.textContent = className;
+      if (interfaceCard) {
+        interfaceCard.style.width = `${targetWidthPx}px`;
+        interfaceCard.style.maxWidth = "100%";
+      }
+      if (fixedWidthField) fixedWidthField.style.display = widthModeInput?.value === "fixed" ? "block" : "none";
+      renderLines(constructorsPreview, constructors);
+      renderLines(methodsPreview, methods);
+
+      constructorsSection.style.display = constructors.length ? "block" : "none";
+      methodsSection.style.display = methods.length ? "block" : "none";
+
+      const constructorLabel = constructorsSection.querySelector(".section-label");
+      const methodLabel = methodsSection.querySelector(".section-label");
+      constructorLabel.style.display = showSections ? "block" : "none";
+      methodLabel.style.display = showSections ? "block" : "none";
+
+      constructorsSection.style.marginTop = constructors.length ? "24px" : "0";
+      methodsSection.style.marginTop = methods.length ? (constructors.length ? "24px" : "16px") : "0";
+
+      plainTextOutput.textContent = getPlainText();
+    }
+
+    function setStatus(message) {
+      status.textContent = message;
+      if (!message) return;
+      window.clearTimeout(setStatus.timeoutId);
+      setStatus.timeoutId = window.setTimeout(() => {
+        status.textContent = "";
+      }, 2200);
+    }
+
+    async function copyText() {
+      try {
+        await navigator.clipboard.writeText(getPlainText());
+        setStatus("Copied plain text to clipboard.");
+      } catch (error) {
+        setStatus("Copy failed in this browser.");
+      }
+    }
+
+    function downloadFile(filename, content, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function slugify(value) {
+      return (value || "class-interface")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9\-_]/g, "") || "class-interface";
+    }
+
+    function downloadText() {
+      const filename = slugify(classNameInput.value) + ".txt";
+      downloadFile(filename, getPlainText(), "text/plain;charset=utf-8");
+      setStatus("Downloaded text file.");
+    }
+
+    function downloadHtml() {
+      const filename = slugify(classNameInput.value) + "-generator.html";
+      downloadFile(filename, document.documentElement.outerHTML, "text/html;charset=utf-8");
+      setStatus("Downloaded HTML file.");
+    }
+    function drawRoundedRectPath(ctx, x, y, width, height, radius) {
+      const r = Math.max(0, Math.min(radius, Math.min(width, height) / 2));
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + width - r, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + r);
+      ctx.lineTo(x + width, y + height - r);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+      ctx.lineTo(x + r, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function wrapLineToWidth(ctx, text, maxWidth) {
+      const raw = String(text || "");
+      if (!raw) return [""];
+      if (ctx.measureText(raw).width <= maxWidth) return [raw];
+
+      const words = raw.split(/(\s+)/).filter((part) => part.length > 0);
+      const lines = [];
+      let current = "";
+
+      for (const part of words) {
+        const next = current + part;
+        if (!current || ctx.measureText(next).width <= maxWidth) {
+          current = next;
+          continue;
+        }
+
+        if (current.trim().length > 0) lines.push(current.trimEnd());
+        current = part.trimStart();
+
+        while (current && ctx.measureText(current).width > maxWidth) {
+          let cut = current.length;
+          while (cut > 1 && ctx.measureText(current.slice(0, cut)).width > maxWidth) {
+            cut -= 1;
+          }
+          lines.push(current.slice(0, cut));
+          current = current.slice(cut).trimStart();
+        }
+      }
+
+      if (current.trim().length > 0) lines.push(current.trimEnd());
+      return lines.length > 0 ? lines : [raw];
+    }
+
+    function downloadPng() {
+      const className = classNameInput.value.trim() || "ClassName";
+      const constructors = splitLines(constructorsInput.value);
+      const methods = splitLines(methodsInput.value);
+      const showSections = showSectionsInput.checked;
+      const cardWidth = getTargetWidthPx();
+
+      const cardPadding = 28;
+      const borderRadius = 24;
+      const maxTextWidth = cardWidth - cardPadding * 2;
+
+      const titleFont = '700 32px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace';
+      const sectionFont = '700 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace';
+      const bodyFont = '400 17px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace';
+
+      const measureCanvas = document.createElement("canvas");
+      const mctx = measureCanvas.getContext("2d");
+      if (!mctx) {
+        setStatus("Image export is not supported in this browser.");
+        return;
+      }
+
+      mctx.font = bodyFont;
+      const wrappedConstructors = constructors.flatMap((line) => wrapLineToWidth(mctx, line, maxTextWidth));
+      const wrappedMethods = methods.flatMap((line) => wrapLineToWidth(mctx, line, maxTextWidth));
+
+      const titleHeight = 42;
+      const dividerGapAfterTitle = 8;
+      const dividerGapAfter = 16;
+      const sectionLabelHeight = 16;
+      const sectionLabelGap = 8;
+      const lineHeight = 30;
+      const sectionTopGap = 24;
+      const methodTopGapNoConstructors = 16;
+
+      let contentHeight = titleHeight + dividerGapAfterTitle + 1 + dividerGapAfter;
+
+      if (wrappedConstructors.length > 0) {
+        contentHeight += sectionTopGap;
+        if (showSections) contentHeight += sectionLabelHeight + sectionLabelGap;
+        contentHeight += wrappedConstructors.length * lineHeight;
+      }
+
+      if (wrappedMethods.length > 0) {
+        contentHeight += wrappedConstructors.length > 0 ? sectionTopGap : methodTopGapNoConstructors;
+        if (showSections) contentHeight += sectionLabelHeight + sectionLabelGap;
+        contentHeight += wrappedMethods.length * lineHeight;
+      }
+
+      const cardHeight = Math.ceil(cardPadding * 2 + contentHeight);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.ceil(cardWidth));
+      canvas.height = Math.max(1, Math.ceil(cardHeight));
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        setStatus("Image export is not supported in this browser.");
+        return;
+      }
+
+      // Transparent background by default; do not fill full canvas.
+      drawRoundedRectPath(ctx, 0, 0, canvas.width, canvas.height, borderRadius);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+
+      let y = cardPadding;
+
+      ctx.font = titleFont;
+      ctx.fillStyle = "#0f172a";
+      ctx.textBaseline = "top";
+      ctx.fillText(className, cardPadding, y);
+      y += titleHeight;
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cardPadding, y + dividerGapAfterTitle);
+      ctx.lineTo(canvas.width - cardPadding, y + dividerGapAfterTitle);
+      ctx.stroke();
+      y += dividerGapAfterTitle + 1 + dividerGapAfter;
+
+      function drawSection(label, lines, topGap) {
+        if (lines.length === 0) return;
+        y += topGap;
+
+        if (showSections) {
+          ctx.font = sectionFont;
+          ctx.fillStyle = "#64748b";
+          ctx.fillText(label.toUpperCase(), cardPadding, y);
+          y += sectionLabelHeight + sectionLabelGap;
+        }
+
+        ctx.font = bodyFont;
+        ctx.fillStyle = "#0f172a";
+        for (const line of lines) {
+          ctx.fillText(line, cardPadding, y);
+          y += lineHeight;
+        }
+      }
+
+      drawSection("Constructors", wrappedConstructors, wrappedConstructors.length > 0 ? sectionTopGap : 0);
+      drawSection("Methods", wrappedMethods, wrappedConstructors.length > 0 ? sectionTopGap : methodTopGapNoConstructors);
+
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = `${slugify(classNameInput.value)}.png`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setStatus("Downloaded PNG image.");
+    }
+
+
+    function escapeHtmlText(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function buildInlineClassDiagramDivHtml() {
+      const className = escapeHtmlText(classNameInput.value.trim() || "ClassName");
+      const constructors = splitLines(constructorsInput.value).map(escapeHtmlText);
+      const methods = splitLines(methodsInput.value).map(escapeHtmlText);
+      const showSections = showSectionsInput.checked;
+      const targetWidthPx = getTargetWidthPx();
+
+      const constructorSection = constructors.length
+        ? `\n  <div style="margin-top:24px;">\n    ${showSections ? '<div style="margin-bottom:8px;color:#64748b;font-size:0.78rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;">Constructors</div>\n    ' : ""}${constructors.map((line) => `<div>${line}</div>`).join("\n    ")}\n  </div>`
+        : "";
+
+      const methodSection = methods.length
+        ? `\n  <div style="margin-top:${constructors.length ? "24" : "16"}px;">\n    ${showSections ? '<div style="margin-bottom:8px;color:#64748b;font-size:0.78rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;">Methods</div>\n    ' : ""}${methods.map((line) => `<div>${line}</div>`).join("\n    ")}\n  </div>`
+        : "";
+
+      return `<div style="max-width:${targetWidthPx}px;margin:0 auto;background:#fff;border-radius:24px;padding:28px;box-shadow:0 24px 50px rgba(15,23,42,0.2);font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:1.08rem;line-height:1.9;color:#0f172a;word-break:break-word;">\n  <div style="font-size:2rem;font-weight:700;letter-spacing:0.02em;line-height:1.2;margin-bottom:8px;">${className}</div>\n  <div style="height:1px;background:#cbd5e1;width:100%;"></div>${constructorSection}${methodSection}\n</div>`;
+    }
+
+    async function copyDivHtml() {
+      try {
+        await navigator.clipboard.writeText(buildInlineClassDiagramDivHtml());
+        setStatus("Copied inline HTML <div> to clipboard.");
+      } catch (error) {
+        setStatus("Copy failed in this browser.");
+      }
+    }
+    function resetExample() {
+      classNameInput.value = "Name";
+      constructorsInput.value = "public Name(String first, String last)";
+      methodsInput.value = "public String getFirst()\npublic String getLast()";
+      showSectionsInput.checked = true;
+      if (widthModeInput) widthModeInput.value = "fixed";
+      if (fixedWidthInput) fixedWidthInput.value = "680";
+      updatePreview();
+      setStatus("Reset example.");
+    }
+
+    [classNameInput, constructorsInput, methodsInput, showSectionsInput, widthModeInput, fixedWidthInput].forEach((element) => {
+      element.addEventListener("input", updatePreview);
+      element.addEventListener("change", updatePreview);
+    });
+
+    copyBtn.addEventListener("click", copyText);
+    downloadBtn.addEventListener("click", downloadText);
+    downloadPngBtn.addEventListener("click", downloadPng);
+    downloadHtmlBtn.addEventListener("click", downloadHtml);
+    copyDivBtn.addEventListener("click", copyDivHtml);
+    resetBtn.addEventListener("click", resetExample);
+
+    updatePreview();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
