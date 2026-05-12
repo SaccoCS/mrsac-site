@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mood Disorder Matching Activity</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F4F1EC;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 32px 16px 48px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  header p {
+    font-size: 14px;
+    color: #666;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .score-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .score-box {
+    background: #fff;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+  }
+
+  .score-box span {
+    font-weight: 700;
+    color: #1a1a1a;
+    font-size: 16px;
+  }
+
+  .columns {
+    display: flex;
+    gap: 14px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+
+  .col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .col-header {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    margin-bottom: 10px;
+    padding: 6px 0;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .col-header.col-name  { border-color: #1a1a1a; color: #1a1a1a; }
+  .col-header.col-def   { border-color: #1a1a1a; color: #1a1a1a; }
+  .col-header.col-case  { border-color: #1a1a1a; color: #1a1a1a; }
+
+  .card {
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    min-height: 64px;
+  }
+
+  .card:hover {
+    border-color: #999;
+    background: #fafafa;
+    transform: translateY(-1px);
+  }
+
+  .card.selected {
+    border-color: #2563EB;
+    background: #EFF6FF;
+    color: #1e3a8a;
+  }
+
+  .card.correct-a { border-color: #059669; background: #D1FAE5; color: #064E3B; cursor: default; }
+  .card.correct-b { border-color: #7C3AED; background: #EDE9FE; color: #3B0764; cursor: default; }
+  .card.correct-c { border-color: #DC2626; background: #FEE2E2; color: #7F1D1D; cursor: default; }
+  .card.correct-d { border-color: #D97706; background: #FEF3C7; color: #78350F; cursor: default; }
+
+  .card.correct-a:hover,
+  .card.correct-b:hover,
+  .card.correct-c:hover,
+  .card.correct-d:hover { transform: none; }
+
+  .card.wrong {
+    border-color: #DC2626;
+    background: #FEE2E2;
+    animation: shake 0.35s ease;
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25%      { transform: translateX(-7px); }
+    75%      { transform: translateX(7px); }
+  }
+
+  .match-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+  }
+
+  .correct-a .match-label { background: #A7F3D0; color: #064E3B; }
+  .correct-b .match-label { background: #DDD6FE; color: #3B0764; }
+  .correct-c .match-label { background: #FECACA; color: #7F1D1D; }
+  .correct-d .match-label { background: #FDE68A; color: #78350F; }
+
+  .status-bar {
+    text-align: center;
+    margin: 20px auto 0;
+    max-width: 500px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    min-height: 26px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+
+  .status-bar.success { background: #D1FAE5; color: #065F46; }
+  .status-bar.error   { background: #FEE2E2; color: #7F1D1D; }
+
+  .btn-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+  }
+
+  button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 24px;
+    border-radius: 8px;
+    border: 2px solid #1a1a1a;
+    background: #1a1a1a;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  button:hover { background: #333; }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #555;
+    font-weight: 500;
+  }
+
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 3px;
+  }
+
+  .dot-a { background: #059669; }
+  .dot-b { background: #7C3AED; }
+  .dot-c { background: #DC2626; }
+  .dot-d { background: #D97706; }
+
+  @media (max-width: 700px) {
+    .columns { flex-direction: column; }
+    header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mood Disorder Matching Activity</h1>
+  <p>Select one card from each column. If all three belong to the same disorder, they'll lock in. Match all four sets to complete the activity.</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot dot-a"></div> Major Depressive</div>
+  <div class="legend-item"><div class="legend-dot dot-b"></div> Persistent Depressive</div>
+  <div class="legend-item"><div class="legend-dot dot-c"></div> Bipolar I</div>
+  <div class="legend-item"><div class="legend-dot dot-d"></div> Bipolar II</div>
+</div>
+
+<div class="score-row">
+  <div class="score-box">Matched: <span id="matched-count">0</span> / 4</div>
+  <div class="score-box">Attempts: <span id="attempt-count">0</span></div>
+</div>
+
+<div class="columns">
+  <div class="col">
+    <div class="col-header col-name">Disorder Name</div>
+    <div id="col-names"></div>
+  </div>
+  <div class="col">
+    <div class="col-header col-def">Clinical Definition</div>
+    <div id="col-defs"></div>
+  </div>
+  <div class="col">
+    <div class="col-header col-case">Case Description</div>
+    <div id="col-cases"></div>
+  </div>
+</div>
+
+<div class="status-bar" id="status">Select one card from each column to begin.</div>
+
+<div class="btn-row">
+  <button onclick="resetGame()">↺ Reset &amp; Reshuffle</button>
+</div>
+
+<script>
+var DATA = [
+  {
+    id: "a",
+    name: "Major Depressive Disorder",
+    def: "At least 5 depressive symptoms present nearly every day for 2+ weeks, including depressed mood or loss of interest, causing significant impairment in daily functioning.",
+    cas: "Priya, 34, used to love hiking and cooking. For three weeks she has barely left bed, cannot focus at work, sleeps 11 hours yet still feels exhausted, and has lost 8 lbs because food holds no appeal."
+  },
+  {
+    id: "b",
+    name: "Persistent Depressive Disorder",
+    def: "Depressed mood most of the day, more days than not, for at least 2 years, with at least 2 additional depressive symptoms. The person has never been symptom-free for more than 2 consecutive months.",
+    cas: "Marcus, 29, can't remember feeling truly happy. For years he has felt a \"low-level gray,\" struggled with self-doubt, and had little energy — yet he functions and rarely mentions it because it just feels like his personality."
+  },
+  {
+    id: "c",
+    name: "Bipolar I Disorder",
+    def: "At least one manic episode lasting 7+ days with elevated or irritable mood and increased activity, severe enough to cause marked impairment or require hospitalization. Depressive episodes commonly occur but are not required for diagnosis.",
+    cas: "Diane, 27, slept only 2 hours a night for 9 days, maxed out three credit cards on a business idea, spoke so fast that friends couldn't follow her, and was brought to the ER after believing she had a divine mission to rewrite the tax code."
+  },
+  {
+    id: "d",
+    name: "Bipolar II Disorder",
+    def: "At least one major depressive episode and at least one hypomanic episode (4+ days) but no full manic episode. The hypomanic episode is noticeable to others but not severe enough to cause marked impairment or require hospitalization.",
+    cas: "Tom, 41, has had long stretches of depression over the years. Occasionally, for about a week, he feels unusually upbeat, texts everyone, takes on extra projects, and needs little sleep — his family notices he seems \"on,\" but he never loses his job or acts recklessly."
+  }
+];
+
+var LABELS = { a: "Major Depressive", b: "Persistent Depressive", c: "Bipolar I", d: "Bipolar II" };
+
+var matchedSet = {};
+var sel = { name: null, def: null, cas: null };
+var attempts = 0;
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function resetGame() {
+  matchedSet = {};
+  sel = { name: null, def: null, cas: null };
+  attempts = 0;
+  updateCounters();
+  buildGame();
+  setStatus("Select one card from each column to begin.", "");
+}
+
+function updateCounters() {
+  document.getElementById("matched-count").textContent = Object.keys(matchedSet).length;
+  document.getElementById("attempt-count").textContent = attempts;
+}
+
+function buildGame() {
+  var names = shuffle(DATA);
+  var defs  = shuffle(DATA);
+  var cases = shuffle(DATA);
+  renderCol("col-names", names, "name");
+  renderCol("col-defs",  defs,  "def");
+  renderCol("col-cases", cases, "cas");
+}
+
+function renderCol(colId, items, key) {
+  var col = document.getElementById(colId);
+  col.innerHTML = "";
+  items.forEach(function(item) {
+    var card = document.createElement("div");
+    card.className = "card";
+    card.id = "card-" + key + "-" + item.id;
+
+    if (matchedSet[item.id]) {
+      card.className = "card correct-" + item.id;
+      var lbl = document.createElement("div");
+      lbl.className = "match-label";
+      lbl.textContent = LABELS[item.id];
+      card.appendChild(lbl);
+    }
+
+    var txt = document.createElement("div");
+    txt.textContent = key === "name" ? item.name : key === "def" ? item.def : item.cas;
+    card.appendChild(txt);
+
+    if (!matchedSet[item.id]) {
+      card.onclick = (function(k, id, el) {
+        return function() { selectCard(k, id, el); };
+      })(key, item.id, card);
+    }
+
+    col.appendChild(card);
+  });
+}
+
+function selectCard(key, id, el) {
+  if (matchedSet[id]) return;
+
+  if (sel[key]) {
+    var prev = document.getElementById("card-" + key + "-" + sel[key]);
+    if (prev) prev.classList.remove("selected");
+  }
+
+  if (sel[key] === id) {
+    sel[key] = null;
+    return;
+  }
+
+  sel[key] = id;
+  el.classList.add("selected");
+
+  if (sel.name && sel.def && sel.cas) {
+    attempts++;
+    if (sel.name === sel.def && sel.def === sel.cas) {
+      var mid = sel.name;
+      matchedSet[mid] = true;
+      ["name","def","cas"].forEach(function(k) {
+        var c = document.getElementById("card-" + k + "-" + mid);
+        if (c) {
+          c.className = "card correct-" + mid;
+          c.innerHTML = "";
+          var lbl = document.createElement("div");
+          lbl.className = "match-label";
+          lbl.textContent = LABELS[mid];
+          c.appendChild(lbl);
+          var txt = document.createElement("div");
+          txt.textContent = k === "name" ? DATA.find(function(d){return d.id===mid;}).name
+                          : k === "def"  ? DATA.find(function(d){return d.id===mid;}).def
+                          :                DATA.find(function(d){return d.id===mid;}).cas;
+          c.appendChild(txt);
+          c.onclick = null;
+        }
+      });
+      sel = { name: null, def: null, cas: null };
+      var count = Object.keys(matchedSet).length;
+      updateCounters();
+      if (count === 4) {
+        setStatus("🎉 All 4 matched! Excellent work!", "success");
+      } else {
+        setStatus("✓ Correct! " + count + " of 4 matched.", "success");
+      }
+    } else {
+      ["name","def","cas"].forEach(function(k) {
+        var c = document.getElementById("card-" + k + "-" + sel[k]);
+        if (c) {
+          c.classList.add("wrong");
+          c.classList.remove("selected");
+          setTimeout(function(){ if(c) c.classList.remove("wrong"); }, 500);
+        }
+      });
+      sel = { name: null, def: null, cas: null };
+      updateCounters();
+      setStatus("✗ Not a match — try again!", "error");
+    }
+  }
+}
+
+function setStatus(msg, cls) {
+  var s = document.getElementById("status");
+  s.textContent = msg;
+  s.className = "status-bar " + cls;
+}
+
+buildGame();
+</script>
+</body>
+</html>
