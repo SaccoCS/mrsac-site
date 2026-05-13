@@ -68,6 +68,26 @@
       transition: width 0.3s;
     }
 
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-bottom: 1rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #5f5e5a;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex: 0 0 12px;
+    }
+
     .columns {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -101,7 +121,9 @@
       line-height: 1.5;
       min-height: 44px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
     }
     .card.term { font-weight: 500; }
     .card:hover {
@@ -119,7 +141,8 @@
 
     .card.selected::after {
       content: "✓ Selected";
-      margin-left: auto;
+      align-self: flex-end;
+      margin-top: 6px;
       font-size: 11px;
       font-weight: 600;
       color: #005FCC;
@@ -127,8 +150,41 @@
       padding: 2px 6px;
       border-radius: 999px;
     }
-    .card.correct { border: 2px solid #3B6D11; background: #EAF3DE; color: #3B6D11; cursor: default; pointer-events: none; }
+    .card.correct-0 { border: 2px solid #0F766E; background: #CCFBF1; color: #134E4A; cursor: default; pointer-events: none; }
+    .card.correct-1 { border: 2px solid #7C2D12; background: #FFEDD5; color: #7C2D12; cursor: default; pointer-events: none; }
+    .card.correct-2 { border: 2px solid #7C3AED; background: #EDE9FE; color: #4C1D95; cursor: default; pointer-events: none; }
+    .card.correct-3 { border: 2px solid #BE185D; background: #FCE7F3; color: #9D174D; cursor: default; pointer-events: none; }
+    .card.correct-4 { border: 2px solid #1D4ED8; background: #DBEAFE; color: #1E3A8A; cursor: default; pointer-events: none; }
+    .card.correct-5 { border: 2px solid #B45309; background: #FEF3C7; color: #92400E; cursor: default; pointer-events: none; }
+    .card.correct-6 { border: 2px solid #3F6212; background: #ECFCCB; color: #365314; cursor: default; pointer-events: none; }
     .card.wrong { border: 2px solid #A32D2D; background: #FCEBEB; color: #A32D2D; }
+
+    .match-label {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .correct-0 .match-label { background: #99F6E4; color: #134E4A; }
+    .correct-1 .match-label { background: #FED7AA; color: #7C2D12; }
+    .correct-2 .match-label { background: #DDD6FE; color: #4C1D95; }
+    .correct-3 .match-label { background: #FBCFE8; color: #9D174D; }
+    .correct-4 .match-label { background: #BFDBFE; color: #1E3A8A; }
+    .correct-5 .match-label { background: #FDE68A; color: #92400E; }
+    .correct-6 .match-label { background: #D9F99D; color: #365314; }
+
+    .dot-0 { background: #0F766E; }
+    .dot-1 { background: #EA580C; }
+    .dot-2 { background: #7C3AED; }
+    .dot-3 { background: #DB2777; }
+    .dot-4 { background: #2563EB; }
+    .dot-5 { background: #D97706; }
+    .dot-6 { background: #65A30D; }
 
     .feedback {
       text-align: center;
@@ -178,6 +234,16 @@
     <div class="score-pill">Attempts: <span id="attempts">0</span></div>
   </div>
   <div class="progress-bg"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot dot-0"></div> OCD</div>
+    <div class="legend-item"><div class="legend-dot dot-1"></div> Hoarding</div>
+    <div class="legend-item"><div class="legend-dot dot-2"></div> PTSD</div>
+    <div class="legend-item"><div class="legend-dot dot-3"></div> Acute Stress</div>
+    <div class="legend-item"><div class="legend-dot dot-4"></div> Dissoc. Amnesia</div>
+    <div class="legend-item"><div class="legend-dot dot-5"></div> Dissoc. Fugue</div>
+    <div class="legend-item"><div class="legend-dot dot-6"></div> DID</div>
+  </div>
 
   <div class="columns">
     <div><div class="col-label">Disorder</div><div id="terms"></div></div>
@@ -242,6 +308,16 @@ const DATA = [
   }
 ];
 
+const LABELS = {
+  0: 'OCD',
+  1: 'Hoarding',
+  2: 'PTSD',
+  3: 'Acute Stress',
+  4: 'Dissoc. Amnesia',
+  5: 'Dissoc. Fugue',
+  6: 'DID'
+};
+
 function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
 let terms, defs, vigs, matched, attempts, sel;
 
@@ -268,8 +344,16 @@ function renderCol(containerId, items, baseClass) {
   items.forEach(item => {
     const el = document.createElement('div');
     const isMatched = matched.has(item.id);
-    el.className = baseClass + (isMatched ? ' correct' : '');
-    el.textContent = item.text;
+    el.className = baseClass + (isMatched ? ' correct-' + item.id : '');
+    if (isMatched) {
+      const label = document.createElement('div');
+      label.className = 'match-label';
+      label.textContent = LABELS[item.id];
+      el.appendChild(label);
+    }
+    const text = document.createElement('div');
+    text.textContent = item.text;
+    el.appendChild(text);
     if (!isMatched) el.onclick = () => handleClick(item.col, item.id);
     if (sel[item.col] === item.id && !isMatched) el.classList.add('selected');
     c.appendChild(el);
