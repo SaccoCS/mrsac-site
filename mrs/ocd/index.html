@@ -104,8 +104,29 @@
       align-items: center;
     }
     .card.term { font-weight: 500; }
-    .card:hover { border-color: #888780; background: #f1efe8; }
-    .card.selected { border: 2px solid #378ADD; background: #E6F1FB; color: #0C447C; }
+    .card:hover {
+      border-color: #888780;
+      background: #f1efe8;
+      transform: translateY(-1px);
+    }
+    .card.selected {
+      border: 3px solid #005FCC;
+      background: #DCEEFF;
+      color: #003B73;
+      box-shadow: 0 0 0 4px rgba(0,95,204,0.18);
+      transform: scale(1.02);
+    }
+
+    .card.selected::after {
+      content: "✓ Selected";
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      color: #005FCC;
+      background: rgba(255,255,255,0.8);
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
     .card.correct { border: 2px solid #3B6D11; background: #EAF3DE; color: #3B6D11; cursor: default; pointer-events: none; }
     .card.wrong { border: 2px solid #A32D2D; background: #FCEBEB; color: #A32D2D; }
 
