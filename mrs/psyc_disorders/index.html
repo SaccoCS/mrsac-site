@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disorders Matching Activity</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=Literata:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f13;
+  --surface: #17171f;
+  --surface2: #1e1e28;
+  --border: #2e2e3e;
+  --text: #e8e6f0;
+  --muted: #7a7890;
+  --name-col: #f0c060;
+  --desc-col: #6ec6e8;
+  --case-col: #a8e6b0;
+  --name-dim: #4a3c18;
+  --desc-dim: #1a3d4a;
+  --case-dim: #1e3d24;
+  --correct: #4ade80;
+  --wrong: #f87171;
+  --selected: #fff;
+  --radius: 6px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Literata', Georgia, serif;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── HEADER ── */
+header {
+  padding: 36px 40px 28px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+h1 span { color: var(--name-col); }
+.tagline {
+  font-family: 'Literata', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.leg {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.leg-dot {
+  width: 10px; height: 10px; border-radius: 2px;
+}
+
+/* ── CONTROLS ── */
+.controls {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.score-pill {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 7px 16px;
+  border-radius: 100px;
+  color: var(--text);
+}
+.score-pill b { color: var(--correct); }
+.progress-track {
+  flex: 1;
+  min-width: 100px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--desc-col), var(--name-col));
+  width: 0%;
+  transition: width 0.4s ease;
+  border-radius: 2px;
+}
+.btn {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn:hover { border-color: var(--text); color: var(--text); }
+.btn.reset { border-color: var(--name-col); color: var(--name-col); }
+.btn.reset:hover { background: var(--name-col); color: var(--bg); }
+
+/* ── INSTRUCTIONS ── */
+.instructions {
+  max-width: 1200px;
+  margin: 0 auto 8px;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+.instr-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.instr-box b { color: var(--text); font-weight: 400; }
+
+/* ── MAIN GRID ── */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── COLUMN HEADERS ── */
+.col-headers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.col-header {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 4px;
+}
+.col-header.names { color: var(--name-col); }
+.col-header.descs { color: var(--desc-col); }
+.col-header.cases { color: var(--case-col); }
+
+/* ── THREE COLUMNS ── */
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.col { display: flex; flex-direction: column; gap: 8px; }
+
+/* ── CARDS ── */
+.card {
+  border-radius: var(--radius);
+  padding: 13px 15px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: transform 0.12s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  line-height: 1.5;
+  position: relative;
+  user-select: none;
+}
+.card:hover:not(.locked) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* Name cards */
+.card.name {
+  background: var(--name-dim);
+  border-color: #6a5020;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+  color: var(--name-col);
+}
+.card.name:hover:not(.locked) { border-color: var(--name-col); }
+
+/* Description cards */
+.card.desc {
+  background: var(--desc-dim);
+  border-color: #1e4a5e;
+  font-size: 0.78rem;
+  color: #b8dff0;
+  font-weight: 300;
+}
+.card.desc:hover:not(.locked) { border-color: var(--desc-col); }
+
+/* Vignette cards */
+.card.vignette {
+  background: var(--case-dim);
+  border-color: #24502c;
+  font-size: 0.76rem;
+  font-style: italic;
+  color: #c0e8c8;
+  font-weight: 300;
+}
+.card.vignette:hover:not(.locked) { border-color: var(--case-col); }
+
+/* States */
+.card.selected {
+  border-color: var(--selected) !important;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.15), var(--shadow);
+  transform: translateY(-2px) scale(1.01);
+}
+.card.matched-correct {
+  opacity: 0.72;
+  cursor: default;
+  transform: none !important;
+  border-style: solid;
+  border-color: var(--match-color) !important;
+  background: var(--match-bg) !important;
+}
+.card.matched-correct.name {
+  color: var(--match-color) !important;
+}
+.card.locked { cursor: default; }
+
+.card.flash-wrong {
+  animation: flashWrong 0.5s ease;
+}
+@keyframes flashWrong {
+  0%,100% { border-color: inherit; }
+  25%,75% { border-color: var(--wrong); background-color: rgba(248,113,113,0.15); }
+}
+
+/* Match indicator dot */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.card.matched-correct::after {
+  background: var(--match-color);
+  opacity: 1;
+}
+
+/* ── FINISH SCREEN ── */
+#finish {
+  display: none;
+  text-align: center;
+  padding: 60px 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+#finish h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
+}
+.big-score {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 4rem;
+  color: var(--name-col);
+  line-height: 1;
+  margin: 20px 0 8px;
+}
+.finish-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 30px; }
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 28px;
+  font-family: 'Syne', sans-serif;
+}
+.stat-num { font-size: 2rem; font-weight: 800; display: block; }
+.stat-num.green { color: var(--correct); }
+.stat-num.red { color: var(--wrong); }
+.stat-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* ── TOAST ── */
+#toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  z-index: 100;
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+#toast.correct-toast { border-color: var(--correct); color: var(--correct); }
+#toast.wrong-toast { border-color: var(--wrong); color: var(--wrong); }
+
+@media (max-width: 700px) {
+  .main, .controls, .instructions { padding-left: 16px; padding-right: 16px; }
+  header { padding: 24px 16px 20px; }
+  .three-col { grid-template-columns: 1fr; }
+  .col-headers { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>Psychological <span>Disorders</span> Matching</h1>
+      <p class="tagline">Match each disorder name · description · clinical vignette</p>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--name-col)"></div>Disorder Name</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--desc-col)"></div>Description</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--case-col)"></div>Vignette</div>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="score-pill">Matched: <b id="score-num">0</b> / <span id="score-tot">12</span></div>
+  <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
+  <button class="btn reset" onclick="init()">↺ Shuffle & Reset</button>
+</div>
+
+<div class="instructions">
+  <div class="instr-box">
+    <b>How to play:</b> Click one card from each column — a <b style="color:var(--name-col)">name</b>, a <b style="color:var(--desc-col)">description</b>, and a <b style="color:var(--case-col)">vignette</b> — that all belong to the same disorder. If all three match, they'll lock in. If not, try again!
+  </div>
+</div>
+
+<div class="main" id="main-activity">
+  <div class="col-headers">
+    <div class="col-header names">① Disorder Name</div>
+    <div class="col-header descs">② Brief Description</div>
+    <div class="col-header cases">③ Clinical Vignette</div>
+  </div>
+  <div class="three-col">
+    <div class="col" id="col-names"></div>
+    <div class="col" id="col-descs"></div>
+    <div class="col" id="col-cases"></div>
+  </div>
+</div>
+
+<div id="finish">
+  <p style="font-family:'Syne',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">Activity Complete</p>
+  <h2>All Disorders Matched</h2>
+  <div class="big-score" id="finish-score">12 / 12</div>
+  <p class="finish-sub" id="finish-msg"></p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num green" id="st-correct">0</span><span class="stat-label">Correct</span></div>
+    <div class="stat"><span class="stat-num red" id="st-wrong">0</span><span class="stat-label">Mistakes</span></div>
+    <div class="stat"><span class="stat-num" id="st-pct" style="color:var(--name-col)">0%</span><span class="stat-label">Accuracy</span></div>
+  </div>
+  <button class="btn reset" style="font-size:0.82rem;padding:12px 28px" onclick="init()">Play Again</button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const DATA = [
+  {
+    id: 'schizophrenia',
+    name: 'Schizophrenia',
+    desc: 'Hallucinations, delusions, and disorganized thinking lasting 6+ months, with social/occupational decline.',
+    vignette: 'Marcus, 24, hears voices narrating his actions and believes the TV sends him personal messages. He has barely left his room in eight months.'
+  },
+  {
+    id: 'brief_psychotic',
+    name: 'Brief Psychotic Disorder',
+    desc: 'Sudden onset of psychotic symptoms lasting at least one day but less than one month, often triggered by extreme stress.',
+    vignette: 'After her house fire, Deja, 31, began seeing shadowy figures and speaking in word salad. Her symptoms fully resolved within three weeks.'
+  },
+  {
+    id: 'schizophreniform',
+    name: 'Schizophreniform Disorder',
+    desc: 'Same features as schizophrenia but symptoms last between one and six months. May or may not recur.',
+    vignette: 'Carlos, 20, has had paranoid delusions and auditory hallucinations for the past three months, but his functioning has not noticeably declined.'
+  },
+  {
+    id: 'delusional',
+    name: 'Delusional Disorder',
+    desc: 'One or more firm, false beliefs lasting at least one month, with no hallucinations and normal behavior outside the delusion.',
+    vignette: 'Victor, 55, is convinced his neighbor poisons his mailbox. He holds a steady job and has normal relationships — except when that topic comes up.'
+  },
+  {
+    id: 'schizoaffective',
+    name: 'Schizoaffective Disorder',
+    desc: 'A mix of psychotic symptoms and a major mood episode, with psychosis also present for at least two weeks without the mood episode.',
+    vignette: 'Priya, 34, experiences hallucinations alongside severe depression for months — and continues hearing voices even during weeks when her mood is stable.'
+  },
+  {
+    id: 'somatic',
+    name: 'Somatic Symptom Disorder',
+    desc: 'Real physical symptoms accompanied by excessive, disproportionate worry about health that disrupts daily life.',
+    vignette: 'Karen, 42, has chronic back pain her doctors call mild, yet she spends hours online researching diseases and cancels plans daily due to health fears.'
+  },
+  {
+    id: 'illness_anxiety',
+    name: 'Illness Anxiety Disorder',
+    desc: 'Intense preoccupation with having a serious illness despite having few or no actual symptoms and repeated negative test results.',
+    vignette: 'Trevor, 28, has no symptoms but is certain he has early-stage cancer. Four specialists cleared him — each negative result only deepens his worry.'
+  },
+  {
+    id: 'factitious',
+    name: 'Factitious Disorder',
+    desc: 'Deliberately faking or inducing illness to assume the patient role — without any financial or legal motive.',
+    vignette: 'A nurse named Ray has been hospitalized six times for mysterious infections. Staff discovered he was secretly injecting bacteria into his own IV.'
+  },
+  {
+    id: 'adhd',
+    name: 'ADHD',
+    desc: 'Persistent inattention and/or hyperactivity-impulsivity that began before age 12 and impairs functioning in multiple settings.',
+    vignette: 'Jordan, 10, cannot stay seated, blurts out answers, and has lost three homework assignments this week — his teacher says it has been this way since kindergarten.'
+  },
+  {
+    id: 'asd',
+    name: 'Autism Spectrum Disorder',
+    desc: 'Differences in social communication and restricted, repetitive behaviors or interests present since early childhood.',
+    vignette: 'Lena, 5, rarely makes eye contact, lines up her toys in exact order each day, and becomes intensely distressed if her morning routine changes even slightly.'
+  },
+  {
+    id: 'anorexia',
+    name: 'Anorexia Nervosa',
+    desc: 'Severe restriction of food intake leading to dangerously low weight, paired with an intense fear of gaining weight and distorted body image.',
+    vignette: 'Sophie, 16, eats almost nothing, exercises for three hours daily, and still insists she looks "fat" despite being well below a healthy weight.'
+  },
+  {
+    id: 'bulimia',
+    name: 'Bulimia Nervosa',
+    desc: 'Recurring cycles of eating large amounts of food rapidly, followed by compensatory behaviors like purging — occurring at least once a week.',
+    vignette: 'Alexis, 20, secretly consumes enormous amounts of food in one sitting, then purges out of shame. She appears healthy; no one at school suspects a thing.'
+  }
+];
+
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+// 12 visually distinct hues for matched groups
+const GROUP_COLORS = [
+  { color: '#f472b6', bg: 'rgba(244,114,182,0.12)' }, // pink
+  { color: '#fb923c', bg: 'rgba(251,146,60,0.12)'  }, // orange
+  { color: '#facc15', bg: 'rgba(250,204,21,0.12)'  }, // yellow
+  { color: '#a3e635', bg: 'rgba(163,230,53,0.12)'  }, // lime
+  { color: '#34d399', bg: 'rgba(52,211,153,0.12)'  }, // emerald
+  { color: '#22d3ee', bg: 'rgba(34,211,238,0.12)'  }, // cyan
+  { color: '#818cf8', bg: 'rgba(129,140,248,0.12)' }, // indigo
+  { color: '#c084fc', bg: 'rgba(192,132,252,0.12)' }, // purple
+  { color: '#f43f5e', bg: 'rgba(244,63,94,0.12)'   }, // rose
+  { color: '#2dd4bf', bg: 'rgba(45,212,191,0.12)'  }, // teal
+  { color: '#e879f9', bg: 'rgba(232,121,249,0.12)' }, // fuchsia
+  { color: '#60a5fa', bg: 'rgba(96,165,250,0.12)'  }, // blue
+];
+let colorIndex = 0;
+
+let selected = { name: null, desc: null, vignette: null };
+let matched = 0;
+let mistakes = 0;
+let total = DATA.length;
+
+function init() {
+  selected = { name: null, desc: null, vignette: null };
+  matched = 0;
+  mistakes = 0;
+  colorIndex = 0;
+  document.getElementById('finish').style.display = 'none';
+  document.getElementById('main-activity').style.display = 'block';
+  updateProgress();
+
+  const names = shuffle(DATA);
+  const descs = shuffle(DATA);
+  const cases = shuffle(DATA);
+
+  render('col-names', names, 'name');
+  render('col-descs', descs, 'desc');
+  render('col-cases', cases, 'vignette');
+}
+
+function render(colId, items, type) {
+  const col = document.getElementById(colId);
+  col.innerHTML = '';
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = `card ${type}`;
+    card.dataset.id = item.id;
+    card.dataset.type = type;
+    card.textContent = type === 'name' ? item.name : type === 'desc' ? item.desc : item.vignette;
+    card.onclick = () => selectCard(card);
+    col.appendChild(card);
+  });
+}
+
+function selectCard(card) {
+  if (card.classList.contains('matched-correct') || card.classList.contains('locked')) return;
+
+  const type = card.dataset.type;
+
+  // Deselect if already selected
+  if (selected[type] === card) {
+    card.classList.remove('selected');
+    selected[type] = null;
+    return;
+  }
+
+  // Deselect previous in same column
+  if (selected[type]) selected[type].classList.remove('selected');
+
+  selected[type] = card;
+  card.classList.add('selected');
+
+  // Check if all three selected
+  if (selected.name && selected.desc && selected.vignette) {
+    checkMatch();
+  }
+}
+
+function checkMatch() {
+  const nId = selected.name.dataset.id;
+  const dId = selected.desc.dataset.id;
+  const vId = selected.vignette.dataset.id;
+
+  if (nId === dId && dId === vId) {
+    // Correct! assign next group color
+    const { color, bg } = GROUP_COLORS[colorIndex % GROUP_COLORS.length];
+    colorIndex++;
+    ['name', 'desc', 'vignette'].forEach(t => {
+      const el = selected[t];
+      el.classList.remove('selected');
+      el.classList.add('matched-correct', 'locked');
+      el.style.setProperty('--match-color', color);
+      el.style.setProperty('--match-bg', bg);
+    });
+    matched++;
+    updateProgress();
+    showToast('✓ Correct match!', 'correct-toast');
+    selected = { name: null, desc: null, vignette: null };
+    if (matched === total) setTimeout(showFinish, 600);
+  } else {
+    // Wrong
+    mistakes++;
+    ['name', 'desc', 'vignette'].forEach(t => {
+      selected[t].classList.remove('selected');
+      selected[t].classList.add('flash-wrong');
+      setTimeout(() => selected[t]?.classList.remove('flash-wrong'), 600);
+    });
+    showToast('✗ Not a match — try again', 'wrong-toast');
+    setTimeout(() => { selected = { name: null, desc: null, vignette: null }; }, 500);
+  }
+}
+
+function updateProgress() {
+  document.getElementById('score-num').textContent = matched;
+  document.getElementById('score-tot').textContent = total;
+  document.getElementById('prog').style.width = (matched / total * 100) + '%';
+}
+
+function showFinish() {
+  document.getElementById('main-activity').style.display = 'none';
+  document.getElementById('finish').style.display = 'block';
+  document.getElementById('finish').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const attempts = matched + mistakes;
+  const pct = attempts > 0 ? Math.round((matched / (matched + mistakes)) * 100) : 100;
+  document.getElementById('finish-score').textContent = `${matched} / ${total}`;
+  document.getElementById('st-correct').textContent = matched;
+  document.getElementById('st-wrong').textContent = mistakes;
+  document.getElementById('st-pct').textContent = pct + '%';
+
+  const msgs = [
+    [100, 'Perfect! You nailed every match on the first try.'],
+    [80,  'Excellent work — strong grasp of all 12 disorders.'],
+    [60,  'Good effort! Review the ones that tripped you up.'],
+    [0,   'Keep studying the diagnostic criteria — you\'ll get there!']
+  ];
+  document.getElementById('finish-msg').textContent = msgs.find(([t]) => pct >= t)[1];
+}
+
+let toastTimer;
+function showToast(msg, cls) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + cls;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = ''; }, 1800);
+}
+
+init();
+</script>
+</body>
+</html>
